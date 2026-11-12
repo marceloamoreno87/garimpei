@@ -1,0 +1,10 @@
+### Result
+{
+  "method": "CSS viewport720 for physical1440 at200percent",
+  "width": 720,
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({method:"CSS viewport720 for physical1440 at200percent",width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth})');
+```

@@ -665,11 +665,12 @@ executor=MigrationExecutor(connection)
 target=[('runtime','0012_opportunity_collection')]
 executor.migrate(target)
 historical_state=executor.loader.project_state(target).apps.get_model('runtime','CollectionState')
+historical_listing=executor.loader.project_state(target).apps.get_model('runtime','Listing')
 state=historical_state.objects.get()
 assert cutover <= state.monitoring_started_at <= timezone.now()
 assert list(ListingEvent.objects.values_list('id','kind','silent'))==before_events
-assert Listing.objects.get(id=listing.id).discovery_emitted
-assert not Listing.objects.get(external_id='102').discovery_emitted
+assert historical_listing.objects.get(id=listing.id).discovery_emitted
+assert not historical_listing.objects.get(external_id='102').discovery_emitted
 # Current ORM includes additive fields from subsequent features.
 executor=MigrationExecutor(connection)
 executor.migrate(executor.loader.graph.leaf_nodes())

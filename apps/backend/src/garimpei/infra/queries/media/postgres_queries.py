@@ -1,9 +1,11 @@
 from uuid import UUID
 
+from django.db.models import Prefetch
+
 from garimpei.domain.media.errors import MediaError
 from garimpei.domain.media.media import MediaFile, MediaGallery
 from garimpei.infra.persistence.listing_models import ListingObservation
-from garimpei.infra.persistence.media_models import MediaAsset, MediaCapture
+from garimpei.infra.persistence.media_models import MediaAsset, MediaCapture, MediaEntry
 from garimpei.infra.repository.media.mapper import photo_view
 
 
@@ -13,11 +15,24 @@ class PostgresMediaQueries:
     ) -> MediaGallery:
         if not ListingObservation.objects.filter(id=observation, listing_id=listing).exists():
             raise MediaError("MEDIA_NOT_FOUND", 404)
-        capture = MediaCapture.objects.filter(observation_id=observation).first()
+        capture = (
+            MediaCapture.objects.filter(observation_id=observation)
+            .prefetch_related(
+                Prefetch(
+                    "entries",
+                    queryset=MediaEntry.objects.select_related("asset").order_by("position"),
+                )
+            )
+            .first()
+        )
         if capture is None:
             return MediaGallery(listing, observation)
         if revision is not None and capture.revision != revision:
             raise MediaError("MEDIA_REVISION_CONFLICT", 409)
+        return self._gallery(capture, listing, observation)
+
+    @staticmethod
+    def _gallery(capture: MediaCapture, listing: UUID, observation: UUID) -> MediaGallery:
         return MediaGallery(
             listing,
             observation,
@@ -28,10 +43,23 @@ class PostgresMediaQueries:
             capture.reason,
             capture.complete,
             capture.known_count,
-            tuple(
-                photo_view(e) for e in capture.entries.select_related("asset").order_by("position")
-            ),
+            tuple(photo_view(e) for e in capture.entries.all()),
         )
+
+    def galleries(self, pairs: tuple[tuple[UUID, UUID], ...]) -> dict[UUID, MediaGallery]:
+        """Trusted snapshot identities: two queries, independent of the inventory size."""
+        listings = {observation: listing for listing, observation in pairs}
+        result = {observation: MediaGallery(listing, observation) for listing, observation in pairs}
+        captures = MediaCapture.objects.filter(observation_id__in=listings).prefetch_related(
+            Prefetch(
+                "entries", queryset=MediaEntry.objects.select_related("asset").order_by("position")
+            )
+        )
+        for capture in captures:
+            result[capture.observation_id] = self._gallery(
+                capture, listings[capture.observation_id], capture.observation_id
+            )
+        return result
 
     def file(self, listing: UUID, version: UUID, variant: str) -> MediaFile:
         asset = MediaAsset.objects.filter(id=version, listing_id=listing).first()

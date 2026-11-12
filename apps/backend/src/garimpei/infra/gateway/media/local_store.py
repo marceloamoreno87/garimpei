@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 from uuid import UUID
 
@@ -14,8 +15,8 @@ from garimpei.domain.media.policy import MediaPolicy
 
 
 class LocalMediaStore:
-    def __init__(self, root: Path, policy: MediaPolicy) -> None:
-        self.root, self._policy = root, policy
+    def __init__(self, root: Path, policy: MediaPolicy, environment_id: str) -> None:
+        self.root, self._policy, self._owner = root, policy, environment_id
 
     def _path(self, key: str) -> Path:
         if not re.fullmatch(r"[a-f0-9-]{36}/[a-f0-9]{64}(?:\.thumb)?", key):
@@ -32,8 +33,7 @@ class LocalMediaStore:
 
     def _atomic(self, key: str, data: bytes) -> None:
         destination = self._path(key)
-        self.root.mkdir(mode=0o700, parents=True, exist_ok=True)
-        self.root.chmod(0o700)
+        self._ensure_owner()
         destination.parent.mkdir(mode=0o700, exist_ok=True)
         if shutil.disk_usage(self.root).free < len(data) + self._policy.min_free_bytes:
             raise MediaError("media_disk_reserve")
@@ -53,6 +53,8 @@ class LocalMediaStore:
             Path(name).unlink(missing_ok=True)
 
     def used_bytes(self) -> int:
+        if self.root.exists():
+            self._ensure_owner()
         return (
             sum(p.stat().st_size for p in self.root.glob("*/*") if p.is_file())
             if self.root.exists()
@@ -60,6 +62,7 @@ class LocalMediaStore:
         )
 
     def read(self, file: MediaFile) -> bytes:
+        self._verify_owner()
         try:
             data = self._path(file.key).read_bytes()
         except OSError:
@@ -100,3 +103,49 @@ class LocalMediaStore:
     def remove(self, file: MediaFile) -> None:
         self._path(file.key).unlink(missing_ok=True)
         self._path(file.key + ".thumb").unlink(missing_ok=True)
+
+    def reconcile_orphans(self, known_keys: set[str], lease_seconds: int) -> int:
+        if not self.root.exists():
+            return 0
+        self._ensure_owner()
+        cutoff = time.time() - lease_seconds
+        candidates = tuple(
+            p
+            for p in self.root.glob("*/*")
+            if p.is_file()
+            and not p.is_symlink()
+            and not p.parent.is_symlink()
+            and re.fullmatch(r"[a-f0-9-]{36}", p.parent.name)
+            and re.fullmatch(r"[a-f0-9]{64}(?:\.thumb)?|\.media-.+", p.name)
+            and p.stat().st_mtime < cutoff
+            and str(p.relative_to(self.root)) not in known_keys
+        )
+        for file in candidates:
+            file.unlink(missing_ok=True)
+        return len(candidates)
+
+    def _verify_owner(self) -> None:
+        marker = self.root / ".garimpei-media-owner"
+        if marker.is_symlink():
+            raise MediaError("media_storage_owner_conflict")
+        if marker.exists() and marker.read_text() != self._owner:
+            raise MediaError("media_storage_owner_conflict")
+
+    def _ensure_owner(self) -> None:
+        marker = self.root / ".garimpei-media-owner"
+        self._verify_owner()
+        if (
+            not marker.exists()
+            and self.root.exists()
+            and any(self.root.iterdir())
+            and self.root.name != self._owner
+        ):
+            raise MediaError("media_storage_owner_required")
+        self.root.mkdir(mode=0o700, parents=True, exist_ok=True)
+        try:
+            descriptor = os.open(marker, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            with os.fdopen(descriptor, "w") as output:
+                output.write(self._owner)
+        except FileExistsError:
+            self._verify_owner()
+        self.root.chmod(0o700)
