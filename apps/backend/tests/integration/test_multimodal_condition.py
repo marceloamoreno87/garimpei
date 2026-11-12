@@ -46,7 +46,7 @@ class ControlledEvidencePreparer:
   parts=[PreparedPart('text',value.text,model_digest=read_lock(load_inference_settings().model_lock)['model_digest'],profile=VERSION)]
   for image in value.images:
    meta=registered(load_inference_settings(),image.id)
-   parts.append(PreparedPart('image-'+image.id,value.text,image.id,image.sha256,(dict(kind='image',id=image.id,sha256=image.sha256,source_sha256=meta['source_sha256']),),profile=VERSION))
+   parts.append(PreparedPart('image-'+image.id,value.text,image.id,image.sha256,(dict(kind='image',id=image.id,sha256=image.sha256,source_sha256=meta['source_sha256']),),model_digest=read_lock(load_inference_settings().model_lock)['model_digest'],profile=VERSION))
   return tuple(part for part in parts if part.image_id is not None) if value.images else tuple(parts)
 class ControlledEvidenceGateway:
  kind='light_wear';calls=0;fault=None
@@ -82,7 +82,9 @@ initial=build_read_condition().execute(listing.id).state
 assert initial.effective=='uncertain' and not initial.satisfies_alert_condition
 work=prepare.execute(listing.id)
 assert len(work.pins)==2 and len(work.requests)==1
-assert build_read_condition().execute(listing.id).state.assessment.status=='waiting'
+waiting=build_read_condition().execute(listing.id).state.assessment
+assert waiting.status=='waiting'
+assert len(waiting.photo_coverage)==2 and all(not p['examined'] for p in waiting.photo_coverage)
 for _ in range(3):run.execute()
 assert complete.execute(work.id)
 state=build_read_condition().execute(listing.id).state
@@ -409,3 +411,194 @@ else:raise AssertionError('legacy F19 format policy changed')
 print('F14 static WebP original/hash preserved; F15 lossless input derivative; legacy F19 unchanged PASS')
 """.replace("WEBP_ORIGIN", repr(webp_origin)).replace("EXPECTED_SHA", repr(expected)),
         )
+
+
+def test_slow_inference_holds_no_collection_or_http_publication_lock(
+    media_instance: tuple[FoundationInstance, str],
+    tmp_path: Path,
+) -> None:
+    from tests.factories.listing import ControlledClock, serve
+    from tests.factories.valuation import ValuationSource
+    from tests.factories.valuation import listing as source_listing
+
+    source = ValuationSource(
+        rows={
+            "26001": source_listing(
+                "26001",
+                "1000,00",
+                title="Notebook Dell",
+                description="O aparelho funciona perfeitamente.",
+            )
+        }
+    )
+    instance, origin = media_instance
+    clock = ControlledClock(tmp_path / "clock")
+    clock.advance(0)
+    source.rows["26001"]["published_at"] = clock.value.isoformat()
+    with serve(source) as source_url:
+        with instance.private_file.open("a") as output:
+            output.write(
+                f"GARIMPEI_ASSESSMENT_ENABLED=true\nGARIMPEI_LISTING_FIXTURE_URL={source_url}\nGARIMPEI_LISTING_FIXTURE_CLOCK={clock.path}\n"
+            )
+        shell(
+            instance,
+            origin,
+            BOOT
+            + """
+from threading import Thread
+from django.db import connections
+from urllib.request import urlopen
+from tests.factories.assessment import assessment_context
+from garimpei.main import reconcile_listings,build_listing_task_handler
+context=assessment_context();work=context.prepare.execute(listing.id)
+build_publish_exploration().execute()
+context.gateway.release.clear()
+def slow():
+ try:context.run.execute()
+ finally:connections.close_all()
+thread=Thread(target=slow);thread.start()
+assert context.gateway.held.wait(2)
+try:
+ assert thread.is_alive()
+ for _ in range(40):
+  reconcile_listings();state=CollectionState.objects.filter(current_id__isnull=False).first()
+  if state is None:break
+  build_listing_task_handler().execute(str(state.current_id),state.generation)
+ assert Listing.objects.get(external_id='26001').latest_id is not None
+ build_publish_exploration().execute()
+ with urlopen(WEB_URL+'/ofertas/'+str(listing.id)+'/',timeout=3) as response:
+  body=response.read().decode()
+  assert response.status==200 and 'Aguardando análise das fotos' in body
+ assert thread.is_alive() and not context.gateway.release.is_set()
+finally:
+ context.gateway.release.set();thread.join(timeout=3)
+assert not thread.is_alive()
+print('held inference permits independent controlled-source collection via the real collector, snapshot publication and HTTP200 before release PASS')
+""".replace("WEB_URL", repr("http://127.0.0.1:" + str(instance.config.web_port))),
+        )
+
+
+def test_public_condition_matrix_separates_visual_claims_and_insufficiency(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        BOOT
+        + """
+from garimpei.domain.media.media import Manifest,Photo,Variant
+from garimpei.infra.repository.media.captures import create_capture
+from garimpei.config.env import load_media_settings
+from garimpei.infra.persistence.listing_models import CollectionCycle
+cases=[('Notebook Dell','O aparelho funciona perfeitamente.','light_wear','good',True),('Notebook Dell','O aparelho funciona perfeitamente.','clear_defect','defect',True),('Notebook Dell','O aparelho funciona perfeitamente.','suspected','uncertain',False),('Objeto sem identificação','O aparelho funciona perfeitamente.','light_wear','uncertain',False),('Notebook Dell','Produto usado.','light_wear','uncertain',False),('Notebook Dell','O aparelho não liga.','light_wear','defect',True)]
+for index,(title,description,kind,expected,sufficient) in enumerate(cases):
+ cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+ new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=listing.ordinal+1,observed_at=now(),price=obs.price,evidence=dict(obs.evidence,title=title+' caso '+str(index),description=description),coverage=obs.coverage)
+ listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+ photo=Photo('matrix-photo',(Variant(ORIGIN+'/other.png',900,900),),True)
+ create_capture(new,Manifest('present',(photo,),True,''),load_media_settings().policy,now())
+ for _ in range(4):
+  for job in build_media_repository().due(now()):runner.execute(job)
+ work=prepare.execute(listing.id);gateway.kind=kind
+ for _ in range(3):run.execute()
+ assert complete.execute(work.id)
+ view=build_read_condition().execute(listing.id)
+ assert view.state.analysis.condition==expected,(index,view.state)
+ assert view.state.assessment.sufficient==sufficient
+ assert view.state.satisfies_alert_condition==(expected=='good' and sufficient)
+ assert view.state.assessment.findings[0].references[0].sha256
+print('public condition matrix: light wear, damage, suspicion, unknown category, no declaration and text defect PASS')
+""",
+    )
+
+
+def test_completed_inference_is_reused_after_worker_process_boundary_before_publication(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        BOOT
+        + """
+from garimpei.main import build_classify_condition
+state=build_read_condition().execute(listing.id).state
+build_classify_condition().execute(listing.id,'good',state.revision)
+work=prepare.execute(listing.id)
+for _ in range(3):run.execute()
+assert InferenceRequest.objects.get(id=work.requests[0]).state=='succeeded'
+assert ConditionAssessment.objects.get(id=work.id).publication_order is None
+print('persisted cut point: model result confirmed, condition not yet published')
+""",
+    )
+    code = """import os
+os.environ['GARIMPEI_ASSESSMENT_ENABLED']='true'
+from garimpei.infra.persistence.assessment_models import ConditionAssessment
+from garimpei.infra.persistence.inference_models import InferenceRequest
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.main import build_read_condition
+from tests.factories.assessment import assessment_context
+row=ConditionAssessment.objects.get();before=InferenceRequest.objects.count()
+context=assessment_context()
+assert context.complete.execute(row.id)
+assert not context.complete.execute(row.id)
+state=build_read_condition().execute(row.listing_id).state
+assert state.manual=='good' and state.revision==1 and state.satisfies_alert_condition
+assert context.gateway.calls==0 and InferenceRequest.objects.count()==before
+print('new process consumes existing F19 result once; manual and pins remain durable PASS')
+"""
+    result = instance.shell(code)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_absent_photos_do_not_fabricate_a_model_analysis_timestamp(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        BOOT
+        + """
+from garimpei.domain.media.media import Manifest
+from garimpei.infra.repository.media.captures import create_capture
+from garimpei.config.env import load_media_settings
+from garimpei.infra.persistence.listing_models import CollectionCycle
+cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=listing.ordinal+1,observed_at=now(),price=obs.price,evidence=obs.evidence,coverage=obs.coverage)
+listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+create_capture(new,Manifest('none',(),True,''),load_media_settings().policy,now())
+work=prepare.execute(listing.id)
+assert not work.requests and gateway.calls==0
+assert complete.execute(work.id)
+state=build_read_condition().execute(listing.id).state
+assert state.assessment.reason=='no_photos' and not state.satisfies_alert_condition
+assert state.assessment.analyzed_at is None and not state.assessment.sufficient
+print('absence of photos is explicit and does not fabricate a completed model analysis/time PASS')
+""",
+    )
+
+
+def test_result_from_a_different_model_revision_cannot_be_published_as_requested_model(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        BOOT
+        + """
+original_prepare=ControlledEvidencePreparer.prepare
+def wrong_revision(self,value):
+ return tuple(replace(part,model_digest='sha256:'+'b'*64) for part in original_prepare(self,value))
+ControlledEvidencePreparer.prepare=wrong_revision
+work=prepare.execute(listing.id)
+for _ in range(3):run.execute()
+assert complete.execute(work.id)
+state=build_read_condition().execute(listing.id).state
+assert state.assessment.status=='failed' and state.assessment.reason=='invalid_analysis'
+assert not state.satisfies_alert_condition
+print('reported model revision must equal the immutable requested revision; mismatched output is not relabeled PASS')
+""",
+    )

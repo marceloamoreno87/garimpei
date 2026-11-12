@@ -1,0 +1,78 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_pending_then_sufficient_evidence_is_shared_and_pinned __________
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-448/media-database0/media_f92e4ae6ef.env')), 'http://127.0.0.1:46353')
+
+    def test_pending_then_sufficient_evidence_is_shared_and_pinned(
+        media_instance: tuple[FoundationInstance, str],
+    ) -> None:
+        instance, origin = media_instance
+>       shell(
+            instance,
+            origin,
+            BOOT
+            + """
+    initial=build_read_condition().execute(listing.id).state
+    assert initial.effective=='uncertain' and not initial.satisfies_alert_condition
+    work=prepare.execute(listing.id)
+    assert len(work.pins)==2 and len(work.requests)==1
+    waiting=build_read_condition().execute(listing.id).state.assessment
+    assert waiting.status=='waiting'
+    assert len(waiting.photo_coverage)==2 and all(not p['examined'] for p in waiting.photo_coverage)
+    for _ in range(3):run.execute()
+    assert complete.execute(work.id)
+    state=build_read_condition().execute(listing.id).state
+    assert state.analysis.condition=='good' and state.assessment.sufficient and state.satisfies_alert_condition
+    assert state.assessment.observation_id==obs.id and len(state.assessment.photo_coverage)==2
+    assert len({r.sha256 for f in state.assessment.findings for r in f.references})==2
+    before=gateway.calls;again=prepare.execute(listing.id)
+    assert again.id==work.id and gateway.calls==before
+    assert not complete.execute(work.id)
+    assert ConditionAssessment.objects.get(id=work.id).publication_order is not None
+    assert MediaReference.objects.filter(consumer='condition-assessment',released_at=None).count()==2
+    print('pending -> sufficient; F14 exact source hashes/pins; one publication and idempotent requests PASS')
+    """,
+        )
+
+apps/backend/tests/integration/test_multimodal_condition.py:76:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-448/media-database0/media_f92e4ae6ef.env'))
+origin = 'http://127.0.0.1:46353'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...unt()==2\nprint('pending -> sufficient; F14 exact source hashes/pins; one publication and idempotent requests PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 45 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T21:14:16.765080+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_f92e4ae6ef", "run_id": "7f638107-a470-480c-9a71-a2962fc103dc"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 98, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 98, in <module>\nAssertionError\n').returncode
+
+apps/backend/tests/integration/test_media_persistence.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_multimodal_condition.py::test_pending_then_sufficient_evidence_is_shared_and_pinned
+1 failed, 9 deselected in 9.42s
