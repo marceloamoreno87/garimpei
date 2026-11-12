@@ -906,7 +906,7 @@ def build_navigation_queries() -> "PostgresNavigationQueries":
     from garimpei.config.env import load_navigation_policy
     from garimpei.infra.queries.navigation.postgres_queries import PostgresNavigationQueries
 
-    settings = load_listing_settings()
+    settings = _effective_listing_settings()
     return PostgresNavigationQueries(
         build_read_monitoring_configuration(),
         _listing_clock(settings),

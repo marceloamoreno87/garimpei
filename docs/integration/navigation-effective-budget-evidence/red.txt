@@ -1,0 +1,110 @@
+F
+=================================== FAILURES ===================================
+_ test_saved_profile_budget_matches_worker_admission_without_timeout_override __
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-284/test_saved_profile_budget_matc0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7824617e4770>
+
+    def test_saved_profile_budget_matches_worker_admission_without_timeout_override(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.delenv("GARIMPEI_LISTING_TIMEOUT", raising=False)
+        monkeypatch.delenv("GARIMPEI_FACEBOOK_STATE_FILE", raising=False)
+        root = Path(__file__).resolve().parents[4]
+        source = NavigationSourceFake()
+        with serve(source) as url:
+            instance = prepare_navigation_instance(root, tmp_path, url)
+            clock = ControlledClock(tmp_path / "clock")
+            clock.advance(0)
+            with instance.private_file.open("a") as output:
+                output.write(
+                    f"GARIMPEI_LISTING_FIXTURE_CLOCK={clock.path}\n"
+                    f"GARIMPEI_INTEGRATION_PRIVATE_DIR={tmp_path / 'integrations'}\n"
+                    "GARIMPEI_ALERTS_ENABLED=false\n"
+                )
+            assert "GARIMPEI_LISTING_TIMEOUT=" not in instance.private_file.read_text()
+            started = instance.command("./scripts/init.sh", "--disposable")
+            assert started.returncode == 0, started.stdout + started.stderr
+            group = pause_worker(instance)
+            try:
+                result = instance.shell(
+                    """
+    import json,os
+    from datetime import timedelta
+    from garimpei.config.env import load_navigation_policy,load_integration_private_settings
+    from garimpei.main import (build_monitoring_handler,build_monitoring_queries,
+        build_read_monitoring_configuration,build_navigation_catalog,build_navigation_queries,
+        _effective_listing_settings,_navigation_collection,_listing_policy,_listing_clock)
+    from garimpei.infra.persistence.integration_models import IntegrationSettings
+    from garimpei.infra.persistence.listing_models import CollectionState,ListingObservation
+    from garimpei.infra.persistence.navigation_models import NicheSuggestion
+    from garimpei.infra.repository.navigation.suggestion_repository import PostgresSuggestionRepository
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    from tests.factories.monitoring import prepare_state
+    assert 'GARIMPEI_LISTING_TIMEOUT' not in os.environ
+    prepare_state('RASCUNHO')
+    build_monitoring_handler()._complete.execute(StepInput('interesses',build_monitoring_queries().read_form().revision,category_ids=(),product_names=('PlayStation 5 Slim',)))
+    settings=_effective_listing_settings()
+    now=_listing_clock(settings)
+    collection=_navigation_collection(settings)
+    collection.reconcile(_listing_policy(settings))
+    state=CollectionState.objects.select_related('current').get()
+    cycle=state.current
+    cycle.finished_at=now();cycle.phase='complete';cycle.save()
+    due=now()+timedelta(seconds=15)
+    CollectionState.objects.update(next_attempt_at=due)
+    cookie_budget=build_navigation_queries().suggestions(1).budget
+    assert cookie_budget.reason=='idle_available'
+    # A saved mode selects the real profile defaults without credentials or a browser.
+    IntegrationSettings.objects.update_or_create(id='local',defaults={'facebook_mode':'profile'})
+    settings=_effective_listing_settings()
+    store=PostgresSuggestionRepository(build_read_monitoring_configuration(),build_navigation_catalog(),load_navigation_policy(),_listing_clock(settings),settings.timeout,settings.cadence_ms/1000)
+    assert store.claim() is None
+    before=(list(IntegrationSettings.objects.values()),NicheSuggestion.objects.count(),ListingObservation.objects.count())
+    profile_budget=build_navigation_queries().suggestions(1).budget
+    assert before==(list(IntegrationSettings.objects.values()),NicheSuggestion.objects.count(),ListingObservation.objects.count())
+    CollectionState.objects.update(next_attempt_at=now()+timedelta(seconds=60))
+    available_budget=build_navigation_queries().suggestions(1).budget
+    assert available_budget.reason=='idle_available'
+    assert store.claim() is not None
+    assert not (load_integration_private_settings().directory/'facebook-browser').exists()
+    print(json.dumps({'cookie_due15':cookie_budget.reason,'profile_due15':profile_budget.reason,'worker_reserved_due15':False,'profile_due60':available_budget.reason,'worker_reserved_due60':True}))
+    assert profile_budget.reason=='active_due_soon'
+    assert profile_budget.next_at==due
+    """
+                )
+>               assert result.returncode == 0, result.stdout + result.stderr
+E               AssertionError: 38 objects imported automatically (use -v 2 for details).
+E
+E                 {"cookie_due15": "idle_available", "profile_due15": "idle_available", "worker_reserved_due15": false, "profile_due60": "idle_available", "worker_reserved_due60": true}
+E                 {"timestamp": "2026-11-12T16:50:01.406047+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_32dbdd8e51", "run_id": "ecc93fbe-3238-47d0-ba4b-b144b822cf9c"}
+E                 {"timestamp": "2026-11-12T16:50:01.490604+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_32dbdd8e51", "run_id": "ecc93fbe-3238-47d0-ba4b-b144b822cf9c"}
+E                 {"timestamp": "2026-11-12T16:50:01.492849+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f13_32dbdd8e51", "run_id": "ecc93fbe-3238-47d0-ba4b-b144b822cf9c"}
+E                 Traceback (most recent call last):
+E                   File "/home/marce/.codex/worktrees/6efe/garimpei/apps/backend/manage.py", line 8, in <module>
+E                     execute_from_command_line()
+E                     ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E                   File "/home/marce/.codex/worktrees/6efe/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                     utility.execute()
+E                     ~~~~~~~~~~~~~~~^^
+E                   File "/home/marce/.codex/worktrees/6efe/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                     self.fetch_command(subcommand).run_from_argv(self.argv)
+E                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E                   File "/home/marce/.codex/worktrees/6efe/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                     self.execute(*args, **cmd_options)
+E                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E                   File "/home/marce/.codex/worktrees/6efe/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                     output = self.handle(*args, **options)
+E                   File "/home/marce/.codex/worktrees/6efe/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                     exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   File "<string>", line 42, in <module>
+E                 AssertionError
+E
+E               assert 1 == 0
+E                +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 42, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_navigation_profile_budget.py:78: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_navigation_profile_budget.py::test_saved_profile_budget_matches_worker_admission_without_timeout_override
+1 failed in 7.05s
