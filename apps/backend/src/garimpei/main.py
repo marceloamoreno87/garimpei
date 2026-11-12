@@ -157,7 +157,7 @@ def _enqueue_owned(
     register_tasks()
     connection.ensure_connection()
     operations = load_operations_settings()
-    key = _task_key(name, arguments) if queue != "runtime" else None
+    key = _task_key(name, arguments, load_config().run_id) if queue != "runtime" else None
     existing = _existing_task(key, include_running=not continuation) if key else None
     if existing is not None:
         return existing
@@ -170,11 +170,13 @@ def _enqueue_owned(
     return _defer_owned_task(name, queue, delay, arguments, connection.connection, key)
 
 
-def _task_key(name: str, arguments: dict[str, str | int]) -> str:
+def _task_key(name: str, arguments: dict[str, str | int], run_id: str) -> str:
     import hashlib
     import json
 
-    return name + ":" + hashlib.sha256(json.dumps(arguments, sort_keys=True).encode()).hexdigest()
+    # A dead consumer's technical doing row must not lock a later process generation.
+    value = {"run_id": run_id, "arguments": arguments}
+    return name + ":" + hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
 def _existing_task(key: str, *, include_running: bool = True) -> int | None:
@@ -1165,8 +1167,9 @@ def build_operational_status() -> "ReadOperationalStatusUseCase":
 
 
 def build_backup_repository() -> "PostgresBackupRepository":
-    from garimpei.config.env import load_operations_settings
+    from garimpei.config.env import load_inference_settings, load_operations_settings
     from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.infra.gateway.operations.inference_archive_gateway import InferenceArchiveGateway
     from garimpei.infra.gateway.operations.media_archive_gateway import MediaArchiveGateway
     from garimpei.infra.gateway.operations.snapshot_gateway import BusinessSnapshotGateway
     from garimpei.infra.repository.operations.backup_repository import PostgresBackupRepository
@@ -1175,7 +1178,10 @@ def build_backup_repository() -> "PostgresBackupRepository":
     settings, config = load_operations_settings(), load_config()
     archive, snapshot = (
         ArchiveGateway(settings.backup_dir, owner=settings.environment_id),
-        BusinessSnapshotGateway(MediaArchiveGateway(build_media_repository(), build_media_store())),
+        BusinessSnapshotGateway(
+            MediaArchiveGateway(build_media_repository(), build_media_store()),
+            InferenceArchiveGateway(load_inference_settings().directory),
+        ),
     )
     restore = RestoreBackupGateway(config, settings.recovery_file, archive, snapshot)
     return PostgresBackupRepository(

@@ -182,7 +182,9 @@ def _mapping(value: object) -> dict[str, object]:
 def _safe_name(name: str) -> bool:
     return (
         name.endswith(".jsonl") and "/" not in name and "\\" not in name and ".." not in name
-    ) or re.fullmatch(r"media/[a-f0-9-]{36}/(?:original|thumbnail)", name) is not None
+    ) or re.fullmatch(
+        r"media/[a-f0-9-]{36}/(?:original|thumbnail)|inference/[a-f0-9]{64}", name
+    ) is not None
 
 
 def _validate_member(

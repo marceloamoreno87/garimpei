@@ -1,0 +1,13 @@
+# Checkpoint de recuperação — F17
+
+A regressão própria coletou 568 testes em dois shards disjuntos de 284, com hashes estáveis (`changed_inputs=[]`). Houve 566 PASS e dois FAIL: a retomada F13 exigia uma segunda tarefa idêntica já pendente; um job técnico de alerta deixado `doing` após SIGKILL bloqueava trabalho independente no novo processo. O gate full permanece pendente até a validação final da união pelo coordenador.
+
+A retomada conserva a intenção e exatamente uma tarefa aceita para a geração. A identidade técnica inclui `RuntimeConfig.run_id`: a trava de uma execução morta não é herdada pela seguinte. Dentro da execução continuam a deduplicação de pedidos e uma sucessora explícita para turnos F13. O teste F09 fez SIGKILL real do grupo próprio após POST no servidor fake, reconciliou o recibo original sem repetir o POST e confirmou uma segunda oferta independente.
+
+A restauração reabre `MediaJob.running` como `pending`, sem zerar tentativas ou geração. Para F19, preserva partes confirmadas e reabre somente partes em execução com orçamento restante. Uma terceira tentativa consumida permanece esgotada. O controle de execução é recriado pausado, com geração superior às partes importadas e sem posse ativa; a retomada exige ação explícita. O ensaio retomou o download pelo HTTP local e executou as partes restantes pelo caso de uso com I/O nomeado e controlado, preservando o resultado anterior e recusando a geração antiga.
+
+O pacote inclui apenas os PNGs derivados referidos por `InferencePart.content.image_hash`, em entradas `inference/<sha256>`. A validação exige SHA-256, PNG RGB de até 512 px, ausência de metadados extras e até 10 MiB por entrada. Arquivos de modelo, tokenizer, registry, perfil e ambiente não são copiados. Byte requerido ausente impede cópia completa. A gravação ocorre no diretório de inferência do destino próprio, com arquivos 0600; nenhum path vem da entrada do arquivo. Originais e miniaturas F14 continuam sob seus pins e owner próprios.
+
+Evidência vermelho→verde: `restore-inflight-baseline-red.txt` foi executada contra a cópia isolada da base `aae6fce`; `restore-inflight-tests.txt` registra 24 PASS em 50,62 s com as asserções de geração/orçamento/PNG e regressão F14. `restart-and-resume-tests.txt` registra três PASS em 67,44 s, incluindo os dois FAIL da regressão anterior. Os seis gates passaram em 362 fontes Python (`restore-inflight-gates.txt`).
+
+Isto é um incremento verificado, não aceite completo. A calibração complementar e a matriz do laboratório continuam em execução; a habilitação automática real permanece desativada. O coordenador cuidará da união F15/F18, da allowlist de novos modelos/campos e do roundtrip de timestamps; este incremento não altera `_capture_table`.

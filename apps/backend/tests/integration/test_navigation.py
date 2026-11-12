@@ -853,7 +853,9 @@ assert response.status_code==303 and response['Location']=='/acompanhamento/'
 row=NavigationWork.objects.get(id=unit.turn.id)
 assert row.phase=='pending' and row.reason=='resume_requested' and row.next_attempt_at<=now()
 with connection.cursor() as cursor:
-    cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name='garimpei.collect_listings'");assert cursor.fetchone()[0]==before_jobs+1
+    cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name='garimpei.collect_listings'");assert cursor.fetchone()[0]==before_jobs
+    cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name='garimpei.collect_listings' AND status='todo' AND args->>'cycle_id'=%s AND args->>'generation'=%s",[str(attempt.cycle_id),str(attempt.generation)])
+    assert cursor.fetchone()[0]==1, 'resume must retain exactly one accepted task for this generation'
 for data,expected in [(body|{'work_id':'bad'},400),(body|{'revision':scope.revision-1},409),({'work_id':str(unit.turn.id),'revision':scope.revision},403)]:
     before=snapshot();assert client.post('/acompanhamento/navegacao/retomar/',data).status_code==expected;assert snapshot()==before
 CollectionState.objects.update(access_suspended=True)
