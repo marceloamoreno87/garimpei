@@ -20,6 +20,7 @@ class Search:
     modality: Modality
     equivalent_terms: tuple[str, ...] = ()
     excluded_terms: tuple[str, ...] = ()
+    purpose: Literal["active", "research"] = "active"
 
     def matches_title(self, title: str) -> bool:
         if any(word in tokens(title) for word in self.excluded_terms):

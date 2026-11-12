@@ -19,6 +19,9 @@ from garimpei.usecase.monitoring.save_step_usecase import SaveMonitoringStepUseC
 from garimpei.usecase.monitoring.update_configuration_usecase import (
     UpdateMonitoringConfigurationUseCase,
 )
+from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
+    ReadComparableResearchDiagnosticUseCase,
+)
 
 
 def redirect(destination: str, status: int = 302) -> HttpResponse:
@@ -37,6 +40,7 @@ class MonitoringHandler:
         update: UpdateMonitoringConfigurationUseCase,
         preview: PreviewProductsUseCase,
         read_collection_status: ReadCollectionStatusUseCase,
+        research: ReadComparableResearchDiagnosticUseCase | None = None,
     ) -> None:
         self._read_form = read_form
         self._read_catalog = read_catalog
@@ -45,6 +49,7 @@ class MonitoringHandler:
         self._update = update
         self._preview = preview
         self._read_collection_status = read_collection_status
+        self._research = research
 
     def handle(self, request: HttpRequest, action: str = "root", step: str = "") -> HttpResponse:
         allowed = (
@@ -83,7 +88,10 @@ class MonitoringHandler:
             return render(
                 request,
                 "monitoring/tracking.html",
-                {"collection": self._read_collection_status.execute()},
+                {
+                    "collection": self._read_collection_status.execute(),
+                    "comparable_research": self._research.execute() if self._research else None,
+                },
             )
         context = form_context(request, state, screen, catalog)
         setattr(request, "monitoring_context", context)

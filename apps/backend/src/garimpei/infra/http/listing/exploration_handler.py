@@ -39,8 +39,11 @@ class ExplorationHandler:
         labels: dict[str, str],
         worker: Callable[[], bool],
         diagnostic: ReadAlertDiagnosticUseCase | None = None,
+        identity_reader: "ReadIdentityUseCase | None" = None,
+        research_reader: "ReadComparableResearchDiagnosticUseCase | None" = None,
     ) -> None:
         self._worker, self._diagnostic = worker, diagnostic
+        self._identity_reader, self._research_reader = identity_reader, research_reader
         self._read, self._detail, self._updates = read, detail, updates
         self._condition, self._classify = condition, classify
         self._status, self._configuration, self._labels = status, configuration, labels
@@ -114,6 +117,18 @@ class ExplorationHandler:
             ),
             applied=request.GET.get("aplicar") == "1",
         )
+        if self._research_reader:
+            context["comparable_research"] = self._research_reader.execute(identity)
+        context["identity_saved"] = request.GET.get("identidade") == "salva"
+        if self._identity_reader:
+            from garimpei.infra.http.valuation.presentation import identity_context
+
+            context.update(
+                identity_context(
+                    self._identity_reader.execute(identity),
+                    url(criteria.at(version), f"/ofertas/{identity}/identidade/"),
+                )
+            )
         response = render(request, "listing/offer_detail.html", context)
         response["HX-Push-Url"] = url(criteria.at(version), f"/ofertas/{identity}/")
         response.delete_cookie("condition_saved", path=f"/ofertas/{identity}/")
@@ -141,3 +156,9 @@ class ExplorationHandler:
             samesite="Strict",
         )
         return response
+
+
+from garimpei.usecase.valuation.read_identity_usecase import ReadIdentityUseCase  # noqa: E402
+from garimpei.usecase.valuation.read_research_diagnostic_usecase import (  # noqa: E402
+    ReadComparableResearchDiagnosticUseCase,
+)

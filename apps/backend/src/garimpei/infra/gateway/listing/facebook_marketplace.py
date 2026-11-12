@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from garimpei.domain.listing.geography import Point
 from garimpei.domain.listing.listing import Candidate
-from garimpei.domain.listing.ports import ListingUnavailable, Page, SourceFailure
+from garimpei.domain.listing.ports import ListingUnavailable, Page, SearchContext, SourceFailure
 from garimpei.infra.gateway.listing.marketplace_browser import (
     MarketplaceContinuation,
     MarketplaceNavigation,
@@ -49,6 +49,7 @@ class FacebookMarketplace:
         self._page_number = 0
         self._context_reason: str | None = None
         self._origin: Point | None = None
+        self._source_context: SearchContext | None = None
         self._native_sort = False
         self._ordered = True
         self._last_date: datetime | None = None
@@ -62,7 +63,10 @@ class FacebookMarketplace:
             rows, feed = self._browser.search(
                 url,
                 SearchFilters(
-                    self._origin, 20 if query.modality == "pickup" else 500, scope.window
+                    self._origin,
+                    20 if query.modality == "pickup" else 500,
+                    scope.window,
+                    all_publication_dates=query.purpose == "research",
                 ),
             )
             self._query_key = f"{scope.key}:{scope.revision}:{query.key}:{query.term}"
@@ -150,6 +154,15 @@ class FacebookMarketplace:
             else None,
         )
 
+        page = replace(page, source_context=self._source_context)
+        if (
+            query.purpose == "research"
+            and page.continuation is not None
+            and not page.continuation.startswith("source:")
+        ):
+            page = replace(
+                page, continuation=None, diagnostic=page.diagnostic or "native_cursor_unavailable"
+            )
         self._log_page(query, feed, page)
         return page
 
@@ -208,12 +221,16 @@ class FacebookMarketplace:
         self._origin = point
         params: dict[str, str] = {
             "sortBy": "creation_time_descend",
-            "daysSinceListed": "3",
+            "daysSinceListed": str(max(3, (scope.window.end - scope.window.start).days + 1))
+            if scope.window
+            else "3",
             "radius": "20" if query.modality == "pickup" else "500",
             "latitude": str(point.latitude),
             "longitude": str(point.longitude),
             "exact": "true",
         }
+        if query.purpose == "research":
+            params.pop("daysSinceListed", None)
         route = "search/"
         if query.interest.kind == "product":
             params["query"] = query.term + (" envio" if query.modality == "shipping" else "")
@@ -252,6 +269,7 @@ class FacebookMarketplace:
             route_from,
         )
 
+        self._source_context = None
         route = route_from(rows)
         params = mapping(route.get("params"))
         if not route:
@@ -269,6 +287,26 @@ class FacebookMarketplace:
                 return "wrong_category_context"
         effective = browse_parameters(rows)
         self._native_sort = effective.get("commerce_search_sort_by") == "CREATION_TIME_DESCEND"
+        latitude, longitude = (
+            effective.get("filter_location_latitude"),
+            effective.get("filter_location_longitude"),
+        )
+        observed_radius = effective.get("filter_radius_km")
+        geo_verified = (
+            self._origin is not None
+            and isinstance(latitude, (int, float))
+            and isinstance(longitude, (int, float))
+            and observed_radius == (20 if query.modality == "pickup" else 500)
+            and abs(latitude - self._origin.latitude) <= 0.0001
+            and abs(longitude - self._origin.longitude) <= 0.0001
+        )
+        self._source_context = SearchContext(
+            geo_verified,
+            float(latitude) if isinstance(latitude, (int, float)) else None,
+            float(longitude) if isinstance(longitude, (int, float)) else None,
+            int(observed_radius) if isinstance(observed_radius, int) else None,
+            str(params["query"]) if params.get("query") is not None else None,
+        )
         if query.modality == "marketplace":
             return None
         radius = 20 if query.modality == "pickup" else 500

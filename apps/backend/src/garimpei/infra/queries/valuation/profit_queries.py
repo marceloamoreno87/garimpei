@@ -11,6 +11,8 @@ from garimpei.domain.listing.read_models import ListingReader, Observation
 from garimpei.domain.listing.scope import Scope
 from garimpei.domain.monitoring.errors import ConfigurationReadFailed
 from garimpei.domain.monitoring.snapshot import MonitoringSnapshot
+from garimpei.domain.valuation.identification_values import IdentificationResult
+from garimpei.domain.valuation.identity_ports import IdentityQueries
 from garimpei.domain.valuation.ports import ValuationReader
 from garimpei.domain.valuation.profit import ProfitInput
 from garimpei.domain.valuation.profit_queries import ProfitReadFailed, UnsupportedProfitEvent
@@ -26,10 +28,12 @@ class PostgresProfitQueries:
         configuration: ConfigurationReader,
         listings: ListingReader,
         valuations: ValuationReader,
+        identities: IdentityQueries | None = None,
     ) -> None:
         self._configuration = configuration
         self._listings = listings
         self._valuations = valuations
+        self._identities = identities
 
     def read(self, identity: UUID, now: datetime, *, event: bool) -> ProfitInput | None:
         try:
@@ -63,7 +67,16 @@ class PostgresProfitQueries:
                 listing.applicable_freight,
                 config,
                 self._valuations.current(listing.id, now),
+                identification=self._identity(listing.id),
             )
+
+    def _identity(self, identity: UUID) -> IdentificationResult | None:
+        value = self._identities.read(identity) if self._identities else None
+        return value.result if value else None
+
+    def _event_identity(self, identity: UUID) -> IdentificationResult | None:
+        value = self._identity(identity)
+        return value if value and value.manual_revision else None
 
     @staticmethod
     def _isolation(nested: bool) -> None:
@@ -107,6 +120,7 @@ class PostgresProfitQueries:
             config,
             self._valuations.current(row.listing_id, now),
             row.id,
+            identification=self._event_identity(row.listing_id),
         )
 
     @staticmethod

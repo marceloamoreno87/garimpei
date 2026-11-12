@@ -1,6 +1,6 @@
 {% extends "monitoring/layout.html" %}
 {% load static %}
-{% block head %}{{ block.super }}<script src="{% static 'navigation/progress.js' %}" defer></script>{% endblock %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'valuation/identity.css' %}"><script src="{% static 'navigation/progress.js' %}" defer></script>{% endblock %}
 {% block title %}Acompanhamento · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1">
@@ -58,5 +58,9 @@
                  aria-label="Percurso da navegação">
             <p>Carregando percurso…</p>
         </section>
-    </main>
+    {% if comparable_research %}
+    {% include "valuation/research.html" %}
+    <a class="button secondary" href="{% url 'monitoring-tracking' %}#research-heading">Atualizar busca e cobertura</a>
+{% endif %}
+</main>
 {% endblock %}

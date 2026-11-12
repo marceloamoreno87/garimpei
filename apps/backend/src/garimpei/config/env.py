@@ -585,3 +585,21 @@ def load_media_settings(environ: Mapping[str, str] | None = None) -> MediaSettin
 
 
 from garimpei.domain.media.policy import MediaPolicy  # noqa: E402
+
+
+def load_comparable_research_manifest() -> Path:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    return (
+        Path(
+            values.get(
+                "GARIMPEI_RESEARCH_LIMITS",
+                str(
+                    config.root
+                    / "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/limits.json"
+                ),
+            )
+        )
+        .expanduser()
+        .resolve()
+    )

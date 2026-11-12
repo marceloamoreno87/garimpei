@@ -2,11 +2,12 @@ from dataclasses import replace
 from datetime import datetime
 from uuid import UUID
 
-from garimpei.domain.valuation.identity import identify
 from garimpei.domain.valuation.policy import NEW_WINDOW
 from garimpei.domain.valuation.values import NewReference, Resale, Valuation
+from garimpei.infra.persistence.identity_models import IdentityProgress
 from garimpei.infra.persistence.listing_models import CollectionState, Listing
 from garimpei.infra.persistence.valuation_models import ValuationEvaluation, ValuationProgress
+from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.mapper import decode_valuation, mapping
 from garimpei.infra.repository.valuation.postgres_repository import _listing
 
@@ -19,7 +20,12 @@ class PostgresValuationQueries:
         progress = (
             ValuationProgress.objects.select_related("current").filter(listing_id=identity).first()
         )
-        return self._value(listing, progress, now, self._diagnostic())
+        identity_progress = (
+            IdentityProgress.objects.select_related("manual__observation")
+            .filter(listing=listing)
+            .first()
+        )
+        return self._value(listing, progress, now, self._diagnostic(), identity_progress)
 
     def current_many(self, listings: tuple[Listing, ...], now: datetime) -> dict[UUID, Valuation]:
         progress = {
@@ -29,7 +35,16 @@ class PostgresValuationQueries:
             )
         }
         diagnostic = self._diagnostic()
-        return {row.id: self._value(row, progress.get(row.id), now, diagnostic) for row in listings}
+        identities = {
+            p.listing_id: p
+            for p in IdentityProgress.objects.select_related("manual__observation").filter(
+                listing_id__in=[row.id for row in listings]
+            )
+        }
+        return {
+            row.id: self._value(row, progress.get(row.id), now, diagnostic, identities.get(row.id))
+            for row in listings
+        }
 
     @staticmethod
     def _diagnostic() -> str | None:
@@ -39,23 +54,47 @@ class PostgresValuationQueries:
 
     @staticmethod
     def _value(
-        listing: Listing, progress: ValuationProgress | None, now: datetime, diagnostic: str | None
+        listing: Listing,
+        progress: ValuationProgress | None,
+        now: datetime,
+        diagnostic: str | None,
+        progress_identity: IdentityProgress | None = None,
     ) -> Valuation:
         identity = listing.id
-        target = _listing(listing)
-        if progress is None or progress.current is None:
+        identity_view = identify_row(listing, progress_identity)
+        target = _listing(listing, identity_view)
+        if identity_view.state != "identified":
             return Valuation(
                 None,
                 identity,
                 0,
                 target.revision,
-                identify(target.evidence),
+                None,
+                now,
+                Resale(None, identity_view.reason, (), 0, 0, None),
+                NewReference(identity_view.reason or "produto_indeterminado"),
+                identification=identity_view,
+            )
+        if (
+            progress is None
+            or progress.current is None
+            or (identity_view.manual_revision and not progress.signature)
+        ):
+            return Valuation(
+                None,
+                identity,
+                0,
+                target.revision,
+                target.product,
                 now,
                 Resale(None, "aguardando_avaliacao", (), 0, 0, None),
                 NewReference("aguardando_avaliacao"),
+                identification=identity_view,
             )
-        value = decode_valuation(mapping(progress.current.result))
-        if identify(target.evidence) != value.product:
+        value = replace(
+            decode_valuation(mapping(progress.current.result)), identification=identity_view
+        )
+        if target.product != value.product:
             return replace(
                 value,
                 resale=replace(value.resale, price=None, reason="aguardando_avaliacao"),
@@ -73,7 +112,7 @@ class PostgresValuationQueries:
                     diagnostic=value.new.diagnostic,
                 ),
             )
-        return replace(value, origin_diagnostic=diagnostic)
+        return replace(value, origin_diagnostic=diagnostic, identification=identity_view)
 
     def historical(self, identity: UUID) -> Valuation | None:
         row = ValuationEvaluation.objects.filter(id=identity).first()

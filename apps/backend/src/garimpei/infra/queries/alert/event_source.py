@@ -8,6 +8,7 @@ from garimpei.infra.persistence.alert_models import ManualConditionHistory
 from garimpei.infra.persistence.listing_models import Listing, ListingEvent, ManualCondition
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.listing.mapper import decode_evidence
+from garimpei.infra.repository.valuation.identity_mapper import current_identification
 
 
 @dataclass(frozen=True)
@@ -48,6 +49,9 @@ def current_eligibility(
         return "scope_excluded"
     if view.observation.evidence.source_available is not True:
         return "listing_unavailable"
+    identity = current_identification(listing)
+    if identity.state == "conflicting_identity":
+        return identity.reason or "identidade_em_conflito"
     manual = ManualCondition.objects.filter(listing=listing).first()
     state = ConditionState(
         automatic_condition(view.observation.evidence),

@@ -9,6 +9,7 @@ from garimpei.infra.repository.listing.mapper import (
     decode_evidence,
     encode_evidence,
 )
+from garimpei.infra.repository.valuation.identity_mapper import decode_identity, encode_identity
 
 
 def mapping(value: object) -> dict[str, object]:
@@ -35,6 +36,7 @@ def encode_comparable(row: Comparable) -> dict[str, object]:
         revision=row.revision,
         evidence=encode_evidence(row.evidence),
         price_kind=row.price_kind,
+        identification=encode_identity(row.identification) if row.identification else None,
     )
 
 
@@ -49,6 +51,9 @@ def decode_comparable(row: dict[str, object]) -> Comparable:
         datetime.fromisoformat(str(row["observed_at"])),
         int(str(row["revision"])),
         decode_evidence(cast(EvidenceRecord, row["evidence"])),
+        identification=decode_identity(mapping(row["identification"]))
+        if row.get("identification")
+        else None,
     )
 
 
@@ -91,6 +96,7 @@ def encode_valuation(value: Valuation) -> dict[str, object]:
         product=value.product,
         evaluated_at=value.evaluated_at.isoformat(),
         method=value.method,
+        identification=encode_identity(value.identification) if value.identification else None,
         resale=dict(
             state=resale.state,
             price=str(resale.price) if resale.price is not None else None,
@@ -134,4 +140,7 @@ def decode_valuation(raw: dict[str, object]) -> Valuation:
             int(str(new["failures"])),
         ),
         str(raw["method"]),
+        identification=decode_identity(mapping(raw["identification"]))
+        if raw.get("identification")
+        else None,
     )

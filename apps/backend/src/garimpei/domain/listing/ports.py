@@ -42,6 +42,15 @@ class Revisit:
 
 
 @dataclass(frozen=True)
+class SearchContext:
+    verified: bool
+    latitude: float | None
+    longitude: float | None
+    radius_km: int | None
+    query: str | None
+
+
+@dataclass(frozen=True)
 class Page:
     candidates: tuple[Candidate, ...]
     continuation: str | None
@@ -50,6 +59,7 @@ class Page:
     window_proof: str | None = None
     rebuilt: bool = False
     traversed_pages: int = 1
+    source_context: SearchContext | None = None
 
 
 class SourceFailure(Exception):

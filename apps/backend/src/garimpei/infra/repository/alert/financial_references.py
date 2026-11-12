@@ -8,6 +8,7 @@ from garimpei.infra.persistence.listing_models import ListingEvent
 from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration
 from garimpei.infra.persistence.valuation_models import ValuationEvaluation
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
+from garimpei.infra.repository.valuation.identity_mapper import current_identification
 from garimpei.infra.repository.valuation.mapper import decode_valuation, mapping
 
 
@@ -18,7 +19,12 @@ def compatible_references(value: FinancialSnapshot, event: ListingEvent) -> bool
     if evaluation is None:
         return False
     valuation = decode_valuation(mapping(evaluation.result))
-    product = identify(decode_evidence(cast(EvidenceRecord, event.observation.evidence)))
+    current = current_identification(event.listing)
+    product = (
+        current.product_key
+        if current.manual_revision
+        else identify(decode_evidence(cast(EvidenceRecord, event.observation.evidence)))
+    )
     if (
         valuation.id != value.evaluation_id
         or valuation.listing_id != value.listing_id

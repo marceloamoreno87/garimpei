@@ -143,10 +143,19 @@ def first_rows() -> dict[str, dict[str, object]]:
 
 @contextmanager
 def first_eligibility_scenario(
-    private: Path, *, enabled: bool = True, sample_ready: bool = True
+    private: Path,
+    *,
+    enabled: bool = True,
+    sample_ready: bool = True,
+    target_title: str | None = None,
+    target_description: str | None = None,
 ) -> Iterator[FirstScenario]:
     cases = first_cases()
     source = ValuationSource(rows=first_rows())
+    if target_title is not None:
+        source.rows["16001"]["title"] = target_title
+    if target_description is not None:
+        source.rows["16001"]["description"] = target_description
     if not sample_ready:
         source.rows["16006"]["description"] = "Com defeito. Não funciona."
     channel = WahaServer(recipient=cases["channel"]["recipient"])

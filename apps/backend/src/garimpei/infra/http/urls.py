@@ -9,8 +9,10 @@ from garimpei.infra.http.listing.routes import condition_view
 from garimpei.infra.http.media.routes import media_view
 from garimpei.infra.http.monitoring.routes import monitoring_view
 from garimpei.infra.http.navigation.routes import navigation_view
+from garimpei.infra.http.valuation.routes import identity_view
 
 urlpatterns = [
+    path("ofertas/<uuid:identity>/identidade/", identity_view, name="identity-edit"),
     path(
         "ofertas/<uuid:identity>/imagens/<uuid:version>/<str:variant>/",
         media_view,

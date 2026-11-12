@@ -16,6 +16,7 @@ from garimpei.infra.persistence.alert_models import (
     FirstAlertInventory,
 )
 from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.repository.valuation.identity_mapper import identify_row
 
 LABELS = {
     "analysis_pending": "Aguardando análise das fotos",
@@ -34,6 +35,10 @@ LABELS = {
     "aguardando_avaliacao": "Aguardando avaliação de preços",
     "amostra_insuficiente": "Aguardando comparáveis usados suficientes",
     "amostra_dispersa": "Aguardando uma amostra de preços consistente",
+    "familia_sem_suporte": "A família ou modelo ainda não tem suporte de comparação",
+    "atributo_ausente": "Falta um atributo determinante para identificar o produto",
+    "identidade_em_conflito": "Revise os atributos de identidade em conflito",
+    "item_excluido": "Acessório, peça ou conjunto fora da comparação",
     "produto_indeterminado": "Aguardando identificação do produto",
     "produto_incompativel": "Aguardando avaliação da variante atual",
     "configuration_missing": "Aguardando configuração do canal",
@@ -63,7 +68,12 @@ class PostgresAlertDiagnosticQueries:
 
     @staticmethod
     def _read(listing_id: UUID, displayed: UUID | None) -> AlertDiagnostic | None:
-        if not Listing.objects.filter(id=listing_id).exists():
+        listing = (
+            Listing.objects.select_related("latest", "identity_progress__manual__observation")
+            .filter(id=listing_id)
+            .first()
+        )
+        if listing is None:
             return None
         row = FirstAlertIdentity.objects.filter(listing_id=listing_id, installation="local").first()
         decision = row.decisions.order_by("-generation").first() if row else None
@@ -118,6 +128,10 @@ class PostgresAlertDiagnosticQueries:
             or (cursor is not None and (not cursor.history_ready or cursor.dispatch_suspended))
         ) and first_state != "confirmed":
             first_state = "history_unknown"
+        current_reason = decision.reason if decision else reason
+        if listing.latest:
+            identity = identify_row(listing, getattr(listing, "identity_progress", None))
+            current_reason = identity.reason or current_reason
         return AlertDiagnostic(
             listing_id=listing_id,
             state=state,
@@ -127,8 +141,8 @@ class PostgresAlertDiagnosticQueries:
             else reason_label(reason),
             first_alert_state=first_state,
             reasons=reasons,
-            current_reason=decision.reason if decision else reason,
-            current_label=reason_label(decision.reason if decision else reason),
+            current_reason=current_reason,
+            current_label=reason_label(current_reason),
             evaluated_at=decision.evaluated_at if decision else None,
             next_action_at=active.next_action if active else (row.next_action if row else None),
             observation_id=observation,

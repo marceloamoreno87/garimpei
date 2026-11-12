@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from garimpei.infra.http.listing.exploration_handler import ExplorationHandler
     from garimpei.infra.http.monitoring.monitoring_handler import MonitoringHandler
     from garimpei.infra.http.navigation.navigation_handler import NavigationHandler
+    from garimpei.infra.http.valuation.identity_handler import IdentityHandler
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
     from garimpei.infra.queries.navigation.postgres_queries import PostgresNavigationQueries
@@ -42,10 +43,15 @@ if TYPE_CHECKING:
     from garimpei.infra.repository.navigation.postgres_repository import (
         PostgresNavigationRepository,
     )
+    from garimpei.infra.repository.valuation.identity_repository import PostgresIdentityRepository
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
+    from garimpei.infra.repository.valuation.research_repository import (
+        PostgresComparableResearchRepository,
+    )
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
     from garimpei.infra.worker.listing_handler import ListingTaskHandler
+    from garimpei.infra.worker.research_handler import ComparableResearchTaskHandler
     from garimpei.infra.worker.valuation_handler import ValuationTaskHandler
     from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
     from garimpei.usecase.inference.read_analysis_usecase import ReadAnalysisUseCase
@@ -61,8 +67,13 @@ if TYPE_CHECKING:
         ReadMonitoringConfigurationUseCase,
     )
     from garimpei.usecase.navigation.read_suggestions_usecase import ReadSuggestionUseCase
+    from garimpei.usecase.valuation.read_identity_usecase import ReadIdentityUseCase
     from garimpei.usecase.valuation.read_profit_usecase import ReadProfitUseCase
+    from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
+        ReadComparableResearchDiagnosticUseCase,
+    )
     from garimpei.usecase.valuation.read_valuation_usecase import ReadValuationUseCase
+    from garimpei.usecase.valuation.save_identity_usecase import SaveIdentityUseCase
 
 from procrastinate import App, SyncPsycopgConnector
 from psycopg import Connection
@@ -94,6 +105,7 @@ def build_database_probe() -> DatabaseProbe:
 def register_tasks() -> None:
     from procrastinate.contrib.django import app
 
+    app.task(name="garimpei.comparable_research", queue="listing")(_handle_comparable_research)
     app.task(name="garimpei.media", queue="media")(_handle_media)
     app.task(name="garimpei.local_analysis", queue="inference")(_handle_inference)
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
@@ -328,6 +340,7 @@ def build_monitoring_handler() -> "MonitoringHandler":
         UpdateMonitoringConfigurationUseCase(unit.transaction, catalog),
         PreviewProductsUseCase(),
         build_read_collection_status(),
+        build_read_comparable_research(),
     )
 
 
@@ -376,6 +389,7 @@ def build_valuation_store() -> "PostgresValuationRepository":
 
 
 def reconcile_valuations() -> None:
+    build_identity_repository().reconcile()
     build_valuation_store().reconcile(_listing_clock(load_listing_settings())())
 
 
@@ -412,6 +426,7 @@ def build_read_profit() -> "ReadProfitUseCase":
             build_read_monitoring_configuration(),
             PostgresListingQueries(),
             PostgresValuationQueries(),
+            build_identity_repository(),
         ),
         _listing_clock(load_listing_settings()),
     )
@@ -467,6 +482,8 @@ def build_exploration_handler() -> "ExplorationHandler":
         exploration_categories(),
         _exploration_worker_active,
         build_read_alert_diagnostic(),
+        build_read_identity(),
+        build_read_comparable_research(),
     )
 
 
@@ -1109,3 +1126,161 @@ def _enqueue_media_due(repository: "PostgresMediaRepository") -> None:
 
     for identity in repository.due(timezone.now())[:1]:
         _enqueue("garimpei.media", "media", 0, job_id=str(identity))
+
+
+def build_identity_repository() -> "PostgresIdentityRepository":
+    from garimpei.infra.repository.valuation.identity_repository import PostgresIdentityRepository
+
+    return PostgresIdentityRepository(_listing_clock(load_listing_settings()))
+
+
+def build_read_identity() -> "ReadIdentityUseCase":
+    from garimpei.usecase.valuation.read_identity_usecase import ReadIdentityUseCase
+
+    return ReadIdentityUseCase(build_identity_repository())
+
+
+def build_save_identity() -> "SaveIdentityUseCase":
+    from garimpei.usecase.valuation.save_identity_usecase import SaveIdentityUseCase
+
+    return SaveIdentityUseCase(build_identity_repository())
+
+
+def build_identity_handler() -> "IdentityHandler":
+    from garimpei.infra.http.valuation.identity_handler import IdentityHandler
+
+    return IdentityHandler(build_save_identity())
+
+
+def build_comparable_research_repository() -> "PostgresComparableResearchRepository":
+    from garimpei.config.env import load_comparable_research_manifest
+    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
+    from garimpei.infra.repository.valuation.research_repository import (
+        PostgresComparableResearchRepository,
+    )
+
+    settings = _effective_listing_settings()
+    config = load_config(require_secrets=False)
+    limits = load_research_limits(
+        load_comparable_research_manifest(),
+        config.root,
+        allow_controlled=config.environment == "eval"
+        and _effective_listing_settings().fixture_url is not None,
+    )
+    return PostgresComparableResearchRepository(
+        build_read_monitoring_configuration(),
+        _listing_clock(settings),
+        limits,
+        _navigation_collection(settings),
+        build_navigation_catalog().decorate_scope,
+    )
+
+
+def reconcile_comparable_research() -> None:
+    from django.db import transaction
+
+    from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+    from garimpei.infra.persistence.research_models import ComparableInvestigation
+
+    repository = build_comparable_research_repository()
+    repository.reconcile()
+    with transaction.atomic():
+        lock_monitoring_publication()
+        if not ComparableInvestigation.objects.filter(
+            state__in=["pending", "waiting_evidence", "waiting_retry", "running"]
+        ).exists():
+            return
+        if _comparable_research_job_pending():
+            return
+        _enqueue("garimpei.comparable_research", "listing", 0)
+
+
+def _handle_comparable_research() -> None:
+    build_comparable_research_handler().execute()
+
+
+def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
+    from time import monotonic
+
+    from garimpei.config.env import load_comparable_research_manifest
+    from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
+    from garimpei.infra.gateway.listing.facebook_marketplace import (
+        FacebookMarketplace,
+        UnavailableMarketplace,
+    )
+    from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+    from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
+    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
+    from garimpei.infra.worker.research_handler import ComparableResearchTaskHandler
+    from garimpei.usecase.valuation.run_research_usecase import RunComparableResearchUseCase
+
+    settings = _effective_listing_settings()
+    limits = load_research_limits(
+        load_comparable_research_manifest(),
+        load_config(require_secrets=False).root,
+        allow_controlled=load_config(require_secrets=False).environment == "eval"
+        and settings.fixture_url is not None,
+    )
+    timeout = min(settings.timeout, limits.request_timeout_seconds) if limits else settings.timeout
+    source: ListingSource
+    close: Callable[[], None] | None = None
+    if settings.fixture_url:
+        source = FixtureSource(settings.fixture_url, timeout)
+    elif settings.facebook_profile or settings.facebook_state:
+        path = settings.facebook_profile or settings.facebook_state
+        assert path is not None
+        browser = MarketplaceBrowser(
+            path, timeout, settings.cadence_ms, profile=settings.facebook_profile
+        )
+        live = FacebookMarketplace(
+            browser, BrasilApiGeocoding(timeout), build_monitoring_catalog().load()
+        )
+        source, close = live, live.close
+    else:
+        source = UnavailableMarketplace()
+    return ComparableResearchTaskHandler(
+        RunComparableResearchUseCase(build_comparable_research_repository(), source, monotonic),
+        close,
+    )
+
+
+def build_read_comparable_research() -> "ReadComparableResearchDiagnosticUseCase":
+    from garimpei.config.env import load_comparable_research_manifest
+    from garimpei.infra.gateway.valuation.interest_corpus import read_interest_corpus
+    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
+    from garimpei.infra.queries.valuation.research_queries import PostgresComparableResearchQueries
+    from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
+        ReadComparableResearchDiagnosticUseCase,
+    )
+
+    config = load_config(require_secrets=False)
+    corpus = (
+        config.root
+        / "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json"
+    )
+    date, digest, coverage, version = read_interest_corpus(corpus)
+    return ReadComparableResearchDiagnosticUseCase(
+        PostgresComparableResearchQueries(
+            load_research_limits(
+                load_comparable_research_manifest(),
+                config.root,
+                allow_controlled=config.environment == "eval"
+                and _effective_listing_settings().fixture_url is not None,
+            ),
+            date,
+            digest,
+            coverage,
+            version,
+        )
+    )
+
+
+def _comparable_research_job_pending() -> bool:
+    from django.db import connection
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT 1 FROM procrastinate_jobs WHERE task_name=%s AND status IN ('todo','doing') LIMIT 1",
+            ["garimpei.comparable_research"],
+        )
+        return cursor.fetchone() is not None

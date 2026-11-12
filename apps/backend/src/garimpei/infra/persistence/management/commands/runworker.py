@@ -15,6 +15,7 @@ from garimpei.main import (
     build_publish_exploration,
     build_worker_stderr,
     reconcile_alerts,
+    reconcile_comparable_research,
     reconcile_inference,
     reconcile_listings,
     reconcile_media,
@@ -42,6 +43,7 @@ def _reconcile_until_stopped(stopped: Event) -> None:
             reconcile_listings(recover_access=recover_access)
             reconcile_navigation()
             reconcile_valuations()
+            reconcile_comparable_research()
             publication_at = _publish_when_due(publication_at, interval)
         except ConfigurationReadFailed:
             logger.warning(
