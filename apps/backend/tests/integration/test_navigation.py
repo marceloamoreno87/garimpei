@@ -900,3 +900,22 @@ assert NavigationUnitReceipt.objects.filter(id=prior[0][0],unit_key=prior[0][1],
 assert NavigationUnitReceipt.objects.count()==2
 """,
     )
+
+
+def test_unverified_geography_never_stages_candidates_for_publication(
+    navigation_instance: FoundationInstance,
+) -> None:
+    shell(
+        navigation_instance,
+        BOOTSTRAP
+        + """
+unit=nav.claim(attempt,scope,pages=True,details=False)
+candidate=Candidate('9990001',Evidence(),'search')
+nav.page(attempt,unit,Page((candidate,),None,diagnostic='search_geography_unverified'))
+work=NavigationWork.objects.get(id=unit.turn.id)
+assert work.phase=='partial' and work.reason=='search_geography_unverified'
+assert not CollectionCandidate.objects.filter(external_id='9990001').exists()
+assert not Listing.objects.filter(external_id='9990001').exists()
+assert not ListingEvent.objects.exists()
+""",
+    )

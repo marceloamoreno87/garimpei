@@ -356,3 +356,4 @@ Texto dos critérios reproduzido literalmente do PRD. Cobertura define verifica�
 - **WRK-GEOGRAPHY-20-01:** pesquisa anterior com contexto de raio diferente é superada antes de retomar ou publicar. Resultado sem confirmação da região permanece parcial e não produz amostra local validada; histórico é preservado.
 
 Esses itens complementam `WRK-GEOGRAPHY-01` e não convertem uma verificação controlada em prova real.
+- **WRK-GEOGRAPHY-20-02:** resposta sem confirmação do contexto geográfico efetivo resulta em diagnóstico parcial, sem registrar candidatos ou novos anúncios/eventos daquela página; a condição não dispara repetição automática ilimitada.

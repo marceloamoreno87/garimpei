@@ -309,7 +309,7 @@ class FacebookMarketplace:
             str(params["query"]) if params.get("query") is not None else None,
         )
         if query.modality == "marketplace":
-            return None
+            return None if geo_verified else "search_geography_unverified"
         if any(row.get("_garimpei_response_context_unverified") is True for row in rows):
             return "search_geography_unverified"
         radius = MARKETPLACE_RADIUS_KM

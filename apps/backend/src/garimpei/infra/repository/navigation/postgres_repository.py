@@ -588,6 +588,8 @@ class PostgresNavigationRepository:
             "wrong_search_query",
             "wrong_category_context",
             "search_context_unverified",
+            "search_geography_unverified",
+            "wrong_search_geography",
             "wrong_context",
             "wrong_search_context",
         }:

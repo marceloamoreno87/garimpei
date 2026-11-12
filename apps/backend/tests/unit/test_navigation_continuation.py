@@ -26,9 +26,20 @@ class ContinuationBrowser:
         self, url: str, filters: SearchFilters
     ) -> tuple[tuple[JsonObject, ...], Feed | None]:
         self.calls.append("context")
-        return ({"initialRouteInfo": {"route": {"params": {"query": "PS5 Slim"}}}},), Feed(
-            (), True, True, "opaque-first"
-        )
+        return (
+            {"initialRouteInfo": {"route": {"params": {"query": "PS5 Slim"}}}},
+            {
+                "variables": {
+                    "params": {
+                        "browse_request_params": {
+                            "filter_location_latitude": filters.origin.latitude,
+                            "filter_location_longitude": filters.origin.longitude,
+                            "filter_radius_km": filters.radius_km,
+                        }
+                    }
+                }
+            },
+        ), Feed((), True, True, "opaque-first")
 
     def continue_from(self, cursor: str) -> Feed:
         self.calls.append(cursor)
