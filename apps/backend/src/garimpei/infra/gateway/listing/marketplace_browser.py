@@ -519,10 +519,11 @@ class MarketplaceBrowser:
 
 def _has_listing_gallery(rows: tuple[JsonObject, ...], identity: str) -> bool:
     return any(
-        row.get("id") == identity
-        and (
-            isinstance(row.get("listing_photos"), (list, dict))
-            or isinstance(row.get("primary_listing_photo"), dict)
-        )
-        for row in rows
+        row.get("id") == identity and _recognized_gallery(row.get("listing_photos")) for row in rows
+    )
+
+
+def _recognized_gallery(value: object) -> bool:
+    return isinstance(value, list) or (
+        isinstance(value, dict) and isinstance(value.get("nodes"), list)
     )
