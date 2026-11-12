@@ -1,0 +1,8 @@
+{
+  "samples": 2,
+  "originals_checked": 13,
+  "all_http_200": true,
+  "all_positive_natural_dimensions": true,
+  "all_hashes_match": true,
+  "two_source_resolutions_verified": false
+}

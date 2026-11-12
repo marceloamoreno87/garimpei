@@ -1,0 +1,15 @@
+### Result
+{
+  "url": "/ofertas/8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f/?versao=d3489934-227f-4764-841b-235fb8981d58&pagina=2&categoria=479353692612078&aba=funcionam",
+  "version": "/ofertas/8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f/imagens/2b129c0f-7db5-4b45-ab24-f36416a74706/original/",
+  "dimensions": [
+    900,
+    900
+  ],
+  "original": "/ofertas/8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f/imagens/2b129c0f-7db5-4b45-ab24-f36416a74706/original/",
+  "returnURL": "/ofertas/?aba=funcionam&q=&categoria=479353692612078&pagina=2&versao=d3489934-227f-4764-841b-235fb8981d58"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const i=document.querySelector(".media-gallery img");await i.decode();return {url:location.pathname+location.search,version:new URL(i.src).pathname,dimensions:[i.naturalWidth,i.naturalHeight],original:document.querySelector(".media-gallery a").getAttribute("href"),returnURL:document.querySelector(".back-link")?.getAttribute("href")}}');
+```

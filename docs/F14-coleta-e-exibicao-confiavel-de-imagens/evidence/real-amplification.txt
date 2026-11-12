@@ -1,0 +1,15 @@
+### Result
+{
+  "path": "/ofertas/1045e18d-5994-4a1f-938e-7d0d12da38f7/imagens/fcdf3f3e-59e1-46ab-90e3-d6427b1fdf3b/original/",
+  "mime": "image/jpeg",
+  "images": [
+    {
+      "naturalWidth": 723,
+      "naturalHeight": 960
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({path:location.pathname,mime:document.contentType,images:[...document.images].map(i=>({naturalWidth:i.naturalWidth,naturalHeight:i.naturalHeight}))})');
+```

@@ -1,0 +1,72 @@
+### Result
+{
+  "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/",
+  "revision": "5bb81261-cbcd-4738-96c4-219a11259889",
+  "photos": [
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/5fac7fd0-69c8-4dc8-8aae-718f91031d0f/original/",
+      "width": 0,
+      "height": 0,
+      "status": 500,
+      "bytes": 37,
+      "sha256": "c2e35b4412bcf3d55bf1cc28a6746cab58fbbeea6c778ee5aa5a8b3711b14809",
+      "mime": "application/json",
+      "etag": null,
+      "cache": null
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/036461d7-f4d8-4aa2-8fec-2baf1ff9d566/original/",
+      "width": 0,
+      "height": 0,
+      "status": 500,
+      "bytes": 37,
+      "sha256": "c2e35b4412bcf3d55bf1cc28a6746cab58fbbeea6c778ee5aa5a8b3711b14809",
+      "mime": "application/json",
+      "etag": null,
+      "cache": null
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/114e63d0-ba36-457a-a207-781be69840d9/original/",
+      "width": 0,
+      "height": 0,
+      "status": 500,
+      "bytes": 37,
+      "sha256": "c2e35b4412bcf3d55bf1cc28a6746cab58fbbeea6c778ee5aa5a8b3711b14809",
+      "mime": "application/json",
+      "etag": null,
+      "cache": null
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/7619305b-db57-4a73-bbbd-737f743e701e/original/",
+      "width": 0,
+      "height": 0,
+      "status": 500,
+      "bytes": 37,
+      "sha256": "c2e35b4412bcf3d55bf1cc28a6746cab58fbbeea6c778ee5aa5a8b3711b14809",
+      "mime": "application/json",
+      "etag": null,
+      "cache": null
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/88b4db6f-e253-44f9-bc1e-5266199f6a85/original/",
+      "width": 0,
+      "height": 0,
+      "status": 500,
+      "bytes": 37,
+      "sha256": "c2e35b4412bcf3d55bf1cc28a6746cab58fbbeea6c778ee5aa5a8b3711b14809",
+      "mime": "application/json",
+      "etag": null,
+      "cache": null
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const imgs=[...document.querySelectorAll(".media-gallery img")];const photos=[];for(const i of imgs){await i.decode().catch(()=>{});const r=await fetch(i.src,{cache:"no-store"});const bytes=await r.arrayBuffer();const hash=[...new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))].map(v=>v.toString(16).padStart(2,"0")).join("");photos.push({path:new URL(i.src).pathname,width:i.naturalWidth,height:i.naturalHeight,status:r.status,bytes:bytes.byteLength,sha256:hash,mime:r.headers.get("content-type"),etag:r.headers.get("etag"),cache:r.headers.get("cache-control")})};return {path:location.pathname,revision:new URL(location.href).searchParams.get("versao"),photos}}');
+```
+### Page
+- Page URL: http://127.0.0.1:18351/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/?versao=5bb81261-cbcd-4738-96c4-219a11259889
+- Page Title: Ofertas · Garimpei
+- Console: 11 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T19-28-56-580Z.log#L7-L11

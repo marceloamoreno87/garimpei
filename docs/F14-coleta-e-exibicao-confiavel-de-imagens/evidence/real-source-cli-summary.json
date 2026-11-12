@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-11-12T20:12:12.716320+00:00",
+  "source": "Facebook Marketplace, native carousel inspected through playwright-cli with the application Chromium",
+  "listing_reference": "6c1da19e6d48c22bd0281fff6ab7d44d59ec3c0411f9d1634f9ff1a26bf0d879",
+  "main_natural_dimensions": [
+    735,
+    960
+  ],
+  "source_thumbnail_display_dimensions": [
+    36,
+    36
+  ],
+  "source_thumbnail_natural_dimensions": [
+    735,
+    960
+  ],
+  "main_and_source_thumbnail_same_uri_sha256": "9dd813614eef10588656eb486f2fe54d0e48d9fd98d9c4698b30dc87f8ccdeb5",
+  "native_clicks_on_exposed_photo": 1,
+  "dialogs_after_click": 0,
+  "same_photo_multiple_resolutions_verified": false,
+  "private_screenshots_excluded": true,
+  "profile_copied": false,
+  "contact_or_purchase_actions": 0,
+  "reason": "Inspected source exposes the same bytes for main photo and source thumbnail; no fullscreen control observed."
+}

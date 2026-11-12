@@ -1,0 +1,37 @@
+### Result
+{
+  "url": "/ofertas/?aba=funcionam&q=&categoria=479353692612078&pagina=2&versao=b0124dc4-ed33-45d5-9a25-63a169ded78b",
+  "notice": "Há atualizações\n\nSeus resultados continuam como estavam até você atualizar.\n\nAtualizar lista",
+  "order": [
+    "8c6aaf1f-f727-441a-8ef0-cd7ccf5090d8",
+    "71c910b8-c6f5-4c36-acda-9e897c3908a3",
+    "afd00228-9bca-4825-bbc8-e215956911a4",
+    "71cd096d-4f51-4c61-a78a-06eb7120db88",
+    "2909b843-0fb4-441d-9a97-c944ad8046f3",
+    "e9c7bf01-138c-4c4f-a094-3109b08eb09c",
+    "5fef070d-94bf-484e-bc2a-0602a6108a85",
+    "3590319f-08ca-477f-8091-d5f1d1e1cd68",
+    "a7a38d16-0a0a-42f6-aae7-a89a400f768b",
+    "548e8acc-cb5f-48f3-b502-0fbb0599d4a8",
+    "2d788aac-844d-4f69-bd87-cf2641d48c95",
+    "5c019e47-19a7-41e1-9bd2-50b95ccff735",
+    "f207ed52-f927-4eb0-bda1-2ec4a84d3d90",
+    "7ddadad5-0514-48e0-b114-2cb71abbaa77",
+    "5cd2933c-6eda-47e1-a74d-bea88f7b6288",
+    "8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f"
+  ],
+  "photos": [
+    "/ofertas/5fef070d-94bf-484e-bc2a-0602a6108a85/imagens/3d8cacb0-dd21-4354-a68a-7166bf3ce447/miniatura/",
+    "/ofertas/3590319f-08ca-477f-8091-d5f1d1e1cd68/imagens/18a3fc68-950f-4063-9a48-fbabed99ac82/miniatura/",
+    "/ofertas/a7a38d16-0a0a-42f6-aae7-a89a400f768b/imagens/b2eaec16-8f26-4b45-b6a7-fa9436a092ca/miniatura/",
+    "/ofertas/548e8acc-cb5f-48f3-b502-0fbb0599d4a8/imagens/95d2011f-3e84-45b6-93c8-6bdb80db59ca/miniatura/",
+    "/ofertas/5c019e47-19a7-41e1-9bd2-50b95ccff735/imagens/6ac442ae-6561-4b63-8ff5-eda0f16bc3f1/miniatura/",
+    "/ofertas/5cd2933c-6eda-47e1-a74d-bea88f7b6288/imagens/5b2d189d-0686-41d1-a85a-074177d265b9/miniatura/",
+    "/ofertas/8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f/imagens/1d080c0c-8371-481f-bb84-56d052915d0a/miniatura/"
+  ],
+  "focused": "exploration-search"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {window.htmx.trigger(document.body,"exploration-poll");await new Promise(r=>setTimeout(r,400));return {url:location.pathname+location.search,notice:document.querySelector("#updates")?.innerText,order:[...document.querySelectorAll("[data-offer-id]")].map(e=>e.dataset.offerId),photos:[...document.querySelectorAll(".offer-card img")].map(i=>new URL(i.src).pathname),focused:document.activeElement.id}}');
+```

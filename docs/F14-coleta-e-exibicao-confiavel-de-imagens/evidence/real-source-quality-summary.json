@@ -1,0 +1,116 @@
+{
+  "listing": "620a6d01-1fe8-402b-9a18-2f798391527d",
+  "listing_hash": "2181a172e4e8b5f25f3db33c5681148003ce169448241489abc8bd641871ac5c",
+  "photo_count": 10,
+  "started_at": 1794513540.2078679,
+  "finished_at": 1794513551.42252,
+  "current_listing_correlated_photos": 10,
+  "click_attempted": false,
+  "click_dispatched": null,
+  "click_completed": false,
+  "viewer_finished": false,
+  "viewer_observation": {
+    "clicked": false,
+    "reason": "center_hit_not_owned_by_verified_photo_control"
+  },
+  "offered_resolutions": [
+    [
+      960,
+      720
+    ]
+  ],
+  "all_offered_resolutions": [
+    {
+      "photo_hash": "11254e9e1427e8380af0a4958f3493b9c752c56333be49a3dc3ab10a29ae1a00",
+      "dimensions": [
+        [
+          960,
+          720
+        ]
+      ]
+    },
+    {
+      "photo_hash": "b8ebead10433a673097161a5a8a4ed4c345d5bcead3ca214f5c87cfe5c3661d6",
+      "dimensions": [
+        [
+          720,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "0e892f4025e687a1e6dcc3b54370165ca42d67308be305d831d8ce30e519830c",
+      "dimensions": [
+        [
+          720,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "af16fa5865af1dacf72bcb7de2ad5933473cb2dd26aab4530446be63ab2d2a51",
+      "dimensions": [
+        [
+          720,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "978bfb8c9fd89d15c3e6fd887fc1573c5bafd166c03f1af5daf12d613849fef3",
+      "dimensions": [
+        [
+          720,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "32dece77d3954dd5594e86ca6c94efa23ce8a93f61affb27761778ef99349267",
+      "dimensions": [
+        [
+          720,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "702f6dde6220d92578a40e57159d03883b7a101fa19ce19598accca575d73ba2",
+      "dimensions": [
+        [
+          540,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "0bf249d7e96b062b88595b0a03609c4b811ea5265a73d0e14b7297deff22ecd4",
+      "dimensions": [
+        [
+          540,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "3bbff5d5d7a583d16545053e0e4a59efcd54eccefe1da245a9d0772ff6c6829f",
+      "dimensions": [
+        [
+          540,
+          960
+        ]
+      ]
+    },
+    {
+      "photo_hash": "f21f2ad91413d3c00ae2ef9bc73ec354fa352cff080ecb321e9ce59273689ff8",
+      "dimensions": [
+        [
+          540,
+          960
+        ]
+      ]
+    }
+  ],
+  "same_photo_multiple_resolutions": false,
+  "restore_exit_code": 0
+}

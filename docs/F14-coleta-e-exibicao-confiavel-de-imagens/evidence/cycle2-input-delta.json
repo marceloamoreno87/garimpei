@@ -1,0 +1,8 @@
+{
+  "original_commit": "a7e7469316ecbbb5cc24872feb5ce2df654599c7",
+  "frozen_files": 513,
+  "changed_frozen_files": [
+    "apps/backend/src/garimpei/infra/http/media/presentation.py"
+  ],
+  "scope": "533 full tests before presentation delta; focused regression/gates afterward"
+}

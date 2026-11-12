@@ -33,6 +33,16 @@ def gallery_label(gallery: MediaGallery | None, photos: bool) -> str:
     label = "Fotos ainda não verificadas"
     if gallery.presence == "none":
         return "Anúncio sem fotos na fonte"
+    states = {photo.state for photo in gallery.photos}
+    # A historical capture stays ready; current retention overlays its availability.
+    if states and states <= {"removed", "removing"}:
+        return (
+            "Remoção de fotos em andamento"
+            if "removing" in states
+            else "Fotos removidas após encerramento da retenção"
+        )
+    if "available" in states and states & {"removed", "removing"}:
+        return "Cópias disponíveis; parte das fotos foi removida"
     if gallery.state == "configuration_required":
         return (
             "Fotos ainda não verificadas; obtenção aguarda configuração do armazenamento"

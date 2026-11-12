@@ -1,0 +1,15 @@
+{
+  "id": "14001",
+  "marketplace_listing_title": "Anúncio A controlado",
+  "listing_price": {"amount": "1000.00", "currency": "BRL"},
+  "primary_listing_photo": {
+    "id": "photo-a",
+    "image": {"uri": "https://media.fbcdn.net/primary-small.jpg", "width": 320, "height": 240},
+    "image_full_screen": {"uri": "https://media.fbcdn.net/primary-large.jpg", "width": 1280, "height": 960}
+  },
+  "listing_photos": [
+    {"id": "photo-a", "image": {"uri": "https://media.fbcdn.net/primary-large.jpg", "width": 1280, "height": 960}},
+    {"id": "photo-additional", "image": {"uri": "https://media.fbcdn.net/additional.png", "width": 1000, "height": 800}}
+  ],
+  "recommendations": [{"id": "14002", "listing_photos": [{"id": "photo-b", "image": {"uri": "https://media.fbcdn.net/other.png", "width": 900, "height": 900}}]}]
+}
