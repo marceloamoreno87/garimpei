@@ -19,6 +19,7 @@ from django.utils import timezone
 
 from garimpei.domain.media.media import AnalysisMedia
 from garimpei.infra.gateway.operations.archive_gateway import ArchiveInvalid
+from garimpei.infra.gateway.operations.inference_archive_gateway import InferenceArchiveGateway
 from garimpei.infra.gateway.operations.media_archive_gateway import MediaArchiveGateway
 from garimpei.infra.gateway.operations.private_fields import (
     sanitize_transient_media,
@@ -44,8 +45,12 @@ class CapturedSnapshot:
 
 
 class BusinessSnapshotGateway:
-    def __init__(self, media: MediaArchiveGateway | None = None) -> None:
-        self._media = media
+    def __init__(
+        self,
+        media: MediaArchiveGateway | None = None,
+        inference: InferenceArchiveGateway | None = None,
+    ) -> None:
+        self._media, self._inference = media, inference
 
     def capture(self, execution: str) -> CapturedSnapshot:
         _validate_schema_coverage()
@@ -79,6 +84,10 @@ class BusinessSnapshotGateway:
             references.extend(self._media.pin(execution))
             media_files, information = self._media.capture(tuple(references), files)
             files.update(media_files)
+            metadata.update(information)
+        if self._inference is not None:
+            prepared, information = self._inference.capture(files)
+            files.update(prepared)
             metadata.update(information)
         with connection.cursor() as cursor:
             cursor.execute("SELECT transaction_timestamp()")
@@ -121,6 +130,8 @@ class BusinessSnapshotGateway:
             raise ArchiveInvalid("archive_field_invalid") from None
         if self._media is not None:
             self._media.validate(metadata, files)
+        if self._inference is not None:
+            self._inference.validate(metadata, files)
 
     def restore(self, files: dict[str, bytes], metadata: dict[str, object]) -> None:
         for name in SCHEMA:
@@ -131,6 +142,9 @@ class BusinessSnapshotGateway:
                 state="removed", reason="unprotected_bytes_not_in_backup"
             )
         MediaJob.objects.update(lease_until=None, reserved_bytes=0)
+        MediaJob.objects.filter(state="running").update(state="pending")
+        if self._inference is not None:
+            self._inference.restore(metadata, files)
         MediaReference.objects.filter(consumer="backup", released_at=None).update(
             released_at=timezone.now()
         )

@@ -7,7 +7,7 @@ from pathlib import Path
 from uuid import UUID
 
 from django.db import transaction
-from django.db.models import F
+from django.db.models import F, Max
 from django.utils import timezone
 
 from garimpei.config.env import RuntimeConfig
@@ -15,6 +15,11 @@ from garimpei.domain.operations.errors import OperationsError
 from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway, ArchiveInvalid
 from garimpei.infra.gateway.operations.snapshot_gateway import BusinessSnapshotGateway
 from garimpei.infra.persistence.alert_models import AlertFeedCursor, AlertIntent
+from garimpei.infra.persistence.inference_models import (
+    InferenceControl,
+    InferencePart,
+    InferenceRequest,
+)
 from garimpei.infra.persistence.integration_models import IntegrationSettings
 from garimpei.infra.persistence.listing_models import CollectionState
 from garimpei.infra.persistence.operations_models import OperationalUnit, RecoveryBarrier
@@ -98,6 +103,7 @@ class RestoreBackupGateway:
     def _import(self, files: dict[str, bytes], metadata: dict[str, object]) -> None:
         with transaction.atomic():
             self._snapshot.restore(files, metadata)
+            _reset_inference_work()
             AlertFeedCursor.objects.update(dispatch_suspended=True)
             AlertIntent.objects.update(lease_until=None)
             CollectionState.objects.update(
@@ -120,3 +126,33 @@ class RestoreBackupGateway:
                 reason="recovery_barrier",
                 generation=F("generation") + 1,
             )
+
+
+def _reset_inference_work() -> None:
+    generations = InferencePart.objects.aggregate(value=Max("generation"))["value"] or 0
+    request_ids = tuple(
+        InferencePart.objects.filter(state="running").values_list("request_id", flat=True)
+    )
+    InferencePart.objects.filter(state="running", attempts__lt=3).update(
+        state="pending", reason="restored_pending"
+    )
+    InferencePart.objects.filter(state="running", attempts__gte=3).update(
+        state="failed", reason="restored_budget_exhausted"
+    )
+    InferenceRequest.objects.filter(id__in=request_ids).update(
+        state="pending", reason="restored_pending", next_attempt_at=None
+    )
+    InferenceRequest.objects.filter(id__in=request_ids, parts__state="failed").update(
+        state="failed", reason="restored_budget_exhausted", completed_at=timezone.now()
+    )
+    InferenceControl.objects.get_or_create(pk=1)
+    # New ownership starts above every imported part generation; execution is resumed explicitly.
+    InferenceControl.objects.filter(pk=1).update(
+        paused=True,
+        active_request=None,
+        lease_until=None,
+        resident=False,
+        generation=generations + 1,
+        reason="restored_paused",
+        revision=F("revision") + 1,
+    )
