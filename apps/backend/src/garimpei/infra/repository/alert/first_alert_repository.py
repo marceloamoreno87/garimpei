@@ -155,6 +155,8 @@ class PostgresFirstAlertRepository:
             row.generation += 1
             decision = FirstEligibilityDecision.objects.create(
                 identity=row,
+                assessment_id=condition.assessment.id if condition.assessment else None,
+                assessment_revision=condition.assessment.revision if condition.assessment else None,
                 generation=row.generation,
                 signature=signature,
                 cause=cause,

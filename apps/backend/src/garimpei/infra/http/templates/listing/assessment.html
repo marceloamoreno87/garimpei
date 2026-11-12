@@ -1,0 +1,26 @@
+{% if assessment %}
+    <section class="condition-assessment" aria-labelledby="assessment-heading">
+        <h2 id="assessment-heading">Avaliação conjunta de texto e fotos</h2>
+        <p role="status">{{ assessment_reason }}</p>
+        <p class="fine">Aparência avaliada nas fotos disponíveis. O funcionamento interno, as portas e as partes não mostradas precisam de teste presencial.</p>
+        {% if offer.condition.conflict %}<p class="notice">Sua classificação foi mantida; a avaliação automática aponta uma divergência.</p>{% endif %}
+        <h3>Declaração do vendedor</h3>
+        {% for field, quote in assessment_text %}<blockquote><p>{{ quote }}</p><footer>{{ field }} do anúncio</footer></blockquote>{% empty %}<p>Não há declaração textual inequívoca de funcionamento.</p>{% endfor %}
+        <h3>Aparência e evidências</h3>
+        {% for finding in assessment_findings %}
+            <article>
+                <p>{{ finding.text }}{% if finding.kind == "light_wear" %} — desgaste leve, com ressalva{% endif %}{% if finding.kind == "suspected" %} — suspeita; requer revisão{% endif %}</p>
+                {% for ref in finding.references %}
+                    {% if ref.kind == "image" and ref.photo %}<a href="#foto-{{ ref.photo.version_id }}">Foto {{ ref.photo.position|add:"1" }} da avaliação</a>{% endif %}
+                    {% if ref.kind == "text" %}<blockquote><p>{{ ref.quote }}</p><footer>{{ ref.field }} do anúncio</footer></blockquote>{% endif %}
+                {% endfor %}
+            </article>
+        {% empty %}<p>Nenhum sinal visual validado disponível nesta avaliação.</p>{% endfor %}
+        <h3>Limitações e verificações presenciais</h3>
+        <ul>{% for limitation in assessment.limitations %}<li>{{ limitation }}</li>{% empty %}<li>As fotos não substituem inspeção ou teste presencial.</li>{% endfor %}</ul>
+        <p class="fine">Cobertura: {{ assessment_count }} de {{ assessment_total }} fotos examinadas.</p>
+        {% if assessment.analyzed_at %}<p class="fine">Analisada em {{ assessment.analyzed_at|date:"d/m/Y H:i:s" }} UTC. Modelo Qwen3.5 4B Q4_K_M · {{ assessment.model_revision }}. Revisão {{ assessment.revision }}.</p>{% endif %}
+        {% if assessment.previous %}<p class="fine">Análise anterior conservada no histórico: {{ assessment.previous }}. Ela não substitui a avaliação desta entrada.</p>{% endif %}
+        {% if not offer.condition.satisfies_alert_condition %}<p>A avaliação atual não satisfaz a condição para alerta automático.</p>{% endif %}
+    </section>
+{% endif %}

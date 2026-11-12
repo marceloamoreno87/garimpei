@@ -4,6 +4,15 @@ import re
 from dataclasses import asdict, dataclass
 from uuid import UUID
 
+from garimpei.domain.inference.condition_evidence import (
+    PROMPT as CONDITION_PROMPT,
+)
+from garimpei.domain.inference.condition_evidence import (
+    SCHEMA as CONDITION_SCHEMA,
+)
+from garimpei.domain.inference.condition_evidence import (
+    VERSION as CONDITION_VERSION,
+)
 from garimpei.domain.inference.errors import InferenceError
 
 VERSION = "local-evidence-v1"
@@ -39,7 +48,10 @@ class AnalysisInput:
             raise InferenceError("duplicate_image_identity")
         if not self.text.strip() and not self.images:
             raise InferenceError("insufficient_input")
-        if self.prompt_version != VERSION or self.schema_version != VERSION:
+        if (
+            self.prompt_version not in {VERSION, CONDITION_VERSION}
+            or self.schema_version != self.prompt_version
+        ):
             raise InferenceError("unsupported_prompt_or_schema")
 
     def signature(self, artifact: str) -> str:
@@ -54,4 +66,8 @@ class AnalysisInput:
                 "visual_text": False,
             },
         }
+        if self.prompt_version == CONDITION_VERSION:
+            data["condition_profile"] = hashlib.sha256(
+                (CONDITION_PROMPT + json.dumps(CONDITION_SCHEMA, sort_keys=True)).encode()
+            ).hexdigest()
         return hashlib.sha256(json.dumps(data, sort_keys=True, default=str).encode()).hexdigest()

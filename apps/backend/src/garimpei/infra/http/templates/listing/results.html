@@ -70,6 +70,7 @@
                                                                                                                                                                                    data-media-image><span class="media-load-error" hidden>Falha ao carregar a foto</span>{% else %}<span>{{ card.media_label }}</span>{% endif %}</div>
                 <div class="offer-summary">
                     <p class="fine">{{ card.offer.condition.label }}</p>
+                    {% if card.assessment %}<p class="fine">{{ card.assessment_reason }}</p>{% endif %}
                     <h3><a class="offer-title" href="{{ card.detail_url }}">{{ card.title }}</a></h3>
                     {% include "listing/financial_values.html" with price=card.price resale=card.resale profit=card.profit %}
                     <p class="fine">{% if card.alert_failed %}Estado do alerta indisponível{% elif card.alert %}{{ card.alert.label }}{% else %}Aguardando avaliação do alerta{% endif %}</p>

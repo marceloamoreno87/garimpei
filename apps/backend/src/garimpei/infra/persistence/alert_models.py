@@ -28,6 +28,8 @@ class AlertFeedCursor(models.Model):
 
 
 class AlertEventDecision(models.Model):
+    assessment_id = models.UUIDField(null=True)
+    assessment_revision = models.PositiveBigIntegerField(null=True)
     event = models.OneToOneField(ListingEvent, on_delete=models.PROTECT, to_field="id")
     state = models.CharField(max_length=20, default="waiting")
     reason = models.CharField(max_length=64, default="pending_evaluation")
@@ -134,6 +136,8 @@ class FirstAlertIdentity(models.Model):
 
 
 class FirstEligibilityDecision(models.Model):
+    assessment_id = models.UUIDField(null=True)
+    assessment_revision = models.PositiveBigIntegerField(null=True)
     id = models.UUIDField(primary_key=True, default=uuid4)
     identity = models.ForeignKey(
         FirstAlertIdentity, on_delete=models.PROTECT, related_name="decisions"

@@ -17,6 +17,7 @@ class PreparedPart:
     image_hash: str | None = None
     coverage: tuple[dict[str, object], ...] = ()
     model_digest: str = ""
+    profile: str = "local-evidence-v1"
 
 
 @dataclass(frozen=True)

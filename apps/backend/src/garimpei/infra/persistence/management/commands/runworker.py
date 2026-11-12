@@ -15,6 +15,7 @@ from garimpei.main import (
     build_publish_exploration,
     build_worker_stderr,
     reconcile_alerts,
+    reconcile_assessments,
     reconcile_inference,
     reconcile_listings,
     reconcile_media,
@@ -103,6 +104,8 @@ class Command(BaseCommand):
         inference.start()
         media = Thread(target=_media_until_stopped, args=(stopped,), daemon=True)
         media.start()
+        assessments = Thread(target=_assessments_until_stopped, args=(stopped,), daemon=True)
+        assessments.start()
         try:
             with redirect_stderr(build_worker_stderr()):
                 call_command(
@@ -121,6 +124,7 @@ class Command(BaseCommand):
             alerts.join(timeout=2)
             inference.join(timeout=2)
             media.join(timeout=2)
+            assessments.join(timeout=2)
             build_facebook_login_handler().close()
 
 
@@ -146,3 +150,16 @@ def _media_until_stopped(stopped: Event) -> None:
         finally:
             connections.close_all()
         stopped.wait(30)
+
+
+def _assessments_until_stopped(stopped: Event) -> None:
+    while not stopped.is_set():
+        try:
+            reconcile_assessments()
+        except Exception:
+            logger.error(
+                "assessment_reconcile_failed", extra={"event": "assessment_reconcile_failed"}
+            )
+        finally:
+            connections.close_all()
+        stopped.wait(5)

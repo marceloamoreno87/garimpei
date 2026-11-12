@@ -44,6 +44,7 @@ if TYPE_CHECKING:
     )
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
+    from garimpei.infra.worker.assessment_handler import AssessmentHandler
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
     from garimpei.infra.worker.listing_handler import ListingTaskHandler
     from garimpei.infra.worker.valuation_handler import ValuationTaskHandler
@@ -1109,3 +1110,35 @@ def _enqueue_media_due(repository: "PostgresMediaRepository") -> None:
 
     for identity in repository.due(timezone.now())[:1]:
         _enqueue("garimpei.media", "media", 0, job_id=str(identity))
+
+
+def build_assessment_handler() -> "AssessmentHandler":
+    from django.utils.timezone import now
+
+    from garimpei.infra.gateway.listing.assessment_inference import LocalAssessmentInference
+    from garimpei.infra.gateway.listing.assessment_inputs import LocalAssessmentInputs
+    from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
+    from garimpei.infra.repository.listing.assessment_repository import PostgresAssessmentRepository
+    from garimpei.infra.worker.assessment_handler import AssessmentHandler
+    from garimpei.usecase.listing.complete_assessment_usecase import CompleteAssessmentUseCase
+    from garimpei.usecase.listing.prepare_assessment_usecase import PrepareAssessmentUseCase
+
+    repository = PostgresAssessmentRepository()
+    inference = LocalAssessmentInference(
+        build_request_analysis(),
+        build_media_repository(),
+        build_media_store(),
+        PostgresMediaQueries(),
+    )
+    return AssessmentHandler(
+        PrepareAssessmentUseCase(LocalAssessmentInputs(), repository, inference, now),
+        CompleteAssessmentUseCase(repository, inference, now),
+        repository,
+    )
+
+
+def reconcile_assessments() -> None:
+    from garimpei.config.env import load_assessment_enabled
+
+    if load_assessment_enabled():
+        build_assessment_handler().execute()

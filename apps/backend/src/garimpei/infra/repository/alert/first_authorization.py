@@ -10,6 +10,7 @@ from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.infra.persistence.alert_models import AlertIntent, FirstAlertInventory
 from garimpei.infra.queries.alert.event_source import current_eligibility
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
+from garimpei.infra.repository.alert.assessment_note import assessment_note
 from garimpei.infra.repository.alert.financial import decode_snapshot, encode_snapshot
 from garimpei.infra.repository.alert.first_financial import first_references
 from garimpei.infra.repository.alert.first_inputs import automatic_signature
@@ -88,5 +89,6 @@ def first_body(row: AlertIntent) -> str:
             listing.canonical_url,
             profit_policy=value.policy,
             financial=value,
+            condition_note=assessment_note(decision.assessment_id, decision.assessment_revision),
         )
     )
