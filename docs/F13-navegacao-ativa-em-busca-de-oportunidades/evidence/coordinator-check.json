@@ -1,0 +1,39 @@
+{
+  "feature": "F13",
+  "checked_at": "2026-11-12T15:28:00.324767+00:00",
+  "contract_items": 20,
+  "verdicts": {
+    "PASS": 19,
+    "MANUAL": 1
+  },
+  "missing_or_extra_item_ids": [],
+  "missing_linked_artifacts": [],
+  "full_suite": {
+    "passed": 443,
+    "exit_code": 0
+  },
+  "frozen_inputs": {
+    "count": 440,
+    "changed": [],
+    "added": [],
+    "removed": []
+  },
+  "approved_spec_plan_contract_design_preserved": true,
+  "private_scan": {
+    "source_feature_files": 59,
+    "private_secret_values_checked": 3,
+    "leaks": []
+  },
+  "progress_consolidation": {
+    "status": "implemented",
+    "cycles": 1,
+    "completed_at": null,
+    "only_F13_entry_changed": true
+  },
+  "harness": {
+    "tests_passed": 4,
+    "schema_and_structure_exit_code": 0
+  },
+  "new_feature_code_integrated_or_published": false,
+  "external_facebook_proof": "deferred to principal installation by explicit user preference"
+}

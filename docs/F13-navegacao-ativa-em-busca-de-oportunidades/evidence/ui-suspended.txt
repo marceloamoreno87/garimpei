@@ -1,0 +1,6 @@
+### Result
+{"url":"http://127.0.0.1:10201/acompanhamento/?pagina=2&q=slim","suspended":3,"alias":"\n            PlayStation 5 Slim\n            Descoberta · Revisão 2\n            Termo: PS5 Slim · Original: PlayStation 5 Slim · Catálogo 2026-11-12.1\n            Acesso suspenso. Confirme a conexão com o Facebook.\n            100 páginas percorridas · 1 detalhes confirmados · 0 candidatos na fila de detalhes\n            \n            Último avanço útil: 12/11/2026 14:11:43 UTC\n            \n            \n                Não foi possível confirmar esta leitura da fonte. O progresso anterior continua salvo.\n            \n            \n                Conferir acesso\n            \n        ","resumeButtons":0,"overflow":false}
+### Ran Playwright code
+```js
+await (async page => { await page.waitForSelector("#navigation-progress"); return {url:page.url(),suspended:await page.getByText("Acesso suspenso. Confirme a conexão com o Facebook.",{exact:true}).count(),alias:await page.locator("#navigation-progress article").nth(2).textContent(),resumeButtons:await page.getByRole("button",{name:"Solicitar retomada"}).count(),overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}; })(page);
+```

@@ -1,0 +1,6 @@
+### Result
+{"text":"\n            Exploração em tempo livre\n            A fonte pediu uma pausa. Sugestões aguardam o prazo confirmado.\n            Nova verificação a partir de 12/11/2026 14:20:40 UTC. O trabalho ativo mantém prioridade.\n            Última fatia: 0 página(s) recebida(s) de 1 e 0 detalhe(s) de 1.\n            Até 45 s por fatia, com intervalo mínimo de 300 s.\n            1 de 100 registros preservados; até 10 evidências por sugestão.\n            \n        ","overflow":false}
+### Ran Playwright code
+```js
+await (async page => { return {text:await page.locator("section[aria-labelledby=suggestion-budget-title]").textContent(),overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}; })(page);
+```

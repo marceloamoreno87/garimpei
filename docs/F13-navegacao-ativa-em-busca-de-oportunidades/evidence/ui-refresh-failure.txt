@@ -1,0 +1,12 @@
+### Result
+{"before":4,"after":4,"url":"http://127.0.0.1:23167/acompanhamento/?pagina=2&q=slim","error":"Leitura temporariamente indisponível. Tente novamente."}
+### Ran Playwright code
+```js
+await (async page => { const before=await page.locator("#navigation-progress article").count(); await page.route("**/acompanhamento/navegacao/", route => route.fulfill({status:503,headers:{"HX-Retarget":"#navigation-feedback","HX-Reswap":"innerHTML"},body:"<p role=alert>Leitura temporariamente indisponível. Tente novamente.</p>"})); await page.getByRole("button",{name:"Atualizar percurso"}).click(); await page.waitForTimeout(200); const result={before,after:await page.locator("#navigation-progress article").count(),url:page.url(),error:await page.locator("#navigation-feedback").textContent()}; await page.unroute("**/acompanhamento/navegacao/"); return result; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:23167/acompanhamento/?pagina=2&q=slim
+- Page Title: Acompanhamento · Garimpei
+- Console: 2 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T13-05-23-925Z.log#L2

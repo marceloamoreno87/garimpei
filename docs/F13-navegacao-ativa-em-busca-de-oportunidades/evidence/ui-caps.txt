@@ -1,0 +1,6 @@
+### Result
+{"budget":"\n            Exploração em tempo livre\n            Há tempo livre para explorar relações verificadas, mantendo os interesses ativos como prioridade.\n            \n            Última fatia: 1 página(s) recebida(s) de 1 e 1 detalhe(s) de 1.\n            Até 45 s por fatia, com intervalo mínimo de 300 s.\n            100 de 100 registros preservados; até 10 evidências por sugestão.\n            Limite de registros atingido. Novas sugestões aguardam; evidências existentes são preservadas.\n        ","limited":true,"sourceLinks":10,"overflow":false}
+### Ran Playwright code
+```js
+await (async page => { return {budget:await page.locator("section[aria-labelledby=suggestion-budget-title]").textContent(),limited:await page.getByText("Este nicho atingiu o limite de evidências.",{exact:false}).isVisible(),sourceLinks:await page.locator("main article ul a").count(),overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}; })(page);
+```

@@ -1,0 +1,6 @@
+35 objects imported automatically (use -v 2 for details).
+
+35 objects imported automatically (use -v 2 for details).
+
+.
+1 passed in 71.80s (0:01:11)

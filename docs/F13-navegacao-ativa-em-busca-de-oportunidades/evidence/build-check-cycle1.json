@@ -1,0 +1,10 @@
+{
+  "wheel": "garimpei_backend-0.1.0-py3-none-any.whl",
+  "sha256": "80f8d65b94e7221af0e5a2c53406bae98c4574f67ad3d77e66fb3012a93b9a44",
+  "required_entries": [
+    "garimpei/infra/gateway/navigation/navigation_catalog.json",
+    "garimpei/usecase/navigation/read_research_usecase.py",
+    "garimpei/infra/persistence/migrations/0015_navigation.py"
+  ],
+  "verified": true
+}

@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-12T13:23:15.406979+00:00",
+  "outcome": "interrupted_before_code_changes",
+  "pytest_exit": 2,
+  "changed_files": [],
+  "reason": "WRK-SUGESTOES-02/03 budget and waiting reason not exposed by read projection"
+}

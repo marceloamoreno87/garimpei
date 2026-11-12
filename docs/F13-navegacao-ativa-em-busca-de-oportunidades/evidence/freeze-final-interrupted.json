@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-11-12T14:35:30.653000+00:00",
+  "file_count": 440,
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "command": "uv run --frozen --no-sync pytest",
+  "cwd": "apps/backend",
+  "exit_code": 2,
+  "result": "2 failed, 29 passed in 457.67s; owned SIGINT after observed failure",
+  "log": ".runtime/F13-full-suite-final.log"
+}

@@ -1,0 +1,172 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/e38a/garimpei/apps/backend
+configfile: pyproject.toml
+testpaths: tests
+plugins: django-4.14.0, anyio-4.16.0
+collected 443 items
+
+tests/http/test_condition_recovery.py ..                                 [  0%]
+tests/http/test_financial_presentation.py .                              [  0%]
+tests/http/test_health.py ...                                            [  1%]
+tests/http/test_listing_condition.py ..                                  [  1%]
+tests/http/test_monitoring.py .                                          [  2%]
+tests/http/test_tracking.py .                                            [  2%]
+tests/integration/test_alert_consumers.py ....                           [  3%]
+tests/integration/test_alert_delivery.py ..                              [  3%]
+tests/integration/test_alert_gateway.py ........                         [  5%]
+tests/integration/test_collection.py ...F..F
+
+=================================== FAILURES ===================================
+_________________ test_rollback_and_restart_after_first_batch __________________
+
+scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e38a/garimpei'), private_file=PosixPath('/tmp/pytest-...test_rollback_and_restart_afte0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, 21, tzinfo=datetime.timezone.utc)))
+
+    def test_rollback_and_restart_after_first_batch(scenario: Scenario) -> None:
+        instance, source, clock = scenario
+        source.mode = "many"
+        sql(
+            instance,
+            """
+            CREATE FUNCTION f04_batch_gate() RETURNS trigger LANGUAGE plpgsql AS $$
+            BEGIN
+              IF EXISTS(SELECT 1 FROM runtime_listing WHERE id = NEW.listing_id AND external_id='220') THEN
+                 PERFORM pg_sleep(45);
+              END IF;
+              RETURN NEW;
+            END $$;
+            CREATE TRIGGER f04_batch_gate BEFORE INSERT ON runtime_listingevent
+            FOR EACH ROW EXECUTE FUNCTION f04_batch_gate();
+        """,
+        )
+        configure(instance)
+        wait_for(
+            lambda: (
+                sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
+                and bool(
+                    sql(
+                        instance,
+                        "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND wait_event = 'PgSleep'",
+                    )
+                )
+            ),
+            "first committed batch and second batch held before the event commit",
+        )
+        assert phase(instance)[0][1] is None
+        assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
+        worker = next(
+            record for record in instance.manifest["processes"] if "runworker" in record["command"]
+        )
+        verify_process(worker, instance.root)
+        os.kill(worker["pid"], signal.SIGKILL)
+        # PostgreSQL may finish the sleeping trigger before it notices the disconnected worker.
+        sql(
+            instance,
+            "SELECT pg_cancel_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND wait_event='PgSleep'",
+        )
+        sql(
+            instance,
+            "DROP TRIGGER f04_batch_gate ON runtime_listingevent; DROP FUNCTION f04_batch_gate()",
+        )
+        assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
+        assert sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
+        assert phase(instance)[0][2] is None
+        command(instance, "./scripts/stop.sh")
+        calls_before = len(source.calls)
+        clock.advance(21)
+        command(instance, "./scripts/init.sh", "--disposable")
+        completed(instance, 1)
+        resumed_calls = source.calls[calls_before:]
+>       assert any(path == "/search" for path, _ in resumed_calls)
+E       assert False
+E        +  where False = any(<generator object test_rollback_and_restart_after_first_batch.<locals>.<genexpr> at 0x7930146faa80>)
+
+tests/integration/test_collection.py:387: AssertionError
+__________ test_exact_48_hour_window_out_of_order_and_legacy_evidence __________
+
+scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e38a/garimpei'), private_file=PosixPath('/tmp/pytest-...250/test_exact_48_hour_window_out_0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_exact_48_hour_window_out_of_order_and_legacy_evidence(scenario: Scenario) -> None:
+        instance, source, clock = scenario
+        source.mode = "window"
+        configure(instance)
+        completed(instance, 1)
+        assert sql(instance, "SELECT external_id FROM runtime_listing ORDER BY external_id") == [
+            ("108",),
+            ("110",),
+        ]
+>       shell(
+            instance,
+            """
+    from datetime import UTC, datetime
+    from garimpei.main import build_read_collection_status, build_read_listing
+    from garimpei.infra.persistence.listing_models import Listing, ListingObservation
+    status=build_read_collection_status().execute()
+    assert status.window_start == datetime(2025,12,30,12,tzinfo=UTC)
+    assert status.window_end == datetime(2026,1,1,12,tzinfo=UTC)
+    assert len(status.window_proofs) == 3
+    identity=Listing.objects.get(external_id="108").id
+    view=build_read_listing().execute(identity)
+    assert view.current_coverage.shipping_candidate
+    assert view.current_coverage.shipping_label == "entrega no CEP a confirmar"
+    # Legacy observations predate the new optional fields and remain readable.
+    row=ListingObservation.objects.get(id=view.observation.id)
+    row.evidence.pop("shipping_offered",None)
+    row.evidence.pop("shipping_evidence",None)
+    row.evidence.pop("pickup_scope_verified",None)
+    row.evidence.pop("source_available",None)
+    row.evidence.pop("availability_evidence",None)
+    row.coverage={key:value for key,value in row.coverage.items() if key in {
+     "pickup","shipping","distance_km","pickup_reason","shipping_reason",
+    }}
+    row.save(update_fields=["evidence","coverage"])
+    assert build_read_listing().execute(identity).observation.evidence.shipping_offered is None
+    assert build_read_listing().execute(identity).observation.evidence.source_available is None
+    """,
+        )
+
+tests/integration/test_collection.py:459: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e38a/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-250/test_exact_48_hour_window_out_0/f04_483f82dba0.env'))
+code = '\nfrom datetime import UTC, datetime\nfrom garimpei.main import build_read_collection_status, build_read_listing\nfro...hipping_offered is None\nassert build_read_listing().execute(identity).observation.evidence.source_available is None\n'
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 35 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T14:35:00.354994+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_483f82dba0", "run_id": "43271054-cc6c-4254-b01a-355a978b0f25"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 8, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 8, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch
+FAILED tests/integration/test_collection.py::test_exact_48_hour_window_out_of_order_and_legacy_evidence
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/selectors.py:398: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+=================== 2 failed, 29 passed in 457.67s (0:07:37) ===================
