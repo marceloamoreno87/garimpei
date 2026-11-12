@@ -233,3 +233,49 @@ def test_source_boundary_requires_native_order_and_observed_monotonicity() -> No
     source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
     page = source.search(scope, scope.searches[0], None)
     assert page.continuation is None and page.window_proof == "source_end_of_results"
+
+
+def test_media_carousel_fragment_binds_only_to_verified_listing_identity() -> None:
+    row: JsonObject = {
+        "id": "101",
+        "marketplace_listing_title": "PlayStation 5",
+        "listing_price": {"amount": "2300.00", "currency": "BRL"},
+    }
+    browser = RecordedNavigation((), [])
+    browser.detail_rows = (
+        row,
+        {
+            "id": "101",
+            "listing_photos": [
+                {
+                    "id": "photo-a",
+                    "image": {"uri": "https://a.fbcdn.net/a", "width": 720, "height": 960},
+                }
+            ],
+        },
+        {
+            "id": "other-listing",
+            "listing_photos": [
+                {
+                    "id": "photo-b",
+                    "image": {"uri": "https://a.fbcdn.net/b", "width": 1200, "height": 1200},
+                }
+            ],
+        },
+    )
+    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    scope = Scope.from_snapshot(
+        MonitoringSnapshot(
+            configured=True,
+            configuration_id=uuid4(),
+            revision=1,
+            cep="01001000",
+            product_names=("PlayStation 5",),
+        )
+    )
+    assert scope is not None
+    candidate = source.detail(scope, "101")
+    assert candidate.evidence.media is not None
+    assert candidate.evidence.media.complete
+    assert [photo.key for photo in candidate.evidence.media.photos] == ["photo-a"]
+    assert candidate.evidence.media.photos[0].variants[0].width == 720

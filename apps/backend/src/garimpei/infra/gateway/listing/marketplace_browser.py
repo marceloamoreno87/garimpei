@@ -254,6 +254,7 @@ class MarketplaceBrowser:
     def _read_page(self, url: str) -> tuple[tuple[JsonObject, ...], Feed | None]:
         if self._access_failure is not None:
             raise self._access_failure
+        started = time.monotonic()
         parsed = urlsplit(url)
         target = re.fullmatch(r"/marketplace/item/([0-9]+)/?", parsed.path)
         if target and self._detail_payload and self._detail_origin == parsed.netloc:
@@ -261,7 +262,9 @@ class MarketplaceBrowser:
             variables["targetId"] = target.group(1)
             payload = self._detail_payload | {"variables": variables}
             rows = self._query_rows(payload)
-            if any(row.get("id") == target.group(1) and "listing_price" in row for row in rows):
+            if _has_listing_gallery(rows, target.group(1)) and any(
+                row.get("id") == target.group(1) and "listing_price" in row for row in rows
+            ):
                 return rows, None
         page = self._open()
         try:
@@ -270,7 +273,10 @@ class MarketplaceBrowser:
             self._cursor = None
             self._query_payload = None
             page.wait_for_timeout(self._cadence)
-            response = page.goto(url, wait_until="domcontentloaded", timeout=self._timeout)
+            remaining = self._timeout - int((time.monotonic() - started) * 1000)
+            if remaining <= 0:
+                raise SourceFailure("source_request_timeout")
+            response = page.goto(url, wait_until="domcontentloaded", timeout=remaining)
             if response is not None and response.status in (401, 403, 429):
                 raise SourceFailure(
                     f"source_http_{response.status}",
@@ -515,3 +521,14 @@ class MarketplaceBrowser:
             if self._lock_fd is not None:
                 os.close(self._lock_fd)
                 self._lock_fd = None
+
+
+def _has_listing_gallery(rows: tuple[JsonObject, ...], identity: str) -> bool:
+    return any(
+        row.get("id") == identity
+        and (
+            isinstance(row.get("listing_photos"), (list, dict))
+            or isinstance(row.get("primary_listing_photo"), dict)
+        )
+        for row in rows
+    )
