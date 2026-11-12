@@ -1,0 +1,26 @@
+Navegação — orçamento público usa configurações efetivas
+
+Base: 71a74a2f2a8f3db426ecc051182ddab6edae87b3
+Branch: fix/navigation-effective-budget
+Worktree nativa: /home/marce/.codex/worktrees/6efe/garimpei
+Data UTC: 2026-11-12T16:55:07.256086+00:00
+
+Defeito confirmado por PostgreSQL real isolado: com modo profile salvo, nenhum override de timeout e próxima coleta a 15 s, a API pública informava idle_available enquanto a reserva do worker era recusada. A composição da query carregava settings genéricas (timeout 5 s); o worker carregava settings efetivas (timeout 20 s). Cadência e margem são compartilhadas pela política pura.
+
+Correção: somente build_navigation_queries troca load_listing_settings() por _effective_listing_settings(). Nenhuma política, configuração salva, cookie, perfil, migration, contrato ou progresso foi alterado.
+
+Regressão: nova instância eval própria, segredos novos privados, fonte fake loopback, relógio fixture único e worker pausado. Configura um interesse e um ciclo encerrado, salva facebook_mode=profile sem credenciais e consulta suggestions(1).budget. Verifica API e reserva pública da store: cookies sem perfil a 15 s continuam idle_available; perfil a 15 s indica active_due_soon e não reserva; perfil a 60 s volta a idle_available e reserva. Confirma próxima tentativa exata, leitura sem alteração de configuração/sugestões/observações, zero chamadas à fonte e ausência do diretório do browser. Nenhum Facebook/WhatsApp real foi acessado.
+
+RED: 1 failed em 7,05 s, exit 1, com relógio alinhado. API profile_due15=idle_available; worker_reserved_due15=false. O preparo preliminar que misturava relógios foi corrigido ANTES desse RED e não é apresentado como evidência do defeito.
+GREEN: 2 passed em 14,04 s, exit 0. Inclui o novo caso e test_suggestion_budget_wait_and_caps_are_public_read_only.
+Comando (cwd apps/backend): uv run --frozen --no-sync pytest -q -s tests/integration/test_navigation_profile_budget.py tests/integration/test_navigation.py::test_suggestion_budget_wait_and_caps_are_public_read_only
+
+Seis gates Python: node scripts/run-gates.mjs — exit 0.
+Django: DJANGO_SETTINGS_MODULE=garimpei.config.test_settings uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py check --settings=garimpei.config.test_settings — exit 0.
+git diff --check — exit 0.
+
+SHA256 main.py antes: 1ae74e1121afdc9c86db7ff6a780f006a815e3729ce169ee27c190e58b9ab17d
+SHA256 main.py depois: 0e0e4b5915b360f7e14401a5e1ea6ce6e918a4820f91a0c7814e4c0f6d8d3a39
+SHA256 regressão: 257a7ca5fb123c3fd016a8754ce4c30baae225cc9db13c05117fef5960023b11
+
+Cleanup: fixtures próprias encerradas com stop.sh --clean, sem manifesto ativo remanescente nesta worktree. Nenhuma alteração, leitura de perfil privado ou comando de ciclo de vida foi feito na principal. Não foi executada suíte ampla; o full 500 da principal ficou intocado. Integração/push/merge ficam a cargo do coordenador após o full baseline.

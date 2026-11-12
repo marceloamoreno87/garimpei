@@ -1,0 +1,5 @@
+38 objects imported automatically (use -v 2 for details).
+
+{"cookie_due15": "idle_available", "profile_due15": "active_due_soon", "worker_reserved_due15": false, "profile_due60": "idle_available", "worker_reserved_due60": true}
+..
+2 passed in 14.04s
