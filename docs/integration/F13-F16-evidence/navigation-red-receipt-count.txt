@@ -1,0 +1,186 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-276/test_alias_events_hostile_cont0')
+
+    def test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry(
+        tmp_path: Path,
+    ) -> None:
+        canary = FileAccessCanary(tmp_path / "synthetic-secret.txt")
+        try:
+            with navigation_alert_scenario(tmp_path) as ((instance, _source, clock, channel), source):
+                # Exact two interests: electronics plus Slim, whose canonical/literal alias share budget.
+                shell(
+                    instance,
+                    """
+    from garimpei.main import build_read_monitoring_configuration,build_monitoring_handler
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    from tests.factories.listing import CATEGORY
+    config=build_read_monitoring_configuration().execute()
+    build_monitoring_handler()._update.execute(StepInput('editar',config.revision,cep=config.cep,shipping_estimate=str(config.shipping_estimate),resale_fee_percent=str(config.resale_fee_percent),category_ids=(CATEGORY,),product_names=('PlayStation 5 Slim',)))
+    """,
+                )
+                completed(instance, 2)
+                clock.advance(1)
+                source.pro_rows["9130"] = listing(
+                    "9130", "3200,00", title="PS5 Pro", published_at=clock.value.isoformat()
+                )
+                shell(
+                    instance,
+                    """
+    from garimpei.main import build_navigation_catalog,build_read_monitoring_configuration,_effective_listing_settings,_listing_clock
+    from garimpei.config.env import load_navigation_policy
+    from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+    from garimpei.infra.repository.navigation.suggestion_repository import PostgresSuggestionRepository
+    from garimpei.usecase.navigation.run_suggestions_usecase import RunSuggestionsUseCase
+    from garimpei.infra.persistence.navigation_models import NicheSuggestion,SuggestionEvidence
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    settings=_effective_listing_settings();policy=load_navigation_policy();clock=_listing_clock(settings)
+    store=PostgresSuggestionRepository(build_read_monitoring_configuration(),build_navigation_catalog(),policy,clock,settings.timeout,settings.cadence_ms/1000)
+    RunSuggestionsUseCase(store,FixtureSource(settings.fixture_url,settings.timeout),policy,lambda:0.0,settings.timeout,settings.cadence_ms/1000).execute()
+    assert SuggestionEvidence.objects.get(external_id='9130')
+    assert not Listing.objects.filter(external_id='9130').exists()
+    assert 'PS5 Pro' not in build_read_monitoring_configuration().execute().product_names
+    """,
+                )
+                assert not channel.messages and not [
+                    call for call in channel.calls if call[0] == "POST"
+                ]
+                # Ignoring the suggestion does not monitor it. A later independent category result may.
+                source.include_pro_in_active = True
+                clock.advance(61)
+                completed(instance, 3)
+                shell(
+                    instance,
+                    """
+    from garimpei.main import build_read_monitoring_configuration
+    from garimpei.infra.persistence.listing_models import Listing,ListingInterestMatch
+    row=Listing.objects.get(external_id='9130')
+    assert ListingInterestMatch.objects.filter(observation=row.latest,kind='category').exists()
+    assert not ListingInterestMatch.objects.filter(observation=row.latest,kind='product').exists()
+    assert 'PS5 Pro' not in build_read_monitoring_configuration().execute().product_names
+    """,
+                )
+                assert not [call for call in channel.calls if call[0] == "POST"]
+                # Explicit form confirmation adopts the proposal; next collection uses that revision.
+                shell(
+                    instance,
+                    """
+    from django.test import Client
+    from garimpei.main import build_read_monitoring_configuration
+    from garimpei.infra.persistence.navigation_models import NicheSuggestion
+    row=NicheSuggestion.objects.get(term='PS5 Pro')
+    config=build_read_monitoring_configuration().execute()
+    client=Client(enforce_csrf_checks=True,HTTP_HOST='127.0.0.1')
+    assert client.get('/configuracoes/?sugestao='+str(row.id)).status_code==200
+    assert 'PS5 Pro' not in build_read_monitoring_configuration().execute().product_names
+    body={'revision':config.revision,'cep':config.cep,'shipping_estimate':str(config.shipping_estimate),'resale_fee_percent':str(config.resale_fee_percent),'category_ids[]':list(config.category_ids),'product_names[]':[*config.product_names,'PS5 Pro'],'csrfmiddlewaretoken':client.cookies['csrftoken'].value}
+    assert client.post('/configuracoes/',body).status_code==303
+    assert 'PS5 Pro' in build_read_monitoring_configuration().execute().product_names
+    """,
+                )
+                completed(instance, 4)
+                shell(
+                    instance,
+                    """
+    from garimpei.main import build_read_monitoring_configuration
+    from garimpei.infra.persistence.listing_models import Listing,ListingInterestMatch,ListingEvent
+    config=build_read_monitoring_configuration().execute();row=Listing.objects.get(external_id='9130')
+    assert row.latest.cycle.revision==config.revision
+    assert ListingInterestMatch.objects.filter(observation=row.latest,kind='product',key='ps5 pro').exists()
+    assert ListingEvent.objects.filter(listing=row,kind='discovered').count()==1
+    """,
+                )
+                assert not [call for call in channel.calls if call[0] == "POST"]
+                # Create actual confirmed and uncertain prior deliveries through the fake channel.
+                # Keep this known manual-choice target historical: F16 may alert recent stock
+                # when later automatic samples arrive, independently of the choice itself.
+                source.rows["614"]["published_at"] = (clock.value - timedelta(days=3)).isoformat()
+                clock.advance(1)
+                source.rows["9141"] = listing(
+                    "9141",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+                completed(instance, 5)
+                wait_alerts(instance, 1, clock)
+                alert_shell(
+                    instance,
+                    """
+    from datetime import datetime,timedelta
+    assert datetime.fromisoformat(target('614').latest.evidence['published_at']) < clock()-timedelta(hours=48)
+    view=build_read_condition().execute(target('614').id)
+    build_classify_condition().execute(view.id,'good',view.state.revision)
+    """,
+                )
+                channel.mode = "lost_empty"
+                clock.advance(1)
+                source.rows["9142"] = listing(
+                    "9142",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+                completed(instance, 6)
+                clock.advance(6)
+                wait_for(
+                    lambda: (
+                        sql(
+                            instance,
+                            "SELECT count(*) FROM runtime_alertintent i "
+                            "LEFT JOIN runtime_alerteventdecision d ON i.decision_id=d.id "
+                            "LEFT JOIN runtime_listingevent e ON e.id=d.event_id "
+                            "LEFT JOIN runtime_firsteligibilitydecision f ON i.first_decision_id=f.id "
+                            "LEFT JOIN runtime_firstalertidentity a ON f.identity_id=a.id "
+                            "JOIN runtime_listing l ON l.id=COALESCE(a.listing_id,e.listing_id) "
+                            "WHERE l.external_id='9142' AND i.state IN ('uncertain','review')",
+                        )
+                        == [(1,)]
+                    ),
+                    "actual uncertain prior delivery",
+                    seconds=35,
+                )
+                before_result = instance.shell(HISTORY)
+>               assert before_result.returncode == 0, before_result.stdout + before_result.stderr
+E               AssertionError: 38 objects imported automatically (use -v 2 for details).
+E
+E                 {"timestamp": "2026-11-12T16:30:25.838591+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_123a1b0b94", "run_id": "40cf1d8a-1898-47aa-a8ad-f9fe4b1adc78"}
+E                 Traceback (most recent call last):
+E                   File "/home/marce/dev/garimpei/apps/backend/manage.py", line 8, in <module>
+E                     execute_from_command_line()
+E                     ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E                   File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                     utility.execute()
+E                     ~~~~~~~~~~~~~~~^^
+E                   File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                     self.fetch_command(subcommand).run_from_argv(self.argv)
+E                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E                   File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                     self.execute(*args, **cmd_options)
+E                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E                   File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                     output = self.handle(*args, **options)
+E                   File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                     exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   File "<string>", line 15, in <module>
+E                 AssertionError
+E
+E               assert 1 == 0
+E                +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 15, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_navigation_events.py:178: AssertionError
+----------------------------- Captured stdout call -----------------------------
+38 objects imported automatically (use -v 2 for details).
+
+=========================== short test summary info ============================
+FAILED tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry
+1 failed in 46.29s

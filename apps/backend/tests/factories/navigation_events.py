@@ -10,10 +10,13 @@ from pathlib import Path
 from typing import cast
 
 from tests.factories.alert import WahaServer, serve_waha
-from tests.factories.alert_scenario import AlertScenario
+from tests.factories.alert_scenario import (
+    AlertScenario,
+    HistoricalAlertSource,
+    seed_historical_comparators,
+)
 from tests.factories.listing import serve
 from tests.factories.valuation import (
-    ValuationSource,
     prepare_valuation_instance,
     wait_valuation,
 )
@@ -21,7 +24,7 @@ from tests.integration.test_collection import command, completed, configure
 
 
 @dataclass
-class NavigationValuationSource(ValuationSource):
+class NavigationValuationSource(HistoricalAlertSource):
     pro_rows: dict[str, dict[str, object]] = field(default_factory=dict)
     include_pro_in_active: bool = False
 
@@ -62,6 +65,7 @@ def navigation_alert_scenario(
             )
         command(instance, "./scripts/init.sh", "--disposable")
         try:
+            seed_historical_comparators(instance, source)
             configure(instance)
             completed(instance, 1)
             wait_valuation(instance, price="2300.00")

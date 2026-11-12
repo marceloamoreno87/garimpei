@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-11-12T16:39:57.356278+00:00",
+  "branch": "master",
+  "head": "2911e6f13c65beccd76decc20732be9eab0ee5c7",
+  "guarded_files": 485,
+  "changed_files": [
+    {
+      "path": "apps/backend/tests/factories/alert_scenario.py",
+      "before_sha256": "31972ca17a59b9e8630fe372a4b9822d8cc9a09e52d5e537d6205095142b7e26",
+      "after_sha256": "6a3fe192f08896025fcc02961c9dc7b4a0263a3b546b80d532a213a13c65720e"
+    },
+    {
+      "path": "apps/backend/tests/factories/navigation_events.py",
+      "before_sha256": "0d96c189d5f760d382fecae43efa0f182dd3230fd0c97bed6bf67a4d8c057220",
+      "after_sha256": "7b61c92ed686a74ab74a428f86703bab33788aa76f9179581f1a373da454cafa"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_navigation_events.py",
+      "before_sha256": "be2e51b51f40e3302bb71c965eea0ec4761a221158b55e71599eab2b21b8a6dc",
+      "after_sha256": "247b390310a61e5b4a87084c2da5067865a8a35aebc6ebd08897b501c4a3adbe"
+    }
+  ],
+  "production_spec_contract_progress_unchanged": true,
+  "command": "uv run --frozen --no-sync pytest -q tests/integration/test_navigation_events.py",
+  "cwd": "apps/backend",
+  "exit_code": 0,
+  "result": "1 passed in 68.57s",
+  "ruff_check_exit": 0,
+  "ruff_format_check_exit": 0,
+  "git_diff_check_exit": 0,
+  "commit_created": false
+}

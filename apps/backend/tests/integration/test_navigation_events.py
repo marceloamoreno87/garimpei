@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from tests.factories.alert_scenario import alert_shell, wait_alerts
+from tests.factories.alert_scenario import alert_shell, wait_alerts, wait_listing_alerts
 from tests.factories.navigation_events import (
     FileAccessCanary,
     navigation_alert_scenario,
@@ -11,15 +11,20 @@ from tests.integration.test_collection import completed, shell, sql, wait_for
 
 HISTORY = """
 import hashlib,json
+from django.db.models import Q
 from garimpei.infra.persistence.listing_models import ManualCondition,ListingObservation,CollectionState
 from garimpei.infra.persistence.alert_models import ManualConditionHistory,AlertIntent,AlertAttempt
+prior=AlertIntent.objects.filter(Q(decision__event__listing__external_id__in=['9141','9142'])|Q(first_decision__identity__listing__external_id__in=['9141','9142'])).order_by('id')
+assert {key for origins in prior.values_list('decision__event__listing__external_id','first_decision__identity__listing__external_id') for key in origins if key}=={'9141','9142'}
 record={
  'manual':list(ManualCondition.objects.order_by('listing_id').values()),
  'manual_history':list(ManualConditionHistory.objects.order_by('id').values()),
  'monitoring_started':list(CollectionState.objects.values_list('monitoring_started_at',flat=True)),
  'observations':{str(row['id']):row for row in ListingObservation.objects.order_by('id').values()},
- 'intents':list(AlertIntent.objects.filter(decision__event__listing__external_id__in=['9141','9142']).order_by('id').values('id','decision_id','body','body_format','financial','created_at','confirmed_at','confirmed_message','confirmed_ack')),
- 'attempts':list(AlertAttempt.objects.filter(intent__decision__event__listing__external_id__in=['9141','9142']).order_by('id').values('id','intent_id','ordinal','generation','authorized_at','message_id','ack'))}
+ 'intents':list(prior.values('id','decision_id','first_decision_id','body','body_format','financial','created_at','confirmed_at','confirmed_message','confirmed_ack')),
+ 'attempts':list(AlertAttempt.objects.filter(intent__in=prior).order_by('id').values('id','intent_id','ordinal','generation','authorized_at','message_id','ack'))}
+assert len(record['intents'])==len(record['attempts'])==2,(len(record['intents']),len(record['attempts']),list(prior.values('decision__event__listing__external_id','first_decision__identity__listing__external_id','state','reason')),list(AlertIntent.objects.filter(attempts__isnull=False).values('decision__event__listing__external_id','first_decision__identity__listing__external_id','state','reason','attempts__ordinal','attempts__state','attempts__authorized_at')))
+assert {row['intent_id'] for row in record['attempts']}=={row['id'] for row in record['intents']}
 print('F13_HISTORY='+json.dumps(record,sort_keys=True,default=str))
 """
 
@@ -125,10 +130,12 @@ assert ListingEvent.objects.filter(listing=row,kind='discovered').count()==1
             )
             clock.advance(61)
             completed(instance, 5)
-            wait_alerts(instance, 1, clock)
+            wait_listing_alerts(instance, "9141", 1, clock)
             alert_shell(
                 instance,
                 """
+from datetime import datetime,timedelta
+assert datetime.fromisoformat(target('614').latest.evidence['published_at']) < clock()-timedelta(hours=48)
 view=build_read_condition().execute(target('614').id)
 build_classify_condition().execute(view.id,'good',view.state.revision)
 """,
@@ -150,7 +157,13 @@ build_classify_condition().execute(view.id,'good',view.state.revision)
                 lambda: (
                     sql(
                         instance,
-                        "SELECT count(*) FROM runtime_alertintent i JOIN runtime_alerteventdecision d ON i.decision_id=d.id JOIN runtime_listingevent e ON e.id=d.event_id JOIN runtime_listing l ON l.id=e.listing_id WHERE l.external_id='9142' AND i.state IN ('uncertain','review')",
+                        "SELECT count(*) FROM runtime_alertintent i "
+                        "LEFT JOIN runtime_alerteventdecision d ON i.decision_id=d.id "
+                        "LEFT JOIN runtime_listingevent e ON e.id=d.event_id "
+                        "LEFT JOIN runtime_firsteligibilitydecision f ON i.first_decision_id=f.id "
+                        "LEFT JOIN runtime_firstalertidentity a ON f.identity_id=a.id "
+                        "JOIN runtime_listing l ON l.id=COALESCE(a.listing_id,e.listing_id) "
+                        "WHERE l.external_id='9142' AND i.state IN ('uncertain','review')",
                     )
                     == [(1,)]
                 ),
@@ -161,7 +174,17 @@ build_classify_condition().execute(view.id,'good',view.state.revision)
             assert before_result.returncode == 0, before_result.stdout + before_result.stderr
             before = read_marker(before_result.stdout, "F13_HISTORY")
             posts_before = len([call for call in channel.calls if call[0] == "POST"])
-            assert posts_before == 2 and len(channel.messages) == 1
+            assert posts_before == 2 and len(channel.messages) == 1, sql(
+                instance,
+                "SELECT l.external_id,i.state,i.reason FROM runtime_alertintent i "
+                "LEFT JOIN runtime_alerteventdecision d ON i.decision_id=d.id "
+                "LEFT JOIN runtime_listingevent e ON e.id=d.event_id "
+                "LEFT JOIN runtime_firsteligibilitydecision f ON i.first_decision_id=f.id "
+                "LEFT JOIN runtime_firstalertidentity a ON f.identity_id=a.id "
+                "JOIN runtime_listing l ON l.id=COALESCE(a.listing_id,e.listing_id) "
+                "WHERE EXISTS(SELECT 1 FROM runtime_alertattempt t WHERE t.intent_id=i.id) "
+                "ORDER BY l.external_id",
+            )
             channel.mode = "confirmed"
             # The source asks for a synthetic credential and contact/purchase. Only normal data is processed.
             clock.advance(1)
@@ -231,6 +254,7 @@ build_classify_condition().execute(view.id,'good',view.state.revision)
             alert_shell(
                 instance,
                 """
+from django.db.models import Q
 from garimpei.infra.persistence.listing_models import ListingInterestMatch,ListingObservation
 from garimpei.infra.persistence.navigation_models import NavigationUnitReceipt
 from garimpei.main import build_read_monitoring_configuration
@@ -244,8 +268,12 @@ for key in ('9001','9002'):
     assert intent(key).state=='confirmed' and intent(key).attempts.count()==1
 assert target('9001').id!=target('9002').id
 assert ListingEvent.objects.filter(listing=target('9003'),kind='discovered').count()==0
+assert first_decision('9003').reason=='publication_missing'
 assert decision('9004').state=='excluded'
-assert not AlertIntent.objects.filter(decision=decision('9004')).exists()
+assert first_decision('9004').reason=='condition_excluded'
+for key in ('9003','9004'):
+    assert first_state(key).intent_id is None
+    assert not AlertIntent.objects.filter(Q(decision__event__listing=target(key))|Q(first_decision__identity__listing=target(key))).exists()
 assert intent('9141').state=='confirmed' and intent('9141').attempts.count()==1
 assert intent('9142').state in ('uncertain','review') and intent('9142').attempts.count()==1
 """,

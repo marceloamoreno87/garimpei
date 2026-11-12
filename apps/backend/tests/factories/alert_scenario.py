@@ -48,13 +48,27 @@ class HistoricalAlertSource(ValuationSource):
         return status, body
 
 
+def seed_historical_comparators(instance: FoundationInstance, source: ValuationSource) -> None:
+    from tests.integration.test_collection import shell
+
+    # Known expired stock remains available to valuation without unrelated first alerts.
+    published = (datetime.fromisoformat(FIXED) - timedelta(days=3)).isoformat()
+    shell(
+        instance,
+        "from datetime import datetime; from garimpei.infra.persistence.listing_models import Listing; "
+        + repr(list(source.rows))
+        + "; "
+        + "\n".join(
+            f"Listing.objects.create(source='facebook_marketplace',external_id={identity!r},canonical_url='https://www.facebook.com/marketplace/item/{identity}/',first_seen_at=datetime.fromisoformat({published!r}),origin='initial')"
+            for identity in source.rows
+        ),
+    )
+
+
 @contextmanager
 def alert_scenario(private: Path, *, enabled: bool = True) -> Iterator[AlertScenario]:
     source, channel = HistoricalAlertSource(), WahaServer()
     source.rows["699"]["description"] = "Com defeito. Não funciona."
-    # Existing comparables are historical stock; publication expiry, rather than silent-load
-    # policy, prevents unrelated first alerts under F16 when new samples arrive.
-    published = (datetime.fromisoformat(FIXED) - timedelta(days=3)).isoformat()
     with serve(source) as url, serve_waha(channel) as waha:
         instance, clock = prepare_valuation_instance(
             Path(__file__).resolve().parents[4], private, url
@@ -67,18 +81,7 @@ def alert_scenario(private: Path, *, enabled: bool = True) -> Iterator[AlertScen
             )
         command(instance, "./scripts/init.sh", "--disposable")
         try:
-            from tests.integration.test_collection import shell
-
-            shell(
-                instance,
-                "from datetime import datetime; from garimpei.infra.persistence.listing_models import Listing; "
-                + repr(list(source.rows))
-                + "; "
-                + "\n".join(
-                    f"Listing.objects.create(source='facebook_marketplace',external_id={identity!r},canonical_url='https://www.facebook.com/marketplace/item/{identity}/',first_seen_at=datetime.fromisoformat({published!r}),origin='initial')"
-                    for identity in source.rows
-                ),
-            )
+            seed_historical_comparators(instance, source)
             configure(instance)
             completed(instance, 1)
             wait_valuation(instance, price="2300.00")

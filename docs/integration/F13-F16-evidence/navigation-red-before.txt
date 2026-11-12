@@ -1,0 +1,14 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry _
+tests/integration/test_navigation_events.py:149: in test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry
+    wait_for(
+tests/integration/test_collection.py:54: in wait_for
+    pytest.fail(f"Timed out waiting for {description}")
+E   Failed: Timed out waiting for actual uncertain prior delivery
+----------------------------- Captured stdout call -----------------------------
+38 objects imported automatically (use -v 2 for details).
+
+=========================== short test summary info ============================
+FAILED tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry
+1 failed in 72.36s (0:01:12)
