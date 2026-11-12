@@ -1,0 +1,5 @@
+# Diagnóstico da retomada com relógio sintético
+
+Falha reproduzida na suíte completa e em execução isolada, com observação de PostgreSQL antes da limpeza. O ciclo anterior ainda estava varrendo durante a publicação de expiração F06. O teste alterou a fonte de falha para sucesso e avançou o relógio para 2026-11-24 18:03:04. A varredura terminou parcialmente nesse novo instante e registrou next_attempt_at=18:03:09, failures=1, lease_until=NULL. Não havia job de coleta pendente; o relógio permaneceu congelado cinco segundos antes da próxima tentativa. Parte dos detalhes do mesmo ciclo registrou 503 e os últimos detalhes já tiveram sucesso, confirmando a transição no meio do scan.
+
+Correção limitada ao teste de integração F07: aguardar que o ciclo parcial/indisponível confirme finished_at antes de recuperar a fonte e avançar 61 segundos. Asserções sobre expiração, compra, frete, avaliação, observação renovada e perda de configuração foram preservadas. Não houve alteração da política de retentativas do produto nem aumento de timeout. A reprodução passou em 25,32 s após o ajuste. A suíte completa final valida a integração junto da F08.

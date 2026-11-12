@@ -1,0 +1,22 @@
+21 objects imported automatically (use -v 2 for details).
+
+publication 0 ms 56.65 queries 17 version fd86e581-1462-42cf-abf7-98a4019a2d80
+publication 1 ms 37.25 queries 17 version fd86e581-1462-42cf-abf7-98a4019a2d80
+publication 2 ms 36.23 queries 17 version fd86e581-1462-42cf-abf7-98a4019a2d80
+page ms 8.89 queries 9 total 38
+Limit  (cost=13.42..13.47 rows=20 width=28) (actual time=0.024..0.026 rows=20 loops=1)
+  InitPlan 2
+    ->  Result  (cost=0.29..0.30 rows=1 width=8) (actual time=0.004..0.005 rows=1 loops=1)
+          InitPlan 1
+            ->  Limit  (cost=0.15..0.29 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+                  ->  Index Only Scan Backward using runtime_explorationrevision_pkey on runtime_explorationrevision  (cost=0.15..53.85 rows=380 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+                        Heap Fetches: 1
+  ->  Sort  (cost=13.12..13.20 rows=31 width=28) (actual time=0.024..0.024 rows=20 loops=1)
+        Sort Key: runtime_explorationoffer.profit DESC NULLS LAST, runtime_explorationoffer.first_seen_at DESC, runtime_explorationoffer.listing_id
+        Sort Method: quicksort  Memory: 27kB
+        ->  Index Scan using runtime_explorationoffer_revision_id_537210f8 on runtime_explorationoffer  (cost=0.14..12.35 rows=31 width=28) (actual time=0.009..0.016 rows=38 loops=1)
+              Index Cond: (revision_id = (InitPlan 2).col1)
+              Filter: (visible AND pickup AND (categories @> '["cameras"]'::jsonb))
+              Rows Removed by Filter: 21
+Planning Time: 0.067 ms
+Execution Time: 0.038 ms

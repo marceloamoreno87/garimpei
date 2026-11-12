@@ -1,0 +1,112 @@
+{
+  "run": "2026-11-10T19-15-04Z",
+  "at": "2026-11-10T19:15:04.692071Z",
+  "scope": "F01; todos os 14 itens DOC, sem filtro",
+  "gates": [
+    {
+      "command": "node scripts/check-harness.mjs",
+      "exit_code": 0,
+      "stdout": "[harness] 14 skills e referências de entrada válidas.\n[harness] Sintaxe de 28 scripts validada.\n[harness] Progresso válido: 9 features.\n[harness] Estrutura validada. Gates da aplicação dependem do scaffold.\n",
+      "stderr": ""
+    },
+    {
+      "command": "node --test scripts/test/harness.test.mjs",
+      "exit_code": 0,
+      "stdout": "✔ init before scaffolding succeeds without generating app state (22.938936ms)\n✔ environment resolves an unborn branch with the Garimpei database namespace (14.427419ms)\n✔ backend gates fail before scaffolding without invoking or downloading tools (20.278821ms)\n✔ setup reuses the same marketplace without replacing its existing revision (25.841862ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 117.452982\n",
+      "stderr": ""
+    }
+  ],
+  "preservation": {
+    "baseline_file_count": 492,
+    "changed_preexisting": [
+      "docs/prd_progress.json"
+    ],
+    "missing_preexisting": [],
+    "other_features_unchanged": true,
+    "progress_metadata_unchanged": true,
+    "canonical_sha256": {
+      "AGENTS.md": "2e053fdc9f50579ee6f2f74d31fbcde175f4d0c3143a89d90f52fe0aae81d130",
+      "README.md": "108d2bf03b200a1588d1207f2e925b889ce85dcee32ef44e354583ff6b034dce",
+      ".gitignore": "88c8c8b39e5705c8aa9d241615d5575958d0521843bb5d778badb9ca1a1da31e",
+      "docs/F01-discovery-e-viabilidade-de-integracoes/spec.md": "2218a8c94d2a0189839ca8f0ae5b92a5e9a947ba1bb2180e44cd53481b0059c5",
+      "docs/F01-discovery-e-viabilidade-de-integracoes/plan.md": "e965771132a8fddd37f1b5399ca686542238747f8735a230a8c871069c721681",
+      "docs/F01-discovery-e-viabilidade-de-integracoes/contract.md": "09be9fd0d31a07d8adf6a88dbbbf97f3441e0eebd850b6c9564eb72789821e4c"
+    }
+  },
+  "local_links": {
+    "checked": 27,
+    "errors": []
+  },
+  "inventory": {
+    "at": "2026-11-10T19:09:15.033689+00:00",
+    "results": [
+      {
+        "command": "git --version",
+        "exit_code": 0,
+        "observed": "git version 2.53.0"
+      },
+      {
+        "command": "bash --version",
+        "exit_code": 0,
+        "observed": "GNU bash, version 5.3.9(1)-release (x86_64-pc-linux-gnu)"
+      },
+      {
+        "command": "node --version",
+        "exit_code": 0,
+        "observed": "v26.3.1"
+      },
+      {
+        "command": "uname -srm",
+        "exit_code": 0,
+        "observed": "Linux 6.18.33.2-microsoft-standard-WSL2 x86_64"
+      },
+      {
+        "command": "lscpu",
+        "exit_code": 0,
+        "observed": "Architecture:                            x86_64\nCPU(s):                                  32\nModel name:                              AMD Ryzen 9 9950X 16-Core Processor\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full"
+      },
+      {
+        "command": "free -h",
+        "exit_code": 0,
+        "observed": "total        used        free      shared  buff/cache   available\nMem:            31Gi       3.7Gi        17Gi       149Mi        10Gi        27Gi\nSwap:          8.0Gi          0B       8.0Gi"
+      },
+      {
+        "command": "df -h .",
+        "exit_code": 0,
+        "observed": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sdd       1007G  167G  789G  18% /"
+      },
+      {
+        "command": "docker version --format {{.Client.Version}}|{{if .Server}}{{.Server.Version}}{{end}}",
+        "exit_code": 0,
+        "observed": "29.9.3|29.9.3"
+      },
+      {
+        "command": "docker compose version",
+        "exit_code": 0,
+        "observed": "Docker Compose version v5.7.0"
+      },
+      {
+        "command": "docker info --format {{.Architecture}}|{{.NCPU}}|{{.MemTotal}}|{{.OSType}}",
+        "exit_code": 0,
+        "observed": "x86_64|32|33650585600|linux"
+      }
+    ]
+  },
+  "items": [
+    "DOC-COMPARACAO-01",
+    "DOC-COMPARACAO-02",
+    "DOC-COMPARACAO-03",
+    "DOC-COBERTURA-01",
+    "DOC-COBERTURA-02",
+    "DOC-COBERTURA-03",
+    "DOC-COBERTURA-04",
+    "DOC-AMBIENTE-01",
+    "DOC-AMBIENTE-02",
+    "DOC-AMBIENTE-03",
+    "DOC-AMBIENTE-04",
+    "DOC-RECOMENDACAO-01",
+    "DOC-RECOMENDACAO-02",
+    "DOC-RECOMENDACAO-03"
+  ],
+  "preflight_ok": true
+}

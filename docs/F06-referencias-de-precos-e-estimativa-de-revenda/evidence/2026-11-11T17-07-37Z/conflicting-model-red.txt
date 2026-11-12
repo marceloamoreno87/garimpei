@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 6 items / 5 deselected / 1 selected
+
+apps/backend/tests/unit/test_valuation.py F                              [100%]
+
+=================================== FAILURES ===================================
+____________ test_variant_ambiguity_and_new_reference_independence _____________
+
+    def test_variant_ambiguity_and_new_reference_independence() -> None:
+        key = identify(Evidence(title=TITLE))
+        assert key is not None
+        assert identify(Evidence(title="PlayStation 5")) is None
+>       assert identify(Evidence(title="PS5 Slim Digital 825GB CFI-2114A")) is None
+E       AssertionError: assert 'sony:ps5:slim:disc:1tb' is None
+E        +  where 'sony:ps5:slim:disc:1tb' = identify(Evidence(title='PS5 Slim Digital 825GB CFI-2114A', description=None, condition=None, published_at=None, price=None, fr...ng_offered=None, shipping_evidence=None, pickup_scope_verified=None, source_available=None, availability_evidence=None))
+E        +    where Evidence(title='PS5 Slim Digital 825GB CFI-2114A', description=None, condition=None, published_at=None, price=None, fr...ng_offered=None, shipping_evidence=None, pickup_scope_verified=None, source_available=None, availability_evidence=None) = Evidence(title='PS5 Slim Digital 825GB CFI-2114A')
+
+apps/backend/tests/unit/test_valuation.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_valuation.py::test_variant_ambiguity_and_new_reference_independence
+======================= 1 failed, 5 deselected in 0.05s ========================

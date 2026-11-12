@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "scripts/check-harness.mjs"
+  ],
+  "settings": null,
+  "exit": 0,
+  "seconds": 0.331,
+  "summary": [
+    "[harness] 14 skills e referências de entrada válidas.",
+    "[harness] Sintaxe de 28 scripts validada.",
+    "[harness] Progresso válido: 9 features.",
+    "[harness] Estrutura validada. Gates da aplicação dependem do scaffold."
+  ]
+}

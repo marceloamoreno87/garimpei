@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "prd_path": "docs/PRD.md",
+  "generated_at": "2026-11-10T12:14:24Z",
+  "features": {
+    "F01": {
+      "name": "Discovery e viabilidade de integrações",
+      "priority": 1,
+      "wave": 1,
+      "dependencies": [],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F01-discovery-e-viabilidade-de-integracoes/eval-report-2026-11-10T19-53-58Z.md",
+      "started_at": "2026-11-10T19:07:55.864869Z",
+      "updated_at": "2026-11-10T19:53:58.996046Z",
+      "completed_at": "2026-11-10T19:53:58.996046Z"
+    },
+    "F02": {
+      "name": "Fundação técnica e ambiente local",
+      "priority": 1,
+      "wave": 2,
+      "dependencies": [
+        "F01"
+      ],
+      "status": "done",
+      "cycles": 1,
+      "failure_reason": null,
+      "report_path": "docs/F02-fundacao-tecnica-e-ambiente-local/eval-report-2026-11-10T21-15-47Z.md",
+      "started_at": "2026-11-10T19:52:16Z",
+      "updated_at": "2026-11-10T21:23:51.517721Z",
+      "completed_at": "2026-11-10T21:23:51.517721Z"
+    },
+    "F03": {
+      "name": "Configurações e interesses de monitoramento",
+      "priority": 1,
+      "wave": 3,
+      "dependencies": [
+        "F02"
+      ],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F03-configuracoes-e-interesses-de-monitoramento/eval-report-2026-11-10T22-12-38Z.md",
+      "started_at": "2026-11-10T21:41:08.732423Z",
+      "updated_at": "2026-11-10T22:20:53.807717Z",
+      "completed_at": "2026-11-10T22:20:53.807717Z"
+    },
+    "F04": {
+      "name": "Coleta e acompanhamento de anúncios",
+      "priority": 1,
+      "wave": 4,
+      "dependencies": [
+        "F03"
+      ],
+      "status": "done",
+      "cycles": 1,
+      "failure_reason": null,
+      "report_path": "docs/F04-coleta-e-acompanhamento-de-anuncios/eval-report-2026-11-11T14-50-42Z.md",
+      "started_at": "2026-11-11T00:11:52.258733+00:00",
+      "updated_at": "2026-11-11T14:50:42.269523+00:00",
+      "completed_at": "2026-11-11T14:50:42.269523+00:00"
+    },
+    "F05": {
+      "name": "Classificação por condição",
+      "priority": 1,
+      "wave": 5,
+      "dependencies": [
+        "F04"
+      ],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F05-classificacao-por-condicao/eval-report-2026-11-11T17-03-39Z.md",
+      "started_at": "2026-11-11T16:22:46.619828+00:00",
+      "updated_at": "2026-11-11T17:04:33.496815+00:00",
+      "completed_at": "2026-11-11T17:03:39.266761+00:00"
+    },
+    "F06": {
+      "name": "Referências de preços e estimativa de revenda",
+      "priority": 1,
+      "wave": 5,
+      "dependencies": [
+        "F04"
+      ],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F06-referencias-de-precos-e-estimativa-de-revenda/eval-report-2026-11-11T17-41-40Z.md",
+      "started_at": "2026-11-11T17:07:37.419874+00:00",
+      "updated_at": "2026-11-11T17:41:40.565772+00:00",
+      "completed_at": "2026-11-11T17:41:40.565772+00:00"
+    },
+    "F07": {
+      "name": "Cálculo e composição do lucro estimado",
+      "priority": 1,
+      "wave": 6,
+      "dependencies": [
+        "F03",
+        "F04",
+        "F06"
+      ],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F07-calculo-e-composicao-do-lucro-estimado/eval-report-2026-11-11T17-53-22Z.md",
+      "started_at": "2026-11-11T17:43:16.349514+00:00",
+      "updated_at": "2026-11-11T18:04:30.639386+00:00",
+      "completed_at": "2026-11-11T18:04:30.639386+00:00"
+    },
+    "F08": {
+      "name": "Exploração, detalhes e acesso ao anúncio",
+      "priority": 1,
+      "wave": 7,
+      "dependencies": [
+        "F04",
+        "F05",
+        "F06",
+        "F07"
+      ],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F08-exploracao-detalhes-e-acesso-ao-anuncio/eval-report-2026-11-11T19-05-22Z.md",
+      "started_at": "2026-11-11T18:18:36.563649+00:00",
+      "updated_at": "2026-11-11T19:05:22.968910+00:00",
+      "completed_at": "2026-11-11T19:05:22.968910+00:00"
+    },
+    "F09": {
+      "name": "Alertas individuais pelo WhatsApp",
+      "priority": 1,
+      "wave": 7,
+      "dependencies": [
+        "F04",
+        "F05",
+        "F07"
+      ],
+      "status": "done",
+      "cycles": 1,
+      "failure_reason": null,
+      "report_path": "docs/F09-alertas-individuais-pelo-whatsapp/eval-report-2026-11-11T21-54-20Z.md",
+      "started_at": "2026-11-11T19:09:27.464926+00:00",
+      "updated_at": "2026-11-11T21:57:26.589657+00:00",
+      "completed_at": "2026-11-11T21:57:26.589657+00:00"
+    },
+    "F10": {
+      "name": "Configurações de integrações",
+      "priority": 1,
+      "wave": 8,
+      "dependencies": [
+        "F04",
+        "F09"
+      ],
+      "status": "done",
+      "cycles": 2,
+      "failure_reason": null,
+      "report_path": "docs/F10-configuracoes-de-integracoes/eval-report-2026-11-11T21-54-20Z.md",
+      "started_at": "2026-11-11T20:31:40.984863+00:00",
+      "updated_at": "2026-11-11T21:57:26.589657+00:00",
+      "completed_at": "2026-11-11T21:57:26.589657+00:00"
+    },
+    "F11": {
+      "name": "Sessão Facebook por navegador",
+      "priority": 1,
+      "wave": 9,
+      "dependencies": [
+        "F04",
+        "F10"
+      ],
+      "status": "done",
+      "cycles": 1,
+      "failure_reason": null,
+      "report_path": "docs/F11-sessao-facebook-por-navegador/eval-report-2026-11-11T21-54-20Z.md",
+      "started_at": "2026-11-11T21:05:55.735006+00:00",
+      "updated_at": "2026-11-11T21:57:26.589657+00:00",
+      "completed_at": "2026-11-11T21:57:26.589657+00:00"
+    },
+    "F12": {
+      "name": "Coleta e descoberta de oportunidades",
+      "priority": 1,
+      "wave": 10,
+      "dependencies": [
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F09",
+        "F11"
+      ],
+      "status": "done",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": "docs/F12-coleta-e-oportunidades/eval-report-2026-11-12T00-44-24Z.md",
+      "started_at": "2026-11-11T23:16:00Z",
+      "updated_at": "2026-11-12T00:44:24.646719+00:00",
+      "completed_at": "2026-11-12T00:44:24.646719+00:00"
+    },
+    "F13": {
+      "name": "Navegação ativa em busca de oportunidades",
+      "priority": 1,
+      "wave": 11,
+      "dependencies": [
+        "F03",
+        "F04",
+        "F11",
+        "F12"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T02:02:53.185325Z",
+      "completed_at": null
+    },
+    "F14": {
+      "name": "Coleta e exibição confiável de imagens",
+      "priority": 1,
+      "wave": 11,
+      "dependencies": [
+        "F04",
+        "F08",
+        "F12"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T01:46:12.978459Z",
+      "completed_at": null
+    },
+    "F15": {
+      "name": "Avaliação conjunta de imagens e descrição",
+      "priority": 1,
+      "wave": 12,
+      "dependencies": [
+        "F05",
+        "F06",
+        "F14",
+        "F19"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T01:49:57.524969Z",
+      "completed_at": null
+    },
+    "F16": {
+      "name": "Alertas pela primeira elegibilidade e diagnóstico",
+      "priority": 1,
+      "wave": 11,
+      "dependencies": [
+        "F04",
+        "F05",
+        "F07",
+        "F08",
+        "F09",
+        "F10",
+        "F12"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T01:44:58.752908Z",
+      "completed_at": null
+    },
+    "F17": {
+      "name": "Resiliência operacional e progresso verificável",
+      "priority": 1,
+      "wave": 11,
+      "dependencies": [
+        "F02",
+        "F04",
+        "F06",
+        "F08",
+        "F09",
+        "F10",
+        "F12"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T01:58:44.568278Z",
+      "completed_at": null
+    },
+    "F18": {
+      "name": "Identificação de produtos e busca ativa de comparáveis",
+      "priority": 1,
+      "wave": 12,
+      "dependencies": [
+        "F06",
+        "F12",
+        "F13"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T01:49:52.828954Z",
+      "completed_at": null
+    },
+    "F19": {
+      "name": "Inferência multimodal local em Docker",
+      "priority": 1,
+      "wave": 11,
+      "dependencies": [
+        "F02",
+        "F12"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T02:02:53.185325Z",
+      "completed_at": null
+    },
+    "F20": {
+      "name": "Compra, venda estimada e lucro na apresentação",
+      "priority": 1,
+      "wave": 11,
+      "dependencies": [
+        "F07",
+        "F08",
+        "F09",
+        "F12"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T01:45:01.179584Z",
+      "completed_at": null
+    }
+  }
+}

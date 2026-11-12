@@ -1,0 +1,55 @@
+{
+  "coverage": "All current test_*.py files; exact union and no duplicate files verified before execution",
+  "partitions": [
+    [
+      "apps/backend/tests/unit/test_alert_policy.py",
+      "apps/backend/tests/unit/test_config.py",
+      "apps/backend/tests/unit/test_error_handler.py",
+      "apps/backend/tests/unit/test_exploration.py",
+      "apps/backend/tests/unit/test_facebook_browser.py",
+      "apps/backend/tests/unit/test_integration_policy.py",
+      "apps/backend/tests/unit/test_listing_condition.py",
+      "apps/backend/tests/unit/test_listing_policy.py",
+      "apps/backend/tests/unit/test_listing_window.py",
+      "apps/backend/tests/unit/test_logging.py",
+      "apps/backend/tests/unit/test_marketplace_parser.py",
+      "apps/backend/tests/unit/test_marketplace_source.py",
+      "apps/backend/tests/unit/test_monitoring_catalog.py",
+      "apps/backend/tests/unit/test_monitoring_configuration.py",
+      "apps/backend/tests/unit/test_opportunity_improvements.py",
+      "apps/backend/tests/unit/test_profit.py",
+      "apps/backend/tests/unit/test_readiness.py",
+      "apps/backend/tests/unit/test_valuation.py",
+      "apps/backend/tests/integration/test_valuation.py",
+      "apps/backend/tests/integration/test_profit.py",
+      "apps/backend/tests/integration/test_exploration.py",
+      "apps/backend/tests/integration/test_alert_consumers.py",
+      "apps/backend/tests/integration/test_alert_delivery.py",
+      "apps/backend/tests/integration/test_alert_gateway.py"
+    ],
+    [
+      "apps/backend/tests/integration/test_collection.py",
+      "apps/backend/tests/integration/test_marketplace_browser.py",
+      "apps/backend/tests/integration/test_facebook_gateway.py",
+      "apps/backend/tests/integration/test_facebook_profile.py",
+      "apps/backend/tests/integration/test_concurrency.py"
+    ],
+    [
+      "apps/backend/tests/http/test_condition_recovery.py",
+      "apps/backend/tests/http/test_health.py",
+      "apps/backend/tests/http/test_listing_condition.py",
+      "apps/backend/tests/http/test_monitoring.py",
+      "apps/backend/tests/http/test_tracking.py",
+      "apps/backend/tests/integration/test_foundation.py",
+      "apps/backend/tests/integration/test_integrations.py",
+      "apps/backend/tests/integration/test_listing_condition.py",
+      "apps/backend/tests/integration/test_monitoring_persistence.py",
+      "apps/backend/tests/lifecycle/test_copy.py",
+      "apps/backend/tests/lifecycle/test_network_cleanup.py",
+      "apps/backend/tests/lifecycle/test_operations.py",
+      "apps/backend/tests/lifecycle/test_rollback.py",
+      "apps/backend/tests/lifecycle/test_startup_failures.py",
+      "apps/backend/tests/quality/test_gate_failures.py"
+    ]
+  ]
+}

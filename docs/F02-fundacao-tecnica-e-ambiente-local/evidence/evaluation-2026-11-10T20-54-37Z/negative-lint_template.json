@@ -1,0 +1,11 @@
+{
+  "command": [
+    "djlint",
+    "src/garimpei/infra/http/templates",
+    "--lint",
+    "--profile=django"
+  ],
+  "exit": 1,
+  "stdout": "\n\n\nsrc/garimpei/infra/http/templates/negative.html\n───────────────────────────────────────────────────────────────────────────────\nH005 1:0 Html tag should have a non-empty lang attribute. <html>\nH007 1:0 <!DOCTYPE ... > should be present before the html tag. <html\nH016 1:0 Missing title tag in html. <html>\nH030 1:0 Consider adding a meta description. <html><head></head><\nH013 1:25 Img tag should have an alt attribute. <img src=\"x\">\n\nLinted 2 files, found 5 errors.\n\n",
+  "stderr": "Linting 2/2 files\n"
+}

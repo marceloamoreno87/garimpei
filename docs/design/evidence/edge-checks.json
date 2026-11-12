@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-10",
+  "checks": [
+    "Long product name stays visible as text",
+    "Long name does not overflow page",
+    "Product name is escaped as text",
+    "Large cost and negative result reflow without page overflow",
+    "Unavailable source uses last-known-data notice"
+  ]
+}

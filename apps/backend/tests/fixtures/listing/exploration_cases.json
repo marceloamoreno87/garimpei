@@ -1,0 +1,12 @@
+{
+  "cameras": 42,
+  "audio": 5,
+  "fee": "10.00",
+  "freight": "34.00",
+  "resale": "1700.00",
+  "comparables": ["1550.00", "1650.00", "1700.00", "1750.00", "1800.00"],
+  "new": "2400.00",
+  "camera_order_prefix": ["CAM02", "CAM03", "CAM01", "CAM04"],
+  "pages": [20, 20, 2],
+  "changes": {"A": {"price": "700.00", "profit": "830.00"}, "B": {"count": 38}}
+}

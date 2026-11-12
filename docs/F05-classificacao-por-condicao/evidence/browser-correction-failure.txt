@@ -1,0 +1,8 @@
+### Result
+{"item":"UI-CONDICAO-06","failure":"503, confirmed defect, selected good retained, open correction","focus":"form-error","retry":"good, revision 3"}
+### Ran Playwright code
+```js
+await (async (page) => { await page.getByText("Corrigir sua classificação",{exact:true}).click(); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/recovery-open.png",fullPage:true}); await page.getByRole("radio",{name:"Funciona bem",exact:true}).check(); await page.getByRole("button",{name:"Salvar correção",exact:true}).click(); await page.waitForSelector("[data-error-code=CONDITION_SAVE_FAILED]"); if(!(await page.getByRole("heading",{name:"Não funciona bem",exact:true}).isVisible())) throw new Error("confirmed state changed"); if(!(await page.getByRole("radio",{name:"Funciona bem",exact:true}).isChecked())) throw new Error("input not retained"); if(await page.locator("details.correction").getAttribute("open")===null) throw new Error("correction closed on error"); const focus=await page.evaluate(()=>document.activeElement.id); if(focus!=="form-error") throw new Error("error not focused"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/correction-failure.png",fullPage:true}); await page.getByRole("button",{name:"Salvar correção",exact:true}).click(); await page.getByRole("status").filter({hasText:"Sua classificação foi salva"}).waitFor(); if(!(await page.getByRole("heading",{name:"Funciona bem",exact:true}).isVisible())) throw new Error("retry failed"); return {item:"UI-CONDICAO-06",failure:"503, confirmed defect, selected good retained, open correction",focus,retry:"good, revision 3"}; })(page);
+```
+### Events
+- New console entries: .playwright-cli/console-2026-11-11T16-50-35-476Z.log#L3

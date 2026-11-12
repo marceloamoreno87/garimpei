@@ -1,0 +1,30 @@
+[
+  {
+    "gate": "django-check",
+    "command": "uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py check",
+    "started_at": "2026-11-11T16:57:46.204764+00:00",
+    "completed_at": "2026-11-11T16:57:46.455785+00:00",
+    "exit_code": 0
+  },
+  {
+    "gate": "migrations-check",
+    "command": "uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py makemigrations --check --dry-run",
+    "started_at": "2026-11-11T16:57:46.455800+00:00",
+    "completed_at": "2026-11-11T16:57:46.746882+00:00",
+    "exit_code": 0
+  },
+  {
+    "gate": "statics-check",
+    "command": "uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py collectstatic --noinput",
+    "started_at": "2026-11-11T16:57:46.746897+00:00",
+    "completed_at": "2026-11-11T16:57:46.985286+00:00",
+    "exit_code": 0
+  },
+  {
+    "gate": "build",
+    "command": "uv build --directory apps/backend --no-build-isolation",
+    "started_at": "2026-11-11T16:57:46.985300+00:00",
+    "completed_at": "2026-11-11T16:57:47.285935+00:00",
+    "exit_code": 0
+  }
+]

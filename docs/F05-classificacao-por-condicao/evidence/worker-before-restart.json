@@ -1,0 +1,54 @@
+{
+  "stage": "after first choice and correction",
+  "events": [
+    [
+      "d60445d3-e253-4b18-96dd-1e90fa32becc",
+      "initial_load"
+    ],
+    [
+      "482e1c21-de05-474e-b7a6-aad7f2dee617",
+      "initial_load"
+    ],
+    [
+      "5a1bce1f-8012-4982-b940-cfb826f90b7a",
+      "initial_load"
+    ],
+    [
+      "2ce16bcd-74da-47bd-b88d-d1df65cb89c3",
+      "initial_load"
+    ],
+    [
+      "84054feb-4f0f-44ed-aab6-2bbf68cb942b",
+      "initial_load"
+    ],
+    [
+      "a81708dc-ab73-4e9e-9d98-4ec94c11846d",
+      "initial_load"
+    ],
+    [
+      "1a37b92a-57ff-4632-9626-192a70dd02b3",
+      "initial_load"
+    ],
+    [
+      "f4424358-2684-4cbb-a158-446b59db318f",
+      "initial_load"
+    ],
+    [
+      "395fa563-1256-4b4d-9a7a-714e0855b969",
+      "initial_load"
+    ]
+  ],
+  "choices": [
+    [
+      "50d791fd-5f02-468e-a9e3-15fbc5ca55ff",
+      "defect",
+      2
+    ]
+  ],
+  "jobs": [
+    [
+      3,
+      "garimpei.collect_listings"
+    ]
+  ]
+}

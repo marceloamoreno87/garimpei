@@ -1,0 +1,3 @@
+21 objects imported automatically (use -v 2 for details).
+
+F08 independent consumer before web click: d7f3fe97-7478-401e-b9f7-b6b37b1aab7f 6bceb291-946f-4ed2-9d34-ac23ff9a4a42 profit= 830.00

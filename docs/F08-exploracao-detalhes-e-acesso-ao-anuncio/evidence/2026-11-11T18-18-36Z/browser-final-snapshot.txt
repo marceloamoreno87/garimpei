@@ -1,0 +1,343 @@
+### Page
+- Page URL: http://127.0.0.1:14477/ofertas/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+- Page Title: Ofertas · Garimpei
+### Snapshot
+```yaml
+- generic [active] [ref=f58e1]:
+  - link "Pular para o conteúdo" [ref=f58e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=f58e3]:
+    - link "Garimpei." [ref=f58e4] [cursor=pointer]:
+      - /url: /
+    - paragraph [ref=f58e5]: Monitoramento de eletrônicos usados
+    - navigation "Navegação principal" [ref=f58e6]:
+      - link "Ofertas" [ref=f58e7] [cursor=pointer]:
+        - /url: /ofertas/
+      - link "Acompanhamento" [ref=f58e8] [cursor=pointer]:
+        - /url: /acompanhamento/
+      - link "Configurações" [ref=f58e9] [cursor=pointer]:
+        - /url: /configuracoes/
+    - paragraph [ref=f58e10]: Execução local
+  - generic [ref=f58e11]:
+    - banner [ref=f58e12]:
+      - generic [ref=f58e13]: Facebook Marketplace
+      - generic [ref=f58e14]: São Paulo · SP
+    - main [ref=f58e15]:
+      - generic [ref=f58e16]:
+        - heading "Seu próximo garimpo" [level=1] [ref=f58e17]
+        - paragraph [ref=f58e18]: Compare anúncios, confira os custos e encontre o que faz sentido para você.
+      - status
+      - generic [ref=f58e19]:
+        - tablist "Condição das ofertas" [ref=f58e20]:
+          - tab "Funcionam bem 46" [selected] [ref=f58e21] [cursor=pointer]:
+            - text: Funcionam bem
+            - generic [ref=f58e22]: "46"
+          - tab "Com defeito 1" [ref=f58e23] [cursor=pointer]:
+            - text: Com defeito
+            - generic [ref=f58e24]: "1"
+          - tab "Condição não confirmada 1" [ref=f58e25] [cursor=pointer]:
+            - text: Condição não confirmada
+            - generic [ref=f58e26]: "1"
+        - generic [ref=f58e27]:
+          - generic [ref=f58e28]:
+            - text: Buscar por título ou categoria
+            - searchbox "Buscar por título ou categoria" [ref=f58e29]: camera
+          - generic [ref=f58e30]:
+            - text: Categoria
+            - combobox "Categoria" [ref=f58e31]:
+              - option "Todas" [selected]
+              - option "Electronics"
+              - option "Câmeras"
+              - option "Cell Phones"
+              - option "Computers"
+              - option "Áudio"
+          - generic [ref=f58e32]:
+            - text: Modalidade
+            - combobox "Modalidade" [ref=f58e33]:
+              - option "Todas"
+              - option "Retirada" [selected]
+              - option "Envio"
+          - button "Filtrar ofertas" [ref=f58e34] [cursor=pointer]
+        - generic [ref=f58e35]:
+          - heading "21–37 de 37" [level=2] [ref=f58e36]
+          - paragraph [ref=f58e37]: Lucro estimado, do maior para o menor
+        - generic [ref=f58e38]:
+          - article [ref=f58e39]:
+            - img "Câmera 22 · imagem do anúncio" [ref=f58e41]
+            - generic [ref=f58e42]:
+              - paragraph [ref=f58e43]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e44]:
+                - link "Câmera 22" [ref=f58e45] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000016/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e46]: Lucro estimado · Retirada
+              - paragraph [ref=f58e47]: R$ 512,00
+              - generic [ref=f58e48]:
+                - term [ref=f58e49]: Preço de compra
+                - definition [ref=f58e50]: R$ 1.018,00
+              - link "Conferir detalhes de Câmera 22" [ref=f58e51] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000016/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e52]: de Câmera 22
+          - article [ref=f58e53]:
+            - img "Câmera 23 · imagem do anúncio" [ref=f58e55]
+            - generic [ref=f58e56]:
+              - paragraph [ref=f58e57]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e58]:
+                - link "Câmera 23" [ref=f58e59] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000017/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e60]: Lucro estimado · Retirada
+              - paragraph [ref=f58e61]: R$ 511,00
+              - generic [ref=f58e62]:
+                - term [ref=f58e63]: Preço de compra
+                - definition [ref=f58e64]: R$ 1.019,00
+              - link "Conferir detalhes de Câmera 23" [ref=f58e65] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000017/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e66]: de Câmera 23
+          - article [ref=f58e67]:
+            - img "Câmera 24 · imagem do anúncio" [ref=f58e69]
+            - generic [ref=f58e70]:
+              - paragraph [ref=f58e71]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e72]:
+                - link "Câmera 24" [ref=f58e73] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000018/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e74]: Lucro estimado · Retirada
+              - paragraph [ref=f58e75]: R$ 510,00
+              - generic [ref=f58e76]:
+                - term [ref=f58e77]: Preço de compra
+                - definition [ref=f58e78]: R$ 1.020,00
+              - link "Conferir detalhes de Câmera 24" [ref=f58e79] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000018/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e80]: de Câmera 24
+          - article [ref=f58e81]:
+            - img "Câmera 25 · imagem do anúncio" [ref=f58e83]
+            - generic [ref=f58e84]:
+              - paragraph [ref=f58e85]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e86]:
+                - link "Câmera 25" [ref=f58e87] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000019/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e88]: Lucro estimado · Retirada
+              - paragraph [ref=f58e89]: R$ 509,00
+              - generic [ref=f58e90]:
+                - term [ref=f58e91]: Preço de compra
+                - definition [ref=f58e92]: R$ 1.021,00
+              - link "Conferir detalhes de Câmera 25" [ref=f58e93] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000019/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e94]: de Câmera 25
+          - article [ref=f58e95]:
+            - img "Câmera 26 · imagem do anúncio" [ref=f58e97]
+            - generic [ref=f58e98]:
+              - paragraph [ref=f58e99]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e100]:
+                - link "Câmera 26" [ref=f58e101] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-00000000001a/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e102]: Lucro estimado · Retirada
+              - paragraph [ref=f58e103]: R$ 508,00
+              - generic [ref=f58e104]:
+                - term [ref=f58e105]: Preço de compra
+                - definition [ref=f58e106]: R$ 1.022,00
+              - link "Conferir detalhes de Câmera 26" [ref=f58e107] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-00000000001a/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e108]: de Câmera 26
+          - article [ref=f58e109]:
+            - img "Câmera 27 · imagem do anúncio" [ref=f58e111]
+            - generic [ref=f58e112]:
+              - paragraph [ref=f58e113]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e114]:
+                - link "Câmera 27" [ref=f58e115] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-00000000001b/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e116]: Lucro estimado · Retirada
+              - paragraph [ref=f58e117]: R$ 507,00
+              - generic [ref=f58e118]:
+                - term [ref=f58e119]: Preço de compra
+                - definition [ref=f58e120]: R$ 1.023,00
+              - link "Conferir detalhes de Câmera 27" [ref=f58e121] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-00000000001b/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e122]: de Câmera 27
+          - article [ref=f58e123]:
+            - img "Câmera 28 · imagem do anúncio" [ref=f58e125]
+            - generic [ref=f58e126]:
+              - paragraph [ref=f58e127]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e128]:
+                - link "Câmera 28" [ref=f58e129] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-00000000001c/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e130]: Lucro estimado · Retirada
+              - paragraph [ref=f58e131]: R$ 506,00
+              - generic [ref=f58e132]:
+                - term [ref=f58e133]: Preço de compra
+                - definition [ref=f58e134]: R$ 1.024,00
+              - link "Conferir detalhes de Câmera 28" [ref=f58e135] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-00000000001c/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e136]: de Câmera 28
+          - article [ref=f58e137]:
+            - img "Câmera 29 · imagem do anúncio" [ref=f58e139]
+            - generic [ref=f58e140]:
+              - paragraph [ref=f58e141]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e142]:
+                - link "Câmera 29" [ref=f58e143] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-00000000001d/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e144]: Lucro estimado · Retirada
+              - paragraph [ref=f58e145]: R$ 505,00
+              - generic [ref=f58e146]:
+                - term [ref=f58e147]: Preço de compra
+                - definition [ref=f58e148]: R$ 1.025,00
+              - link "Conferir detalhes de Câmera 29" [ref=f58e149] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-00000000001d/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e150]: de Câmera 29
+          - article [ref=f58e151]:
+            - img "Câmera 30 · imagem do anúncio" [ref=f58e153]
+            - generic [ref=f58e154]:
+              - paragraph [ref=f58e155]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e156]:
+                - link "Câmera 30" [ref=f58e157] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-00000000001e/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e158]: Lucro estimado · Retirada
+              - paragraph [ref=f58e159]: R$ 504,00
+              - generic [ref=f58e160]:
+                - term [ref=f58e161]: Preço de compra
+                - definition [ref=f58e162]: R$ 1.026,00
+              - link "Conferir detalhes de Câmera 30" [ref=f58e163] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-00000000001e/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e164]: de Câmera 30
+          - article [ref=f58e165]:
+            - img "Câmera 31 · imagem do anúncio" [ref=f58e167]
+            - generic [ref=f58e168]:
+              - paragraph [ref=f58e169]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e170]:
+                - link "Câmera 31" [ref=f58e171] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-00000000001f/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e172]: Lucro estimado · Retirada
+              - paragraph [ref=f58e173]: R$ 503,00
+              - generic [ref=f58e174]:
+                - term [ref=f58e175]: Preço de compra
+                - definition [ref=f58e176]: R$ 1.027,00
+              - link "Conferir detalhes de Câmera 31" [ref=f58e177] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-00000000001f/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e178]: de Câmera 31
+          - article [ref=f58e179]:
+            - img "Câmera 32 · imagem do anúncio" [ref=f58e181]
+            - generic [ref=f58e182]:
+              - paragraph [ref=f58e183]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e184]:
+                - link "Câmera 32" [ref=f58e185] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000020/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e186]: Lucro estimado · Retirada
+              - paragraph [ref=f58e187]: R$ 502,00
+              - generic [ref=f58e188]:
+                - term [ref=f58e189]: Preço de compra
+                - definition [ref=f58e190]: R$ 1.028,00
+              - link "Conferir detalhes de Câmera 32" [ref=f58e191] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000020/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e192]: de Câmera 32
+          - article [ref=f58e193]:
+            - img "Câmera 33 · imagem do anúncio" [ref=f58e195]
+            - generic [ref=f58e196]:
+              - paragraph [ref=f58e197]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e198]:
+                - link "Câmera 33" [ref=f58e199] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000021/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e200]: Lucro estimado · Retirada
+              - paragraph [ref=f58e201]: R$ 501,00
+              - generic [ref=f58e202]:
+                - term [ref=f58e203]: Preço de compra
+                - definition [ref=f58e204]: R$ 1.029,00
+              - link "Conferir detalhes de Câmera 33" [ref=f58e205] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000021/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e206]: de Câmera 33
+          - article [ref=f58e207]:
+            - img "Câmera 34 · imagem do anúncio" [ref=f58e209]
+            - generic [ref=f58e210]:
+              - paragraph [ref=f58e211]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e212]:
+                - link "Câmera 34" [ref=f58e213] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000022/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e214]: Lucro estimado · Retirada
+              - paragraph [ref=f58e215]: R$ 500,00
+              - generic [ref=f58e216]:
+                - term [ref=f58e217]: Preço de compra
+                - definition [ref=f58e218]: R$ 1.030,00
+              - link "Conferir detalhes de Câmera 34" [ref=f58e219] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000022/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e220]: de Câmera 34
+          - article [ref=f58e221]:
+            - img "Câmera 35 · imagem do anúncio" [ref=f58e223]
+            - generic [ref=f58e224]:
+              - paragraph [ref=f58e225]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e226]:
+                - link "Câmera 35" [ref=f58e227] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000023/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e228]: Lucro estimado · Retirada
+              - paragraph [ref=f58e229]: R$ 499,00
+              - generic [ref=f58e230]:
+                - term [ref=f58e231]: Preço de compra
+                - definition [ref=f58e232]: R$ 1.031,00
+              - link "Conferir detalhes de Câmera 35" [ref=f58e233] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000023/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e234]: de Câmera 35
+          - article [ref=f58e235]:
+            - img "Câmera 36 · imagem do anúncio" [ref=f58e237]
+            - generic [ref=f58e238]:
+              - paragraph [ref=f58e239]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e240]:
+                - link "Câmera 36" [ref=f58e241] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000024/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e242]: Lucro estimado · Retirada
+              - paragraph [ref=f58e243]: R$ 498,00
+              - generic [ref=f58e244]:
+                - term [ref=f58e245]: Preço de compra
+                - definition [ref=f58e246]: R$ 1.032,00
+              - link "Conferir detalhes de Câmera 36" [ref=f58e247] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000024/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e248]: de Câmera 36
+          - article [ref=f58e249]:
+            - img "Câmera 37 · imagem do anúncio" [ref=f58e251]
+            - generic [ref=f58e252]:
+              - paragraph [ref=f58e253]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e254]:
+                - link "Câmera 37" [ref=f58e255] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000025/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e256]: Lucro estimado · Retirada
+              - paragraph [ref=f58e257]: R$ 497,00
+              - generic [ref=f58e258]:
+                - term [ref=f58e259]: Preço de compra
+                - definition [ref=f58e260]: R$ 1.033,00
+              - link "Conferir detalhes de Câmera 37" [ref=f58e261] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000025/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e262]: de Câmera 37
+          - article [ref=f58e263]:
+            - img "Câmera 38 · imagem do anúncio" [ref=f58e265]
+            - generic [ref=f58e266]:
+              - paragraph [ref=f58e267]: Funciona bem · Retirada
+              - heading [level=3] [ref=f58e268]:
+                - link "Câmera 38" [ref=f58e269] [cursor=pointer]:
+                  - /url: /ofertas/00000000-0000-0000-0000-000000000026/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+              - paragraph [ref=f58e270]: Lucro estimado · Retirada
+              - paragraph [ref=f58e271]: R$ 496,00
+              - generic [ref=f58e272]:
+                - term [ref=f58e273]: Preço de compra
+                - definition [ref=f58e274]: R$ 1.034,00
+              - link "Conferir detalhes de Câmera 38" [ref=f58e275] [cursor=pointer]:
+                - /url: /ofertas/00000000-0000-0000-0000-000000000026/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=2&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+                - text: Conferir detalhes
+                - generic [ref=f58e276]: de Câmera 38
+        - navigation "Paginação de ofertas" [ref=f58e277]:
+          - link "Anterior" [ref=f58e278] [cursor=pointer]:
+            - /url: /ofertas/?aba=funcionam&q=camera&categoria=&modalidade=retirada&pagina=1&versao=583ce220-8d62-4cac-ab55-ba94e6b13535
+          - generic [ref=f58e279]: Página 2 de 2
+          - generic [ref=f58e280]: Próxima
+        - paragraph [ref=f58e281]: Dados publicados em 10/11/2026 18:03:03 UTC. A negociação acontece na plataforma de origem.
+```

@@ -1,0 +1,20 @@
+### Result
+{
+  "url": "https://www.facebook.com/marketplace/category/search/?category_id=479353692612078&query=Electronics&referral_ui_component=category_menu_item",
+  "source": "facebook_marketplace",
+  "category": {
+    "id": "479353692612078",
+    "label": "Electronics"
+  },
+  "heading": "Search results"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url:location.href,source:\'facebook_marketplace\',category:{id:\'479353692612078\',label:document.querySelector(\'a[href*="category_id=479353692612078"]\').innerText},heading:document.querySelector(\'h1\')?.innerText})');
+```
+### Page
+- Page URL: https://www.facebook.com/marketplace/category/search/?category_id=479353692612078&query=Electronics&referral_ui_component=category_menu_item
+- Page Title: Facebook
+- Console: 1 errors, 23 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-10T21-39-51-145Z.log#L35-L42

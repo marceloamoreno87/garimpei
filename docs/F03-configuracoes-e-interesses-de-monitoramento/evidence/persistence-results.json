@@ -1,0 +1,105 @@
+{
+  "draft-before-restart": {
+    "form_id": "e8ba330f-e839-4847-b8d5-41a76faeebe2",
+    "form_revision": 5,
+    "public": "MonitoringSnapshot(configured=False, configuration_id=None, revision=None, completed_at=None, source='facebook_marketplace', cep=None, pickup_city='São Paulo', pickup_state='SP', pickup_radius_km=20, shipping_scope='BR', category_ids=(), product_names=(), shipping_estimate=None, resale_fee_percent=None)",
+    "business_jobs": 0
+  },
+  "draft-after-restart": {
+    "form_id": "e8ba330f-e839-4847-b8d5-41a76faeebe2",
+    "form_revision": 5,
+    "public": "MonitoringSnapshot(configured=False, configuration_id=None, revision=None, completed_at=None, source='facebook_marketplace', cep=None, pickup_city='São Paulo', pickup_state='SP', pickup_radius_km=20, shipping_scope='BR', category_ids=(), product_names=(), shipping_estimate=None, resale_fee_percent=None)",
+    "business_jobs": 0
+  },
+  "active-before": {
+    "public": {
+      "category_ids": [
+        "479353692612078"
+      ],
+      "cep": "01001000",
+      "completed_at": "2026-11-10 22:03:49.101634+00:00",
+      "configuration_id": "e8ba330f-e839-4847-b8d5-41a76faeebe2",
+      "configured": true,
+      "pickup_city": "São Paulo",
+      "pickup_radius_km": 20,
+      "pickup_state": "SP",
+      "product_names": [
+        "Notebook",
+        "PlayStation 5"
+      ],
+      "resale_fee_percent": "12.50",
+      "revision": 1,
+      "shipping_estimate": "25.50",
+      "shipping_scope": "BR",
+      "source": "facebook_marketplace"
+    },
+    "business_jobs": 0
+  },
+  "active-after": {
+    "public": {
+      "category_ids": [
+        "479353692612078"
+      ],
+      "cep": "01001000",
+      "completed_at": "2026-11-10 22:03:49.101634+00:00",
+      "configuration_id": "e8ba330f-e839-4847-b8d5-41a76faeebe2",
+      "configured": true,
+      "pickup_city": "São Paulo",
+      "pickup_radius_km": 20,
+      "pickup_state": "SP",
+      "product_names": [
+        "Notebook",
+        "PlayStation 5"
+      ],
+      "resale_fee_percent": "12.50",
+      "revision": 1,
+      "shipping_estimate": "25.50",
+      "shipping_scope": "BR",
+      "source": "facebook_marketplace"
+    },
+    "business_jobs": 0
+  },
+  "active-edited": {
+    "public": {
+      "category_ids": [],
+      "cep": "02002000",
+      "completed_at": "2026-11-10 22:03:49.101634+00:00",
+      "configuration_id": "e8ba330f-e839-4847-b8d5-41a76faeebe2",
+      "configured": true,
+      "pickup_city": "São Paulo",
+      "pickup_radius_km": 20,
+      "pickup_state": "SP",
+      "product_names": [
+        "Nintendo Switch"
+      ],
+      "resale_fee_percent": "100.00",
+      "revision": 2,
+      "shipping_estimate": "0.00",
+      "shipping_scope": "BR",
+      "source": "facebook_marketplace"
+    },
+    "business_jobs": 0
+  },
+  "readiness-before": {
+    "status": "ready",
+    "environment_id": "eval_f03_213950",
+    "run_id": "03131bbe-3db3-4a9c-ad9d-bf0ca320297e",
+    "checks": {
+      "database": "ready",
+      "migrations": "ready",
+      "worker": "ready",
+      "waha": "ready"
+    }
+  },
+  "readiness-after": {
+    "status": "ready",
+    "environment_id": "eval_f03_213950",
+    "run_id": "55355354-4476-4648-a85c-324a283a931c",
+    "checks": {
+      "database": "ready",
+      "migrations": "ready",
+      "worker": "ready",
+      "waha": "ready"
+    }
+  }
+}

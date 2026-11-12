@@ -1,0 +1,14 @@
+{
+  "requested_category": "479353692612078",
+  "category_fields": [
+    {
+      "path": "variables.params.browse_request_params.commerce_search_and_rp_category_id",
+      "value": []
+    },
+    {
+      "path": "variables.params.custom_request_params.serp_landing_settings.virtual_category_id",
+      "value": "479353692612078"
+    }
+  ],
+  "note": "Contexto virtual da categoria fornecido pela Meta; resultados podem incluir ofertas relacionadas. Produtos recebem verificação textual de nome/modelo."
+}

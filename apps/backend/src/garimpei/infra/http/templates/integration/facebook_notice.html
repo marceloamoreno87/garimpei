@@ -1,0 +1,28 @@
+<div id="facebook-access"
+     hx-get="{% url 'integration-facebook-status' %}{% if facebook_detail %}?detail=1{% endif %}"
+     hx-trigger="every 10s" hx-swap="outerHTML">
+    {% if facebook_notice %}
+        <aside class="integration-notice" data-state="{{ facebook_phase }}" aria-label="Acesso ao Facebook" role="status">
+            <strong>{{ facebook_notice.0 }}</strong>
+            <p>{{ facebook_notice.1 }}</p>
+            {% if not facebook_detail %}
+                <a href="{% url 'integration-settings' %}#facebook">{% if facebook_phase == "missing" %}Conectar Facebook{% elif "browser_" in facebook_phase %}Verificar conexão{% else %}Renovar cookies{% endif %}</a>
+            {% endif %}
+        </aside>
+    {% endif %}
+    {% if facebook_detail %}
+        {% if facebook_waiting %}
+            <form method="post" action="{% url 'integration-settings' %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="facebook-confirm">
+                <button class="primary" type="submit">Já entrei, verificar acesso</button>
+            </form>
+        {% elif not facebook_busy %}
+            <form method="post" action="{% url 'integration-settings' %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="facebook-browser">
+                <button class="primary" type="submit">Abrir navegador do Facebook</button>
+            </form>
+        {% endif %}
+    {% endif %}
+</div>

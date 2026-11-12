@@ -1,0 +1,79 @@
+{
+  "verified_at": "2026-11-11T23:56:35.732276+00:00",
+  "method": "Current production adapter with dedicated authenticated profile, native parser (main-results boundary), one detail between pages; only aggregate metadata stored",
+  "scope": "São Paulo reference, requested radius 500km; no claim of geographic completeness",
+  "categories": [
+    {
+      "category": "479353692612078",
+      "label": "Eletrônicos",
+      "context_verified": true,
+      "first_count": 20,
+      "detail_verified": true,
+      "continuation_after_detail": true,
+      "next_count": 20,
+      "new_count": 20,
+      "exhausted": false,
+      "verified": true
+    },
+    {
+      "category": "cameras",
+      "label": "Câmeras",
+      "context_verified": true,
+      "first_count": 24,
+      "detail_verified": true,
+      "continuation_after_detail": true,
+      "next_count": 24,
+      "new_count": 24,
+      "exhausted": false,
+      "verified": true
+    },
+    {
+      "category": "computers",
+      "label": "Computadores",
+      "context_verified": true,
+      "first_count": 19,
+      "detail_verified": true,
+      "continuation_after_detail": true,
+      "next_count": 19,
+      "new_count": 19,
+      "exhausted": false,
+      "verified": true
+    },
+    {
+      "category": "video-games",
+      "label": "Videogames e consoles",
+      "context_verified": true,
+      "first_count": 20,
+      "detail_verified": true,
+      "continuation_after_detail": true,
+      "next_count": 20,
+      "new_count": 20,
+      "exhausted": false,
+      "verified": true
+    },
+    {
+      "category": "headphones",
+      "label": "Fones de ouvido",
+      "context_verified": true,
+      "first_count": 20,
+      "detail_verified": true,
+      "continuation_after_detail": true,
+      "next_count": 20,
+      "new_count": 20,
+      "exhausted": false,
+      "verified": true
+    },
+    {
+      "category": "tvs",
+      "label": "TVs",
+      "context_verified": true,
+      "first_count": 19,
+      "detail_verified": true,
+      "continuation_after_detail": true,
+      "next_count": 19,
+      "new_count": 19,
+      "exhausted": false,
+      "verified": true
+    }
+  ]
+}

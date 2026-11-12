@@ -1,0 +1,24 @@
+node_modules/
+.next/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+!.env.*.example
+.pids/
+.playwright-cli/
+.codex/worktrees/
+*.log
+*.tsbuildinfo
+
+# Private Python runtime and build outputs
+.runtime/
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.import_linter_cache/
+*.egg-info/
+.test-static/

@@ -1,0 +1,1356 @@
+{
+  "enjoei-search": {
+    "observed_at": "2026-11-10T19:36:52.947Z",
+    "query": "playstation 5",
+    "search_url": "https://www.enjoei.com.br/s?q=playstation%205",
+    "title": "Playstation 5 | enjoei",
+    "authentication": "no supplied cookies; isolated browser",
+    "count": 35,
+    "items": [
+      {
+        "url": "https://www.enjoei.com.br/p/ps5-slim-1tb-versao-de-leitor-de-disco-pra-sair-rapido-153341902",
+        "id": "153341902",
+        "title": "ps5 slim 1tb versão de leitor de disco - pra sair rápido",
+        "price_labels": [
+          "R$ 3.350",
+          "R$ 3.650"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-dualsense-edge-playstation-5-preto-154483546",
+        "id": "154483546",
+        "title": "controle dualsense edge playstation 5 preto",
+        "price_labels": [
+          "R$ 1.000"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/grand-theft-auto-v-ps5-usado-154505753",
+        "id": "154505753",
+        "title": "grand theft auto v - ps5 (usado)",
+        "price_labels": [
+          "R$ 125"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-gran-turismo-5-ps3-154467353",
+        "id": "154467353",
+        "title": "jogo gran turismo 5 ps3",
+        "price_labels": [
+          "R$ 65"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-branco-com-2-controles-153333215",
+        "id": "153333215",
+        "title": "playstation 5 slim branco com 2 controles",
+        "price_labels": [
+          "R$ 3.762",
+          "R$ 3.999"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/kit-3-jogos-ps5-ea-sports-fc-26-elden-ring-stellar-blade-154108733",
+        "id": "154108733",
+        "title": "kit 3 jogos ps5 ea sports fc 26 elden ring stellar blade",
+        "price_labels": [
+          "R$ 400"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-ea-sports-fc-24-ps5-153955385",
+        "id": "153955385",
+        "title": "jogo ea sports fc 24 ps5",
+        "price_labels": [
+          "R$ 88"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-ea-sports-fc-25-ps5-153487859",
+        "id": "153487859",
+        "title": "jogo ea sports fc 25 ps5",
+        "price_labels": [
+          "R$ 140"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-returnal-ps5-150989805",
+        "id": "150989805",
+        "title": "jogo returnal ps5",
+        "price_labels": [
+          "R$ 61",
+          "R$ 90"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-edicao-digital-1tb-branco-153708149",
+        "id": "153708149",
+        "title": "playstation 5 edição digital 1tb branco",
+        "price_labels": [
+          "R$ 4.500"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/kit-2-jogos-ps5-returnal-e-ratchet-amp-clank-154572247",
+        "id": "154572247",
+        "title": "kit 2 jogos ps5 returnal e ratchet &amp; clank",
+        "price_labels": [
+          "R$ 300"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-sony-midia-fisica-branco-152845276",
+        "id": "152845276",
+        "title": "playstation 5 sony mídia física branco",
+        "price_labels": [
+          "R$ 3.600"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/console-playstation-5-digital-825gb-branco-154593420",
+        "id": "154593420",
+        "title": "console playstation 5 digital 825gb branco",
+        "price_labels": [
+          "R$ 2.000"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-sony-2-controles-3-jogos-154572169",
+        "id": "154572169",
+        "title": "playstation 5 sony 2 controles 3 jogos",
+        "price_labels": [
+          "R$ 7.000"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/base-carregadora-dualsense-ps5-original-152947139",
+        "id": "152947139",
+        "title": "base carregadora dualsense ps5 original",
+        "price_labels": [
+          "R$ 219",
+          "R$ 250"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-god-of-war-ragnarok-playstation-5-153442260",
+        "id": "153442260",
+        "title": "jogo god of war ragnarok playstation 5",
+        "price_labels": [
+          "R$ 189"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-star-wars-outlaws-ps5-154158394",
+        "id": "154158394",
+        "title": "jogo star wars outlaws ps5",
+        "price_labels": [
+          "R$ 115"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-sony-dualsense-ps5-branco-153440518",
+        "id": "153440518",
+        "title": "controle sony dualsense ps5 branco",
+        "price_labels": [
+          "R$ 445",
+          "R$ 489"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-sony-dualsense-cinza-ps5-153441238",
+        "id": "153441238",
+        "title": "controle sony dualsense cinza ps5",
+        "price_labels": [
+          "R$ 465",
+          "R$ 495"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-resident-evil-4-playstation-5-154158066",
+        "id": "154158066",
+        "title": "jogo resident evil 4 playstation 5",
+        "price_labels": [
+          "R$ 195"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-com-base-cooler-e-headset-havit-153815802",
+        "id": "153815802",
+        "title": "playstation 5 com base cooler e headset havit",
+        "price_labels": [
+          "R$ 3.700"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-midia-fisica-sony-154326540",
+        "id": "154326540",
+        "title": "playstation 5 mídia física sony",
+        "price_labels": [
+          "R$ 2.600"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/colecao-com-5-jogos-de-playstation-3-154496374",
+        "id": "154496374",
+        "title": "coleção com 5 jogos de playstation 3",
+        "price_labels": [
+          "R$ 150"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-fat-com-leitor-de-disco-firmware-12-7-153945762",
+        "id": "153945762",
+        "title": "playstation 5 fat com leitor de disco - firmware 12.7",
+        "price_labels": [
+          "R$ 3.800",
+          "R$ 4.100"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/console-playstation-5-branco-152247882",
+        "id": "152247882",
+        "title": "console playstation 5 branco",
+        "price_labels": [
+          "R$ 3.800"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-dualsense-sony-playstation-5-preto-152712964",
+        "id": "152712964",
+        "title": "controle dualsense sony playstation 5 preto",
+        "price_labels": [
+          "R$ 308",
+          "R$ 350"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-returnal-ps5-154593217",
+        "id": "154593217",
+        "title": "jogo returnal ps5",
+        "price_labels": [
+          "R$ 64"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-850gb-branco-154427458",
+        "id": "154427458",
+        "title": "playstation 5 850gb branco",
+        "price_labels": [
+          "R$ 3.500"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-digital-667gb-branco-152978624",
+        "id": "152978624",
+        "title": "playstation 5 slim digital 667gb branco",
+        "price_labels": [
+          "R$ 2.968",
+          "R$ 3.500"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-digital-825gb-branco-151766429",
+        "id": "151766429",
+        "title": "playstation 5 slim digital 825gb branco",
+        "price_labels": [
+          "R$ 3.800"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-grand-theft-auto-v-gta-5-ps4-premium-edition-153515919",
+        "id": "153515919",
+        "title": "jogo grand theft auto v gta 5 ps4 premium edition",
+        "price_labels": [
+          "R$ 73",
+          "R$ 79"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/game-horizon-forbidden-west-ps5-154483808",
+        "id": "154483808",
+        "title": "game horizon forbidden west ps5",
+        "price_labels": [
+          "R$ 135"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-dualsense-ps5-branco-154492517",
+        "id": "154492517",
+        "title": "controle dualsense ps5 branco",
+        "price_labels": [
+          "R$ 240"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-gta-5-ps4-154341199",
+        "id": "154341199",
+        "title": "jogo gta 5 (ps4)",
+        "price_labels": [
+          "R$ 79"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/lote-5-controles-playstation-2-sony-e-paralelos-no-estado-152622760",
+        "id": "152622760",
+        "title": "lote 5 controles playstation 2 sony e paralelos no estado",
+        "price_labels": [
+          "R$ 120"
+        ],
+        "ambiguous_free_label": false
+      }
+    ]
+  },
+  "enjoei-next": {
+    "observed_at": "2026-11-10T19:39:25.107Z",
+    "query": "playstation 5",
+    "search_url": "https://www.enjoei.com.br/s?q=playstation%205",
+    "title": "Playstation 5 | enjoei",
+    "authentication": "no supplied cookies; isolated browser",
+    "count": 35,
+    "items": [
+      {
+        "url": "https://www.enjoei.com.br/p/lote-5-controles-playstation-2-sony-e-paralelos-no-estado-152622760",
+        "id": "152622760",
+        "title": "lote 5 controles playstation 2 sony e paralelos no estado",
+        "price_labels": [
+          "R$ 120"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-sony-branco-154020465",
+        "id": "154020465",
+        "title": "playstation 5 slim sony branco",
+        "price_labels": [
+          "R$ 3.600"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-mafia-the-old-country-ps5-154611620",
+        "id": "154611620",
+        "title": "jogo mafia the old country ps5",
+        "price_labels": [
+          "R$ 135"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-digital-1tb-2-controles-154095500",
+        "id": "154095500",
+        "title": "playstation 5 slim digital 1tb 2 controles",
+        "price_labels": [
+          "R$ 3.900"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-ghost-of-yotei-limited-edition-1tb-153761752",
+        "id": "153761752",
+        "title": "playstation 5 ghost of yotei limited edition 1tb",
+        "price_labels": [
+          "R$ 6.000"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-sony-slim-1tb-2-controles-3-jogos-154571968",
+        "id": "154571968",
+        "title": "playstation 5 sony slim 1tb, 2 controles, 3 jogos",
+        "price_labels": [
+          "R$ 4.500",
+          "R$ 5.500"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-ea-sports-fc-24-ps5-154519922",
+        "id": "154519922",
+        "title": "jogo ea sports fc 24 ps5",
+        "price_labels": [
+          "R$ 100"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-sony-branco-154323437",
+        "id": "154323437",
+        "title": "playstation 5 slim sony branco",
+        "price_labels": [
+          "R$ 3.600"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/console-sony-playstation-5-1tb-branco-154576670",
+        "id": "154576670",
+        "title": "console sony playstation 5 1tb branco",
+        "price_labels": [
+          "R$ 3.700",
+          "R$ 4.000"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-ps5-ratchet-clank-em-uma-outra-dimensao-150821135",
+        "id": "150821135",
+        "title": "jogo ps5 ratchet clank em uma outra dimensão",
+        "price_labels": [
+          "R$ 91",
+          "R$ 100"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-astro-bot-ps5-midia-fisica-154069421",
+        "id": "154069421",
+        "title": "jogo astro bot ps5 mídia física",
+        "price_labels": [
+          "R$ 200"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-gran-turismo-5-xl-edition-ps3-154175510",
+        "id": "154175510",
+        "title": "jogo gran turismo 5 xl edition ps3",
+        "price_labels": [
+          "R$ 66",
+          "R$ 69"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-dualsense-ps5-rosa-154085835",
+        "id": "154085835",
+        "title": "controle dualsense ps5 rosa",
+        "price_labels": [
+          "R$ 339",
+          "R$ 350"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-dualsense-ps5-vermelho-154310587",
+        "id": "154310587",
+        "title": "controle dualsense ps5 vermelho",
+        "price_labels": [
+          "R$ 370"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/farcry5-de-ps4-154537221",
+        "id": "154537221",
+        "title": "farcry5 de ps4",
+        "price_labels": [
+          "R$ 58"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-the-plucky-squire-ps5-152682678",
+        "id": "152682678",
+        "title": "jogo the plucky squire ps5",
+        "price_labels": [
+          "R$ 329"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-elsie-playstation-5-153771646",
+        "id": "153771646",
+        "title": "jogo elsie playstation 5",
+        "price_labels": [
+          "R$ 319"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-ghost-of-yotei-complete-edition-ps5-153778228",
+        "id": "153778228",
+        "title": "jogo ghost of yotei complete edition ps5",
+        "price_labels": [
+          "R$ 399"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-final-fantasy-xvi-ps5-153777842",
+        "id": "153777842",
+        "title": "jogo final fantasy xvi ps5",
+        "price_labels": [
+          "R$ 299"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-black-myth-wukong-ps5-153710838",
+        "id": "153710838",
+        "title": "jogo black myth wukong ps5",
+        "price_labels": [
+          "R$ 449"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/sony-unidade-de-disco-para-consoles-ps5-edicao-digital-slim-e-pro-cfi-zdd1-154380012",
+        "id": "154380012",
+        "title": "sony unidade de disco para consoles ps5 edição digital slim e pro cfi-zdd1",
+        "price_labels": [
+          "R$ 750"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-825gb-1-controle-sem-caixa-153168648",
+        "id": "153168648",
+        "title": "playstation 5 - 825gb - 1 controle - sem caixa",
+        "price_labels": [
+          "R$ 3.700"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/elden-ring-ps5-154450838",
+        "id": "154450838",
+        "title": "elden ring ps5",
+        "price_labels": [
+          "R$ 180"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/console-playstation-5-sony-1tb-branco-154367186",
+        "id": "154367186",
+        "title": "console playstation 5 sony 1tb branco",
+        "price_labels": [
+          "R$ 1.500"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/assassin-s-creed-black-flag-resynced-para-playstation-5-154061005",
+        "id": "154061005",
+        "title": "assassin's creed black flag resynced para playstation 5.",
+        "price_labels": [
+          "R$ 250"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-fort-solis-ps5-154339580",
+        "id": "154339580",
+        "title": "jogo fort solis ps5",
+        "price_labels": [
+          "R$ 160"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-astro-bot-ps5-midia-fisica-153898081",
+        "id": "153898081",
+        "title": "jogo astro bot ps5 mídia física",
+        "price_labels": [
+          "R$ 320"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-persona-5-royal-ps4-ps5-153811460",
+        "id": "153811460",
+        "title": "jogo persona 5 royal ps4 ps5",
+        "price_labels": [
+          "R$ 237",
+          "R$ 250"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-devil-may-cry-5-ps4-154392071",
+        "id": "154392071",
+        "title": "jogo devil may cry 5 ps4",
+        "price_labels": [
+          "R$ 100"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/gran-turismo-5-xl-edition-playstation-3-154102698",
+        "id": "154102698",
+        "title": "gran turismo 5 xl edition playstation 3",
+        "price_labels": [
+          "R$ 64"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-digital-edition-825gb-novo-154342185",
+        "id": "154342185",
+        "title": "playstation 5 digital edition 825gb novo",
+        "price_labels": [
+          "R$ 3.900"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/controle-dualsense-edge-sony-ps5-30th-anniversary-154518184",
+        "id": "154518184",
+        "title": "controle dualsense edge sony ps5 30th anniversary",
+        "price_labels": [
+          "R$ 5.000"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-ghost-of-yotei-ps5-154580877",
+        "id": "154580877",
+        "title": "jogo ghost of yotei ps5",
+        "price_labels": [
+          "R$ 190",
+          "R$ 205"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/jogo-gran-turismo-5-prologue-playstation-3-153254744",
+        "id": "153254744",
+        "title": "jogo gran turismo 5 prologue playstation 3",
+        "price_labels": [
+          "R$ 107",
+          "R$ 119"
+        ],
+        "ambiguous_free_label": false
+      },
+      {
+        "url": "https://www.enjoei.com.br/p/playstation-5-slim-1tb-branco-com-5-jogos-154141981",
+        "id": "154141981",
+        "title": "playstation 5 slim 1tb branco com 5 jogos",
+        "price_labels": [
+          "R$ 5.626",
+          "R$ 6.000"
+        ],
+        "ambiguous_free_label": false
+      }
+    ]
+  },
+  "facebook-search": {
+    "observed_at": "2026-11-10T19:36:52.926Z",
+    "query": "playstation 5",
+    "search_url": "https://www.facebook.com/marketplace/saopaulo/search/?query=playstation%205",
+    "title": "Facebook",
+    "authentication": "no supplied cookies; isolated browser",
+    "count": 19,
+    "items": [
+      {
+        "url": "https://www.facebook.com/marketplace/item/1671631174339530/",
+        "id": "1671631174339530",
+        "price_labels": [
+          "R$3,550",
+          "R$3,799"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation Ps5 zerado - entrego até você"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/981541738355566/",
+        "id": "981541738355566",
+        "price_labels": [],
+        "ambiguous_free_label": true,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slin com jogos"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1492068142829311/",
+        "id": "1492068142829311",
+        "price_labels": [
+          "R$3,390"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 FAT 825GB + 2 JOGOS 🏆"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2527966307684595/",
+        "id": "2527966307684595",
+        "price_labels": [
+          "R$3,700"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 FAT DIGITAL SEMI NOVO 6 MESES DE GARANTIA TODOS ACESSÓRIOS ORIGINAIS (PLATE ORIGINAL)"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1450813923100049/",
+        "id": "1450813923100049",
+        "price_labels": [
+          "R$3,699"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "Playstation 5 Slim"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1567396815147318/",
+        "id": "1567396815147318",
+        "price_labels": [
+          "R$3,650"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 Slim Digital 1TB + Controle (11 Meses de Garantia)"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1060549020341985/",
+        "id": "1060549020341985",
+        "price_labels": [
+          "R$3,099"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 - Divido em até 12x no cartão"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1645866157266050/",
+        "id": "1645866157266050",
+        "price_labels": [
+          "R$3,690"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Santo André, SP",
+        "title": "🎮 PlayStation 5 Fat com leitor de disco + jogo Returnal"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4603568669913765/",
+        "id": "4603568669913765",
+        "price_labels": [
+          "R$3,600",
+          "R$3,800"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "PS5 - PlayStation 5 à Venda"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4955501311348624/",
+        "id": "4955501311348624",
+        "price_labels": [
+          "R$4,300"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slim mídia fisica 1TB 2 controles + base + fome E 9 jogos"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4760187517639162/",
+        "id": "4760187517639162",
+        "price_labels": [],
+        "ambiguous_free_label": true,
+        "location_text": "São Paulo, SP",
+        "title": "CONSOLE PLAYSTATION 5 SLIN"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1527987105850457/",
+        "id": "1527987105850457",
+        "price_labels": [
+          "R$3,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 FAT com leitor"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2634757270286420/",
+        "id": "2634757270286420",
+        "price_labels": [
+          "R$3,600"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "Playstation 5"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2120316458923880/",
+        "id": "2120316458923880",
+        "price_labels": [
+          "R$3,699"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 - Lacrado com Nota Fiscal"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1697406288747372/",
+        "id": "1697406288747372",
+        "price_labels": [
+          "R$3,700"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5- 825GB + 2 Jogos + 1 Controle"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1466591185538723/",
+        "id": "1466591185538723",
+        "price_labels": [
+          "R$2,450"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Título PLAYSTATION 5 SLIM"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2081450622497912/",
+        "id": "2081450622497912",
+        "price_labels": [
+          "R$2,400"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 + FC 24 – COMPLETO!"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1118553257445186/",
+        "id": "1118553257445186",
+        "price_labels": [
+          "R$2,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Console Playstation 5"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/961037429833422/",
+        "id": "961037429833422",
+        "price_labels": [
+          "R$2,050"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 digital astro bot"
+      }
+    ]
+  },
+  "facebook-scroll": {
+    "observed_at": "2026-11-10T19:39:25.119Z",
+    "query": "playstation 5",
+    "search_url": "https://www.facebook.com/marketplace/saopaulo/search/?query=playstation%205",
+    "title": "Facebook",
+    "authentication": "no supplied cookies; isolated browser",
+    "count": 43,
+    "items": [
+      {
+        "url": "https://www.facebook.com/marketplace/item/1671631174339530/",
+        "id": "1671631174339530",
+        "price_labels": [
+          "R$3,550",
+          "R$3,799"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation Ps5 zerado - entrego até você"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/981541738355566/",
+        "id": "981541738355566",
+        "price_labels": [],
+        "ambiguous_free_label": true,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slin com jogos"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1492068142829311/",
+        "id": "1492068142829311",
+        "price_labels": [
+          "R$3,390"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 FAT 825GB + 2 JOGOS 🏆"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1450813923100049/",
+        "id": "1450813923100049",
+        "price_labels": [
+          "R$3,699"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "Playstation 5 Slim"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2527966307684595/",
+        "id": "2527966307684595",
+        "price_labels": [
+          "R$3,700"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 FAT DIGITAL SEMI NOVO 6 MESES DE GARANTIA TODOS ACESSÓRIOS ORIGINAIS (PLATE ORIGINAL)"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1060549020341985/",
+        "id": "1060549020341985",
+        "price_labels": [
+          "R$3,099"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 - Divido em até 12x no cartão"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4603568669913765/",
+        "id": "4603568669913765",
+        "price_labels": [
+          "R$3,600",
+          "R$3,800"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "PS5 - PlayStation 5 à Venda"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4955501311348624/",
+        "id": "4955501311348624",
+        "price_labels": [
+          "R$4,300"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slim mídia fisica 1TB 2 controles + base + fome E 9 jogos"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4760187517639162/",
+        "id": "4760187517639162",
+        "price_labels": [],
+        "ambiguous_free_label": true,
+        "location_text": "São Paulo, SP",
+        "title": "CONSOLE PLAYSTATION 5 SLIN"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1527987105850457/",
+        "id": "1527987105850457",
+        "price_labels": [
+          "R$3,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 FAT com leitor"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2634757270286420/",
+        "id": "2634757270286420",
+        "price_labels": [
+          "R$3,600"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "Playstation 5"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1567396815147318/",
+        "id": "1567396815147318",
+        "price_labels": [
+          "R$3,650"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 Slim Digital 1TB + Controle (11 Meses de Garantia)"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2120316458923880/",
+        "id": "2120316458923880",
+        "price_labels": [
+          "R$3,699"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 - Lacrado com Nota Fiscal"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1697406288747372/",
+        "id": "1697406288747372",
+        "price_labels": [
+          "R$3,700"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5- 825GB + 2 Jogos + 1 Controle"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1466591185538723/",
+        "id": "1466591185538723",
+        "price_labels": [
+          "R$2,450"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Título PLAYSTATION 5 SLIM"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2081450622497912/",
+        "id": "2081450622497912",
+        "price_labels": [
+          "R$2,400"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 + FC 24 – COMPLETO!"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1118553257445186/",
+        "id": "1118553257445186",
+        "price_labels": [
+          "R$2,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Console Playstation 5"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1988578295433285/",
+        "id": "1988578295433285",
+        "price_labels": [
+          "R$2,200"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 slim"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/961037429833422/",
+        "id": "961037429833422",
+        "price_labels": [
+          "R$2,050"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 digital astro bot"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/987186244464907/",
+        "id": "987186244464907",
+        "price_labels": [
+          "R$3,200"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 muito novo"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2016729215632373/",
+        "id": "2016729215632373",
+        "price_labels": [
+          "R$2,000"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slim, 825, super novinho"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2555190678308842/",
+        "id": "2555190678308842",
+        "price_labels": [],
+        "ambiguous_free_label": true,
+        "location_text": "São Caetano do Sul, SP",
+        "title": "Playstation 5 troco por moto elétrica"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1482474923798221/",
+        "id": "1482474923798221",
+        "price_labels": [
+          "R$3,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "Playstation 5"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1114892828121817/",
+        "id": "1114892828121817",
+        "price_labels": [
+          "R$1,599"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Bragança Paulista, SP",
+        "title": "PLAYSTATION 5 LACRADO, NINTENDO SWITCH ACEITAMOS SEU USADO"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1690128369473269/",
+        "id": "1690128369473269",
+        "price_labels": [
+          "R$3,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slim midia digital (semi-novo)"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/4622014798119761/",
+        "id": "4622014798119761",
+        "price_labels": [
+          "R$2,400"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 Slim 1TB + 8 Jogos Físicos"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2148238275777553/",
+        "id": "2148238275777553",
+        "price_labels": [
+          "R$3,600"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Sony PS5 com 2 controles DualSense"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1175369125065044/",
+        "id": "1175369125065044",
+        "price_labels": [
+          "R$3,600"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarulhos, SP",
+        "title": "Playstation 5 slim digital"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1619027569738974/",
+        "id": "1619027569738974",
+        "price_labels": [],
+        "ambiguous_free_label": true,
+        "location_text": "São Paulo, SP",
+        "title": "Troco Ps5 digital 825 gb por Pc gamer Xbox séries s/x ou game portátil .ler descrição"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2818437661885872/",
+        "id": "2818437661885872",
+        "price_labels": [
+          "R$4,250"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Ps5 mídia física 4,250"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1135659459394060/",
+        "id": "1135659459394060",
+        "price_labels": [
+          "R$3,450"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 mídia digital"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1473564997978346/",
+        "id": "1473564997978346",
+        "price_labels": [
+          "R$2,400"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Itapevi, SP",
+        "title": "PLAYSTATION 5 SLIM 1TB"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1840486430277569/",
+        "id": "1840486430277569",
+        "price_labels": [
+          "R$3,200"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 - Com Leitor de Mídia Física - Perfeito Estado"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2208351940086239/",
+        "id": "2208351940086239",
+        "price_labels": [
+          "R$3,650"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 slim, aceito cartão até 18x."
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1323998413089687/",
+        "id": "1323998413089687",
+        "price_labels": [
+          "R$3,400"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PLAYSTATION 5 FAT TROCO EM IPHONE"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1556563159565615/",
+        "id": "1556563159565615",
+        "price_labels": [
+          "R$3,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 PS5 com Controle DualSense"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2916664808713307/",
+        "id": "2916664808713307",
+        "price_labels": [
+          "R$3,800"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Bernardo do Campo, SP",
+        "title": "PS5 Slim digital com 2 controles 1tb"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1872441767283495/",
+        "id": "1872441767283495",
+        "price_labels": [
+          "R$3,600"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "PlayStation 5 slim 825gb"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1142562464885042/",
+        "id": "1142562464885042",
+        "price_labels": [
+          "R$3,000"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Guarujá, SP",
+        "title": "Oportunidade PlayStation 5"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/996829056257333/",
+        "id": "996829056257333",
+        "price_labels": [
+          "R$3,400"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Francisco Morato, SP",
+        "title": "PS5 Seminovos"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/1645866157266050/",
+        "id": "1645866157266050",
+        "price_labels": [
+          "R$3,690"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Santo André, SP",
+        "title": "🎮 PlayStation 5 Fat com leitor de disco + jogo Returnal"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2164618471119400/",
+        "id": "2164618471119400",
+        "price_labels": [
+          "R$4,000",
+          "R$4,500"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "São Paulo, SP",
+        "title": "Playstation 5 Slim 1 Tb - Versão Mídia Física"
+      },
+      {
+        "url": "https://www.facebook.com/marketplace/item/2153824585527458/",
+        "id": "2153824585527458",
+        "price_labels": [
+          "R$1,000"
+        ],
+        "ambiguous_free_label": false,
+        "location_text": "Osasco, SP",
+        "title": "Ps Remoto Playstation Portal Para Playstation 5 Branco"
+      }
+    ]
+  },
+  "enjoei-detail": {
+    "observed_at": "2026-11-10T19:38:06.111Z",
+    "url": "https://www.enjoei.com.br/p/ps5-slim-1tb-versao-de-leitor-de-disco-pra-sair-rapido-153341902",
+    "title": "Ps5 Slim 1tb Versão de Leitor de Disco - Pra Sair Rápido | Sony Usado 153341902 | enjoei",
+    "product_text": "eletrônicos / videogames / consoles\nps5 slim 1tb versão de leitor de disco - pra sair rápido\nR$ 3.350\nR$ 3.650\nem até 12x R$ 336,55\neu quero\nfazer oferta\ndescrição do produto\n\nps5 semi novo - pouco usado\nvem com um controle e seus cabos\n1 jogo em mídia física\nleitor de disco\nmotivo da venda: não estou tendo tempo pra jogar\nsou de queimados\naceito cartão\nme chame no privado.\n\ninformações do produto\ntamanho\nn/a\ncondição do produto\nusado\nmarca\nsony",
+    "location_text": "queimados, rj"
+  },
+  "facebook-detail": {
+    "observed_at": "2026-11-10T19:38:06.094Z",
+    "url": "https://www.facebook.com/marketplace/item/1671631174339530/",
+    "title": "PlayStation Ps5 zerado - entrego até você - Video Game Consoles - São Paulo, Brazil | Facebook Marketplace | Facebook",
+    "product_text": "PlayStation Ps5 zerado - entrego até você\nR$3,550R$3,799\nElectronics\n › \nVideo Game Consoles\nListed a day ago in São Paulo, SP\nMessage\nSave\nShare\nDetails\nCondition\nUsed - like new\nPlayStation 5 Ps5 com leitor de mídia física 825gb\nConsole em estado de novo, sem detalhes, funcionando perfeitamente\nFeito limpeza e higienização.\nAcompanha: \n✅Controle original Branco\n✅Cabos de energia e conexão \n✅Caixa original com manuais \nPego seu Ps4 na troca mediante avaliação\nAceito pix, débito e crédito em até 12x com juros da maquininha.\nEntrego até sua residência por mais R$ 50 !\n See more\nSão Paulo, SP · Location is approximate\n"
+  },
+  "olx": {
+    "search_url": "https://www.olx.com.br/brasil?q=playstation%205",
+    "search_status": 403,
+    "homepage_status": 403,
+    "extracted_listing_count": null,
+    "extraction_state": "blocked; not an empty search",
+    "observed_at": "2026-11-10T19:38:06.085Z",
+    "url": "https://www.olx.com.br/",
+    "title": "Attention Required! | Cloudflare",
+    "block_message": "Sorry, you have been blocked\nYou are unable to access olx.com.br\nWhy have I been blocked?\n\nThis website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.\n\nWhat can I do to resolve this?\n\nYou can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.\n\n"
+  },
+  "method": {
+    "date_utc": "2026-11-10",
+    "browser": "Chromium headless through playwright-cli",
+    "supplied_authentication": false,
+    "query": "playstation 5",
+    "geography": "Facebook search path: saopaulo, default radius 65 km; Enjoei default near_regions, no private postcode",
+    "scope": "One bounded browser exploration. No account, seller contact, message, purchase, proxy or challenge solver. Site subrequest counts not instrumented.",
+    "limitations": [
+      "Unique links in sampled DOM, not platform totals or validated console matches.",
+      "Price labels retain ordering but do not normalize old price, installment or free placeholders.",
+      "No recurring collection, exact radius, destination shipping, lifecycle history or measured end-to-end latency."
+    ]
+  },
+  "continuation": {
+    "facebook": {
+      "initial_unique_ids": 19,
+      "after_one_scroll_unique_ids": 43,
+      "new_ids": 24,
+      "login_modal_closed_using_offered_close_button": true
+    },
+    "enjoei": {
+      "initial_unique_ids": 35,
+      "after_next_unique_ids": 35,
+      "new_ids_against_initial_sample": 34,
+      "shared_ids": 1,
+      "note": "Initial sample preceded a search reload; not a controlled overlap rate. Next-link click used cursor cc. A wait for page=2 timed out; distinct IDs demonstrate changed results, not an error-free page-number contract."
+    }
+  }
+}

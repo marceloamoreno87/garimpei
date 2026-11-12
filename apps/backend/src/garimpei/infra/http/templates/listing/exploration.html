@@ -1,0 +1,12 @@
+{% extends "listing/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <header class="page-heading">
+            <h1>Seu próximo garimpo</h1>
+
+            <p>Compare anúncios, confira os custos e encontre o que faz sentido para você.</p>
+        </header>
+        <div id="exploration-feedback" role="status" aria-live="polite"></div>
+        {% include "listing/results.html" %}
+    </main>
+{% endblock %}

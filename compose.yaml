@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f
+    environment:
+      POSTGRES_USER: garimpei
+      POSTGRES_DB: ${GARIMPEI_DB_NAME:?owned database required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?private password required}
+    ports:
+      - "127.0.0.1:${GARIMPEI_PG_PORT:?port required}:5432"
+    labels:
+      com.garimpei.environment: ${GARIMPEI_ENVIRONMENT_ID}
+      com.garimpei.checkout: ${GARIMPEI_CHECKOUT}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  waha:
+    image: devlikeapro/waha:gows-2026.10.1@sha256:1f7faeb0227ad5edb5711f7058bfce807ea65e5f92234af0778e4db140f6eb46
+    environment:
+      WAHA_API_KEY: ${WAHA_API_KEY:?private API key required}
+      WHATSAPP_DEFAULT_ENGINE: GOWS
+      WAHA_DASHBOARD_ENABLED: "False"
+      WHATSAPP_SWAGGER_ENABLED: "False"
+      WAHA_PRINT_QR: "False"
+    ports:
+      - "127.0.0.1:${GARIMPEI_WAHA_PORT:?port required}:3000"
+    labels:
+      com.garimpei.environment: ${GARIMPEI_ENVIRONMENT_ID}
+      com.garimpei.checkout: ${GARIMPEI_CHECKOUT}
+    volumes:
+      - waha_sessions:/app/.sessions
+volumes:
+  postgres_data:
+    labels:
+      com.garimpei.environment: ${GARIMPEI_ENVIRONMENT_ID}
+      com.garimpei.checkout: ${GARIMPEI_CHECKOUT}
+  waha_sessions:
+    labels:
+      com.garimpei.environment: ${GARIMPEI_ENVIRONMENT_ID}
+      com.garimpei.checkout: ${GARIMPEI_CHECKOUT}
+networks:
+  default:
+    labels:
+      com.garimpei.environment: ${GARIMPEI_ENVIRONMENT_ID}
+      com.garimpei.checkout: ${GARIMPEI_CHECKOUT}

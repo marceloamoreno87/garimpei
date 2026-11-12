@@ -1,0 +1,54 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Acompanhamento · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Seu acompanhamento</h1>
+        <section class="tracking-state">
+            <p class="notice">Configuração concluída</p>
+            <div role="status">
+                {% if collection.phase == "running" %}
+                    {% if collection.initial_completed_at %}
+                        <h2>Atualização em andamento</h2>
+                    {% else %}
+                        <h2>Coleta inicial em andamento</h2>
+                    {% endif %}
+                {% elif collection.phase == "complete" %}
+                    <h2>Coleta concluída</h2>
+                {% elif collection.phase == "partial" %}
+                    <h2>Coleta parcial</h2>
+                    <p>Algumas consultas falharam. Os anúncios já coletados continuam salvos.</p>
+                {% elif collection.phase == "unavailable" %}
+                    <h2>Coleta indisponível</h2>
+                    {% if collection.reason == "source_profile_unavailable" %}
+                        <p>O acesso ao Facebook Marketplace ainda não está disponível nesta instalação.</p>
+                    {% else %}
+                        <p>A última tentativa não conseguiu consultar a fonte.</p>
+                    {% endif %}
+                {% elif collection.initial_completed_at %}
+                    <h2>Atualização agendada</h2>
+                {% else %}
+                    <h2>Coleta inicial agendada</h2>
+                {% endif %}
+                {% if collection.window_start and collection.window_end %}
+                    <p>Janela de publicação {{ collection.window_start|date:"d/m/Y H:i T" }} a {{ collection.window_end|date:"d/m/Y H:i T" }}</p>
+                {% endif %}
+                {% if collection.access_suspended %}
+                    <p>O acesso precisa ser confirmado antes de retomar.</p><a href="{% url 'integration-settings' %}">Conferir conexão com o Facebook</a>
+                {% elif collection.next_attempt_at and collection.phase != 'running' %}
+                    <p>Próxima tentativa prevista: {{ collection.next_attempt_at|date:"d/m/Y H:i:s T" }}.</p>
+                {% endif %}
+                {% if collection.last_attempt_at %}
+                    <p>Última tentativa {{ collection.last_attempt_at|date:"d/m/Y H:i:s T" }}</p>
+                {% endif %}
+                {% if collection.last_success_at %}
+                    <p>Última coleta completa {{ collection.last_success_at|date:"d/m/Y H:i:s T" }}</p>
+                {% endif %}
+            </div>
+            {% if collection.monitoring_started_at %}<p>Monitoramento de novas publicações desde {{ collection.monitoring_started_at|date:"d/m/Y H:i:s T" }}.</p>{% endif %}
+            {% if collection.reason %}<p>{% if 'category_unavailable' in collection.reason %}Uma categoria salva está indisponível. Revise suas categorias nas configurações.{% else %}A fonte não confirmou todos os resultados. O progresso já obtido foi preservado para a próxima tentativa.{% endif %}</p>{% endif %}
+            <p>Anúncios com publicação comprovada após o início do monitoramento podem gerar alertas enquanto o histórico é coletado.</p>
+            <a class="button primary" href="{% url 'condition-list' %}">Explorar ofertas</a>
+            <a class="button secondary" href="{% url 'monitoring-edit' %}">Revisar configurações</a>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+  "upstream": {
+    "marketplace": "fullcycle-claude-marketplace",
+    "plugins": {
+      "adrs-management": "1.0.0",
+      "development-guidelines": "1.0.0",
+      "diagrams-generator": "1.0.0",
+      "project-analizer": "1.0.0"
+    },
+    "repository": "https://github.com/devfullcycle/claude-mkt-place",
+    "revision": "4a5aa4dd6f926a9346fddc450550896d44c94cad"
+  }
+}

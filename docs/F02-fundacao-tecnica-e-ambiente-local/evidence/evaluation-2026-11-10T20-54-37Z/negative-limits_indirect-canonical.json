@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "exit": 1,
+  "stdout": "[gates] Tipos: 42 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 64 source files\n[gates] Tipos: PASS\n[gates] Lint: 42 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nI001 [*] Import block is un-sorted or un-formatted\n --> src/garimpei/domain/runtime/negative_helper.py:1:1\n  |\n1 | from garimpei.config.env import logging_context\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2 |\n3 | def invoke() -> str:\n  |\nhelp: Organize imports\n  |\n2 |\n3 +\n4 | def invoke() -> str:\n  |\n\nI001 [*] Import block is un-sorted or un-formatted\n --> src/garimpei/domain/runtime/negative_indirect.py:1:1\n  |\n1 | from garimpei.domain.runtime.negative_helper import invoke\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2 |\n3 | def run() -> str:\n  |\nhelp: Organize imports\n  |\n2 |\n3 +\n4 | def run() -> str:\n  |\n\nFound 2 errors.\n[*] 2 fixable with `--fix`.\n",
+  "stderr": "[gates] Lint: FAILED\n"
+}

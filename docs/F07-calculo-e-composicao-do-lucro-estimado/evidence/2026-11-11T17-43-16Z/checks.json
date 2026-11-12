@@ -1,0 +1,88 @@
+[
+  {
+    "name": "gates",
+    "command": [
+      "node",
+      "scripts/run-gates.mjs"
+    ],
+    "env": {},
+    "exit_code": 0,
+    "started_at": "2026-11-11T17:53:22.034233+00:00",
+    "finished_at": "2026-11-11T17:53:23.740503+00:00",
+    "evidence": "docs/F07-calculo-e-composicao-do-lucro-estimado/evidence/2026-11-11T17-43-16Z/gates.txt"
+  },
+  {
+    "name": "tests",
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "pytest",
+      "apps/backend/tests"
+    ],
+    "env": {},
+    "exit_code": 0,
+    "started_at": "2026-11-11T17:53:23.740617+00:00",
+    "finished_at": "2026-11-11T18:02:34.887647+00:00",
+    "evidence": "docs/F07-calculo-e-composicao-do-lucro-estimado/evidence/2026-11-11T17-43-16Z/tests.txt"
+  },
+  {
+    "name": "django",
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "apps/backend/manage.py",
+      "check"
+    ],
+    "env": {
+      "DJANGO_SETTINGS_MODULE": "garimpei.config.test_settings"
+    },
+    "exit_code": 0,
+    "started_at": "2026-11-11T18:02:34.887959+00:00",
+    "finished_at": "2026-11-11T18:02:35.164035+00:00",
+    "evidence": "docs/F07-calculo-e-composicao-do-lucro-estimado/evidence/2026-11-11T17-43-16Z/django.txt"
+  },
+  {
+    "name": "build",
+    "command": [
+      "uv",
+      "build",
+      "--directory",
+      "apps/backend",
+      "--no-build-isolation"
+    ],
+    "env": {},
+    "exit_code": 0,
+    "started_at": "2026-11-11T18:02:35.164208+00:00",
+    "finished_at": "2026-11-11T18:02:35.489857+00:00",
+    "evidence": "docs/F07-calculo-e-composicao-do-lucro-estimado/evidence/2026-11-11T17-43-16Z/build.txt"
+  },
+  {
+    "name": "service",
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "pytest",
+      "apps/backend/tests/integration/test_profit.py",
+      "-v",
+      "-s"
+    ],
+    "env": {},
+    "exit_code": 0,
+    "started_at": "2026-11-11T18:02:35.490013+00:00",
+    "finished_at": "2026-11-11T18:03:46.670363+00:00",
+    "evidence": "docs/F07-calculo-e-composicao-do-lucro-estimado/evidence/2026-11-11T17-43-16Z/service.txt"
+  }
+]

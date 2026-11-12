@@ -1,0 +1,34 @@
+import {createState} from '../../prototypes/model.js';
+import {alertsView,detailView,interestsView,offersView,settingsView,setupView} from '../../prototypes/views.js';
+
+export default {title:'Mineral/Jornadas',parameters:{layout:'padded'}};
+const base=()=>createState(new URLSearchParams());
+const first=()=>createState(new URLSearchParams({scenario:'first-use'}));
+const story=(render,makeState)=>({render:()=>{
+  const main=document.createElement('main');main.style.maxWidth='1100px';main.innerHTML=render(makeState());
+  main.addEventListener('submit',event=>event.preventDefault());
+  main.addEventListener('click',event=>{if(event.target.closest('a'))event.preventDefault();});
+  return main;
+}});
+export const PrimeiroUso=story(setupView,first);
+export const CustosEmBranco=story(setupView,()=>{const s=first();s.setup.step=2;return s;});
+export const SelecaoDeInteresses=story(setupView,()=>{const s=first();s.setup.step=3;return s;});
+export const CustosInvalidos=story(setupView,()=>{const s=first();s.setup.step=2;s.errorForm='setup';s.errors={shipping:'Informe o frete estimado.',rate:'Informe o percentual provisório.'};return s;});
+export const GravacaoPendente=story(settingsView,()=>{const s=base();s.pending='settings';return s;});
+export const FalhaAoGravar=story(settingsView,()=>{const s=base();s.settingsDraft.shipping='45,50';s.errorForm='settings';s.saveMessage='Não foi possível salvar. Os campos foram preservados para tentar novamente.';return s;});
+export const ClassificacaoIncerta=story(detailView,()=>{const s=base();s.offer='unknown';return s;});
+export const CorrigirClassificacao=story(detailView,()=>{const s=base();s.offer='unknown';s.offers.find(o=>o.id==='unknown').manualCondition='good';s.offers.find(o=>o.id==='unknown').condition='good';return s;});
+export const FalhaAoClassificar=story(detailView,()=>{const s=base();s.offer='unknown';s.errorForm='classification';s.saveMessage='Não foi possível salvar. A classificação anterior foi mantida.';return s;});
+export const ComparaveisIdentificaveis=story(detailView,()=>{const s=base();s.offer='camera';return s;});
+export const AtualizacoesDisponiveis=story(offersView,()=>{const s=base();s.pendingUpdates=[{id:'camera',price:175000}];return s;});
+export const PrimeiraColeta=story(offersView,()=>{const s=base();s.scenario='initial';return s;});
+export const ColetaSemResultados=story(offersView,()=>{const s=base();s.scenario='empty';return s;});
+export const SemResultadoNosFiltros=story(offersView,()=>{const s=base();s.search='produto inexistente';return s;});
+export const AcompanhamentoParado=story(offersView,()=>{const s=base();s.scenario='stopped';return s;});
+export const DadosDesatualizados=story(offersView,()=>{const s=base();s.scenario='stale';return s;});
+export const ColetaParcial=story(offersView,()=>{const s=base();s.scenario='partial';return s;});
+export const ConsultaIndisponivel=story(offersView,()=>{const s=base();s.scenario='unavailable';return s;});
+export const DadosAusentes=story(offersView,()=>createState(new URLSearchParams({scenario:'gaps'})));
+export const PaginaDois=story(offersView,()=>{const s=createState(new URLSearchParams({scenario:'many'}));s.page=2;return s;});
+export const Interesses=story(interestsView,base);
+export const AlertasSilenciosos=story(alertsView,()=>{const s=base();s.alerts=[];return s;});

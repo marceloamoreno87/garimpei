@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 12 items
+
+apps/backend/tests/unit/test_valuation.py ......
+apps/backend/tests/integration/test_valuation.py SVC-REVENDA-01/04, SVC-NOVO-01, WRK-ATUALIZACAO-01/02/03/04, WRK-PUBLICACAO-02 PASS
+.SVC-NOVO-02/03/04 and WRK-ATUALIZACAO-05 PASS
+.WRK-PUBLICACAO-01/03 PASS: transaction rollback, old version intact, pending work resumed after normal stop
+.SVC-REVENDA-03/07 PASS
+.WRK-PUBLICACAO-02 and additive migration PASS
+.SVC-REVENDA-02/05 PASS
+.
+
+======================== 12 passed in 103.36s (0:01:43) ========================

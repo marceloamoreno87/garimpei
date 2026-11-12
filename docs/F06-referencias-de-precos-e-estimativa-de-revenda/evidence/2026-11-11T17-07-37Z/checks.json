@@ -1,0 +1,32 @@
+[
+  {
+    "command": "node scripts/run-gates.mjs",
+    "exit_code": 0,
+    "evidence": "check-0.txt"
+  },
+  {
+    "command": "uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py check",
+    "exit_code": 0,
+    "evidence": "check-1.txt"
+  },
+  {
+    "command": "uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py makemigrations --check --dry-run",
+    "exit_code": 0,
+    "evidence": "check-2.txt"
+  },
+  {
+    "command": "uv build --directory apps/backend --no-build-isolation",
+    "exit_code": 0,
+    "evidence": "check-3.txt"
+  },
+  {
+    "command": "node --test scripts/test/harness.test.mjs",
+    "exit_code": 0,
+    "evidence": "check-4.txt"
+  },
+  {
+    "command": "node scripts/check-harness.mjs",
+    "exit_code": 0,
+    "evidence": "check-5.txt"
+  }
+]

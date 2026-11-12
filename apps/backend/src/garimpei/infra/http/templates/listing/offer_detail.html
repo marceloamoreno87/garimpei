@@ -1,0 +1,117 @@
+{% extends "listing/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <a class="back-link" href="{{ back }}">Voltar aos resultados</a>
+        <header class="page-heading">
+            <h1>{{ title }}</h1>
+
+            <p>{{ source_label }} · Anúncio {{ key }} · Observação {{ offer.observed_at|date:"d/m/Y H:i:s" }} UTC</p>
+        </header>
+        {% if error %}<section class="error-summary"
+                               role="alert"
+                               id="form-error"
+                               tabindex="-1"><h2>Não foi possível confirmar a alteração</h2>
+
+            <p>{{ error }}</p>{% if not readable %}<p>Recarregue os detalhes antes de tentar salvar novamente.</p>{% endif %}<a href="{{ refresh }}">Recarregar detalhes</a></section>{% endif %}
+    <div id="exploration-feedback" role="status"></div>
+    <div id="exploration"
+         data-version="{{ criteria.version }}"
+         data-status-url="{{ status_url }}"
+         data-detail="true"
+         data-refresh="{{ refresh }}">
+        <div id="updates"
+             aria-live="polite"
+             hx-get="{{ status_url }}"
+             hx-trigger="every 30s [!document.hidden], exploration-poll from:body"
+             hx-swap="innerHTML"
+             hx-sync="#exploration:abort"></div>
+    </div>
+    {% if applied %}<p class="notice"
+                       role="status">Dados atualizados. A nova revisão será mantida ao voltar aos resultados.</p>{% endif %}
+    {% if offer.unavailable %}<div class="notice"><h2>Anúncio indisponível na origem</h2>
+
+        <p>Última observação válida: {{ offer.last_valid_at|date:"d/m/Y H:i:s"|default:"não informada" }} UTC. O link identificado continua disponível.</p></div>{% endif %}
+    {% if confirmation %}<p class="notice" role="status">Sua classificação foi salva. A oferta está em <strong>{{ live.state.tab_label }}</strong>.</p>{% endif %}
+    <div class="exploration-detail">
+        <section class="detail-finance" aria-labelledby="finance-heading">
+            <div class="offer-image">{% if offer.evidence.image_url %}<img src="{{ offer.evidence.image_url }}"
+                                                                           alt="{{ title }} · imagem do anúncio"
+                                                                           referrerpolicy="no-referrer">{% else %}<span role="img" aria-label="Imagem não disponível para {{ title }}">Imagem não disponível</span>{% endif %}</div>
+            <h2 id="finance-heading">Entenda a estimativa</h2>
+
+            <dl class="finance">
+                <dt>Compra · preço anunciado</dt>
+                <dd>
+                    {{ price }}
+                </dd>
+                <dt>Revenda estimada de usado</dt>
+                <dd>
+                    {{ resale }}
+                </dd>
+                <dt>Taxa provisória · {{ percent }}%</dt>
+                <dd>
+                    {{ fee }}
+                </dd>
+            </dl>
+            <p class="profit-label">{{ complete_profit_label }}</p>
+            <p class="offer-profit">{{ profit }}</p>
+        {% if reason %}<p class="fine">Motivo da indisponibilidade: {{ reason }}.</p>{% endif %}
+        <p class="fine">Estimativa para equivalente funcional, sem custo de reparo. Frete/transporte, embalagem, impostos e frete de revenda não estão incluídos.</p>
+    </section>
+    <section class="detail-evidence" aria-labelledby="references-heading">
+        <h2 id="references-heading">Referências para comparar</h2>
+
+        <p>Preços anunciados de usados. Não representam vendas realizadas.</p>
+        <ol class="comparables">{% for ref in references %}<li><h3>{{ ref.title }}</h3>
+
+            <p>{{ ref.source }} · {{ ref.key }} · {{ ref.date|date:"d/m/Y H:i:s" }} UTC</p><strong>{{ ref.price }}</strong> <a href="{{ ref.url }}" target="_blank" rel="noopener noreferrer">Abrir referência</a></li>{% empty %}<li>Amostra insuficiente ou avaliação ainda indisponível.</li>{% endfor %}</ol>
+    <section class="new-reference">
+        <h3>Referência de novo</h3>
+
+    {% if new %}<p>{{ new.title }}</p><p>{{ new.source }} · {{ new.key }} · {{ new.date|date:"d/m/Y H:i:s" }} UTC</p><strong>{{ new.price }}</strong> <a href="{{ new.url }}" target="_blank" rel="noopener noreferrer">Abrir referência de novo</a>{% else %}<p>Referência de novo indisponível.</p>{% endif %}</section>
+    <a class="button primary source-link"
+       href="{{ url }}"
+       target="_blank"
+       rel="noopener noreferrer">Abrir anúncio original</a>
+</section>
+</div>
+<section class="condition-detail-layout" aria-label="Condição da oferta">
+    <div class="condition-summary">
+        <h2>{{ offer.condition.label }}</h2>
+
+        <p>{% if offer.condition.manual %}Sua classificação manual{% else %}Classificação a partir do anúncio{% endif %}</p>
+        {% if live.state.conflict %}<div class="notice"><h3>A informação do anúncio diverge da sua classificação</h3>
+
+            <p>Sua escolha continua ativa. Observação vigente: {{ live.observed_at|date:"d/m/Y H:i:s" }} UTC.</p></div>{% endif %}
+        {% if live.state.editable %}
+            {% if live.state.manual %}<details {% if error %}open{% endif %}><summary>Corrigir sua classificação</summary>{% endif %}
+            <form method="post" action="{{ condition_url }}" data-condition-form>{% csrf_token %}<input type="hidden" name="revision" value="{{ live.state.revision }}"><fieldset><legend>Sua avaliação de funcionamento</legend><label class="condition-choice"><input type="radio"
+                                                                                                                                                                                                                                                                        name="choice"
+                                                                                                                                                                                                                                                                        value="good"
+                                                                                                                                                                                                                                                                        required
+                                                                                                                                                                                                                                                                        {% if selected_choice == 'good' %}checked{% endif %}> <span>Funciona bem</span></label><label class="condition-choice"><input type="radio"
+                                                                                                                                                                                                                                                                                                                                                                                                      name="choice"
+                                                                                                                                                                                                                                                                                                                                                                                                      value="defect"
+                                                                                                                                                                                                                                                                                                                                                                                                      required
+                                                                                                                                                                                                                                                                                                                                                                                                      {% if selected_choice == 'defect' %}checked{% endif %}> <span>Não funciona bem</span></label></fieldset><button type="submit" class="primary">{% if live.state.manual %}Salvar correção{% else %}Salvar classificação{% endif %}</button><p class="condition-pending" role="status" hidden>Salvando sua classificação…</p></form>
+            {% if live.state.manual %}</details>{% endif %}
+        {% endif %}
+        <a class="button secondary destination-link" href="{{ destination }}">Ver em {{ offer.condition.tab_label }}</a>
+    </div>
+    <div class="source-evidence">
+        <h2>O que o anúncio informa</h2>
+
+        <dl class="source-fields">
+            <dt>Condição informada</dt>
+            <dd>
+                {{ offer.evidence.condition|default:"Não informada" }}
+            </dd>
+            <dt>Descrição</dt>
+            <dd>
+                {{ offer.evidence.description|default:"Não informada" }}
+            </dd>
+        </dl>
+    </div>
+</section>
+</main>
+{% endblock %}

@@ -1,0 +1,4 @@
+16 objects imported automatically (use -v 2 for details).
+
+{"item": "SVC-CONDICAO-03", "id": "bbf2c109-2719-4c32-8294-af62c1e9513b", "tab": "funcionam", "manual": null, "collection_phase": "unavailable", "last_accepted_observation": "7dbb0000-0d90-4ed1-a8b8-f3cdfee997db"}
+{"timestamp": "2026-11-11T17:00:14.982541+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_911918673e", "run_id": "078632fe-7dd5-4a8b-9e6d-bda3a00f4e1f"}

@@ -1,0 +1,10 @@
+flowchart TD
+    MONITORING["monitoring"]
+    LISTING["listing"]
+    VALUATION["valuation"]
+    ALERT["alert"]
+    READ["Leitura da interface"]
+    READ -->|Consulta| MONITORING
+    READ -->|Consulta| LISTING
+    READ -->|Consulta| VALUATION
+    READ -->|Consulta| ALERT

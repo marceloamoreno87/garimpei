@@ -1,0 +1,12 @@
+{
+  "name": "backend-gates",
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "cwd": ".",
+  "exit": 0,
+  "duration_seconds": 1.032,
+  "stdout": "[gates] Tipos: 40 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 63 source files\n[gates] Tipos: PASS\n[gates] Lint: 40 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nAll checks passed!\n[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py\n63 files already formatted\n[gates] uv run --frozen --no-sync djlint src/garimpei/infra/http/templates --lint --profile=django\n\n\n\nLinted 1 file, found 0 errors.\n\n[gates] Lint: PASS\n[gates] Limites: 40 Python source files\n[gates] uv run --frozen --no-sync lint-imports --config .importlinter\n\n╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐\n╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │\n ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗\n ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝\n╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║\n╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝\n  └──▶║║                    ▲ \n      ╚╝────────────────────┘\n\n\n---------\nContracts\n---------\n\nAnalyzed 70 files, 117 dependencies.\n------------------------------------\n\nDomain has no application or I/O dependencies KEPT\nUsecases depend only on pure contracts KEPT\n\nContracts: 2 kept, 0 broken.\n[gates] Limites: PASS\n[gates] Arquitetura: 40 Python source files\n[gates] uv run --frozen --no-sync python scripts/quality/check_architecture.py\nArchitecture: 40 source files; 0 violations\n[gates] Arquitetura: PASS\n[gates] Ciclos: 40 Python source files\n[gates] uv run --frozen --no-sync python scripts/quality/check_cycles.py\nCycles: 40 modules, 0 cyclic edges\n[gates] Ciclos: PASS\n[gates] Não utilizados: 40 Python source files\n[gates] uv run --frozen --no-sync vulture src scripts/quality quality/vulture_whitelist.py --min-confidence 60\n[gates] uv run --frozen --no-sync deptry .\n[gates] Não utilizados: PASS\n[gates] Six Python groups approved\n",
+  "stderr": "Linting 1/1 files\nScanning 43 files...\n\n\u001b[1m\u001b[32mSuccess! No dependency issues found.\u001b[m\n"
+}

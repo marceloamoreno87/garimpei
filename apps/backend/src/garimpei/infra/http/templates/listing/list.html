@@ -1,0 +1,50 @@
+{% extends "listing/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <header class="page-heading">
+            <h1>Ofertas por condição</h1>
+
+            <p>Veja o que o anúncio informa sobre funcionamento. Quando a informação não for suficiente, você pode classificar a oferta nos detalhes.</p>
+        </header>
+        <nav class="condition-tabs"
+             aria-label="Condição das ofertas"
+             role="tablist">
+            {% for value, label in tabs %}
+                <a id="tab-{{ value }}"
+                   role="tab"
+                   aria-controls="offers"
+                   aria-selected="{% if value == tab %}true{% else %}false{% endif %}"
+                   tabindex="{% if value == tab %}0{% else %}-1{% endif %}"
+                   href="?aba={{ value }}">{{ label }}</a>
+            {% endfor %}
+        </nav>
+        <section id="offers" role="tabpanel" aria-labelledby="tab-{{ tab }}">
+            <p class="results-count">{{ offers|length }} oferta{{ offers|length|pluralize:"s" }}</p>
+            <div class="offer-grid">
+                {% for offer in offers %}
+                    <article class="offer-card {% if forloop.first %}offer-lead{% endif %}"
+                             data-listing-id="{{ offer.id }}">
+                        <div class="photo-fallback"
+                             role="img"
+                             aria-label="Imagem do anúncio indisponível"><span>Sem foto disponível</span></div>
+                        <div class="offer-copy">
+                            <p class="source-meta">Facebook Marketplace</p>
+                            <h2><a href="{% url 'condition-detail' offer.id %}">{{ offer.title }}</a></h2>
+
+                            <p class="condition-label">{{ offer.state.label }}{% if offer.state.manual %} <span>· Sua classificação</span>{% endif %}</p>
+                            <p class="purchase-price">{% if offer.price != None %}R$ {{ offer.price|floatformat:"2g" }}{% else %}Preço não informado{% endif %}</p>
+                            <a class="offer-link" href="{% url 'condition-detail' offer.id %}">Ver detalhes</a>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="empty-offers">
+                        <h2>Nenhuma oferta nesta aba</h2>
+
+                        <p>As ofertas aparecem aqui depois da coleta, conforme a informação de funcionamento disponível.</p>
+                        <a class="button secondary" href="{% url 'monitoring-edit' %}">Revisar interesses</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

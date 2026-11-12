@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-11T21:33:46.866647+00:00",
+  "states_scheduled": 1,
+  "method": "Only next_attempt_at of unsuspended finalized state advanced; normal scheduler owns execution",
+  "prior_offer_count": 141
+}

@@ -1,0 +1,166 @@
+{
+  "started_at": "2026-11-11T01:55:59.079980+00:00",
+  "profile": {
+    "max_pages": 2,
+    "cadence_ms": 1200,
+    "timeout_seconds": 20,
+    "lease_seconds": 60
+  },
+  "phase": "partial",
+  "finished_at": "2026-11-11 02:02:07.128935+00:00",
+  "published_count": 65,
+  "query_results": {
+    "detail:960937773757651": null,
+    "detail:991968280631829": null,
+    "detail:1060549020341985": null,
+    "detail:1090467077369023": null,
+    "detail:1102584972395155": null,
+    "detail:1104552411966027": null,
+    "detail:1109734171910458": null,
+    "detail:1122232810210040": null,
+    "detail:1124104593930501": null,
+    "detail:1129640026225781": null,
+    "detail:1135659459394060": null,
+    "detail:1136026895876413": null,
+    "detail:1148551280953261": null,
+    "detail:1155617423783830": null,
+    "detail:1170059255483054": null,
+    "detail:1339404891526832": null,
+    "detail:1429436392723293": null,
+    "detail:1442772181123972": null,
+    "detail:1464303015581393": null,
+    "detail:1468692311804989": null,
+    "detail:1491255739208846": null,
+    "detail:1551245249767940": null,
+    "detail:1596247161812453": null,
+    "detail:1606210111186603": null,
+    "detail:1610168240802195": null,
+    "detail:1639254121214380": null,
+    "detail:1651187603074140": null,
+    "detail:1664257452028235": null,
+    "detail:1670223567951591": null,
+    "detail:1671631174339530": null,
+    "detail:1676278840507039": null,
+    "detail:1679267190389018": null,
+    "detail:1706445011123766": null,
+    "detail:1737327480701087": null,
+    "detail:1758218632047738": null,
+    "detail:1766396344451623": null,
+    "detail:1771789457465034": null,
+    "detail:1780086313427285": null,
+    "detail:1795922238123250": null,
+    "detail:1796078034960425": null,
+    "detail:1800576501206814": null,
+    "detail:1819911075875824": null,
+    "detail:1840486430277569": null,
+    "detail:1841328290541011": null,
+    "detail:1853699279276790": null,
+    "detail:1872993257226555": null,
+    "detail:1889940105332995": null,
+    "detail:1895975401753136": null,
+    "detail:1961286738179346": null,
+    "detail:2018497712171270": null,
+    "detail:2044101632968978": null,
+    "detail:2101674297158950": null,
+    "detail:2109723743083486": null,
+    "detail:2120470558588323": null,
+    "detail:2133280010911815": null,
+    "detail:2164618471119400": null,
+    "detail:2186070655616656": null,
+    "detail:2189483028306241": null,
+    "detail:2233177430805220": null,
+    "detail:2246411299538959": null,
+    "detail:2391782944562288": null,
+    "detail:2429146101194607": null,
+    "detail:2432441707291368": null,
+    "detail:2519051211914157": null,
+    "detail:2555190678308842": null,
+    "detail:4091755264453238": null,
+    "detail:4104242149885420": null,
+    "detail:4499187280321552": null,
+    "detail:28172571225673795": null,
+    "detail:28181572928212222": null,
+    "detail:31196553220014950": null,
+    "pickup:product:playstation 5": {
+      "access": false,
+      "reason": "window_limit",
+      "retry_after": 0
+    },
+    "shipping:product:playstation 5": {
+      "access": false,
+      "reason": "national_shipping_scope_unverified",
+      "retry_after": 0
+    },
+    "pickup:category:479353692612078": {
+      "access": false,
+      "reason": "window_limit",
+      "retry_after": 0
+    },
+    "shipping:category:479353692612078": {
+      "access": false,
+      "reason": "national_shipping_scope_unverified",
+      "retry_after": 0
+    }
+  },
+  "listing_count": 65,
+  "observation_count": 65,
+  "events": [
+    [
+      "initial_load",
+      true,
+      65
+    ]
+  ],
+  "examples": [
+    {
+      "external_id": "1060549020341985",
+      "url": "https://www.facebook.com/marketplace/item/1060549020341985/",
+      "title": "PlayStation 5 - Divido em até 12x no cartão",
+      "price": "3099.00",
+      "condition": "Usado — seminovo",
+      "published_at": "2026-11-09T22:44:50+00:00",
+      "has_description": true,
+      "coverage": {
+        "pickup": "unknown",
+        "shipping": "unknown",
+        "distance_km": null,
+        "pickup_reason": "location_unverified",
+        "shipping_reason": "destination_unverified"
+      }
+    },
+    {
+      "external_id": "1090467077369023",
+      "url": "https://www.facebook.com/marketplace/item/1090467077369023/",
+      "title": "PlayStation 5 Slim Digital Console 825GB - International Version",
+      "price": "2900.00",
+      "condition": "Usado — seminovo",
+      "published_at": "2026-11-10T23:48:29+00:00",
+      "has_description": true,
+      "coverage": {
+        "pickup": "unknown",
+        "shipping": "unknown",
+        "distance_km": null,
+        "pickup_reason": "location_unverified",
+        "shipping_reason": "destination_unverified"
+      }
+    },
+    {
+      "external_id": "1102584972395155",
+      "url": "https://www.facebook.com/marketplace/item/1102584972395155/",
+      "title": "Técnico eletrônico especialista em várias marcas",
+      "price": "50.00",
+      "condition": "Novo",
+      "published_at": "2026-10-09T13:45:27+00:00",
+      "has_description": true,
+      "coverage": {
+        "pickup": "unknown",
+        "shipping": "unknown",
+        "distance_km": null,
+        "pickup_reason": "location_unverified",
+        "shipping_reason": "destination_unverified"
+      }
+    }
+  ],
+  "health": 200,
+  "status_page": 200
+}

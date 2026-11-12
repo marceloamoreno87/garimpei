@@ -1,0 +1,53 @@
+{
+  "changed": {
+    "apps/backend/quality/vulture_whitelist.py": {
+      "before": "0fe6e5d6fc60117c8f4ab1480dd6636d03b84064daf5e6d988185a8b86c57d5a",
+      "after": "823e6f1e8c5e865c8dff820c8faacbb4d02dbf19a598b0310fc46007192ecbae"
+    },
+    "apps/backend/quality/entrypoints.json": {
+      "before": "cc88c2f4f9a70ef8d38eaf3c7f34232a307b9fdb1fbe9cabc66f4de3a33f0181",
+      "after": "fbd998df7c6e1026558bbd4d96712067eedbf2b962d6f820cc41fa6e2931e469"
+    },
+    "apps/backend/tests/integration/test_profit.py": {
+      "before": null,
+      "after": "e052672e05d418104618456a83ef0c9c49c55c9413eb29c1b3194fba405c4d91"
+    },
+    "apps/backend/tests/unit/test_profit.py": {
+      "before": null,
+      "after": "fffdba11916c716a4767d2d36538a934a0c52bb790c7a475d525c9aad499e851"
+    },
+    "apps/backend/tests/factories/valuation.py": {
+      "before": "b0081749db98565700aac3273febfc55eb139dd2868ce88880a35c96d0b3a384",
+      "after": "f41cfbe54959303beaf84410c6cc2307dfc0b9275cfb878de004d61ed2d64390"
+    },
+    "apps/backend/tests/fixtures/valuation/cases.json": {
+      "before": "a00162c64c0b2cc0ecb34c971ca436472fb59bd80e24e21ec4ea46ed1b18c18f",
+      "after": "53760abb7b890aaeb177e2a72c33d6df9c75350424b600875a9de76f4dd41b03"
+    },
+    "apps/backend/src/garimpei/main.py": {
+      "before": "393ec8d7b4abeffc3c9b8e133fb868b8b473c0f5e7065cfee8b6e8f67e155c4b",
+      "after": "03ce361625ad1267bc010bc3975ac97a128469ae4950ccd80543c46dc6cbc15c"
+    },
+    "apps/backend/src/garimpei/usecase/valuation/read_profit_usecase.py": {
+      "before": null,
+      "after": "a0dac623d48698e3e6166804e960fa9c3c6c7ee681ec3469c3a95494f2a2a95b"
+    },
+    "apps/backend/src/garimpei/infra/runtime/logging.py": {
+      "before": "801d734412303769a76e1238707695f0069480ba4df360646c25da5dcdcd6029",
+      "after": "8cc9c905f4f2431104d420ad7d47be12e8cce6fd5f94041ccf55372211504da9"
+    },
+    "apps/backend/src/garimpei/infra/queries/valuation/profit_queries.py": {
+      "before": null,
+      "after": "edfd4bc5d043804b50f59c5c74975c2f9f8420cff50e99cfef6fbcc1bab89530"
+    },
+    "apps/backend/src/garimpei/domain/valuation/profit_queries.py": {
+      "before": null,
+      "after": "c327ece95f7943b5c2118a4c2b4f16cc9657cd213ff59fcd2501ce3506bde1b7"
+    },
+    "apps/backend/src/garimpei/domain/valuation/profit.py": {
+      "before": null,
+      "after": "af89752b4c8243f5a18789333b6f30bcfb5a60d4f172f71b0ccd91883aa5449c"
+    }
+  },
+  "removed": []
+}

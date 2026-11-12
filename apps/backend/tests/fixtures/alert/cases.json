@@ -1,0 +1,43 @@
+{
+  "offers": {
+    "901": {
+      "price": "1000,00",
+      "expected": "positive"
+    },
+    "902": {
+      "price": "2012,50",
+      "expected": "zero"
+    },
+    "903": {
+      "price": "2300,00",
+      "expected": "negative"
+    },
+    "904": {
+      "price": "2300,00",
+      "expected": "defect",
+      "description": "Com defeito. Não funciona."
+    },
+    "905": {
+      "price": "2300,00",
+      "expected": "uncertain",
+      "description": "Condição a confirmar"
+    },
+    "906": {
+      "price": "2300,00",
+      "expected": "unavailable",
+      "title": "PlayStation 5 desconhecido"
+    }
+  },
+  "channel": {
+    "session": "synthetic",
+    "recipient": "100@c.us",
+    "account": "200@c.us"
+  },
+  "price_sequence": [
+    "2300,00",
+    "2299,99",
+    "2200,00",
+    "2300,00",
+    "2200,00"
+  ]
+}

@@ -1,0 +1,11 @@
+### Result
+{"item":"UI-CONDICAO-04","before":{"busy":"true","disabled":true,"pending":true,"heading":"Condição não confirmada"},"failure":"503, uncertain, retained input","focus":"form-error","retry":"manual good saved"}
+### Ran Playwright code
+```js
+await (async (page) => { await page.goto("http://127.0.0.1:20732/ofertas/50d791fd-5f02-468e-a9e3-15fbc5ca55ff/"); await page.getByRole("radio",{name:"Funciona bem",exact:true}).check(); await page.route("**/condicao/",async route=>{await new Promise(resolve=>setTimeout(resolve,3000));await route.continue();}); const before=await page.evaluate(()=>{const f=document.querySelector("[data-condition-form]"); f.requestSubmit(); return {busy:f.getAttribute("aria-busy"),disabled:f.querySelector("button").disabled,pending:!f.querySelector(".condition-pending").hidden,heading:document.querySelector("#condition-heading").textContent};}); if(before.busy!=="true" || !before.pending || !before.disabled || !before.heading.includes("não confirmada")) throw new Error(JSON.stringify(before)); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/first-pending.png",fullPage:true}); await page.waitForSelector("[data-error-code=CONDITION_SAVE_FAILED]"); await page.unroute("**/condicao/"); if(!(await page.getByRole("radio",{name:"Funciona bem",exact:true}).isChecked())) throw new Error("input lost"); if(!(await page.getByRole("heading",{name:"Condição não confirmada",exact:true}).isVisible())) throw new Error("state changed"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/first-failure.png",fullPage:true}); const focus=await page.evaluate(()=>document.activeElement.id); await page.getByRole("button",{name:"Salvar classificação",exact:true}).click(); await page.getByRole("status").filter({hasText:"Sua classificação foi salva"}).waitFor(); return {item:"UI-CONDICAO-04",before,failure:"503, uncertain, retained input",focus,retry:"manual good saved"}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:20732/ofertas/50d791fd-5f02-468e-a9e3-15fbc5ca55ff/
+- Page Title: Ofertas · Garimpei
+### Events
+- New console entries: .playwright-cli/console-2026-11-11T16-50-35-476Z.log#L2

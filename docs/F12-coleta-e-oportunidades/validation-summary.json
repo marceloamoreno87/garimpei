@@ -1,0 +1,35 @@
+{
+  "evaluated_at": "2026-11-12T00:44:24.646719+00:00",
+  "status": "clean",
+  "items_pass": 15,
+  "acceptance_criteria_verified": 6,
+  "unique_current_tests": 327,
+  "partitions": [
+    {
+      "partition": 1,
+      "passed": 223,
+      "exit_code": 0
+    },
+    {
+      "partition": 2,
+      "passed": 20,
+      "exit_code": 0
+    },
+    {
+      "partition": 3,
+      "passed": 83,
+      "failed_initially": 1,
+      "exit_code": 1
+    }
+  ],
+  "isolated_recheck": {
+    "passed": 1,
+    "exit_code": 0,
+    "reason": "Startup deadline check took 8.09s against 8s during parallel run; unchanged test passed isolated"
+  },
+  "all_current_tests_have_passing_evidence": true,
+  "quality_gates": "six passed",
+  "real_source_categories": 6,
+  "development_url": "http://localhost:18351",
+  "source_and_test_fingerprint_sha256": "75bc203de2b67f913dbe1d5c6ee7933fcbdbf46f7591bb4c3e8cb2026a09f7af"
+}

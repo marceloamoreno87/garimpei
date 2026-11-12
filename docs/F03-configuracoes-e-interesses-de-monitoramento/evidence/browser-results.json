@@ -1,0 +1,177 @@
+{
+  "draft-journey": {
+    "firstUse": true,
+    "keyboardSubmit": true,
+    "errorFocus": "form-error",
+    "verifiedCategory": "479353692612078",
+    "draftInterests": [
+      "Electronics",
+      "PlayStation 5"
+    ],
+    "responsive": [
+      {
+        "width": 360,
+        "scrollWidth": 360,
+        "fonts": [
+          [
+            "Manrope",
+            "loaded"
+          ],
+          [
+            "Bricolage Grotesque",
+            "loaded"
+          ]
+        ],
+        "buttons": true
+      },
+      {
+        "width": 768,
+        "scrollWidth": 768,
+        "fonts": [
+          [
+            "Manrope",
+            "loaded"
+          ],
+          [
+            "Bricolage Grotesque",
+            "loaded"
+          ]
+        ],
+        "buttons": true
+      },
+      {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "fonts": [
+          [
+            "Manrope",
+            "loaded"
+          ],
+          [
+            "Bricolage Grotesque",
+            "loaded"
+          ]
+        ],
+        "buttons": true
+      }
+    ],
+    "zoom": {
+      "width": 720,
+      "dpr": 2,
+      "scrollWidth": 720
+    }
+  },
+  "resume-draft": {
+    "resumed": true,
+    "draftSaved": [
+      "Electronics",
+      "PlayStation 5"
+    ],
+    "responsive": [
+      {
+        "width": 360,
+        "scrollWidth": 360,
+        "font": [
+          [
+            "Manrope",
+            "loaded"
+          ],
+          [
+            "Bricolage Grotesque",
+            "loaded"
+          ]
+        ],
+        "actionWidths": [
+          282,
+          282
+        ]
+      },
+      {
+        "width": 768,
+        "scrollWidth": 768,
+        "font": [
+          [
+            "Manrope",
+            "loaded"
+          ],
+          [
+            "Bricolage Grotesque",
+            "loaded"
+          ]
+        ],
+        "actionWidths": [
+          147,
+          189
+        ]
+      },
+      {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "font": [
+          [
+            "Manrope",
+            "loaded"
+          ],
+          [
+            "Bricolage Grotesque",
+            "loaded"
+          ]
+        ],
+        "actionWidths": [
+          147,
+          189
+        ]
+      }
+    ],
+    "zoom": {
+      "width": 720,
+      "dpr": 2,
+      "scrollWidth": 720
+    },
+    "submittedAdditional": "Notebook",
+    "finalURL": "http://127.0.0.1:21551/acompanhamento/",
+    "completionStatus": 303
+  },
+  "edit-journey": {
+    "activeAfterRestart": true,
+    "edit303": true,
+    "conflict409": true,
+    "invalidLastInterest422": true,
+    "duplicateCollapsed": true,
+    "cep": "02002-000",
+    "costs": [
+      "0.00",
+      "100.00"
+    ]
+  },
+  "fault-journey": {
+    "catalogRetryPreservesEntries": true,
+    "noFakeCategories": true,
+    "saveBusyDisablesSubmits": true,
+    "save503": true,
+    "focusAfterFailure": "form-error",
+    "retry": true,
+    "confirmedAfterFailure": "02002-000"
+  },
+  "no-js": {
+    "javaScriptEnabled": false,
+    "completion": true,
+    "edit": true,
+    "category": "479353692612078",
+    "product": "PlayStation 5",
+    "costs": [
+      "25.50",
+      "12.50"
+    ]
+  },
+  "zoom-capture": {
+    "cssWidth": 720,
+    "dpr": 2,
+    "scrollWidth": 720,
+    "actionWidths": [
+      642,
+      642
+    ],
+    "layout": "680px"
+  }
+}

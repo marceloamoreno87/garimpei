@@ -1,0 +1,37 @@
+{
+  "run": "2026-11-10T19-07-31Z",
+  "verified_at": "2026-11-10T19:17:57.210839Z",
+  "status": "manual-pending",
+  "cycles": 0,
+  "correction_budget": 3,
+  "commits": 0,
+  "pushes": 0,
+  "pull_requests": 0,
+  "baseline_files": 492,
+  "changed_preexisting": [
+    "docs/prd_progress.json"
+  ],
+  "other_features_and_metadata_preserved": true,
+  "items": {
+    "PASS": 13,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "MANUAL": 1,
+    "SKIPPED": 0
+  },
+  "acs": {
+    "verified": 3,
+    "failed": 0,
+    "undetermined": 1
+  },
+  "local_links_checked_after_finalization": 31,
+  "local_link_errors": [],
+  "final_progress_schema_gate": {
+    "command": "node scripts/check-harness.mjs",
+    "exit_code": 0
+  },
+  "lock_owner_verified": true,
+  "lock_released": true,
+  "temporary_snapshot_cleaned": true,
+  "finalized_at": "2026-11-10T19:18:03.572347Z"
+}

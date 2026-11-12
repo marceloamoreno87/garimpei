@@ -1,0 +1,12 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Confira a integração · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Confira a integração</h1>
+        <div id="form-error" class="error-summary" tabindex="-1" role="alert">
+            <h2>Não foi possível concluir a alteração</h2>
+            <p>{{ error.message }}</p>
+        </div>
+        <a class="button secondary" href="{% url 'integration-settings' %}">Voltar às integrações</a>
+    </main>
+{% endblock %}

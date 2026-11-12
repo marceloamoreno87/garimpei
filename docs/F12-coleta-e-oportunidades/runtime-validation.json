@@ -1,0 +1,24 @@
+{
+  "observed_at": "2026-11-12T00:40:20.761287+00:00",
+  "offers": 1557,
+  "descriptions": 1133,
+  "available_details": 1194,
+  "explicitly_working": 135,
+  "identified_products": 17,
+  "phase": "running",
+  "published_current_cycle": 546,
+  "generation": 27,
+  "access_suspended": false,
+  "failure_counter": 0,
+  "next_attempt_at": "2026-11-12 00:41:19.520742+00:00",
+  "monitoring_started_at": "2026-11-11 23:19:05.411398+00:00",
+  "last_observation": "2026-11-12 00:40:09.019688+00:00",
+  "recent_observations_3_minutes": 69,
+  "interval_seconds": 60,
+  "retry_base_seconds": 15,
+  "retry_max_seconds": 300,
+  "source_cadence_ms": 1200,
+  "reasons": {
+    "window_limit": 1
+  }
+}

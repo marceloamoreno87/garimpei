@@ -1,0 +1,37 @@
+{
+  "run": "2026-11-11T21-16-51Z",
+  "scope": "Synthetic event through real F03/F04/F05/F07/F09 worker; recipient explicitly authorized by user",
+  "real_waha": true,
+  "instance": "eval_f04_dddc3f9834",
+  "interval_seconds": 5,
+  "alert_tick_seconds": 1,
+  "recipient": "redacted",
+  "messages_expected": 1,
+  "event_created_at": "2026-11-11T21:21:12.722469+00:00",
+  "unconfirmed_states": [
+    [
+      "uncertain",
+      "history_ambiguous_or_incomplete"
+    ]
+  ],
+  "intent_reference": "791919d5-e203-4679-a3d3-762d47a804ae",
+  "confirmed": true,
+  "ack": 1,
+  "confirmed_at": "2026-11-11 21:25:07.608373+00:00",
+  "latency_seconds": 247.331,
+  "attempt_count": 1,
+  "provider_lookup_http": 200,
+  "provider_message_id_matches": true,
+  "provider_body_matches": true,
+  "provider_from_me": true,
+  "provider_ack": 1,
+  "test_backend_stopped_normally": true,
+  "session_after_normal_restart": true,
+  "receipt_after_normal_restart": true,
+  "same_intent_after_restart": true,
+  "attempt_count_after_restart": 1,
+  "complete": true,
+  "recipient_confirmed_received": true,
+  "recipient_confirmation_source": "User response to receipt question in this conversation",
+  "latency_note": "247.331 seconds includes receipt parser correction and conservative scheduled reconciliation; not a steady-state performance claim."
+}

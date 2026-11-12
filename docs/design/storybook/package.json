@@ -1,0 +1,16 @@
+{
+  "name": "garimpei-design-workshop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --host 127.0.0.1 --no-open --disable-telemetry",
+    "build": "storybook build --disable-telemetry",
+    "predev": "python3 ../generate_tokens.py --check",
+    "prebuild": "python3 ../generate_tokens.py --check"
+  },
+  "devDependencies": {
+    "@storybook/html-vite": "10.6.7",
+    "axe-core": "4.14.0",
+    "storybook": "10.6.7"
+  }
+}

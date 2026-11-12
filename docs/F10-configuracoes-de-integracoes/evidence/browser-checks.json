@@ -1,0 +1,47 @@
+{
+  "driver": "playwright-cli, Chromium headless",
+  "fixtures": "Synthetic cookies/session/QR/groups only; no real credentials captured",
+  "desktop": {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "document_width": 1440,
+    "body_font": "Manrope, sans-serif"
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "document_width": 390,
+    "help_keyboard_space_opens": true,
+    "group_selected": "Garimpo de teste",
+    "alerts_checked": true
+  },
+  "warning": {
+    "state": "expired",
+    "foreground": "rgb(121, 82, 15)",
+    "background": "rgb(252, 241, 217)",
+    "contrast": 6.19,
+    "renew_link": true,
+    "existing_offers_retained": true
+  },
+  "native_cookie_post": {
+    "status": 303,
+    "field_empty_after_save": true,
+    "secret_echo": false
+  },
+  "error": {
+    "status": 400,
+    "focus": "form-error",
+    "secret_echo": false
+  },
+  "qr": {
+    "mime": "image/png",
+    "loaded": true,
+    "synthetic_width": 1,
+    "real_scanning_tested": false
+  },
+  "console": "Existing favicon.ico 404; intentional invalid-form HTTP 400. No clean-console claim."
+}

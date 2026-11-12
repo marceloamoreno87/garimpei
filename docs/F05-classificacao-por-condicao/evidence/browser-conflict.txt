@@ -1,0 +1,6 @@
+### Result
+{"item":"UI-CONDICAO-07","manual":"good","automatic":"defect","source":"Não funciona.","conflict":true}
+### Ran Playwright code
+```js
+await (async (page) => { await page.reload(); await page.getByRole("heading",{name:"A informação do anúncio diverge da sua classificação",exact:true}).waitFor(); if(!(await page.getByRole("heading",{name:"Funciona bem",exact:true}).isVisible())) throw new Error("manual condition lost"); if(!(await page.locator("blockquote").innerText()).includes("Não funciona.")) throw new Error("source evidence absent"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/manual-good-conflict.png",fullPage:true}); return {item:"UI-CONDICAO-07",manual:"good",automatic:"defect",source:"Não funciona.",conflict:true}; })(page);
+```

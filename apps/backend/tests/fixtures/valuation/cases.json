@@ -1,0 +1,387 @@
+{
+  "instant": "2026-11-10T18:00:00Z",
+  "BASE": {
+    "target": "699",
+    "C1": [
+      "600",
+      "2100.00"
+    ],
+    "C2": [
+      "601",
+      "2200.00"
+    ],
+    "C2_previous": "2150.00",
+    "C3": [
+      "602",
+      "2300.00"
+    ],
+    "C4": [
+      "603",
+      "2400.00"
+    ],
+    "C5": [
+      "604",
+      "2500.00"
+    ],
+    "outlier": [
+      "610",
+      "4200.00"
+    ]
+  },
+  "CURTA": [
+    "600",
+    "601",
+    "602",
+    "603",
+    "610"
+  ],
+  "DISPERSA": [
+    "1500.00",
+    "1800.00",
+    "2200.00",
+    "2500.00",
+    "2600.00"
+  ],
+  "NOVO": {
+    "price": "3800.00",
+    "currency": "BRL",
+    "product": "sony:ps5:slim:digital:825gb",
+    "identity": "N1",
+    "title": "PlayStation 5 Slim Digital 825GB novo",
+    "url": "https://exemplo.invalid/new",
+    "source": "retailer-fixture",
+    "available": true,
+    "observed_at": "2026-11-10T18:00:00+00:00"
+  },
+  "exclusions": [
+    "variant",
+    "capacity_unknown",
+    "defect",
+    "uncertain",
+    "withdrawn",
+    "installment",
+    "expired"
+  ],
+  "observations": [
+    {
+      "identity": "C1",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/C1",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "C2",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/C2",
+      "source": "fixture-used",
+      "price": "2200.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 2,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "C3",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/C3",
+      "source": "fixture-used",
+      "price": "2300.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "C4",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/C4",
+      "source": "fixture-used",
+      "price": "2400.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "C5",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/C5",
+      "source": "fixture-used",
+      "price": "2500.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "C2",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/C2",
+      "source": "fixture-used",
+      "price": "2150.00",
+      "observed_at": "2026-11-09T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "OFERTA",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/OFERTA",
+      "source": "fixture-used",
+      "price": "1300.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "DISCREPANTE",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/DISCREPANTE",
+      "source": "fixture-used",
+      "price": "4200.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "VARIANTE",
+      "title": "PlayStation 5 Slim Digital 1TB",
+      "url": "https://exemplo.invalid/VARIANTE",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "CAPACIDADE",
+      "title": "PlayStation 5 Slim Digital",
+      "url": "https://exemplo.invalid/CAPACIDADE",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "DEFEITO",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/DEFEITO",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Não funciona.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "INCERTA",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/INCERTA",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": null,
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "REMOVIDO",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/REMOVIDO",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": false,
+      "currency": "BRL"
+    },
+    {
+      "identity": "PARCELA",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/PARCELA",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-11-10T18:00:00+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Entrada de R$ 100. Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    },
+    {
+      "identity": "VENCIDO",
+      "title": "PlayStation 5 Slim Digital 825GB",
+      "url": "https://exemplo.invalid/VENCIDO",
+      "source": "fixture-used",
+      "price": "2100.00",
+      "observed_at": "2026-10-27T17:59:59+00:00",
+      "revision": 1,
+      "condition": "Usado — seminovo",
+      "description": "Funcionando perfeitamente.",
+      "available": true,
+      "currency": "BRL"
+    }
+  ],
+  "profit": {
+    "currency": "BRL",
+    "instant": "2026-11-10T18:00:00Z",
+    "active": {
+      "cep": "01001000",
+      "shipping_estimate": "25.50",
+      "resale_fee_percent": "12.50"
+    },
+    "reduction": [
+      "1550.00",
+      "1500.00",
+      "1450.00"
+    ],
+    "offers": {
+      "699": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "item": "SVC-COMPOSICAO-01"
+      },
+      "700": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "overrides": {
+          "delivery": false,
+          "pickup": true,
+          "location": {
+            "latitude": -23.5505,
+            "longitude": -46.6333,
+            "accuracy_m": 10,
+            "city": "São Paulo",
+            "state": "SP"
+          }
+        },
+        "item": "SVC-COMPOSICAO-03"
+      },
+      "701": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "overrides": {
+          "pickup": true,
+          "location": {
+            "latitude": -23.5505,
+            "longitude": -46.6333,
+            "accuracy_m": 10,
+            "city": "São Paulo",
+            "state": "SP"
+          }
+        },
+        "item": "SVC-COMPOSICAO-04"
+      },
+      "702": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "overrides": {
+          "freight": null
+        },
+        "item": "SVC-FRETE-01"
+      },
+      "703": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "overrides": {
+          "freight_cep": "99999999"
+        },
+        "item": "SVC-FRETE-02"
+      },
+      "704": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "overrides": {
+          "freight": "R$ 0,00"
+        },
+        "item": "SVC-FRETE-03"
+      },
+      "705": {
+        "price": "1500,00",
+        "expected": "512.50",
+        "overrides": {
+          "delivery": null
+        },
+        "item": "SVC-FRETE-05"
+      },
+      "706": {
+        "price": "2012,50",
+        "expected": "0.00",
+        "overrides": {
+          "freight": null
+        },
+        "item": "SVC-RECALCULO-03"
+      },
+      "707": {
+        "price": "2030,00",
+        "expected": "-17.50",
+        "overrides": {
+          "freight": null
+        },
+        "item": "SVC-RECALCULO-04"
+      },
+      "708": {
+        "price": "1500,00",
+        "expected": null,
+        "overrides": {
+          "price": null
+        },
+        "item": "SVC-INDISPONIBILIDADE-02"
+      },
+      "709": {
+        "price": "70,00",
+        "expected": "18.37",
+        "overrides": {
+          "title": "PlayStation 5 Slim disco 1TB",
+          "pickup": true,
+          "delivery": false,
+          "location": {
+            "latitude": -23.5505,
+            "longitude": -46.6333,
+            "accuracy_m": 10,
+            "city": "São Paulo",
+            "state": "SP"
+          }
+        },
+        "item": "SVC-COMPOSICAO-02"
+      }
+    }
+  }
+}

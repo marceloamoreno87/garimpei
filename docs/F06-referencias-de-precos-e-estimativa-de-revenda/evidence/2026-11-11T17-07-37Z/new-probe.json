@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-11-11T17:09:34.834Z",
+  "source": "KaBuM!/GIGANTEC",
+  "url": "https://www.kabum.com.br/produto/953110/console-playstation-5-slim-sony-1tb-midia-fisica-cfi-2114a",
+  "id": 953110,
+  "title": "Console Sony Playstation 5 Cfi-2114a, Leitor De Disco, SSD 1TB, 16gb Gddr6",
+  "prices": {
+    "oldPrice": 0,
+    "priceWithDiscount": 6196.39,
+    "price": 6591.9,
+    "discountPercentage": 6
+  },
+  "available": true,
+  "cash_label": true,
+  "product_new": true,
+  "access": "Public product document in Chromium through playwright-cli; direct HTTP returned 403",
+  "scope": "One verified product URL, not exhaustive retail coverage"
+}

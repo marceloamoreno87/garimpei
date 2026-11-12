@@ -1,0 +1,49 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_category_navigation_uses_the_verified_native_category_route _______
+
+    def test_category_navigation_uses_the_verified_native_category_route() -> None:
+        scope = Scope.from_snapshot(MonitoringSnapshot(configured=True, configuration_id=uuid4(), revision=1, cep="01001000", category_ids=("cameras",)))
+        assert scope is not None
+        source = FacebookMarketplace(NativeCategoryNavigation(), FixedCep(), CategoryCatalog(
+            "", "", (Category("cameras", "Câmeras", None, "https://www.facebook.com/marketplace/category/cameras/"),)
+        ))
+>       page = source.search(scope, scope.searches[0], None)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+apps/backend/tests/unit/test_marketplace_source.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <garimpei.infra.gateway.listing.facebook_marketplace.FacebookMarketplace object at 0x7ab91eb57a10>
+scope = Scope(configuration_id=UUID('911e6b8f-0be7-4cc5-9e3a-c025c6d22bd3'), source='facebook_marketplace', cep='01001000', re...y='pickup'), Search(interest=Match(kind='category', key='cameras'), term='cameras', modality='shipping')), window=None)
+query = Search(interest=Match(kind='category', key='cameras'), term='cameras', modality='pickup')
+continuation = None
+
+    def search(self, scope: Scope, query: Search, continuation: str | None) -> Page:
+        if continuation is None:
+            url = self._url(scope, query)
+            assert self._origin is not None
+            rows, feed = self._browser.search(
+                url,
+                SearchFilters(
+                    self._origin, 20 if query.modality == "pickup" else 500, scope.window
+                ),
+            )
+            self._query_key = query.key
+            self._ordered = True
+            self._last_date = None
+            self._page_number = 1
+            self._context_reason = self._context(rows, query)
+        elif self._query_key == query.key and continuation == str(self._page_number + 1):
+            feed = self._browser.scroll()
+            self._page_number += 1
+        else:
+            raise SourceFailure("continuation_scope_mismatch")
+        if feed is None:
+>           raise SourceFailure("search_feed_unavailable")
+E           garimpei.domain.listing.ports.SourceFailure: search_feed_unavailable
+
+apps/backend/src/garimpei/infra/gateway/listing/facebook_marketplace.py:72: SourceFailure
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_marketplace_source.py::test_category_navigation_uses_the_verified_native_category_route
+1 failed in 0.09s

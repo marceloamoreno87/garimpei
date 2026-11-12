@@ -1,0 +1,609 @@
+{
+  "started_at": "2026-11-11T13:41:40.823610+00:00",
+  "window_start": "2026-11-09T13:14:15.903389+00:00",
+  "window_end": "2026-11-11T13:14:15.903389+00:00",
+  "queries": [
+    {
+      "query": "pickup:category:479353692612078",
+      "pages": [
+        {
+          "page": 1,
+          "count": 24,
+          "first": "2026-11-11T12:44:05+00:00",
+          "last": "2026-11-10T20:29:21+00:00",
+          "continuation": "2",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 2,
+          "count": 24,
+          "first": "2026-11-10T20:20:13+00:00",
+          "last": "2026-11-10T14:26:15+00:00",
+          "continuation": "3",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 3,
+          "count": 24,
+          "first": "2026-11-10T14:20:17+00:00",
+          "last": "2026-11-09T23:33:29+00:00",
+          "continuation": "4",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 4,
+          "count": 24,
+          "first": "2026-11-09T23:32:33+00:00",
+          "last": "2026-11-09T17:02:00+00:00",
+          "continuation": "5",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 5,
+          "count": 24,
+          "first": "2026-11-09T17:00:54+00:00",
+          "last": "2026-11-09T03:00:39+00:00",
+          "continuation": "6",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 6,
+          "count": 24,
+          "first": "2026-11-09T03:00:12+00:00",
+          "last": "2026-11-08T19:31:19+00:00",
+          "continuation": null,
+          "proof": "chronological_boundary",
+          "diagnostic": null
+        }
+      ],
+      "complete": true
+    },
+    {
+      "query": "shipping:category:479353692612078",
+      "pages": [
+        {
+          "page": 1,
+          "count": 24,
+          "first": "2026-11-11T12:39:34+00:00",
+          "last": "2026-11-09T23:33:29+00:00",
+          "continuation": "2",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 2,
+          "count": 19,
+          "first": "2026-11-09T15:59:32+00:00",
+          "last": "2026-11-08T02:44:28+00:00",
+          "continuation": "3",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 3,
+          "count": 0,
+          "first": null,
+          "last": null,
+          "continuation": "4",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 4,
+          "count": 0,
+          "first": null,
+          "last": null,
+          "continuation": null,
+          "proof": "source_end_of_results",
+          "diagnostic": null
+        }
+      ],
+      "complete": true
+    },
+    {
+      "query": "pickup:product:playstation 5",
+      "pages": [
+        {
+          "page": 1,
+          "count": 24,
+          "first": "2026-11-11T12:52:44+00:00",
+          "last": "2026-11-11T02:36:55+00:00",
+          "continuation": "2",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 2,
+          "count": 24,
+          "first": "2026-11-11T02:36:32+00:00",
+          "last": "2026-11-10T20:39:36+00:00",
+          "continuation": "3",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 3,
+          "count": 24,
+          "first": "2026-11-10T19:53:26+00:00",
+          "last": "2026-11-10T14:17:49+00:00",
+          "continuation": "4",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 4,
+          "count": 24,
+          "first": "2026-11-10T13:50:39+00:00",
+          "last": "2026-11-10T00:28:30+00:00",
+          "continuation": "5",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 5,
+          "count": 24,
+          "first": "2026-11-10T00:13:07+00:00",
+          "last": "2026-11-09T20:43:34+00:00",
+          "continuation": "6",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 6,
+          "count": 24,
+          "first": "2026-11-09T20:43:17+00:00",
+          "last": "2026-11-09T16:16:22+00:00",
+          "continuation": "7",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 7,
+          "count": 24,
+          "first": "2026-11-09T16:01:44+00:00",
+          "last": "2026-11-09T01:03:49+00:00",
+          "continuation": "8",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 8,
+          "count": 24,
+          "first": "2026-11-09T00:57:36+00:00",
+          "last": "2026-11-08T15:33:12+00:00",
+          "continuation": "9",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 9,
+          "count": 15,
+          "first": "2026-11-08T15:27:06+00:00",
+          "last": "2026-11-08T00:21:24+00:00",
+          "continuation": "10",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 10,
+          "count": 0,
+          "first": null,
+          "last": null,
+          "continuation": "11",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 11,
+          "count": 0,
+          "first": null,
+          "last": null,
+          "continuation": null,
+          "proof": "source_end_of_results",
+          "diagnostic": null
+        }
+      ],
+      "complete": true
+    },
+    {
+      "query": "shipping:product:playstation 5",
+      "pages": [
+        {
+          "page": 1,
+          "count": 24,
+          "first": "2026-11-11T13:07:17+00:00",
+          "last": "2026-11-11T11:44:03+00:00",
+          "continuation": "2",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 2,
+          "count": 24,
+          "first": "2026-11-11T11:31:17+00:00",
+          "last": "2026-11-11T10:01:51+00:00",
+          "continuation": "3",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 3,
+          "count": 24,
+          "first": "2026-11-11T09:57:57+00:00",
+          "last": "2026-11-11T02:24:06+00:00",
+          "continuation": "4",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 4,
+          "count": 24,
+          "first": "2026-11-11T02:20:54+00:00",
+          "last": "2026-11-11T00:40:34+00:00",
+          "continuation": "5",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 5,
+          "count": 24,
+          "first": "2026-11-11T13:06:45+00:00",
+          "last": "2026-11-11T03:22:25+00:00",
+          "continuation": "6",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 6,
+          "count": 24,
+          "first": "2026-11-11T03:08:37+00:00",
+          "last": "2026-11-11T00:06:55+00:00",
+          "continuation": "7",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 7,
+          "count": 24,
+          "first": "2026-11-11T00:03:51+00:00",
+          "last": "2026-11-10T23:05:25+00:00",
+          "continuation": "8",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 8,
+          "count": 24,
+          "first": "2026-11-10T23:03:24+00:00",
+          "last": "2026-11-10T22:12:36+00:00",
+          "continuation": "9",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 9,
+          "count": 24,
+          "first": "2026-11-10T22:11:21+00:00",
+          "last": "2026-11-10T22:03:25+00:00",
+          "continuation": "10",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 10,
+          "count": 24,
+          "first": "2026-11-10T22:02:56+00:00",
+          "last": "2026-11-10T20:39:36+00:00",
+          "continuation": "11",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 11,
+          "count": 24,
+          "first": "2026-11-10T20:39:28+00:00",
+          "last": "2026-11-10T19:31:10+00:00",
+          "continuation": "12",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 12,
+          "count": 24,
+          "first": "2026-11-10T19:29:28+00:00",
+          "last": "2026-11-10T18:40:14+00:00",
+          "continuation": "13",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 13,
+          "count": 24,
+          "first": "2026-11-10T18:39:25+00:00",
+          "last": "2026-11-10T17:07:17+00:00",
+          "continuation": "14",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 14,
+          "count": 24,
+          "first": "2026-11-10T17:06:20+00:00",
+          "last": "2026-11-10T16:24:59+00:00",
+          "continuation": "15",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 15,
+          "count": 24,
+          "first": "2026-11-10T16:21:46+00:00",
+          "last": "2026-11-10T15:40:55+00:00",
+          "continuation": "16",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 16,
+          "count": 24,
+          "first": "2026-11-10T15:39:59+00:00",
+          "last": "2026-11-10T14:43:06+00:00",
+          "continuation": "17",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 17,
+          "count": 24,
+          "first": "2026-11-10T14:42:40+00:00",
+          "last": "2026-11-10T13:28:24+00:00",
+          "continuation": "18",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 18,
+          "count": 24,
+          "first": "2026-11-10T13:19:40+00:00",
+          "last": "2026-11-10T12:11:51+00:00",
+          "continuation": "19",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 19,
+          "count": 24,
+          "first": "2026-11-10T12:11:13+00:00",
+          "last": "2026-11-10T11:32:17+00:00",
+          "continuation": "20",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 20,
+          "count": 24,
+          "first": "2026-11-10T11:31:44+00:00",
+          "last": "2026-11-10T03:40:37+00:00",
+          "continuation": "21",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 21,
+          "count": 24,
+          "first": "2026-11-10T03:23:04+00:00",
+          "last": "2026-11-10T00:55:17+00:00",
+          "continuation": "22",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 22,
+          "count": 24,
+          "first": "2026-11-10T00:52:16+00:00",
+          "last": "2026-11-09T23:28:50+00:00",
+          "continuation": "23",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 23,
+          "count": 24,
+          "first": "2026-11-09T23:17:03+00:00",
+          "last": "2026-11-09T21:28:45+00:00",
+          "continuation": "24",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 24,
+          "count": 24,
+          "first": "2026-11-09T21:28:39+00:00",
+          "last": "2026-11-09T20:23:44+00:00",
+          "continuation": "25",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 25,
+          "count": 24,
+          "first": "2026-11-09T20:19:45+00:00",
+          "last": "2026-11-09T18:39:41+00:00",
+          "continuation": "26",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 26,
+          "count": 24,
+          "first": "2026-11-09T18:38:45+00:00",
+          "last": "2026-11-09T17:01:06+00:00",
+          "continuation": "27",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 27,
+          "count": 24,
+          "first": "2026-11-09T16:59:27+00:00",
+          "last": "2026-11-09T15:47:50+00:00",
+          "continuation": "28",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 28,
+          "count": 24,
+          "first": "2026-11-09T15:46:44+00:00",
+          "last": "2026-11-09T14:07:58+00:00",
+          "continuation": "29",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 29,
+          "count": 24,
+          "first": "2026-11-09T14:04:55+00:00",
+          "last": "2026-11-09T12:34:02+00:00",
+          "continuation": "30",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 30,
+          "count": 24,
+          "first": "2026-11-09T12:29:18+00:00",
+          "last": "2026-11-09T06:05:52+00:00",
+          "continuation": "31",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 31,
+          "count": 24,
+          "first": "2026-11-09T06:00:34+00:00",
+          "last": "2026-11-09T01:41:49+00:00",
+          "continuation": "32",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 32,
+          "count": 24,
+          "first": "2026-11-09T01:40:04+00:00",
+          "last": "2026-11-08T23:17:48+00:00",
+          "continuation": "33",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 33,
+          "count": 24,
+          "first": "2026-11-08T23:11:59+00:00",
+          "last": "2026-11-08T21:04:03+00:00",
+          "continuation": "34",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 34,
+          "count": 24,
+          "first": "2026-11-08T20:53:55+00:00",
+          "last": "2026-11-08T18:39:09+00:00",
+          "continuation": "35",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 35,
+          "count": 24,
+          "first": "2026-11-08T18:38:46+00:00",
+          "last": "2026-11-08T16:37:44+00:00",
+          "continuation": "36",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 36,
+          "count": 24,
+          "first": "2026-11-08T16:33:20+00:00",
+          "last": "2026-11-08T13:46:25+00:00",
+          "continuation": "37",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 37,
+          "count": 24,
+          "first": "2026-11-08T13:45:06+00:00",
+          "last": "2026-11-08T12:35:23+00:00",
+          "continuation": "38",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 38,
+          "count": 24,
+          "first": "2026-11-08T12:35:10+00:00",
+          "last": "2026-11-08T12:15:46+00:00",
+          "continuation": "39",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 39,
+          "count": 24,
+          "first": "2026-11-08T12:14:45+00:00",
+          "last": "2026-11-08T07:28:05+00:00",
+          "continuation": "40",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 40,
+          "count": 24,
+          "first": "2026-11-08T06:07:08+00:00",
+          "last": "2026-11-08T00:23:28+00:00",
+          "continuation": "41",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 41,
+          "count": 4,
+          "first": "2026-11-08T00:12:20+00:00",
+          "last": "2026-11-08T00:01:23+00:00",
+          "continuation": "42",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 42,
+          "count": 0,
+          "first": null,
+          "last": null,
+          "continuation": "43",
+          "proof": null,
+          "diagnostic": null
+        },
+        {
+          "page": 43,
+          "count": 0,
+          "first": null,
+          "last": null,
+          "continuation": null,
+          "proof": "source_end_of_results",
+          "diagnostic": null
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "finished_at": "2026-11-11T13:44:03.034916+00:00",
+  "complete": true
+}

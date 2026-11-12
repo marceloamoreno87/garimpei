@@ -1,0 +1,2 @@
+
+0 static files copied to '/home/marce/dev/garimpei/apps/backend/.test-static', 13 unmodified.

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python3",
+    "docs/design/generate_tokens.py",
+    "--check"
+  ],
+  "settings": null,
+  "exit": 0,
+  "seconds": 0.028,
+  "summary": [
+    "editorial: CSS sincronizado; texto >= 5.32:1; borda de controle 3.05:1",
+    "compact: CSS sincronizado; texto >= 5.32:1; borda de controle 3.05:1",
+    "night: CSS sincronizado; texto >= 5.54:1; borda de controle 8.07:1"
+  ]
+}

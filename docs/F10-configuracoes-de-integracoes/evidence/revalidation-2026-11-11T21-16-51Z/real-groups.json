@@ -1,0 +1,8 @@
+{
+  "group_count": 67,
+  "selected_group_is_member": true,
+  "state": "WORKING",
+  "same_session_after_normal_restart": true,
+  "real_group_message_sent": false,
+  "scope": "Programmatic group send required by contract uses synthetic HTTP; real message authorized only to supplied contact."
+}

@@ -1,0 +1,10 @@
+{
+  "desktop_width": 1440,
+  "mobile_width": 390,
+  "no_horizontal_overflow": true,
+  "invalid_confirmation_returns_waiting": true,
+  "valid_confirmation_reaches_connected": true,
+  "challenge_pauses_and_offers_recovery": true,
+  "real_credentials_captured": false,
+  "ui_media": "Synthetic lab only; no real Facebook screenshots"
+}

@@ -1,0 +1,58 @@
+{% extends "monitoring/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <div class="page-heading">
+            <h1>{% if editing %}Suas configurações{% else %}Prepare seu garimpo{% endif %}</h1>
+            <p>{% if editing %}Revise região, custos e o que você quer acompanhar.{% else %}Defina onde procurar, quais custos considerar e o que interessa a você.{% endif %}</p>
+        </div>
+        {% if not editing %}
+            <ol class="steps" aria-label="Etapas da configuração">
+                <li {% if step == 'regiao' %}aria-current="step"{% endif %}><span>1</span> Sua região</li>
+                <li {% if step == 'custos' %}aria-current="step"{% endif %}><span>2</span> Seus custos</li>
+                <li {% if step == 'interesses' %}aria-current="step"{% endif %}><span>3</span> Seus interesses</li>
+            </ol>
+        {% endif %}
+        {% if saved %}<p class="notice" role="status">Configurações salvas. Os valores confirmados estão abaixo.</p>{% endif %}
+        {% if preview_message %}<p class="notice" role="status" data-preview>{{ preview_message }}</p>{% endif %}
+        {% if error %}
+            <div class="error-summary" id="form-error" tabindex="-1" role="alert" data-error-code="{{ error.code }}" autofocus>
+                <h2>Não foi possível salvar</h2>
+                <p>{{ error }}</p>
+                {% if error.status == 409 %}<a href="{{ form_url }}">Recarregar a versão salva</a>{% endif %}
+                {% if error.field == 'cep' %}<a href="#cep">Corrigir CEP</a>{% endif %}
+                {% if error.field == 'shipping_estimate' %}<a href="#shipping_estimate">Corrigir frete estimado</a>{% endif %}
+                {% if error.field == 'resale_fee_percent' %}<a href="#resale_fee_percent">Corrigir percentual provisório</a>{% endif %}
+                {% if error.field == 'product_names' %}<a href="#new_product">Corrigir nome/modelo</a>{% endif %}
+            </div>
+        {% endif %}
+        <div class="setup-layout">
+            <section class="panel" aria-labelledby="section-title">
+                <form method="post" action="{{ form_url }}" hx-boost="true" hx-push-url="true" hx-disabled-elt="button[type='submit']" hx-history="false" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" name="revision" value="{{ revision }}">
+                    <h2 id="section-title">{% if editing %}Preferências de monitoramento{% elif step == 'regiao' %}Onde você quer procurar?{% elif step == 'custos' %}Quais custos considerar?{% else %}O que vale acompanhar?{% endif %}</h2>
+                    {% if editing or step == 'regiao' %}{% include "monitoring/region_fields.html" %}{% endif %}
+                    {% if editing or step == 'custos' %}{% include "monitoring/cost_fields.html" %}{% endif %}
+                    {% if editing or step == 'interesses' %}{% include "monitoring/interest_fields.html" %}{% endif %}
+                    <div class="actions">
+                        {% if step == 'custos' %}<a href="{% url 'monitoring-step' step='regiao' %}">Voltar para região</a>{% endif %}
+                        {% if step == 'interesses' %}<a href="{% url 'monitoring-step' step='custos' %}">Voltar para custos</a>{% endif %}
+                        {% if editing %}
+                            <button type="submit" class="primary">Salvar configurações</button>
+                        {% elif step == 'interesses' %}
+                            <button type="submit" class="secondary">Salvar rascunho</button>
+                            <button type="submit" class="primary" formaction="/configuracao/concluir/">Concluir configuração</button>
+                        {% else %}
+                            <button type="submit" class="primary">Salvar e continuar</button>
+                        {% endif %}
+                        <span class="sending" role="status">Salvando…</span>
+                    </div>
+                </form>
+            </section>
+            <aside class="helper">
+                <h2>{% if editing %}Como as alterações são salvas{% else %}Como funciona o primeiro uso{% endif %}</h2>
+                {% if editing %}<p>Suas preferências atuais continuam valendo até você salvar as alterações.</p>{% else %}<p>Salvar uma etapa mantém seu rascunho. A configuração só é confirmada quando você concluir.</p><p>Você pode ajustar as preferências depois, sem refazer o primeiro uso.</p>{% endif %}
+            </aside>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,19 @@
+{
+  "environment_id": "eval_f04_911918673e",
+  "database": "garimpei_eval_f04_911918673e",
+  "manifest_run": "078632fe-7dd5-4a8b-9e6d-bda3a00f4e1f",
+  "disposable": true,
+  "session_kind": "synthetic",
+  "ready_status": 200,
+  "readiness": {
+    "status": "ready",
+    "environment_id": "eval_f04_911918673e",
+    "run_id": "078632fe-7dd5-4a8b-9e6d-bda3a00f4e1f",
+    "checks": {
+      "database": "ready",
+      "migrations": "ready",
+      "worker": "ready",
+      "waha": "ready"
+    }
+  }
+}

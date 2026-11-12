@@ -1,0 +1,5 @@
+Wheel built from current source; all four F07 modules included and byte-identical:
+garimpei/domain/valuation/profit.py
+garimpei/domain/valuation/profit_queries.py
+garimpei/usecase/valuation/read_profit_usecase.py
+garimpei/infra/queries/valuation/profit_queries.py

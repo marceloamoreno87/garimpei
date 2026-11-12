@@ -1,0 +1,3 @@
+19 objects imported automatically (use -v 2 for details).
+
+Current typed query: BRL 3900, five real comparable identities PASS

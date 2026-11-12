@@ -1,0 +1,21 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "python",
+    "apps/backend/manage.py",
+    "makemigrations",
+    "--check",
+    "--dry-run"
+  ],
+  "settings": "garimpei.config.test_settings",
+  "exit": 0,
+  "seconds": 0.248,
+  "summary": [
+    "No changes detected"
+  ]
+}

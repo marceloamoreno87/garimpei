@@ -1,0 +1,8 @@
+<fieldset>
+    <legend>Seus custos</legend>
+    <label for="resale_fee_percent">Percentual provisório de revenda (%)</label>
+    <input id="resale_fee_percent" name="resale_fee_percent" value="{{ resale_fee_percent }}" inputmode="decimal" aria-describedby="fee-help{% if error.field == 'resale_fee_percent' %} fee-error{% endif %}" {% if error.field == 'resale_fee_percent' %}aria-invalid="true"{% endif %}>
+    <p class="help" id="fee-help">Estimativa provisória, de 0 a 100%, e não uma tarifa real do marketplace. Preenchimento obrigatório.</p>
+    {% if error.field == 'resale_fee_percent' %}<p class="field-error" id="fee-error">{{ error }}</p>{% endif %}
+    <p class="help">Lucro potencial = revenda estimada menos compra e taxa, antes de frete/transporte. Custos de transporte não são estimados aqui.</p>
+</fieldset>

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "mypy",
+    "--strict",
+    "src",
+    "tests",
+    "scripts/quality",
+    "manage.py"
+  ],
+  "exit": 1,
+  "stdout": "src/garimpei/infra/runtime/negative_types.py:2: error: Incompatible return value type (got \"str\", expected \"int\")  [return-value]\nFound 1 error in 1 file (checked 63 source files)\n",
+  "stderr": ""
+}

@@ -1,0 +1,32 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_connect_qr_group_validation_and_persistence _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-97/test_connect_qr_group_validati0')
+
+    def test_connect_qr_group_validation_and_persistence(tmp_path: Path) -> None:
+        with integration_scenario(tmp_path) as (instance, source, clock, state, credentials):
+            browser = ConditionBrowser(instance)
+            assert post(browser, {"action": "connect"})[0] == 303
+            assert state.present and state.phase == "SCAN_QR_CODE"
+            assert "Conecte pelo seu celular" in browser.request("/integracoes/")[1]
+            with urlopen(f"http://127.0.0.1:{instance.config.web_port}/integracoes/whatsapp/qr/") as r:
+                assert (
+                    r.headers["Content-Type"] == "image/png"
+                    and r.headers["Cache-Control"] == "no-store"
+                )
+                assert r.read().startswith(b"\x89PNG")
+            state.phase = "WORKING"
+            with urlopen(
+                f"http://127.0.0.1:{instance.config.web_port}/integracoes/whatsapp/status/?expected=STOPPED"
+            ) as response:
+>               assert response.headers.get("HX-Refresh") == "true"
+E               AssertionError: assert None == 'true'
+E                +  where None = get('HX-Refresh')
+E                +    where get = <http.client.HTTPMessage object at 0x7b607d73d8b0>.get
+E                +      where <http.client.HTTPMessage object at 0x7b607d73d8b0> = <http.client.HTTPResponse object at 0x7b607d775870>.headers
+
+apps/backend/tests/integration/test_integrations.py:100: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_integrations.py::test_connect_qr_group_validation_and_persistence
+1 failed in 7.07s

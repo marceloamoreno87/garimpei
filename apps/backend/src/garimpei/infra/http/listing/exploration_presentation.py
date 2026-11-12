@@ -1,0 +1,152 @@
+from dataclasses import replace
+from typing import TypedDict, Unpack
+from urllib.parse import urlencode, urlsplit
+from uuid import UUID
+
+from garimpei.domain.listing.exploration import Criteria, Offer, OfferPage, money_label
+from garimpei.infra.http.listing.condition_presentation import TABS
+
+
+class ContextChanges(TypedDict, total=False):
+    tab: str
+    query: str
+    category: str
+    modality: str
+    page: int
+    version: UUID | None
+
+
+def url(criteria: Criteria, path: str = "/ofertas/", **changes: Unpack[ContextChanges]) -> str:
+    value = replace(criteria, **changes)
+    data = {
+        "aba": value.tab,
+        "q": value.query,
+        "categoria": value.category,
+        "pagina": str(value.page),
+    }
+    if value.version:
+        data["versao"] = str(value.version)
+    return path + "?" + urlencode(data)
+
+
+def safe_url(value: str) -> str:
+    parsed = urlsplit(value)
+    return (
+        value
+        if parsed.scheme == "https"
+        and parsed.hostname
+        and not parsed.username
+        and not parsed.password
+        else ""
+    )
+
+
+def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
+    composition = offer.composition
+    return dict(
+        offer=offer,
+        source_label="Facebook Marketplace"
+        if offer.source == "facebook_marketplace"
+        else offer.source,
+        title=offer.title,
+        identity=str(offer.id),
+        key=offer.external_id,
+        price=money_label(composition.purchase.value)
+        if composition.purchase.value is not None
+        else "Preço não informado",
+        profit=money_label(composition.profit.value),
+        profit_label="Lucro potencial"
+        if composition.policy != "profit-brl-v1"
+        else "Lucro estimado · regra anterior",
+        profit_scope="Antes de frete/transporte"
+        if composition.policy != "profit-brl-v1"
+        else "Revisão histórica da estimativa",
+        complete_profit_label="Lucro potencial antes de frete/transporte"
+        if composition.policy != "profit-brl-v1"
+        else "Lucro estimado pela regra anterior",
+        resale=money_label(composition.resale.value),
+        detail_url=url(criteria, f"/ofertas/{offer.id}/"),
+        url=safe_url(offer.url),
+    )
+
+
+def list_context(page: OfferPage, labels: dict[str, str]) -> dict[str, object]:
+    criteria = page.criteria
+    return dict(
+        listing_page=True,
+        page=page,
+        criteria=criteria,
+        cards=tuple(card(o, criteria) for o in page.offers),
+        tabs=tuple(
+            dict(key=k, label=label, count=count, url=url(criteria, tab=k, page=1))
+            for (k, label), count in zip(TABS, page.counts, strict=True)
+        ),
+        categories=tuple(labels.items()),
+        canonical=url(criteria),
+        previous=url(criteria, page=max(1, criteria.page - 1)),
+        next=url(criteria, page=criteria.page + 1),
+        refresh=url(criteria, version=None),
+        clear=url(criteria, query="", category="", modality="todas", page=1),
+        status_url=url(criteria, "/ofertas/atualizacoes/"),
+    )
+
+
+def detail_context(offer: Offer, criteria: Criteria) -> dict[str, object]:
+    value = card(offer, criteria)
+    composition = offer.composition
+    valuation = offer.valuation
+    refs = valuation.resale.comparables if valuation else ()
+    quote = valuation.new.quote if valuation else None
+    value.update(
+        listing_page=True,
+        criteria=criteria,
+        back=url(criteria),
+        refresh=url(criteria, f"/ofertas/{offer.id}/", version=None),
+        status_url=url(criteria, "/ofertas/atualizacoes/"),
+        condition_url=url(criteria, f"/ofertas/{offer.id}/condicao/"),
+        destination=url(criteria, tab=offer.condition.tab, page=1),
+        fee=money_label(composition.fee.value)
+        if composition.fee.value is not None
+        else "Indisponível",
+        percent=str(composition.fee_percent).replace(".", ",")
+        if composition.fee_percent is not None
+        else "Não configurada",
+        references=tuple(
+            dict(
+                title=r.title,
+                source="Facebook Marketplace" if r.source == "facebook_marketplace" else r.source,
+                key=r.external_id,
+                date=r.observed_at,
+                url=safe_url(r.url),
+                price=money_label(r.price),
+            )
+            for r in refs
+        ),
+        new=dict(
+            title=quote.title,
+            source=quote.source,
+            key=quote.external_id,
+            date=quote.observed_at,
+            url=safe_url(quote.url),
+            price=money_label(quote.price),
+        )
+        if quote
+        else None,
+        reason=reason_label(composition.resale.reason or composition.profit.reason),
+    )
+    return value
+
+
+def reason_label(reason: str | None) -> str | None:
+    if reason is None:
+        return None
+    return {
+        "preco_parcial_ou_troca": "O anúncio informa entrada, parcela ou somente troca; o preço total de compra não está confirmado",
+        "aguardando_avaliacao": "A avaliação de preços ainda está em andamento",
+        "amostra_insuficiente": "Ainda não há comparáveis usados suficientes",
+        "amostra_dispersa": "Os preços da amostra variam demais para estimar a revenda",
+        "produto_indeterminado": "O modelo e a variante do produto ainda não foram identificados",
+        "produto_incompativel": "A avaliação disponível corresponde a outra variante",
+        "evidencia_vencida": "As referências de preços precisam ser atualizadas",
+        "modalidade_indisponivel": "A cobertura de retirada ou envio ainda não foi confirmada",
+    }.get(reason, "Os dados necessários ainda não estão completos")

@@ -1,0 +1,20 @@
+{
+  "baseline_files": 467,
+  "unchanged": 456,
+  "expected_changed": [
+    ".gitignore",
+    "README.md",
+    "scripts/run-gates.mjs",
+    "scripts/migrate-dev.sh",
+    "scripts/stop.sh",
+    "scripts/init.sh",
+    "scripts/resolve-env.sh",
+    "scripts/test/harness.test.mjs",
+    "docs/F01-discovery-e-viabilidade-de-integracoes/decisions.md",
+    "docs/harness.md",
+    "docs/prd_progress.json"
+  ],
+  "protected_harness_and_specs_unchanged": true,
+  "local_links_valid": true,
+  "F03_F09_pending": true
+}

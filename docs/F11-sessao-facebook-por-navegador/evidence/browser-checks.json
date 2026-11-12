@@ -1,0 +1,32 @@
+{
+  "session": "garimpei-f11",
+  "data": "Synthetic eval only. No real cookies, user profile, Facebook screenshot or QR captured.",
+  "desktop": {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "document_width": 1440
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "document_width": 390,
+    "phase_sequence": [
+      "browser_waiting",
+      "browser_verifying",
+      "browser_waiting",
+      "browser_verifying",
+      "connected",
+      "browser_challenge"
+    ],
+    "advanced_space_opens": true,
+    "cookie_field_empty": true
+  },
+  "forms": "Native browser requestSubmit with CSRF, status polling changes UI without manual refresh.",
+  "headed_smoke": "Chromium window opened through WSLg against synthetic loopback site, then closed. Exit 0.",
+  "media": "No synthetic test substitutes Facebook acceptance.",
+  "console": "Preexisting favicon 404, no clean-console claim."
+}

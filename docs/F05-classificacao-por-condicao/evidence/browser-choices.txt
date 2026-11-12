@@ -1,0 +1,9 @@
+### Result
+{"items":["UI-CONDICAO-02","UI-CONDICAO-03"],"result":"manual choice confirmed; A in good, B in defects"}
+### Ran Playwright code
+```js
+await (async (page) => { await page.getByRole("link",{name:"PlayStation 5 — INCERTA_A",exact:true}).click(); await page.getByRole("radio",{name:"Funciona bem",exact:true}).check(); await page.getByRole("button",{name:"Salvar classificação",exact:true}).click(); await page.getByRole("status").filter({hasText:"Sua classificação foi salva"}).waitFor(); if (!(await page.locator(".provenance").innerText()).includes("manual")) throw new Error("manual missing"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/manual-good.png",fullPage:true}); await page.getByRole("link",{name:"Ver em Funcionam bem",exact:true}).click(); if(!(await page.getByRole("link",{name:"PlayStation 5 — INCERTA_A",exact:true}).isVisible())) throw new Error("not in good"); await page.getByRole("tab",{name:"Condição não confirmada",exact:true}).click(); if(await page.getByRole("link",{name:"PlayStation 5 — INCERTA_A",exact:true}).count()) throw new Error("still uncertain"); await page.getByRole("link",{name:"PlayStation 5 — INCERTA_B",exact:true}).click(); await page.getByRole("radio",{name:"Não funciona bem",exact:true}).check(); await page.getByRole("button",{name:"Salvar classificação",exact:true}).click(); await page.getByRole("status").filter({hasText:"Sua classificação foi salva"}).waitFor(); await page.getByRole("link",{name:"Ver em Com defeito",exact:true}).click(); if(!(await page.getByRole("link",{name:"PlayStation 5 — INCERTA_B",exact:true}).isVisible())) throw new Error("not in defects"); return {items:["UI-CONDICAO-02","UI-CONDICAO-03"],result:"manual choice confirmed; A in good, B in defects"}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:20732/ofertas/?aba=defeitos
+- Page Title: Ofertas · Garimpei

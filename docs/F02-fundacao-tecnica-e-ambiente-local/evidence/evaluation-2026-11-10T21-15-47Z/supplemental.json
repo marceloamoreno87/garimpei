@@ -1,0 +1,73 @@
+{
+  "http": {
+    "success": {
+      "status": 200,
+      "body": "{\"status\": \"alive\"}"
+    },
+    "dependency_failure": {
+      "status": 503,
+      "body": "{\"status\": \"not_ready\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"75ad34c3-884c-43ea-ae10-ce0611e50e0e\", \"checks\": {\"database\": \"ready\", \"migrations\": \"ready\", \"worker\": \"ready\", \"waha\": \"unavailable\"}, \"error\": {\"code\": \"DEPENDENCY_UNAVAILABLE\"}}"
+    },
+    "unexpected_failure": {
+      "status": 500,
+      "body": "{\"error\": {\"code\": \"INTERNAL_ERROR\"}}"
+    }
+  },
+  "cleanup": {
+    "eval_final_eval_195216": {
+      "volumes_before": [
+        "garimpei-eval_final_eval_195216_postgres_data",
+        "garimpei-eval_final_eval_195216_waha_sessions"
+      ],
+      "database_marker_sha256": "2b256d9931fffec15c30ec4b410b26b99bcc2f01e341dad707256850d7552f40"
+    },
+    "eval_preserve_b_5150a08d": {
+      "volumes_before": [
+        "garimpei-eval_preserve_b_5150a08d_postgres_data",
+        "garimpei-eval_preserve_b_5150a08d_waha_sessions"
+      ],
+      "database_marker_sha256": "a916e8ff6605134e67136352f53ef6c423bcd012d8a7087d32d72244e3a82426"
+    },
+    "other_instance_intact_after_clean": true,
+    "b_cleaned_after_verification": true
+  },
+  "configuration": {
+    "extra_and_secrets_file_preserved": true,
+    "sha256": "8f610cc42bb54b370fc999cd368bcb3a748bd49af1f2c4db80b5ad2db0d5c2e9"
+  },
+  "resolve": {
+    "exit": 0,
+    "seconds": 0.216,
+    "stdout": "eval_final_eval_195216 database=garimpei_eval_final_eval_195216 web=18862 postgres=18962 waha=19062\n",
+    "stderr": ""
+  },
+  "unexpected_cli": {
+    "exit": 1,
+    "seconds": 0.164,
+    "stdout": "",
+    "stderr": "Runtime operation failed (RUNTIME_ERROR); inspect owned private diagnostics\n"
+  },
+  "web_logs": {
+    "json_lines": 86,
+    "no_secret_or_header_canary": true,
+    "correlated": true
+  },
+  "worker_logs": {
+    "json_lines": 1347,
+    "no_secret_or_header_canary": true,
+    "correlated": true
+  },
+  "normal_stop": {
+    "exit": 0,
+    "seconds": 1.313,
+    "stdout": "Stopped eval_final_eval_195216: owned web/worker and services; database, volumes and session retained\n",
+    "stderr": "{\"timestamp\": \"2026-11-10T21:22:26.722734+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"75ad34c3-884c-43ea-ae10-ce0611e50e0e\"}\n"
+  },
+  "clean_stopped_a": {
+    "exit": 0,
+    "seconds": 0.983,
+    "stdout": "Cleaned eval_final_eval_195216: owned web/worker and services; disposable data removed\n",
+    "stderr": ""
+  },
+  "complete": true
+}

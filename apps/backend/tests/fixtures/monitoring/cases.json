@@ -1,0 +1,75 @@
+{
+  "cep": {
+    "valid": [
+      "01001-000",
+      "01001000",
+      " 01001000 "
+    ],
+    "invalid": [
+      "",
+      "0100100",
+      "010010000",
+      "０１００１０００",
+      "01001 000"
+    ]
+  },
+  "shipping_estimate": {
+    "valid": [
+      "0",
+      "25,50",
+      "25.50",
+      "999999.99"
+    ],
+    "invalid": [
+      "",
+      "-1",
+      "+1",
+      "1000000",
+      "1.005",
+      "1,005",
+      "1e2",
+      "NaN",
+      "Infinity",
+      "1.000,00",
+      "R$25"
+    ]
+  },
+  "resale_fee_percent": {
+    "valid": [
+      "0",
+      "12.50",
+      "12,50",
+      "100"
+    ],
+    "invalid": [
+      "",
+      "-1",
+      "100.01",
+      "NaN",
+      "Infinity",
+      "10%",
+      "1,005"
+    ]
+  },
+  "products": {
+    "valid": [
+      "PlayStation 5",
+      "Notebook",
+      "<script>alert(1)</script>"
+    ],
+    "invalid": [
+      "",
+      "   ",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "duplicates": [
+      "PlayStation 5",
+      " playstation   5 ",
+      "PLAYSTATION 5"
+    ]
+  },
+  "categories": {
+    "unknown": "unknown-category",
+    "real": "479353692612078"
+  }
+}

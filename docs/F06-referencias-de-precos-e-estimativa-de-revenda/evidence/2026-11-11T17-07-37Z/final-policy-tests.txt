@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 6 items
+
+apps/backend/tests/unit/test_valuation.py ......                         [100%]
+
+============================== 6 passed in 0.04s ===============================

@@ -1,0 +1,18 @@
+{
+  "labs": [
+    {
+      "environment": "eval_f04_96b6d52f7e",
+      "containers": [],
+      "volumes": [],
+      "networks": []
+    },
+    {
+      "environment": "eval_f04_7adea50ccd",
+      "containers": [],
+      "volumes": [],
+      "networks": []
+    }
+  ],
+  "browser_sessions_closed": true,
+  "temporary_private_directories_removed": true
+}

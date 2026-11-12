@@ -1,0 +1,34 @@
+<fieldset aria-describedby="interests-help">
+    <legend>Seus interesses</legend>
+    <p id="interests-help">Escolha uma categoria, informe um produto por nome/modelo ou combine os dois.</p>
+    <h3>Categorias do Facebook Marketplace</h3>
+    {% if catalog %}
+        <p class="help"><a href="{{ catalog.evidence_url }}" target="_blank" rel="noopener noreferrer">Ver catálogo na fonte</a>. Verificado em {{ catalog.verified_at|slice:":10" }}; disponível offline, sem atualização em tempo real.</p>
+    {% else %}
+        <div class="notice" role="status"><p>Categorias indisponíveis no momento.</p><button type="submit" class="secondary" name="intent" value="reload_catalog">Recarregar categorias</button><p>Você pode continuar com um produto por nome/modelo.</p></div>
+    {% endif %}
+    <div class="categories">
+        {% for category in categories %}
+            <label class="choice">
+                <input type="checkbox" name="category_ids[]" value="{{ category.id }}" {% if category.id in selected %}checked{% endif %} {% if not category.selectable %}disabled{% endif %} aria-describedby="category-help">
+                <span>{{ category.label }}{% if category.retired %}<small>Seleção salva: categoria indisponível no catálogo atual. Revise antes de remover.</small>{% endif %}{% if not category.selectable %}<small>Indisponível na validação atual; escolha outra categoria ou cadastre um nome/modelo.</small>{% endif %}</span>
+            </label>
+        {% endfor %}
+    </div>
+    <p class="help" id="category-help">Cada categoria é um filtro independente. Selecionar uma categoria não seleciona suas subcategorias.</p>
+    {% if error.field == 'category_ids' %}<p class="field-error">{{ error }}</p>{% endif %}
+    <h3>Produtos por nome/modelo</h3>
+    <ul class="products" aria-label="Produtos escolhidos">
+        {% for product in products %}
+            <li><span>{{ product }}</span><input type="hidden" name="product_names[]" value="{{ product }}"><button type="submit" name="intent" value="remove:{{ forloop.counter0 }}" class="secondary" aria-label="Remover {{ product }}">Remover</button></li>
+        {% endfor %}
+    </ul>
+    <label for="new_product">Nome/modelo do produto</label>
+    <div class="add-product">
+        <input id="new_product" name="new_product" value="{{ new_product|default:'' }}" aria-describedby="product-help{% if error.field == 'product_names' %} product-error{% endif %}" {% if error.field == 'product_names' %}aria-invalid="true"{% endif %}>
+        <button type="submit" name="intent" value="add" class="secondary">Adicionar produto</button>
+    </div>
+    <p class="help" id="product-help">Só o nome/modelo é necessário, com até 120 caracteres. O nome digitado também será incluído ao salvar ou concluir.</p>
+    {% if error.field == 'product_names' %}<p class="field-error" id="product-error">{{ error }}</p>{% endif %}
+    {% if error.field == 'interests' %}<p class="field-error">{{ error }}</p>{% endif %}
+</fieldset>

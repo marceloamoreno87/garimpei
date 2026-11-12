@@ -1,0 +1,101 @@
+{
+  "BEM": {
+    "source": "facebook_marketplace",
+    "external_id": "501",
+    "url": "https://www.facebook.com/marketplace/item/501/",
+    "title": "PlayStation 5 — BEM",
+    "price": "R$ 2.300,00",
+    "condition": null,
+    "description": "FUNCIONA   PERFEITAMENTE.",
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "DEFEITO": {
+    "source": "facebook_marketplace",
+    "external_id": "502",
+    "url": "https://www.facebook.com/marketplace/item/502/",
+    "title": "PlayStation 5 — DEFEITO",
+    "price": "R$ 2.300,00",
+    "condition": "Com defeito",
+    "description": null,
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "REPARO": {
+    "source": "facebook_marketplace",
+    "external_id": "503",
+    "url": "https://www.facebook.com/marketplace/item/503/",
+    "title": "PlayStation 5 — REPARO",
+    "price": "R$ 2.300,00",
+    "condition": null,
+    "description": "Precisa de reparo.",
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "PECAS": {
+    "source": "facebook_marketplace",
+    "external_id": "504",
+    "url": "https://www.facebook.com/marketplace/item/504/",
+    "title": "PlayStation 5 — PECAS",
+    "price": "R$ 2.300,00",
+    "condition": null,
+    "description": "Para peças.",
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "MISTA": {
+    "source": "facebook_marketplace",
+    "external_id": "505",
+    "url": "https://www.facebook.com/marketplace/item/505/",
+    "title": "PlayStation 5 — MISTA",
+    "price": "R$ 2.300,00",
+    "condition": null,
+    "description": "Funciona bem. Não liga.",
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "INCERTA_A": {
+    "source": "facebook_marketplace",
+    "external_id": "506",
+    "url": "https://www.facebook.com/marketplace/item/506/",
+    "title": "PlayStation 5 — INCERTA_A",
+    "price": "R$ 2.300,00",
+    "condition": "Usado",
+    "description": null,
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "INCERTA_B": {
+    "source": "facebook_marketplace",
+    "external_id": "507",
+    "url": "https://www.facebook.com/marketplace/item/507/",
+    "title": "PlayStation 5 — INCERTA_B",
+    "price": "R$ 2.300,00",
+    "condition": "Usado",
+    "description": null,
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "VAZIA": {
+    "source": "facebook_marketplace",
+    "external_id": "508",
+    "url": "https://www.facebook.com/marketplace/item/508/",
+    "title": "PlayStation 5 — VAZIA",
+    "price": "R$ 2.300,00",
+    "condition": null,
+    "description": null,
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  },
+  "AMBIGUA": {
+    "source": "facebook_marketplace",
+    "external_id": "509",
+    "url": "https://www.facebook.com/marketplace/item/509/",
+    "title": "PlayStation 5 — AMBIGUA",
+    "price": "R$ 2.300,00",
+    "condition": "Como novo",
+    "description": "Não sei se funciona bem. Controle com defeito. Funciona bem só na tomada. Funciona perfeitamente?",
+    "shipping_offered": true,
+    "shipping_evidence": "source_delivery_types"
+  }
+}

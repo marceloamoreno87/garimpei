@@ -1,0 +1,87 @@
+{
+  "gates": {
+    "command": [
+      "node",
+      "scripts/run-gates.mjs"
+    ],
+    "exit_code": 0
+  },
+  "django": {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "apps/backend/manage.py",
+      "check"
+    ],
+    "exit_code": 0
+  },
+  "migrations": {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "apps/backend/manage.py",
+      "makemigrations",
+      "--check",
+      "--dry-run"
+    ],
+    "exit_code": 0
+  },
+  "static": {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "apps/backend/manage.py",
+      "collectstatic",
+      "--noinput"
+    ],
+    "exit_code": 0
+  },
+  "build": {
+    "command": [
+      "uv",
+      "build",
+      "--directory",
+      "apps/backend",
+      "--no-build-isolation"
+    ],
+    "exit_code": 0
+  },
+  "tokens": {
+    "command": [
+      "python3",
+      "docs/design/generate_tokens.py",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  "harness-tests": {
+    "command": [
+      "node",
+      "--test",
+      "scripts/test/harness.test.mjs"
+    ],
+    "exit_code": 0
+  },
+  "harness-check": {
+    "command": [
+      "node",
+      "scripts/check-harness.mjs"
+    ],
+    "exit_code": 0
+  }
+}

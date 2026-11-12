@@ -1,0 +1,10 @@
+{
+  "command": [
+    "lint-imports",
+    "--config",
+    ".importlinter"
+  ],
+  "exit": 1,
+  "stdout": "\n╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐\n╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │\n ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗\n ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝\n╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║\n╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝\n  └──▶║║                    ▲ \n      ╚╝────────────────────┘\n\n\n---------\nContracts\n---------\n\nAnalyzed 72 files, 119 dependencies.\n------------------------------------\n\nDomain has no application or I/O dependencies BROKEN\nUsecases depend only on pure contracts KEPT\n\nContracts: 1 kept, 1 broken.\n\n\n----------------\nBroken contracts\n----------------\n\nDomain has no application or I/O dependencies\n---------------------------------------------\n\ngarimpei.domain is not allowed to import garimpei.config:\n\n-   garimpei.domain.runtime.negative_helper -> garimpei.config.env (l.1)\n\n\ngarimpei.domain is not allowed to import os:\n\n-   garimpei.domain.runtime.negative_helper -> garimpei.config.env (l.1)\n    garimpei.config.env -> os (l.7)\n\n\ngarimpei.domain is not allowed to import pathlib:\n\n-   garimpei.domain.runtime.negative_helper -> garimpei.config.env (l.1)\n    garimpei.config.env -> pathlib (l.14)\n\n\ngarimpei.domain is not allowed to import socket:\n\n-   garimpei.domain.runtime.negative_helper -> garimpei.config.env (l.1)\n    garimpei.config.env -> socket (l.9)\n\n\ngarimpei.domain is not allowed to import subprocess:\n\n-   garimpei.domain.runtime.negative_helper -> garimpei.config.env (l.1)\n    garimpei.config.env -> subprocess (l.10)\n\n\ngarimpei.domain is not allowed to import urllib:\n\n-   garimpei.domain.runtime.negative_helper -> garimpei.config.env (l.1)\n    garimpei.config.env -> urllib (l.15)\n\n\n",
+  "stderr": ""
+}

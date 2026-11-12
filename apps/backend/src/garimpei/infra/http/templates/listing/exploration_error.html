@@ -1,0 +1,11 @@
+{% extends "listing/layout.html" %}
+{% block main %}
+    <main id="main">
+        <section class="error-summary" role="alert">
+            <h1>Não foi possível abrir as ofertas</h1>
+
+            <p>{{ message }}</p>
+            <a class="button secondary" href="{{ refresh }}">Carregar versão atual e tentar novamente</a>
+        </section>
+    </main>
+{% endblock %}

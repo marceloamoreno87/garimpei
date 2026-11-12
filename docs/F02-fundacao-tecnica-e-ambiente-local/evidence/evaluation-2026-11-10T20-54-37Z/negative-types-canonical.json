@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "exit": 1,
+  "stdout": "[gates] Tipos: 41 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nsrc/garimpei/infra/runtime/negative_types.py:2: error: Incompatible return value type (got \"str\", expected \"int\")  [return-value]\nFound 1 error in 1 file (checked 63 source files)\n",
+  "stderr": "[gates] Tipos: FAILED\n"
+}

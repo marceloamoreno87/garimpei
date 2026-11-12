@@ -1,0 +1,266 @@
+[
+  {
+    "symbol": "application",
+    "path": "src/garimpei/config/wsgi.py",
+    "consumer": "src/garimpei/infra/runtime/lifecycle.py",
+    "reason": "Gunicorn WSGI process target"
+  },
+  {
+    "symbol": "urlpatterns",
+    "path": "src/garimpei/infra/http/urls.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django ROOT_URLCONF registry"
+  },
+  {
+    "symbol": "PersistenceConfig",
+    "path": "src/garimpei/infra/persistence/apps.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django INSTALLED_APPS registry"
+  },
+  {
+    "symbol": "Command.handle",
+    "path": "src/garimpei/infra/persistence/management/commands/runworker.py",
+    "consumer": "src/garimpei/infra/runtime/lifecycle.py",
+    "reason": "Django runworker command discovery"
+  },
+  {
+    "symbol": "Command.handle",
+    "path": "src/garimpei/infra/persistence/management/commands/runtime_probe.py",
+    "consumer": "manage.py",
+    "reason": "Django runtime_probe command discovery"
+  },
+  {
+    "symbol": "JsonFormatter",
+    "path": "src/garimpei/infra/runtime/logging.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django/Gunicorn dictConfig factory"
+  },
+  {
+    "symbol": "csrf_failure",
+    "path": "src/garimpei/infra/http/error_handler.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django CSRF_FAILURE_VIEW invokes this signature including reason"
+  },
+  {
+    "symbol": "MonitoringSnapshot",
+    "path": "src/garimpei/domain/monitoring/snapshot.py",
+    "consumer": "src/garimpei/domain/listing/scope.py",
+    "reason": "Immutable public snapshot for F04 and subsequent consumers"
+  },
+  {
+    "symbol": "CategoryCatalog",
+    "path": "src/garimpei/domain/monitoring/values.py",
+    "consumer": "src/garimpei/infra/http/templates/monitoring/interest_fields.html",
+    "reason": "Verified source metadata consumed by Django template"
+  },
+  {
+    "symbol": "MonitoringConfiguration.updated_at",
+    "path": "src/garimpei/infra/persistence/monitoring_models.py",
+    "consumer": "src/garimpei/infra/persistence/migrations/0002_monitoring_configuration.py",
+    "reason": "Django auto_now audit column; no application assignment"
+  },
+  {
+    "symbol": "CollectionStatus",
+    "path": "src/garimpei/domain/listing/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/monitoring/tracking.html",
+    "reason": "Django template fields and collection status contract"
+  },
+  {
+    "symbol": "build_read_listing",
+    "path": "src/garimpei/main.py",
+    "consumer": "tests/integration/test_collection.py",
+    "reason": "Published F04 listing projection composed for downstream features; invoked through Django shell in PostgreSQL contract tests"
+  },
+  {
+    "symbol": "build_read_listing_changes",
+    "path": "src/garimpei/main.py",
+    "consumer": "tests/integration/test_collection.py",
+    "reason": "Published F04 event cursor for F09; invoked through Django shell in PostgreSQL contract tests"
+  },
+  {
+    "symbol": "ConditionState.conflict",
+    "path": "src/garimpei/domain/listing/condition.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/detail.html",
+    "reason": "Conflict indicator rendered by Django template and verified in F05 browser journey"
+  },
+  {
+    "symbol": "ConditionState.tab_label",
+    "path": "src/garimpei/domain/listing/condition.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/detail.html",
+    "reason": "Effective destination name rendered in details and confirmation"
+  },
+  {
+    "symbol": "ConditionState.satisfies_alert_condition",
+    "path": "src/garimpei/domain/listing/condition.py",
+    "consumer": "tests/integration/test_listing_condition.py",
+    "reason": "Published condition-only requirement for F09, exercised via real PostgreSQL projection in shell"
+  },
+  {
+    "symbol": "build_read_valuation",
+    "path": "src/garimpei/main.py",
+    "consumer": "tests/integration/test_valuation.py",
+    "reason": "F06 public F07/F08 query factory exercised by real PostgreSQL shell contract tests"
+  },
+  {
+    "symbol": "Valuation.origin_diagnostic",
+    "path": "src/garimpei/domain/valuation/values.py",
+    "consumer": "tests/integration/test_valuation.py",
+    "reason": "F06 current read failure-of-origin field asserted by integration consumer"
+  },
+  {
+    "symbol": "ValuationWork.requested_at",
+    "path": "src/garimpei/infra/persistence/valuation_models.py",
+    "consumer": "tests/integration/test_valuation.py",
+    "reason": "Django persisted work audit timestamp, populated in transaction and inspected in rollback/recovery tests"
+  },
+  {
+    "symbol": "ValuationWork.attempts",
+    "path": "src/garimpei/infra/persistence/valuation_models.py",
+    "consumer": "tests/integration/test_valuation.py",
+    "reason": "Django durable retry count; reconciliation increments and recovery evidence reads it"
+  },
+  {
+    "symbol": "ProfitComposition.configuration_revision",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.evaluation_id",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.evaluation_revision",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.calculated_at",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.fee_percent",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.principal",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.resale_scope",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitComposition.excluded_costs",
+    "path": "src/garimpei/domain/valuation/profit.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 immutable public projection for F08/F09, asserted by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "build_read_profit",
+    "path": "src/garimpei/main.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 programmatic listing/event query factory invoked by PostgreSQL shell consumer"
+  },
+  {
+    "symbol": "ProfitReadFailed.retryable",
+    "path": "src/garimpei/domain/valuation/profit_queries.py",
+    "consumer": "tests/integration/test_profit.py",
+    "reason": "F07 retryable dependency failure asserted through real adapter with named configuration failure fake"
+  },
+  {
+    "symbol": "Offer.last_valid_at",
+    "path": "src/garimpei/domain/listing/exploration.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/offer_detail.html",
+    "reason": "Historical availability timestamp consumed by Django template"
+  },
+  {
+    "symbol": "ExplorationRevision.superseded_at",
+    "path": "src/garimpei/infra/persistence/exploration_models.py",
+    "consumer": "src/garimpei/infra/repository/listing/exploration_repository.py",
+    "reason": "ORM retention predicate and update_fields"
+  },
+  {
+    "symbol": "ExplorationOffer.automatic_tab",
+    "path": "src/garimpei/infra/persistence/exploration_models.py",
+    "consumer": "src/garimpei/infra/queries/listing/exploration_queries.py",
+    "reason": "ORM predicate over the published automatic tab and live manual overlay"
+  },
+  {
+    "symbol": "build_condition_handler",
+    "path": "src/garimpei/main.py",
+    "consumer": "tests/integration/test_exploration.py",
+    "reason": "Preserved F05 programmatic compatibility; checked through its public handler"
+  },
+  {
+    "symbol": "Alert.confirmed_at",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "tests/integration/test_alert_delivery.py",
+    "reason": "Django ORM audit/predicate column; inspected in PostgreSQL contract tests and documented diagnostic SQL"
+  },
+  {
+    "symbol": "Alert.confirmed_message",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "tests/integration/test_alert_delivery.py",
+    "reason": "Django ORM audit/predicate column; inspected in PostgreSQL contract tests and documented diagnostic SQL"
+  },
+  {
+    "symbol": "Alert.confirmed_ack",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "tests/integration/test_alert_delivery.py",
+    "reason": "Django ORM audit/predicate column; inspected in PostgreSQL contract tests and documented diagnostic SQL"
+  },
+  {
+    "symbol": "Alert.installation",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "src/garimpei/infra/repository/alert/postgres_repository.py",
+    "reason": "Django ORM audit/predicate column; inspected in PostgreSQL contract tests and documented diagnostic SQL"
+  },
+  {
+    "symbol": "Alert.condition_revision",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "tests/integration/test_alert_delivery.py",
+    "reason": "Django ORM audit/predicate column; inspected in PostgreSQL contract tests and documented diagnostic SQL"
+  },
+  {
+    "symbol": "FacebookCookie.httpOnly",
+    "path": "src/garimpei/domain/integration/values.py",
+    "consumer": "src/garimpei/infra/repository/integration/private_session.py",
+    "reason": "Playwright storage-state schema serialized explicitly through dataclasses.asdict"
+  },
+  {
+    "symbol": "FacebookCookie.secure",
+    "path": "src/garimpei/domain/integration/values.py",
+    "consumer": "src/garimpei/infra/repository/integration/private_session.py",
+    "reason": "Playwright storage-state schema serialized explicitly through dataclasses.asdict"
+  },
+  {
+    "symbol": "FacebookCookie.sameSite",
+    "path": "src/garimpei/domain/integration/values.py",
+    "consumer": "src/garimpei/infra/repository/integration/private_session.py",
+    "reason": "Playwright storage-state schema serialized explicitly through dataclasses.asdict"
+  },
+  {
+    "symbol": "IntegrationView.groups_unavailable",
+    "path": "src/garimpei/domain/integration/values.py",
+    "consumer": "src/garimpei/infra/http/templates/integration/settings.html",
+    "reason": "Template feedback for group-query failure"
+  },
+  {
+    "symbol": "integration_context",
+    "path": "src/garimpei/infra/http/integration/context.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django template context processor discovered through dotted settings path"
+  }
+]

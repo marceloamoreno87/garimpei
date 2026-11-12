@@ -1,0 +1,82 @@
+[
+  {
+    "environment": "eval_f04_96b6d52f7e",
+    "database": "garimpei_eval_f04_96b6d52f7e",
+    "disposable": true,
+    "run_id": "d7285d2d-a82a-4346-a58f-313a5abc07c2",
+    "port": 14477,
+    "health": 200,
+    "health_body": {
+      "status": "ready",
+      "environment_id": "eval_f04_96b6d52f7e",
+      "run_id": "d7285d2d-a82a-4346-a58f-313a5abc07c2",
+      "checks": {
+        "database": "ready",
+        "migrations": "ready",
+        "worker": "ready",
+        "waha": "ready"
+      }
+    },
+    "revisions": [
+      {
+        "id": "11781325-4f97-4015-95a9-de0db711a677",
+        "sequence": 1,
+        "published_at": "2026-11-10 18:00:00+00:00"
+      },
+      {
+        "id": "4738c8b4-3685-4df5-a543-82eb56cbfb8c",
+        "sequence": 2,
+        "published_at": "2026-11-10 18:00:00+00:00"
+      },
+      {
+        "id": "8ef5c8a6-4c3f-4311-bcea-c1d7433f8694",
+        "sequence": 3,
+        "published_at": "2026-11-10 18:01:01+00:00"
+      },
+      {
+        "id": "fd86e581-1462-42cf-abf7-98a4019a2d80",
+        "sequence": 4,
+        "published_at": "2026-11-10 18:02:02+00:00"
+      },
+      {
+        "id": "583ce220-8d62-4cac-ab55-ba94e6b13535",
+        "sequence": 5,
+        "published_at": "2026-11-10 18:03:03+00:00"
+      }
+    ]
+  },
+  {
+    "environment": "eval_f04_7adea50ccd",
+    "database": "garimpei_eval_f04_7adea50ccd",
+    "disposable": true,
+    "run_id": "67241854-128f-4ffd-a120-7ac535da7d15",
+    "port": 23114,
+    "health": 503,
+    "health_body": {
+      "status": "not_ready",
+      "environment_id": "eval_f04_7adea50ccd",
+      "run_id": "67241854-128f-4ffd-a120-7ac535da7d15",
+      "checks": {
+        "database": "ready",
+        "migrations": "ready",
+        "worker": "unavailable",
+        "waha": "ready"
+      },
+      "error": {
+        "code": "DEPENDENCY_UNAVAILABLE"
+      }
+    },
+    "revisions": [
+      {
+        "id": "dad26cd8-9963-4cec-9ea7-625ad6d0a3b9",
+        "sequence": 1,
+        "published_at": "2026-11-10 18:01:01+00:00"
+      },
+      {
+        "id": "633a9514-e045-44ee-a042-66b9a4ad7da4",
+        "sequence": 2,
+        "published_at": "2026-11-10 18:01:01+00:00"
+      }
+    ]
+  }
+]

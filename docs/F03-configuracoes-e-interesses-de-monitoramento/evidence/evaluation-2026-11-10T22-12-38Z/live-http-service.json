@@ -1,0 +1,72 @@
+{
+  "health": {
+    "status": "ready",
+    "environment_id": "eval_f03_213950",
+    "run_id": "b48c2286-dd21-4b37-9e28-a567e0d985bc",
+    "checks": {
+      "database": "ready",
+      "migrations": "ready",
+      "worker": "ready",
+      "waha": "ready"
+    }
+  },
+  "new": {
+    "configured": false,
+    "configuration_id": null,
+    "revision": null,
+    "completed_at": null,
+    "source": "facebook_marketplace",
+    "cep": null,
+    "pickup_city": "São Paulo",
+    "pickup_state": "SP",
+    "pickup_radius_km": 20,
+    "shipping_scope": "BR",
+    "category_ids": [],
+    "product_names": [],
+    "shipping_estimate": null,
+    "resale_fee_percent": null
+  },
+  "draft": {
+    "configured": false,
+    "configuration_id": null,
+    "revision": null,
+    "completed_at": null,
+    "source": "facebook_marketplace",
+    "cep": null,
+    "pickup_city": "São Paulo",
+    "pickup_state": "SP",
+    "pickup_radius_km": 20,
+    "shipping_scope": "BR",
+    "category_ids": [],
+    "product_names": [],
+    "shipping_estimate": null,
+    "resale_fee_percent": null
+  },
+  "active": {
+    "configured": true,
+    "configuration_id": "510ef799-2126-4e10-99c3-4d755c713a5a",
+    "revision": 1,
+    "completed_at": "2026-11-10 22:17:32.370562+00:00",
+    "source": "facebook_marketplace",
+    "cep": "01001000",
+    "pickup_city": "São Paulo",
+    "pickup_state": "SP",
+    "pickup_radius_km": 20,
+    "shipping_scope": "BR",
+    "category_ids": [
+      "479353692612078"
+    ],
+    "product_names": [
+      "PlayStation 5"
+    ],
+    "shipping_estimate": "25.50",
+    "resale_fee_percent": "12.50"
+  },
+  "http": {
+    "without_csrf": 403,
+    "complete": 303,
+    "replay": 303,
+    "tracking": 200
+  },
+  "business_jobs": 0
+}

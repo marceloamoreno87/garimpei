@@ -1,0 +1,105 @@
+{% extends "listing/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <a class="back-link"
+           href="{% url 'condition-list' %}{% if offer %}?aba={{ offer.state.tab }}{% endif %}">Voltar para {% if offer %}{{ offer.state.tab_label }}{% else %}as ofertas{% endif %}</a>
+        {% if error %}
+            <section id="form-error"
+                     tabindex="-1"
+                     role="alert"
+                     class="error-summary"
+                     data-error-code="{{ error_code }}">
+                <h2>Não foi possível confirmar a alteração</h2>
+
+                <p>{{ error }}</p>
+                {% if not readable %}<p>A consulta também está indisponível. Recarregue os detalhes antes de tentar salvar novamente.</p>{% endif %}
+                <a href="{{ reload_url }}">Recarregar detalhes</a>
+            </section>
+        {% endif %}
+        {% if offer %}
+            <header class="page-heading">
+                <p class="source-meta">Facebook Marketplace · Oferta {{ offer.external_id }}</p>
+                <h1>{{ offer.title }}</h1>
+
+            </header>
+            {% if confirmation and not error %}
+                <div class="notice"
+                     role="status">Sua classificação foi salva. A oferta está em <strong>{{ offer.state.tab_label }}</strong>.</div>
+            {% endif %}
+            <div class="condition-detail-layout">
+                <section class="panel condition-summary" aria-labelledby="condition-heading">
+                    <h2 id="condition-heading">{{ offer.state.label }}</h2>
+
+                    <p class="provenance">{% if offer.state.manual %}Sua classificação manual{% else %}Classificação a partir do anúncio{% endif %}</p>
+                    <p>Classificação automática: <strong>{{ automatic_label }}</strong></p>
+                    {% if not offer.visible %}<p class="notice">Esta oferta está no histórico e pode estar indisponível ou fora do recorte atual.</p>{% endif %}
+                    {% if offer.state.conflict %}
+                        <section class="condition-conflict" role="note">
+                            <h3>A informação do anúncio diverge da sua classificação</h3>
+
+                            <p>Sua escolha continua ativa. Confira a evidência do anúncio ao lado antes de decidir se deseja corrigir.</p>
+                        </section>
+                    {% endif %}
+                    {% if offer.state.editable %}
+                        {% if offer.state.manual %}<details class="correction"
+                                                            {% if error %}open{% endif %}><summary>Corrigir sua classificação</summary>{% endif %}
+                        <form method="post"
+                              action="{% url 'condition-classify' offer.id %}"
+                              data-condition-form>
+                            {% csrf_token %}
+                            <input type="hidden" name="revision" value="{{ offer.state.revision }}">
+                            <fieldset>
+                                <legend>Sua avaliação de funcionamento</legend>
+                                <label class="condition-choice"><input type="radio"
+                                                                       name="choice"
+                                                                       value="good" required {% if selected_choice == 'good' %}checked{% endif %}> <span>Funciona bem</span></label>
+                                <label class="condition-choice"><input type="radio"
+                                                                       name="choice"
+                                                                       value="defect" required {% if selected_choice == 'defect' %}checked{% endif %}> <span>Não funciona bem</span></label>
+                            </fieldset>
+                            <button type="submit"
+                                    class="primary"
+                                    {% if error and not readable %}disabled{% endif %}>{% if offer.state.manual %}Salvar correção{% else %}Salvar classificação{% endif %}</button>
+                            <p class="condition-pending"
+                               role="status"
+                               hidden>Salvando sua classificação… A condição confirmada será mantida até a resposta.</p>
+                        </form>
+                        {% if offer.state.manual %}</details>{% endif %}
+                    {% endif %}
+                    <a class="button secondary destination-link"
+                       href="{% url 'condition-list' %}?aba={{ offer.state.tab }}">Ver em {{ offer.state.tab_label }}</a>
+                    <p class="fine">Revisão da sua escolha: <span data-revision>{{ offer.state.revision }}</span></p>
+                </section>
+                <section class="source-evidence" aria-labelledby="source-heading">
+                    <h2 id="source-heading">O que o anúncio informa</h2>
+
+                    <p class="fine">Última observação: {{ offer.observed_at|date:"d/m/Y H:i" }} UTC</p>
+                    {% for field, text in signals %}
+                        <blockquote>
+                            <cite>{{ field }} · Facebook Marketplace</cite>
+                            <p>{{ text }}</p>
+                        </blockquote>
+                    {% empty %}
+                        <p class="notice">Não há declaração reconhecida suficiente para confirmar o funcionamento.</p>
+                    {% endfor %}
+                    <dl class="source-fields">
+                        <dt>Condição informada</dt>
+                        <dd>
+                            {{ offer.evidence.condition|default:"Não informada" }}
+                        </dd>
+                        <dt>Descrição</dt>
+                        <dd>
+                            {{ offer.evidence.description|default:"Não informada" }}
+                        </dd>
+                        <dt>Preço anunciado</dt><dd>{% if offer.price != None %}R$ {{ offer.price|floatformat:"2g" }}{% else %}Não informado{% endif %}</dd>
+                    </dl>
+                    <p class="fine">A classificação organiza a informação disponível. O estado físico continua sujeito à sua avaliação.</p>
+                    <a class="button secondary source-link"
+                       href="{{ offer.canonical_url }}"
+                       target="_blank"
+                       rel="noopener noreferrer">Abrir anúncio original</a>
+                </section>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -1,0 +1,78 @@
+{
+  "list": {
+    "cards": 20,
+    "logisticsFilter": false,
+    "overflow": false,
+    "loadedImages": 20
+  },
+  "detail": {
+    "profitLabel": "Lucro potencial antes de frete/transporte",
+    "profit": "R$ 487,50",
+    "oldLogisticsBreakdown": false,
+    "references": 5,
+    "overflow": false
+  },
+  "config": {
+    "shippingField": false,
+    "feeField": true,
+    "categories": [
+      {
+        "id": "479353692612078",
+        "disabled": false
+      },
+      {
+        "id": "cameras",
+        "disabled": false
+      },
+      {
+        "id": "cell-phones",
+        "disabled": true
+      },
+      {
+        "id": "computers",
+        "disabled": false
+      },
+      {
+        "id": "video-games",
+        "disabled": false
+      },
+      {
+        "id": "headphones",
+        "disabled": false
+      },
+      {
+        "id": "tvs",
+        "disabled": false
+      },
+      {
+        "id": "audio",
+        "disabled": false
+      }
+    ],
+    "overflow": false
+  },
+  "narrowConfig": {
+    "overflow": false,
+    "invalidField": false
+  },
+  "narrowDetail": {
+    "overflow": false,
+    "profit": "R$ 487,50"
+  },
+  "scenario": "Synthetic F08 fixtures with image route fulfilled by a labelled synthetic image; source categories separately validated against real Facebook",
+  "viewports": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "save_without_shipping": {
+    "saved": true,
+    "fee": "12.50",
+    "shipping_field_count": 0
+  }
+}

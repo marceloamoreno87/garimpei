@@ -1,0 +1,337 @@
+{
+  "run": "2026-11-10T21-15-47Z",
+  "status": "clean",
+  "items": {
+    "API-SAUDE-01": {
+      "status": "PASS",
+      "observation": "GET /health retornou 200/status alive, JSON e no-store com dependência indisponível; sem declaração de prontidão. Snapshot real e testes de PostgreSQL/WAHA confirmam separação de vida/prontidão.",
+      "tests": [
+        "test_liveness_does_not_query_database",
+        "test_dependency_failure_is_not_liveness_failure[postgres]",
+        "test_dependency_failure_is_not_liveness_failure[waha]"
+      ]
+    },
+    "API-SAUDE-02": {
+      "status": "PASS",
+      "observation": "GET /health/ready retornou 200/status ready, checks database/migrations/worker/waha ready e instância/run correspondentes ao manifesto. Header no-store confirmado na amostra real.",
+      "tests": [
+        "test_two_instances_have_distinct_resources_and_local_binds"
+      ]
+    },
+    "API-SAUDE-03": {
+      "status": "PASS",
+      "observation": "Quatro variantes reais: PG inacessível, migration pendente, worker parado por mais de 15 s e WAHA parado. HTTP 503 em até 10 s, check afetado/dependentes unavailable, código DEPENDENCY_UNAVAILABLE e ausência de segredos; /health continua 200.",
+      "tests": [
+        "test_dependency_failure_is_not_liveness_failure[postgres]",
+        "test_dependency_failure_is_not_liveness_failure[waha]",
+        "test_pending_migration_degrades_readiness_without_applying",
+        "test_worker_dead_or_stale_is_not_ready"
+      ]
+    },
+    "API-SAUDE-04": {
+      "status": "PASS",
+      "observation": "Host não permitido devolveu 400; OPTIONS ao health devolveu 405. Nenhuma ação mutável ou detalhe privado na resposta.",
+      "tests": [
+        "test_unsupported_method",
+        "test_real_http_boundaries[GET-not-allowed.example-400]",
+        "test_real_http_boundaries[OPTIONS-127.0.0.1-405]"
+      ]
+    },
+    "CLI-INICIO-01": {
+      "status": "PASS",
+      "observation": "Instâncias novas iniciaram por init.sh com exit 0, Ready e URL loopback; web/worker reais com heartbeat/recibo do run. Todos os casos de inicialização positiva da suíte terminaram em menos de 60 s; nenhum DSN/segredo anunciado.",
+      "tests": [
+        "test_two_instances_have_distinct_resources_and_local_binds",
+        "test_init_is_idempotent_and_runtime_probe_is_real"
+      ]
+    },
+    "CLI-INICIO-02": {
+      "status": "PASS",
+      "observation": "Doze configurações ausentes/inválidas exercitadas separadamente pelo catálogo JSON: exit 64, chave/formato esperado e valor não secreto quando aplicável. Sem Ready nem canário privado.",
+      "tests": [
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_ENV-wrong]",
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_INSTANCE-]",
+        "test_invalid_configuration_is_safe_precondition_failure[DJANGO_SECRET_KEY-]",
+        "test_invalid_configuration_is_safe_precondition_failure[POSTGRES_PASSWORD-]",
+        "test_invalid_configuration_is_safe_precondition_failure[WAHA_API_KEY-]",
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_WEB_PORT-oops]",
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_PG_PORT-0]",
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_WAHA_PORT-65536]",
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_STARTUP_TIMEOUT_SECONDS-0]",
+        "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_SHUTDOWN_TIMEOUT_SECONDS-121]",
+        "test_invalid_configuration_is_safe_precondition_failure[LOG_LEVEL-invalid]",
+        "test_invalid_configuration_is_safe_precondition_failure[DATABASE_URL-postgresql://foreign:private-canary@remote/not_owned]"
+      ]
+    },
+    "CLI-INICIO-03": {
+      "status": "PASS",
+      "observation": "Ausência de uv, Docker, Git, Node e Python diagnosticada com 64 e chave correspondente. Testes do harness exercitam scaffold/lock ausentes; nenhum download/fallback npm/Prisma. Python é preparado explicitamente, UV_PYTHON_DOWNLOADS=never no lifecycle.",
+      "tests": [
+        "test_missing_system_tool_is_not_installed[uv]",
+        "test_missing_system_tool_is_not_installed[docker]",
+        "test_missing_system_tool_is_not_installed[git]",
+        "test_missing_system_tool_is_not_installed[node]",
+        "test_missing_system_tool_is_not_installed[python]"
+      ]
+    },
+    "CLI-INICIO-04": {
+      "status": "PASS",
+      "observation": "Cinco variantes: porta alheia ocupada, PG sem autenticação/prontidão, WAHA sem autenticação/prontidão, digest inválido e lock ativo. Exit 1 sem Ready; cenários de serviço/imagem terminaram no timeout de 8 s. Processo dono da porta preservado.",
+      "tests": [
+        "test_active_instance_lock_refuses_concurrent_init",
+        "test_explicit_occupied_port_preserves_owner",
+        "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[postgres]",
+        "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[waha]",
+        "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[image]"
+      ]
+    },
+    "CLI-PARADA-01": {
+      "status": "PASS",
+      "observation": "stop.sh retornou 0, encerrou grupos e serviços próprios e conservou banco, recibos e marcador sintético de sessão. Outra instância permaneceu pronta.",
+      "tests": [
+        "test_stop_restart_preserves_receipts_pending_work_and_session_marker"
+      ]
+    },
+    "CLI-PARADA-02": {
+      "status": "PASS",
+      "observation": "Parada repetida retornou 0. Processo controlado que ignora SIGTERM excedeu o prazo e a entrada pública retornou 1 com conclusão desconhecida, sem anunciar tarefa concluída; apenas grupo próprio foi encerrado.",
+      "tests": [
+        "test_stop_restart_preserves_receipts_pending_work_and_session_marker",
+        "test_shutdown_timeout_never_claims_completion"
+      ]
+    },
+    "CLI-PARADA-03": {
+      "status": "PASS",
+      "observation": "Negação com 64 em dev, descarte sem marcador, sessão real/desconhecida, checkout inconsistente e arquivos de sessão desconhecidos. Nenhuma remoção; arquivo sintético desconhecido preservado, retomada posterior comprovada.",
+      "tests": [
+        "test_clean_denies_unmarked_or_real_session[disposable-False]",
+        "test_clean_denies_unmarked_or_real_session[session_kind-real]",
+        "test_clean_denies_unmarked_or_real_session[session_kind-unknown]",
+        "test_clean_denies_unmarked_or_real_session[checkout-/foreign-checkout]",
+        "test_clean_refuses_unknown_files_even_with_disposable_marker",
+        "test_clean_in_dev_is_denied_before_removal"
+      ]
+    },
+    "CLI-MIGRACAO-01": {
+      "status": "PASS",
+      "observation": "--check retornou 1 com registro de migration deliberadamente pendente e 0 após restauração/aplicação; o modo check não aplicou nem criou migration.",
+      "tests": [
+        "test_pending_migration_degrades_readiness_without_applying",
+        "test_migrations_check_apply_and_invalid_arguments"
+      ]
+    },
+    "CLI-MIGRACAO-02": {
+      "status": "PASS",
+      "observation": "--apply e reaplicação retornaram 0 sobre banco próprio; argumentos inválidos retornaram 64, sem credenciais na saída.",
+      "tests": [
+        "test_migrations_check_apply_and_invalid_arguments"
+      ]
+    },
+    "CLI-MIGRACAO-03": {
+      "status": "PASS",
+      "observation": "Cópia própria com alteração ORM gerou 0002_foundation_probe e exit 0; inspeção PostgreSQL confirmou ausência da coluna, e --check permaneceu 1. Nome inválido e modo inválido rejeitados pelo wrapper em cenário separado.",
+      "tests": [
+        "test_migration_creation_and_unexpected_http_error_in_owned_copy"
+      ]
+    },
+    "CLI-QUALIDADE-01": {
+      "status": "PASS",
+      "observation": "Entrada canônica executou os seis grupos Python reais: mypy, Ruff/djLint, Import Linter, arquitetura AST/registro, Grimp, Vulture/deptry. Todos exit 0; 40 módulos fonte, escopos não vazios e comandos impressos; nenhum validador TypeScript apresentado como aprovação Python.",
+      "tests": []
+    },
+    "CLI-QUALIDADE-02": {
+      "status": "PASS",
+      "observation": "Doze violações isoladas em cópias: tipos, import não usado, template, import direto/transitivo de I/O, ambiente/montagem/caminho/I/O no import, ciclo, função órfã e dependência sem consumidor. Comando afetado retornou não zero com diagnóstico esperado; entrada canônica também falhou, sem seis grupos aprovados. Evidências negative-*.json incluem comandos/códigos/saídas.",
+      "tests": [
+        "test_gate_and_canonical_entry_reject_violation[types]",
+        "test_gate_and_canonical_entry_reject_violation[lint_import]",
+        "test_gate_and_canonical_entry_reject_violation[lint_template]",
+        "test_gate_and_canonical_entry_reject_violation[limits_direct]",
+        "test_gate_and_canonical_entry_reject_violation[limits_indirect]",
+        "test_gate_and_canonical_entry_reject_violation[architecture_env]",
+        "test_gate_and_canonical_entry_reject_violation[architecture_concrete]",
+        "test_gate_and_canonical_entry_reject_violation[architecture_path]",
+        "test_gate_and_canonical_entry_reject_violation[cycles]",
+        "test_gate_and_canonical_entry_reject_violation[unused_function]",
+        "test_gate_and_canonical_entry_reject_violation[unused_dependency]",
+        "test_gate_and_canonical_entry_reject_violation[architecture_import_io]"
+      ]
+    },
+    "CLI-QUALIDADE-03": {
+      "status": "PASS",
+      "observation": "Checker obrigatório removido em cópia: entrada canônica retornou 64 identificando check_cycles.py, sem PASS/download/fallback. Preflight inspeciona source, configuração e executáveis dos seis grupos.",
+      "tests": [
+        "test_missing_gate_source_is_precondition_failure"
+      ]
+    },
+    "WRK-FILA-01": {
+      "status": "PASS",
+      "observation": "Web encerrado, worker separado consumiu probe manual confirmado e runtime_probe --wait retornou completed/0. Tarefa técnica só altera recibos/controle, sem coleta ou WhatsApp.",
+      "tests": [
+        "test_manual_probe_runs_while_web_is_stopped"
+      ]
+    },
+    "WRK-FILA-02": {
+      "status": "PASS",
+      "observation": "Probe manual confirmado com worker parado permaneceu no banco; após parada normal e novo run, o worker concluiu o mesmo UUID. Recibo manual anteriormente concluído foi consultado e preservado.",
+      "tests": [
+        "test_stop_restart_preserves_receipts_pending_work_and_session_marker"
+      ]
+    },
+    "WRK-FILA-03": {
+      "status": "PASS",
+      "observation": "Dois consumidores receberam entregas duplicadas do mesmo controle: um recibo e exatamente uma tarefa sucessora para a sequência. Worker isolado na fila old_control consumiu run antigo sem alterar run/last_probe/sequence atuais nem criar sucessora; sem estado de alerta.",
+      "tests": [
+        "test_duplicate_control_with_two_consumers_has_one_successor",
+        "test_old_run_cannot_renew_current_readiness"
+      ]
+    },
+    "E2E-REPRODUCAO-01": {
+      "status": "PASS",
+      "observation": "Instâncias frias criadas do procedimento documentado; migrations Django/fila antes da prontidão, grupos web/worker distintos, WAHA saudável sem conta. Init saudável repetido preservou manifesto/run/processos. Preservação do harness confrontada com baseline SHA-256 e lista explícita de mesclas.",
+      "tests": [
+        "test_two_instances_have_distinct_resources_and_local_binds",
+        "test_init_is_idempotent_and_runtime_probe_is_real"
+      ]
+    },
+    "E2E-ISOLAMENTO-01": {
+      "status": "PASS",
+      "observation": "Duas instâncias reais em checkout sem commit têm IDs/portas/bancos/volumes distintos e binds loopback. Branches que normalizam igual produziram identidades dev estáveis diferentes. Prova suplementar verificou dados e marcadores distintos e integridade/prontidão de B depois de parar e limpar A.",
+      "tests": [
+        "test_two_instances_have_distinct_resources_and_local_binds",
+        "test_unborn_normalized_branch_names_still_have_distinct_stable_identity"
+      ]
+    },
+    "E2E-FALHA-01": {
+      "status": "PASS",
+      "observation": "Início parcial induzido falhou sem Ready, encerrou recursos da tentativa, preservou PostgreSQL previamente ativo e seu marcador keep, volumes e listener alheio. Fixtures de falha verificam ausência de contêineres novos em execução e limpam apenas recursos próprios.",
+      "tests": [
+        "test_partial_start_preserves_volumes_and_existing_containers",
+        "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[postgres]",
+        "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[waha]",
+        "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[image]"
+      ]
+    },
+    "E2E-PRESERVACAO-01": {
+      "status": "PASS",
+      "observation": "PIDs anteriores encerrados e novo run UUID observado; banco, recibo manual concluído, probe manual pendente e SHA-256 do marcador de sessão preservados. Nenhuma sessão pessoal usada/copied/pareada.",
+      "tests": [
+        "test_stop_restart_preserves_receipts_pending_work_and_session_marker"
+      ]
+    },
+    "E2E-PROPRIEDADE-01": {
+      "status": "PASS",
+      "observation": "Manifesto adulterado com PID controlado alheio/checkout incompatível foi recusado; processo estrangeiro ficou vivo. Regressão adicional confirma que rede estrangeira permanece e que só rede marcada da instância é removida; sinais dependem de PID/criação/grupo/comando/cwd.",
+      "tests": [
+        "test_clean_removes_owned_network_and_preserves_foreign_network",
+        "test_foreign_pid_is_not_signalled",
+        "test_clean_denies_unmarked_or_real_session[disposable-False]",
+        "test_clean_denies_unmarked_or_real_session[session_kind-real]",
+        "test_clean_denies_unmarked_or_real_session[session_kind-unknown]",
+        "test_clean_denies_unmarked_or_real_session[checkout-/foreign-checkout]"
+      ]
+    },
+    "E2E-LIMPEZA-01": {
+      "status": "PASS",
+      "observation": "Ciclo 1 corrigiu o vazamento da rede Compose. Prova suplementar parou A antes de --clean, removeu seu banco/volumes/rede/marcador e confirmou B pronta com mesmo manifesto, valor PostgreSQL e marcador de sessão. B só foi limpa depois da verificação; sem sessão real ou prune global.",
+      "tests": [
+        "test_clean_removes_owned_network_and_preserves_foreign_network"
+      ]
+    },
+    "E2E-COMPOSICAO-01": {
+      "status": "PASS",
+      "observation": "Bootstrap em banco vazio bem-sucedido; AppConfig não inicia I/O de negócio. domain/usecase puros e gateways por construtor, factories em main.py; fakes nomeados de prontidão exercitados. Resolver público preservou hash do arquivo extra/segredos; source mostra único leitor de ambiente em config/env.py.",
+      "tests": [
+        "test_file_is_data_and_explicit_environment_wins",
+        "test_unavailable_dependency_cannot_be_ready",
+        "test_all_probes_must_pass"
+      ]
+    },
+    "E2E-TRANSACAO-01": {
+      "status": "PASS",
+      "observation": "Conexão observadora independente não viu probe/job não confirmados; ambos visíveis após commit, recibo confirmado concluído pelo worker. Enqueue usa a conexão psycopg do ORM, não callback on_commit com segunda conexão.",
+      "tests": [
+        "test_commit_and_rollback_share_real_postgres_transaction"
+      ]
+    },
+    "E2E-TRANSACAO-02": {
+      "status": "PASS",
+      "observation": "Rollback deixou probe/job ausentes; após pelo menos 15 s com worker pronto, nova consulta confirmou ausência e nenhum recibo para UUID revertido. Sem chamada externa de compensação.",
+      "tests": [
+        "test_commit_and_rollback_share_real_postgres_transaction"
+      ]
+    },
+    "E2E-LOGS-01": {
+      "status": "PASS",
+      "observation": "Sucesso, WAHA degradado e manifesto inválido controlado foram exercitados com cabeçalho canário real. HTTP 200/503/500 e CLI RUNTIME_ERROR sem canários/DSN/segredos. Logs web/worker parseados linha a linha com timestamp UTC, level/logger/event/ambiente/run e código estável de erro. Prova em supplemental.json; CLI permanece legível.",
+      "tests": [
+        "test_migration_creation_and_unexpected_http_error_in_owned_copy",
+        "test_unexpected_http_error_has_no_private_exception_text",
+        "test_library_error_record_never_serializes_exception",
+        "test_raw_exception_and_message_never_cross_log_boundary"
+      ]
+    },
+    "DOC-PREPARACAO-01": {
+      "status": "PASS",
+      "observation": "versions/environment/operations, README e harness confrontados com lock/imagens/execução. Preparação privada e comandos reais, resultados dos nove gates complementares, consumo pontual sem coletor e limitações explícitos. Wheel contém HTMX/licença; hash do asset local verificado.",
+      "tests": [
+        "test_template_uses_local_verified_htmx"
+      ]
+    },
+    "DOC-PREPARACAO-02": {
+      "status": "PASS",
+      "observation": "Documentação separa parada normal de descarte, tarefa ainda pendente de job interrompido e efeito externo incerto. F04/F09 retêm coleta/pareamento/envio; F01 tem avaliação própria e F02 depende deste veredito, não de aprovação documental isolada.",
+      "tests": [
+        "test_stop_restart_preserves_receipts_pending_work_and_session_marker"
+      ]
+    }
+  },
+  "counts": {
+    "PASS": 32,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "MANUAL": 0,
+    "SKIPPED": 0
+  },
+  "acs_verified": 4,
+  "tests_passed": 73,
+  "source_hashes_verified": true,
+  "changed_preexisting": [
+    ".gitignore",
+    "README.md",
+    "scripts/run-gates.mjs",
+    "scripts/migrate-dev.sh",
+    "scripts/stop.sh",
+    "scripts/init.sh",
+    "scripts/resolve-env.sh",
+    "scripts/test/harness.test.mjs",
+    "docs/F01-discovery-e-viabilidade-de-integracoes/decisions.md",
+    "docs/harness.md",
+    "docs/prd_progress.json"
+  ],
+  "delta_vs_previous": {
+    "to_pass": [
+      "E2E-ISOLAMENTO-01",
+      "E2E-LIMPEZA-01"
+    ],
+    "from_pass": []
+  },
+  "cleanup": {
+    "eval_final_eval_195216": {
+      "volumes_before": [
+        "garimpei-eval_final_eval_195216_postgres_data",
+        "garimpei-eval_final_eval_195216_waha_sessions"
+      ],
+      "database_marker_sha256": "2b256d9931fffec15c30ec4b410b26b99bcc2f01e341dad707256850d7552f40"
+    },
+    "eval_preserve_b_5150a08d": {
+      "volumes_before": [
+        "garimpei-eval_preserve_b_5150a08d_postgres_data",
+        "garimpei-eval_preserve_b_5150a08d_waha_sessions"
+      ],
+      "database_marker_sha256": "a916e8ff6605134e67136352f53ef6c423bcd012d8a7087d32d72244e3a82426"
+    },
+    "other_instance_intact_after_clean": true,
+    "b_cleaned_after_verification": true
+  }
+}

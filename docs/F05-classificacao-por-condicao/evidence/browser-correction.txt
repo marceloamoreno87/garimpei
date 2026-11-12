@@ -1,0 +1,9 @@
+### Result
+{"item":"UI-CONDICAO-05","pending":{"busy":"true","heading":"Funciona bem"},"result":"manual defect after commit; same identity in defect tab"}
+### Ran Playwright code
+```js
+await (async (page) => { await page.setViewportSize({width:1440,height:1000}); await page.getByText("Corrigir sua classificação",{exact:true}).click(); if(!(await page.locator("details.correction").getAttribute("open")!==null)) throw new Error("correction not open"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/correction-open.png",fullPage:true}); await page.getByRole("radio",{name:"Não funciona bem",exact:true}).check(); await page.route("**/condicao/",async route=>{await new Promise(resolve=>setTimeout(resolve,2500));await route.continue();}); const pending=await page.evaluate(()=>{const f=document.querySelector("form");f.requestSubmit();return {busy:f.getAttribute("aria-busy"),heading:document.querySelector("#condition-heading").textContent};}); if(pending.heading!=="Funciona bem") throw new Error(JSON.stringify(pending)); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/correction-pending.png",fullPage:true}); await page.getByRole("status").filter({hasText:"Sua classificação foi salva"}).waitFor(); await page.unroute("**/condicao/"); if(!(await page.getByRole("heading",{name:"Não funciona bem",exact:true}).isVisible())) throw new Error("not corrected"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/correction-saved.png",fullPage:true}); await page.getByRole("link",{name:"Ver em Com defeito",exact:true}).click(); if(!(await page.getByRole("link",{name:"PlayStation 5 — INCERTA_A",exact:true}).isVisible())) throw new Error("not in defect tab"); return {item:"UI-CONDICAO-05",pending,result:"manual defect after commit; same identity in defect tab"}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:20732/ofertas/?aba=defeitos
+- Page Title: Ofertas · Garimpei

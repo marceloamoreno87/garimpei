@@ -1,0 +1,168 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 2 items
+
+apps/backend/tests/integration/test_listing_condition.py F
+apps/backend/tests/integration/test_monitoring_persistence.py F
+
+=================================== FAILURES ===================================
+__________________ test_migration_preserves_f04_observations ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-73/test_migration_preserves_f04_o0')
+
+    def test_migration_preserves_f04_observations(tmp_path: Path) -> None:
+        source = ConditionSource()
+        root = Path(__file__).resolve().parents[4]
+        with serve(source) as url:
+            instance, _ = prepare_listing_instance(root, tmp_path, url)
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                shell(
+                    instance,
+                    """
+    from django.db import connection
+    from django.db.migrations.executor import MigrationExecutor
+    executor=MigrationExecutor(connection)
+    executor.migrate([('runtime','0004_listing_publication_window')])
+    """,
+                )
+                # The live F04 worker collects against the pre-F05 schema.
+                configure(instance)
+>               completed(instance, 1)
+
+apps/backend/tests/integration/test_listing_condition.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/backend/tests/integration/test_collection.py:69: in completed
+    wait_for(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = <function completed.<locals>.<lambda> at 0x78f513540ea0>
+description = '1 finalized cycles, latest phase complete', seconds = 22
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for 1 finalized cycles, latest phase complete
+
+apps/backend/tests/integration/test_collection.py:54: Failed
+_______ test_real_database_draft_publication_idempotence_and_whole_edit ________
+
+foundations = [FoundationInstance(root=PosixPath('/home/marce/dev/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-73...'/home/marce/dev/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-73/foundation0/test_232a35b5_b.env'))]
+
+    def test_real_database_draft_publication_idempotence_and_whole_edit(
+        foundations: list[FoundationInstance],
+    ) -> None:
+>       run_case(
+            foundations[0],
+            """
+    prepare_state('NOVO')
+    assert not build_read_monitoring_configuration().execute().configured
+    assert client.get('/').headers['Location']=='/configuracao/regiao/'
+    assert client.get('/configuracao/interesses/').status_code==302
+    assert Row.objects.count()==0
+    r=client.post('/configuracao/regiao/',{'revision':'0','cep':'01001-000'})
+    assert r.status_code==303, r.content
+    draft=build_monitoring_queries().read_form()
+    assert draft.cep=='01001000' and draft.shipping_estimate is None
+    assert client.post('/configuracao/custos/',{'revision':'1','shipping_estimate':'25,50','resale_fee_percent':'12.50'}).status_code==303
+    assert not build_read_monitoring_configuration().execute().configured
+    assert client.get('/configuracoes/').status_code==302
+    category='479353692612078'
+    payload={'revision':'2','category_ids[]':[category,category],'product_names[]':['PlayStation 5',' playstation   5 ']}
+    r=client.post('/configuracao/concluir/',payload)
+    assert r.status_code==303,r.content
+    snapshot=build_read_monitoring_configuration().execute()
+    assert snapshot.configured and snapshot.category_ids==(category,) and snapshot.product_names==('PlayStation 5',)
+    assert snapshot.shipping_estimate==Decimal('25.50') and snapshot.resale_fee_percent==Decimal('12.50')
+    assert Row.objects.count()==1 and Row.objects.get().slot=='active' and MonitoringInterest.objects.count()==2
+    ids=list(MonitoringInterest.objects.values_list('id',flat=True))
+    assert client.post('/configuracao/concluir/',payload).status_code==303
+    assert build_read_monitoring_configuration().execute()==snapshot
+    assert list(MonitoringInterest.objects.values_list('id',flat=True))==ids
+    payload['product_names[]']=['Different']
+    assert client.post('/configuracao/concluir/',payload).status_code==409
+    edit={'revision':snapshot.revision,'cep':'02002000','shipping_estimate':'0','resale_fee_percent':'100','category_ids[]':[category],'product_names[]':['Notebook']}
+    assert client.post('/configuracoes/',edit).status_code==303
+    updated=build_read_monitoring_configuration().execute()
+    assert updated.revision==2 and updated.completed_at==snapshot.completed_at and updated.configuration_id==snapshot.configuration_id
+    assert updated.cep=='02002000' and updated.product_names==('Notebook',)
+    assert client.post('/configuracoes/',edit).status_code==303
+    assert build_read_monitoring_configuration().execute()==updated
+    edit['cep']='03003000'
+    conflict=client.post('/configuracoes/',edit)
+    assert conflict.status_code==409 and b'03003000' in conflict.content
+    assert build_read_monitoring_configuration().execute()==updated
+    assert client.get('/').headers['Location']=='/acompanhamento/'
+    assert client.get('/configuracao/regiao/').status_code==302
+    with connection.cursor() as cursor:
+     cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name NOT IN ('garimpei.runtime_probe', 'garimpei.collect_listings')")
+     assert cursor.fetchone()==(0,)
+    """,
+        )
+
+apps/backend/tests/integration/test_monitoring_persistence.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/dev/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-73/foundation0/test_232a35b5_a.env'))
+code = '\nprepare_state(\'NOVO\')\nassert not build_read_monitoring_configuration().execute().configured\nassert client.get(\...HERE task_name NOT IN (\'garimpei.runtime_probe\', \'garimpei.collect_listings\')")\n assert cursor.fetchone()==(0,)\n'
+
+    def run_case(instance: FoundationInstance, code: str) -> None:
+        setup = """
+    from dataclasses import replace
+    from decimal import Decimal
+    from unittest.mock import patch
+    from django.db import DatabaseError, connection
+    from django.test import Client
+    from garimpei.main import build_monitoring_catalog, build_monitoring_handler, build_monitoring_queries, build_read_monitoring_configuration
+    from garimpei.domain.monitoring.errors import ConfigurationConflict, ConfigurationReadFailed, ConfigurationSaveFailed
+    from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration as Row, MonitoringInterest
+    from garimpei.infra.gateway.monitoring.facebook_catalog import FacebookCategoryCatalog
+    from garimpei.infra.repository.monitoring.postgres_repository import PostgresMonitoringRepository
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    from tests.factories.monitoring import prepare_state, fail_after_save
+    client=Client(HTTP_HOST='127.0.0.1')
+    """
+        result = instance.shell(setup + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 26 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-11T19:32:44.044503+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_test_232a35b5_a", "run_id": "b282e74f-06c9-40c2-b777-ba9a5c94edd3"}
+E         {"timestamp": "2026-11-11T19:32:44.159440+00:00", "level": "WARNING", "logger": "garimpei.http", "event": "configuration_error", "environment_id": "eval_test_232a35b5_a", "run_id": "b282e74f-06c9-40c2-b777-ba9a5c94edd3", "error_code": "CONFIGURATION_CONFLICT"}
+E         {"timestamp": "2026-11-11T19:32:44.164529+00:00", "level": "WARNING", "logger": "django.request", "event": "runtime_event", "environment_id": "eval_test_232a35b5_a", "run_id": "b282e74f-06c9-40c2-b777-ba9a5c94edd3"}
+E         {"timestamp": "2026-11-11T19:32:44.198912+00:00", "level": "WARNING", "logger": "garimpei.http", "event": "configuration_error", "environment_id": "eval_test_232a35b5_a", "run_id": "b282e74f-06c9-40c2-b777-ba9a5c94edd3", "error_code": "CONFIGURATION_CONFLICT"}
+E         {"timestamp": "2026-11-11T19:32:44.199825+00:00", "level": "WARNING", "logger": "django.request", "event": "runtime_event", "environment_id": "eval_test_232a35b5_a", "run_id": "b282e74f-06c9-40c2-b777-ba9a5c94edd3"}
+E         Traceback (most recent call last):
+E           File "/home/marce/dev/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 57, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 57, in <module>\nAssertionError\n').returncode
+
+apps/backend/tests/integration/test_monitoring_persistence.py:21: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_listing_condition.py::test_migration_preserves_f04_observations
+FAILED apps/backend/tests/integration/test_monitoring_persistence.py::test_real_database_draft_publication_idempotence_and_whole_edit
+============================== 2 failed in 41.99s ==============================

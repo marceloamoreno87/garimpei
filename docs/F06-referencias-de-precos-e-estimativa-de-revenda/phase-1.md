@@ -1,0 +1,17 @@
+# F06 — Validação inicial de dados e política
+
+Executada em 2026-11-11, nesta execução. Spec §3 permanece: cinco identidades após filtro, janela UTC 14 dias, mediana única, banda 50–150%, dispersão até 1,50 e centavos HALF_UP. Novo permanece separado, TTL sete dias.
+
+148 identidades da cobertura confirmada F04 foram relidas pelo seu adaptador real, com a sessão privada preexistente, sem alterar interesses. PlayStation 5 e iPhone 13 Pro Max foram exercitados. `used-probe.json` contém campos públicos sanitizados, instante da releitura e vínculo ao UUID F04. O replay `python3 evidence/2026-11-11T17-07-37Z/reproduce.py` reproduz decisões e preços, sem rede ou segredos.
+
+O grupo PS5 Slim Digital 825GB tem cinco candidatos elegíveis com preços 4100, 3900, 3900, 3900 e 3650 BRL: mediana 3900,00, banda 1950–5850, dispersão 4100/3650. A oferta alvo da prova é o ID 1305432491715538, explicitamente Slim Digital 825GB e novo, portanto externo à amostra usada. Três comparáveis têm descrições iguais e IDs distintos; F04 não os reconhece como republicação da mesma identidade. A política conta esses IDs separadamente, como previsto na spec. Isso limita independência estatística e não comprova venda ou confiabilidade probabilística.
+
+Os quatro iPhone 13 Pro Max 128GB declaram trincos: foram excluídos mesmo declarando funcionamento. Demonstram insuficiência real na segunda família. Outros grupos PS5 também permanecem insuficientes. Não completar atributos ausentes com suposição. Campos exigidos: PS5 geração (fat/slim/pro), disco/digital e capacidade; iPhone geração, edição (standard/pro/pro max/mini) e capacidade. Aliases de caixa, acentos, espaços, PS5/PlayStation 5, TB/tera são normalizados. CFI-2114A é o alias validado nesta prova para Slim/disco/1TB; não generalizar códigos não exercitados. Outras famílias ficam indeterminadas até identificação explícita implementada.
+
+Funcionamento do comparável exige declaração positiva atribuída ao aparelho. `Usado — seminovo` sozinho não prova funcionamento. Defeito, trincos, negação e funcionamento apenas de acessório não permitem promoção. A classificação manual F05 não entra na amostra.
+
+Novo: KaBuM! produto 953110, vendido por GIGANTEC, CFI-2114A com disco/1TB, disponível, à vista no PIX. A página pública via Chromium fornece `__NEXT_DATA__.props.pageProps.product`, `available` e `prices.priceWithDiscount`; JSON-LD confirma BRL e InStock. URL e cotação datada em `new-probe.json`, screenshot inspecionado. Esse novo corresponde a ofertas PS5 Slim/disco/1TB, cujo usado pode permanecer insuficiente. Nenhuma compra, autenticação varejista ou interação com carrinho foi feita. HTTP direto retornou 403: usar navegador, timeout 30 s, consultas serializadas a cada 2 s, catálogo explícito de URLs. Cobertura inicial de novo limita-se ao produto verificado; os demais resultam em ausência de referência, sem busca aproximada. Não representa cobertura de todas as lojas ou variantes.
+
+Retry de falha transitória: 60, 300 e 900 segundos, depois tentativas espaçadas de 3600 s; ausência confirmada não é falha. Reter cotação anterior somente até sete dias inclusivos. Relógio e fonte determinísticos somente em instância eval loopback. Chamadas externas fora das transações.
+
+Não foi reduzido o mínimo nem alterado qualquer resultado esperado do contrato. O ensaio real não garante suficiência para toda oferta monitorada. A implementação deve reproduzir a amostra suficiente e a cotação, além dos casos sintéticos e PostgreSQL/worker do contrato.

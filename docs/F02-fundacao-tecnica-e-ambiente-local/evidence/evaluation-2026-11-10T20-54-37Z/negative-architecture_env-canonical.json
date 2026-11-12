@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "exit": 1,
+  "stdout": "[gates] Tipos: 41 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 63 source files\n[gates] Tipos: PASS\n[gates] Lint: 41 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nI001 [*] Import block is un-sorted or un-formatted\n --> src/garimpei/infra/runtime/negative_env.py:1:1\n  |\n1 | import os\n  | ^^^^^^^^^\n2 |\n3 | def negative_env() -> str | None:\n  |\nhelp: Organize imports\n  |\n2 |\n3 +\n4 | def negative_env() -> str | None:\n  |\n\nFound 1 error.\n[*] 1 fixable with `--fix`.\n",
+  "stderr": "[gates] Lint: FAILED\n"
+}

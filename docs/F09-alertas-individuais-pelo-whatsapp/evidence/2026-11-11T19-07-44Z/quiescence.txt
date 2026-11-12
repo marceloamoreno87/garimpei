@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 2 items
+
+apps/backend/tests/integration/test_alert_consumers.py 26 objects imported automatically (use -v 2 for details).
+
+26 objects imported automatically (use -v 2 for details).
+
+WRK-ELEGIBILIDADE-07 new interest / republication / old identity PASS
+.
+apps/backend/tests/integration/test_listing_condition.py .
+
+============================== 2 passed in 36.54s ==============================

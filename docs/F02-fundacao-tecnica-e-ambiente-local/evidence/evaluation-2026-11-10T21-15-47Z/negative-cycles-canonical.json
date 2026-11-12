@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "exit": 1,
+  "stdout": "[gates] Tipos: 42 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 65 source files\n[gates] Tipos: PASS\n[gates] Lint: 42 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nI001 [*] Import block is un-sorted or un-formatted\n --> src/garimpei/infra/runtime/negative_a.py:1:1\n  |\n1 | from garimpei.infra.runtime.negative_b import second\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2 |\n3 | def first() -> int:\n  |\nhelp: Organize imports\n  |\n2 |\n3 +\n4 | def first() -> int:\n  |\n\nI001 [*] Import block is un-sorted or un-formatted\n --> src/garimpei/infra/runtime/negative_b.py:1:1\n  |\n1 | from garimpei.infra.runtime.negative_a import first\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2 |\n3 | def second() -> int:\n  |\nhelp: Organize imports\n  |\n2 |\n3 +\n4 | def second() -> int:\n  |\n\nFound 2 errors.\n[*] 2 fixable with `--fix`.\n",
+  "stderr": "[gates] Lint: FAILED\n"
+}

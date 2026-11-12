@@ -1,0 +1,13 @@
+{
+  "command": [
+    "vulture",
+    "src",
+    "scripts/quality",
+    "quality/vulture_whitelist.py",
+    "--min-confidence",
+    "60"
+  ],
+  "exit": 3,
+  "stdout": "src/garimpei/infra/runtime/negative_orphan.py:1: unused function 'orphan_negative_marker' (60% confidence)\n",
+  "stderr": ""
+}

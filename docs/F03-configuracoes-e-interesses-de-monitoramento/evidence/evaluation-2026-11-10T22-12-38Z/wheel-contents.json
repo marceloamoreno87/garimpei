@@ -1,0 +1,24 @@
+{
+  "wheel": "garimpei_backend-0.1.0-py3-none-any.whl",
+  "sha256": "c997b59e70f6b8de6b16cb675f9e8ebb88c819ac98cd915639e23838df096df7",
+  "matching_source_file_count": 93,
+  "monitoring_assets_and_migration": [
+    "garimpei/infra/gateway/monitoring/facebook_categories.json",
+    "garimpei/infra/http/static/monitoring/bricolage-600.ttf",
+    "garimpei/infra/http/static/monitoring/bricolagegrotesque-OFL.txt",
+    "garimpei/infra/http/static/monitoring/forms.js",
+    "garimpei/infra/http/static/monitoring/manrope-OFL.txt",
+    "garimpei/infra/http/static/monitoring/manrope.woff2",
+    "garimpei/infra/http/static/monitoring/style.css",
+    "garimpei/infra/http/static/monitoring/tokens.css",
+    "garimpei/infra/http/templates/monitoring/cost_fields.html",
+    "garimpei/infra/http/templates/monitoring/csrf_error.html",
+    "garimpei/infra/http/templates/monitoring/error.html",
+    "garimpei/infra/http/templates/monitoring/form.html",
+    "garimpei/infra/http/templates/monitoring/interest_fields.html",
+    "garimpei/infra/http/templates/monitoring/layout.html",
+    "garimpei/infra/http/templates/monitoring/region_fields.html",
+    "garimpei/infra/http/templates/monitoring/tracking.html",
+    "garimpei/infra/persistence/migrations/0002_monitoring_configuration.py"
+  ]
+}

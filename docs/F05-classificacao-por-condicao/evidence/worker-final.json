@@ -1,0 +1,81 @@
+{
+  "stage": "after source failure and successful recollection",
+  "listing_events": [
+    [
+      "d60445d3-e253-4b18-96dd-1e90fa32becc",
+      "initial_load"
+    ],
+    [
+      "482e1c21-de05-474e-b7a6-aad7f2dee617",
+      "initial_load"
+    ],
+    [
+      "5a1bce1f-8012-4982-b940-cfb826f90b7a",
+      "initial_load"
+    ],
+    [
+      "2ce16bcd-74da-47bd-b88d-d1df65cb89c3",
+      "initial_load"
+    ],
+    [
+      "84054feb-4f0f-44ed-aab6-2bbf68cb942b",
+      "initial_load"
+    ],
+    [
+      "a81708dc-ab73-4e9e-9d98-4ec94c11846d",
+      "initial_load"
+    ],
+    [
+      "1a37b92a-57ff-4632-9626-192a70dd02b3",
+      "initial_load"
+    ],
+    [
+      "f4424358-2684-4cbb-a158-446b59db318f",
+      "initial_load"
+    ],
+    [
+      "395fa563-1256-4b4d-9a7a-714e0855b969",
+      "initial_load"
+    ]
+  ],
+  "manual_choices": [
+    [
+      "50d791fd-5f02-468e-a9e3-15fbc5ca55ff",
+      "good",
+      3
+    ],
+    [
+      "8d64e8fe-ec40-48fa-8835-b8a59afdd2b5",
+      "defect",
+      1
+    ]
+  ],
+  "runtime_runs": [
+    [
+      "078632fe-7dd5-4a8b-9e6d-bda3a00f4e1f"
+    ],
+    [
+      "d0a64867-dfc9-4284-8cea-70a5498fa936"
+    ]
+  ],
+  "collection_phases": [
+    [
+      "complete"
+    ],
+    [
+      "complete"
+    ],
+    [
+      "complete"
+    ],
+    [
+      "complete"
+    ],
+    [
+      "unavailable"
+    ],
+    [
+      "complete"
+    ]
+  ]
+}

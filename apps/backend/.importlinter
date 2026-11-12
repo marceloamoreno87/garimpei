@@ -1,0 +1,48 @@
+[importlinter]
+root_package = garimpei
+include_external_packages = True
+
+[importlinter:contract:domain]
+name = Domain has no application or I/O dependencies
+type = forbidden
+source_modules =
+    garimpei.domain
+forbidden_modules =
+    garimpei.usecase
+    garimpei.infra
+    garimpei.config
+    garimpei.main
+    django
+    procrastinate
+    psycopg
+    psutil
+    os
+    pathlib
+    socket
+    subprocess
+    urllib
+    http
+    sqlite3
+    requests
+
+[importlinter:contract:usecase]
+name = Usecases depend only on pure contracts
+type = forbidden
+source_modules =
+    garimpei.usecase
+forbidden_modules =
+    garimpei.infra
+    garimpei.config
+    garimpei.main
+    django
+    procrastinate
+    psycopg
+    psutil
+    os
+    pathlib
+    socket
+    subprocess
+    urllib
+    http
+    sqlite3
+    requests

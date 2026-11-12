@@ -1,0 +1,13 @@
+{
+  "name": "harness-tests",
+  "command": [
+    "node",
+    "--test",
+    "scripts/test/harness.test.mjs"
+  ],
+  "cwd": ".",
+  "exit": 0,
+  "duration_seconds": 0.13,
+  "stdout": "✔ init without Python scaffold diagnoses the prerequisite without generating app state (14.546435ms)\n✔ resolver without Python scaffold does not announce an environment (8.414945ms)\n✔ backend gates fail before scaffolding without invoking or downloading tools (20.758586ms)\n✔ setup reuses the same marketplace without replacing its existing revision (30.135348ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 109.325991\n",
+  "stderr": ""
+}

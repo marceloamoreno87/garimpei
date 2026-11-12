@@ -1,0 +1,110 @@
+node scripts/run-gates.mjs — exit 0
+[gates] Tipos: 105 Python source files
+[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py
+Success: no issues found in 142 source files
+[gates] Tipos: PASS
+[gates] Lint: 105 Python source files
+[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py
+All checks passed!
+[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py
+142 files already formatted
+[gates] uv run --frozen --no-sync djlint src/garimpei/infra/http/templates --lint --profile=django
+
+Linting 9/9 files
+
+
+Linted 9 files, found 0 errors.
+
+[gates] Lint: PASS
+[gates] Limites: 105 Python source files
+[gates] uv run --frozen --no-sync lint-imports --config .importlinter
+
+╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐
+╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │
+ ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗
+ ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝
+╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║
+╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝
+  └──▶║║                    ▲ 
+      ╚╝────────────────────┘
+
+
+---------
+Contracts
+---------
+
+Analyzed 143 files, 409 dependencies.
+-------------------------------------
+
+Domain has no application or I/O dependencies KEPT
+Usecases depend only on pure contracts KEPT
+
+Contracts: 2 kept, 0 broken.
+[gates] Limites: PASS
+[gates] Arquitetura: 105 Python source files
+[gates] uv run --frozen --no-sync python scripts/quality/check_architecture.py
+Architecture: 105 source files; 0 violations
+[gates] Arquitetura: PASS
+[gates] Ciclos: 105 Python source files
+[gates] uv run --frozen --no-sync python scripts/quality/check_cycles.py
+Cycles: 105 modules, 0 cyclic edges
+[gates] Ciclos: PASS
+[gates] Não utilizados: 105 Python source files
+[gates] uv run --frozen --no-sync vulture src scripts/quality quality/vulture_whitelist.py --min-confidence 60
+[gates] uv run --frozen --no-sync deptry .
+Scanning 108 files...
+
+[1m[32mSuccess! No dependency issues found.[m
+[gates] Não utilizados: PASS
+[gates] Six Python groups approved
+
+PYTEST_ADDOPTS=--tb=short uv run --project apps/backend --frozen --no-sync pytest apps/backend/tests — exit 0
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 151 items
+
+apps/backend/tests/http/test_health.py ...                               [  1%]
+apps/backend/tests/http/test_monitoring.py .                             [  2%]
+apps/backend/tests/http/test_tracking.py .                               [  3%]
+apps/backend/tests/integration/test_collection.py .......                [  7%]
+apps/backend/tests/integration/test_concurrency.py ..                    [  9%]
+apps/backend/tests/integration/test_facebook_gateway.py .                [  9%]
+apps/backend/tests/integration/test_foundation.py .........              [ 15%]
+apps/backend/tests/integration/test_marketplace_browser.py ..            [ 17%]
+apps/backend/tests/integration/test_monitoring_persistence.py ......     [ 21%]
+apps/backend/tests/lifecycle/test_copy.py .                              [ 21%]
+apps/backend/tests/lifecycle/test_network_cleanup.py .                   [ 22%]
+apps/backend/tests/lifecycle/test_operations.py ........................ [ 38%]
+                                                                         [ 38%]
+apps/backend/tests/lifecycle/test_rollback.py ..                         [ 39%]
+apps/backend/tests/lifecycle/test_startup_failures.py ........           [ 45%]
+apps/backend/tests/quality/test_gate_failures.py .............           [ 53%]
+apps/backend/tests/unit/test_config.py .....                             [ 56%]
+apps/backend/tests/unit/test_error_handler.py ..                         [ 58%]
+apps/backend/tests/unit/test_listing_policy.py ......                    [ 62%]
+apps/backend/tests/unit/test_listing_window.py ..                        [ 63%]
+apps/backend/tests/unit/test_logging.py ..                               [ 64%]
+apps/backend/tests/unit/test_marketplace_parser.py ...                   [ 66%]
+apps/backend/tests/unit/test_marketplace_source.py ..                    [ 68%]
+apps/backend/tests/unit/test_monitoring_catalog.py .....                 [ 71%]
+apps/backend/tests/unit/test_monitoring_configuration.py ............... [ 81%]
+..........................                                               [ 98%]
+apps/backend/tests/unit/test_readiness.py ..                             [100%]
+
+======================= 151 passed in 306.20s (0:05:06) ========================
+
+Revisitas após 48 horas, casos aproximados, parser, limites e logs — exit 0
+..............                                                           [100%]
+14 passed, 6 deselected in 9.68s
+
+Navegador e consolidação após consultas de detalhe — exit 0
+........                                                                 [100%]
+8 passed in 6.99s
+
+Django check — exit 0; makemigrations --check --dry-run — exit 0; collectstatic --noinput — exit 0
+node --test scripts/test/harness.test.mjs — exit 0, 4 PASS; node scripts/check-harness.mjs — exit 0
+Chromium via playwright-cli: capturas inspecionadas; janela UTC visível, estados inicial/parcial e configurações acessíveis sem clipping.

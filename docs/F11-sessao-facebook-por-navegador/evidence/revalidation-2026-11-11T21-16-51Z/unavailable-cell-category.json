@@ -1,0 +1,171 @@
+{
+  "status": 200,
+  "phone_category_hrefs": [],
+  "access_challenge": false,
+  "auth_cookies_present": true,
+  "json_objects": 9466,
+  "query_names": [
+    "CometActorGatewayHandlerQuery",
+    "CometAppNavigationTargetedTabBarContentInnerImplQuery",
+    "CometLogoutHandlerQuery",
+    "CometMarketplaceLeftRailNavigationContainerQuery",
+    "CometMarketplaceNotificationsListContainerQuery",
+    "CometMarketplaceRootQuery",
+    "CometNotificationsBadgeCountQuery",
+    "CometQuickPromotionInterstitialQuery",
+    "CometSearchBootstrapKeywordsDataSourceQuery",
+    "CometSearchRecentDataSourceQuery",
+    "CometSettingsBadgeQuery",
+    "CometSettingsDropdownListQuery",
+    "CometSettingsDropdownTriggerQuery",
+    "FBMessengerMailboxQuery",
+    "FBMessengerOpenMailboxQuery",
+    "LSPlatformGraphQLLightspeedRequestQuery",
+    "MWChatBadgeCountQuery",
+    "MarketplaceBannerContainerQuery",
+    "MarketplaceCometBrowseFeedLightContainerQuery",
+    "ScreenTimeInit_AggregatedScreenTimeQuery",
+    "useCometAppNavigationProfilePictureUrlQuery"
+  ],
+  "templates": [
+    {
+      "name": "CometMarketplaceLeftRailNavigationContainerQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": [
+        "buyLocation",
+        "category_ranking_enabled",
+        "hide_l2_cats",
+        "__relay_internal__pv__WorkCometIsEmployeeGKProviderrelayprovider",
+        "__relay_internal__pv__MarketplaceJobsSubtabFiltersCometrelayprovider"
+      ]
+    },
+    {
+      "name": "CometMarketplaceRootQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": []
+    },
+    {
+      "name": "MarketplaceCometBrowseFeedLightContainerQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": [
+        "buyLocation",
+        "count",
+        "cursor",
+        "imageWidth",
+        "mediaType",
+        "radius",
+        "scale",
+        "shouldFetchRecentSearches",
+        "sizing",
+        "useSDFPath",
+        "__relay_internal__pv__MarketplacePDPShouldShowLowerPriceItemsrelayprovider",
+        "__relay_internal__pv__CometMarketplaceShouldShowTopPicksStrikethroughrelayprovider",
+        "__relay_internal__pv__GHLShouldChangeMarketplaceSponsoredDataFieldNamerelayprovider",
+        "__relay_internal__pv__MarketplaceCometAdmodulerelayprovider",
+        "__relay_internal__pv__CometMarketplaceShouldShowFeedShippingIconrelayprovider"
+      ]
+    },
+    {
+      "name": "CometMarketplaceNotificationsListContainerQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": [
+        "isCOBMOB",
+        "scale"
+      ]
+    },
+    {
+      "name": "MarketplaceBannerContainerQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": [
+        "params",
+        "scale"
+      ]
+    }
+  ],
+  "network_queries": [
+    {
+      "name": "FBYRPTimeLimitsEnforcementQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "fetchMWChatVideoAutoplaySettingQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "CometNotificationsDropdownQuery",
+      "variables_keys": [
+        "count",
+        "environment",
+        "scale"
+      ],
+      "has_document_id": true
+    },
+    {
+      "name": "MarketplaceCometBrowseFeedLightPaginationQuery",
+      "variables_keys": [
+        "buyLocation",
+        "count",
+        "cursor",
+        "imageWidth",
+        "includePDPRelevantListings",
+        "mediaType",
+        "pdpListingId",
+        "radius",
+        "refinement",
+        "scale",
+        "showRelatedOnly",
+        "sizing",
+        "useSDFPath",
+        "__relay_internal__pv__MarketplacePDPShouldShowLowerPriceItemsrelayprovider",
+        "__relay_internal__pv__CometMarketplaceShouldShowTopPicksStrikethroughrelayprovider",
+        "__relay_internal__pv__GHLShouldChangeMarketplaceSponsoredDataFieldNamerelayprovider",
+        "__relay_internal__pv__MarketplaceCometAdmodulerelayprovider",
+        "__relay_internal__pv__CometMarketplaceShouldShowFeedShippingIconrelayprovider"
+      ],
+      "has_document_id": true
+    },
+    {
+      "name": "CometSearchBootstrapKeywordsDataSourceQuery",
+      "variables_keys": [
+        "first"
+      ],
+      "has_document_id": true
+    },
+    {
+      "name": "OhaiWebPublicKeyConfigQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "useMWEncryptedBackupsFetchBackupIdsV2Query",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "usePseudoBlockedUserInterstitialF3Query",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "RTWebCallBlockSettingHooksQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "MAWVerifyThreadCutover_ContactCapabilities2Query",
+      "variables_keys": [
+        "id"
+      ],
+      "has_document_id": true
+    }
+  ],
+  "rendered_listing_count": null,
+  "has_next": null
+}

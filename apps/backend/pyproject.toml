@@ -1,0 +1,57 @@
+[project]
+name = "garimpei-backend"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "Django>=5.2,<5.3",
+    "procrastinate==3.10.0",
+    "psycopg[binary,pool]>=3.2,<4",
+    "gunicorn>=23,<24",
+    "psutil>=7,<8",
+    "playwright>=1.58,<2",
+    "playwright-stealth>=2,<3",
+]
+[dependency-groups]
+dev = [
+    "hatchling",
+    "mypy",
+    "django-stubs[compatible-mypy]>=5.2,<5.3",
+    "types-psutil",
+    "ruff",
+    "djlint",
+    "import-linter",
+    "grimp",
+    "vulture",
+    "deptry",
+    "pytest",
+    "pytest-django",
+]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[tool.hatch.build.targets.wheel]
+packages = ["src/garimpei"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "garimpei.config.test_settings"
+testpaths = ["tests"]
+addopts = "-ra"
+[tool.mypy]
+mypy_path = ["typings"]
+plugins = ["mypy_django_plugin.main"]
+strict = true
+[tool.django-stubs]
+django_settings_module = "garimpei.config.test_settings"
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]
+[tool.deptry]
+known_first_party = ["garimpei"]
+exclude = [".venv", "tests", "quality", "dist"]
+[tool.deptry.per_rule_ignores]
+# Gunicorn is executed as the documented web process, not imported by business code.
+DEP002 = ["gunicorn"]
+# Grimp is intentionally imported by the development-only quality checker.
+DEP004 = ["grimp"]

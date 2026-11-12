@@ -1,0 +1,98 @@
+### Page
+- Page URL: http://127.0.0.1:20732/ofertas/?aba=defeitos
+- Page Title: Ofertas · Garimpei
+### Snapshot
+```yaml
+- generic [active] [ref=f20e1]:
+  - link "Pular para o conteúdo" [ref=f20e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=f20e3]:
+    - link "Garimpei." [ref=f20e4] [cursor=pointer]:
+      - /url: /
+    - paragraph [ref=f20e5]: Monitoramento de eletrônicos usados
+    - navigation "Navegação principal" [ref=f20e6]:
+      - link "Ofertas" [ref=f20e7] [cursor=pointer]:
+        - /url: /ofertas/
+      - link "Acompanhamento" [ref=f20e8] [cursor=pointer]:
+        - /url: /acompanhamento/
+      - link "Configurações" [ref=f20e9] [cursor=pointer]:
+        - /url: /configuracoes/
+    - paragraph [ref=f20e10]: Execução local
+  - generic [ref=f20e11]:
+    - banner [ref=f20e12]:
+      - generic [ref=f20e13]: Facebook Marketplace
+      - generic [ref=f20e14]: São Paulo · SP
+    - main [ref=f20e15]:
+      - generic [ref=f20e16]:
+        - heading "Ofertas por condição" [level=1] [ref=f20e17]
+        - paragraph [ref=f20e18]: Veja o que o anúncio informa sobre funcionamento. Quando a informação não for suficiente, você pode classificar a oferta nos detalhes.
+      - tablist "Condição das ofertas" [ref=f20e19]:
+        - tab "Funcionam bem" [ref=f20e20] [cursor=pointer]
+        - tab "Com defeito" [selected] [ref=f20e21] [cursor=pointer]
+        - tab "Condição não confirmada" [ref=f20e22] [cursor=pointer]
+      - tabpanel "Com defeito" [ref=f20e23]:
+        - paragraph [ref=f20e24]: 5 ofertas
+        - generic [ref=f20e25]:
+          - article [ref=f20e26]:
+            - img "Imagem do anúncio indisponível" [ref=f20e27]:
+              - generic [ref=f20e28]: Sem foto disponível
+            - generic [ref=f20e29]:
+              - paragraph [ref=f20e30]: Facebook Marketplace
+              - heading [level=2] [ref=f20e31]:
+                - link "PlayStation 5 — MISTA" [ref=f20e32] [cursor=pointer]:
+                  - /url: /ofertas/1d0bebe3-81da-4d3c-bd2b-9bbeb695a07b/
+              - paragraph [ref=f20e33]: Não funciona bem
+              - paragraph [ref=f20e34]: R$ 2.300,00
+              - link "Ver detalhes" [ref=f20e35] [cursor=pointer]:
+                - /url: /ofertas/1d0bebe3-81da-4d3c-bd2b-9bbeb695a07b/
+          - article [ref=f20e36]:
+            - img "Imagem do anúncio indisponível" [ref=f20e37]:
+              - generic [ref=f20e38]: Sem foto disponível
+            - generic [ref=f20e39]:
+              - paragraph [ref=f20e40]: Facebook Marketplace
+              - heading [level=2] [ref=f20e41]:
+                - link "PlayStation 5 — REPARO" [ref=f20e42] [cursor=pointer]:
+                  - /url: /ofertas/21f4d122-666e-46ed-b457-cf3f1b2fe2d3/
+              - paragraph [ref=f20e43]: Não funciona bem
+              - paragraph [ref=f20e44]: R$ 2.300,00
+              - link "Ver detalhes" [ref=f20e45] [cursor=pointer]:
+                - /url: /ofertas/21f4d122-666e-46ed-b457-cf3f1b2fe2d3/
+          - article [ref=f20e46]:
+            - img "Imagem do anúncio indisponível" [ref=f20e47]:
+              - generic [ref=f20e48]: Sem foto disponível
+            - generic [ref=f20e49]:
+              - paragraph [ref=f20e50]: Facebook Marketplace
+              - heading [level=2] [ref=f20e51]:
+                - link "PlayStation 5 — INCERTA_A" [ref=f20e52] [cursor=pointer]:
+                  - /url: /ofertas/50d791fd-5f02-468e-a9e3-15fbc5ca55ff/
+              - paragraph [ref=f20e53]:
+                - text: Não funciona bem
+                - generic [ref=f20e54]: · Sua classificação
+              - paragraph [ref=f20e55]: R$ 2.300,00
+              - link "Ver detalhes" [ref=f20e56] [cursor=pointer]:
+                - /url: /ofertas/50d791fd-5f02-468e-a9e3-15fbc5ca55ff/
+          - article [ref=f20e57]:
+            - img "Imagem do anúncio indisponível" [ref=f20e58]:
+              - generic [ref=f20e59]: Sem foto disponível
+            - generic [ref=f20e60]:
+              - paragraph [ref=f20e61]: Facebook Marketplace
+              - heading [level=2] [ref=f20e62]:
+                - link "PlayStation 5 — DEFEITO" [ref=f20e63] [cursor=pointer]:
+                  - /url: /ofertas/7e8f98f1-b411-4f31-888f-d9d7be650be9/
+              - paragraph [ref=f20e64]: Não funciona bem
+              - paragraph [ref=f20e65]: R$ 2.300,00
+              - link "Ver detalhes" [ref=f20e66] [cursor=pointer]:
+                - /url: /ofertas/7e8f98f1-b411-4f31-888f-d9d7be650be9/
+          - article [ref=f20e67]:
+            - img "Imagem do anúncio indisponível" [ref=f20e68]:
+              - generic [ref=f20e69]: Sem foto disponível
+            - generic [ref=f20e70]:
+              - paragraph [ref=f20e71]: Facebook Marketplace
+              - heading [level=2] [ref=f20e72]:
+                - link "PlayStation 5 — PECAS" [ref=f20e73] [cursor=pointer]:
+                  - /url: /ofertas/e3a095ed-4df4-48fe-afb4-75a8328d85e0/
+              - paragraph [ref=f20e74]: Não funciona bem
+              - paragraph [ref=f20e75]: R$ 2.300,00
+              - link "Ver detalhes" [ref=f20e76] [cursor=pointer]:
+                - /url: /ofertas/e3a095ed-4df4-48fe-afb4-75a8328d85e0/
+```

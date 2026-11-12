@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--check",
+    "apps/backend/src/garimpei/infra/http/static/monitoring/forms.js"
+  ],
+  "settings": null,
+  "exit": 0,
+  "seconds": 0.018,
+  "summary": []
+}

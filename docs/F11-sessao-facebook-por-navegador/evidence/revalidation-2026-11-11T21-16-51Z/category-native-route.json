@@ -1,0 +1,123 @@
+{
+  "status": 200,
+  "access_challenge": false,
+  "auth_cookies_present": true,
+  "json_objects": 9051,
+  "query_names": [
+    "CometActorGatewayHandlerQuery",
+    "CometAppNavigationTargetedTabBarContentInnerImplQuery",
+    "CometLogoutHandlerQuery",
+    "CometMarketplaceSearchContentContainerQuery",
+    "CometMarketplaceSearchRootQuery",
+    "CometNotificationsBadgeCountQuery",
+    "CometQuickPromotionInterstitialQuery",
+    "CometSearchBootstrapKeywordsDataSourceQuery",
+    "CometSearchRecentDataSourceQuery",
+    "CometSettingsBadgeQuery",
+    "CometSettingsDropdownListQuery",
+    "CometSettingsDropdownTriggerQuery",
+    "FBMessengerMailboxQuery",
+    "FBMessengerOpenMailboxQuery",
+    "LSPlatformGraphQLLightspeedRequestQuery",
+    "MWChatBadgeCountQuery",
+    "ScreenTimeInit_AggregatedScreenTimeQuery",
+    "useCometAppNavigationProfilePictureUrlQuery"
+  ],
+  "templates": [
+    {
+      "name": "CometMarketplaceSearchRootQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": [
+        "buyLocation",
+        "category_ids",
+        "category_ranking_enabled",
+        "contextual_data",
+        "params",
+        "savedSearchID",
+        "savedSearchQuery",
+        "sellerID",
+        "shouldIncludePopularSearches",
+        "surface",
+        "topicPageParams",
+        "virtual_category_ids"
+      ]
+    },
+    {
+      "name": "CometMarketplaceSearchContentContainerQuery",
+      "id_present": true,
+      "variables_type": "dict",
+      "variables_keys": [
+        "buyLocation",
+        "contextual_data",
+        "count",
+        "cursor",
+        "params",
+        "savedSearchID",
+        "savedSearchQuery",
+        "scale",
+        "shouldDeferNonCritical",
+        "shouldIncludePopularSearches",
+        "topicPageParams",
+        "__relay_internal__pv__GHLShouldChangeMarketplaceSponsoredDataFieldNamerelayprovider"
+      ]
+    }
+  ],
+  "network_queries": [
+    {
+      "name": "FBYRPTimeLimitsEnforcementQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "fetchMWChatVideoAutoplaySettingQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "CometNotificationsDropdownQuery",
+      "variables_keys": [
+        "count",
+        "environment",
+        "scale"
+      ],
+      "has_document_id": true
+    },
+    {
+      "name": "OhaiWebPublicKeyConfigQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "CometSearchBootstrapKeywordsDataSourceQuery",
+      "variables_keys": [
+        "first"
+      ],
+      "has_document_id": true
+    },
+    {
+      "name": "RTWebCallBlockSettingHooksQuery",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "useMWEncryptedBackupsFetchBackupIdsV2Query",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "usePseudoBlockedUserInterstitialF3Query",
+      "variables_keys": [],
+      "has_document_id": true
+    },
+    {
+      "name": "MAWVerifyThreadCutover_ContactCapabilities2Query",
+      "variables_keys": [
+        "id"
+      ],
+      "has_document_id": true
+    }
+  ],
+  "rendered_listing_count": 24,
+  "has_next": true
+}

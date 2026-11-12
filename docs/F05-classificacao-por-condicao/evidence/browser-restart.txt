@@ -1,0 +1,9 @@
+### Result
+{"item":"E2E-CONDICAO-01","manual":"defect","automatic":"good","revision":"2","identity":"50d791fd-5f02-468e-a9e3-15fbc5ca55ff","conflict":true}
+### Ran Playwright code
+```js
+await (async (page) => { await page.goto("http://127.0.0.1:20732/ofertas/50d791fd-5f02-468e-a9e3-15fbc5ca55ff/"); if(!(await page.getByRole("heading",{name:"Não funciona bem",exact:true}).isVisible())) throw new Error("manual correction lost"); await page.getByRole("heading",{name:"A informação do anúncio diverge da sua classificação",exact:true}).waitFor(); if(!(await page.locator("blockquote").innerText()).includes("Funciona bem.")) throw new Error("source signal missing"); const revision=await page.locator("[data-revision]").innerText(); if(revision!=="2") throw new Error("revision changed"); await page.screenshot({path:"docs/F05-classificacao-por-condicao/evidence/restart-conflict.png",fullPage:true}); return {item:"E2E-CONDICAO-01",manual:"defect",automatic:"good",revision,identity:"50d791fd-5f02-468e-a9e3-15fbc5ca55ff",conflict:true}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:20732/ofertas/50d791fd-5f02-468e-a9e3-15fbc5ca55ff/
+- Page Title: Ofertas · Garimpei

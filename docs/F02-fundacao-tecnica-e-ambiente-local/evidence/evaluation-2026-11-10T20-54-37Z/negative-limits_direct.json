@@ -1,0 +1,10 @@
+{
+  "command": [
+    "lint-imports",
+    "--config",
+    ".importlinter"
+  ],
+  "exit": 1,
+  "stdout": "\n╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐\n╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │\n ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗\n ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝\n╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║\n╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝\n  └──▶║║                    ▲ \n      ╚╝────────────────────┘\n\n\n---------\nContracts\n---------\n\nAnalyzed 71 files, 118 dependencies.\n------------------------------------\n\nDomain has no application or I/O dependencies BROKEN\nUsecases depend only on pure contracts KEPT\n\nContracts: 1 kept, 1 broken.\n\n\n----------------\nBroken contracts\n----------------\n\nDomain has no application or I/O dependencies\n---------------------------------------------\n\ngarimpei.domain is not allowed to import urllib:\n\n-   garimpei.domain.runtime.negative_direct -> urllib (l.1)\n\n\n",
+  "stderr": ""
+}

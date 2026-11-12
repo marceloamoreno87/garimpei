@@ -1,0 +1,124 @@
+{
+  "checked_at": "2026-11-11T17:41:40.520831+00:00",
+  "files": [
+    {
+      "path": "apps/backend/quality/entrypoints.json",
+      "sha256": "cc88c2f4f9a70ef8d38eaf3c7f34232a307b9fdb1fbe9cabc66f4de3a33f0181"
+    },
+    {
+      "path": "apps/backend/quality/vulture_whitelist.py",
+      "sha256": "0fe6e5d6fc60117c8f4ab1480dd6636d03b84064daf5e6d988185a8b86c57d5a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/env.py",
+      "sha256": "9759bc48dec184ed46f835ceb2b52505a28fd27c2c6b47f5505e38a46ebfdf7a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/identity.py",
+      "sha256": "f9ab5053dd211386d2cc6e95cf548c7dad188929d2fff5e70083a6439ec57dd4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/policy.py",
+      "sha256": "427e30d2aae1595d3ad4d1f7dfc523e5c387d4e4824c8694d531fa5600362c5b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/ports.py",
+      "sha256": "58a7022392baed11178e06bcc6d46363fe45119e524353ee6adcca298d582f44"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/values.py",
+      "sha256": "a2bf8f29d770077b0928eb5b315a2a43ad72553e12bb45824c3fdac4b6666f7e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/new_source.py",
+      "sha256": "42d57a36117072df3e60f39c65046b15ae4728e2a9df421179471891bd78e6a5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/retail_catalog.json",
+      "sha256": "1c598eb8fa6d40ef8626a1b2eedbfacdec0b96c5f4949534827bb2ff63907f38"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/runworker.py",
+      "sha256": "7724345f686c6c38b5d0b501af01ed9ea271f33a11a90c73cad34b5ea93470cb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0006_valuation.py",
+      "sha256": "6cc5f3b4282f63b0daeb621ba99aa2388def58ccdeba9dd01134c7328a2873dc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/models.py",
+      "sha256": "ac7b4546b1a65b1fbf5a826b5cf5c3e830cd80bdb01c1d036a05a3aff98c7567"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/valuation_models.py",
+      "sha256": "e84d380bb32768b43c2714315a39af63c57e43aa1f2425b8bcba4c5611c8f489"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/postgres_queries.py",
+      "sha256": "538472726d11ab17d5e91d4c8191356160bac4202f88d9f0a4fd6f1bc5a99e09"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/mapper.py",
+      "sha256": "ad238f069171185420d4e76ba986044033d639442b6a234ca018806239cf3108"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/postgres_repository.py",
+      "sha256": "cc3a91be2338dfe9ecd85eac676f08fbf619ccd5ac49e3aa906fd5b5dbf49037"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/valuation_handler.py",
+      "sha256": "f79bbf392c8e0c80bc6d445a3e64466604a3e2c476281cd2c735cb325991dfdc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/main.py",
+      "sha256": "393ec8d7b4abeffc3c9b8e133fb868b8b473c0f5e7065cfee8b6e8f67e155c4b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/evaluate_usecase.py",
+      "sha256": "82d1ac2194f6e3b335154c4eb6df6a5a2a654f36dfcf74a7b2a53b905c82bfd8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/read_valuation_usecase.py",
+      "sha256": "3dc6807cdd841bef691380922a0b2386a72d524b8d4f890500dee2f3e21e39a3"
+    },
+    {
+      "path": "apps/backend/tests/factories/valuation.py",
+      "sha256": "b0081749db98565700aac3273febfc55eb139dd2868ce88880a35c96d0b3a384"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/valuation/cases.json",
+      "sha256": "a00162c64c0b2cc0ecb34c971ca436472fb59bd80e24e21ec4ea46ed1b18c18f"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_valuation.py",
+      "sha256": "e3d2ae928c07b2d490ea67f153dfce4af61adb563f00b58eb680c502a92b526a"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_valuation.py",
+      "sha256": "a816dffc235dde7e1d65b58adacf6561d90d059b20e4d0c366aef276c33eafbc"
+    }
+  ],
+  "source_alias_consistent": true,
+  "retail_quote_matches_persisted_evidence": true,
+  "scope": "Local review against F06 spec/plan/contract; no independent agent delegation"
+}

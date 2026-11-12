@@ -1,0 +1,7 @@
+DJANGO_SETTINGS_MODULE=garimpei.config.test_settings uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py check
+exit=0
+System check identified no issues (0 silenced).
+
+DJANGO_SETTINGS_MODULE=garimpei.config.test_settings uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py makemigrations --check --dry-run
+exit=0
+No changes detected

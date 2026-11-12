@@ -1,0 +1,91 @@
+{
+  "run": "2026-11-10T19-53-58Z",
+  "items": {
+    "DOC-COMPARACAO-01": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Matriz OLX/Facebook/Enjoei/Mercado Livre: API, páginas, sessão, antirrobô, dados, custo, esforço e manutenção; cada célula registra fonte ou lacuna."
+    },
+    "DOC-COMPARACAO-02": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Modalidades e controles descritos por fonte; legenda D/I/O/H/L distingue documentação, observação e hipótese. Complemento prático separado."
+    },
+    "DOC-COMPARACAO-03": {
+      "status": "PASS",
+      "source": "probe-playstation5-2026-11-10.md",
+      "observation": "403 OLX e timeout de paginação Enjoei têm contexto/data, causa conhecida ou desconhecida, impacto e próximo diagnóstico; nenhuma lista vazia inferida. Escopo e resultados sanitizados localizáveis."
+    },
+    "DOC-COBERTURA-01": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Categorias, nome/modelo e correspondência avaliados separadamente por fonte; enumeração/precisão ainda lacunas. Prova de texto no Facebook não é árvore completa."
+    },
+    "DOC-COBERTURA-02": {
+      "status": "PASS",
+      "source": "probe-playstation5-2026-11-10.md",
+      "observation": "20 km do CEP e entrega no destino não comprovados; raio padrão 65/64 km e cidade aproximada explícitos. Entrega anunciada por R$50 não confirma cobertura. Matriz documental cobre envio nacional/frete estimado."
+    },
+    "DOC-COBERTURA-03": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Identidade/link/preço/condição/cidade e lacunas de alterações/remoção/republicação/janela documentadas; complemento contém IDs amostrados, sem garantia de recuperação integral."
+    },
+    "DOC-COBERTURA-04": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Referência de novo separada de usados; equivalência, atualidade/amostra/discrepantes/confiança são lacunas destinadas a F06. Amostras de busca não viram estimativa de revenda nem referência zero."
+    },
+    "DOC-AMBIENTE-01": {
+      "status": "PASS",
+      "source": "environment.md",
+      "observation": "WSL2/x86_64, CPU, memória, disco e Docker com origem e instante; host e carga conjunta separados. Web/worker WSL2, PostgreSQL/WAHA Docker, localhost e ausência inicial de Redis preservados."
+    },
+    "DOC-AMBIENTE-02": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Referência 2026.10.1/GOWS, configuração/persistência/custo documentados com lacunas; serviço, sessão e entrega distintos. Sem envio realizado."
+    },
+    "DOC-AMBIENTE-03": {
+      "status": "PASS",
+      "source": "report.md",
+      "observation": "Não há frequência/SLA/custo total validados; componentes de latência separados. Contagens e duração da prova pontual não são latência ponta a ponta nem operação 24h."
+    },
+    "DOC-AMBIENTE-04": {
+      "status": "PASS",
+      "source": "environment.md",
+      "observation": "Pré-requisitos com preparação/verificação/consequência, scaffold temporário e integração seletiva. Seis coberturas Python, testes/build e entrada node scripts/run-gates.mjs exigidos. Contrato F02 define comandos reais."
+    },
+    "DOC-RECOMENDACAO-01": {
+      "status": "PASS",
+      "source": "probe-playstation5-2026-11-10.md",
+      "observation": "Facebook recomendado com base em acesso/detalhe/cidade/continuação observados; Enjoei alternativa, OLX bloqueada no ambiente, ML documental. Esforço/recursos/custos/manutenção permanecem qualitativos/desconhecidos conforme matriz; nenhuma redução de requisitos."
+    },
+    "DOC-RECOMENDACAO-02": {
+      "status": "PASS",
+      "source": "decisions.md",
+      "observation": "Estado aprovado; Facebook; páginas por navegador inicialmente sem login; sessão privada condicional; data 2026-11-10 e mensagem explícita E-PS5-DEC-01. Impactos F02/F03/F04/F06/F09 documentados. Nenhum cookie recebido."
+    },
+    "DOC-RECOMENDACAO-03": {
+      "status": "PASS",
+      "source": "eval-report-2026-11-10T19-15-04Z.md",
+      "observation": "Cenário negativo verificado no registro histórico anterior à aprovação: escolha pendente e F02 bloqueada, sugestão sem aprovação presumida. A evidência histórica preservada comprova o tratamento da ausência; decisão positiva atual é verificada separadamente, sem SKIP."
+    }
+  },
+  "source_hashes": {
+    "report.md": "8a354411f8980e43d0ec8e9f6220a8a693c28ef066ed27225cb584cec33d7121",
+    "evidence-index.md": "6265e9ab9c08845f95daa8484961b0b799ef7c3d60eb13e2d6e15fe1b912007b",
+    "environment.md": "4bcc7b110ad24e10035b93561c7e3bbc1753121d65b58d01c634d42534f09407",
+    "decisions.md": "37585244c9922f910d00f42e4ca2972f7e7c206eb0f72057d9dcdaeb59a42fcc",
+    "contract.md": "09be9fd0d31a07d8adf6a88dbbbf97f3441e0eebd850b6c9564eb72789821e4c",
+    "probe-playstation5-2026-11-10.md": "bbc57a0290278a12adc84f82b8d61168113fdb9c599c30009f34f0da495b78a9"
+  },
+  "gates": {
+    "harness_structure": 0,
+    "harness_tests": {
+      "exit": 0,
+      "pass": 4,
+      "fail": 0
+    }
+  }
+}

@@ -1,0 +1,22 @@
+flowchart LR
+    subgraph LOCAL["Computador local"]
+        UI["Navegador local"]
+        subgraph WSL["Linux/WSL2"]
+            WEB["Django + HTMX"]
+            WORKER["Worker Python"]
+        end
+        subgraph DOCKER["Docker"]
+            PG[("PostgreSQL")]
+            WAHA["WAHA"]
+        end
+    end
+    SOURCES["Fontes pendentes"]
+    WHATSAPP["WhatsApp"]
+    ORIGINAL["Anúncio original"]
+    UI -->|localhost| WEB
+    WEB <--> PG
+    WORKER <--> PG
+    WORKER <--> SOURCES
+    WORKER --> WAHA
+    WAHA --> WHATSAPP
+    UI --> ORIGINAL

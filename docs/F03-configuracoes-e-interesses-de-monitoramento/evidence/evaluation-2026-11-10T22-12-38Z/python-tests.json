@@ -1,0 +1,29 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "apps/backend/tests"
+  ],
+  "settings": null,
+  "exit": 0,
+  "seconds": 181.718,
+  "summary": [
+    "apps/backend/tests/lifecycle/test_rollback.py ..                         [ 38%]",
+    "apps/backend/tests/lifecycle/test_startup_failures.py ........           [ 44%]",
+    "apps/backend/tests/quality/test_gate_failures.py .............           [ 55%]",
+    "apps/backend/tests/unit/test_config.py .....                             [ 59%]",
+    "apps/backend/tests/unit/test_error_handler.py ..                         [ 60%]",
+    "apps/backend/tests/unit/test_logging.py ..                               [ 62%]",
+    "apps/backend/tests/unit/test_monitoring_catalog.py .....                 [ 66%]",
+    "apps/backend/tests/unit/test_monitoring_configuration.py ............... [ 77%]",
+    "..........................                                               [ 98%]",
+    "apps/backend/tests/unit/test_readiness.py ..                             [100%]",
+    "",
+    "======================= 127 passed in 181.37s (0:03:01) ========================"
+  ]
+}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Configuração · Garimpei{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'monitoring/tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'monitoring/style.css' %}">
+    <script src="{% static 'monitoring/forms.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'integration/settings.css' %}">
+{% endblock %}
+{% block content %}
+    <a class="skip" href="#main">Pular para o conteúdo</a>
+    <aside class="sidebar" aria-label="Garimpei">
+        <a class="brand" href="/">Garimpei<span>.</span></a>
+        <p class="brand-description">Monitoramento de eletrônicos usados</p>
+        <nav aria-label="Navegação principal">
+            <a href="{% url 'condition-list' %}" {% if listing_page %}aria-current="page"{% endif %}>Ofertas</a>
+            <a href="{% url 'monitoring-tracking' %}">Acompanhamento</a>
+            <a href="{% url 'monitoring-edit' %}" {% if editing %}aria-current="page"{% endif %}>Configurações</a>
+            <a href="{% url 'integration-settings' %}" {% if integration_page %}aria-current="page"{% endif %}>Integrações</a>
+        </nav>
+        <p class="local">Execução local</p>
+    </aside>
+    <div class="workspace">
+        <header class="topbar"><span>Facebook Marketplace</span><span>São Paulo · SP</span></header>
+        {% if not integration_page %}{% include "integration/facebook_notice.html" %}{% endif %}
+        {% block main %}{% endblock %}
+    </div>
+{% endblock %}

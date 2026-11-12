@@ -1,0 +1,253 @@
+{
+  "date": "2026-11-10",
+  "cases": [
+    {
+      "label": "1440/editorial",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/offer=camera",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "1440/offer=unknown",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "1440/view=interests",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/view=settings",
+      "violations": [],
+      "incomplete": [],
+      "passes": 27
+    },
+    {
+      "label": "1440/view=alerts",
+      "violations": [],
+      "incomplete": [],
+      "passes": 25
+    },
+    {
+      "label": "1440/view=system",
+      "violations": [],
+      "incomplete": [],
+      "passes": 26
+    },
+    {
+      "label": "1440/scenario=gaps",
+      "violations": [],
+      "incomplete": [],
+      "passes": 30
+    },
+    {
+      "label": "1440/scenario=empty",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "1440/scenario=unavailable",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "1440/scenario=stopped",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/scenario=partial",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/variant=compact",
+      "violations": [],
+      "incomplete": [],
+      "passes": 31
+    },
+    {
+      "label": "1440/variant=night",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/setup-region",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/setup-costs",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/setup-errors",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/setup-interests",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/editorial",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/offer=camera",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "375/offer=unknown",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "375/view=interests",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/view=settings",
+      "violations": [],
+      "incomplete": [],
+      "passes": 27
+    },
+    {
+      "label": "375/view=alerts",
+      "violations": [],
+      "incomplete": [],
+      "passes": 25
+    },
+    {
+      "label": "375/view=system",
+      "violations": [],
+      "incomplete": [],
+      "passes": 26
+    },
+    {
+      "label": "375/scenario=gaps",
+      "violations": [],
+      "incomplete": [],
+      "passes": 30
+    },
+    {
+      "label": "375/scenario=empty",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "375/scenario=unavailable",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "375/scenario=stopped",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/scenario=partial",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/variant=compact",
+      "violations": [],
+      "incomplete": [],
+      "passes": 32
+    },
+    {
+      "label": "375/variant=night",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/setup-region",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/setup-costs",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/setup-errors",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "375/setup-interests",
+      "violations": [],
+      "incomplete": [],
+      "passes": 29
+    },
+    {
+      "label": "1440/scenario=gaps&offer=removed-ad",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "1440/view=reference&offer=camera&ref=CMP-camera-1",
+      "violations": [],
+      "incomplete": [],
+      "passes": 27
+    },
+    {
+      "label": "375/scenario=gaps&offer=removed-ad",
+      "violations": [],
+      "incomplete": [],
+      "passes": 28
+    },
+    {
+      "label": "375/view=reference&offer=camera&ref=CMP-camera-1",
+      "violations": [],
+      "incomplete": [],
+      "passes": 27
+    }
+  ],
+  "engine": "axe-core 4.14.0",
+  "tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa",
+    "wcag22aa"
+  ]
+}

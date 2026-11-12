@@ -1,0 +1,50 @@
+node scripts/run-gates.mjs — exit 0
+[gates] Tipos: PASS
+[gates] Lint: PASS
+[gates] Limites: PASS
+[gates] Arquitetura: PASS
+[gates] Ciclos: PASS
+[gates] Não utilizados: PASS
+[gates] Six Python groups approved
+
+PYTEST_ADDOPTS=--tb=short uv run --project apps/backend --frozen --no-sync pytest apps/backend/tests — exit 0
+collected 143 items
+
+apps/backend/tests/http/test_health.py ...                               [  2%]
+apps/backend/tests/http/test_monitoring.py .                             [  2%]
+apps/backend/tests/http/test_tracking.py .                               [  3%]
+apps/backend/tests/integration/test_collection.py ......                 [  7%]
+apps/backend/tests/integration/test_concurrency.py ..                    [  9%]
+apps/backend/tests/integration/test_facebook_gateway.py .                [  9%]
+apps/backend/tests/integration/test_foundation.py .........              [ 16%]
+apps/backend/tests/integration/test_marketplace_browser.py .             [ 16%]
+apps/backend/tests/integration/test_monitoring_persistence.py ......     [ 20%]
+apps/backend/tests/lifecycle/test_copy.py .                              [ 21%]
+apps/backend/tests/lifecycle/test_network_cleanup.py .                   [ 22%]
+apps/backend/tests/lifecycle/test_operations.py ........................ [ 39%]
+                                                                         [ 39%]
+apps/backend/tests/lifecycle/test_rollback.py ..                         [ 40%]
+apps/backend/tests/lifecycle/test_startup_failures.py ........           [ 46%]
+apps/backend/tests/quality/test_gate_failures.py .............           [ 55%]
+apps/backend/tests/unit/test_config.py .....                             [ 58%]
+apps/backend/tests/unit/test_error_handler.py ..                         [ 60%]
+apps/backend/tests/unit/test_listing_policy.py ....                      [ 62%]
+apps/backend/tests/unit/test_logging.py ..                               [ 64%]
+apps/backend/tests/unit/test_marketplace_parser.py ..                    [ 65%]
+apps/backend/tests/unit/test_marketplace_source.py .                     [ 66%]
+apps/backend/tests/unit/test_monitoring_catalog.py .....                 [ 69%]
+apps/backend/tests/unit/test_monitoring_configuration.py ............... [ 80%]
+..........................                                               [ 98%]
+apps/backend/tests/unit/test_readiness.py ..                             [100%]
+
+======================= 143 passed in 299.85s (0:04:59) ========================
+
+Após o ajuste final de headers e opções de stealth, a regressão de navegador e os testes do parser/source foram repetidos.
+....                                                                     [100%]
+4 passed in 2.63s
+
+Django check — exit 0
+Migrations check — exit 0 — No changes detected
+Collectstatic — exit 0
+Harness — 4 testes e estrutura aprovados
+Privacidade — nenhum valor de cookie encontrado nos arquivos do projeto

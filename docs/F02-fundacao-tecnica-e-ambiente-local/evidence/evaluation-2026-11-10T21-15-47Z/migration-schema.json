@@ -1,0 +1,12 @@
+{
+  "name": "migration-schema",
+  "command": [
+    "./scripts/migrate-dev.sh",
+    "--check"
+  ],
+  "cwd": ".",
+  "exit": 0,
+  "duration_seconds": 0.489,
+  "stdout": "Schema up to date\n",
+  "stderr": ""
+}

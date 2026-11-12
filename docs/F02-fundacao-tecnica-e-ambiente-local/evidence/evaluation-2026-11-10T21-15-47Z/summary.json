@@ -1,0 +1,651 @@
+{
+  "run": "2026-11-10T21-15-47Z",
+  "started_at": "2026-11-10T21:15:47.786502+00:00",
+  "commands": [
+    {
+      "name": "backend-gates",
+      "command": [
+        "node",
+        "scripts/run-gates.mjs"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "duration_seconds": 1.032,
+      "stdout": "[gates] Tipos: 40 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 63 source files\n[gates] Tipos: PASS\n[gates] Lint: 40 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nAll checks passed!\n[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py\n63 files already formatted\n[gates] uv run --frozen --no-sync djlint src/garimpei/infra/http/templates --lint --profile=django\n\n\n\nLinted 1 file, found 0 errors.\n\n[gates] Lint: PASS\n[gates] Limites: 40 Python source files\n[gates] uv run --frozen --no-sync lint-imports --config .importlinter\n\n╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐\n╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │\n ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗\n ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝\n╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║\n╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝\n  └──▶║║                    ▲ \n      ╚╝────────────────────┘\n\n\n---------\nContracts\n---------\n\nAnalyzed 70 files, 117 dependencies.\n------------------------------------\n\nDomain has no application or I/O dependencies KEPT\nUsecases depend only on pure contracts KEPT\n\nContracts: 2 kept, 0 broken.\n[gates] Limites: PASS\n[gates] Arquitetura: 40 Python source files\n[gates] uv run --frozen --no-sync python scripts/quality/check_architecture.py\nArchitecture: 40 source files; 0 violations\n[gates] Arquitetura: PASS\n[gates] Ciclos: 40 Python source files\n[gates] uv run --frozen --no-sync python scripts/quality/check_cycles.py\nCycles: 40 modules, 0 cyclic edges\n[gates] Ciclos: PASS\n[gates] Não utilizados: 40 Python source files\n[gates] uv run --frozen --no-sync vulture src scripts/quality quality/vulture_whitelist.py --min-confidence 60\n[gates] uv run --frozen --no-sync deptry .\n[gates] Não utilizados: PASS\n[gates] Six Python groups approved\n",
+      "stderr": "Linting 1/1 files\nScanning 43 files...\n\n\u001b[1m\u001b[32mSuccess! No dependency issues found.\u001b[m\n"
+    },
+    {
+      "name": "python-tests",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=/tmp/garimpei-F02-sqv14sqi/tests-2026-11-10T21-15-47Z.xml"
+      ],
+      "cwd": "apps/backend",
+      "exit": 0,
+      "duration_seconds": 175.768,
+      "stdout": "........................................................................ [ 98%]\n.                                                                        [100%]\n73 passed in 175.39s (0:02:55)\n",
+      "stderr": ""
+    },
+    {
+      "name": "django-check",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "python",
+        "manage.py",
+        "check"
+      ],
+      "cwd": "apps/backend",
+      "exit": 0,
+      "duration_seconds": 0.271,
+      "stdout": "System check identified no issues (0 silenced).\n",
+      "stderr": "{\"timestamp\": \"2026-11-10T21:18:44.809440+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"75ad34c3-884c-43ea-ae10-ce0611e50e0e\"}\n"
+    },
+    {
+      "name": "migration-files",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "python",
+        "manage.py",
+        "makemigrations",
+        "--check",
+        "--dry-run"
+      ],
+      "cwd": "apps/backend",
+      "exit": 0,
+      "duration_seconds": 0.268,
+      "stdout": "No changes detected\n",
+      "stderr": "{\"timestamp\": \"2026-11-10T21:18:45.057667+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"75ad34c3-884c-43ea-ae10-ce0611e50e0e\"}\n"
+    },
+    {
+      "name": "migration-schema",
+      "command": [
+        "./scripts/migrate-dev.sh",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "duration_seconds": 0.489,
+      "stdout": "Schema up to date\n",
+      "stderr": ""
+    },
+    {
+      "name": "static-assets",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "python",
+        "manage.py",
+        "collectstatic",
+        "--noinput"
+      ],
+      "cwd": "apps/backend",
+      "exit": 0,
+      "duration_seconds": 0.252,
+      "stdout": "\n0 static files copied to '/home/marce/dev/garimpei/.runtime/eval_final_eval_195216/static', 2 unmodified.\n",
+      "stderr": "{\"timestamp\": \"2026-11-10T21:18:45.827582+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"75ad34c3-884c-43ea-ae10-ce0611e50e0e\"}\n"
+    },
+    {
+      "name": "build",
+      "command": [
+        "uv",
+        "build",
+        "--no-build-isolation"
+      ],
+      "cwd": "apps/backend",
+      "exit": 0,
+      "duration_seconds": 0.21,
+      "stdout": "",
+      "stderr": "Building source distribution...\nBuilding wheel from source distribution...\nSuccessfully built dist/garimpei_backend-0.1.0.tar.gz\nSuccessfully built dist/garimpei_backend-0.1.0-py3-none-any.whl\n"
+    },
+    {
+      "name": "harness-tests",
+      "command": [
+        "node",
+        "--test",
+        "scripts/test/harness.test.mjs"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "duration_seconds": 0.13,
+      "stdout": "✔ init without Python scaffold diagnoses the prerequisite without generating app state (14.546435ms)\n✔ resolver without Python scaffold does not announce an environment (8.414945ms)\n✔ backend gates fail before scaffolding without invoking or downloading tools (20.758586ms)\n✔ setup reuses the same marketplace without replacing its existing revision (30.135348ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 109.325991\n",
+      "stderr": ""
+    },
+    {
+      "name": "harness-structure",
+      "command": [
+        "node",
+        "scripts/check-harness.mjs"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "duration_seconds": 0.329,
+      "stdout": "[harness] 14 skills e referências de entrada válidas.\n[harness] Sintaxe de 28 scripts validada.\n[harness] Progresso válido: 9 features.\n[harness] Estrutura validada. Gates da aplicação dependem do scaffold.\n",
+      "stderr": ""
+    }
+  ],
+  "complete": true,
+  "tests": [
+    {
+      "class": "tests.http.test_health",
+      "name": "test_liveness_does_not_query_database",
+      "status": "PASS",
+      "seconds": "0.005"
+    },
+    {
+      "class": "tests.http.test_health",
+      "name": "test_unsupported_method",
+      "status": "PASS",
+      "seconds": "0.001"
+    },
+    {
+      "class": "tests.http.test_health",
+      "name": "test_template_uses_local_verified_htmx",
+      "status": "PASS",
+      "seconds": "0.002"
+    },
+    {
+      "class": "tests.integration.test_concurrency",
+      "name": "test_duplicate_control_with_two_consumers_has_one_successor",
+      "status": "PASS",
+      "seconds": "14.587"
+    },
+    {
+      "class": "tests.integration.test_concurrency",
+      "name": "test_old_run_cannot_renew_current_readiness",
+      "status": "PASS",
+      "seconds": "5.792"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_manual_probe_runs_while_web_is_stopped",
+      "status": "PASS",
+      "seconds": "6.118"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_two_instances_have_distinct_resources_and_local_binds",
+      "status": "PASS",
+      "seconds": "0.141"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_init_is_idempotent_and_runtime_probe_is_real",
+      "status": "PASS",
+      "seconds": "0.790"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_real_http_boundaries[GET-not-allowed.example-400]",
+      "status": "PASS",
+      "seconds": "0.003"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_real_http_boundaries[OPTIONS-127.0.0.1-405]",
+      "status": "PASS",
+      "seconds": "0.001"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_dependency_failure_is_not_liveness_failure[postgres]",
+      "status": "PASS",
+      "seconds": "2.681"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_dependency_failure_is_not_liveness_failure[waha]",
+      "status": "PASS",
+      "seconds": "2.757"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_commit_and_rollback_share_real_postgres_transaction",
+      "status": "PASS",
+      "seconds": "15.269"
+    },
+    {
+      "class": "tests.integration.test_foundation",
+      "name": "test_pending_migration_degrades_readiness_without_applying",
+      "status": "PASS",
+      "seconds": "1.084"
+    },
+    {
+      "class": "tests.lifecycle.test_copy",
+      "name": "test_migration_creation_and_unexpected_http_error_in_owned_copy",
+      "status": "PASS",
+      "seconds": "8.156"
+    },
+    {
+      "class": "tests.lifecycle.test_network_cleanup",
+      "name": "test_clean_removes_owned_network_and_preserves_foreign_network",
+      "status": "PASS",
+      "seconds": "6.582"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_stop_restart_preserves_receipts_pending_work_and_session_marker",
+      "status": "PASS",
+      "seconds": "7.606"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_worker_dead_or_stale_is_not_ready",
+      "status": "PASS",
+      "seconds": "20.327"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_active_instance_lock_refuses_concurrent_init",
+      "status": "PASS",
+      "seconds": "0.233"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_foreign_pid_is_not_signalled",
+      "status": "PASS",
+      "seconds": "0.192"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_clean_denies_unmarked_or_real_session[disposable-False]",
+      "status": "PASS",
+      "seconds": "0.169"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_clean_denies_unmarked_or_real_session[session_kind-real]",
+      "status": "PASS",
+      "seconds": "0.206"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_clean_denies_unmarked_or_real_session[session_kind-unknown]",
+      "status": "PASS",
+      "seconds": "0.211"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_clean_denies_unmarked_or_real_session[checkout-/foreign-checkout]",
+      "status": "PASS",
+      "seconds": "0.208"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_clean_refuses_unknown_files_even_with_disposable_marker",
+      "status": "PASS",
+      "seconds": "4.798"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_clean_in_dev_is_denied_before_removal",
+      "status": "PASS",
+      "seconds": "0.154"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_migrations_check_apply_and_invalid_arguments",
+      "status": "PASS",
+      "seconds": "2.308"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_explicit_occupied_port_preserves_owner",
+      "status": "PASS",
+      "seconds": "0.330"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_ENV-wrong]",
+      "status": "PASS",
+      "seconds": "0.229"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_INSTANCE-]",
+      "status": "PASS",
+      "seconds": "0.246"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[DJANGO_SECRET_KEY-]",
+      "status": "PASS",
+      "seconds": "0.257"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[POSTGRES_PASSWORD-]",
+      "status": "PASS",
+      "seconds": "0.257"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[WAHA_API_KEY-]",
+      "status": "PASS",
+      "seconds": "0.218"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_WEB_PORT-oops]",
+      "status": "PASS",
+      "seconds": "0.205"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_PG_PORT-0]",
+      "status": "PASS",
+      "seconds": "0.247"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_WAHA_PORT-65536]",
+      "status": "PASS",
+      "seconds": "0.232"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_STARTUP_TIMEOUT_SECONDS-0]",
+      "status": "PASS",
+      "seconds": "0.237"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[GARIMPEI_SHUTDOWN_TIMEOUT_SECONDS-121]",
+      "status": "PASS",
+      "seconds": "0.210"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[LOG_LEVEL-invalid]",
+      "status": "PASS",
+      "seconds": "0.234"
+    },
+    {
+      "class": "tests.lifecycle.test_operations",
+      "name": "test_invalid_configuration_is_safe_precondition_failure[DATABASE_URL-postgresql://foreign:private-canary@remote/not_owned]",
+      "status": "PASS",
+      "seconds": "0.230"
+    },
+    {
+      "class": "tests.lifecycle.test_rollback",
+      "name": "test_shutdown_timeout_never_claims_completion",
+      "status": "PASS",
+      "seconds": "1.348"
+    },
+    {
+      "class": "tests.lifecycle.test_rollback",
+      "name": "test_partial_start_preserves_volumes_and_existing_containers",
+      "status": "PASS",
+      "seconds": "8.555"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[postgres]",
+      "status": "PASS",
+      "seconds": "8.606"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[waha]",
+      "status": "PASS",
+      "seconds": "8.836"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_real_unavailable_service_or_image_refuses_start_and_rolls_back[image]",
+      "status": "PASS",
+      "seconds": "2.007"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_missing_system_tool_is_not_installed[uv]",
+      "status": "PASS",
+      "seconds": "0.005"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_missing_system_tool_is_not_installed[docker]",
+      "status": "PASS",
+      "seconds": "0.060"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_missing_system_tool_is_not_installed[git]",
+      "status": "PASS",
+      "seconds": "0.005"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_missing_system_tool_is_not_installed[node]",
+      "status": "PASS",
+      "seconds": "0.005"
+    },
+    {
+      "class": "tests.lifecycle.test_startup_failures",
+      "name": "test_missing_system_tool_is_not_installed[python]",
+      "status": "PASS",
+      "seconds": "0.005"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[types]",
+      "status": "PASS",
+      "seconds": "2.975"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[lint_import]",
+      "status": "PASS",
+      "seconds": "2.950"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[lint_template]",
+      "status": "PASS",
+      "seconds": "3.255"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[limits_direct]",
+      "status": "PASS",
+      "seconds": "2.974"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[limits_indirect]",
+      "status": "PASS",
+      "seconds": "2.911"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[architecture_env]",
+      "status": "PASS",
+      "seconds": "2.905"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[architecture_concrete]",
+      "status": "PASS",
+      "seconds": "2.976"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[architecture_path]",
+      "status": "PASS",
+      "seconds": "3.401"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[cycles]",
+      "status": "PASS",
+      "seconds": "3.000"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[unused_function]",
+      "status": "PASS",
+      "seconds": "3.466"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[unused_dependency]",
+      "status": "PASS",
+      "seconds": "3.698"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_gate_and_canonical_entry_reject_violation[architecture_import_io]",
+      "status": "PASS",
+      "seconds": "3.300"
+    },
+    {
+      "class": "tests.quality.test_gate_failures",
+      "name": "test_missing_gate_source_is_precondition_failure",
+      "status": "PASS",
+      "seconds": "0.021"
+    },
+    {
+      "class": "tests.unit.test_config",
+      "name": "test_missing_secret_identifies_key_without_echo",
+      "status": "PASS",
+      "seconds": "0.002"
+    },
+    {
+      "class": "tests.unit.test_config",
+      "name": "test_invalid_port_identifies_non_secret_value",
+      "status": "PASS",
+      "seconds": "0.002"
+    },
+    {
+      "class": "tests.unit.test_config",
+      "name": "test_eval_requires_explicit_identity",
+      "status": "PASS",
+      "seconds": "0.000"
+    },
+    {
+      "class": "tests.unit.test_config",
+      "name": "test_file_is_data_and_explicit_environment_wins",
+      "status": "PASS",
+      "seconds": "0.002"
+    },
+    {
+      "class": "tests.unit.test_config",
+      "name": "test_unborn_normalized_branch_names_still_have_distinct_stable_identity",
+      "status": "PASS",
+      "seconds": "0.007"
+    },
+    {
+      "class": "tests.unit.test_error_handler",
+      "name": "test_unexpected_http_error_has_no_private_exception_text",
+      "status": "PASS",
+      "seconds": "0.001"
+    },
+    {
+      "class": "tests.unit.test_error_handler",
+      "name": "test_library_error_record_never_serializes_exception",
+      "status": "PASS",
+      "seconds": "0.000"
+    },
+    {
+      "class": "tests.unit.test_logging",
+      "name": "test_raw_exception_and_message_never_cross_log_boundary",
+      "status": "PASS",
+      "seconds": "0.000"
+    },
+    {
+      "class": "tests.unit.test_readiness",
+      "name": "test_unavailable_dependency_cannot_be_ready",
+      "status": "PASS",
+      "seconds": "0.000"
+    },
+    {
+      "class": "tests.unit.test_readiness",
+      "name": "test_all_probes_must_pass",
+      "status": "PASS",
+      "seconds": "3.866"
+    }
+  ],
+  "source_hashes": {
+    "apps/backend/src/garimpei/main.py": "91991d2fde4cd930dd3223f9fc1c6da4047f43ae6e88daf16c217d3bc6bebe0e",
+    "apps/backend/src/garimpei/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/domain/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/config/wsgi.py": "de8344ab8976659cf5c4648e0ea8923abbca68c96274388369722ffb29bbe45e",
+    "apps/backend/src/garimpei/config/settings.py": "3c939451641a912a9f2e70d0052e7ccd329a7f4097fedfe0fadfa454e1d4225b",
+    "apps/backend/src/garimpei/config/env.py": "d7b369814b95eb3107eea0b006a7290294edaee0ddc3b101bb4706ad0a00c95d",
+    "apps/backend/src/garimpei/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/config/test_settings.py": "ec6d7884f011c1d739e78bd7c4b236e0e93ce07f09e6c7702c0b96f2e5f9cccc",
+    "apps/backend/src/garimpei/usecase/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/usecase/runtime/check_readiness_usecase.py": "e21e2081c304e3dd6755541e82b366b520ecc97872c73fddec606e0902288ef3",
+    "apps/backend/src/garimpei/usecase/runtime/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/http/error_handler.py": "2db3dca6854ba9c022c6b560e31ad57ca0d1a687a309a8d902010d28840d9a0e",
+    "apps/backend/src/garimpei/infra/http/health_handler.py": "1d05e30845442a79998b2f127a606b65ad915d331ca6b2006b9a961399916872",
+    "apps/backend/src/garimpei/infra/http/urls.py": "971cede163329c8fb1b0696e40f0b2bb263174da2723c8891ed8bca053b69647",
+    "apps/backend/src/garimpei/infra/http/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/persistence/apps.py": "73ee3e8670cfefe792d109e7de29e5370417fe37197cf97b18e8693dfe43fb84",
+    "apps/backend/src/garimpei/infra/persistence/models.py": "c2f4dcebaec0cc46f04f9f81d8b8b5b17c0ed83084cbd7138ae99f180382fad3",
+    "apps/backend/src/garimpei/infra/persistence/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/worker/runtime_handler.py": "e6e48850646fddcf9bfca2118b268b071d98ab5d5143a80a74fd93948353dd86",
+    "apps/backend/src/garimpei/infra/worker/probe_service.py": "b048a3d4511f34f426c674f9486f796f015e8fc075bf3421e11404c99143bd92",
+    "apps/backend/src/garimpei/infra/worker/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/runtime/containers.py": "170f5030a04b53d36807a0b063a12b0deb8fd74e65c6ba5600f17c829e58f8df",
+    "apps/backend/src/garimpei/infra/runtime/processes.py": "4e8c996212f046e76e08e101fb68d04d98f057518cb83ccdc0097cb3ccf7b9d5",
+    "apps/backend/src/garimpei/infra/runtime/logging.py": "ba7c136ef57b3d3012ae8a50a6211268f567a170f808d1a8db29241b0b7a9ad4",
+    "apps/backend/src/garimpei/infra/runtime/manifest.py": "32f5f5ca42ef9f0cb1349ab4dabb36d9c0667b7b17cb1cc477ffed9958a9f4dc",
+    "apps/backend/src/garimpei/infra/runtime/lifecycle.py": "de2b43c793e135e37372bb5db2782ce3e658d0d061f51f577255009c034075a2",
+    "apps/backend/src/garimpei/infra/runtime/probes.py": "ce1291af523a004be16f56031e90bc31bbcbd648a89a1b1ae56fa09f38b2f87f",
+    "apps/backend/src/garimpei/infra/runtime/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/runtime/cli.py": "a50f8289734cc9b98e4e59b2889678a8907de55fe7e1f4215ac542bdca4da837",
+    "apps/backend/src/garimpei/infra/persistence/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/persistence/migrations/0001_initial.py": "f29d364398c0c172e5270ff529548bf74d3dd125be6aa5edfc9e8bb0d6e1a9d0",
+    "apps/backend/src/garimpei/infra/persistence/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/persistence/management/commands/runtime_probe.py": "9047d2ab9c1cd0f74dad0665b171e32d2be3c2e9828ee5dde21f37cf53a70def",
+    "apps/backend/src/garimpei/infra/persistence/management/commands/runworker.py": "7824749f105c38386f286b8072e841c2d2a333312e02506de453ede61ffb48c4",
+    "apps/backend/src/garimpei/infra/persistence/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/infra/http/templates/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/src/garimpei/domain/runtime/readiness_gateway.py": "53599282fcf8575cb07d84e50bf1bb0874327c680b1e17d6e8cdfd5754dbc796",
+    "apps/backend/src/garimpei/domain/runtime/readiness_result.py": "e8734919e9d7afaabc3ea23edbda1dcec7643e3f1ced638c102150e406c8d7df",
+    "apps/backend/src/garimpei/domain/runtime/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/tests/conftest.py": "7d24aa62248110b3039a2a28b91e394948524299270fccb908b1160aff6c41c9",
+    "apps/backend/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/tests/integration/test_concurrency.py": "4c057d843458353dd9600b83c86825393b4214c5c7c563f6d49a0b28f034acf8",
+    "apps/backend/tests/integration/test_foundation.py": "838c12b14d7ba9213e61c1d2595e4d32b959807a56364a04a51322b5a4a2ab97",
+    "apps/backend/tests/integration/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/tests/quality/test_gate_failures.py": "2877d7175c383757ce78738112d4a8194144efcfb57e0f90663d3239f3ab64c5",
+    "apps/backend/tests/http/test_health.py": "45ac340b78f89fc464d1a9680ebae94c4e247975cf55f6b5c886386e2df76cdd",
+    "apps/backend/tests/http/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/tests/lifecycle/test_rollback.py": "467d6e37a87bfcf27bccc2a563e33044649a9ffb37e331f607ee4be4658cc0a2",
+    "apps/backend/tests/lifecycle/test_startup_failures.py": "23ab2a72b74157b792bbaa5a7e63add5bbbbdbb239cc4ea432a8f24579e7a9f0",
+    "apps/backend/tests/lifecycle/test_network_cleanup.py": "acee6ee96e44f3aff5b25597c3104fa621233c87dd666cad6e6234678a8ae05b",
+    "apps/backend/tests/lifecycle/test_copy.py": "7e6bf80fb3bb4a5d774ab8ff01769be9571de5137b7b090e7f1481bc9cb8660d",
+    "apps/backend/tests/lifecycle/test_operations.py": "0dca0c240e981098da6ded6c92c36a139d8aed05d063291d730949d0f78381c1",
+    "apps/backend/tests/unit/test_error_handler.py": "977a25c76367b997d84a8b06e29d263b1478acec81c7d47b62e83016ad24b1bd",
+    "apps/backend/tests/unit/test_config.py": "09eec11d84b524f0672e5c3ca03fda1372d7b74e463f7f4c9c4cd1e6ceddff20",
+    "apps/backend/tests/unit/test_readiness.py": "3c33cc92536cddbfd803419b19072e739aca74298ac2879f41948dc9d7ec46d8",
+    "apps/backend/tests/unit/test_logging.py": "fe8803277ea4cc186e5772226ca308a66469da87430030ac5fc5f7642d96d4c4",
+    "apps/backend/tests/unit/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/tests/factories/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/backend/tests/factories/runtime.py": "e8115cf047ca19bd4da71f48a854961be12f647cdb605bfa769535febe960b3c",
+    "apps/backend/scripts/quality/check_architecture.py": "f67ace6defb5df86848b42139e4ac65c7dfbccf8b796b9886abf713a91f5a15e",
+    "apps/backend/scripts/quality/check_cycles.py": "f21b7490a79f2e34b2bdce5b6eaa05e0527b06b9aa71565f2732f5ef332a8a0e",
+    "apps/backend/pyproject.toml": "6547ba831358ad15e533995a8ce913e94ea4afe381ed12f3a74e6cdfc82d6faa",
+    "apps/backend/uv.lock": "72f16269038701c336bf8553d5c24e1468477d7a9ca36d50d1ff4a53905fba69",
+    "compose.yaml": "b6c33ad197123e5a42757ef87870d705c1f47c3841d6e37a37ce9ad82a4b4e72",
+    "docs/F02-fundacao-tecnica-e-ambiente-local/spec.md": "e07f7c4561ba357f5cf17f794962bb11546e4e5176bafc68ec510963daa7e4a5",
+    "docs/F02-fundacao-tecnica-e-ambiente-local/plan.md": "2acc9f08308107e786e2e3893241f979d8aa9f61830e0719f8b006fb5aaee453",
+    "docs/F02-fundacao-tecnica-e-ambiente-local/contract.md": "51f1c2af318694e64975c206e9a91c740417e2427d21b27c005025d8ae863c8f"
+  }
+}

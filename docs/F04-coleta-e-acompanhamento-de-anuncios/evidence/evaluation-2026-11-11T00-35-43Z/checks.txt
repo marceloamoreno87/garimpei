@@ -1,0 +1,40 @@
+node scripts/run-gates.mjs — exit 0
+[gates] Tipos: PASS
+[gates] Lint: PASS
+[gates] Limites: PASS
+[gates] Arquitetura: PASS
+[gates] Ciclos: PASS
+[gates] Não utilizados: PASS
+[gates] Six Python groups approved
+
+PYTEST_ADDOPTS=--tb=short uv run --project apps/backend --frozen --no-sync pytest apps/backend/tests — exit 0
+apps/backend/tests/http/test_health.py ...                               [  2%]
+apps/backend/tests/http/test_monitoring.py .                             [  2%]
+apps/backend/tests/http/test_tracking.py .                               [  3%]
+apps/backend/tests/integration/test_collection.py ......                 [  7%]
+apps/backend/tests/integration/test_concurrency.py ..                    [  9%]
+apps/backend/tests/integration/test_facebook_gateway.py .                [ 10%]
+apps/backend/tests/integration/test_foundation.py .........              [ 16%]
+apps/backend/tests/integration/test_monitoring_persistence.py ......     [ 21%]
+apps/backend/tests/lifecycle/test_copy.py .                              [ 21%]
+apps/backend/tests/lifecycle/test_network_cleanup.py .                   [ 22%]
+apps/backend/tests/lifecycle/test_operations.py ........................ [ 39%]
+apps/backend/tests/lifecycle/test_rollback.py ..                         [ 41%]
+apps/backend/tests/lifecycle/test_startup_failures.py ........           [ 47%]
+apps/backend/tests/quality/test_gate_failures.py .............           [ 56%]
+apps/backend/tests/unit/test_config.py .....                             [ 60%]
+apps/backend/tests/unit/test_error_handler.py ..                         [ 61%]
+apps/backend/tests/unit/test_listing_policy.py ...                       [ 63%]
+apps/backend/tests/unit/test_logging.py ..                               [ 65%]
+apps/backend/tests/unit/test_monitoring_catalog.py .....                 [ 68%]
+apps/backend/tests/unit/test_monitoring_configuration.py ............... [ 79%]
+apps/backend/tests/unit/test_readiness.py ..                             [100%]
+138 passed in 282.34s (0:04:42)
+
+Nova execução após o ajuste do limite de chaves Unicode
+pytest -q apps/backend/tests/unit/test_listing_policy.py apps/backend/tests/integration/test_facebook_gateway.py apps/backend/tests/integration/test_collection.py -k 'policy or gateway or initial_service' — exit 0
+6 passed, 5 deselected in 21.89s
+
+manage.py check — exit 0 — System check identified no issues (0 silenced).
+manage.py makemigrations --check --dry-run — exit 0 — No changes detected
+manage.py collectstatic --noinput — exit 0 — 9 static files available

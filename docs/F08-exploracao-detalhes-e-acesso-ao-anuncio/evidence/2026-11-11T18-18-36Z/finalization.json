@@ -1,0 +1,11 @@
+{
+  "status": "success",
+  "completed_at": "2026-11-11T19:05:22.968910+00:00",
+  "report": "docs/F08-exploracao-detalhes-e-acesso-ao-anuncio/eval-report-2026-11-11T19-05-22Z.md",
+  "tests": 203,
+  "items": 22,
+  "acs": 7,
+  "cycles": 0,
+  "commits": 0,
+  "lock_released": true
+}

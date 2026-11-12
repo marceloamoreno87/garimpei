@@ -1,0 +1,113 @@
+<section id="exploration"
+         data-version="{{ criteria.version|default:'' }}"
+         data-canonical="{{ canonical }}"
+         data-status-url="{{ status_url }}"
+         data-refresh="{{ refresh }}"
+         data-applied="{{ applied|yesno:'true,false' }}">
+    <div id="updates"
+         aria-live="polite"
+         hx-get="{{ status_url }}"
+         hx-trigger="every 30s [!document.hidden], exploration-poll from:body"
+         hx-swap="innerHTML"
+         hx-sync="#exploration:abort"></div>
+    {% if applied %}<p class="notice" role="status">Lista atualizada. Revisão aplicada em {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p>{% endif %}
+    <nav class="condition-tabs"
+         role="tablist"
+         aria-label="Condição das ofertas">
+        {% for t in tabs %}<a role="tab"
+                              aria-selected="{% if t.key == criteria.tab %}true{% else %}false{% endif %}"
+                              tabindex="{% if t.key == criteria.tab %}0{% else %}-1{% endif %}"
+                              href="{{ t.url }}"
+                              hx-get="{{ t.url }}"
+                              hx-target="#exploration"
+                              hx-swap="outerHTML"
+                              hx-sync="#exploration:replace">{{ t.label }} <span>{{ t.count }}</span></a>{% endfor %}
+    </nav>
+    <form class="exploration-filters"
+          action="{% url 'condition-list' %}"
+          method="get"
+          hx-get="/ofertas/"
+          hx-target="#exploration"
+          hx-swap="outerHTML"
+          hx-sync="#exploration:replace">
+        <input type="hidden" name="aba" value="{{ criteria.tab }}">
+        {% if criteria.version %}<input type="hidden" name="versao" value="{{ criteria.version }}">{% endif %}
+        <label>
+            Buscar por título ou categoria<input type="search"
+                                                 id="exploration-search"
+                                                 name="q"
+                                                 value="{{ criteria.query }}"
+                                                 maxlength="120"
+                                                 placeholder="O que você procura?">
+        </label>
+        <label>Categoria<select id="exploration-category" name="categoria"><option value="">Todas</option>{% for key,label in categories %}<option value="{{ key }}"
+                                                                                                                                                   {% if key == criteria.category %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+        <button type="submit" class="secondary">Filtrar ofertas</button>
+    </form>
+    {% if not configured %}
+        <div class="empty">
+            <h2>Prepare seu acompanhamento</h2>
+
+            <p>Conclua a configuração para começar a encontrar ofertas.</p>
+            <a class="button primary" href="/">Configurar interesses</a>
+        </div>
+    {% elif not page.published_at %}
+        <div class="empty" role="status"><h2>{% if collection.initial_completed_at %}Nenhuma oferta encontrada na coleta{% else %}Coleta inicial em andamento{% endif %}</h2>
+
+            <p>{% if collection.initial_completed_at %}A coleta foi concluída sem ofertas neste escopo.{% else %}Estamos preenchendo sua lista. Publicações comprovadamente novas já podem gerar alertas.{% endif %}</p><a href="{% url 'monitoring-tracking' %}">Ver acompanhamento</a></div>
+    {% endif %}
+    {% if collection.phase == "partial" or collection.phase == "unavailable" %}<div class="notice" role="status"><strong>{% if collection.phase == "partial" %}Coleta parcial{% else %}Falha na fonte{% endif %}</strong><p>Os últimos dados disponíveis foram preservados. Última coleta válida: {{ collection.last_success_at|date:"d/m/Y H:i:s"|default:"ainda não concluída" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
+    {% if configured and not worker_active %}<div class="notice" role="status"><strong>Acompanhamento interrompido</strong><p>O worker não está ativo. Os últimos dados disponíveis continuam legíveis: {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
+    <header class="result-heading"><h2 id="results-title" tabindex="-1">{% if page.total %}{{ page.start }}–{{ page.end }} de {{ page.total }}{% else %}Nenhum resultado{% endif %}</h2>
+
+        <p>Lucro potencial antes de frete/transporte, do maior para o menor</p>
+    </header>
+    <div class="offer-grid">
+        {% for card in cards %}
+            <article class="offer-card {% if forloop.first %}featured{% endif %}"
+                     data-offer-id="{{ card.identity }}"
+                     data-key="{{ card.key }}">
+                <div class="offer-image">{% if card.offer.evidence.image_url %}<img src="{{ card.offer.evidence.image_url }}"
+                                                                                    alt="{{ card.title }} · imagem do anúncio"
+                                                                                    loading="lazy"
+                                                                                    referrerpolicy="no-referrer">{% else %}<span role="img" aria-label="Imagem não disponível para {{ card.title }}">Imagem não disponível</span>{% endif %}</div>
+                <div class="offer-summary">
+                    <p class="fine">{{ card.offer.condition.label }}</p>
+                    <h3><a class="offer-title" href="{{ card.detail_url }}">{{ card.title }}</a></h3>
+
+                    <p class="profit-label">{{ card.profit_label }}</p>
+                    <p class="offer-profit">{{ card.profit }}</p>
+                    <p class="fine">{{ card.profit_scope }}</p>
+                    <dl>
+                        <dt>Preço de compra</dt>
+                        <dd>
+                            {{ card.price }}
+                        </dd>
+                    </dl>
+                    <a class="button secondary"
+                       href="{{ card.detail_url }}">Conferir detalhes<span class="sr-only"> de {{ card.title }}</span></a>
+                </div>
+            </article>
+        {% empty %}
+            {% if page.published_at %}<div class="empty"><h3>Nenhuma oferta neste recorte</h3>
+
+                <p>Tente outra busca ou remova os filtros para voltar à lista.</p><a class="button secondary" href="{{ clear }}">Limpar filtros</a></div>{% endif %}
+        {% endfor %}
+    </div>
+    <nav class="pagination" aria-label="Paginação de ofertas">
+        {% if criteria.page > 1 %}<a class="button secondary"
+                                     href="{{ previous }}"
+                                     hx-get="{{ previous }}"
+                                     hx-target="#exploration"
+                                     hx-swap="outerHTML"
+                                     hx-sync="#exploration:replace">Anterior</a>{% else %}<span aria-disabled="true">Anterior</span>{% endif %}
+        <span>Página {{ criteria.page }} de {{ page.pages }}</span>
+        {% if criteria.page < page.pages %}<a class="button secondary"
+                                              href="{{ next }}"
+                                              hx-get="{{ next }}"
+                                              hx-target="#exploration"
+                                              hx-swap="outerHTML"
+                                              hx-sync="#exploration:replace">Próxima</a>{% else %}<span aria-disabled="true">Próxima</span>{% endif %}
+    </nav>
+    {% if page.published_at %}<p class="fine">Dados publicados em {{ page.published_at|date:"d/m/Y H:i:s" }} UTC. A negociação acontece na plataforma de origem.</p>{% endif %}
+</section>

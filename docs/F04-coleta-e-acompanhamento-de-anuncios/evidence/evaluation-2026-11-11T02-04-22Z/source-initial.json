@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-11-11T01:50:53Z",
+  "searches": [
+    {
+      "interest": "category",
+      "first_page": 23,
+      "has_next": true,
+      "diagnostic": "search_geography_unverified",
+      "second_page": 24,
+      "additional_ids": 24,
+      "elapsed_seconds": 5.94
+    },
+    {
+      "interest": "product",
+      "first_page": 24,
+      "has_next": true,
+      "diagnostic": "search_geography_unverified",
+      "second_page": 24,
+      "additional_ids": 24,
+      "sample": {
+        "external_id": "2044101632968978",
+        "title": "Vendo Playstation 5 Slim 1tera",
+        "price": "2300.00",
+        "condition": "used_like_new",
+        "has_description": true,
+        "published_at": "2026-11-10 21:56:02+00:00",
+        "city": "São Paulo",
+        "location_accuracy": null,
+        "pickup": true,
+        "delivery": null
+      },
+      "elapsed_seconds": 10.32
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/dev/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collecting ... collected 4 items
+
+apps/backend/tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits F07 preflight eval_f04_5f0bd90f93 garimpei_eval_f04_5f0bd90f93 health_ready=200 disposable=true run=fb7a79c2-807e-4d40-9062-10ddb5a9b4f2
+19 objects imported automatically (use -v 2 for details).
+
+SVC-COMPOSICAO-01 699 472.50 PASS
+SVC-COMPOSICAO-03 700 512.50 PASS
+SVC-COMPOSICAO-04 701 512.50 PASS
+SVC-FRETE-01 702 487.00 PASS
+SVC-FRETE-02 703 487.00 PASS
+SVC-FRETE-03 704 512.50 PASS
+SVC-FRETE-05 705 None PASS
+SVC-RECALCULO-03 706 0.00 PASS
+SVC-RECALCULO-04 707 -13.00 PASS
+SVC-INDISPONIBILIDADE-02 708 None PASS
+SVC-COMPOSICAO-02 709 18.37 PASS
+SVC-FRETE-04 PASS
+SVC-RECALCULO-02 PASS
+19 objects imported automatically (use -v 2 for details).
+
+PASSED
+apps/backend/tests/integration/test_profit.py::test_reduction_event_is_immutable_and_revalidates_cep_and_variant F07 preflight eval_f04_71bff2a581 garimpei_eval_f04_71bff2a581 health_ready=200 disposable=true run=2ca50eb7-581f-4a54-b0ac-fc676e1a1d38
+19 objects imported automatically (use -v 2 for details).
+
+SVC-RECALCULO-01/05 PASS ae11a883-0c4b-4b90-adef-ad089d3d6b40 4f86819a-4081-40db-8681-85f1d6b684af
+SVC-FRETE-06 PASS
+19 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-05 PASS
+PASSED
+apps/backend/tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale F07 preflight eval_f04_5036d66350 garimpei_eval_f04_5036d66350 health_ready=200 disposable=true run=ccfcf2a6-d64a-431c-9c4f-30a196f5c6fb
+19 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-04 PASS
+SVC-INDISPONIBILIDADE-01 expired PASS
+19 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-01 insufficient PASS
+19 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-01 expired with current new quote PASS
+19 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-03 PASS
+PASSED
+apps/backend/tests/integration/test_profit.py::test_consistent_snapshot_during_two_head_publication F07 preflight eval_f04_e9baf36108 garimpei_eval_f04_e9baf36108 health_ready=200 disposable=true run=0b4782d7-d837-42f2-b123-7d729e102365
+19 objects imported automatically (use -v 2 for details).
+
+SNAPSHOT PASS: head switch committed after listing read; original evaluation retained in the same snapshot
+PASSED
+
+========================= 4 passed in 70.83s (0:01:10) =========================

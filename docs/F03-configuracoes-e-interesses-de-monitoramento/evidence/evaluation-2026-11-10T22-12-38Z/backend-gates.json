@@ -1,0 +1,23 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "settings": null,
+  "exit": 0,
+  "seconds": 1.149,
+  "summary": [
+    "[gates] uv run --frozen --no-sync python scripts/quality/check_cycles.py",
+    "Cycles: 73 modules, 0 cyclic edges",
+    "[gates] Ciclos: PASS",
+    "[gates] Não utilizados: 73 Python source files",
+    "[gates] uv run --frozen --no-sync vulture src scripts/quality quality/vulture_whitelist.py --min-confidence 60",
+    "[gates] uv run --frozen --no-sync deptry .",
+    "[gates] Não utilizados: PASS",
+    "[gates] Six Python groups approved",
+    "Linting 9/9 files",
+    "Scanning 76 files...",
+    "",
+    "Success! No dependency issues found."
+  ]
+}

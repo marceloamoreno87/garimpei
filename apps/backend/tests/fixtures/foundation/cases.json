@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "gates": [
+    {
+      "name": "types",
+      "files": {
+        "src/garimpei/infra/runtime/negative_types.py": "def negative_types() -> int:\n    return \"not an integer\"\n"
+      },
+      "commands": [
+        [
+          "mypy",
+          "--strict",
+          "src",
+          "tests",
+          "scripts/quality",
+          "manage.py"
+        ]
+      ],
+      "expected": "Incompatible return value"
+    },
+    {
+      "name": "lint_import",
+      "files": {
+        "src/garimpei/infra/runtime/negative_lint.py": "import math\n"
+      },
+      "commands": [
+        [
+          "ruff",
+          "check",
+          "src",
+          "tests",
+          "scripts",
+          "manage.py"
+        ]
+      ],
+      "expected": "F401"
+    },
+    {
+      "name": "lint_template",
+      "files": {
+        "src/garimpei/infra/http/templates/negative.html": "<html><head></head><body><img src=\"x\"></body></html>\n"
+      },
+      "commands": [
+        [
+          "djlint",
+          "src/garimpei/infra/http/templates",
+          "--lint",
+          "--profile=django"
+        ]
+      ],
+      "expected": "negative.html"
+    },
+    {
+      "name": "limits_direct",
+      "files": {
+        "src/garimpei/domain/runtime/negative_direct.py": "from urllib.request import urlopen\n\ndef read_url(url: str) -> object:\n    return urlopen(url)\n"
+      },
+      "commands": [
+        [
+          "lint-imports",
+          "--config",
+          ".importlinter"
+        ]
+      ],
+      "expected": "BROKEN"
+    },
+    {
+      "name": "limits_indirect",
+      "files": {
+        "src/garimpei/domain/runtime/negative_indirect.py": "from garimpei.domain.runtime.negative_helper import invoke\n\ndef run() -> str:\n    return invoke()\n",
+        "src/garimpei/domain/runtime/negative_helper.py": "from garimpei.config.env import logging_context\n\ndef invoke() -> str:\n    return logging_context()[0]\n"
+      },
+      "commands": [
+        [
+          "lint-imports",
+          "--config",
+          ".importlinter"
+        ]
+      ],
+      "expected": "BROKEN"
+    },
+    {
+      "name": "architecture_env",
+      "files": {
+        "src/garimpei/infra/runtime/negative_env.py": "import os\n\ndef negative_env() -> str | None:\n    return os.getenv(\"LOG_LEVEL\")\n"
+      },
+      "commands": [
+        [
+          "python",
+          "scripts/quality/check_architecture.py"
+        ]
+      ],
+      "expected": "environment access"
+    },
+    {
+      "name": "architecture_concrete",
+      "files": {
+        "src/garimpei/usecase/runtime/negative_adapter.py": "class ConcreteProbe:\n    pass\n\ndef create() -> ConcreteProbe:\n    return ConcreteProbe()\n"
+      },
+      "commands": [
+        [
+          "python",
+          "scripts/quality/check_architecture.py"
+        ]
+      ],
+      "expected": "concrete adapter"
+    },
+    {
+      "name": "architecture_path",
+      "files": {
+        "src/garimpei/unexpected.py": "marker = 1\n"
+      },
+      "commands": [
+        [
+          "python",
+          "scripts/quality/check_architecture.py"
+        ]
+      ],
+      "expected": "outside approved"
+    },
+    {
+      "name": "cycles",
+      "files": {
+        "src/garimpei/infra/runtime/negative_a.py": "from garimpei.infra.runtime.negative_b import second\n\ndef first() -> int:\n    return second()\n",
+        "src/garimpei/infra/runtime/negative_b.py": "from garimpei.infra.runtime.negative_a import first\n\ndef second() -> int:\n    return first()\n"
+      },
+      "commands": [
+        [
+          "python",
+          "scripts/quality/check_cycles.py"
+        ]
+      ],
+      "expected": "negative_a"
+    },
+    {
+      "name": "unused_function",
+      "files": {
+        "src/garimpei/infra/runtime/negative_orphan.py": "def orphan_negative_marker() -> int:\n    return 1\n"
+      },
+      "commands": [
+        [
+          "vulture",
+          "src",
+          "scripts/quality",
+          "quality/vulture_whitelist.py",
+          "--min-confidence",
+          "60"
+        ]
+      ],
+      "expected": "orphan_negative_marker"
+    },
+    {
+      "name": "unused_dependency",
+      "files": {},
+      "dependency": "tomli-w",
+      "commands": [
+        [
+          "deptry",
+          "."
+        ]
+      ],
+      "expected": "DEP002"
+    },
+    {
+      "name": "architecture_import_io",
+      "files": {
+        "src/garimpei/infra/runtime/import_side_effect.py": "content = open(\"private-file\")\n"
+      },
+      "commands": [
+        [
+          "python",
+          "scripts/quality/check_architecture.py"
+        ]
+      ],
+      "expected": "I/O at import"
+    }
+  ],
+  "configuration": [
+    {
+      "key": "GARIMPEI_ENV",
+      "value": "wrong",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_ENV"
+    },
+    {
+      "key": "GARIMPEI_INSTANCE",
+      "value": "",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_INSTANCE"
+    },
+    {
+      "key": "DJANGO_SECRET_KEY",
+      "value": "",
+      "expected_exit": 64,
+      "expected_error": "DJANGO_SECRET_KEY"
+    },
+    {
+      "key": "POSTGRES_PASSWORD",
+      "value": "",
+      "expected_exit": 64,
+      "expected_error": "POSTGRES_PASSWORD"
+    },
+    {
+      "key": "WAHA_API_KEY",
+      "value": "",
+      "expected_exit": 64,
+      "expected_error": "WAHA_API_KEY"
+    },
+    {
+      "key": "GARIMPEI_WEB_PORT",
+      "value": "oops",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_WEB_PORT"
+    },
+    {
+      "key": "GARIMPEI_PG_PORT",
+      "value": "0",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_PG_PORT"
+    },
+    {
+      "key": "GARIMPEI_WAHA_PORT",
+      "value": "65536",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_WAHA_PORT"
+    },
+    {
+      "key": "GARIMPEI_STARTUP_TIMEOUT_SECONDS",
+      "value": "0",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_STARTUP_TIMEOUT_SECONDS"
+    },
+    {
+      "key": "GARIMPEI_SHUTDOWN_TIMEOUT_SECONDS",
+      "value": "121",
+      "expected_exit": 64,
+      "expected_error": "GARIMPEI_SHUTDOWN_TIMEOUT_SECONDS"
+    },
+    {
+      "key": "LOG_LEVEL",
+      "value": "invalid",
+      "expected_exit": 64,
+      "expected_error": "LOG_LEVEL"
+    },
+    {
+      "key": "DATABASE_URL",
+      "value": "postgresql://foreign:private-canary@remote/not_owned",
+      "expected_exit": 64,
+      "expected_error": "DATABASE_URL"
+    }
+  ]
+}

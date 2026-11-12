@@ -1,0 +1,56 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_gows_sender_alias_confirms_only_the_bound_account_and_chat[100@lid] ___
+
+recipient = '100@lid'
+
+    @pytest.mark.parametrize("recipient", ["100@lid", "12345@g.us"])
+    def test_gows_sender_alias_confirms_only_the_bound_account_and_chat(recipient: str) -> None:
+        from datetime import UTC, datetime
+        from uuid import uuid4
+    
+        from garimpei.domain.alert.alert import AlertPolicy, Binding, Delivery
+        from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+        from tests.factories.integration import SessionServer, serve_session
+    
+        state = SessionServer(present=True, phase="WORKING", receipt_shape="gows_lid")
+        with serve_session(state) as url:
+            gateway = WahaGateway(url, "synthetic-key", AlertPolicy(history_pages=3))
+            delivery = Delivery(uuid4(), 1, Binding("default", recipient, state.account),
+                "Synthetic proof", datetime.now(UTC), None, False)
+>           assert gateway.send(delivery).state == "confirmed"
+E           AssertionError: assert 'uncertain' == 'confirmed'
+E             
+E             - confirmed
+E             + uncertain
+
+apps/backend/tests/integration/test_integrations.py:201: AssertionError
+_ test_gows_sender_alias_confirms_only_the_bound_account_and_chat[12345@g.us] __
+
+recipient = '12345@g.us'
+
+    @pytest.mark.parametrize("recipient", ["100@lid", "12345@g.us"])
+    def test_gows_sender_alias_confirms_only_the_bound_account_and_chat(recipient: str) -> None:
+        from datetime import UTC, datetime
+        from uuid import uuid4
+    
+        from garimpei.domain.alert.alert import AlertPolicy, Binding, Delivery
+        from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+        from tests.factories.integration import SessionServer, serve_session
+    
+        state = SessionServer(present=True, phase="WORKING", receipt_shape="gows_lid")
+        with serve_session(state) as url:
+            gateway = WahaGateway(url, "synthetic-key", AlertPolicy(history_pages=3))
+            delivery = Delivery(uuid4(), 1, Binding("default", recipient, state.account),
+                "Synthetic proof", datetime.now(UTC), None, False)
+>           assert gateway.send(delivery).state == "confirmed"
+E           AssertionError: assert 'uncertain' == 'confirmed'
+E             
+E             - confirmed
+E             + uncertain
+
+apps/backend/tests/integration/test_integrations.py:201: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_integrations.py::test_gows_sender_alias_confirms_only_the_bound_account_and_chat[100@lid]
+FAILED apps/backend/tests/integration/test_integrations.py::test_gows_sender_alias_confirms_only_the_bound_account_and_chat[12345@g.us]
+2 failed in 1.07s

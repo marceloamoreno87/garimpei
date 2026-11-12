@@ -1,0 +1,9 @@
+{
+  "command": [
+    "deptry",
+    "."
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Assuming the corresponding module name of package 'tomli-w' is 'tomli_w'. Install the package or configure a package_module_name_map entry to override this behaviour.\nScanning 43 files...\n\n\u001b[1mpyproject.toml\u001b[m\u001b[36m:\u001b[m \u001b[1m\u001b[31mDEP002\u001b[m 'tomli-w' defined as a dependency but not used in the codebase\n\u001b[1m\u001b[31mFound 1 dependency issue.\u001b[m\n\nFor more information, see the documentation: https://deptry.com/\n"
+}

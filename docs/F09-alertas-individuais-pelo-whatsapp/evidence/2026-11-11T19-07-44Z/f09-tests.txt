@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 24 items
+
+apps/backend/tests/unit/test_alert_policy.py ...........
+apps/backend/tests/integration/test_alert_consumers.py 26 objects imported automatically (use -v 2 for details).
+
+WRK-ELEGIBILIDADE-01/02; E2E-CLASSIFICACAO-01 PASS
+26 objects imported automatically (use -v 2 for details).
+
+WRK-ELEGIBILIDADE-04/05 PASS
+WRK-RETOMADA-01 / WRK-ELEGIBILIDADE-07 PASS
+.26 objects imported automatically (use -v 2 for details).
+
+E2E-CLASSIFICACAO-02/03 PASS
+WRK-ELEGIBILIDADE-06 condition PASS
+MIGRATION-UPGRADE with existing F04/F05/F06 history PASS
+.26 objects imported automatically (use -v 2 for details).
+
+26 objects imported automatically (use -v 2 for details).
+
+WRK-ELEGIBILIDADE-07 new interest / republication / old identity PASS
+.
+apps/backend/tests/integration/test_alert_delivery.py 26 objects imported automatically (use -v 2 for details).
+
+WRK-RETOMADA-03 PASS
+WRK-ELEGIBILIDADE-03/08 PASS
+WRK-ENVIO-01/02; WRK-RETOMADA-02 PASS
+WRK-ENVIO-05/06/07 PASS
+WRK-ELEGIBILIDADE-09 PASS
+LEASE-CONCURRENCY two connections PASS
+CONFIRMATION-CONCURRENCY consistent dependency history PASS
+.WRK-ENVIO-04/06 actual SIGKILL after POST, same receipt, no duplicate PASS
+.
+apps/backend/tests/integration/test_alert_gateway.py ........
+
+======================== 24 passed in 202.46s (0:03:22) ========================

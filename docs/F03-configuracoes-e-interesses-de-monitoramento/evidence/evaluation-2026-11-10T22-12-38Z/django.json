@@ -1,0 +1,19 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "python",
+    "apps/backend/manage.py",
+    "check"
+  ],
+  "settings": "garimpei.config.test_settings",
+  "exit": 0,
+  "seconds": 0.28,
+  "summary": [
+    "System check identified no issues (0 silenced)."
+  ]
+}

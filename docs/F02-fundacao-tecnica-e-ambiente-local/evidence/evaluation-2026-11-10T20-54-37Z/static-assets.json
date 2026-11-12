@@ -1,0 +1,18 @@
+{
+  "name": "static-assets",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-sync",
+    "python",
+    "manage.py",
+    "collectstatic",
+    "--noinput"
+  ],
+  "cwd": "apps/backend",
+  "exit": 0,
+  "duration_seconds": 0.237,
+  "stdout": "\n2 static files copied to '/home/marce/dev/garimpei/.runtime/eval_final_eval_195216/static'.\n",
+  "stderr": "{\"timestamp\": \"2026-11-10T20:57:10.623726+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"5b5a0a96-1733-46ac-b460-f5ce05831b08\"}\n"
+}

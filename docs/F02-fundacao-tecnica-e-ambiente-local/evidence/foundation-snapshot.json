@@ -1,0 +1,76 @@
+{
+  "observed_at": "2026-11-10T20:52:12.027760+00:00",
+  "environment_id": "eval_final_eval_195216",
+  "run_id": "5b5a0a96-1733-46ac-b460-f5ce05831b08",
+  "database": "garimpei_eval_final_eval_195216",
+  "test_database": "garimpei_test_d9a5f365dbf87e81",
+  "ports": {
+    "web": 18862,
+    "pg": 18962,
+    "waha": 19062
+  },
+  "processes": [
+    {
+      "pid": 145389,
+      "pgid": 145389,
+      "rss_bytes_sum_with_children": 93880320,
+      "children": 1
+    },
+    {
+      "pid": 145390,
+      "pgid": 145390,
+      "rss_bytes_sum_with_children": 65175552,
+      "children": 0
+    }
+  ],
+  "http": {
+    "/health": {
+      "status": 200,
+      "content_type": "application/json",
+      "cache_control": "no-store",
+      "body": {
+        "status": "alive"
+      }
+    },
+    "/health/ready": {
+      "status": 200,
+      "content_type": "application/json",
+      "cache_control": "no-store",
+      "body": {
+        "status": "ready",
+        "environment_id": "eval_final_eval_195216",
+        "run_id": "5b5a0a96-1733-46ac-b460-f5ce05831b08",
+        "checks": {
+          "database": "ready",
+          "migrations": "ready",
+          "worker": "ready",
+          "waha": "ready"
+        }
+      }
+    }
+  },
+  "container_stats": [
+    {
+      "BlockIO": "0B / 786kB",
+      "CPUPerc": "0.94%",
+      "Container": "garimpei-eval_final_eval_195216-postgres-1",
+      "ID": "ba2130a7be5d",
+      "MemPerc": "0.12%",
+      "MemUsage": "38.24MiB / 31.34GiB",
+      "Name": "garimpei-eval_final_eval_195216-postgres-1",
+      "NetIO": "559kB / 558kB",
+      "PIDs": "11"
+    },
+    {
+      "BlockIO": "0B / 77.8kB",
+      "CPUPerc": "0.07%",
+      "Container": "garimpei-eval_final_eval_195216-waha-1",
+      "ID": "262483755a68",
+      "MemPerc": "0.84%",
+      "MemUsage": "269.6MiB / 31.34GiB",
+      "Name": "garimpei-eval_final_eval_195216-waha-1",
+      "NetIO": "3.37kB / 3.26kB",
+      "PIDs": "121"
+    }
+  ]
+}

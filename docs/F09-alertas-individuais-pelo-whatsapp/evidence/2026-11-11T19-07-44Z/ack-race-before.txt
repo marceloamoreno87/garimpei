@@ -1,0 +1,272 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 1 item
+
+apps/backend/tests/integration/test_alert_delivery.py F09 diagnostic decisions [('excluded', 'silent', 12), ('excluded', 'condition_excluded', 2), ('waiting', 'pending_evaluation', 2), ('excluded', 'no_previous_confirmation', 1), ('eligible', 'eligible', 2)]
+F09 diagnostic intents [('review', 'reconciliation_window_ended', 1), ('confirmed', 'ack', 1)]
+F
+
+=================================== FAILURES ===================================
+____________ test_durable_attempts_rollback_history_and_generations ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-79/test_durable_attempts_rollback0')
+
+    def test_durable_attempts_rollback_history_and_generations(tmp_path: Path) -> None:
+        with alert_scenario(tmp_path, enabled=False) as (instance, source, clock, channel):
+            add_cases(source)
+            clock.advance(61)
+            completed(instance, 2)
+            source.rows["903"]["price"] = "R$ 2.299,99"
+            clock.advance(61)
+            completed(instance, 3)
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT count(*) FROM runtime_listingevent e JOIN runtime_listing l ON e.listing_id=l.id WHERE l.external_id='903'",
+                    )
+                    == [(2,)]
+                ),
+                "discovery published",
+            )
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT count(*) FROM runtime_valuationprogress p JOIN runtime_listing l ON p.listing_id=l.id WHERE l.external_id IN ('901','902','903') AND p.current_id IS NOT NULL",
+                    )
+                    == [(3,)]
+                ),
+                "new valuations published",
+                seconds=35,
+            )
+            group = pause_worker(instance)
+            try:
+>               alert_shell(
+                    instance,
+                    """
+    from unittest.mock import patch
+    from dataclasses import replace
+    from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+    from garimpei.domain.listing.read_models import ChangePage
+    from garimpei.main import build_read_listing_changes
+    # Cursor and decision are one transaction even when a failure occurs mid-page.
+    AlertFeedCursor.objects.all().delete()
+    AlertIntent.objects.all().delete()
+    AlertEventDecision.objects.all().delete()
+    page=build_read_listing_changes().execute()
+    original=store._accept
+    calls=0
+    def fail_second(identity,now):
+        global calls
+        calls+=1
+        if calls==2: raise RuntimeError('controlled rollback')
+        original(identity,now)
+    try:
+        with patch.object(store,'_accept',side_effect=fail_second):store.ingest(page,clock())
+    except RuntimeError:pass
+    else:raise AssertionError('fault did not occur')
+    assert not AlertFeedCursor.objects.exists() and not AlertEventDecision.objects.exists()
+    store.ingest(page,clock());store.ingest(page,clock())
+    assert AlertEventDecision.objects.count()==len(page.events)
+    assert store.cursor()==page.cursor
+    print('WRK-RETOMADA-03 PASS')
+    # A wrong observation never supplies the financial calculation.
+    p=build_read_profit().execute(decision().event.id,event=True)
+    assert p.profit.value is not None
+    store.evaluate(decision().event.id,replace(p,observation_id=target('901').latest_id),clock())
+    assert decision().state=='waiting' and decision().reason=='profit_observation_mismatch'
+    assert not AlertIntent.objects.filter(decision=decision()).exists()
+    store.evaluate(decision().event.id,None,clock())
+    assert decision().state=='waiting'
+    store.evaluate(decision().event.id,p,clock())
+    assert intent().decision.financial['observation_id']==str(p.observation_id)
+    print('WRK-ELEGIBILIDADE-03/08 PASS')
+    reduction=ListingEvent.objects.get(listing=target(),kind='price_decreased')
+    reduction_profit=build_read_profit().execute(reduction.id,event=True)
+    store.evaluate(reduction.id,reduction_profit,clock())
+    assert AlertEventDecision.objects.get(event=reduction).reason=='waiting_previous'
+    assert not AlertIntent.objects.filter(decision__event=reduction).exists()
+    
+    # History failure prevents authorizations until ingestion restores it.
+    store.pause()
+    assert store.claim(intent().id,binding,clock(),reconcile=False) is None
+    assert not AlertAttempt.objects.exists()
+    store.ingest(ChangePage((),store.cursor()),clock())
+    # Configuration wait has a durable, sanitized reason and no authorized attempt.
+    store.block(intent().id,'session_unavailable',clock())
+    assert intent().state=='blocked' and not AlertAttempt.objects.exists()
+    AlertIntent.objects.filter(id=intent().id).update(next_action=clock())
+    first=store.claim(intent().id,binding,clock(),reconcile=False)
+    assert first and AlertAttempt.objects.count()==1
+    assert store.claim(intent().id,binding,clock(),reconcile=False) is None
+    # A proven pre-connect failure can retry with the exact same body/reference.
+    store.finish(first,Outcome('safe_retry','not_transmitted'),clock())
+    assert intent().state=='safe_retry'
+    retry_at=intent().next_action
+    second=store.claim(intent().id,binding,retry_at,reconcile=False)
+    assert second and first.reference==second.reference and first.body==second.body
+    assert AlertAttempt.objects.count()==2
+    assert store.claim(intent().id,binding,retry_at,reconcile=False) is None
+    print('WRK-ENVIO-01/02; WRK-RETOMADA-02 PASS')
+    # A crash after authorization is only reclaimed as reconciliation, never another POST.
+    recovered_at=retry_at+timedelta(seconds=61)
+    recovered=store.claim(intent().id,binding,recovered_at,reconcile=True)
+    assert recovered and recovered.reconcile and recovered.generation>second.generation
+    assert AlertAttempt.objects.count()==2
+    assert store.claim(intent().id,binding,recovered_at,reconcile=False) is None
+    store.finish(second,Outcome('confirmed','late',Receipt('old',True,binding.recipient,second.body,2)),recovered_at)
+    assert intent().state=='uncertain' and intent().confirmed_at is None
+    # Changing any part of a bound channel suspends the original intent.
+    assert store.claim(intent().id,replace(binding,recipient='300@c.us'),recovered_at+timedelta(seconds=61),reconcile=True) is None
+    assert intent().reason=='binding_changed' and intent().recipient==binding.recipient
+    resume_at=intent().next_action+timedelta(seconds=61)
+    recovery=store.claim(intent().id,binding,resume_at,reconcile=True)
+    assert recovery
+    from garimpei.usecase.alert.reconcile_alert_usecase import ReconcileAlertUseCase
+    from tests.factories.alert import UnavailableSessionGateway
+    ReconcileAlertUseCase(store,UnavailableSessionGateway(),binding,lambda:resume_at+timedelta(days=1)).execute()
+    assert intent().state=='review' and intent().confirmed_at is None
+    assert not store.ready(resume_at+timedelta(days=2),reconcile=True)
+    assert AlertAttempt.objects.count()==2
+    print('WRK-ENVIO-05/06/07 PASS')
+    store.evaluate(reduction.id,reduction_profit,resume_at+timedelta(days=1))
+    assert AlertEventDecision.objects.get(event=reduction).reason=='no_previous_confirmation'
+    assert AlertEventDecision.objects.get(event=reduction).state=='excluded'
+    print('WRK-ELEGIBILIDADE-09 PASS')
+    # Two independent ORM connections race for the same intent; only one authorizes.
+    from concurrent.futures import ThreadPoolExecutor
+    from django.db import connections
+    store.evaluate(decision('901').event.id,build_read_profit().execute(decision('901').event.id,event=True),clock())
+    AlertIntent.objects.filter(id=intent('901').id).update(next_action=clock())
+    def race_claim(_):
+        try:return build_alert_store().claim(intent('901').id,binding,clock(),reconcile=False)
+        finally:connections.close_all()
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results=list(pool.map(race_claim,range(2)))
+    assert sum(result is not None for result in results)==1
+    assert AlertAttempt.objects.filter(intent=intent('901')).count()==1
+    print('LEASE-CONCURRENCY two connections PASS')
+    # A reader evaluating a dependent event must not mix pre/post confirmation history.
+    from threading import Thread,Event
+    from django.db import connection
+    from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+    from time import monotonic,sleep
+    candidate=next(result for result in results if result is not None)
+    started,finished=Event(),Event()
+    backend=[]
+    def confirm_from_other_connection():
+        try:
+            connection.ensure_connection()
+            backend.append(connection.connection.info.backend_pid)
+            started.set()
+            build_alert_store().finish(candidate,Outcome('confirmed','ack',Receipt('concurrent-ack',True,binding.recipient,candidate.body,1)),clock())
+            finished.set()
+        finally:connections.close_all()
+    with transaction.atomic():
+        lock_monitoring_publication()
+        assert not AlertIntent.objects.filter(id=candidate.reference,state='confirmed').exists()
+        publisher=Thread(target=confirm_from_other_connection)
+        publisher.start()
+        assert started.wait(3)
+        deadline=monotonic()+3
+        waiting=False
+        while not finished.is_set() and monotonic()<deadline:
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT pg_stat_clear_snapshot()')
+                cursor.execute('SELECT wait_event FROM pg_stat_activity WHERE pid=%s',[backend[0]])
+                observed=cursor.fetchone()
+                waiting=observed is not None and observed[0]=='advisory'
+            if waiting:break
+            sleep(.01)
+        assert waiting and not finished.is_set(), 'confirmation crossed an active dependency snapshot'
+        assert AlertIntent.objects.filter(id=candidate.reference,state='authorized').exists()
+    publisher.join(3)
+    assert finished.is_set() and intent('901').state=='confirmed'
+    print('CONFIRMATION-CONCURRENCY consistent dependency history PASS')
+    
+    
+    """,
+                )
+
+apps/backend/tests/integration/test_alert_delivery.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/dev/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-79/test_durable_attempts_rollback0/f04_ddd00cf0e2.env'))
+code = "\nfrom unittest.mock import patch\nfrom dataclasses import replace\nfrom garimpei.infra.persistence.monitoring_unit_o...set() and intent('901').state=='confirmed'\nprint('CONFIRMATION-CONCURRENCY consistent dependency history PASS')\n\n\n"
+
+    def alert_shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(
+            """
+    from datetime import timedelta
+    from decimal import Decimal
+    from uuid import UUID
+    from django.db import transaction
+    from django.utils import timezone
+    from garimpei.main import build_alert_store,build_alert_handler,build_read_profit,build_read_condition,build_classify_condition
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor,AlertEventDecision,AlertIntent,AlertAttempt,ManualConditionHistory
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    clock=_listing_clock(load_listing_settings())
+    store=build_alert_store()
+    binding=Binding('synthetic','100@c.us','200@c.us')
+    def target(key='903'): return Listing.objects.get(external_id=key)
+    def decision(key='903'): return AlertEventDecision.objects.get(event__listing=target(key),event__kind='discovered')
+    def intent(key='903'): return AlertIntent.objects.get(decision=decision(key))
+    """
+            + code
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+               ^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: 26 objects imported automatically (use -v 2 for details).
+E       
+E       WRK-RETOMADA-03 PASS
+E       WRK-ELEGIBILIDADE-03/08 PASS
+E       WRK-ENVIO-01/02; WRK-RETOMADA-02 PASS
+E       WRK-ENVIO-05/06/07 PASS
+E       WRK-ELEGIBILIDADE-09 PASS
+E       LEASE-CONCURRENCY two connections PASS
+E       {"timestamp": "2026-11-11T19:52:06.984138+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a"}
+E       {"timestamp": "2026-11-11T19:52:07.223153+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "blocked", "alert_reason": "session_unavailable"}
+E       {"timestamp": "2026-11-11T19:52:07.241674+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-11T19:52:07.252021+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "safe_retry", "alert_reason": "not_transmitted"}
+E       {"timestamp": "2026-11-11T19:52:07.267549+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-11T19:52:07.280225+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-11T19:52:07.297761+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "uncertain", "alert_reason": "binding_changed"}
+E       {"timestamp": "2026-11-11T19:52:07.309903+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-11T19:52:07.317371+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-11T19:52:07.321282+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "6490a2e4-fe6a-4682-9a7e-e74246bb92f3", "alert_state": "review", "alert_reason": "reconciliation_window_ended"}
+E       {"timestamp": "2026-11-11T19:52:07.378246+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "e0f18638-31af-47c0-8d67-932ff0e5f5f3", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-11T19:52:07.396850+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_ddd00cf0e2", "run_id": "f3781081-b5ef-4907-b235-0f1598f29b5a", "alert_reference": "e0f18638-31af-47c0-8d67-932ff0e5f5f3", "alert_state": "confirmed", "alert_reason": "ack"}
+E       Traceback (most recent call last):
+E         File "/home/marce/dev/garimpei/apps/backend/manage.py", line 8, in <module>
+E           execute_from_command_line()
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E         File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E           utility.execute()
+E           ~~~~~~~~~~~~~~~^^
+E         File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E           self.fetch_command(subcommand).run_from_argv(self.argv)
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E         File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E           self.execute(*args, **cmd_options)
+E           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E         File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E           output = self.handle(*args, **options)
+E         File "/home/marce/dev/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E           exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         File "<string>", line 154, in <module>
+E       AssertionError: confirmation crossed an active dependency snapshot
+
+apps/backend/tests/factories/alert_scenario.py:102: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_alert_delivery.py::test_durable_attempts_rollback_history_and_generations
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+============================== 1 failed in 15.97s ==============================

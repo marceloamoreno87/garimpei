@@ -1,0 +1,35 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_real_engine_canonical_lid_can_be_the_verified_direct_destination _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x74bd6e18d0f0>
+
+    def test_real_engine_canonical_lid_can_be_the_verified_direct_destination(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.setenv("GARIMPEI_WAHA_RECIPIENT", "123456789@lid")
+        monkeypatch.setenv("DJANGO_SECRET_KEY", "synthetic-test-key")
+        monkeypatch.setenv("POSTGRES_PASSWORD", "synthetic-test-key")
+        monkeypatch.setenv("WAHA_API_KEY", "synthetic-test-key")
+>       assert load_alert_settings().recipient == "123456789@lid"
+               ^^^^^^^^^^^^^^^^^^^^^
+
+apps/backend/tests/unit/test_config.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def load_alert_settings() -> AlertSettings:
+        values = _values(os.environ)
+        enabled = values.get("GARIMPEI_ALERTS_ENABLED", "false")
+        if enabled not in {"true", "false"}:
+            raise ConfigurationError("GARIMPEI_ALERTS_ENABLED: expected true or false")
+        recipient = values.get("GARIMPEI_WAHA_RECIPIENT", "")
+        if recipient and not re.fullmatch(r"(?:[0-9]{1,20}@c\.us|[0-9]+(?:-[0-9]+)?@g\.us)", recipient):
+>           raise ConfigurationError(
+                "GARIMPEI_WAHA_RECIPIENT: expected canonical direct or group chat ID"
+            )
+E           garimpei.config.env.ConfigurationError: GARIMPEI_WAHA_RECIPIENT: expected canonical direct or group chat ID
+
+apps/backend/src/garimpei/config/env.py:372: ConfigurationError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_config.py::test_real_engine_canonical_lid_can_be_the_verified_direct_destination
+1 failed in 0.04s

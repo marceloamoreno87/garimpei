@@ -1,0 +1,37 @@
+[
+  {
+    "case": "controle_positivo",
+    "text": "O aparelho funciona perfeitamente.",
+    "expected": "good",
+    "observed": "good",
+    "pass_": true
+  },
+  {
+    "case": "controle_negativo",
+    "text": "O aparelho não liga.",
+    "expected": "not_good",
+    "observed": "defect",
+    "pass_": true
+  },
+  {
+    "case": "falha_intermitente",
+    "text": "Funciona perfeitamente, mas desliga sozinho depois de dez minutos.",
+    "expected": "not_good",
+    "observed": "good",
+    "pass_": false
+  },
+  {
+    "case": "restricao_energia",
+    "text": "Funciona perfeitamente, mas só funciona conectado na tomada.",
+    "expected": "not_good",
+    "observed": "good",
+    "pass_": false
+  },
+  {
+    "case": "contradicao_teste",
+    "text": "Não foi testado. Funciona perfeitamente.",
+    "expected": "not_good",
+    "observed": "good",
+    "pass_": false
+  }
+]

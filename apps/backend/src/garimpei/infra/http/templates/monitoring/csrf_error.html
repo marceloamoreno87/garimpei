@@ -1,0 +1,11 @@
+{% extends "monitoring/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Recarregue antes de salvar</h1>
+        <div class="error-summary" id="form-error" role="alert" tabindex="-1">
+            <p>Não foi possível validar este formulário. Seus dados salvos foram preservados.</p>
+            <p>CSRF_FAILED</p>
+        </div>
+        <a href="/">Voltar à configuração salva</a>
+    </main>
+{% endblock %}

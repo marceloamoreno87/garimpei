@@ -1,0 +1,105 @@
+{% extends "monitoring/layout.html" %}
+{% load static %}
+{% block title %}Integrações · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" class="integrations" tabindex="-1">
+        <header class="page-heading">
+            <h1>Conecte seu garimpo</h1>
+            <p>Configure o acesso às ofertas no Facebook e escolha onde receber os alertas no WhatsApp.</p>
+        </header>
+        <nav class="integration-links" aria-label="Integrações">
+            <a href="#facebook">Facebook Marketplace</a>
+            <a href="#whatsapp">WhatsApp</a>
+        </nav>
+        {% if saved == "facebook" %}
+            <p class="notice" role="status">Solicitação recebida. Acompanhe o estado da conexão abaixo.</p>
+        {% elif saved == "whatsapp" %}
+            <p class="notice" role="status">Configuração do WhatsApp atualizada.</p>
+        {% endif %}
+        <section id="facebook" class="integration-section" aria-labelledby="facebook-title">
+            <div class="integration-heading">
+                <h2 id="facebook-title">Facebook Marketplace</h2>
+                <p>Entre no Facebook pela janela própria do Garimpei. O coletor reutilizará esse perfil neste computador.</p>
+            </div>
+            <div class="integration-body">
+                {% include "integration/facebook_notice.html" with facebook_detail=True %}
+                <p class="help">Faça login e confirme os desafios diretamente no Facebook. Depois volte aqui para verificar o acesso. A coleta automática usa uma janela visível; o perfil e a sessão ficam guardados privadamente neste computador.</p>
+                <p class="help">Bloqueios do Facebook pausam a coleta e exigem sua confirmação. Manter o perfil não garante que a plataforma aceite a automação.</p>
+                {% if config.facebook_saved_at %}<p class="fine">Última atualização {{ config.facebook_saved_at|date:"d/m/Y H:i" }}</p>{% endif %}
+                <details class="cookie-help">
+                    <summary>Opção avançada: importar cookies</summary>
+                    <p>No navegador em que você está conectado ao Facebook, abra as ferramentas de desenvolvedor (F12), acesse Rede e abra uma requisição para facebook.com. Copie o valor do cabeçalho Cookie. Você também pode colar um JSON exportado de cookies ou um estado de sessão Playwright.</p>
+                    <p>Os dados precisam incluir c_user e xs. Quando o Facebook pedir confirmação de acesso, conclua essa etapa no próprio Facebook antes de copiar novos cookies.</p>
+                <form method="post" action="{% url 'integration-settings' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="facebook">
+                    <label for="facebook-cookies">Cookies do Facebook</label>
+                    <textarea id="facebook-cookies" name="cookies" rows="5" required maxlength="131072"
+                              autocomplete="off" spellcheck="false" autocapitalize="off"
+                              aria-describedby="cookies-help"></textarea>
+                    <p id="cookies-help" class="help">Cole o cabeçalho Cookie ou o JSON. Seus cookies são guardados privadamente neste computador e não serão exibidos novamente.</p>
+                    <div class="integration-actions">
+                        <button class="primary" type="submit">Salvar cookies</button>
+                    </div>
+                </form>
+                </details>
+            </div>
+        </section>
+        <section id="whatsapp" class="integration-section" aria-labelledby="whatsapp-title">
+            <div class="integration-heading">
+                <h2 id="whatsapp-title">WhatsApp</h2>
+                <p>Conecte sua conta e escolha um grupo para os alertas de ofertas.</p>
+            </div>
+            <div class="integration-body">
+                {% include "integration/whatsapp_status.html" %}
+                {% if account_changed %}
+                    <p class="notice" role="alert">Sua conta mudou. Escolha e salve o grupo novamente para retomar os alertas.</p>
+                {% endif %}
+                {% if connected %}
+                    {% if integration.groups_unavailable %}
+                        <div class="notice" role="alert">
+                            <p>Não foi possível carregar seus grupos agora.</p>
+                            <a href="{% url 'integration-settings' %}#whatsapp">Tentar carregar novamente</a>
+                        </div>
+                    {% elif groups %}
+                        <form method="post" action="{% url 'integration-settings' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="whatsapp">
+                            <input type="hidden" name="account" value="{{ integration.whatsapp.account }}">
+                            <label for="whatsapp-group">Grupo que receberá os alertas</label>
+                            <select id="whatsapp-group" name="group" required aria-describedby="group-help">
+                                <option value="">Escolha um grupo</option>
+                                {% for group in groups %}
+                                    <option value="{{ group.id }}" {% if group.id == config.whatsapp_group %}selected{% endif %}>{{ group.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <p id="group-help" class="help">Selecione um grupo do qual esta conta participa.</p>
+                            <label class="choice" for="alerts-enabled">
+                                <input id="alerts-enabled" name="enabled" type="checkbox" {% if config.alerts_enabled and not account_changed %}checked{% endif %}>
+                                Ativar alertas neste grupo
+                            </label>
+                            <div class="integration-actions">
+                                <button class="primary" type="submit">Salvar grupo e alertas</button>
+                                <a href="{% url 'integration-settings' %}#whatsapp">Atualizar grupos</a>
+                            </div>
+                        </form>
+                    {% else %}
+                        <p class="notice" role="status">Nenhum grupo disponível nesta conta. Entre no grupo desejado pelo WhatsApp e atualize esta página.</p>
+                        <a class="button secondary" href="{% url 'integration-settings' %}#whatsapp">Atualizar grupos</a>
+                    {% endif %}
+                {% endif %}
+                {% if config.whatsapp_group_name %}
+                    <p class="saved-destination">Grupo salvo: <strong>{{ config.whatsapp_group_name }}</strong> · {% if account_changed %}aguardando confirmação da conta{% elif config.alerts_enabled %}alertas ativados{% else %}alertas desativados{% endif %}</p>
+                {% endif %}
+                {% if config.alerts_enabled %}
+                    <form method="post" action="{% url 'integration-settings' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="disable">
+                        <button class="secondary" type="submit">Desativar alertas</button>
+                    </form>
+                {% endif %}
+                <p class="help">Conectar a conta ou salvar o grupo não envia uma mensagem de teste.</p>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+  "desktop_width": 1440,
+  "mobile_width": 390,
+  "no_horizontal_overflow": true,
+  "csrf_native_forms": true,
+  "synthetic_cookie_echo": false,
+  "synthetic_qr_loaded_width": 1,
+  "group_saved_and_activated": true,
+  "expiry_renewal_notice": true,
+  "same_hash_connection_transition_before": "stale DOM despite updated backend",
+  "same_hash_connection_transition_after": "full refresh via HX-Refresh; controls disappear on unavailable and reappear on WORKING without manual reload",
+  "real_credentials_captured": false
+}

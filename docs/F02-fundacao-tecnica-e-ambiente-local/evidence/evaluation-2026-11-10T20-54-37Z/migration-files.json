@@ -1,0 +1,19 @@
+{
+  "name": "migration-files",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-sync",
+    "python",
+    "manage.py",
+    "makemigrations",
+    "--check",
+    "--dry-run"
+  ],
+  "cwd": "apps/backend",
+  "exit": 0,
+  "duration_seconds": 0.236,
+  "stdout": "No changes detected\n",
+  "stderr": "{\"timestamp\": \"2026-11-10T20:57:09.904951+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"5b5a0a96-1733-46ac-b460-f5ce05831b08\"}\n"
+}

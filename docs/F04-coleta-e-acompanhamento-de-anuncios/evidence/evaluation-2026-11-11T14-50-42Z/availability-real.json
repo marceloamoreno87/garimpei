@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-11-11T14:44:06.629323+00:00",
+  "uuid": "ff5afdd8-a592-4962-9c64-2fd7f5d1db7c",
+  "external_id": "1532605772041551",
+  "source_available": false,
+  "availability_evidence": "source_unavailable_product",
+  "coverage": {
+    "pickup": "excluded",
+    "shipping": "excluded",
+    "distance_km": null,
+    "pickup_reason": "listing_unavailable",
+    "shipping_reason": "listing_unavailable",
+    "pickup_candidate": false,
+    "pickup_precision": "unavailable",
+    "shipping_candidate": false
+  },
+  "current_price": null,
+  "last_known_price": "3800.00",
+  "historical_observations": 5,
+  "events_from_unavailable_observations": 0
+}

@@ -1,0 +1,6 @@
+garimpei/infra/http/templates/listing/results.html
+garimpei/infra/http/templates/listing/offer_detail.html
+garimpei/infra/http/static/listing/exploration.css
+garimpei/infra/http/static/listing/exploration.js
+garimpei/infra/persistence/migrations/0007_exploration.py
+Verified packaged assets and migration.

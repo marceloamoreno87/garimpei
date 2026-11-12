@@ -1,0 +1,132 @@
+{
+  "categories": {
+    "electronics": "479353692612078",
+    "cameras": "cameras"
+  },
+  "product": "PlayStation 5",
+  "reference_cep": "01001000",
+  "other_cep": "02002000",
+  "cards": {
+    "101": {
+      "url": "https://www.facebook.com/marketplace/item/101/",
+      "title": "PlayStation 5 Slim",
+      "price": "R$ 2.300,00"
+    },
+    "102": {
+      "url": "https://www.facebook.com/marketplace/item/102/",
+      "title": "Câmera usada"
+    },
+    "103": {
+      "url": "https://www.facebook.com/marketplace/item/103/",
+      "title": "PlayStation 5 Digital"
+    },
+    "104": {
+      "url": "https://www.facebook.com/marketplace/item/104/",
+      "title": "PlayStation 50"
+    },
+    "105": {
+      "url": "https://www.facebook.com/marketplace/item/105/",
+      "title": "PlayStation 5 Slim",
+      "price": "R$ 2.300,00"
+    }
+  },
+  "details": {
+    "101": {
+      "url": "https://www.facebook.com/marketplace/item/101/",
+      "title": "PlayStation 5 Slim",
+      "price": "R$ 2.300,00",
+      "condition": "Funciona, marcas de uso",
+      "pickup": true,
+      "location": {
+        "latitude": -23.371035247618817,
+        "longitude": -46.63,
+        "accuracy_m": 0,
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "delivery": true,
+      "delivery_cep": "01001000",
+      "freight": "R$ 32,50",
+      "freight_cep": "01001000"
+    },
+    "102": {
+      "url": "https://www.facebook.com/marketplace/item/102/",
+      "title": "Câmera usada",
+      "pickup": true,
+      "location": {
+        "latitude": -23.37013592725509,
+        "longitude": -46.63,
+        "accuracy_m": 0,
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "delivery": false,
+      "delivery_cep": "01001000"
+    },
+    "103": {
+      "url": "https://www.facebook.com/marketplace/item/103/",
+      "title": "PlayStation 5 Digital",
+      "pickup": true,
+      "location": {
+        "latitude": -23.36923660689137,
+        "longitude": -46.63,
+        "accuracy_m": 0,
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "delivery": true,
+      "delivery_cep": "02002000"
+    },
+    "104": {
+      "url": "https://www.facebook.com/marketplace/item/104/",
+      "title": "PlayStation 50"
+    },
+    "105": {
+      "url": "https://www.facebook.com/marketplace/item/105/",
+      "title": "PlayStation 5 Slim",
+      "price": "R$ 2.300,00",
+      "pickup": true,
+      "location": {
+        "latitude": -23.505033981813774,
+        "longitude": -46.63,
+        "accuracy_m": 0,
+        "city": "Osasco",
+        "state": "SP"
+      },
+      "freight": "R$ 20,00",
+      "delivery": true,
+      "delivery_cep": "01001000"
+    },
+    "106": {
+      "url": "https://www.facebook.com/marketplace/item/106/",
+      "title": "PlayStation 5 recuperado",
+      "published_at": "2026-01-01T12:01:00+00:00",
+      "pickup": true,
+      "location": {
+        "latitude": -23.505033981813774,
+        "longitude": -46.63,
+        "accuracy_m": null,
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "freight": "R$ 20,00",
+      "price": "R$ 2.000,00"
+    }
+  },
+  "geocoding": {
+    "01001000": {
+      "latitude": -23.55,
+      "longitude": -46.63,
+      "accuracy_m": 0,
+      "city": "São Paulo",
+      "state": "SP"
+    },
+    "02002000": {
+      "latitude": -23.49,
+      "longitude": -46.6,
+      "accuracy_m": 0,
+      "city": "São Paulo",
+      "state": "SP"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+F07 preflight eval_f04_cf98ac8fc3 garimpei_eval_f04_cf98ac8fc3 health_ready=200 disposable=true run=3c25509b-0a33-4f67-9e7f-baf1d214a353
+21 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-04 PASS
+SVC-INDISPONIBILIDADE-01 expired PASS
+21 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-01 insufficient PASS
+21 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-01 expired with current new quote PASS
+21 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-03 PASS
+.
+1 passed in 25.32s

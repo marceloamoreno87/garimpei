@@ -1,0 +1,21 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "python",
+    "apps/backend/manage.py",
+    "collectstatic",
+    "--noinput"
+  ],
+  "settings": "garimpei.config.test_settings",
+  "exit": 0,
+  "seconds": 0.217,
+  "summary": [
+    "",
+    "2 static files copied to '/home/marce/dev/garimpei/apps/backend/.test-static', 7 unmodified."
+  ]
+}

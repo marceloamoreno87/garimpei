@@ -1,0 +1,9 @@
+{
+  "django": "5.2.19",
+  "migrations": "applied",
+  "uncommitted_state_and_job_invisible": true,
+  "commit_state_and_job_visible": true,
+  "rollback_state_and_job_absent": true,
+  "official_django_worker_consumed_probe": true,
+  "worker_exit": 0
+}

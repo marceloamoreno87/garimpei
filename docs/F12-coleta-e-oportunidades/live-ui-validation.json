@@ -1,0 +1,8 @@
+{
+  "shippingField": false,
+  "feeField": true,
+  "savedUnavailableCategory": true,
+  "selectedCategories": 4,
+  "overflow": false,
+  "source": "Running development UI, existing preferences preserved; aggregate checks only"
+}

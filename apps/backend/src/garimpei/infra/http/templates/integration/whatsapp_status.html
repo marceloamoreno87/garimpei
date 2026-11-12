@@ -1,0 +1,30 @@
+<div id="whatsapp-status" class="whatsapp-status" aria-live="polite"
+     hx-get="{% url 'integration-status' %}?expected={% if connected %}WORKING{% else %}PAIRING{% endif %}"
+     hx-trigger="every 5s" hx-swap="outerHTML">
+    {% if connected %}
+        <p class="connection-label">WhatsApp conectado</p>
+        <p class="help">Sua conta está pronta para escolher o grupo.</p>
+    {% elif pairing %}
+        <p class="connection-label">Conecte pelo seu celular</p>
+        <p>No WhatsApp, abra <strong>Aparelhos conectados → Conectar um aparelho</strong> e escaneie o QR abaixo.</p>
+        {% if qr_ready %}
+            <img class="pairing-qr" src="{% url 'integration-qr' %}?v={{ qr_version }}"
+                 width="256" height="256" alt="QR code para conectar sua conta do WhatsApp">
+        {% else %}
+            <p class="notice" role="status">Preparando o QR code. Aguarde alguns instantes.</p>
+        {% endif %}
+        <p class="help">O estado e o QR são atualizados automaticamente enquanto esta página está aberta.</p>
+    {% else %}
+        <p class="connection-label">WhatsApp desconectado</p>
+        {% if integration.whatsapp.phase == "UNAVAILABLE" %}
+            <p class="notice" role="alert">O WhatsApp está indisponível agora. Tente novamente em instantes.</p>
+        {% else %}
+            <p>Conecte sua conta para listar os grupos disponíveis.</p>
+        {% endif %}
+        <form method="post" action="{% url 'integration-settings' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="connect">
+            <button class="primary" type="submit">Conectar WhatsApp</button>
+        </form>
+    {% endif %}
+</div>

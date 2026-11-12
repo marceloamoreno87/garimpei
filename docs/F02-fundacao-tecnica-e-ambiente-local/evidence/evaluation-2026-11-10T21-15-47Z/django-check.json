@@ -1,0 +1,17 @@
+{
+  "name": "django-check",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-sync",
+    "python",
+    "manage.py",
+    "check"
+  ],
+  "cwd": "apps/backend",
+  "exit": 0,
+  "duration_seconds": 0.271,
+  "stdout": "System check identified no issues (0 silenced).\n",
+  "stderr": "{\"timestamp\": \"2026-11-10T21:18:44.809440+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_final_eval_195216\", \"run_id\": \"75ad34c3-884c-43ea-ae10-ce0611e50e0e\"}\n"
+}

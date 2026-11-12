@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/dev/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0
+collected 227 items
+
+apps/backend/tests/http/test_condition_recovery.py ..                    [  0%]
+apps/backend/tests/http/test_health.py ...                               [  2%]
+apps/backend/tests/http/test_listing_condition.py ..                     [  3%]
+apps/backend/tests/http/test_monitoring.py .                             [  3%]
+apps/backend/tests/http/test_tracking.py .                               [  3%]
+apps/backend/tests/integration/test_alert_consumers.py ...               [  5%]
+apps/backend/tests/integration/test_alert_delivery.py ..                 [  6%]
+apps/backend/tests/integration/test_alert_gateway.py ........            [  9%]
+apps/backend/tests/integration/test_collection.py ........               [ 13%]
+apps/backend/tests/integration/test_concurrency.py ..                    [ 14%]
+apps/backend/tests/integration/test_exploration.py ..                    [ 14%]
+apps/backend/tests/integration/test_facebook_gateway.py .                [ 15%]
+apps/backend/tests/integration/test_foundation.py .........              [ 19%]
+apps/backend/tests/integration/test_listing_condition.py ....            [ 21%]
+apps/backend/tests/integration/test_marketplace_browser.py ..            [ 22%]
+apps/backend/tests/integration/test_monitoring_persistence.py ......     [ 24%]
+apps/backend/tests/integration/test_profit.py ....                       [ 26%]
+apps/backend/tests/integration/test_valuation.py ......                  [ 29%]
+apps/backend/tests/lifecycle/test_copy.py .                              [ 29%]
+apps/backend/tests/lifecycle/test_network_cleanup.py .                   [ 29%]
+apps/backend/tests/lifecycle/test_operations.py ........................ [ 40%]
+                                                                         [ 40%]
+apps/backend/tests/lifecycle/test_rollback.py ..                         [ 41%]
+apps/backend/tests/lifecycle/test_startup_failures.py ........           [ 44%]
+apps/backend/tests/quality/test_gate_failures.py .............           [ 50%]
+apps/backend/tests/unit/test_alert_policy.py ...........                 [ 55%]
+apps/backend/tests/unit/test_config.py .....                             [ 57%]
+apps/backend/tests/unit/test_error_handler.py ..                         [ 58%]
+apps/backend/tests/unit/test_exploration.py ..                           [ 59%]
+apps/backend/tests/unit/test_listing_condition.py ............           [ 64%]
+apps/backend/tests/unit/test_listing_policy.py ......                    [ 67%]
+apps/backend/tests/unit/test_listing_window.py ..                        [ 68%]
+apps/backend/tests/unit/test_logging.py ..                               [ 69%]
+apps/backend/tests/unit/test_marketplace_parser.py ...                   [ 70%]
+apps/backend/tests/unit/test_marketplace_source.py ..                    [ 71%]
+apps/backend/tests/unit/test_monitoring_catalog.py .....                 [ 73%]
+apps/backend/tests/unit/test_monitoring_configuration.py ............... [ 80%]
+..........................                                               [ 91%]
+apps/backend/tests/unit/test_profit.py ...........                       [ 96%]
+apps/backend/tests/unit/test_readiness.py ..                             [ 97%]
+apps/backend/tests/unit/test_valuation.py ......                         [100%]
+
+======================= 227 passed in 868.97s (0:14:28) ========================

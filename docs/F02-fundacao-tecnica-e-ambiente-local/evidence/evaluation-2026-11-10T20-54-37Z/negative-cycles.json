@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "scripts/quality/check_cycles.py"
+  ],
+  "exit": 1,
+  "stdout": "Cycles: 42 modules, 2 cyclic edges\ngarimpei.infra.runtime.negative_a -> garimpei.infra.runtime.negative_b -> ... -> garimpei.infra.runtime.negative_a\ngarimpei.infra.runtime.negative_b -> garimpei.infra.runtime.negative_a -> ... -> garimpei.infra.runtime.negative_b\n",
+  "stderr": ""
+}

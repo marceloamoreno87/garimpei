@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "feature": "F07",
+  "items": 20,
+  "acs": 4,
+  "correction_cycles": 0,
+  "tests": 199,
+  "backend_gates": 6,
+  "report": "docs/F07-calculo-e-composicao-do-lucro-estimado/eval-report-2026-11-11T17-53-22Z.md",
+  "journal": "docs/F07-calculo-e-composicao-do-lucro-estimado/orchestration-2026-11-11T17-43-16Z.md",
+  "completed_at": "2026-11-11T18:04:30.639386+00:00",
+  "owned_focused_instances_cleaned": true
+}

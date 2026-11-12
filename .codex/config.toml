@@ -1,0 +1,14 @@
+# Project conventions live in AGENTS.md; workflows live in .agents/skills.
+# Inherit the user's model, permissions, MCP servers and ai-memory hooks.
+
+[plugins."adrs-management@fullcycle-claude-marketplace"]
+enabled = true
+
+[plugins."diagrams-generator@fullcycle-claude-marketplace"]
+enabled = true
+
+[plugins."project-analizer@fullcycle-claude-marketplace"]
+enabled = true
+
+[plugins."development-guidelines@fullcycle-claude-marketplace"]
+enabled = true

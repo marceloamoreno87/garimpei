@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "scripts/quality/check_architecture.py"
+  ],
+  "exit": 1,
+  "stdout": "Architecture: 41 source files; 1 violations\ninfra/runtime/import_side_effect.py:1: I/O at import time is forbidden\n",
+  "stderr": ""
+}

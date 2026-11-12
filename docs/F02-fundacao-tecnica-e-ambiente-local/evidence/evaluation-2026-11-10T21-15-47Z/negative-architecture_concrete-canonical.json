@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "exit": 1,
+  "stdout": "[gates] Tipos: 41 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 64 source files\n[gates] Tipos: PASS\n[gates] Lint: 41 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nAll checks passed!\n[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py\nunformatted: File would be reformatted\n --> src/garimpei/usecase/runtime/negative_adapter.py:4:1\n  |\n3 |\n4 +\n5 | def create() -> ConcreteProbe:\n  |\n\n1 file would be reformatted, 63 files already formatted\n",
+  "stderr": "[gates] Lint: FAILED\n"
+}

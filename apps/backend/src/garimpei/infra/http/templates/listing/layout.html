@@ -1,0 +1,10 @@
+{% extends "monitoring/layout.html" %}
+{% load static %}
+{% block title %}Ofertas · Garimpei{% endblock %}
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'listing/condition.css' %}">
+    <script src="{% static 'listing/condition.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'listing/exploration.css' %}">
+    <script src="{% static 'listing/exploration.js' %}" defer></script>
+{% endblock %}

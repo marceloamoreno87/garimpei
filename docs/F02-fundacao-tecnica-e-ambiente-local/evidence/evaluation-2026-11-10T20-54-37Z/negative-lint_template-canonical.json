@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "scripts/run-gates.mjs"
+  ],
+  "exit": 1,
+  "stdout": "[gates] Tipos: 40 Python source files\n[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py\nSuccess: no issues found in 62 source files\n[gates] Tipos: PASS\n[gates] Lint: 40 Python source files\n[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py\nAll checks passed!\n[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py\n62 files already formatted\n[gates] uv run --frozen --no-sync djlint src/garimpei/infra/http/templates --lint --profile=django\n\n\n\nsrc/garimpei/infra/http/templates/negative.html\n───────────────────────────────────────────────────────────────────────────────\nH005 1:0 Html tag should have a non-empty lang attribute. <html>\nH007 1:0 <!DOCTYPE ... > should be present before the html tag. <html\nH016 1:0 Missing title tag in html. <html>\nH030 1:0 Consider adding a meta description. <html><head></head><\nH013 1:25 Img tag should have an alt attribute. <img src=\"x\">\n\nLinted 2 files, found 5 errors.\n\n",
+  "stderr": "Linting 2/2 files\n[gates] Lint: FAILED\n"
+}

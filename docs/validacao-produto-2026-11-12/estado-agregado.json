@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-12T01:11:06.075553+00:00",
+  "listings": 1563,
+  "fields": {
+    "title_present": 1563,
+    "description_present": 1258,
+    "image_url_absent": 1563,
+    "published_at_present": 1563,
+    "condition_present": 1304,
+    "description_absent": 305,
+    "condition_absent": 259
+  },
+  "valuation_reasons": {
+    "produto_indeterminado": 1546,
+    "amostra_insuficiente": 17
+  },
+  "latest_observation": "2026-11-12 01:10:14.266472+00:00",
+  "collection": [
+    {
+      "access_suspended": false,
+      "failures": 0,
+      "next_attempt_at": "2026-11-12 01:12:00.830366+00:00",
+      "last_success_at": null
+    }
+  ],
+  "cycles": [
+    {
+      "phase": "running",
+      "started_at": "2026-11-12 00:59:01.365421+00:00",
+      "finished_at": null,
+      "published_count": 100
+    },
+    {
+      "phase": "superseded",
+      "started_at": "2026-11-12 00:09:34.580676+00:00",
+      "finished_at": "2026-11-12 00:59:00.287634+00:00",
+      "published_count": 876
+    },
+    {
+      "phase": "partial",
+      "started_at": "2026-11-11 23:19:09.683727+00:00",
+      "finished_at": "2026-11-11 23:43:11.685264+00:00",
+      "published_count": 557
+    },
+    {
+      "phase": "partial",
+      "started_at": "2026-11-11 22:40:32.914792+00:00",
+      "finished_at": "2026-11-11 23:01:52.261931+00:00",
+      "published_count": 742
+    }
+  ],
+  "decisions": [
+    {
+      "state": "excluded",
+      "reason": "produto_incompativel",
+      "n": 4
+    },
+    {
+      "state": "excluded",
+      "reason": "silent",
+      "n": 1525
+    },
+    {
+      "state": "excluded",
+      "reason": "condition_excluded",
+      "n": 42
+    }
+  ],
+  "intents": [],
+  "exploration": {
+    "at": "2026-11-12 01:10:25.371489+00:00",
+    "offers": 100,
+    "with_profit": 0
+  }
+}

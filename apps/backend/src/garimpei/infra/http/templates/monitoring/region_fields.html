@@ -1,0 +1,11 @@
+<fieldset>
+    <legend>Sua região</legend>
+    <label for="cep">CEP de referência</label>
+    <input id="cep" name="cep" value="{{ cep }}" inputmode="numeric" autocomplete="postal-code" aria-describedby="cep-help{% if error.field == 'cep' %} cep-error{% endif %}" {% if error.field == 'cep' %}aria-invalid="true"{% endif %}>
+    <p class="help" id="cep-help">Use 01001-000 ou oito dígitos. Validamos apenas o formato.</p>
+    {% if error.field == 'cep' %}<p class="field-error" id="cep-error">{{ error }}</p>{% endif %}
+    <div class="region-context">
+        <p>O CEP orienta a busca no Marketplace, com raio solicitado de até 500 km. O alcance dos resultados depende da fonte.</p>
+        <p>Os alertas mostram a oferta e o lucro potencial antes de frete/transporte.</p>
+    </div>
+</fieldset>

@@ -1,0 +1,56 @@
+{
+  "source": "facebook_marketplace",
+  "verified_at": "2026-11-11T23:44:27Z",
+  "evidence_url": "https://www.facebook.com/marketplace/category/electronics/",
+  "entries": [
+    {
+      "id": "479353692612078",
+      "label": "Eletrônicos",
+      "parent_id": null,
+      "source_url": "https://www.facebook.com/marketplace/category/electronics/",
+      "selectable": true
+    },
+    {
+      "id": "cameras",
+      "label": "Câmeras",
+      "parent_id": "479353692612078",
+      "source_url": "https://www.facebook.com/marketplace/category/cameras/",
+      "selectable": true
+    },
+    {
+      "id": "cell-phones",
+      "label": "Celulares (rota indisponível)",
+      "parent_id": "479353692612078",
+      "source_url": "https://www.facebook.com/marketplace/category/cell-phones/",
+      "selectable": false
+    },
+    {
+      "id": "computers",
+      "label": "Computadores",
+      "parent_id": "479353692612078",
+      "source_url": "https://www.facebook.com/marketplace/category/computers/",
+      "selectable": true
+    },
+    {
+      "id": "video-games",
+      "label": "Videogames e consoles",
+      "parent_id": null,
+      "source_url": "https://www.facebook.com/marketplace/category/video-games/",
+      "selectable": true
+    },
+    {
+      "id": "headphones",
+      "label": "Fones de ouvido",
+      "parent_id": null,
+      "source_url": "https://www.facebook.com/marketplace/category/headphones/",
+      "selectable": true
+    },
+    {
+      "id": "tvs",
+      "label": "TVs",
+      "parent_id": null,
+      "source_url": "https://www.facebook.com/marketplace/category/tvs/",
+      "selectable": true
+    }
+  ]
+}
