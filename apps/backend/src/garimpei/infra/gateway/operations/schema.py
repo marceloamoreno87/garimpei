@@ -52,6 +52,8 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
     "runtime.inferencerequest": (
         InferenceRequest,
         (
+            "cohort_id",
+            "cohort_generation",
             "observation",
             "revision",
             "signature",
