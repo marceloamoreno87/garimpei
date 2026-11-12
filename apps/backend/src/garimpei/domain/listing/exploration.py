@@ -97,6 +97,7 @@ class Offer:
     valuation: Valuation | None
     unavailable: bool = False
     last_valid_at: datetime | None = None
+    observation_id: UUID | None = None
 
     @property
     def title(self) -> str:

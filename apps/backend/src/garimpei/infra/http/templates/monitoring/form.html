@@ -20,7 +20,6 @@
                 <p>{{ error }}</p>
                 {% if error.status == 409 %}<a href="{{ form_url }}">Recarregar a versão salva</a>{% endif %}
                 {% if error.field == 'cep' %}<a href="#cep">Corrigir CEP</a>{% endif %}
-                {% if error.field == 'shipping_estimate' %}<a href="#shipping_estimate">Corrigir frete estimado</a>{% endif %}
                 {% if error.field == 'resale_fee_percent' %}<a href="#resale_fee_percent">Corrigir percentual provisório</a>{% endif %}
                 {% if error.field == 'product_names' %}<a href="#new_product">Corrigir nome/modelo</a>{% endif %}
             </div>

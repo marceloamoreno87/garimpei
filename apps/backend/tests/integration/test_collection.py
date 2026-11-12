@@ -639,6 +639,9 @@ assert cutover <= state.monitoring_started_at <= timezone.now()
 assert list(ListingEvent.objects.values_list('id','kind','silent'))==before_events
 assert Listing.objects.get(id=listing.id).discovery_emitted
 assert not Listing.objects.get(external_id='102').discovery_emitted
+# Current ORM includes additive fields from subsequent features.
+executor=MigrationExecutor(connection)
+executor.migrate(executor.loader.graph.leaf_nodes())
 preserved=AlertIntent.objects.get(id=receipt.id)
 assert preserved.state=='confirmed' and preserved.confirmed_message=='synthetic-preserved-receipt'
 assert preserved.confirmed_ack==1 and preserved.body=='historical frozen message'

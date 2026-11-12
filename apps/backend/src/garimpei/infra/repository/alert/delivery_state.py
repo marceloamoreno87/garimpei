@@ -8,6 +8,8 @@ from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.infra.persistence.alert_models import AlertAttempt, AlertIntent
 from garimpei.infra.queries.alert.event_source import current_eligibility
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
+from garimpei.infra.repository.alert.financial import decode_snapshot
+from garimpei.infra.repository.alert.message_authorization import prepare_financial
 
 logger = logging.getLogger("garimpei.alert")
 
@@ -59,6 +61,11 @@ def _claim(
     listings: PostgresListingQueries,
     policy: AlertPolicy,
 ) -> Delivery | None:
+    reason = prepare_financial(row, now)
+    if reason is not None:
+        if row.state != "review":
+            postpone(row, reason, now, policy)
+        return None
     if not reconcile:
         reason = current_eligibility(row.decision.event.listing, configuration, listings)
         if reason == "waiting_scope":
@@ -90,7 +97,9 @@ def _attempt(row: AlertIntent, binding: Binding, now: datetime, reconcile: bool)
     if reconcile:
         return row.attempts.latest("ordinal")
     if not row.body:
-        event, financial = row.decision.event, row.decision.financial
+        event, financial = row.decision.event, row.financial
+        snapshot = decode_snapshot(financial)
+        assert snapshot is not None
         row.body = message_text(
             AlertMessage(
                 row.id,
@@ -102,7 +111,8 @@ def _attempt(row: AlertIntent, binding: Binding, now: datetime, reconcile: bool)
                 Decimal(financial["profit"]),
                 event.observation.observed_at,
                 event.listing.canonical_url,
-                profit_policy=str(financial.get("policy", "profit-brl-v1")),
+                profit_policy=snapshot.policy,
+                financial=snapshot,
             )
         )
         row.session, row.recipient, row.account = (
@@ -148,5 +158,6 @@ def log_state(row: AlertIntent) -> None:
             "alert_reference": str(row.id),
             "alert_state": row.state,
             "alert_reason": row.reason,
+            "alert_body_format": row.body_format,
         },
     )

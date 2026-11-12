@@ -4,6 +4,7 @@ from urllib.parse import urlencode, urlsplit
 from uuid import UUID
 
 from garimpei.domain.listing.exploration import Criteria, Offer, OfferPage, money_label
+from garimpei.domain.valuation.identity import identify
 from garimpei.infra.http.listing.condition_presentation import TABS
 
 
@@ -43,7 +44,7 @@ def safe_url(value: str) -> str:
 
 def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
     composition = offer.composition
-    return dict(
+    result: dict[str, object] = dict(
         offer=offer,
         source_label="Facebook Marketplace"
         if offer.source == "facebook_marketplace"
@@ -54,19 +55,57 @@ def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
         price=money_label(composition.purchase.value)
         if composition.purchase.value is not None
         else "Preço não informado",
-        profit=money_label(composition.profit.value),
-        profit_label="Lucro potencial"
-        if composition.policy != "profit-brl-v1"
-        else "Lucro estimado · regra anterior",
-        profit_scope="Antes de frete/transporte"
-        if composition.policy != "profit-brl-v1"
-        else "Revisão histórica da estimativa",
-        complete_profit_label="Lucro potencial antes de frete/transporte"
-        if composition.policy != "profit-brl-v1"
-        else "Lucro estimado pela regra anterior",
+        profit=money_label(composition.profit.value if complete_components(offer) else None),
+        profit_label="Lucro estimado",
+        profit_scope="Revisão histórica da estimativa"
+        if composition.policy == "profit-brl-v1"
+        else "",
+        complete_profit_label="Lucro estimado",
         resale=money_label(composition.resale.value),
         detail_url=url(criteria, f"/ofertas/{offer.id}/"),
         url=safe_url(offer.url),
+    )
+    if not compatible_composition(offer):
+        result.update(
+            price=money_label(offer.evidence.price), resale="Indisponível", profit="Indisponível"
+        )
+    return result
+
+
+def complete_components(offer: Offer) -> bool:
+    value = offer.composition
+    return all(
+        component is not None
+        for component in (
+            value.purchase.value,
+            value.resale.value,
+            value.fee.value,
+            value.fee_percent,
+        )
+    )
+
+
+def compatible_composition(offer: Offer) -> bool:
+    value = offer.composition
+    return (
+        value.listing_id == offer.id
+        and offer.observation_id is not None
+        and value.observation_id == offer.observation_id
+        and value.purchase.value == offer.evidence.price
+        and value.currency == "BRL"
+        and (value.resale.value is None or compatible_valuation(offer))
+    )
+
+
+def compatible_valuation(offer: Offer) -> bool:
+    valuation = offer.valuation
+    return bool(
+        valuation is not None
+        and valuation.listing_id == offer.id
+        and valuation.id == offer.composition.evaluation_id
+        and valuation.revision == offer.composition.evaluation_revision
+        and valuation.product == identify(offer.evidence)
+        and valuation.resale.price == offer.composition.resale.value
     )
 
 
@@ -132,8 +171,19 @@ def detail_context(offer: Offer, criteria: Criteria) -> dict[str, object]:
         )
         if quote
         else None,
-        reason=reason_label(composition.resale.reason or composition.profit.reason),
+        reason=reason_label(
+            composition.purchase.reason
+            or composition.resale.reason
+            or composition.fee.reason
+            or composition.profit.reason
+        ),
     )
+    if not compatible_composition(offer):
+        value.update(
+            fee="Indisponível",
+            percent="Não disponível",
+            reason="Composição indisponível para esta revisão",
+        )
     return value
 
 
@@ -148,5 +198,7 @@ def reason_label(reason: str | None) -> str | None:
         "produto_indeterminado": "O modelo e a variante do produto ainda não foram identificados",
         "produto_incompativel": "A avaliação disponível corresponde a outra variante",
         "evidencia_vencida": "As referências de preços precisam ser atualizadas",
+        "compra_indisponivel": "O preço de compra ainda não está confirmado",
+        "taxa_nao_configurada": "Configure a taxa de revenda para estimar o lucro",
         "modalidade_indisponivel": "A cobertura de retirada ou envio ainda não foi confirmada",
     }.get(reason, "Os dados necessários ainda não estão completos")

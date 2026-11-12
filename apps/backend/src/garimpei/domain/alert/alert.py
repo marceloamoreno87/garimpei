@@ -3,6 +3,8 @@ from datetime import datetime
 from decimal import Decimal
 from uuid import UUID
 
+from garimpei.domain.alert.financial_snapshot import FinancialSnapshot
+
 
 @dataclass(frozen=True)
 class Binding:
@@ -23,6 +25,7 @@ class AlertMessage:
     observed_at: datetime
     url: str
     profit_policy: str = "potential-before-freight-v2"
+    financial: FinancialSnapshot | None = None
 
 
 @dataclass(frozen=True)

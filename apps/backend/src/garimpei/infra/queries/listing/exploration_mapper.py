@@ -7,6 +7,7 @@ from uuid import UUID
 
 from garimpei.domain.listing.condition import ConditionState, automatic_condition
 from garimpei.domain.listing.exploration import Offer
+from garimpei.domain.listing.listing import Evidence
 from garimpei.domain.listing.scope import Modality
 from garimpei.domain.valuation.profit import Component, ModalityProfit, ProfitComposition
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
@@ -75,13 +76,47 @@ def composition(raw: object, at: datetime) -> ProfitComposition:
             for r in records(row["modalities"])
         ),
         tuple(cast(list[str], row["reasons"])),
+        currency=str(row.get("currency", "BRL")),
         policy=str(row.get("policy", "profit-brl-v1")),
         excluded_costs=tuple(cast(list[str], row.get("excluded_costs", []))),
     )
 
 
+def missing_composition(
+    raw: dict[str, object], evidence: Evidence, at: datetime
+) -> ProfitComposition:
+    absent = Component(None, "indisponivel", None, "composicao_indisponivel")
+    return ProfitComposition(
+        UUID(str(raw["id"])),
+        UUID(int=0),
+        None,
+        None,
+        None,
+        None,
+        None,
+        at,
+        Component(
+            evidence.price,
+            "conhecido" if evidence.price is not None else "indisponivel",
+            "observation",
+        ),
+        absent,
+        None,
+        absent,
+        absent,
+        None,
+        (),
+        ("composicao_indisponivel",),
+    )
+
+
 def decode(raw: dict[str, object], at: datetime, state: ConditionState | None = None) -> Offer:
     evidence = decode_evidence(cast(EvidenceRecord, raw["evidence"]))
+    value = (
+        composition(raw["composition"], at)
+        if raw.get("composition")
+        else missing_composition(raw, evidence, at)
+    )
     return Offer(
         UUID(str(raw["id"])),
         str(raw["external_id"]),
@@ -95,8 +130,9 @@ def decode(raw: dict[str, object], at: datetime, state: ConditionState | None = 
         bool(raw["pickup"]),
         bool(raw["shipping"]),
         bool(raw["visible"]),
-        composition(raw["composition"], at),
+        value,
         decode_valuation(mapping(raw["valuation"])) if raw["valuation"] else None,
         bool(raw["unavailable"]),
         datetime.fromisoformat(str(raw["last_valid_at"])) if raw["last_valid_at"] else None,
+        identity(raw.get("observation_id", value.observation_id)),
     )

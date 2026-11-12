@@ -112,6 +112,7 @@ class ExplorationSource:
             valuation,
             unavailable,
             last_valid,
+            raw.id,
         )
 
 
