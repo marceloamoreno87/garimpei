@@ -1,0 +1,4 @@
+{"timestamp": "2026-11-12T14:17:49.118257+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_0a2d589990", "run_id": "3699baac-7f25-4b10-83e0-ae1b97923d03"}
+35 objects imported automatically (use -v 2 for details).
+
+{'backend_before': 2, 'backend_after': 3}

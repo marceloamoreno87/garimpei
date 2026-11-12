@@ -1,4 +1,6 @@
 {% extends "monitoring/layout.html" %}
+{% load static %}
+{% block head %}{{ block.super }}<script src="{% static 'navigation/progress.js' %}" defer></script>{% endblock %}
 {% block title %}Acompanhamento · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1">
@@ -34,7 +36,7 @@
                 {% endif %}
                 {% if collection.access_suspended %}
                     <p>O acesso precisa ser confirmado antes de retomar.</p><a href="{% url 'integration-settings' %}">Conferir conexão com o Facebook</a>
-                {% elif collection.next_attempt_at and collection.phase != 'running' %}
+                {% elif collection.next_attempt_at and collection.phase != "running" %}
                     <p>Próxima tentativa prevista: {{ collection.next_attempt_at|date:"d/m/Y H:i:s T" }}.</p>
                 {% endif %}
                 {% if collection.last_attempt_at %}
@@ -45,10 +47,16 @@
                 {% endif %}
             </div>
             {% if collection.monitoring_started_at %}<p>Monitoramento de novas publicações desde {{ collection.monitoring_started_at|date:"d/m/Y H:i:s T" }}.</p>{% endif %}
-            {% if collection.reason %}<p>{% if 'category_unavailable' in collection.reason %}Uma categoria salva está indisponível. Revise suas categorias nas configurações.{% else %}A fonte não confirmou todos os resultados. O progresso já obtido foi preservado para a próxima tentativa.{% endif %}</p>{% endif %}
+            {% if collection.reason %}<p>{% if "category_unavailable" in collection.reason %}Uma categoria salva está indisponível. Revise suas categorias nas configurações.{% else %}A fonte não confirmou todos os resultados. O progresso já obtido foi preservado para a próxima tentativa.{% endif %}</p>{% endif %}
             <p>Anúncios com publicação comprovada após o início do monitoramento podem gerar alertas enquanto o histórico é coletado.</p>
             <a class="button primary" href="{% url 'condition-list' %}">Explorar ofertas</a>
             <a class="button secondary" href="{% url 'monitoring-edit' %}">Revisar configurações</a>
+        </section>
+        <section hx-get="/acompanhamento/navegacao/"
+                 hx-trigger="load"
+                 hx-swap="outerHTML"
+                 aria-label="Percurso da navegação">
+            <p>Carregando percurso…</p>
         </section>
     </main>
 {% endblock %}

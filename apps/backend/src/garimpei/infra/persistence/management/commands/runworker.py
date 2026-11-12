@@ -17,6 +17,7 @@ from garimpei.main import (
     reconcile_alerts,
     reconcile_inference,
     reconcile_listings,
+    reconcile_navigation,
     reconcile_valuations,
     register_tasks,
 )
@@ -38,6 +39,7 @@ def _reconcile_until_stopped(stopped: Event) -> None:
         try:
             build_facebook_login_handler().execute()
             reconcile_listings(recover_access=recover_access)
+            reconcile_navigation()
             reconcile_valuations()
             publication_at = _publish_when_due(publication_at, interval)
         except ConfigurationReadFailed:

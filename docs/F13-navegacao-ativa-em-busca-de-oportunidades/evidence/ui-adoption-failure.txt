@@ -1,0 +1,12 @@
+### Result
+{"url":"http://127.0.0.1:12026/configuracoes/","error":"\n                Não foi possível salvar\n                Não foi possível confirmar a gravação. Tente novamente.\n                \n                \n                \n                \n            ","proposal":"\n        \n            iPhone 13 128 GBRemover\n        \n            PlayStation 5 SlimRemover\n        \n            PS5 ProRemover\n        \n    "}
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("link",{name:"Revisar proposta na configuração"}).focus(); await page.keyboard.press("Enter"); await page.getByRole("button",{name:"Salvar configurações"}).focus(); await page.keyboard.press("Enter"); await page.waitForTimeout(300); return {url:page.url(),error:await page.locator("#form-error").textContent(),proposal:await page.getByRole("list",{name:"Produtos escolhidos"}).textContent()}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:12026/configuracoes/
+- Page Title: Configuração · Garimpei
+- Console: 1 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T12-51-59-248Z.log#L1

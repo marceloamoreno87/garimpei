@@ -53,7 +53,9 @@ class PostgresCollectionRepository:
         clock: Clock,
         enqueue: Callable[[UUID, int], int],
         lease_seconds: int,
+        scope_transform: Callable[[Scope], Scope] | None = None,
     ) -> None:
+        self._scope_transform = scope_transform
         self._configuration = configuration
         self._clock = clock
         self._enqueue = enqueue
@@ -65,13 +67,17 @@ class PostgresCollectionRepository:
             scope = Scope.from_snapshot(self._configuration.execute())
             if scope is None:
                 return
+            if self._scope_transform is not None:
+                scope = self._scope_transform(scope)
             state, _ = CollectionState.objects.get_or_create(
                 configuration_id=scope.configuration_id,
                 source=scope.source,
             )
             self._normalize_progress_cadence(state, policy)
             current = state.current
-            changed = current is not None and current.scope_key != scope.key
+            changed = current is not None and (
+                current.scope_key != scope.key or current.revision != scope.revision
+            )
             if recover_access and state.access_suspended:
                 state.access_suspended = False
                 state.save(update_fields=["access_suspended"])
@@ -100,14 +106,18 @@ class PostgresCollectionRepository:
             return
         delay = max(policy.interval, max((f["retry_after"] for f in failures), default=0))
         due = cycle.finished_at + timedelta(seconds=delay)
+        if state.source_not_before is not None:
+            due = max(due, state.source_not_before)
         if state.next_attempt_at is not None and state.next_attempt_at > due:
             state.next_attempt_at, state.failures = due, 0
             state.save(update_fields=["next_attempt_at", "failures"])
 
     @staticmethod
     def _due(state: CollectionState, now: datetime) -> bool:
-        return not state.access_suspended and (
-            state.next_attempt_at is None or state.next_attempt_at <= now
+        return (
+            not state.access_suspended
+            and (state.source_not_before is None or state.source_not_before <= now)
+            and (state.next_attempt_at is None or state.next_attempt_at <= now)
         )
 
     def _start_cycle(
@@ -135,6 +145,8 @@ class PostgresCollectionRepository:
             cycle = CollectionCycle.objects.filter(id=attempt.cycle_id).first()
             if scope is None or cycle is None:
                 raise SupersededAttempt
+            if self._scope_transform is not None:
+                scope = self._scope_transform(scope)
             state = cycle.state
             now = self._clock()
             if (
@@ -168,10 +180,6 @@ class PostgresCollectionRepository:
             cycle.save(update_fields=["phase", "started_at", "window_start", "window_end"])
             scope = replace(scope, window=PublicationWindow(cycle.window_start, cycle.window_end))
             return Work(scope, frozenset(cycle.results), cycle.scanned)
-
-    def reset_unit(self, attempt: Attempt, key: str) -> None:
-        with self._owned(attempt) as (_, cycle, _):
-            CollectionCandidate.objects.filter(cycle=cycle, query_key=key).delete()
 
     def stage(self, attempt: Attempt, key: str, candidates: tuple[Candidate, ...]) -> None:
         with self._owned(attempt) as (_, cycle, _):

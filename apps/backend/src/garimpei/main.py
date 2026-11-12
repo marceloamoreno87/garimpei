@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -6,7 +7,14 @@ from uuid import UUID
 if TYPE_CHECKING:
     from garimpei.config.env import AlertSettings
     from garimpei.domain.alert.alert import AlertPolicy
-    from garimpei.domain.listing.ports import Clock, CollectionPolicy
+    from garimpei.domain.listing.ports import (
+        Attempt,
+        Clock,
+        CollectionPolicy,
+        Geocoding,
+        ListingSource,
+    )
+    from garimpei.domain.navigation.catalog import Catalog
     from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
     from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
     from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
@@ -17,8 +25,10 @@ if TYPE_CHECKING:
     from garimpei.infra.http.listing.condition_handler import ConditionHandler
     from garimpei.infra.http.listing.exploration_handler import ExplorationHandler
     from garimpei.infra.http.monitoring.monitoring_handler import MonitoringHandler
+    from garimpei.infra.http.navigation.navigation_handler import NavigationHandler
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
+    from garimpei.infra.queries.navigation.postgres_queries import PostgresNavigationQueries
     from garimpei.infra.repository.alert.postgres_repository import PostgresAlertRepository
     from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
     from garimpei.infra.repository.integration.facebook_profile_repository import (
@@ -28,6 +38,9 @@ if TYPE_CHECKING:
         PostgresIntegrationRepository,
     )
     from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
+    from garimpei.infra.repository.navigation.postgres_repository import (
+        PostgresNavigationRepository,
+    )
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
@@ -45,6 +58,7 @@ if TYPE_CHECKING:
     from garimpei.usecase.monitoring.read_configuration_usecase import (
         ReadMonitoringConfigurationUseCase,
     )
+    from garimpei.usecase.navigation.read_suggestions_usecase import ReadSuggestionUseCase
     from garimpei.usecase.valuation.read_profit_usecase import ReadProfitUseCase
     from garimpei.usecase.valuation.read_valuation_usecase import ReadValuationUseCase
 
@@ -82,6 +96,9 @@ def register_tasks() -> None:
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
     app.task(name="garimpei.runtime_probe", queue="runtime")(_handle_runtime_probe)
     app.task(name="garimpei.collect_listings", queue="listing")(_handle_listing)
+    app.task(name="garimpei.navigation_suggestions", queue="listing")(
+        _handle_navigation_suggestions
+    )
     app.task(name="garimpei.evaluate_valuation", queue="valuation")(_handle_valuation)
 
 
@@ -191,26 +208,21 @@ def reconcile_listings(*, recover_access: bool = False) -> None:
 def build_listing_task_handler() -> "ListingTaskHandler":
     from garimpei.infra.gateway.listing.facebook_marketplace import UnavailableMarketplace
     from garimpei.infra.gateway.listing.fixture_source import FixtureSource
-    from garimpei.infra.worker.listing_handler import ListingTaskHandler
-    from garimpei.usecase.listing.collect_listings_usecase import CollectListingsUseCase
 
     settings = _effective_listing_settings()
-    store, policy = _collection_store(settings), _listing_policy(settings)
     if settings.fixture_url is not None:
         fixture = FixtureSource(settings.fixture_url, settings.timeout)
-        return ListingTaskHandler(CollectListingsUseCase(store, fixture, fixture, policy))
+        return _navigation_task(settings, fixture, fixture)
     if settings.facebook_state is not None or settings.facebook_profile is not None:
         return _build_live_listing_handler(settings)
     unavailable = UnavailableMarketplace()
-    return ListingTaskHandler(CollectListingsUseCase(store, unavailable, unavailable, policy))
+    return _navigation_task(settings, unavailable, unavailable)
 
 
 def _build_live_listing_handler(settings: ListingSettings) -> "ListingTaskHandler":
     from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
     from garimpei.infra.gateway.listing.facebook_marketplace import FacebookMarketplace
     from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
-    from garimpei.infra.worker.listing_handler import ListingTaskHandler
-    from garimpei.usecase.listing.collect_listings_usecase import CollectListingsUseCase
 
     path = settings.facebook_profile or settings.facebook_state
     assert path is not None
@@ -219,12 +231,7 @@ def _build_live_listing_handler(settings: ListingSettings) -> "ListingTaskHandle
     )
     geocoding = BrasilApiGeocoding(settings.timeout)
     source = FacebookMarketplace(browser, geocoding, build_monitoring_catalog().load())
-    return ListingTaskHandler(
-        CollectListingsUseCase(
-            _collection_store(settings), source, geocoding, _listing_policy(settings)
-        ),
-        source.close,
-    )
+    return _navigation_task(settings, source, geocoding, source.close)
 
 
 def build_read_collection_status() -> "ReadCollectionStatusUseCase":
@@ -790,3 +797,202 @@ def build_inference_handler() -> "InferenceHandler":
         PauseInferenceUseCase(repository),
         ResumeInferenceUseCase(repository),
     )
+
+
+def build_navigation_catalog() -> "Catalog":
+    from garimpei.infra.gateway.navigation.catalog_loader import load_catalog
+
+    return load_catalog(Path(__file__).parent / "infra/gateway/navigation/navigation_catalog.json")
+
+
+def build_navigation_repository(
+    settings: ListingSettings | None = None,
+) -> "PostgresNavigationRepository":
+    from garimpei.config.env import load_navigation_policy
+    from garimpei.infra.repository.navigation.postgres_repository import (
+        PostgresNavigationRepository,
+    )
+
+    settings = settings or _effective_listing_settings()
+    return PostgresNavigationRepository(
+        _navigation_collection(settings),
+        build_read_monitoring_configuration(),
+        build_navigation_catalog(),
+        load_navigation_policy(),
+        _listing_policy(settings),
+        _listing_clock(settings),
+        _defer_navigation,
+    )
+
+
+def _defer_navigation(attempt: "Attempt", delay: int) -> None:
+    _enqueue(
+        "garimpei.collect_listings",
+        "listing",
+        delay,
+        cycle_id=str(attempt.cycle_id),
+        generation=attempt.generation,
+    )
+
+
+def _navigation_collection(settings: ListingSettings) -> "PostgresCollectionRepository":
+    from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
+
+    return PostgresCollectionRepository(
+        build_read_monitoring_configuration(),
+        _listing_clock(settings),
+        _defer_listing,
+        settings.lease,
+        scope_transform=build_navigation_catalog().decorate_scope,
+    )
+
+
+def _navigation_task(
+    settings: ListingSettings,
+    source: "ListingSource",
+    geocoding: "Geocoding",
+    close: "Callable[[], None] | None" = None,
+) -> "ListingTaskHandler":
+    from time import monotonic
+
+    from garimpei.config.env import load_navigation_policy
+    from garimpei.infra.worker.listing_handler import ListingTaskHandler
+    from garimpei.usecase.navigation.run_slice_usecase import RunSliceUseCase
+
+    return ListingTaskHandler(
+        RunSliceUseCase(
+            _navigation_collection(settings),
+            build_navigation_repository(settings),
+            source,
+            geocoding,
+            build_navigation_catalog(),
+            load_navigation_policy(),
+            monotonic,
+            settings.timeout,
+            settings.cadence_ms / 1000,
+        ),
+        close,
+    )
+
+
+def build_navigation_queries() -> "PostgresNavigationQueries":
+    from garimpei.config.env import load_navigation_policy
+    from garimpei.infra.queries.navigation.postgres_queries import PostgresNavigationQueries
+
+    settings = load_listing_settings()
+    return PostgresNavigationQueries(
+        build_read_monitoring_configuration(),
+        _listing_clock(settings),
+        load_navigation_policy(),
+        settings.timeout,
+        settings.cadence_ms / 1000,
+    )
+
+
+def build_read_suggestion() -> "ReadSuggestionUseCase":
+    from garimpei.usecase.navigation.read_suggestions_usecase import ReadSuggestionUseCase
+
+    return ReadSuggestionUseCase(build_navigation_queries())
+
+
+def build_navigation_handler() -> "NavigationHandler":
+    from garimpei.infra.http.navigation.navigation_handler import NavigationHandler
+    from garimpei.usecase.navigation.read_status_usecase import ReadNavigationStatusUseCase
+    from garimpei.usecase.navigation.read_suggestions_usecase import ReadSuggestionsUseCase
+    from garimpei.usecase.navigation.resume_work_usecase import ResumeWorkUseCase
+
+    return NavigationHandler(
+        ReadNavigationStatusUseCase(build_navigation_queries()),
+        ReadSuggestionsUseCase(build_navigation_queries()),
+        ResumeWorkUseCase(build_navigation_repository()),
+    )
+
+
+def _handle_navigation_suggestions() -> None:
+    from time import monotonic
+
+    from garimpei.config.env import load_navigation_policy
+    from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
+    from garimpei.infra.gateway.listing.facebook_marketplace import (
+        FacebookMarketplace,
+        UnavailableMarketplace,
+    )
+    from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+    from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
+    from garimpei.infra.repository.navigation.suggestion_repository import (
+        PostgresSuggestionRepository,
+    )
+    from garimpei.usecase.navigation.run_suggestions_usecase import RunSuggestionsUseCase
+
+    settings = _effective_listing_settings()
+    close: Callable[[], None] | None = None
+    source: ListingSource
+    if settings.fixture_url:
+        source = FixtureSource(settings.fixture_url, settings.timeout)
+    elif settings.facebook_state is not None or settings.facebook_profile is not None:
+        path = settings.facebook_profile or settings.facebook_state
+        assert path is not None
+        browser = MarketplaceBrowser(
+            path, settings.timeout, settings.cadence_ms, profile=settings.facebook_profile
+        )
+        source = FacebookMarketplace(
+            browser, BrasilApiGeocoding(settings.timeout), build_monitoring_catalog().load()
+        )
+        close = source.close
+    else:
+        source = UnavailableMarketplace()
+    policy = load_navigation_policy()
+    store = PostgresSuggestionRepository(
+        build_read_monitoring_configuration(),
+        build_navigation_catalog(),
+        policy,
+        _listing_clock(settings),
+        settings.timeout,
+        settings.cadence_ms / 1000,
+    )
+    try:
+        RunSuggestionsUseCase(
+            store, source, policy, monotonic, settings.timeout, settings.cadence_ms / 1000
+        ).execute()
+    finally:
+        if close:
+            close()
+
+
+def reconcile_navigation() -> None:
+    from django.db import transaction
+
+    from garimpei.infra.persistence.listing_models import CollectionState
+    from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+
+    integration = build_integration_repository().read()
+    if integration.facebook_mode == "profile" and integration.facebook_phase != "connected":
+        return
+    with transaction.atomic():
+        lock_monitoring_publication()
+        if not CollectionState.objects.filter(
+            access_suspended=False, current__finished_at__isnull=False
+        ).exists():
+            return
+        _enqueue_navigation_suggestions()
+
+
+def _enqueue_navigation_suggestions() -> None:
+    from django.db import connection, transaction
+    from procrastinate.exceptions import AlreadyEnqueued
+
+    register_tasks()
+    connection.ensure_connection()
+    if not isinstance(connection.connection, Connection):
+        raise RuntimeError("Expected psycopg 3 connection for transactional enqueue")
+    try:
+        with transaction.atomic():
+            build_enqueue_app().configure_task(
+                name="garimpei.navigation_suggestions",
+                queue="listing",
+                lock="navigation_suggestions",
+                queueing_lock="navigation_suggestions",
+                connection=connection.connection,
+            ).defer()
+    except AlreadyEnqueued:
+        return

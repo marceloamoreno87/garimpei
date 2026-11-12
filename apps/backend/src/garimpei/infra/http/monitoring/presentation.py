@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from garimpei.domain.monitoring.errors import MonitoringError
 from garimpei.domain.monitoring.values import CategoryCatalog
+from garimpei.domain.navigation.read_models import SuggestionView
 from garimpei.usecase.monitoring.read_form_usecase import MonitoringForm
 
 
@@ -33,6 +34,14 @@ def form_context(
         and request.get_signed_cookie("monitoring_saved", default="", max_age=30) == "1",
         "error": None,
     }
+    suggestion: SuggestionView | None = getattr(request, "navigation_suggestion", None)
+    if editing and request.method == "GET" and suggestion is not None:
+        products = [item.label for item in state.interests if item.kind == "product"]
+        context["products"] = list(dict.fromkeys([*products, suggestion.term]))
+        context["preview_message"] = (
+            "Proposta editável. Salve as configurações para iniciar o monitoramento."
+        )
+        context["saved"] = False
     if request.method == "POST":
         preserve_input(request, context, step)
     return context

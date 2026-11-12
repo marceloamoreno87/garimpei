@@ -1,14 +1,16 @@
 from collections.abc import Callable
+from typing import Protocol
 from uuid import UUID
 
 from garimpei.domain.listing.ports import Attempt
-from garimpei.usecase.listing.collect_listings_usecase import CollectListingsUseCase
+
+
+class CollectionRunner(Protocol):
+    def execute(self, attempt: Attempt) -> None: ...
 
 
 class ListingTaskHandler:
-    def __init__(
-        self, collect: CollectListingsUseCase, close: Callable[[], None] | None = None
-    ) -> None:
+    def __init__(self, collect: CollectionRunner, close: Callable[[], None] | None = None) -> None:
         self._collect = collect
         self._close = close
 

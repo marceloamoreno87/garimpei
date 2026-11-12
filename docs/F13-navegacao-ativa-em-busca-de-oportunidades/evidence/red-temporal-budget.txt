@@ -1,0 +1,61 @@
+FFF.F.                                                                   [100%]
+=================================== FAILURES ===================================
+_____ test_rebuild_two_operations_does_not_start_with_only_40_seconds_left _____
+
+    def test_rebuild_two_operations_does_not_start_with_only_40_seconds_left() -> None:
+        clock,scope=MonotonicClockFake(),timing_scope()
+        store=TurnQueueFake([timing_unit(scope,cursor='source:opaque')],clock)
+        source=TimedNavigationSource(clock)
+        runner=RunSliceUseCase(CollectionStoreFake(scope,clock,80),store,source,source,Catalog('1',(),()),NavigationPolicy(),clock.now,20,1.2)
+        runner.execute(Attempt(uuid4(),1))
+>       assert 'search' not in source.calls
+E       AssertionError: assert 'search' not in ['geocoding', 'search']
+E        +  where ['geocoding', 'search'] = <tests.factories.navigation_timing.TimedNavigationSource object at 0x7dac0f1cdfd0>.calls
+
+apps/backend/tests/unit/test_navigation_timing.py:18: AssertionError
+____ test_database_delay_cannot_start_an_operation_after_admission_expires _____
+
+    def test_database_delay_cannot_start_an_operation_after_admission_expires() -> None:
+        clock,scope=MonotonicClockFake(),timing_scope()
+        store=TurnQueueFake([timing_unit(scope)],clock,claim_delay=110)
+        source=TimedNavigationSource(clock)
+        RunSliceUseCase(CollectionStoreFake(scope,clock),store,source,source,Catalog('1',(),()),NavigationPolicy(),clock.now,20,1.2).execute(Attempt(uuid4(),1))
+>       assert 'search' not in source.calls and clock.now()<=120
+E       AssertionError: assert ('search' not in ['geocoding', 'search'])
+E        +  where ['geocoding', 'search'] = <tests.factories.navigation_timing.TimedNavigationSource object at 0x7dac0f1caad0>.calls
+
+apps/backend/tests/unit/test_navigation_timing.py:27: AssertionError
+__________ test_geocoding_does_not_start_when_its_timeout_cannot_fit ___________
+
+    def test_geocoding_does_not_start_when_its_timeout_cannot_fit() -> None:
+        clock,scope=MonotonicClockFake(),timing_scope()
+        store=TurnQueueFake([timing_unit(scope)],clock)
+        source=TimedNavigationSource(clock)
+        RunSliceUseCase(CollectionStoreFake(scope,clock,119),store,source,source,Catalog('1',(),()),NavigationPolicy(),clock.now,20,1.2).execute(Attempt(uuid4(),1))
+>       assert source.calls==[]
+E       AssertionError: assert ['geocoding'] == []
+E
+E         Left contains one more item: 'geocoding'
+E         Use -v to get more diff
+
+apps/backend/tests/unit/test_navigation_timing.py:35: AssertionError
+________ test_suggestion_claim_delay_cannot_spend_more_than_45_seconds _________
+
+    def test_suggestion_claim_delay_cannot_spend_more_than_45_seconds() -> None:
+        clock,scope=MonotonicClockFake(),timing_scope()
+        store=SuggestionStoreFake(timing_suggestion(scope),clock,claim_delay=30)
+        source=TimedNavigationSource(clock)
+        RunSuggestionsUseCase(store,source,NavigationPolicy(),clock.now,20,1.2).execute()
+>       assert source.calls==[] and clock.now()<=45
+E       AssertionError: assert (['search'] == []
+E
+E         Left contains one more item: 'search'
+E         Use -v to get more diff)
+
+apps/backend/tests/unit/test_navigation_timing.py:55: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_navigation_timing.py::test_rebuild_two_operations_does_not_start_with_only_40_seconds_left
+FAILED apps/backend/tests/unit/test_navigation_timing.py::test_database_delay_cannot_start_an_operation_after_admission_expires
+FAILED apps/backend/tests/unit/test_navigation_timing.py::test_geocoding_does_not_start_when_its_timeout_cannot_fit
+FAILED apps/backend/tests/unit/test_navigation_timing.py::test_suggestion_claim_delay_cannot_spend_more_than_45_seconds
+4 failed, 2 passed in 0.05s

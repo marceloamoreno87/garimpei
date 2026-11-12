@@ -1,0 +1,41 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Sugestões relacionadas · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Sugestões relacionadas</h1>
+        <p>Uma possibilidade de pesquisa, separada das ofertas monitoradas. Nenhum interesse é adicionado sem você salvar a configuração.</p>
+        <a href="{% url 'monitoring-tracking' %}">Voltar ao acompanhamento</a>
+        <section class="tracking-state" aria-labelledby="suggestion-budget-title">
+            <h2 id="suggestion-budget-title">Exploração em tempo livre</h2>
+            <p role="status">{{ suggestions.budget.message }}</p>
+            {% if suggestions.budget.next_at %}<p>Nova verificação a partir de {{ suggestions.budget.next_at|date:"d/m/Y H:i:s T" }}. O trabalho ativo mantém prioridade.</p>{% endif %}
+            <p>Última fatia: {{ suggestions.budget.pages }} página(s) recebida(s) de {{ suggestions.budget.page_limit }} e {{ suggestions.budget.details }} detalhe(s) de {{ suggestions.budget.detail_limit }}.</p>
+            <p>Até {{ suggestions.budget.seconds_limit }} s por fatia, com intervalo mínimo de {{ suggestions.budget.interval_seconds }} s.</p>
+            <p>{{ suggestions.budget.suggestion_count }} de {{ suggestions.budget.suggestion_limit }} registros preservados; até {{ suggestions.budget.evidence_limit }} evidências por sugestão.</p>
+            {% if suggestions.budget.capacity_message %}<p>{{ suggestions.budget.capacity_message }}</p>{% endif %}
+        </section>
+        {% for suggestion in suggestions.items %}
+            <article class="tracking-state">
+                <h2>{{ suggestion.term }}</h2>
+                <p>Interesse de origem: <strong>{{ suggestion.original_term }}</strong></p>
+                <p>{{ suggestion.relation }}</p>
+                <p>Outro produto. Esta relação não comprova preço, lucro ou liquidez.</p>
+                {% if suggestion.limit_reason %}<p>Este nicho atingiu o limite de evidências. Os anúncios de suporte continuam preservados.</p>{% endif %}
+                <p>Evidência observada em {{ suggestion.observed_at|date:"d/m/Y H:i T" }} · revisão {{ suggestion.revision }}</p>
+                <ul>
+                    {% for evidence in suggestion.evidence %}
+                        <li><a href="{{ evidence.url }}" target="_blank" rel="noopener noreferrer">{{ evidence.excerpt }}</a> · {{ evidence.source }} / {{ evidence.external_id }} · {{ evidence.observed_at|date:"d/m/Y H:i T" }}</li>
+                    {% endfor %}
+                </ul>
+                <a class="button primary"
+                   href="{% url 'monitoring-edit' %}?sugestao={{ suggestion.id }}">Revisar proposta na configuração</a>
+            </article>
+        {% empty %}
+            <section class="tracking-state">
+                <h2>Nenhuma sugestão fundamentada</h2>
+                <p>Uma relação precisa de anúncio com identidade e contexto verificados. Seus interesses atuais continuam sendo a prioridade.</p>
+            </section>
+        {% endfor %}
+        {% if suggestions.has_next %}<a href="?pagina={{ suggestions.page|add:1 }}">Próxima página</a>{% endif %}
+    </main>
+{% endblock %}

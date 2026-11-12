@@ -143,3 +143,29 @@ _.download
 
 # F19 optional manifest capability recorded by lifecycle and consumed by Docker transport.
 _.inference_container
+
+# F13: contracted research API; exact consumer in entrypoints.json.
+RequestResearchUseCase
+
+# F13 persistent receipt audit queried through ORM; exact consumer in entrypoints.json.
+_.turn_order
+_.consumed_pages
+_.consumed_details
+_.observation_ids
+
+# F13 progress template fields; exact consumer in entrypoints.json.
+_.buffered
+_.page_limit
+_.term_limit
+
+# F13 contracted historical research query; exact shell consumer in entrypoints.json.
+ReadResearchUseCase
+_.shared_pages
+
+# F13 suggestions budget template/public projection; exact consumers in entrypoints.json.
+_.limit_reason
+_.detail_limit
+_.seconds_limit
+_.interval_seconds
+_.capacity_reason
+_.budget

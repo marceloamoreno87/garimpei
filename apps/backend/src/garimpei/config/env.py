@@ -14,6 +14,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
+from garimpei.domain.navigation.policy import NavigationPolicy
+
 
 class ConfigurationError(ValueError):
     """Safe public diagnostic: secret values must never be interpolated."""
@@ -510,3 +512,27 @@ def load_inference_settings() -> InferenceSettings:
         if values.get("GARIMPEI_AI_PHOTO_MANIFEST")
         else None,
     )
+
+
+def load_navigation_policy() -> NavigationPolicy:
+    values = _values(os.environ)
+    try:
+        return NavigationPolicy(
+            slice_seconds=_integer(values, "GARIMPEI_NAV_SLICE_SECONDS", 120, 1, 10000),
+            slice_pages=_integer(values, "GARIMPEI_NAV_SLICE_PAGES", 2, 1, 10000),
+            slice_details=_integer(values, "GARIMPEI_NAV_SLICE_DETAILS", 10, 1, 10000),
+            cycle_pages=_integer(values, "GARIMPEI_NAV_CYCLE_PAGES", 100, 1, 10000),
+            cycle_terms=_integer(values, "GARIMPEI_NAV_CYCLE_TERMS", 3, 1, 3),
+            pending_details=_integer(values, "GARIMPEI_NAV_PENDING_DETAILS", 500, 1, 10000),
+            suggestion_seconds=_integer(values, "GARIMPEI_NAV_SUGGESTION_SECONDS", 45, 1, 10000),
+            suggestion_pages=_integer(values, "GARIMPEI_NAV_SUGGESTION_PAGES", 1, 1, 10000),
+            suggestion_details=_integer(values, "GARIMPEI_NAV_SUGGESTION_DETAILS", 1, 1, 10000),
+            suggestion_interval=_integer(values, "GARIMPEI_NAV_SUGGESTION_INTERVAL", 300, 1, 10000),
+            suggestion_limit=_integer(values, "GARIMPEI_NAV_SUGGESTION_LIMIT", 100, 1, 10000),
+            evidence_limit=_integer(values, "GARIMPEI_NAV_EVIDENCE_LIMIT", 10, 1, 10000),
+            margin=_integer(values, "GARIMPEI_NAV_MARGIN", 5, 1, 10000),
+        )
+    except ConfigurationError:
+        raise
+    except ValueError as error:
+        raise ConfigurationError(f"GARIMPEI_NAV_*: {error}") from None

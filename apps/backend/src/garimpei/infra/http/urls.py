@@ -7,8 +7,17 @@ from garimpei.infra.http.inference.routes import inference_view
 from garimpei.infra.http.integration.routes import integration_view
 from garimpei.infra.http.listing.routes import condition_view
 from garimpei.infra.http.monitoring.routes import monitoring_view
+from garimpei.infra.http.navigation.routes import navigation_view
 
 urlpatterns = [
+    path("acompanhamento/navegacao/", navigation_view, name="navigation-status"),
+    path(
+        "acompanhamento/navegacao/retomar/",
+        navigation_view,
+        {"action": "resume"},
+        name="navigation-resume",
+    ),
+    path("sugestoes/", navigation_view, {"action": "suggestions"}, name="navigation-suggestions"),
     path("integracoes/ia/", inference_view, name="inference-status"),
     path("integracoes/ia/pausar/", inference_view, {"action": "pause"}, name="inference-pause"),
     path("integracoes/ia/retomar/", inference_view, {"action": "resume"}, name="inference-resume"),

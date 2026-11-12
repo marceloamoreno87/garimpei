@@ -1,0 +1,4 @@
+{"timestamp": "2026-11-12T12:51:58.997159+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_6d5f1bc587", "run_id": "aa5616dc-6aec-4ec7-a2fd-5d3b8fcc7399"}
+35 objects imported automatically (use -v 2 for details).
+
+{'products_before_preview_save': ('iPhone 13 128 GB', 'PlayStation 5 Slim')}

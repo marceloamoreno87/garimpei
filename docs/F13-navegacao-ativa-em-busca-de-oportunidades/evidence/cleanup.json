@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-11-12T15:11:54.632130+00:00",
+  "synthetic_ui_lab": {
+    "environment": "eval_f13_0a2d589990",
+    "controller_terminated": true,
+    "stop_clean_completed": true
+  },
+  "playwright_sessions_closed": [
+    "garimpei-F13-ui",
+    "garimpei-F13-login-ui"
+  ],
+  "facebook_window": {
+    "own_preparation_closed": true,
+    "principal_touched": false,
+    "credentials_or_cookies_copied": false
+  },
+  "dedicated_runtime": {
+    "environment": "eval_wave11b_f13",
+    "preserve_database_profile_pairing": true,
+    "whatsapp_configured": true,
+    "alerts_enabled": false,
+    "configurations": 0,
+    "navigation_works": 0,
+    "listings": 0,
+    "normal_stop": "exit0; status stopped; no --clean"
+  },
+  "orchestration_lock": "released; own PID/host/branch/run/cwd/process start verified before SIGTERM",
+  "full_suite_fixture_cleanup": "completed; only retained dedicated runtime manifest remains, stopped",
+  "runtime_manifests": [
+    {
+      "environment": "eval_wave11b_f13",
+      "status": "stopped"
+    }
+  ],
+  "lock_released": true,
+  "lock_released_at": "2026-11-12T15:15:09.205182+00:00",
+  "diff_check_exit_code": 0
+}

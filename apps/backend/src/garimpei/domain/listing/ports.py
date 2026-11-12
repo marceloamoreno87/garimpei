@@ -48,6 +48,8 @@ class Page:
     invalid_cards: int = 0
     diagnostic: str | None = None
     window_proof: str | None = None
+    rebuilt: bool = False
+    traversed_pages: int = 1
 
 
 class SourceFailure(Exception):
@@ -87,7 +89,6 @@ class ConfigurationReader(Protocol):
 class CollectionStore(Protocol):
     def reconcile(self, policy: CollectionPolicy) -> None: ...
     def begin(self, attempt: Attempt) -> Work: ...
-    def reset_unit(self, attempt: Attempt, key: str) -> None: ...
     def stage(self, attempt: Attempt, key: str, candidates: tuple[Candidate, ...]) -> None: ...
     def record(
         self,

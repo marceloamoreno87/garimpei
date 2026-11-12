@@ -207,12 +207,12 @@
         "F11",
         "F12"
       ],
-      "status": "pending",
-      "cycles": 0,
-      "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T02:02:53.185325Z",
+      "status": "implemented",
+      "cycles": 1,
+      "failure_reason": "E2E-PERCURSO-01 MANUAL: prova real Facebook adiada pelo usuário para teste posterior no sistema principal.",
+      "report_path": "docs/F13-navegacao-ativa-em-busca-de-oportunidades/eval-report-2026-11-12T15-11-54Z.md",
+      "started_at": "2026-11-12T12:10:45.939839+00:00",
+      "updated_at": "2026-11-12T15:13:17.764218+00:00",
       "completed_at": null
     },
     "F14": {
