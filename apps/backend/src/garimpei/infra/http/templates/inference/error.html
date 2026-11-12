@@ -1,0 +1,10 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}IA local · Tentar novamente{% endblock %}
+{% block main %}
+    <main id="main" class="integrations" tabindex="-1">
+        <h1>Não foi possível confirmar a operação</h1>
+        <p role="alert">{{ message }}</p>
+        <p>A ação não foi confirmada. Confira o estado atual antes de tentar novamente.</p>
+        <a class="button secondary" href="{% url 'inference-status' %}">Conferir estado da IA</a>
+    </main>
+{% endblock %}

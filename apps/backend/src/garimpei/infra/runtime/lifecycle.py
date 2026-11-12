@@ -179,7 +179,12 @@ def _start_attempt(config: RuntimeConfig, *, disposable: bool) -> None:
         "environment_id": config.environment_id,
         "checkout": str(config.root),
         "run_id": config.run_id,
-        "ports": {"web": config.web_port, "pg": config.pg_port, "waha": config.waha_port},
+        "ports": {
+            "web": config.web_port,
+            "pg": config.pg_port,
+            "waha": config.waha_port,
+            "ai": config.ai_port,
+        },
         "processes": [],
         "containers": [],
         "disposable": disposable and config.environment == "eval",
@@ -193,6 +198,7 @@ def _start_attempt(config: RuntimeConfig, *, disposable: bool) -> None:
         _assert_manifest(manifest, config)
         _wait_database(config, deadline)
         call_command("migrate", verbosity=0)
+        _start_optional_inference(config, manifest)
         from garimpei.infra.worker.probe_service import begin_run
 
         begin_run(config, config.run_id)
@@ -250,6 +256,9 @@ def stop(config: RuntimeConfig, *, clean: bool = False) -> None:
             for process in manifest["processes"]
         ]
         stop_containers(config, manifest["containers"])
+        from garimpei.infra.runtime.inference_runtime import release_configured_inference
+
+        release_configured_inference(config)
         manifest["status"] = "stopped"
         write_manifest(config.directory, manifest)
         if not all(results):
@@ -403,3 +412,17 @@ def migrate(config: RuntimeConfig, arguments: list[str]) -> int:
         else "Migrations pending or database unavailable"
     )
     return 0 if result.returncode == 0 else 1
+
+
+def _start_optional_inference(config: RuntimeConfig, manifest: Manifest) -> None:
+    from garimpei.main import start_configured_inference
+
+    try:
+        identifier = start_configured_inference()
+        if identifier is not None:
+            manifest["inference_container"] = identifier
+    except Exception:
+        print("AI unavailable: base web/worker remain independent; inspect AI diagnostics")
+    finally:
+        manifest["containers"] = container_ids(config)
+        write_manifest(config.directory, manifest)

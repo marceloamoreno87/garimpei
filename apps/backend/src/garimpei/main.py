@@ -7,8 +7,12 @@ if TYPE_CHECKING:
     from garimpei.config.env import AlertSettings
     from garimpei.domain.alert.alert import AlertPolicy
     from garimpei.domain.listing.ports import Clock, CollectionPolicy
+    from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
+    from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
+    from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
     from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
     from garimpei.infra.gateway.monitoring.facebook_catalog import FacebookCategoryCatalog
+    from garimpei.infra.http.inference.inference_handler import InferenceHandler
     from garimpei.infra.http.integration.integration_handler import IntegrationHandler
     from garimpei.infra.http.listing.condition_handler import ConditionHandler
     from garimpei.infra.http.listing.exploration_handler import ExplorationHandler
@@ -16,6 +20,7 @@ if TYPE_CHECKING:
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
     from garimpei.infra.repository.alert.postgres_repository import PostgresAlertRepository
+    from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
     from garimpei.infra.repository.integration.facebook_profile_repository import (
         PostgresFacebookProfileRepository,
     )
@@ -28,6 +33,9 @@ if TYPE_CHECKING:
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
     from garimpei.infra.worker.listing_handler import ListingTaskHandler
     from garimpei.infra.worker.valuation_handler import ValuationTaskHandler
+    from garimpei.usecase.inference.read_analysis_usecase import ReadAnalysisUseCase
+    from garimpei.usecase.inference.request_analysis_usecase import RequestAnalysisUseCase
+    from garimpei.usecase.inference.run_analysis_usecase import RunAnalysisUseCase
     from garimpei.usecase.listing.classify_condition_usecase import ClassifyConditionUseCase
     from garimpei.usecase.listing.publish_exploration_usecase import PublishExplorationUseCase
     from garimpei.usecase.listing.read_collection_status_usecase import ReadCollectionStatusUseCase
@@ -70,6 +78,7 @@ def build_database_probe() -> DatabaseProbe:
 def register_tasks() -> None:
     from procrastinate.contrib.django import app
 
+    app.task(name="garimpei.local_analysis", queue="inference")(_handle_inference)
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
     app.task(name="garimpei.runtime_probe", queue="runtime")(_handle_runtime_probe)
     app.task(name="garimpei.collect_listings", queue="listing")(_handle_listing)
@@ -645,4 +654,139 @@ def build_integration_handler() -> "IntegrationHandler":
         ReadFacebookStatusUseCase(store),
         RequestFacebookLoginUseCase(build_facebook_profile_repository()),
         ConfirmFacebookLoginUseCase(build_facebook_profile_repository()),
+    )
+
+
+def build_inference_preparer() -> "LocalInputPreparer":
+    from garimpei.config.env import load_inference_settings
+    from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
+
+    return LocalInputPreparer(load_inference_settings())
+
+
+def build_inference_guard() -> "HostGpuGuard":
+    from garimpei.config.env import load_inference_settings
+    from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
+
+    settings = load_inference_settings()
+    return HostGpuGuard(settings.gpu_lock, settings.owner)
+
+
+@lru_cache(maxsize=1)
+def build_inference_gateway() -> "OllamaGateway":
+    from garimpei.config.env import load_inference_settings
+    from garimpei.infra.gateway.inference.docker_transport import DockerOllamaTransport
+    from garimpei.infra.gateway.inference.gpu_probe import NvidiaGpuProbe
+    from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
+    from garimpei.infra.runtime.inference_runtime import recover_inference_service
+
+    config, guard = load_config(require_secrets=False), build_inference_guard()
+    return OllamaGateway(
+        load_inference_settings(),
+        guard,
+        lambda: recover_inference_service(config, guard),
+        DockerOllamaTransport(config).request,
+        NvidiaGpuProbe().measure,
+    )
+
+
+def _defer_inference() -> int:
+    return _enqueue("garimpei.local_analysis", "inference", 0)
+
+
+def build_inference_repository() -> "PostgresInferenceRepository":
+    from garimpei.config.env import load_inference_settings
+    from garimpei.infra.gateway.inference.quota import LocalQuota
+    from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
+
+    settings = load_inference_settings()
+    return PostgresInferenceRepository(
+        _defer_inference, settings.queue_limit, settings.lease_seconds, LocalQuota(settings).reserve
+    )
+
+
+def build_request_analysis() -> "RequestAnalysisUseCase":
+    from garimpei.usecase.inference.request_analysis_usecase import RequestAnalysisUseCase
+
+    return RequestAnalysisUseCase(build_inference_repository(), build_inference_preparer())
+
+
+def build_read_analysis() -> "ReadAnalysisUseCase":
+    from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+    from garimpei.usecase.inference.read_analysis_usecase import ReadAnalysisUseCase
+
+    return ReadAnalysisUseCase(PostgresInferenceQueries())
+
+
+def build_run_analysis() -> "RunAnalysisUseCase":
+    from django.utils.timezone import now
+
+    from garimpei.usecase.inference.run_analysis_usecase import RunAnalysisUseCase
+
+    return RunAnalysisUseCase(build_inference_repository(), build_inference_gateway(), now)
+
+
+def _handle_inference() -> None:
+    build_run_analysis().execute()
+
+
+def reconcile_inference() -> None:
+    from django.utils.timezone import now
+
+    from garimpei.config.env import load_inference_settings
+    from garimpei.infra.persistence.inference_models import InferenceControl
+
+    repository, gateway = build_inference_repository(), build_inference_gateway()
+    control = InferenceControl.objects.filter(pk=1).first()
+    if control and control.reason in {"execution_unknown", "unload_failed"}:
+        repository.recovered(gateway.recover(), now())
+        return
+    repository.reconcile(now())
+    control = InferenceControl.objects.get(pk=1)
+    if control.active_request is not None:
+        return
+    idle = bool(
+        control.last_used_at
+        and (now() - control.last_used_at).total_seconds() >= load_inference_settings().idle_seconds
+    )
+    if control.resident and (control.paused or idle):
+        repository.unloaded(_unload_local_model(gateway), now())
+        return
+    diagnostic = gateway.diagnose()
+    if diagnostic.get("reason") == "ready" and not diagnostic.get("resident"):
+        diagnostic["reason"] = "paused" if control.paused else "idle_unloaded" if idle else "ready"
+    repository.record_diagnostic(diagnostic, now())
+
+
+def _unload_local_model(gateway: "OllamaGateway") -> bool:
+    from garimpei.domain.inference.errors import InferenceError
+
+    try:
+        return gateway.unload()
+    except InferenceError:
+        return False
+
+
+def start_configured_inference() -> str | None:
+    from garimpei.config.env import load_inference_settings
+    from garimpei.infra.runtime.inference_runtime import start_inference_service
+
+    settings = load_inference_settings()
+    if settings.service_enabled:
+        return start_inference_service(load_config(), settings, build_inference_guard())
+    return None
+
+
+def build_inference_handler() -> "InferenceHandler":
+    from garimpei.infra.http.inference.inference_handler import InferenceHandler
+    from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+    from garimpei.usecase.inference.pause_inference_usecase import PauseInferenceUseCase
+    from garimpei.usecase.inference.read_status_usecase import ReadStatusUseCase
+    from garimpei.usecase.inference.resume_inference_usecase import ResumeInferenceUseCase
+
+    repository = build_inference_repository()
+    return InferenceHandler(
+        ReadStatusUseCase(PostgresInferenceQueries()),
+        PauseInferenceUseCase(repository),
+        ResumeInferenceUseCase(repository),
     )

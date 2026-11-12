@@ -1,0 +1,45 @@
+{% extends "monitoring/layout.html" %}
+{% load static %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'inference/status.css' %}">{% endblock %}
+{% block title %}IA local · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" class="integrations ai-status" tabindex="-1">
+        <header class="page-heading">
+            <a href="{% url 'integration-settings' %}">Voltar às integrações</a>
+            <h1>Análise neste computador</h1>
+            <p>Controle a IA para compartilhar a GPU com seus outros programas. A coleta e a consulta continuam disponíveis.</p>
+        </header>
+        <section class="integration-section" aria-labelledby="ai-state">
+            <div class="integration-heading">
+                <h2 id="ai-state">{{ state_title }}</h2>
+                <p>{{ next_action }}</p>
+            </div>
+            <div class="integration-body">
+                <p><strong>Modo equilibrado</strong> · análise automática quando habilitada</p>
+                <form method="post" action="{% if status.paused %}{% url 'inference-resume' %}{% else %}{% url 'inference-pause' %}{% endif %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="revision" value="{{ status.revision }}">
+                    <button class="primary" type="submit">{% if status.paused %}Retomar IA{% else %}Pausar IA{% endif %}</button>
+                </form>
+                <p class="help">A pausa impede novas análises. Uma chamada em curso pode terminar antes do descarregamento.</p>
+                <dl>
+                    <dt>Modelo local</dt>
+                    <dd>{{ status.model }}</dd>
+                    <dt>Serviço</dt>
+                    <dd>{% if status.service %}Respondendo{% else %}Indisponível{% endif %}</dd>
+                    <dt>Memória do modelo</dt>
+                    <dd>{% if execution_uncertain %}Residência ainda não confirmada{% elif not status.service %}Não foi possível conferir{% elif status.resident %}Modelo residente{% else %}Modelo não residente na última verificação{% endif %}</dd>
+                    <dt>Trabalho em curso</dt>
+                    <dd>{% if execution_uncertain %}Encerramento ainda não confirmado{% elif status.active %}Uma análise em curso{% else %}Nenhuma análise em curso{% endif %}</dd>
+                    <dt>Aguardando análise</dt>
+                    <dd>{{ status.queued }}</dd>
+                    <dt>Última verificação</dt>
+                    <dd>{{ status.checked_at|date:"d/m/Y H:i:s"|default:"Ainda não verificado" }}</dd>
+                </dl>
+                {% if status.last_result_at %}<p class="fine">Resultado anterior conservado · {{ status.last_result_at|date:"d/m/Y H:i:s" }}</p>{% endif %}
+                <p class="help">Após cinco minutos sem uso, o modelo é descarregado da memória. Os pesos e os resultados permanecem neste computador.</p>
+                <a href="{% url 'inference-status' %}">Conferir estado novamente</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

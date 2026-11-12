@@ -4,7 +4,7 @@ import os
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import TypedDict, cast
+from typing import NotRequired, TypedDict, cast
 
 
 class ProcessRecord(TypedDict):
@@ -25,6 +25,7 @@ class Manifest(TypedDict):
     disposable: bool
     session_kind: str
     status: str
+    inference_container: NotRequired[str]
 
 
 class OperationError(RuntimeError):

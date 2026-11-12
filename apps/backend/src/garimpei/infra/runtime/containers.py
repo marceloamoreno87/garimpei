@@ -5,7 +5,7 @@ from garimpei.config.env import RuntimeConfig, process_environment
 from garimpei.infra.runtime.manifest import OperationError
 
 
-def docker(arguments: list[str], config: RuntimeConfig, *, timeout: int = 30) -> str:
+def docker(arguments: list[str], config: RuntimeConfig, *, timeout: float = 30) -> str:
     try:
         result = subprocess.run(
             ["docker", *arguments],
@@ -46,9 +46,11 @@ def container_ids(config: RuntimeConfig) -> list[str]:
     return output.splitlines() if output else []
 
 
-def verify_container(identifier: str, config: RuntimeConfig) -> None:
+def verify_container(identifier: str, config: RuntimeConfig, *, timeout: float = 30) -> None:
     labels = json.loads(
-        docker(["inspect", "--format", "{{json .Config.Labels}}", identifier], config)
+        docker(
+            ["inspect", "--format", "{{json .Config.Labels}}", identifier], config, timeout=timeout
+        )
     )
     if labels.get("com.garimpei.environment") != config.environment_id or labels.get(
         "com.garimpei.checkout"
