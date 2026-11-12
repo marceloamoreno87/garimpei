@@ -1,0 +1,328 @@
+### Result
+{
+  "before": {
+    "version": "e9617654-7b88-452c-96bf-22b7981117d4",
+    "url": "http://127.0.0.1:24686/ofertas/?aba=funcionam&q=Oferta&categoria=&pagina=2&versao=e9617654-7b88-452c-96bf-22b7981117d4",
+    "focus": "exploration-search",
+    "cards": [
+      {
+        "id": "e55b7047-6334-42e8-8cfb-342b0e5a56c8",
+        "key": "10021",
+        "values": "Preço de compra\nR$ 1.100,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 250,00"
+      },
+      {
+        "id": "ad6ee513-a7ab-404b-92eb-8fae70a82b6b",
+        "key": "10022",
+        "values": "Preço de compra\nR$ 1.105,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 245,00"
+      },
+      {
+        "id": "25acd53a-abc0-481a-952e-b03d7ac190fa",
+        "key": "10023",
+        "values": "Preço de compra\nR$ 1.110,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 240,00"
+      },
+      {
+        "id": "5e673b7f-5524-447e-8337-2be21b031c89",
+        "key": "10024",
+        "values": "Preço de compra\nR$ 1.115,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 235,00"
+      },
+      {
+        "id": "244c19b7-7ad7-4bef-88e5-c375cd295dcc",
+        "key": "10025",
+        "values": "Preço de compra\nR$ 1.120,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 230,00"
+      },
+      {
+        "id": "7cb7c64b-d1d2-4fcd-9f30-db3acabccba6",
+        "key": "10026",
+        "values": "Preço de compra\nR$ 1.125,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 225,00"
+      },
+      {
+        "id": "7b5b2e5e-bc91-4a99-8b73-6c6633631619",
+        "key": "10027",
+        "values": "Preço de compra\nR$ 1.130,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 220,00"
+      },
+      {
+        "id": "b23f2a31-2855-44df-8e52-de3c01a526a7",
+        "key": "10028",
+        "values": "Preço de compra\nR$ 1.135,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 215,00"
+      },
+      {
+        "id": "89df2f53-2fa0-451d-baf8-985ad8253e21",
+        "key": "10029",
+        "values": "Preço de compra\nR$ 1.140,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 210,00"
+      },
+      {
+        "id": "396157c8-a61f-4cf0-8111-7f92d63a30ed",
+        "key": "10030",
+        "values": "Preço de compra\nR$ 1.145,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 205,00"
+      },
+      {
+        "id": "5e57b8b1-8b83-415d-bed0-cf4d8ee28b0c",
+        "key": "10031",
+        "values": "Preço de compra\nR$ 1.150,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 200,00"
+      },
+      {
+        "id": "2658323f-babd-4c62-8e2b-2aebc10265e1",
+        "key": "10032",
+        "values": "Preço de compra\nR$ 1.155,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 195,00"
+      },
+      {
+        "id": "0244072f-ece9-4626-ad89-975e9e4f2e42",
+        "key": "10033",
+        "values": "Preço de compra\nR$ 1.160,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 190,00"
+      },
+      {
+        "id": "c02123b6-6149-46a0-af78-d53e1aee93c6",
+        "key": "10034",
+        "values": "Preço de compra\nR$ 1.165,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 185,00"
+      },
+      {
+        "id": "747d53c8-bb11-4618-a3aa-133bd19e8926",
+        "key": "10035",
+        "values": "Preço de compra\nR$ 1.170,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 180,00"
+      },
+      {
+        "id": "c8acfd9e-2f06-43d6-aaa3-db32bb2f658a",
+        "key": "10036",
+        "values": "Preço de compra\nR$ 1.175,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 175,00"
+      },
+      {
+        "id": "2686c4c1-7737-4001-8dac-d1cac8941078",
+        "key": "10037",
+        "values": "Preço de compra\nR$ 1.180,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 170,00"
+      },
+      {
+        "id": "1b9809f2-3755-454b-b5ef-1f1dcff90843",
+        "key": "10038",
+        "values": "Preço de compra\nR$ 1.185,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 165,00"
+      },
+      {
+        "id": "cd8cda16-a27c-4c4f-8daf-0a44dab3618d",
+        "key": "10039",
+        "values": "Preço de compra\nR$ 1.190,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 160,00"
+      },
+      {
+        "id": "24a50b08-3428-4466-835c-62748820292f",
+        "key": "10040",
+        "values": "Preço de compra\nR$ 1.350,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 0,00"
+      }
+    ]
+  },
+  "noticed": {
+    "version": "e9617654-7b88-452c-96bf-22b7981117d4",
+    "url": "http://127.0.0.1:24686/ofertas/?aba=funcionam&q=Oferta&categoria=&pagina=2&versao=e9617654-7b88-452c-96bf-22b7981117d4",
+    "focus": "exploration-search",
+    "cards": [
+      {
+        "id": "e55b7047-6334-42e8-8cfb-342b0e5a56c8",
+        "key": "10021",
+        "values": "Preço de compra\nR$ 1.100,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 250,00"
+      },
+      {
+        "id": "ad6ee513-a7ab-404b-92eb-8fae70a82b6b",
+        "key": "10022",
+        "values": "Preço de compra\nR$ 1.105,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 245,00"
+      },
+      {
+        "id": "25acd53a-abc0-481a-952e-b03d7ac190fa",
+        "key": "10023",
+        "values": "Preço de compra\nR$ 1.110,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 240,00"
+      },
+      {
+        "id": "5e673b7f-5524-447e-8337-2be21b031c89",
+        "key": "10024",
+        "values": "Preço de compra\nR$ 1.115,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 235,00"
+      },
+      {
+        "id": "244c19b7-7ad7-4bef-88e5-c375cd295dcc",
+        "key": "10025",
+        "values": "Preço de compra\nR$ 1.120,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 230,00"
+      },
+      {
+        "id": "7cb7c64b-d1d2-4fcd-9f30-db3acabccba6",
+        "key": "10026",
+        "values": "Preço de compra\nR$ 1.125,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 225,00"
+      },
+      {
+        "id": "7b5b2e5e-bc91-4a99-8b73-6c6633631619",
+        "key": "10027",
+        "values": "Preço de compra\nR$ 1.130,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 220,00"
+      },
+      {
+        "id": "b23f2a31-2855-44df-8e52-de3c01a526a7",
+        "key": "10028",
+        "values": "Preço de compra\nR$ 1.135,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 215,00"
+      },
+      {
+        "id": "89df2f53-2fa0-451d-baf8-985ad8253e21",
+        "key": "10029",
+        "values": "Preço de compra\nR$ 1.140,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 210,00"
+      },
+      {
+        "id": "396157c8-a61f-4cf0-8111-7f92d63a30ed",
+        "key": "10030",
+        "values": "Preço de compra\nR$ 1.145,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 205,00"
+      },
+      {
+        "id": "5e57b8b1-8b83-415d-bed0-cf4d8ee28b0c",
+        "key": "10031",
+        "values": "Preço de compra\nR$ 1.150,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 200,00"
+      },
+      {
+        "id": "2658323f-babd-4c62-8e2b-2aebc10265e1",
+        "key": "10032",
+        "values": "Preço de compra\nR$ 1.155,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 195,00"
+      },
+      {
+        "id": "0244072f-ece9-4626-ad89-975e9e4f2e42",
+        "key": "10033",
+        "values": "Preço de compra\nR$ 1.160,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 190,00"
+      },
+      {
+        "id": "c02123b6-6149-46a0-af78-d53e1aee93c6",
+        "key": "10034",
+        "values": "Preço de compra\nR$ 1.165,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 185,00"
+      },
+      {
+        "id": "747d53c8-bb11-4618-a3aa-133bd19e8926",
+        "key": "10035",
+        "values": "Preço de compra\nR$ 1.170,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 180,00"
+      },
+      {
+        "id": "c8acfd9e-2f06-43d6-aaa3-db32bb2f658a",
+        "key": "10036",
+        "values": "Preço de compra\nR$ 1.175,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 175,00"
+      },
+      {
+        "id": "2686c4c1-7737-4001-8dac-d1cac8941078",
+        "key": "10037",
+        "values": "Preço de compra\nR$ 1.180,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 170,00"
+      },
+      {
+        "id": "1b9809f2-3755-454b-b5ef-1f1dcff90843",
+        "key": "10038",
+        "values": "Preço de compra\nR$ 1.185,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 165,00"
+      },
+      {
+        "id": "cd8cda16-a27c-4c4f-8daf-0a44dab3618d",
+        "key": "10039",
+        "values": "Preço de compra\nR$ 1.190,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 160,00"
+      },
+      {
+        "id": "24a50b08-3428-4466-835c-62748820292f",
+        "key": "10040",
+        "values": "Preço de compra\nR$ 1.350,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 0,00"
+      }
+    ]
+  },
+  "after": {
+    "version": "e689d51c-ece7-4620-a7d2-9297a0a1a27e",
+    "url": "http://127.0.0.1:24686/ofertas/?aba=funcionam&q=Oferta&categoria=&pagina=2&versao=e689d51c-ece7-4620-a7d2-9297a0a1a27e",
+    "focus": "",
+    "cards": [
+      {
+        "id": "e55b7047-6334-42e8-8cfb-342b0e5a56c8",
+        "key": "10021",
+        "values": "Preço de compra\nR$ 1.100,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 180,00"
+      },
+      {
+        "id": "ad6ee513-a7ab-404b-92eb-8fae70a82b6b",
+        "key": "10022",
+        "values": "Preço de compra\nR$ 1.105,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 175,00"
+      },
+      {
+        "id": "25acd53a-abc0-481a-952e-b03d7ac190fa",
+        "key": "10023",
+        "values": "Preço de compra\nR$ 1.110,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 170,00"
+      },
+      {
+        "id": "5e673b7f-5524-447e-8337-2be21b031c89",
+        "key": "10024",
+        "values": "Preço de compra\nR$ 1.115,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 165,00"
+      },
+      {
+        "id": "244c19b7-7ad7-4bef-88e5-c375cd295dcc",
+        "key": "10025",
+        "values": "Preço de compra\nR$ 1.120,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 160,00"
+      },
+      {
+        "id": "7cb7c64b-d1d2-4fcd-9f30-db3acabccba6",
+        "key": "10026",
+        "values": "Preço de compra\nR$ 1.125,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 155,00"
+      },
+      {
+        "id": "7b5b2e5e-bc91-4a99-8b73-6c6633631619",
+        "key": "10027",
+        "values": "Preço de compra\nR$ 1.130,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 150,00"
+      },
+      {
+        "id": "b23f2a31-2855-44df-8e52-de3c01a526a7",
+        "key": "10028",
+        "values": "Preço de compra\nR$ 1.135,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 145,00"
+      },
+      {
+        "id": "89df2f53-2fa0-451d-baf8-985ad8253e21",
+        "key": "10029",
+        "values": "Preço de compra\nR$ 1.140,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 140,00"
+      },
+      {
+        "id": "396157c8-a61f-4cf0-8111-7f92d63a30ed",
+        "key": "10030",
+        "values": "Preço de compra\nR$ 1.145,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 135,00"
+      },
+      {
+        "id": "5e57b8b1-8b83-415d-bed0-cf4d8ee28b0c",
+        "key": "10031",
+        "values": "Preço de compra\nR$ 1.150,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 130,00"
+      },
+      {
+        "id": "2658323f-babd-4c62-8e2b-2aebc10265e1",
+        "key": "10032",
+        "values": "Preço de compra\nR$ 1.155,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 125,00"
+      },
+      {
+        "id": "0244072f-ece9-4626-ad89-975e9e4f2e42",
+        "key": "10033",
+        "values": "Preço de compra\nR$ 1.160,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 120,00"
+      },
+      {
+        "id": "c02123b6-6149-46a0-af78-d53e1aee93c6",
+        "key": "10034",
+        "values": "Preço de compra\nR$ 1.165,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 115,00"
+      },
+      {
+        "id": "747d53c8-bb11-4618-a3aa-133bd19e8926",
+        "key": "10035",
+        "values": "Preço de compra\nR$ 1.170,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 110,00"
+      },
+      {
+        "id": "c8acfd9e-2f06-43d6-aaa3-db32bb2f658a",
+        "key": "10036",
+        "values": "Preço de compra\nR$ 1.175,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 105,00"
+      },
+      {
+        "id": "2686c4c1-7737-4001-8dac-d1cac8941078",
+        "key": "10037",
+        "values": "Preço de compra\nR$ 1.180,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 100,00"
+      },
+      {
+        "id": "1b9809f2-3755-454b-b5ef-1f1dcff90843",
+        "key": "10038",
+        "values": "Preço de compra\nR$ 1.185,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 95,00"
+      },
+      {
+        "id": "cd8cda16-a27c-4c4f-8daf-0a44dab3618d",
+        "key": "10039",
+        "values": "Preço de compra\nR$ 1.190,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 90,00"
+      },
+      {
+        "id": "24a50b08-3428-4466-835c-62748820292f",
+        "key": "10040",
+        "values": "Preço de compra\nR$ 1.350,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\n−R$ 70,00"
+      }
+    ]
+  }
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => window.__f20ListRevision');
+```

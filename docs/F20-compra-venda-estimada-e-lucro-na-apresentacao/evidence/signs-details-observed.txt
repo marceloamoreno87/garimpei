@@ -1,0 +1,17 @@
+### Result
+[
+  {
+    "name": "zero",
+    "values": "Preço de compra\nR$ 1.350,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 0,00",
+    "version": "e9617654-7b88-452c-96bf-22b7981117d4"
+  },
+  {
+    "name": "negative",
+    "values": "Preço de compra\nR$ 1.400,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\n−R$ 50,00",
+    "version": "e9617654-7b88-452c-96bf-22b7981117d4"
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => window.__f20Signs');
+```

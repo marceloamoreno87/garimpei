@@ -1,0 +1,9 @@
+### Result
+{
+  "values": "Preço de compra\nR$ 900,00\nPreço de venda estimado\nIndisponível\nLucro estimado\nIndisponível",
+  "reason": "Imagem não disponível\nEntenda a estimativa\nPreço de compra\nR$ 900,00\nPreço de venda estimado\nIndisponível\nLucro estimado\nIndisponível\nTaxa provisória · Não disponível%\nIndisponível\n\nMotivo da indisponibilidade: Composição indisponível para esta revisão.\n\nEstimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace."
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({values:document.querySelector(\'.financial-values\').innerText,reason:document.querySelector(\'.detail-finance\').innerText})');
+```

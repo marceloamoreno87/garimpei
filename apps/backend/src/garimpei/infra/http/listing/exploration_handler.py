@@ -98,6 +98,7 @@ class ExplorationHandler:
             applied=request.GET.get("aplicar") == "1",
         )
         response = render(request, "listing/offer_detail.html", context)
+        response["HX-Push-Url"] = url(criteria.at(version), f"/ofertas/{identity}/")
         response.delete_cookie("condition_saved", path=f"/ofertas/{identity}/")
         return response
 

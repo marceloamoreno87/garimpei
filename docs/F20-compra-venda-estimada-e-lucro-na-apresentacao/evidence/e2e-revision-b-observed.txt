@@ -1,0 +1,12 @@
+### Result
+{
+  "before": "Preço de compra\nR$ 1.000,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 350,00",
+  "values": "Preço de compra\nR$ 900,00\nPreço de venda estimado\nR$ 1.600,00\nLucro estimado\nR$ 380,00",
+  "fee": "Taxa provisória · 20,00%\nR$ 320,00",
+  "revision": "e689d51c-ece7-4620-a7d2-9297a0a1a27e",
+  "url": "http://127.0.0.1:24686/ofertas/16b3504b-3085-40e4-b2b6-a66ef4333a78/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=e689d51c-ece7-4620-a7d2-9297a0a1a27e"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => window.__f20E2E');
+```

@@ -1,0 +1,9 @@
+### Result
+{
+  "key": "10952",
+  "values": "Preço de compra\nR$ 1.000,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 350,00"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({key:document.querySelector(\'.offer-card\').dataset.key,values:document.querySelector(\'.financial-values\').innerText})');
+```

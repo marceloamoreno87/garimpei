@@ -47,6 +47,8 @@ class AlertIntent(models.Model):
     recipient = models.CharField(max_length=200, blank=True)
     account = models.CharField(max_length=200, blank=True)
     body = models.TextField(blank=True)
+    financial = models.JSONField(default=dict)
+    body_format = models.CharField(max_length=40, blank=True, default="")
     state = models.CharField(max_length=20, default="queued")
     reason = models.CharField(max_length=64, default="pending_channel")
     next_action = models.DateTimeField()

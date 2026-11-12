@@ -1,0 +1,13 @@
+### Result
+{
+  "cep": "01001-000",
+  "fee": "10.00",
+  "interests": [
+    "cameras"
+  ],
+  "logistics": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({cep:document.querySelector(\'[name=cep]\').value,fee:document.querySelector(\'[name=resale_fee_percent]\').value,interests:[...document.querySelectorAll(\'[name="category_ids[]"]:checked\')].map(n=>n.value),logistics:!!document.querySelector(\'[name=shipping_estimate]\')})');
+```

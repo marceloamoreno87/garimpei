@@ -1,0 +1,199 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_financial_authorization_freezes_same_event_and_preserves_legacy _____
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-164/test_financial_authorization_f0')
+
+    def test_financial_authorization_freezes_same_event_and_preserves_legacy(tmp_path: Path) -> None:
+        with alert_scenario(tmp_path, enabled=False) as (instance, source, clock, channel):
+            clock.advance(1)
+            for n in range(951, 957):
+                source.rows[str(n)] = listing(
+                    str(n),
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    condition="Funciona bem",
+                    pickup=False,
+                    delivery=True,
+                    delivery_cep="01001000",
+                )
+            clock.advance(61)
+            completed(instance, 2)
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT count(*) FROM runtime_valuationprogress p JOIN runtime_listing l ON p.listing_id=l.id WHERE l.external_id IN ('951','952','953','954','955','956') AND p.current_id IS NOT NULL",
+                    )
+                    == [(6,)]
+                ),
+                "six financial evaluations",
+                seconds=45,
+            )
+            group = pause_worker(instance)
+            try:
+>               alert_shell(
+                    instance,
+                    """
+    from dataclasses import replace
+    from concurrent.futures import ThreadPoolExecutor
+    from django.db import connections
+    from garimpei.main import build_read_listing_changes
+    from garimpei.domain.alert.financial_snapshot import FORMAT
+    from garimpei.infra.repository.alert.financial import decode_snapshot
+    store.ingest(build_read_listing_changes().execute(),clock())
+    for key in ('951','952','953','954','955','956'):
+        row=decision(key)
+        store.evaluate(row.event.id,build_read_profit().execute(row.event.id,event=True),clock())
+    # A failure before transaction commit leaves no partial body/snapshot/attempt.
+    from unittest.mock import patch
+    row=intent('951')
+    with patch.object(AlertAttempt.objects,'create',side_effect=RuntimeError('controlled authorization rollback')):
+        try: store.claim(row.id,binding,clock(),reconcile=False)
+        except RuntimeError: pass
+        else: raise AssertionError('rollback fault not exercised')
+    row.refresh_from_db()
+    assert row.body=='' and row.financial=={} and row.body_format=='' and not row.attempts.exists()
+    # Independent connections race for one authorization.
+    def claim(_):
+        try:return build_alert_store().claim(row.id,binding,clock(),reconcile=False)
+        finally:connections.close_all()
+    with ThreadPoolExecutor(max_workers=2) as pool: deliveries=list(pool.map(claim,range(2)))
+    assert sum(d is not None for d in deliveries)==1
+    first=next(d for d in deliveries if d)
+    row.refresh_from_db()
+    frozen=dict(row.financial);body=row.body
+    assert row.body_format==FORMAT and decode_snapshot(frozen) is not None
+    assert frozen['event_id']==str(row.decision.event.id)
+    assert frozen['observation_id']==str(row.decision.event.observation_id)
+    assert body.index('Preço de compra:')<body.index('Preço de venda estimado:')<body.index('*Lucro estimado:')
+    assert 'frete' not in body.lower() and 'transporte' not in body.lower()
+    # Use the actual synthetic WAHA gateway to transmit once, then reconcile a lost response.
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    assert gateway.check(binding)
+    outcome=gateway.send(first)
+    store.finish(first,Outcome('uncertain','controlled lost response'),clock())
+    # A subsequent calculation/configuration cannot change the authorized record.
+    d=row.decision;d.financial={};d.save(update_fields=['financial'])
+    later=clock()+timedelta(seconds=61)
+    recovery=store.claim(row.id,binding,later,reconcile=True)
+    assert recovery and recovery.body==body
+    store.finish(recovery,gateway.reconcile(recovery,later),later)
+    row.refresh_from_db()
+    assert row.financial==frozen and row.body==body and row.state=='confirmed'
+    assert row.attempts.count()==1
+    # Existing body is preserved even with an incomplete legacy decision, including retry.
+    legacy=intent('952');legacy.body='CORPO LEGADO EXATO sem venda';legacy.session=binding.session;legacy.recipient=binding.recipient;legacy.account=binding.account;legacy.save()
+    legacy.decision.financial={};legacy.decision.save(update_fields=['financial'])
+    old=store.claim(legacy.id,binding,clock(),reconcile=False)
+    assert old and old.body=='CORPO LEGADO EXATO sem venda'
+    legacy.refresh_from_db();assert legacy.financial=={} and legacy.body_format==''
+    store.finish(old,Outcome('safe_retry','transport_not_started'),clock())
+    again=store.claim(legacy.id,binding,later,reconcile=False)
+    assert again and again.body==old.body
+    # Unauthorised legacy intent is re-evaluated by the same normal event-composition query.
+    legacy=intent('953');identity=legacy.id
+    legacy.decision.financial={'purchase':'1000','profit':'100'};legacy.decision.save(update_fields=['financial'])
+    assert store.claim(identity,binding,clock(),reconcile=False) is None
+    assert decision('953').state=='waiting' and intent('953').reason=='profit_pending'
+    from garimpei.usecase.alert.evaluate_alert_usecase import EvaluateAlertUseCase
+    EvaluateAlertUseCase(store,build_read_profit(),lambda:later).execute()
+    new=store.claim(identity,binding,later,reconcile=False)
+    assert new and intent('953').id==identity and intent('953').body_format==FORMAT
+    # Possibly transmitted intent without its body is kept for review, never reconstructed.
+    missing=intent('954')
+    AlertAttempt.objects.create(intent=missing,ordinal=1,generation=1,authorized_at=clock())
+    missing.state='uncertain';missing.save()
+    assert store.claim(missing.id,binding,later,reconcile=True) is None
+    assert intent('954').state=='review' and intent('954').reason=='authorized_body_missing'
+    assert intent('954').body=='' and intent('954').attempts.count()==1
+    # Complete but incompatible data cannot authorize a new message.
+    wrong=intent('955');raw=dict(wrong.decision.financial);raw['observation_id']=str(target('956').latest_id)
+    wrong.decision.financial=raw;wrong.decision.save(update_fields=['financial'])
+    assert store.claim(wrong.id,binding,clock(),reconcile=False) is None
+    assert intent('955').reason=='profit_observation_mismatch' and not intent('955').attempts.exists()
+    # An evaluation reference/revision from another snapshot cannot authorize coherent-looking money.
+    wrong=intent('956');raw=dict(wrong.decision.financial);raw['evaluation_revision']=999
+    wrong.decision.financial=raw;wrong.decision.save(update_fields=['financial'])
+    assert store.claim(wrong.id,binding,clock(),reconcile=False) is None
+    assert intent('956').reason=='profit_incompatible' and not intent('956').attempts.exists()
+    
+    print('F20 rollback/concurrent authorization/frozen snapshot/WAHA reconciliation/legacy/incomplete/incompatible/missing-body PASS')
+    """,
+                )
+
+apps/backend/tests/integration/test_financial_messages.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a9af/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-164/test_financial_authorization_f0/f04_efa8e60905.env'))
+code = "\nfrom dataclasses import replace\nfrom concurrent.futures import ThreadPoolExecutor\nfrom django.db import connectio...back/concurrent authorization/frozen snapshot/WAHA reconciliation/legacy/incomplete/incompatible/missing-body PASS')\n"
+
+    def alert_shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(
+            """
+    from datetime import timedelta
+    from decimal import Decimal
+    from uuid import UUID
+    from django.db import transaction
+    from django.utils import timezone
+    from garimpei.main import build_alert_store,build_alert_handler,build_read_profit,build_read_condition,build_classify_condition
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor,AlertEventDecision,AlertIntent,AlertAttempt,ManualConditionHistory
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    clock=_listing_clock(load_listing_settings())
+    store=build_alert_store()
+    binding=Binding('synthetic','100@c.us','200@c.us')
+    def target(key='903'): return Listing.objects.get(external_id=key)
+    def decision(key='903'): return AlertEventDecision.objects.get(event__listing=target(key),event__kind='discovered')
+    def intent(key='903'): return AlertIntent.objects.get(decision=decision(key))
+    """
+            + code
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+               ^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: 27 objects imported automatically (use -v 2 for details).
+E       
+E       {"timestamp": "2026-11-12T02:55:01.723330+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755"}
+E       {"timestamp": "2026-11-12T02:55:01.970063+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "6cdc676f-cc35-4a1f-baf2-2b5a4184c59e", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-12T02:55:01.989680+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "6cdc676f-cc35-4a1f-baf2-2b5a4184c59e", "alert_state": "uncertain", "alert_reason": "controlled lost response"}
+E       {"timestamp": "2026-11-12T02:55:01.997705+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "6cdc676f-cc35-4a1f-baf2-2b5a4184c59e", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-12T02:55:02.007906+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "6cdc676f-cc35-4a1f-baf2-2b5a4184c59e", "alert_state": "confirmed", "alert_reason": "history_ack"}
+E       {"timestamp": "2026-11-12T02:55:02.030136+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "f388ef5d-762b-494f-8a13-6a7f91211d8f", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-12T02:55:02.035997+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "f388ef5d-762b-494f-8a13-6a7f91211d8f", "alert_state": "safe_retry", "alert_reason": "transport_not_started"}
+E       {"timestamp": "2026-11-12T02:55:02.046695+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "f388ef5d-762b-494f-8a13-6a7f91211d8f", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-12T02:55:02.056763+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "2ca617c7-ca5d-4a08-bb57-f0fc779630cf", "alert_state": "blocked", "alert_reason": "profit_pending"}
+E       {"timestamp": "2026-11-12T02:55:02.087664+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "2ca617c7-ca5d-4a08-bb57-f0fc779630cf", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-12T02:55:02.121440+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "5791bf73-6714-4353-97b6-0904ab4b55f7", "alert_state": "blocked", "alert_reason": "profit_observation_mismatch"}
+E       {"timestamp": "2026-11-12T02:55:02.141382+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_efa8e60905", "run_id": "0197525b-699e-45b7-85bf-31ab6f62b755", "alert_reference": "9daa2526-abcb-48eb-bc38-10ae38d3759b", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       Traceback (most recent call last):
+E         File "/home/marce/.codex/worktrees/a9af/garimpei/apps/backend/manage.py", line 8, in <module>
+E           execute_from_command_line()
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E         File "/home/marce/.codex/worktrees/a9af/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E           utility.execute()
+E           ~~~~~~~~~~~~~~~^^
+E         File "/home/marce/.codex/worktrees/a9af/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E           self.fetch_command(subcommand).run_from_argv(self.argv)
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E         File "/home/marce/.codex/worktrees/a9af/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E           self.execute(*args, **cmd_options)
+E           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E         File "/home/marce/.codex/worktrees/a9af/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E           output = self.handle(*args, **options)
+E         File "/home/marce/.codex/worktrees/a9af/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E           exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         File "<string>", line 102, in <module>
+E       AssertionError
+
+apps/backend/tests/factories/alert_scenario.py:104: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F09 diagnostic decisions [('excluded', 'silent', 12), ('eligible', 'eligible', 6)]
+F09 diagnostic intents [('review', 'authorized_body_missing', 1), ('blocked', 'profit_observation_mismatch', 1), ('authorized', 'transmission_possible', 3), ('confirmed', 'history_ack', 1)]
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_financial_messages.py::test_financial_authorization_freezes_same_event_and_preserves_legacy
+1 failed in 15.01s

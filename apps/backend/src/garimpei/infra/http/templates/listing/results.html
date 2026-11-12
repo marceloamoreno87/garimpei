@@ -60,7 +60,7 @@
     {% if configured and not worker_active %}<div class="notice" role="status"><strong>Acompanhamento interrompido</strong><p>O worker não está ativo. Os últimos dados disponíveis continuam legíveis: {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
     <header class="result-heading"><h2 id="results-title" tabindex="-1">{% if page.total %}{{ page.start }}–{{ page.end }} de {{ page.total }}{% else %}Nenhum resultado{% endif %}</h2>
 
-        <p>Lucro potencial antes de frete/transporte, do maior para o menor</p>
+        <p>Lucro estimado, do maior para o menor</p>
     </header>
     <div class="offer-grid">
         {% for card in cards %}
@@ -75,15 +75,7 @@
                     <p class="fine">{{ card.offer.condition.label }}</p>
                     <h3><a class="offer-title" href="{{ card.detail_url }}">{{ card.title }}</a></h3>
 
-                    <p class="profit-label">{{ card.profit_label }}</p>
-                    <p class="offer-profit">{{ card.profit }}</p>
-                    <p class="fine">{{ card.profit_scope }}</p>
-                    <dl>
-                        <dt>Preço de compra</dt>
-                        <dd>
-                            {{ card.price }}
-                        </dd>
-                    </dl>
+                    {% include "listing/financial_values.html" with price=card.price resale=card.resale profit=card.profit %}
                     <a class="button secondary"
                        href="{{ card.detail_url }}">Conferir detalhes<span class="sr-only"> de {{ card.title }}</span></a>
                 </div>

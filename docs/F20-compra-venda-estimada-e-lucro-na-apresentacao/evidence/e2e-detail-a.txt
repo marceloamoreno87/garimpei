@@ -1,0 +1,10 @@
+### Result
+{
+  "values": "Preço de compra\nR$ 1.000,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 350,00",
+  "fee": "Taxa provisória · 10,00%\nR$ 150,00",
+  "revision": "e9617654-7b88-452c-96bf-22b7981117d4"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({values:document.querySelector(\'.financial-values\').innerText,fee:document.querySelector(\'.finance\').innerText,revision:document.querySelector(\'#exploration\').dataset.version})');
+```

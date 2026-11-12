@@ -45,7 +45,8 @@ print('WRK-ELEGIBILIDADE-01/02; E2E-CLASSIFICACAO-01 PASS')
             """
 rows=list(AlertIntent.objects.filter(decision__event__listing=target()).order_by('decision__event__sequence'))
 assert len(rows)==4 and len({row.id for row in rows})==4
-assert 'R$ 2.300,00 → R$ 2.299,99' in rows[1].body
+assert 'Preço anterior: R$ 2.300,00' in rows[1].body
+assert 'Preço de compra: R$ 2.299,99' in rows[1].body
 assert Decimal(rows[1].decision.financial['profit'])-Decimal(rows[0].decision.financial['profit'])==Decimal('.01')
 assert len({row.decision.financial['observation_id'] for row in rows})==4
 print('WRK-ELEGIBILIDADE-04/05 PASS')
@@ -199,7 +200,8 @@ build_monitoring_handler()._update.execute(StepInput('editar',config.revision,
 assert intent('921').id!=intent('922').id
 assert intent('921').state==intent('922').state=='confirmed'
 assert intent('923').state=='confirmed'
-assert 'Lucro potencial antes de frete/transporte' in intent('923').body
+assert '*Lucro estimado:' in intent('923').body
+assert 'frete/transporte' not in intent('923').body.lower()
 assert ListingEvent.objects.filter(kind='discovered',listing__external_id='600').count()==0
 assert not AlertIntent.objects.filter(decision__event__listing__external_id='600').exists()
 print('WRK-ELEGIBILIDADE-07 new interest / republication / old identity PASS')

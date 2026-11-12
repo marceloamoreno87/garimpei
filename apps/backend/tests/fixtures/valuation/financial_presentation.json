@@ -1,0 +1,68 @@
+{
+  "currency": "BRL",
+  "cases": {
+    "POSITIVO": {
+      "purchase": "1000.00",
+      "resale": "1500.00",
+      "fee_percent": "10.00",
+      "fee": "150.00",
+      "profit": "350.00"
+    },
+    "ZERO": {
+      "purchase": "1350.00",
+      "resale": "1500.00",
+      "fee_percent": "10.00",
+      "fee": "150.00",
+      "profit": "0.00"
+    },
+    "NEGATIVO": {
+      "purchase": "1400.00",
+      "resale": "1500.00",
+      "fee_percent": "10.00",
+      "fee": "150.00",
+      "profit": "-50.00"
+    },
+    "FRACAO": {
+      "purchase": "70.00",
+      "resale": "101.00",
+      "fee_percent": "12.50",
+      "fee": "12.63",
+      "profit": "18.37"
+    },
+    "SEM_VENDA": {
+      "purchase": "1000.00",
+      "resale": null,
+      "profit": null
+    },
+    "SEM_COMPRA": {
+      "purchase": null,
+      "resale": "1500.00",
+      "profit": null
+    },
+    "NOVO_APENAS": {
+      "purchase": "1000.00",
+      "resale": null,
+      "new": "2400.00",
+      "profit": null
+    },
+    "INCOMPATIVEL": {
+      "purchase": "1000.00",
+      "resale": null,
+      "profit": null
+    }
+  },
+  "comparables": [
+    "1400.00",
+    "1450.00",
+    "1500.00",
+    "1550.00",
+    "1600.00"
+  ],
+  "revision_b": {
+    "purchase": "900.00",
+    "resale": "1600.00",
+    "fee_percent": "20.00",
+    "fee": "320.00",
+    "profit": "380.00"
+  }
+}

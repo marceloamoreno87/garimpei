@@ -1,0 +1,157 @@
+### Result
+[
+  {
+    "width": 360,
+    "kind": "list",
+    "rows": [
+      "Preço de compra",
+      "Preço de venda estimado",
+      "Lucro estimado"
+    ],
+    "amounts": [
+      "R$ 1.000,00",
+      "R$ 1.500,00",
+      "R$ 350,00"
+    ],
+    "normal": 16,
+    "profit": 27,
+    "overflow": false
+  },
+  {
+    "width": 360,
+    "kind": "list",
+    "zoom": {
+      "overflow": false,
+      "visible": true
+    }
+  },
+  {
+    "width": 360,
+    "kind": "detail",
+    "rows": [
+      "Preço de compra",
+      "Preço de venda estimado",
+      "Lucro estimado"
+    ],
+    "amounts": [
+      "R$ 1.000,00",
+      "R$ 1.500,00",
+      "R$ 350,00"
+    ],
+    "normal": 16,
+    "profit": 35.2,
+    "overflow": false
+  },
+  {
+    "width": 360,
+    "kind": "detail",
+    "zoom": {
+      "overflow": false,
+      "visible": true
+    }
+  },
+  {
+    "width": 768,
+    "kind": "list",
+    "rows": [
+      "Preço de compra",
+      "Preço de venda estimado",
+      "Lucro estimado"
+    ],
+    "amounts": [
+      "R$ 1.000,00",
+      "R$ 1.500,00",
+      "R$ 350,00"
+    ],
+    "normal": 16,
+    "profit": 28.8,
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "kind": "list",
+    "zoom": {
+      "overflow": false,
+      "visible": true
+    }
+  },
+  {
+    "width": 768,
+    "kind": "detail",
+    "rows": [
+      "Preço de compra",
+      "Preço de venda estimado",
+      "Lucro estimado"
+    ],
+    "amounts": [
+      "R$ 1.000,00",
+      "R$ 1.500,00",
+      "R$ 350,00"
+    ],
+    "normal": 16,
+    "profit": 38.4,
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "kind": "detail",
+    "zoom": {
+      "overflow": false,
+      "visible": true
+    }
+  },
+  {
+    "width": 1440,
+    "kind": "list",
+    "rows": [
+      "Preço de compra",
+      "Preço de venda estimado",
+      "Lucro estimado"
+    ],
+    "amounts": [
+      "R$ 1.000,00",
+      "R$ 1.500,00",
+      "R$ 350,00"
+    ],
+    "normal": 16,
+    "profit": 28.8,
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "kind": "list",
+    "zoom": {
+      "overflow": false,
+      "visible": true
+    }
+  },
+  {
+    "width": 1440,
+    "kind": "detail",
+    "rows": [
+      "Preço de compra",
+      "Preço de venda estimado",
+      "Lucro estimado"
+    ],
+    "amounts": [
+      "R$ 1.000,00",
+      "R$ 1.500,00",
+      "R$ 350,00"
+    ],
+    "normal": 16,
+    "profit": 38.4,
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "kind": "detail",
+    "zoom": {
+      "overflow": false,
+      "visible": true
+    }
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('() => window.__f20Layout');
+```

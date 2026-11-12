@@ -42,17 +42,33 @@ def message_text(value: AlertMessage) -> str:
     if value.previous_price is not None and value.kind == "price_decreased":
         price = brl(value.previous_price) + " → " + price
     observed = value.observed_at.astimezone(ZoneInfo("America/Sao_Paulo"))
-    profit_label = (
-        "Lucro potencial antes de frete/transporte"
-        if value.profit_policy == "potential-before-freight-v2"
-        else "Lucro estimado (regra anterior)"
-    )
+    amounts: tuple[str, ...]
+    if value.financial is not None:
+        amounts = (
+            "Preço de compra: " + brl(value.financial.purchase),
+            "Preço de venda estimado: " + brl(value.financial.resale),
+            "*Lucro estimado: " + brl(value.financial.profit) + "*",
+        )
+        previous = (
+            ("Preço anterior: " + brl(value.previous_price),)
+            if value.previous_price is not None and value.kind == "price_decreased"
+            else ()
+        )
+    else:
+        # Only retained for already authorized legacy formats and their comparisons.
+        label = (
+            "Lucro potencial antes de frete/transporte"
+            if value.profit_policy == "potential-before-freight-v2"
+            else "Lucro estimado (regra anterior)"
+        )
+        amounts = ("Compra: " + price, label + ": " + brl(value.profit))
+        previous = ()
     return "\n".join(
         (
             header + " · " + " ".join(value.title.split()),
             value.source,
-            "Compra: " + price,
-            profit_label + ": " + brl(value.profit),
+            *amounts,
+            *previous,
             observed.strftime("Observado em %d/%m/%Y às %H:%M (São Paulo)"),
             value.url,
             "Ref. " + str(value.reference),

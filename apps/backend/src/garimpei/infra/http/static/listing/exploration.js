@@ -31,14 +31,18 @@
     if (event.detail.xhr.status >= 400) {
       event.detail.shouldSwap = false;
       const feedback = document.querySelector('#exploration-feedback');
-      if (feedback) feedback.textContent = 'Não foi possível atualizar. Seus resultados foram mantidos. Tente novamente em Atualizar lista.';
+      if (feedback) feedback.textContent = 'Não foi possível atualizar os valores. Tente novamente';
     }
   });
   document.body.addEventListener('htmx:afterSwap', event => {
     if (event.detail.target.id === 'updates' && region()?.dataset.detail) {
       region().querySelectorAll('[data-apply]').forEach(a => {
         a.href = region().dataset.refresh + '&aplicar=1';
-        a.removeAttribute('hx-get');
+        a.setAttribute('hx-get', a.href);
+        a.setAttribute('hx-target', '#main');
+        a.setAttribute('hx-select', '#main');
+        a.setAttribute('hx-swap', 'outerHTML');
+        window.htmx?.process(a);
       });
     }
     if (event.detail.target.id !== 'exploration') return;
@@ -48,12 +52,6 @@
       (root.querySelector('.offer-title') || root.querySelector('#results-title'))?.focus();
     }
   });
-  document.addEventListener('click', event => {
-    if (!event.target.closest?.('[data-apply]') || !region()?.dataset.detail) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    location.assign(region().dataset.refresh + '&aplicar=1');
-  }, true);
   document.addEventListener('keydown', event => {
     const tab = event.target.closest?.('.condition-tabs [role=tab]');
     if (!tab) return;

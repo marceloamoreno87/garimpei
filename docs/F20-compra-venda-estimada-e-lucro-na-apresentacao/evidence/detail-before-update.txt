@@ -1,0 +1,10 @@
+### Result
+{
+  "before": "Preço de compra\nR$ 1.000,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 350,00",
+  "revision": "213da10f-d0c5-4e5a-84e3-2055a7003626",
+  "update": "#main"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({before:document.querySelector(\'.financial-values\').innerText,revision:document.querySelector(\'#exploration\').dataset.version,update:document.querySelector(\'[data-apply]\')?.getAttribute(\'hx-target\')})');
+```

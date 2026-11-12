@@ -39,24 +39,13 @@
                                                                            referrerpolicy="no-referrer">{% else %}<span role="img" aria-label="Imagem não disponível para {{ title }}">Imagem não disponível</span>{% endif %}</div>
             <h2 id="finance-heading">Entenda a estimativa</h2>
 
+            {% include "listing/financial_values.html" %}
             <dl class="finance">
-                <dt>Compra · preço anunciado</dt>
-                <dd>
-                    {{ price }}
-                </dd>
-                <dt>Revenda estimada de usado</dt>
-                <dd>
-                    {{ resale }}
-                </dd>
                 <dt>Taxa provisória · {{ percent }}%</dt>
-                <dd>
-                    {{ fee }}
-                </dd>
+                <dd>{{ fee }}</dd>
             </dl>
-            <p class="profit-label">{{ complete_profit_label }}</p>
-            <p class="offer-profit">{{ profit }}</p>
         {% if reason %}<p class="fine">Motivo da indisponibilidade: {{ reason }}.</p>{% endif %}
-        <p class="fine">Estimativa para equivalente funcional, sem custo de reparo. Frete/transporte, embalagem, impostos e frete de revenda não estão incluídos.</p>
+        <p class="fine">Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace.</p>
     </section>
     <section class="detail-evidence" aria-labelledby="references-heading">
         <h2 id="references-heading">Referências para comparar</h2>

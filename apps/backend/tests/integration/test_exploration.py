@@ -116,7 +116,8 @@ def test_order_snapshots_update_manual_and_history(
     ):
         assert value in detail, value
     assert detail.count("Abrir referência</a>") == 5
-    assert "Lucro potencial antes de frete/transporte" in detail
+    assert "Lucro estimado" in detail
+    assert "frete/transporte" not in detail.lower()
     assert "Frete ·" not in detail and "exploration-modality" not in bodies[0]
     assert "Referência de novo indisponível" in i.http(f"/ofertas/{UUID(int=5)}/")[2]
     assert "Imagem não disponível" in i.http(f"/ofertas/{UUID(int=42)}/")[2]
