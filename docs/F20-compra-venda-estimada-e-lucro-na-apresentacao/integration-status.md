@@ -1,5 +1,5 @@
 # Estado de integração — F20
 
-Avaliação clean em `feat/F20-apresentacao-financeira`, worktree `/home/marce/.codex/worktrees/a9af/garimpei`, sobre a base `bc1bc84`. A implementação permanece nessa worktree sem commit adicional ou integração. A consolidação no checkout principal reúne somente progresso e artefatos de avaliação/implementação. `done` registra o contrato aprovado nessa branch; não indica código incorporado à master. Para reproduzir a operação desta feature, usar a worktree avaliada enquanto não houver integração autorizada.
+Implementação commitada em `1ec8b10` e publicada na branch própria em `git@github.com:marceloamoreno87/garimpei.git`. A branch foi integrada à `master` local, preservando os relatórios e o progresso avaliados. A base combinada está em validação antes de publicar a master e criar a próxima frente.
 
-339 testes, seis gates e todos os demais gates do contrato aprovados. Avaliação: 26 PASS, oito ACs verificados, sem pendências. Zoom200% foi verificado por viewport CSS equivalente; sem acionamento nativo do zoom. Canal WAHA e fonte são sintéticos. Migrations F19/F20 formam folhas paralelas e precisarão de migration de união quando integradas.
+A migration `0014_merge_inference_and_financial_snapshot` une `0013_local_inference` e `0013_alert_message_snapshot`, ambas sobre `0012_opportunity_collection`, sem reescrever dados. A avaliação original permanece junto da especificação; a validação da base combinada é registrada em `docs/integration/F19-F20.md`.
