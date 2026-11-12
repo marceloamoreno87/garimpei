@@ -1,0 +1,32 @@
+{
+  "feature": "F18",
+  "started_at": "2026-11-12T23:25:37.541767+00:00",
+  "query_kind": "approved_corpus_case",
+  "requested_radius_km": 500,
+  "read_only_source": true,
+  "business_writes": 0,
+  "max_queries": 1,
+  "max_pages": 2,
+  "pages": [
+    {
+      "candidate_count": 24,
+      "diagnostic": null,
+      "continuation_present": true,
+      "verified": false,
+      "observed_radius_km": 6
+    }
+  ],
+  "response_metadata": [
+    {
+      "response_rows": 258,
+      "browse_metadata_present": false,
+      "response_radius_km": null,
+      "latitude_present": false,
+      "longitude_present": false,
+      "route_present": false
+    }
+  ],
+  "browser_closed": true,
+  "elapsed_seconds": 6.317,
+  "finished_at": "2026-11-12T23:25:43.858741+00:00"
+}
