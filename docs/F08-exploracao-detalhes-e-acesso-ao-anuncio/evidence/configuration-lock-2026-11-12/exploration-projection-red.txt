@@ -1,0 +1,83 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+___ test_exploration_projection_omits_unused_cycle_json_without_lazy_queries ___
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-289/test_exploration_projection_om0')
+
+    def test_exploration_projection_omits_unused_cycle_json_without_lazy_queries(
+        tmp_path: Path,
+    ) -> None:
+        with first_eligibility_scenario(tmp_path, enabled=False) as (instance, _, _, _):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    """
+    from unittest.mock import patch
+    from django.db import connection,transaction
+    from django.db.models import QuerySet
+    from django.test.utils import CaptureQueriesContext
+    from garimpei.main import build_publish_exploration,_listing_clock
+    from garimpei.config.env import load_listing_settings
+    source=build_publish_exploration()._publisher._source
+    now=_listing_clock(load_listing_settings())()
+    def full_cycle_projection(query,*fields):return query
+    with transaction.atomic():
+     with connection.cursor() as cursor:cursor.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
+     with CaptureQueriesContext(connection) as actual_queries:actual=source.snapshot(now)
+     with patch.object(QuerySet,'defer',full_cycle_projection):
+      with CaptureQueriesContext(connection) as baseline_queries:baseline=source.snapshot(now)
+    assert actual==baseline and len(actual)==6
+    assert len(actual_queries)==len(baseline_queries) and len(actual_queries)<=10
+    projection=' '.join(q['sql'].split(' FROM ',1)[0] for q in actual_queries if q['sql'].startswith('SELECT'))
+    for field in ('results','planned','diagnostics','window_evidence','origin'):
+     assert '"runtime_collectioncycle"."'+field+'"' not in projection,field
+    assert not any('FROM "runtime_collectioncycle" WHERE' in q['sql'] for q in actual_queries)
+    print('F08 projection: five unused JSON fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads',len(actual_queries))
+    """,
+                )
+
+apps/backend/tests/integration/test_exploration_configuration_lock.py:147:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/90b7/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-289/test_exploration_projection_om0/wave11b_f16_ddfb61da.env'))
+code = "\nfrom unittest.mock import patch\nfrom django.db import connection,transaction\nfrom django.db.models import QuerySe...fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads',len(actual_queries))\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 38 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T17:22:35.513523+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_ddfb61da", "run_id": "35542f0a-f5bb-497c-8454-4b1904e9374e"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 20, in <module>
+E         AssertionError: results
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 20, in <module>\nAssertionError: results\n').returncode
+
+apps/backend/tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_exploration_configuration_lock.py::test_exploration_projection_omits_unused_cycle_json_without_lazy_queries
+1 failed, 2 passed in 31.60s

@@ -1,0 +1,5 @@
+F08 RR: config writer and F16 publication committed while F08 held; old parent+children coherent; second publisher waited80808008; both revisions preserved; writer_seconds= 0.0575
+.Opt-in rejects autocommit/read committed; RR/serializable coherent without row lock; default reader retains FOR UPDATE
+.F08 projection: five unused JSON fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads 8
+.
+3 passed in 32.77s

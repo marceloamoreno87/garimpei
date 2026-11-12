@@ -1,0 +1,139 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_exploration_snapshot_allows_configuration_commit_and_serializes_publishers _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-287/test_exploration_snapshot_allo0')
+
+    def test_exploration_snapshot_allows_configuration_commit_and_serializes_publishers(
+        tmp_path: Path,
+    ) -> None:
+        with first_eligibility_scenario(tmp_path, enabled=False) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    """
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Event,Lock
+    from time import monotonic,sleep
+    from decimal import Decimal
+    from unittest.mock import patch
+    from django.db import connection,connections
+    from garimpei.domain.monitoring.errors import ConfigurationSaveFailed
+    from garimpei.main import build_publish_exploration,build_read_monitoring_configuration,build_monitoring_handler
+    from garimpei.infra.queries.listing.exploration_source import ExplorationSource
+    from garimpei.infra.persistence.exploration_models import ExplorationOffer,ExplorationRevision
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    old=build_read_monitoring_configuration().execute()
+    new_name='Produto novo para corte MVCC'
+    held=Event();release=Event();second_started=Event();second_snapshot=Event();mutex=Lock()
+    seen=[];pids={}
+    original=ExplorationSource.snapshot
+
+    def snapshot(source,at):
+     with mutex:index=len(seen);seen.append(source._configuration.execute())
+     offers=original(source,at)
+     if index==0:
+      held.set()
+      assert release.wait(8),'test did not release first publisher'
+      assert source._configuration.execute()==old,'RR mixed parent and children after concurrent edit'
+     else:
+      second_snapshot.set()
+     return offers
+
+    def publish(index):
+     try:
+      with connection.cursor() as cursor:cursor.execute('SELECT pg_backend_pid()');pids[index]=cursor.fetchone()[0]
+      if index==1:second_started.set()
+      return build_publish_exploration().execute()
+     finally:connections.close_all()
+
+    def update():
+     try:
+      with connection.cursor() as cursor:cursor.execute("SET statement_timeout='500ms'")
+      started=monotonic()
+      try:
+       build_monitoring_handler()._update.execute(StepInput('editar',old.revision,cep=old.cep,shipping_estimate=str(old.shipping_estimate or ''),resale_fee_percent='11.00',category_ids=old.category_ids,product_names=(*old.product_names,new_name)))
+      except ConfigurationSaveFailed:
+       return None,monotonic()-started
+      return build_read_monitoring_configuration().execute(),monotonic()-started
+     finally:connections.close_all()
+
+    def blockers(pid):
+     with connection.cursor() as cursor:
+      cursor.execute('SELECT pg_blocking_pids(%s)',[pid]);return cursor.fetchone()[0]
+
+    with patch.object(ExplorationSource,'snapshot',snapshot):
+     with ThreadPoolExecutor(3) as pool:
+      first=pool.submit(publish,0)
+      try:
+       assert held.wait(8),'publisher did not enter snapshot'
+       writer=pool.submit(update)
+       current,elapsed=writer.result(timeout=3)
+       assert current is not None,('configuration writer blocked by F08 snapshot',elapsed)
+       assert elapsed<1 and current.revision==old.revision+1
+       assert current.resale_fee_percent==Decimal('11.00') and new_name in current.product_names
+       second=pool.submit(publish,1);assert second_started.wait(3)
+       deadline=monotonic()+2
+       while monotonic()<deadline and pids[0] not in blockers(pids[1]):sleep(.01)
+       assert pids[0] in blockers(pids[1]),'publisher session lock was not retained'
+       assert not second_snapshot.is_set(),'second publisher entered before first committed'
+      finally:release.set()
+      first_id=first.result(timeout=5);second_id=second.result(timeout=5)
+    assert seen[0]==old and seen[1]==current
+    assert first_id!=second_id
+    assert ExplorationRevision.objects.get(id=first_id).sequence<ExplorationRevision.objects.get(id=second_id).sequence
+    first_payloads=ExplorationOffer.objects.filter(revision__id=first_id).values_list('payload',flat=True)
+    second_payloads=ExplorationOffer.objects.filter(revision__id=second_id).values_list('payload',flat=True)
+    assert first_payloads and second_payloads
+    assert all(p['composition']['configuration_revision']==old.revision and Decimal(p['composition']['fee_percent'])==old.resale_fee_percent for p in first_payloads)
+    assert all(p['composition']['configuration_revision']==current.revision and Decimal(p['composition']['fee_percent'])==current.resale_fee_percent for p in second_payloads)
+    assert build_read_monitoring_configuration().execute()==current
+    print('F08 RR: configuration writer committed below1s while publication held; old parent+children coherent; second publisher waited80808008 before new snapshot; both revisions preserved')
+    """,
+                )
+
+apps/backend/tests/integration/test_exploration_configuration_lock.py:16:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/90b7/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-287/test_exploration_snapshot_allo0/wave11b_f16_a54d4063.env'))
+code = "\nfrom concurrent.futures import ThreadPoolExecutor\nfrom threading import Event,Lock\nfrom time import monotonic,sle... held; old parent+children coherent; second publisher waited80808008 before new snapshot; both revisions preserved')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 38 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T17:17:40.110225+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_a54d4063", "run_id": "88a98261-85bd-401f-ae32-f243d37d0370"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/90b7/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 59, in <module>
+E         AssertionError: ('configuration writer blocked by F08 snapshot', 0.5064772729965625)
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...ing>", line 59, in <module>\nAssertionError: (\'configuration writer blocked by F08 snapshot\', 0.5064772729965625)\n').returncode
+
+apps/backend/tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_exploration_configuration_lock.py::test_exploration_snapshot_allows_configuration_commit_and_serializes_publishers
+1 failed in 11.17s
