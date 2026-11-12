@@ -16,3 +16,5 @@ F14:34PASS/1BLOCKED, faltam duas resoluções reais da mesma foto. F15:28PASS/3B
 Todos os incrementos e relatórios das worktrees foram incluídos no candidato `e6bbc22`. A integração usa `integration/pending-features-2026-11-12`; os quinze diretórios, incluindo master, são preservados. Inventário completo em `worktree-inventory-before-merge.json`. Formulários humanos F15 permanecem acessíveis na worktree e na master após merge.
 
 Não houve PR, push ou deploy. Não houve timeout de equipe aplicado; os agentes concluíram seus checkpoints e encerraram seus recursos próprios. Diários e evidências permanecem nos diretórios das features e neste diretório de integração. [Relatório da integração](integration.md), [calibração](calibration-supplement.md), [revisão final](evidence/review-runtime-calibration.md).
+
+Merge local `2dd9906` concluído; readiness e preservação dos dados confirmadas. Rascunho documental concorrente F21 preservado sem commit. Consulte [verificação da master](master-verification.md).

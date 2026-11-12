@@ -1,0 +1,2 @@
+{"timestamp": "2026-11-12T22:46:42.384452+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "dev_master_5d282a952f", "run_id": "fcc4aee5-1235-4e6d-945b-e9f22d3942de"}
+Stopped dev_master_5d282a952f: owned web/worker and services; database, volumes and session retained

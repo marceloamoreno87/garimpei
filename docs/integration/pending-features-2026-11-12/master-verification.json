@@ -1,0 +1,121 @@
+{
+  "merge": "2dd9906",
+  "verified_source": "e6bbc22",
+  "source_inputs_equal": true,
+  "readiness": "ready",
+  "worktrees": [
+    {
+      "path": "/home/marce/dev/garimpei",
+      "branch": "refs/heads/master",
+      "head": "2dd99062cb7ffb110803f3733a08acde2b0d6c17",
+      "included_in_master": true,
+      "uncommitted": [
+        " M docs/PRD.md",
+        " M docs/prd_progress.json",
+        "?? docs/integration/pending-features-2026-11-12/evidence/master-business-preserved.json",
+        "?? docs/integration/pending-features-2026-11-12/evidence/master-init.txt",
+        "?? docs/integration/pending-features-2026-11-12/evidence/master-readiness.json",
+        "?? docs/integration/pending-features-2026-11-12/evidence/master-stop.txt"
+      ]
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/0d94/garimpei",
+      "branch": "refs/heads/feat/F17-resiliencia-operacional",
+      "head": "9a754971e9bad9dbf0ba2b7ec470998bc8ea1d21",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/34bb/garimpei",
+      "branch": "refs/heads/feat/F16-primeira-elegibilidade",
+      "head": "2add5b3750721ae5bfa9aec26e7bf017d17ac985",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/4bff/garimpei",
+      "branch": "refs/heads/fix/F13-prova-continuidade",
+      "head": "6078fd8a65007b579c12fb4a41aad9636abc52f4",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6c3f/garimpei",
+      "branch": "refs/heads/feat/F19-inferencia-multimodal-local",
+      "head": "e33c69be6427a704086f6295aee7093c636316f7",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6cd6/garimpei",
+      "branch": "refs/heads/fix/startup-deadline-envelope",
+      "head": "5a90b88cc211cef36a8b4d90274f275a59ff91f2",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6efe/garimpei",
+      "branch": "refs/heads/fix/navigation-effective-budget",
+      "head": "021ef59a760aeb308df8f5f90f910405f9e230b5",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/7ae4/garimpei",
+      "branch": "refs/heads/feat/F14-imagens-locais",
+      "head": "f999b1b494c563c2f7e49d2a5d6354fe63e50bd9",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/90b7/garimpei",
+      "branch": "refs/heads/fix/exploration-configuration-lock",
+      "head": "ee8b3a4727c4e2fa8ec6e7e0450bad35c78a458e",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a716/garimpei",
+      "branch": "refs/heads/integration/pending-features-2026-11-12",
+      "head": "fde9f90f7fac2e6d3891c4091d5f82e98cc058e8",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a9af/garimpei",
+      "branch": "refs/heads/feat/F20-apresentacao-financeira",
+      "head": "1ec8b10a2d7049f0fe7e260b167876eaa8766f0b",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/b9f3/garimpei",
+      "branch": "refs/heads/fix/collection-invalid-unicode",
+      "head": "6ec0c2ffb3889ec8ec11efcfdff19dc8b7295501",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/baf1/garimpei",
+      "branch": "refs/heads/feat/F18-identificacao-comparaveis",
+      "head": "a5c0cb7603e31da7579f039679f22ed51396c084",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e16d/garimpei",
+      "branch": "refs/heads/feat/F15-avaliacao-multimodal",
+      "head": "47ca32f00f2cccdc851325f491c739f53bf73e67",
+      "included_in_master": true,
+      "uncommitted": []
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e38a/garimpei",
+      "branch": "refs/heads/feat/F13-navegacao-ativa",
+      "head": "004fb0fa5be07f108ee8b22a3973c330aa6b6829",
+      "included_in_master": true,
+      "uncommitted": []
+    }
+  ],
+  "concurrent_draft": "F21 documented in uncommitted docs/PRD.md and docs/prd_progress.json; preserved exactly"
+}

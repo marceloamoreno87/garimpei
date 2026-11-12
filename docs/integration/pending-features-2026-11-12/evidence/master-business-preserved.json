@@ -1,0 +1,23 @@
+{
+  "before": {
+    "MonitoringConfiguration": {
+      "count": 1,
+      "sha256": "57b4a57e0717a734f13c7bc8e8f0fad6e6c9b12a34c2677b7d24cc3c4c2c2859"
+    },
+    "MonitoringInterest": {
+      "count": 7,
+      "sha256": "195becd58faf0512b41aad101ba3bca1065703ad77934cadc440bb69da59121e"
+    }
+  },
+  "after": {
+    "MonitoringConfiguration": {
+      "count": 1,
+      "sha256": "57b4a57e0717a734f13c7bc8e8f0fad6e6c9b12a34c2677b7d24cc3c4c2c2859"
+    },
+    "MonitoringInterest": {
+      "count": 7,
+      "sha256": "195becd58faf0512b41aad101ba3bca1065703ad77934cadc440bb69da59121e"
+    }
+  },
+  "equal": true
+}

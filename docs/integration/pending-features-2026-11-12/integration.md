@@ -53,4 +53,4 @@ Deltas adicionais preservam dano/suspeita/divergência manual na mensagem, recus
 
 Somente F14/F15/F17/F18 tiveram seu progresso consolidado pelo coordenador. Os demais16 registros permanecem idênticos à base `8e94dab`. Nenhuma das quatro selecionadas foi promovida a `done`: testes do código integrado não substituem as provas contratuais pendentes.
 
-O [estado da onda](wave-status.md) reúne branches, ciclos, relatórios e limitações. O usuário autorizou merge na master local; não houve push, PR ou publicação remota. O resultado do reinício preservando os dados será registrado em `master-verification.md`.
+O [estado da onda](wave-status.md) reúne branches, ciclos, relatórios e limitações. O usuário autorizou merge na master local; não houve push, PR ou publicação remota. Merge local `2dd9906` concluído. A aplicação está pronta e configuração/interesses foram preservados: [verificação na master](master-verification.md). Um rascunho documental concorrente da F21 foi preservado sem commit; não altera os resultados da onda.

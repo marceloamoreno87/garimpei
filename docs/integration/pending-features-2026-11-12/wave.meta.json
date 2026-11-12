@@ -23,5 +23,8 @@
   "source_window": "closed; original resources terminated",
   "status": "all-failed",
   "integration_validation": "676 PASS; six gates PASS",
-  "finished_at": "2026-11-12T22:46:37.683458+00:00"
+  "finished_at": "2026-11-12T22:46:37.683458+00:00",
+  "master_merge": "2dd9906",
+  "master_readiness": "ready",
+  "concurrent_draft_preserved": "F21 uncommitted"
 }

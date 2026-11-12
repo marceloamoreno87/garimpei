@@ -1,0 +1,11 @@
+{
+  "status": "ready",
+  "environment_id": "dev_master_5d282a952f",
+  "run_id": "3e2ce978-fd84-4e24-a7ec-68f226f117da",
+  "checks": {
+    "database": "ready",
+    "migrations": "ready",
+    "worker": "ready",
+    "waha": "ready"
+  }
+}
