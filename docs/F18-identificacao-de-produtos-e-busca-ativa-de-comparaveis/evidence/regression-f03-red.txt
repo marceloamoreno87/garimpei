@@ -1,0 +1,124 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________ test_migration_preserves_confirmed_f03 ____________________
+
+scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/baf1/garimpei'), private_file=PosixPath('/tmp/pytest-...469/test_migration_preserves_confi0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_migration_preserves_confirmed_f03(scenario: Scenario) -> None:
+        instance, source, _ = scenario
+>       shell(
+            instance,
+            """
+    from django.core.management import call_command
+    from tests.factories.monitoring import prepare_state
+    from garimpei.main import build_read_monitoring_configuration
+    call_command("migrate", "runtime", "0002", verbosity=0)
+    snapshot = prepare_state("ATIVA")
+    assert snapshot.configured
+    call_command("migrate", "runtime", verbosity=0)
+    assert build_read_monitoring_configuration().execute() == snapshot
+    """,
+        )
+
+apps/backend/tests/integration/test_collection.py:455: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/baf1/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-469/test_migration_preserves_confi0/f04_70d7d1c186.env'))
+code = '\nfrom django.core.management import call_command\nfrom tests.factories.monitoring import prepare_state\nfrom garimpe...ncall_command("migrate", "runtime", verbosity=0)\nassert build_read_monitoring_configuration().execute() == snapshot\n'
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 50 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:30:02.878634+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_70d7d1c186", "run_id": "b532b478-cc4a-40ae-8555-ab8f8a9ea43e"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.UndefinedTable: relation "runtime_integrationsettings" does not exist
+E         LINE 1: ...untime_integrationsettings"."alerts_enabled" FROM "runtime_i...
+E                                                                      ^
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 6, in <module>
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/tests/factories/monitoring.py", line 46, in prepare_state
+E             handler = build_monitoring_handler()
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/src/garimpei/main.py", line 344, in build_monitoring_handler
+E             build_read_comparable_research(),
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/src/garimpei/main.py", line 1264, in build_read_comparable_research
+E             and _effective_listing_settings().fixture_url is not None,
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/src/garimpei/main.py", line 628, in _effective_listing_settings
+E             if store.read().facebook_mode == "profile":
+E                ~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/src/garimpei/infra/repository/integration/postgres_repository.py", line 25, in read
+E             row = IntegrationSettings.objects.filter(id="local").first()
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1106, in first
+E             for obj in queryset[:1]:
+E                        ~~~~~~~~^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 386, in __iter__
+E             self._fetch_all()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+E             self._result_cache = list(self._iterable_class(self))
+E                                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+E             results = compiler.execute_sql(
+E                 chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+E             )
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/baf1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.ProgrammingError: relation "runtime_integrationsettings" does not exist
+E         LINE 1: ...untime_integrationsettings"."alerts_enabled" FROM "runtime_i...
+E                                                                      ^
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...rationsettings"."alerts_enabled" FROM "runtime_i...\n                                                             ^\n').returncode
+
+apps/backend/tests/integration/test_collection.py:85: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_collection.py::test_migration_preserves_confirmed_f03
+1 failed in 9.04s

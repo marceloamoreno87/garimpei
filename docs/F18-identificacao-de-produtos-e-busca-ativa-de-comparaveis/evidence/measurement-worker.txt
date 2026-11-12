@@ -1,0 +1,3 @@
+F18_CONTROLLED_MEASUREMENTS=/home/marce/.codex/worktrees/baf1/garimpei/.runtime/f18-execution/measurement-private/test_worker_consumes_research_0/controlled-measurements.json
+.
+1 passed in 24.54s

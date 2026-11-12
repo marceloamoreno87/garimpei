@@ -267,3 +267,103 @@ row=ComparableInvestigation.objects.get(id=new.id)
 assert row.attempts==2 and row.state=='exhausted'
 """,
     )
+
+
+def test_exhaustion_and_manual_access_recovery_preserve_budget(
+    research_instance: FoundationInstance,
+) -> None:
+    shell(
+        research_instance,
+        PREPARE
+        + """
+from garimpei.domain.listing.ports import SourceFailure
+l=seed_case('18850',title='iPhone 16 128GB')
+repo.reconcile();row=ComparableInvestigation.objects.get(product_key='apple:iphone16:standard:128gb')
+source=ControlledResearchSource(failure=SourceFailure('session_expired',access=True))
+runner=RunComparableResearchUseCase(repo,source,lambda:0.0)
+runner.execute();row.refresh_from_db();assert row.state=='suspended_access' and row.attempts==1
+repo.resume_verified_access(NOW-timedelta(seconds=1))
+row.refresh_from_db();assert row.state=='suspended_access'
+clock[0]+=timedelta(seconds=6)
+repo.resume_verified_access(clock[0])
+row.refresh_from_db();assert row.state=='waiting_evidence' and row.attempts==1
+source.failure=SourceFailure('source_request_timeout')
+for _ in range(9):
+ runner.execute();row.refresh_from_db();clock[0]=max(clock[0],row.next_attempt_at)
+row.refresh_from_db();assert row.state=='limited' and row.attempts==10
+before=len(source.calls)
+for _ in range(3): repo.reconcile();runner.execute()
+row.refresh_from_db();assert row.attempts==10 and len(source.calls)==before
+assert ComparableInvestigation.objects.filter(product_key=row.product_key).count()==1
+""",
+    )
+
+
+def test_page_and_detail_limits_and_independent_interest_turns(
+    research_instance: FoundationInstance,
+) -> None:
+    shell(
+        research_instance,
+        PREPARE
+        + """
+from garimpei.domain.listing.scope import Scope
+from garimpei.domain.listing.ports import SourceFailure
+from tests.factories.listing import CATEGORIES
+# Two valid but incompatible product investigations belong to distinct actual interests.
+a=seed_case('18951',title='iPhone 11 64GB')
+b=seed_case('18952',title='iPhone 11 128GB')
+ListingInterestMatch.objects.filter(observation=a.latest).exclude(key=CATEGORIES[0]).delete()
+ListingInterestMatch.objects.filter(observation=b.latest).exclude(key=CATEGORIES[1]).delete()
+repo.reconcile()
+first=repo.claim();assert first is not None
+repo.failed(first,SourceFailure('source_request_timeout',120))
+second=repo.claim();assert second is not None and second.id!=first.id
+assert second.product_key in {'apple:iphone11:standard:64gb','apple:iphone11:standard:128gb'}
+row=ComparableInvestigation.objects.get(id=second.id)
+# Keep the checkpoint but refuse to call the source when a cold resume cannot fit pages left.
+row.pages=2;row.cursor='source:opaque';row.buffer=[];row.lease_until=clock[0]-timedelta(seconds=1);row.next_attempt_at=clock[0]
+row.save()
+assert repo.claim() is None
+row.refresh_from_db();assert row.state=='limited' and row.reason=='page_budget_reached'
+""",
+    )
+
+
+def test_manual_revision_fences_requests_computed_before_the_edit(
+    research_instance: FoundationInstance,
+) -> None:
+    shell(
+        research_instance,
+        PREPARE
+        + """
+from unittest.mock import patch
+from django.db import connection,transaction
+from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
+from garimpei.infra.persistence.valuation_models import ValuationProgress,ValuationWork
+listing=seed_case('19992',title='PlayStation 5 Slim Digital')
+store=PostgresValuationRepository(lambda _:0)
+progress,_=ValuationProgress.objects.get_or_create(listing=listing)
+original=store._requests
+seen=[]
+def interleaving(rows,progresses,pending,at):
+ with transaction.atomic():
+  with connection.cursor() as cursor:
+   cursor.execute('SELECT pg_try_advisory_xact_lock(73003)')
+   assert cursor.fetchone()[0],'Input analysis still held collection publication lock'
+ requests=original(rows,progresses,pending,at)
+ observed=ListingObservation.objects.count()
+ build_identity_repository().save(IdentityEdit(listing.id,1,0,'save',manual_values))
+ assert ListingObservation.objects.count()==observed,'This regression must fence only the manual history change'
+ seen.append(True)
+ return requests
+with patch.object(store,'_requests',side_effect=interleaving): store.reconcile(NOW)
+assert seen
+progress.refresh_from_db()
+assert progress.signature=='' and progress.requested==0,'Stale calculation overwrote invalidated current signature'
+assert not ValuationWork.objects.filter(listing=listing).exists()
+store.reconcile(NOW)
+progress.refresh_from_db();assert progress.requested==1 and progress.signature
+work=ValuationWork.objects.get(listing=listing)
+assert work.snapshot['target']['identification']['manual_revision']==1
+""",
+    )

@@ -82,7 +82,7 @@ class ResearchLimits:
             )
         }
         if (
-            values["request_timeout_seconds"] >= values["max_slice_seconds"]
+            5 * values["request_timeout_seconds"] > values["max_slice_seconds"]
             or values["lease_seconds"] <= values["max_slice_seconds"]
         ):
             raise ValueError("slice_and_lease")

@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from django.http import (
     Http404,
     HttpRequest,
@@ -40,7 +42,7 @@ class MonitoringHandler:
         update: UpdateMonitoringConfigurationUseCase,
         preview: PreviewProductsUseCase,
         read_collection_status: ReadCollectionStatusUseCase,
-        research: ReadComparableResearchDiagnosticUseCase | None = None,
+        research: Callable[[], ReadComparableResearchDiagnosticUseCase] | None = None,
     ) -> None:
         self._read_form = read_form
         self._read_catalog = read_catalog
@@ -90,7 +92,7 @@ class MonitoringHandler:
                 "monitoring/tracking.html",
                 {
                     "collection": self._read_collection_status.execute(),
-                    "comparable_research": self._research.execute() if self._research else None,
+                    "comparable_research": self._research().execute() if self._research else None,
                 },
             )
         context = form_context(request, state, screen, catalog)

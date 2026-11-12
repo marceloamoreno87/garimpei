@@ -177,6 +177,7 @@ class MarketplaceBrowser:
             if self._profile is not None:
                 self._context = self._engine.chromium.launch_persistent_context(
                     self._profile,
+                    timeout=self._timeout,
                     headless=self._profile_headless,
                     locale="pt-BR",
                     timezone_id="America/Sao_Paulo",
@@ -197,6 +198,7 @@ class MarketplaceBrowser:
             ).hook_playwright_context(self._engine)
             self._browser = self._engine.chromium.launch(
                 headless=True,
+                timeout=self._timeout,
                 args=["--disable-blink-features=AutomationControlled"],
                 ignore_default_args=["--enable-automation"],
             )

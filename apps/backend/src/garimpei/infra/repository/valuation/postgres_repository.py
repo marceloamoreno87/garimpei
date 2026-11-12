@@ -14,6 +14,7 @@ from garimpei.domain.valuation.identification_values import IdentificationResult
 from garimpei.domain.valuation.policy import VALUATION_POLICY
 from garimpei.domain.valuation.ports import WorkInput
 from garimpei.domain.valuation.values import Comparable, Valuation
+from garimpei.infra.persistence.identity_models import ManualIdentityRevision
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.persistence.valuation_models import (
@@ -48,21 +49,26 @@ class PostgresValuationRepository:
     def reconcile(self, now: datetime) -> None:
         with transaction.atomic():
             lock_monitoring_publication()
-            rows = tuple(
-                _listing(row, identify_row(row, getattr(row, "identity_progress", None)))
+            snapshots = tuple(
+                row
                 for row in Listing.objects.select_related(
                     "latest", "identity_progress__manual__observation"
                 ).order_by("id")
                 if row.latest is not None and row.latest.observed_at <= now
             )
-            watermark = ListingObservation.objects.count()
+            watermark = (ListingObservation.objects.count(), ManualIdentityRevision.objects.count())
             progress = {p.listing_id: p for p in ValuationProgress.objects.all()}
             pending = set(
                 ValuationWork.objects.filter(completed=False, next_attempt_at__lte=now)
                 .filter(Q(lease_until=None) | Q(lease_until__lte=now))
                 .values_list("listing_id", flat=True)
             )
-        # Matching and signatures are CPU work, not part of the shared publication transaction.
+        # All related observation/manual rows above are eagerly captured immutable inputs.
+        # Identity parsing and matching run outside the collection publication transaction.
+        rows = tuple(
+            _listing(row, identify_row(row, getattr(row, "identity_progress", None)))
+            for row in snapshots
+        )
         requests = self._requests(rows, progress, pending, now)
         for offset in range(0, len(requests), 10):
             if not self._request_batch(requests[offset : offset + 10], watermark, now):
@@ -116,12 +122,16 @@ class PostgresValuationRepository:
         return PendingRequest(target.listing_id, snapshot, signature)
 
     def _request_batch(
-        self, requests: tuple[PendingRequest, ...], watermark: int, now: datetime
+        self, requests: tuple[PendingRequest, ...], watermark: tuple[int, int], now: datetime
     ) -> bool:
         with transaction.atomic():
             lock_monitoring_publication()
-            # Discard the remainder if collection advanced while matching. Never mix snapshots.
-            if ListingObservation.objects.count() != watermark:
+            # Both histories are append-only. A manual edit also fences every remaining batch,
+            # even when no new listing observation was published while analysis was running.
+            if (
+                ListingObservation.objects.count(),
+                ManualIdentityRevision.objects.count(),
+            ) != watermark:
                 return False
             for request in requests:
                 self._request(request, now)

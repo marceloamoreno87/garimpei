@@ -603,3 +603,10 @@ def load_comparable_research_manifest() -> Path:
         .expanduser()
         .resolve()
     )
+
+
+def comparable_research_enabled_for_environment() -> bool:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    # Eval instances opt into their own explicit policy; a deployment manifest is not a test seed.
+    return config.environment == "dev" or bool(values.get("GARIMPEI_RESEARCH_LIMITS"))

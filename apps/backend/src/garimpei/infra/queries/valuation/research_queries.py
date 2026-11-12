@@ -21,8 +21,9 @@ class PostgresComparableResearchQueries:
         corpus_hash: str | None,
         coverage: tuple[InterestCoverage, ...],
         version: str | None = None,
+        disabled_reason: str = "research_limits_unmeasured",
     ) -> None:
-        self._version = version
+        self._version, self._disabled_reason = version, disabled_reason
         self._limits, self._date, self._hash, self._coverage = (
             limits,
             corpus_date,
@@ -59,7 +60,16 @@ class PostgresComparableResearchQueries:
                     row.pages,
                     row.details,
                     row.attempts,
-                    row.next_attempt_at,
+                    row.next_attempt_at
+                    if row.state
+                    in {
+                        "pending",
+                        "running",
+                        "waiting_evidence",
+                        "waiting_retry",
+                        "suspended_access",
+                    }
+                    else None,
                     row.last_progress_at,
                     row.targets.filter(active=True).count(),
                     "CEP "
@@ -90,7 +100,7 @@ class PostgresComparableResearchQueries:
             )
         return ResearchDiagnostic(
             self._limits is not None,
-            "research_ready" if self._limits else "research_limits_unmeasured",
+            "research_ready" if self._limits else self._disabled_reason,
             self._limits.policy_version if self._limits else None,
             self._date,
             self._hash,

@@ -302,11 +302,11 @@
         "F13"
       ],
       "status": "implementing",
-      "cycles": 0,
+      "cycles": 1,
       "failure_reason": null,
       "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-12T21-09-43Z.md",
       "started_at": "2026-11-12T19:40:37.616175Z",
-      "updated_at": "2026-11-12T21:10:05.379154Z",
+      "updated_at": "2026-11-12T21:37:36.497990Z",
       "completed_at": null
     },
     "F19": {

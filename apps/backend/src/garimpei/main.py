@@ -15,6 +15,7 @@ if TYPE_CHECKING:
         ListingSource,
     )
     from garimpei.domain.navigation.catalog import Catalog
+    from garimpei.domain.valuation.research_limits import ResearchLimits
     from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
     from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
     from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
@@ -340,7 +341,7 @@ def build_monitoring_handler() -> "MonitoringHandler":
         UpdateMonitoringConfigurationUseCase(unit.transaction, catalog),
         PreviewProductsUseCase(),
         build_read_collection_status(),
-        build_read_comparable_research(),
+        build_read_comparable_research,
     )
 
 
@@ -1153,20 +1154,12 @@ def build_identity_handler() -> "IdentityHandler":
 
 
 def build_comparable_research_repository() -> "PostgresComparableResearchRepository":
-    from garimpei.config.env import load_comparable_research_manifest
-    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
     from garimpei.infra.repository.valuation.research_repository import (
         PostgresComparableResearchRepository,
     )
 
     settings = _effective_listing_settings()
-    config = load_config(require_secrets=False)
-    limits = load_research_limits(
-        load_comparable_research_manifest(),
-        config.root,
-        allow_controlled=config.environment == "eval"
-        and _effective_listing_settings().fixture_url is not None,
-    )
+    limits = _comparable_research_limits()
     return PostgresComparableResearchRepository(
         build_read_monitoring_configuration(),
         _listing_clock(settings),
@@ -1184,6 +1177,11 @@ def reconcile_comparable_research() -> None:
 
     repository = build_comparable_research_repository()
     repository.reconcile()
+    access = build_integration_repository().read()
+    if access.facebook_mode == "profile" and access.facebook_phase != "connected":
+        return
+    if access.facebook_phase == "connected":
+        repository.resume_verified_access(access.facebook_saved_at)
     with transaction.atomic():
         lock_monitoring_publication()
         if not ComparableInvestigation.objects.filter(
@@ -1202,7 +1200,6 @@ def _handle_comparable_research() -> None:
 def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
     from time import monotonic
 
-    from garimpei.config.env import load_comparable_research_manifest
     from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
     from garimpei.infra.gateway.listing.facebook_marketplace import (
         FacebookMarketplace,
@@ -1210,17 +1207,11 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
     )
     from garimpei.infra.gateway.listing.fixture_source import FixtureSource
     from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
-    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
     from garimpei.infra.worker.research_handler import ComparableResearchTaskHandler
     from garimpei.usecase.valuation.run_research_usecase import RunComparableResearchUseCase
 
     settings = _effective_listing_settings()
-    limits = load_research_limits(
-        load_comparable_research_manifest(),
-        load_config(require_secrets=False).root,
-        allow_controlled=load_config(require_secrets=False).environment == "eval"
-        and settings.fixture_url is not None,
-    )
+    limits = _comparable_research_limits()
     timeout = min(settings.timeout, limits.request_timeout_seconds) if limits else settings.timeout
     source: ListingSource
     close: Callable[[], None] | None = None
@@ -1239,7 +1230,12 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
     else:
         source = UnavailableMarketplace()
     return ComparableResearchTaskHandler(
-        RunComparableResearchUseCase(build_comparable_research_repository(), source, monotonic),
+        RunComparableResearchUseCase(
+            build_comparable_research_repository(),
+            source,
+            monotonic,
+            source_overhead_seconds=settings.cadence_ms / 500,
+        ),
         close,
     )
 
@@ -1247,7 +1243,7 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
 def build_read_comparable_research() -> "ReadComparableResearchDiagnosticUseCase":
     from garimpei.config.env import load_comparable_research_manifest
     from garimpei.infra.gateway.valuation.interest_corpus import read_interest_corpus
-    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
+    from garimpei.infra.gateway.valuation.research_manifest import research_activation_reason
     from garimpei.infra.queries.valuation.research_queries import PostgresComparableResearchQueries
     from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
         ReadComparableResearchDiagnosticUseCase,
@@ -1261,16 +1257,12 @@ def build_read_comparable_research() -> "ReadComparableResearchDiagnosticUseCase
     date, digest, coverage, version = read_interest_corpus(corpus)
     return ReadComparableResearchDiagnosticUseCase(
         PostgresComparableResearchQueries(
-            load_research_limits(
-                load_comparable_research_manifest(),
-                config.root,
-                allow_controlled=config.environment == "eval"
-                and _effective_listing_settings().fixture_url is not None,
-            ),
+            _comparable_research_limits(),
             date,
             digest,
             coverage,
             version,
+            research_activation_reason(load_comparable_research_manifest()),
         )
     )
 
@@ -1284,3 +1276,21 @@ def _comparable_research_job_pending() -> bool:
             ["garimpei.comparable_research"],
         )
         return cursor.fetchone() is not None
+
+
+def _comparable_research_limits() -> "ResearchLimits | None":
+    from garimpei.config.env import (
+        comparable_research_enabled_for_environment,
+        load_comparable_research_manifest,
+    )
+    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
+
+    if not comparable_research_enabled_for_environment():
+        return None
+    config = load_config(require_secrets=False)
+    return load_research_limits(
+        load_comparable_research_manifest(),
+        config.root,
+        allow_controlled=config.environment == "eval"
+        and _effective_listing_settings().fixture_url is not None,
+    )

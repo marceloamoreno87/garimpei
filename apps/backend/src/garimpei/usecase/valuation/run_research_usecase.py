@@ -12,9 +12,14 @@ from garimpei.domain.valuation.research import ResearchStore, ResearchUnit
 
 class RunComparableResearchUseCase:
     def __init__(
-        self, store: ResearchStore, source: ListingSource, monotonic: Callable[[], float]
+        self,
+        store: ResearchStore,
+        source: ListingSource,
+        monotonic: Callable[[], float],
+        source_overhead_seconds: float = 0,
     ) -> None:
         self._store, self._source, self._monotonic = store, source, monotonic
+        self._source_overhead = source_overhead_seconds
 
     def execute(self) -> None:
         unit = self._store.claim()
@@ -36,8 +41,13 @@ class RunComparableResearchUseCase:
 
     def _can_start(self, unit: ResearchUnit, started: float, pages: int, details: int) -> bool:
         cost = 1 if unit.pending else 2 if unit.cursor else 1
+        # A cold native resume can geocode, acquire/open the profile, rebuild and continue.
+        # Reserve those bounded calls before I/O rather than budgeting only the final page.
+        calls = 3 if unit.pending else 6 if unit.cursor else 5
         if (
-            self._monotonic() - started + cost * unit.limits.request_timeout_seconds
+            self._monotonic()
+            - started
+            + calls * (unit.limits.request_timeout_seconds + self._source_overhead)
             > unit.limits.max_slice_seconds
         ):
             return False
