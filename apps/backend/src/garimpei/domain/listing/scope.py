@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Literal
 from uuid import UUID
 
-from garimpei.domain.listing.interest_match import tokens
+from garimpei.domain.listing.interest_match import matches_product, tokens
 from garimpei.domain.listing.listing import MAX_INTEREST_KEY_LENGTH, Match
 from garimpei.domain.listing.window import PublicationWindow
 from garimpei.domain.monitoring.snapshot import MonitoringSnapshot
@@ -18,6 +18,13 @@ class Search:
     interest: Match
     term: str
     modality: Modality
+    equivalent_terms: tuple[str, ...] = ()
+    excluded_terms: tuple[str, ...] = ()
+
+    def matches_title(self, title: str) -> bool:
+        if any(word in tokens(title) for word in self.excluded_terms):
+            return False
+        return any(matches_product(term, title) for term in (self.term, *self.equivalent_terms))
 
     @property
     def key(self) -> str:

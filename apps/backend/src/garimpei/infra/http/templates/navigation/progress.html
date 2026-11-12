@@ -1,0 +1,41 @@
+<section id="navigation-progress"
+         class="tracking-state"
+         aria-labelledby="navigation-title">
+    <h2 id="navigation-title">Percurso da navegação</h2>
+    <p>Leitura de {{ navigation.observed_at|date:"d/m/Y H:i:s T" }}. Páginas percorridas não indicam o total da fonte.</p>
+    <p>Limites por interesse e janela: até {{ navigation.page_limit }} páginas e {{ navigation.term_limit }} termos, compartilhados com pesquisas complementares.</p>
+    <div id="navigation-feedback" role="status"></div>
+    <button class="button secondary"
+            type="button"
+            hx-get="/acompanhamento/navegacao/"
+            hx-target="#navigation-progress"
+            hx-swap="outerHTML">Atualizar percurso</button>
+    <a class="button secondary" href="{% url 'navigation-suggestions' %}">Ver sugestões relacionadas</a>
+    {% for work in navigation.works %}
+        <article class="surface">
+            <h3>{{ work.interest }}</h3>
+            <p>{% if work.front == "discovery" %}Descoberta{% else %}Investigação{% endif %} · Revisão {{ work.revision }}{% if work.purpose == "research" %} · Pesquisa complementar{% endif %}</p>
+            <p>Termo: <strong>{{ work.term }}</strong> · Original: {{ work.original_term }} · Catálogo {{ work.catalog_version }}</p>
+            <p>{% if work.phase == "suspended" %}Acesso suspenso. Confirme a conexão com o Facebook.{% elif work.phase == "partial" %}Cobertura parcial. O limite ou o contexto exige revisão.{% elif work.phase == "waiting" %}Aguardando horário ou fonte.{% elif work.phase == "complete" %}Sem pendências nesta frente.{% elif work.phase == "running" %}Navegação em andamento.{% else %}Próxima unidade aguardando execução.{% endif %}</p>
+            <p>{{ work.pages }} páginas percorridas · {{ work.details }} detalhes confirmados · {{ work.pending }} candidatos na fila de detalhes</p>
+            {% if work.buffered %}<p>{{ work.buffered }} candidatos preservados aguardam espaço na fila ou a próxima janela de busca.</p>{% endif %}
+            {% if work.last_progress_at %}<p>Último avanço útil: {{ work.last_progress_at|date:"d/m/Y H:i:s T" }}</p>{% endif %}
+            {% if work.next_attempt_at %}<p>Próxima tentativa: {{ work.next_attempt_at|date:"d/m/Y H:i:s T" }}</p>{% endif %}
+            {% if work.reason %}
+                <p>{% if work.reason == "window_limit" %}Limite desta janela atingido. A próxima coleta retoma o que ficou pendente.{% elif work.reason == "source_rate_limit" %}A fonte pediu uma pausa. Aguarde o horário da próxima tentativa.{% elif work.reason == "detail_failures_pause" %}Três leituras de detalhes falharam em sequência. As evidências salvas serão retomadas na próxima janela.{% elif work.reason == "cursor_rebuilt" %}A busca será reconstruída no contexto atual, preservando as identidades já confirmadas.{% elif work.reason == "repeated_page" or work.reason == "repeated_continuation" %}A fonte repetiu uma página ou continuação. A cobertura continua parcial.{% else %}Não foi possível confirmar esta leitura da fonte. O progresso anterior continua salvo.{% endif %}</p>
+            {% endif %}
+            {% if work.phase == "suspended" %}
+                <a href="{% url 'integration-settings' %}">Conferir acesso</a>
+            {% elif work.phase == "partial" or work.phase == "waiting" %}
+                <form action="{% url 'navigation-resume' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="work_id" value="{{ work.id }}">
+                    <input type="hidden" name="revision" value="{{ work.revision }}">
+                    <button class="button secondary" type="submit">Solicitar retomada</button>
+                </form>
+            {% endif %}
+        </article>
+    {% empty %}
+        <p>Ainda não há percurso confirmado. A navegação começa com os interesses salvos e o acesso verificado.</p>
+    {% endfor %}
+</section>

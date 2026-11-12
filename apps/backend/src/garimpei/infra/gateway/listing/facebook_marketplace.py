@@ -1,4 +1,5 @@
 import logging
+import re
 from dataclasses import replace
 from datetime import datetime
 from typing import TYPE_CHECKING
@@ -6,7 +7,11 @@ from typing import TYPE_CHECKING
 from garimpei.domain.listing.geography import Point
 from garimpei.domain.listing.listing import Candidate
 from garimpei.domain.listing.ports import ListingUnavailable, Page, SourceFailure
-from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceNavigation, SearchFilters
+from garimpei.infra.gateway.listing.marketplace_browser import (
+    MarketplaceContinuation,
+    MarketplaceNavigation,
+    SearchFilters,
+)
 
 if TYPE_CHECKING:
     from garimpei.domain.listing.ports import Geocoding
@@ -49,6 +54,8 @@ class FacebookMarketplace:
         self._last_date: datetime | None = None
 
     def search(self, scope: Scope, query: Search, continuation: str | None) -> Page:
+        if continuation is not None and continuation.startswith("source:"):
+            return self._resume(scope, query, continuation.removeprefix("source:"))
         if continuation is None:
             url = self._url(scope, query)
             assert self._origin is not None
@@ -58,12 +65,15 @@ class FacebookMarketplace:
                     self._origin, 20 if query.modality == "pickup" else 500, scope.window
                 ),
             )
-            self._query_key = query.key
+            self._query_key = f"{scope.key}:{scope.revision}:{query.key}:{query.term}"
             self._ordered = True
             self._last_date = None
             self._page_number = 1
             self._context_reason = self._context(rows, query)
-        elif self._query_key == query.key and continuation == str(self._page_number + 1):
+        elif (
+            self._query_key == f"{scope.key}:{scope.revision}:{query.key}:{query.term}"
+            and continuation == str(self._page_number + 1)
+        ):
             feed = self._browser.scroll()
             self._page_number += 1
         else:
@@ -71,6 +81,28 @@ class FacebookMarketplace:
         if feed is None:
             raise SourceFailure("search_feed_unavailable")
         return self._page(feed, query, scope)
+
+    def _resume(self, scope: Scope, query: Search, cursor: str) -> Page:
+        if not re.fullmatch(r"[A-Za-z0-9+/=_-]{1,480}", cursor) or not isinstance(
+            self._browser, MarketplaceContinuation
+        ):
+            raise SourceFailure("cursor_expired")
+        context_key = f"{scope.key}:{scope.revision}:{query.key}:{query.term}"
+        rebuilt = self._query_key != context_key
+        if rebuilt:
+            self.search(scope, query, None)
+        if self._context_reason:
+            raise SourceFailure(self._context_reason)
+        try:
+            feed = self._browser.continue_from(cursor)
+        except SourceFailure as failure:
+            if failure.access or failure.retry_after:
+                raise
+            raise SourceFailure("cursor_expired") from None
+        self._page_number += 1
+        return replace(
+            self._page(feed, query, scope), rebuilt=rebuilt, traversed_pages=2 if rebuilt else 1
+        )
 
     def _page(self, feed: "Feed", query: Search, scope: Scope) -> Page:
         from garimpei.infra.gateway.listing.relay_parser import listing_from
@@ -102,7 +134,11 @@ class FacebookMarketplace:
         exhausted = not feed.has_next or feed.main_results_ended
         page = Page(
             candidates,
-            None if boundary or exhausted else str(self._page_number + 1),
+            None
+            if boundary or exhausted
+            else "source:" + feed.cursor
+            if feed.cursor and re.fullmatch(r"[A-Za-z0-9+/=_-]{1,480}", feed.cursor)
+            else str(self._page_number + 1),
             len(feed.listings) - len(candidates),
             self._context_reason,
             "chronological_boundary"
@@ -252,6 +288,7 @@ class FacebookMarketplace:
         return None
 
     def detail(self, scope: Scope, external_id: str) -> Candidate:
+        self._query_key = None
         from garimpei.domain.listing.listing import canonical_url
         from garimpei.infra.gateway.listing.relay_parser import listing_from
 

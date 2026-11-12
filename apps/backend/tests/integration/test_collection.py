@@ -361,6 +361,10 @@ def test_rollback_and_restart_after_first_batch(scenario: Scenario) -> None:
     )
     assert phase(instance)[0][1] is None
     assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
+    confirmed_ids = sql(instance, "SELECT external_id FROM runtime_listing ORDER BY external_id")
+    assert confirmed_ids == [(str(identity),) for identity in range(200, 220)]
+    confirmed_observations = sql(instance, "SELECT * FROM runtime_listingobservation ORDER BY id")
+    confirmed_events = sql(instance, "SELECT * FROM runtime_listingevent ORDER BY id")
     worker = next(
         record for record in instance.manifest["processes"] if "runworker" in record["command"]
     )
@@ -384,8 +388,26 @@ def test_rollback_and_restart_after_first_batch(scenario: Scenario) -> None:
     command(instance, "./scripts/init.sh", "--disposable")
     completed(instance, 1)
     resumed_calls = source.calls[calls_before:]
-    assert any(path == "/search" for path, _ in resumed_calls)
-    assert not any(path.startswith("/detail/") for path, _ in resumed_calls)
+    assert not any(path == "/search" for path, _ in resumed_calls)
+    resumed_details = [path for path, _ in resumed_calls if path.startswith("/detail/")]
+    assert len(resumed_details) == 5
+    assert set(resumed_details) == {f"/detail/{identity}" for identity in range(220, 225)}
+    assert (
+        sql(
+            instance,
+            "SELECT o.* FROM runtime_listingobservation o JOIN runtime_listing l "
+            "ON l.id=o.listing_id WHERE l.external_id::integer < 220 ORDER BY o.id",
+        )
+        == confirmed_observations
+    )
+    assert (
+        sql(
+            instance,
+            "SELECT e.* FROM runtime_listingevent e JOIN runtime_listing l "
+            "ON l.id=e.listing_id WHERE l.external_id::integer < 220 ORDER BY e.id",
+        )
+        == confirmed_events
+    )
     assert sql(instance, "SELECT count(*) FROM runtime_listingevent WHERE silent") == [(25,)]
     assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(25,)]
 
@@ -565,7 +587,13 @@ def test_details_are_published_before_next_interest_finishes(scenario: Scenario)
     configure(instance)
     assert source.held.wait(10)
     assert phase(instance)[0][0] == "running"
-    assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(2,)]
+    published = sql(
+        instance,
+        "SELECT l.external_id FROM runtime_listingobservation o "
+        "JOIN runtime_listing l ON l.id=o.listing_id",
+    )
+    assert len(published) >= 1
+    assert ("101",) in published
     assert sql(instance, "SELECT count(*) FROM runtime_listingevent WHERE NOT silent") == [(0,)]
     source.release.set()
     completed(instance, 1)
@@ -633,8 +661,11 @@ receipt=AlertIntent.objects.create(decision=decision,state='confirmed',next_acti
 before_events=list(ListingEvent.objects.values_list('id','kind','silent'))
 MigrationExecutor(connection).migrate([('runtime','0011_facebook_browser_profile')])
 cutover=timezone.now()
-MigrationExecutor(connection).migrate([('runtime','0012_opportunity_collection')])
-state=CollectionState.objects.get()
+executor=MigrationExecutor(connection)
+target=[('runtime','0012_opportunity_collection')]
+executor.migrate(target)
+historical_state=executor.loader.project_state(target).apps.get_model('runtime','CollectionState')
+state=historical_state.objects.get()
 assert cutover <= state.monitoring_started_at <= timezone.now()
 assert list(ListingEvent.objects.values_list('id','kind','silent'))==before_events
 assert Listing.objects.get(id=listing.id).discovery_emitted

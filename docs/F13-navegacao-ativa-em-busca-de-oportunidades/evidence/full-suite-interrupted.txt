@@ -126,8 +126,8 @@ scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e38a
     """,
         )
 
-tests/integration/test_collection.py:459: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_collection.py:459:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e38a/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-250/test_exact_48_hour_window_out_0/f04_483f82dba0.env'))
 code = '\nfrom datetime import UTC, datetime\nfrom garimpei.main import build_read_collection_status, build_read_listing\nfro...hipping_offered is None\nassert build_read_listing().execute(identity).observation.evidence.source_available is None\n'
@@ -136,7 +136,7 @@ code = '\nfrom datetime import UTC, datetime\nfrom garimpei.main import build_re
         result = instance.shell(code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 35 objects imported automatically (use -v 2 for details).
-E         
+E
 E         {"timestamp": "2026-11-12T14:35:00.354994+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_483f82dba0", "run_id": "43271054-cc6c-4254-b01a-355a978b0f25"}
 E         Traceback (most recent call last):
 E           File "/home/marce/.codex/worktrees/e38a/garimpei/apps/backend/manage.py", line 8, in <module>
@@ -158,7 +158,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 8, in <module>
 E         AssertionError
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 8, in <module>\nAssertionError\n').returncode
 

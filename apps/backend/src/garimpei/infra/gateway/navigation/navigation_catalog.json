@@ -1,0 +1,11 @@
+{
+  "version": "2026-11-12.1",
+  "families": [
+    {"family": "PlayStation 5", "canonical": "PlayStation 5 Slim", "aliases": ["PS5 Slim"], "excluded": ["pro"], "constraints": ["Slim"]},
+    {"family": "iPhone 13", "canonical": "iPhone 13 128 GB", "aliases": ["iPhone 13 128GB"], "excluded": ["pro", "mini"], "constraints": ["13", "128 GB"]},
+    {"family": "PlayStation 5", "canonical": "PS5 Pro", "aliases": ["PlayStation 5 Pro"], "excluded": ["slim"], "constraints": ["Pro"]}
+  ],
+  "relations": [
+    {"key": "ps5-slim-pro", "origin": "PlayStation 5 Slim", "target": "PS5 Pro", "reason": "Outro modelo da família PlayStation 5; produto diferente, sem equivalência automática."}
+  ]
+}

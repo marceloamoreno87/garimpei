@@ -1,7 +1,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from garimpei.domain.listing.interest_match import matches_product
 from garimpei.domain.listing.listing import Candidate, Evidence, Match
 from garimpei.domain.listing.scope import Scope
 
@@ -74,7 +73,7 @@ def consolidate(candidates: list[Candidate], scope: Scope) -> Consolidated:
         or (
             search.interest.kind == "product"
             and evidence.title is not None
-            and matches_product(search.term, evidence.title)
+            and search.matches_title(evidence.title)
         )
     }
     return Consolidated(

@@ -20,6 +20,15 @@ from garimpei.infra.persistence.monitoring_models import (
 from garimpei.infra.persistence.monitoring_models import (
     MonitoringInterest as MonitoringInterest,
 )
+from garimpei.infra.persistence.navigation_models import (
+    NavigationCheckpoint as NavigationCheckpoint,
+)
+from garimpei.infra.persistence.navigation_models import (
+    NavigationUnitReceipt as NavigationUnitReceipt,
+)
+from garimpei.infra.persistence.navigation_models import NavigationWork as NavigationWork
+from garimpei.infra.persistence.navigation_models import NicheSuggestion as NicheSuggestion
+from garimpei.infra.persistence.navigation_models import SuggestionEvidence as SuggestionEvidence
 
 # Explicit Django model discovery; consumers import the concrete feature module.
 from garimpei.infra.persistence.valuation_models import ValuationEvaluation as ValuationEvaluation

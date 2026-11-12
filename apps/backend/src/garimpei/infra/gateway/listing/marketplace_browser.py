@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol
+from typing import Protocol, runtime_checkable
 from urllib.parse import parse_qs, urlsplit
 
 from playwright.sync_api import (
@@ -50,6 +50,11 @@ class MarketplaceNavigation(Protocol):
     def navigate(self, url: str) -> tuple[tuple[JsonObject, ...], Feed | None]: ...
     def scroll(self) -> Feed: ...
     def close(self) -> None: ...
+
+
+@runtime_checkable
+class MarketplaceContinuation(Protocol):
+    def continue_from(self, cursor: str) -> Feed: ...
 
 
 class MarketplaceBrowser:
@@ -97,6 +102,17 @@ class MarketplaceBrowser:
 
     def scroll(self) -> Feed:
         return self._executor.submit(self._scroll).result()
+
+    def continue_from(self, cursor: str) -> Feed:
+        return self._executor.submit(self._continue_from, cursor).result()
+
+    def _continue_from(self, cursor: str) -> Feed:
+        # Only the opaque end cursor is restored; authenticated variables/tokens
+        # are captured afresh by search() in this owned browser context.
+        if self._query_payload is None or not re.fullmatch(r"[A-Za-z0-9+/=_-]{1,480}", cursor):
+            raise SourceFailure("cursor_expired")
+        self._cursor = cursor
+        return self._request_page()
 
     def close(self) -> None:
         try:

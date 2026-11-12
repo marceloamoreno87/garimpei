@@ -292,5 +292,101 @@
     "path": "src/garimpei/infra/runtime/manifest.py",
     "consumer": "src/garimpei/infra/gateway/inference/docker_transport.py",
     "reason": "Optional immutable Docker container capability written by lifecycle and read as TypedDict mapping for owned run; legacy manifests omit it"
+  },
+  {
+    "symbol": "RequestResearchUseCase",
+    "path": "src/garimpei/usecase/navigation/request_research_usecase.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 SVC-PESQUISA-01 public request boundary for future F18 consumers; PostgreSQL contract tests invoke it through Django shell without implementing F18"
+  },
+  {
+    "symbol": "NavigationUnitReceipt.turn_order",
+    "path": "src/garimpei/infra/persistence/navigation_models.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 distribution/restart receipt audit read through ORM values_list in Django-shell PostgreSQL tests; checks ordering, consumed budget and committed observations"
+  },
+  {
+    "symbol": "NavigationUnitReceipt.consumed_pages",
+    "path": "src/garimpei/infra/persistence/navigation_models.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 distribution/restart receipt audit read through ORM values_list in Django-shell PostgreSQL tests; checks ordering, consumed budget and committed observations"
+  },
+  {
+    "symbol": "NavigationUnitReceipt.consumed_details",
+    "path": "src/garimpei/infra/persistence/navigation_models.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 distribution/restart receipt audit read through ORM values_list in Django-shell PostgreSQL tests; checks ordering, consumed budget and committed observations"
+  },
+  {
+    "symbol": "NavigationUnitReceipt.observation_ids",
+    "path": "src/garimpei/infra/persistence/navigation_models.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 distribution/restart receipt audit read through ORM values_list in Django-shell PostgreSQL tests; checks ordering, consumed budget and committed observations"
+  },
+  {
+    "symbol": "WorkView.buffered",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/progress.html",
+    "reason": "F13 Django progress template renders preserved candidate count and centrally configured per-interest limits"
+  },
+  {
+    "symbol": "NavigationStatus.page_limit",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/progress.html",
+    "reason": "F13 Django progress template renders preserved candidate count and centrally configured per-interest limits"
+  },
+  {
+    "symbol": "NavigationStatus.term_limit",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/progress.html",
+    "reason": "F13 Django progress template renders preserved candidate count and centrally configured per-interest limits"
+  },
+  {
+    "symbol": "ReadResearchUseCase",
+    "path": "src/garimpei/usecase/navigation/read_research_usecase.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 public subsequent-read boundary SVC-PESQUISA-01 exercised by test_research_history_remains_readable_by_uuid_after_rollover, including immutable historical context, budget and observation references"
+  },
+  {
+    "symbol": "ResearchStatus.shared_pages",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 historical research DTO exposes shared per-interest page consumption asserted by test_research_history_remains_readable_by_uuid_after_rollover through Django shell"
+  },
+  {
+    "symbol": "SuggestionView.limit_reason",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/suggestions.html",
+    "reason": "F13 Django suggestions template renders persistent evidence limits and read-only idle exploration budget/wait status"
+  },
+  {
+    "symbol": "SuggestionBudget.detail_limit",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/suggestions.html",
+    "reason": "F13 Django suggestions template renders persistent evidence limits and read-only idle exploration budget/wait status"
+  },
+  {
+    "symbol": "SuggestionBudget.seconds_limit",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/suggestions.html",
+    "reason": "F13 Django suggestions template renders persistent evidence limits and read-only idle exploration budget/wait status"
+  },
+  {
+    "symbol": "SuggestionBudget.interval_seconds",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/suggestions.html",
+    "reason": "F13 Django suggestions template renders persistent evidence limits and read-only idle exploration budget/wait status"
+  },
+  {
+    "symbol": "SuggestionBudget.capacity_reason",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "tests/integration/test_navigation.py",
+    "reason": "F13 public capacity reason asserted by test_suggestion_budget_wait_and_caps_are_public_read_only through Django shell"
+  },
+  {
+    "symbol": "SuggestionPage.budget",
+    "path": "src/garimpei/domain/navigation/read_models.py",
+    "consumer": "src/garimpei/infra/http/templates/navigation/suggestions.html",
+    "reason": "F13 Django suggestions template renders persistent evidence limits and read-only idle exploration budget/wait status"
   }
 ]

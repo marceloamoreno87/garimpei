@@ -34,7 +34,7 @@ __________ test_geocoding_does_not_start_when_its_timeout_cannot_fit ___________
         RunSliceUseCase(CollectionStoreFake(scope,clock,119),store,source,source,Catalog('1',(),()),NavigationPolicy(),clock.now,20,1.2).execute(Attempt(uuid4(),1))
 >       assert source.calls==[]
 E       AssertionError: assert ['geocoding'] == []
-E         
+E
 E         Left contains one more item: 'geocoding'
 E         Use -v to get more diff
 
@@ -48,7 +48,7 @@ ________ test_suggestion_claim_delay_cannot_spend_more_than_45_seconds _________
         RunSuggestionsUseCase(store,source,NavigationPolicy(),clock.now,20,1.2).execute()
 >       assert source.calls==[] and clock.now()<=45
 E       AssertionError: assert (['search'] == []
-E         
+E
 E         Left contains one more item: 'search'
 E         Use -v to get more diff)
 

@@ -14,6 +14,7 @@ from garimpei.domain.monitoring.errors import (
     ConfigurationSaveFailed,
     MonitoringError,
 )
+from garimpei.domain.navigation.ports import NavigationError
 from garimpei.infra.http.listing.condition_presentation import condition_error
 from garimpei.infra.http.listing.exploration_presentation import url
 from garimpei.infra.http.monitoring.presentation import error_response
@@ -37,6 +38,26 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        navigation_route = _request.path.startswith(
+            ("/acompanhamento/navegacao/", "/sugestoes/")
+        ) or (_request.path == "/configuracoes/" and "sugestao" in _request.GET)
+        if isinstance(_exception, NavigationError) or (
+            navigation_route and isinstance(_exception, DatabaseError)
+        ):
+            response = render(
+                _request,
+                "navigation/error.html",
+                {
+                    "message": _exception.message
+                    if isinstance(_exception, NavigationError)
+                    else "Não foi possível ler ou gravar o percurso. Tente novamente."
+                },
+                status=_exception.status if isinstance(_exception, NavigationError) else 503,
+            )
+            response["HX-Retarget"] = "#navigation-feedback"
+            response["HX-Reswap"] = "innerHTML"
+            response["Cache-Control"] = "no-store"
+            return response
         if _request.path.startswith("/integracoes/ia/") and isinstance(
             _exception, (InferenceError, DatabaseError)
         ):

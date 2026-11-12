@@ -14,6 +14,7 @@ class CollectionState(models.Model):
     initial_scope = models.CharField(max_length=64, blank=True)
     last_success_at = models.DateTimeField(null=True)
     next_attempt_at = models.DateTimeField(null=True, db_index=True)
+    source_not_before = models.DateTimeField(null=True)
     lease_until = models.DateTimeField(null=True)
     generation = models.PositiveBigIntegerField(default=0)
     failures = models.PositiveIntegerField(default=0)
