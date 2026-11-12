@@ -39,11 +39,12 @@ def profit_scenario(tmp_path: Path) -> Iterator[Scenario]:
             configure(instance)
             completed(instance, 1)
             wait_valuation(instance, price="2300.00")
+            # Reconciliation creates progress in batches; a missing row is still pending.
             wait_for(
                 lambda: (
                     sql(
                         instance,
-                        "SELECT count(*) FROM runtime_valuationprogress WHERE current_id IS NULL",
+                        "SELECT count(*) FROM runtime_listing l LEFT JOIN runtime_valuationprogress p ON p.listing_id=l.id WHERE p.current_id IS NULL",
                     )
                     == [(0,)]
                 ),
