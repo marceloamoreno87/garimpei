@@ -1,0 +1,51 @@
+..F.....                                                                 [100%]
+=================================== FAILURES ===================================
+_____ test_complete_snapshot_roundtrip_validates_components_and_provenance _____
+
+    def test_complete_snapshot_roundtrip_validates_components_and_provenance() -> None:
+        from decimal import Decimal
+
+        from garimpei.domain.alert.financial_snapshot import FinancialSnapshot
+        from garimpei.infra.repository.alert.financial import decode_snapshot, encode_snapshot
+
+        value = FinancialSnapshot(
+            uuid4(),
+            uuid4(),
+            uuid4(),
+            uuid4(),
+            1,
+            uuid4(),
+            2,
+            Decimal("70"),
+            Decimal("101"),
+            Decimal("12.50"),
+            Decimal("12.63"),
+            Decimal("18.37"),
+            "potential-before-freight-v2",
+            NOW,
+        )
+        raw = encode_snapshot(value)
+        assert decode_snapshot(raw) == value
+        first = replace(value, event_id=None, schema_version=2)
+        first_raw = encode_snapshot(first)
+        assert first_raw["event_id"] is None and decode_snapshot(first_raw) == first
+        assert decode_snapshot(first_raw | {"schema_version": 3}) is None
+        assert decode_snapshot(raw | {"event_id": None}) is None
+        for key, corrupted in [
+            ("schema_version", 2),
+            ("profit", "18.38"),
+            ("fee", "12.62"),
+            ("purchase", "NaN"),
+            ("resale", "Infinity"),
+            ("currency", "USD"),
+            ("event_id", "invalid"),
+            ("fee_percent", "-1"),
+        ]:
+>           assert decode_snapshot(raw | {key: corrupted}) is None
+E           AssertionError: assert FinancialSnapshot(listing_id=UUID('0e4cc1f9-3063-4345-a2a1-f01a57d497d6'), event_id=UUID('40ee1ab1-208c-42d2-b034-ada6..., calculated_at=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc), currency='BRL', schema_version=2) is None
+E            +  where FinancialSnapshot(listing_id=UUID('0e4cc1f9-3063-4345-a2a1-f01a57d497d6'), event_id=UUID('40ee1ab1-208c-42d2-b034-ada6..., calculated_at=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc), currency='BRL', schema_version=2) = <function decode_snapshot at 0x761e7f53dee0>(({'schema_version': 1, 'listing_id': '0e4cc1f9-3063-4345-a2a1-f01a57d497d6', 'event_id': '40ee1ab1-208c-42d2-b034-ada6597b21db', 'observation_id': '138013d2-50d5-4b19-92c6-fcaf6ee8d221', ...} | {'schema_version': 2}))
+
+apps/backend/tests/unit/test_financial_presentation.py:88: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_financial_presentation.py::test_complete_snapshot_roundtrip_validates_components_and_provenance
+1 failed, 7 passed in 0.08s

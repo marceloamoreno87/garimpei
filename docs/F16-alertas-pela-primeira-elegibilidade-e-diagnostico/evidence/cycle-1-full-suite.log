@@ -1,0 +1,274 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/34bb/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 449 items
+
+apps/backend/tests/http/test_alert_diagnostic.py::test_public_diagnostic_fields_history_and_partial_http_failure PASSED [  0%]
+apps/backend/tests/http/test_condition_recovery.py::test_condition_read_failure_has_recovery_and_structured_log PASSED [  0%]
+apps/backend/tests/http/test_condition_recovery.py::test_condition_failed_write_and_read_require_reload PASSED [  0%]
+apps/backend/tests/http/test_financial_presentation.py::test_published_financial_html_preserves_components_pages_and_http_errors PASSED [  0%]
+apps/backend/tests/http/test_health.py::test_liveness_does_not_query_database PASSED [  1%]
+apps/backend/tests/http/test_health.py::test_unsupported_method PASSED   [  1%]
+apps/backend/tests/http/test_health.py::test_template_uses_local_verified_htmx PASSED [  1%]
+apps/backend/tests/http/test_listing_condition.py::test_http_choices_stale_revision_validation_and_csrf PASSED [  1%]
+apps/backend/tests/http/test_listing_condition.py::test_http_failed_save_retains_input_and_escape PASSED [  2%]
+apps/backend/tests/http/test_monitoring.py::test_setup_region_is_a_real_form PASSED [  2%]
+apps/backend/tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status PASSED [  2%]
+apps/backend/tests/integration/test_alert_consumers.py::test_integrated_worker_matrix_reductions_classification_and_restart PASSED [  2%]
+apps/backend/tests/integration/test_alert_consumers.py::test_manual_history_at_publication_and_revalidation PASSED [  2%]
+apps/backend/tests/integration/test_alert_consumers.py::test_interest_edit_republication_allows_unknown_logistics PASSED [  3%]
+apps/backend/tests/integration/test_alert_consumers.py::test_incremental_comparables_complete_the_same_waiting_discovery PASSED [  3%]
+apps/backend/tests/integration/test_alert_delivery.py::test_durable_attempts_rollback_history_and_generations PASSED [  3%]
+apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries PASSED [  3%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[confirmed] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[lost] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[incomplete] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[lost_empty] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_pending_known_id_and_negative_history_controls PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_session_identity_and_authentication_are_required PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_same_provider_id_with_conflicting_body_does_not_confirm PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_refused_connection_is_proven_not_transmitted PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_group_receipt_matches_canonical_device_jid_without_weakening_identity PASSED [  5%]
+apps/backend/tests/integration/test_collection.py::test_initial_service_coverage_and_resume_after_stop PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_verified_empty_and_partial_retry PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_lease_and_new_scope_fence_old_worker PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_initial_partial_and_scope_change_preserve_silence PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_migration_preserves_confirmed_f03 PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_exact_48_hour_window_out_of_order_and_legacy_evidence PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_confirmed_unavailable_preserves_history_and_can_finish_initial_load PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_details_are_published_before_next_interest_finishes PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_proven_new_listing_can_alert_with_initial_history_partial PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_policy_adoption_preserves_history_receipts_and_sets_a_safe_boundary PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_incomplete_pagination_does_not_accumulate_network_backoff PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_repeated_detail_errors_pause_after_three_attempts_and_recover PASSED [  8%]
+apps/backend/tests/integration/test_concurrency.py::test_duplicate_control_with_two_consumers_has_one_successor PASSED [  8%]
+apps/backend/tests/integration/test_concurrency.py::test_old_run_cannot_renew_current_readiness PASSED [  9%]
+apps/backend/tests/integration/test_exploration.py::test_order_snapshots_update_manual_and_history PASSED [  9%]
+apps/backend/tests/integration/test_exploration.py::test_costs_references_expiry_failures_and_concurrent_publishers PASSED [  9%]
+apps/backend/tests/integration/test_facebook_gateway.py::test_loopback_gateway_context_continuation_and_access_failures PASSED [  9%]
+apps/backend/tests/integration/test_facebook_profile.py::test_real_chromium_profile_keeps_cookies_and_local_storage PASSED [ 10%]
+apps/backend/tests/integration/test_facebook_profile.py::test_login_request_verification_and_challenge_preserve_history PASSED [ 10%]
+apps/backend/tests/integration/test_financial_messages.py::test_financial_authorization_freezes_same_event_and_preserves_legacy PASSED [ 10%]
+apps/backend/tests/integration/test_financial_messages.py::test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price FAILED [ 10%]
+apps/backend/tests/integration/test_financial_messages.py::test_additive_migration_keeps_authorized_legacy_and_event_history PASSED [ 10%]
+apps/backend/tests/integration/test_first_alert_adoption.py::test_populated_schema_migration_and_inventory_resume_after_hundred PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[inventory_barrier] PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[concurrent] PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[zero] PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[negative] PASSED [ 12%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[manual_race] PASSED [ 12%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[manual_defect]
+
+=================================== FAILURES ===================================
+_ test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-260/test_worker_trio_exact_brl_val0')
+
+    def test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price(
+        tmp_path: Path,
+    ) -> None:
+        from tests.factories.alert import WahaServer, serve_waha
+        from tests.factories.exploration import prepare_exploration_instance
+        from tests.factories.financial_presentation_lab import FinancialSource, publish_and_check
+        from tests.factories.listing import serve
+        from tests.integration.test_collection import command, shell
+
+        source, channel = FinancialSource(), WahaServer()
+        with serve(source) as origin, serve_waha(channel) as waha:
+            instance, clock = prepare_exploration_instance(
+                Path(__file__).resolve().parents[4], tmp_path, origin
+            )
+            with instance.private_file.open("a") as out:
+                out.write(
+                    f"GARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_ALERT_FIXTURE_URL={waha}\nGARIMPEI_WAHA_SESSION=synthetic\nGARIMPEI_WAHA_RECIPIENT=100@c.us\nGARIMPEI_WAHA_ACCOUNT=200@c.us\n"
+                )
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                shell(
+                    instance,
+                    "from tests.factories.financial_presentation_lab import configure_financial; configure_financial()",
+                )
+                completed(instance, 1)
+                publish_and_check(instance)
+                clock.advance(1)
+                for n, price in [(10951, "1000"), (10952, "1350"), (10953, "1400"), (10954, "1200")]:
+                    source.rows[str(n)] = listing(
+                        str(n),
+                        price + ",00",
+                        title="PS5 Slim Digital 825GB",
+                        condition="Funciona bem",
+                        published_at=clock.value.isoformat(),
+                        pickup=True,
+                        delivery=False,
+                    )
+                clock.advance(61)
+                completed(instance, 2)
+                wait_for(
+                    lambda: (
+                        sql(
+                            instance,
+                            "SELECT count(*) FROM runtime_valuationprogress p JOIN runtime_listing l ON p.listing_id=l.id WHERE l.external_id IN ('10951','10952','10953','10954') AND p.current_id IS NOT NULL",
+                        )
+                        == [(4,)]
+                    ),
+                    "exact monetary inputs",
+                    seconds=45,
+                )
+                group = pause_worker(instance)
+                try:
+                    alert_shell(
+                        instance,
+                        """
+    from garimpei.main import build_read_listing_changes,_effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    store.ingest(build_read_listing_changes().execute(),clock())
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    for key,expected in [('10951','350.00'),('10952','0.00'),('10953','-50.00'),('10954','150.00')]:
+     p=build_read_profit().execute(target(key).id,event=False)
+     assert p.resale.value==Decimal('1500') and p.profit.value==Decimal(expected)
+     prepare_first(key)
+     delivery=store.claim(intent(key).id,binding,clock(),reconcile=False)
+     assert delivery
+     store.finish(delivery,gateway.send(delivery),clock())
+     row=intent(key)
+     assert row.state=='confirmed' and row.financial['resale']=='1500.00' and Decimal(row.financial['profit'])==Decimal(expected)
+     assert '*Lucro estimado:' in row.body
+    print('WRK-MENSAGEM-01/08 exact positive, zero and negative confirmed by synthetic WAHA PASS')
+    """,
+                    )
+                finally:
+                    resume_worker(group)
+                for count, price in [(3, "1000"), (4, "900")]:
+                    source.rows["10954"]["price"] = "R$ " + price + ",00"
+                    clock.advance(61)
+                    completed(instance, count)
+                group = pause_worker(instance)
+                try:
+>                   alert_shell(
+                        instance,
+                        """
+    from garimpei.main import build_read_listing_changes,_effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    store.ingest(build_read_listing_changes().execute(),clock())
+    event=ListingEvent.objects.get(listing=target('10954'),kind='price_decreased',observation__price=1000)
+    p=build_read_profit().execute(event.id,event=True)
+    assert p.purchase.value==1000 and target('10954').latest.price==900
+    store.evaluate(event.id,p,clock())
+    row=AlertIntent.objects.get(decision__event=event)
+    delivery=store.claim(row.id,binding,clock(),reconcile=False);assert delivery
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    store.finish(delivery,gateway.send(delivery),clock());row.refresh_from_db()
+    assert row.state=='confirmed'
+    assert Decimal(row.financial['purchase'])==1000 and Decimal(row.financial['resale'])==1500 and Decimal(row.financial['profit'])==350
+    assert 'Preço de compra: R$ 1.000,00' in row.body and 'Preço anterior: R$ 1.200,00' in row.body
+    assert 'R$ 900,00' not in row.body
+    # Change the actual persisted fee, then collect a separately identified fractional case.
+    from garimpei.main import build_read_monitoring_configuration,build_monitoring_handler
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    config=build_read_monitoring_configuration().execute()
+    build_monitoring_handler()._update.execute(StepInput('editar',config.revision,cep=config.cep,resale_fee_percent='12.50',category_ids=config.category_ids,product_names=config.product_names))
+    print('WRK-MENSAGEM-02 event 1000 remains frozen after observation 900 PASS')
+    """,
+                    )
+
+apps/backend/tests/integration/test_financial_messages.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/34bb/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-260/test_worker_trio_exact_brl_val0/f04_47a769d2d6.env'))
+code = "\nfrom garimpei.main import build_read_listing_changes,_effective_alert_settings,_alert_policy\nfrom garimpei.infra.g...,product_names=config.product_names))\nprint('WRK-MENSAGEM-02 event 1000 remains frozen after observation 900 PASS')\n"
+
+    def alert_shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(
+            """
+    from datetime import timedelta
+    from decimal import Decimal
+    from uuid import UUID
+    from django.db import transaction
+    from django.utils import timezone
+    from garimpei.main import build_alert_store,build_first_alert_store,build_alert_handler,build_read_profit,build_read_condition,build_classify_condition
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor,AlertEventDecision,AlertIntent,AlertAttempt,ManualConditionHistory,FirstAlertIdentity,FirstEligibilityDecision,FirstAlertInventory
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    clock=_listing_clock(load_listing_settings())
+    store=build_alert_store()
+    binding=Binding('synthetic','100@c.us','200@c.us')
+    def target(key='903'): return Listing.objects.get(external_id=key)
+    def decision(key='903'): return AlertEventDecision.objects.get(event__listing=target(key),event__kind='discovered')
+    def first_state(key='903'): return FirstAlertIdentity.objects.get(listing=target(key))
+    def first_decision(key='903'): return first_state(key).decisions.latest('generation')
+    def prepare_first(key='903', at=None):
+        listing=target(key);now=at or clock();repository=build_first_alert_store();repository.adopt(now)
+        repository.publish(listing.id,repository.prepare(listing.id),build_read_profit().execute(listing.id,event=False),now)
+    def intent(key='903'):
+        row=first_state(key)
+        return row.intent if row.intent_id else AlertIntent.objects.get(decision=decision(key))
+    def financial_decision(row): return row.first_decision if row.first_decision_id else row.decision
+    """
+            + code
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+               ^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: 33 objects imported automatically (use -v 2 for details).
+E
+E       {"timestamp": "2026-11-12T14:58:55.407535+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_47a769d2d6", "run_id": "d49ec04d-498c-4f72-b8f9-3cbd6bb0476b"}
+E       Traceback (most recent call last):
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+E           execute_from_command_line()
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E           utility.execute()
+E           ~~~~~~~~~~~~~~~^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E           self.fetch_command(subcommand).run_from_argv(self.argv)
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E           self.execute(*args, **cmd_options)
+E           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E           output = self.handle(*args, **options)
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E           exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         File "<string>", line 36, in <module>
+E       AssertionError
+
+apps/backend/tests/factories/alert_scenario.py:155: AssertionError
+----------------------------- Captured stdout call -----------------------------
+33 objects imported automatically (use -v 2 for details).
+
+WRK-MENSAGEM-01/08 exact positive, zero and negative confirmed by synthetic WAHA PASS
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_financial_messages.py::test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price - AssertionError: 33 objects imported automatically (use -v 2 for details).
+
+{"timestamp": "2026-11-12T14:58:55.407535+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_47a769d2d6", "run_id": "d49ec04d-498c-4f72-b8f9-3cbd6bb0476b"}
+Traceback (most recent call last):
+  File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+    execute_from_command_line()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+    self.execute(*args, **cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+    output = self.handle(*args, **options)
+  File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+    exec(options["command"], {**globals(), **self.get_namespace(**options)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 36, in <module>
+AssertionError
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/tests/integration/test_collection.py:55: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+=================== 1 failed, 54 passed in 743.72s (0:12:23) ===================
