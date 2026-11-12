@@ -1,0 +1,2 @@
+Command: uv run --project apps/backend --frozen --no-sync pytest -c apps/backend/pyproject.toml apps/backend/tests/unit/test_navigation_continuation.py apps/backend/tests/unit/test_marketplace_source.py apps/backend/tests/unit/test_marketplace_parser.py -q
+Observed after cursor correction:14 passed in1.36seconds, exit0. These same cases also occur in the final complete512-case validation; this supplemental check is not added to its count.

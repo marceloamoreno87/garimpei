@@ -1,0 +1,111 @@
+........................................................................ [ 34%]
+........................................................................ [ 69%]
+.....................................F.........................          [100%]
+=================================== FAILURES ===================================
+______________ test_integrated_composition_matrix_and_cost_edits _______________
+
+profit_scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/4bff/garimpei'), private_file=PosixPath('/tmp/pytest-...7/test_integrated_composition_ma0/clock'), value=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_integrated_composition_matrix_and_cost_edits(profit_scenario: Scenario) -> None:
+        i, source, clock = profit_scenario
+>       check(
+            i,
+            """
+    import json
+    from pathlib import Path
+    cases=json.loads(Path('apps/backend/tests/fixtures/valuation/cases.json').read_text())['profit']['offers']
+    for key,case in cases.items():
+        v=current(key)
+        expected=case['expected']
+        assert v.profit.value==(Decimal(expected) if expected is not None else None),(key,v)
+        assert v.listing_id==target(key).id and v.observation_id==target(key).latest_id
+        assert v.evaluation_id==build_read_valuation().execute(v.listing_id).id
+        assert v.evaluation_revision>=1 and v.configuration_revision==build_read_monitoring_configuration().execute().revision
+        assert v.policy=='potential-before-freight-v2' and v.currency=='BRL'
+        assert v.resale_scope=='functional_equivalent_without_repair_cost'
+        assert 'repair' in v.excluded_costs
+        assert v.event_id is None and v.calculated_at is not None
+        print(case['item'],key,expected,'PASS')
+    v=current()
+    assert v.purchase.value==Decimal('1500') and v.purchase.state=='conhecido' and v.purchase.origin=='observation:detail'
+    assert v.resale.value==Decimal('2300') and v.resale.origin=='valuation' and v.resale.state=='estimado'
+    assert v.fee.value==Decimal('287.50') and v.fee_percent==Decimal('12.50') and v.fee.state=='estimado'
+    assert v.freight.value is None and v.freight.state=='nao_incluido'
+    assert current('709').fee.value==Decimal('12.63')
+    for key in ('700','701','702','703','704','705'):
+        value=current(key)
+        assert value.principal=='marketplace' and len(value.modalities)==1
+        assert value.profit.value==Decimal('512.50') and value.freight.value is None
+    assert current('708').purchase.value is None and current('708').fee.value==Decimal('287.50')
+    for key in ('706','707'):
+        before=build_read_condition().execute(target(key).id)
+        assert before is not None
+        assert build_read_listing().execute(target(key).id).id==current(key).listing_id
+        assert build_read_condition().execute(target(key).id)==before
+    snap=build_read_monitoring_configuration().execute()
+    build_monitoring_handler()._update.execute(StepInput('editar',snap.revision,cep=snap.cep,shipping_estimate='0.00',resale_fee_percent='12.50',category_ids=snap.category_ids,product_names=snap.product_names))
+    v=current('702')
+    assert v.freight.value is None and v.freight.state=='nao_incluido' and v.profit.value==Decimal('512.50')
+    assert v.configuration_revision>snap.revision
+    print('SVC-FRETE-04 PASS')
+    snap=build_read_monitoring_configuration().execute()
+    build_monitoring_handler()._update.execute(StepInput('editar',snap.revision,cep=snap.cep,shipping_estimate='30.00',resale_fee_percent='10.00',category_ids=snap.category_ids,product_names=snap.product_names))
+    v=current('702')
+    assert v.fee.value==Decimal('230') and v.freight.value is None and v.profit.value==Decimal('570')
+    assert v.configuration_revision==snap.revision+1
+    print('SVC-RECALCULO-02 PASS')
+    """,
+        )
+
+tests/integration/test_profit.py:79:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/4bff/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-317/test_integrated_composition_ma0/f04_144a1932d8.env'))
+code = "\nimport json\nfrom pathlib import Path\ncases=json.loads(Path('apps/backend/tests/fixtures/valuation/cases.json').re...and v.profit.value==Decimal('570')\nassert v.configuration_revision==snap.revision+1\nprint('SVC-RECALCULO-02 PASS')\n"
+
+    def check(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(IMPORTS + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 38 objects imported automatically (use -v 2 for details).
+E
+E         SVC-COMPOSICAO-01 699 512.50 PASS
+E         SVC-COMPOSICAO-03 700 512.50 PASS
+E         SVC-COMPOSICAO-04 701 512.50 PASS
+E         SVC-FRETE-01 702 512.50 PASS
+E         SVC-FRETE-02 703 512.50 PASS
+E         SVC-FRETE-03 704 512.50 PASS
+E         SVC-FRETE-05 705 512.50 PASS
+E         SVC-RECALCULO-03 706 0.00 PASS
+E         SVC-RECALCULO-04 707 -17.50 PASS
+E         SVC-INDISPONIBILIDADE-02 708 None PASS
+E         {"timestamp": "2026-11-12T19:07:23.568657+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_144a1932d8", "run_id": "7aed6069-6503-497d-ba16-c7a419675f8c"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/4bff/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/4bff/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/4bff/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/4bff/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/4bff/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/4bff/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 18, in <module>
+E         AssertionError: ('709', ProfitComposition(listing_id=UUID('5b988a89-0975-411d-9d16-310265c6ca0e'), observation_id=UUID('fd3641a7-2159-4abd-8a79-0b87378f1dec'), event_id=None, configuration_id=UUID('d0c3acc4-b780-4201-a6b2-a92420983b18'), configuration_revision=1, evaluation_id=None, evaluation_revision=0, calculated_at=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc), purchase=Component(value=Decimal('70.00'), state='conhecido', origin='observation:detail', reason=None), resale=Component(value=None, state='indisponivel', origin='valuation', reason='aguardando_avaliacao'), fee_percent=Decimal('12.50'), fee=Component(value=None, state='indisponivel', origin='configuration', reason='revenda_indisponivel'), shipping_freight=Component(value=None, state='nao_incluido', origin=None, reason=None), principal='marketplace', modalities=(ModalityProfit(modality='marketplace', freight=Component(value=None, state='nao_incluido', origin=None, reason=None), profit=Component(value=None, state='indisponivel', origin=None, reason='componentes_indisponiveis'), reasons=('aguardando_avaliacao', 'revenda_indisponivel')),), reasons=('aguardando_avaliacao', 'revenda_indisponivel'), currency='BRL', policy='potential-before-freight-v2', resale_scope='functional_equivalent_without_repair_cost', excluded_costs=('purchase_freight', 'transport', 'repair', 'packaging', 'taxes', 'resale_shipping')))
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..., excluded_costs=(\'purchase_freight\', \'transport\', \'repair\', \'packaging\', \'taxes\', \'resale_shipping\')))\n').returncode
+
+tests/integration/test_profit.py:73: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+F07 preflight eval_f04_144a1932d8 garimpei_eval_f04_144a1932d8 health_ready=200 disposable=true run=7aed6069-6503-497d-ba16-c7a419675f8c
+=========================== short test summary info ============================
+FAILED tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits
+1 failed, 206 passed in 898.16s (0:14:58)

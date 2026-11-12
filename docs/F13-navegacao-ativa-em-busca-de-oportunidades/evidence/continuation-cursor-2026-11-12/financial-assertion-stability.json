@@ -1,0 +1,9 @@
+{
+  "test_functions": [
+    "test_integrated_composition_matrix_and_cost_edits",
+    "test_reduction_event_is_immutable_and_revalidates_cep_and_variant",
+    "test_unavailable_read_failure_draft_and_expired_resale",
+    "test_consistent_snapshot_during_two_head_publication"
+  ],
+  "all_byte_identical": true
+}

@@ -1,0 +1,227 @@
+{
+  "read_only": true,
+  "pause_used": false,
+  "observed_at": "2026-11-12T18:46:14.447436+00:00",
+  "attempts": [
+    {
+      "http_status": 200,
+      "stable_before_after": true,
+      "sql_count": 14,
+      "article_count": 14,
+      "all_counters_match": true
+    }
+  ],
+  "rows": [
+    {
+      "work_reference": "8c6a6134d2976aa094c951977e0f05be812ba749bf6534fd633aa33582b4bfa0",
+      "sql": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "dom": [
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "work_reference": "80fe9285ea052d1acb2d0d428d5725b5d014d12b1c9d1b5b5138483fa00e9ae4",
+      "sql": [
+        2,
+        0,
+        4,
+        0
+      ],
+      "dom": [
+        2,
+        0,
+        4,
+        0
+      ]
+    },
+    {
+      "work_reference": "6bbb442f4f3596dc2f3412dc5a5d9944555d0282b60dfb22885c77d8edf65d47",
+      "sql": [
+        2,
+        3,
+        0,
+        47
+      ],
+      "dom": [
+        2,
+        3,
+        0,
+        47
+      ]
+    },
+    {
+      "work_reference": "ac6bc67681917e7e4dc2118ec8d6342e209062ba72bc23bb0092fdd14fea7008",
+      "sql": [
+        2,
+        0,
+        4,
+        47
+      ],
+      "dom": [
+        2,
+        0,
+        4,
+        47
+      ]
+    },
+    {
+      "work_reference": "46728781fb73acb5e85760e0d782f55b7ce67aa734db7d24525eb3fede267ecd",
+      "sql": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "dom": [
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "work_reference": "68064169dbc690fa7814cea795f1ea7fa945488b29f69cd1c3ceaffe9b49797e",
+      "sql": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "dom": [
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "work_reference": "3bab6db2dab24f4ba7ea7c6c716bfee4904dca3221dd481d5ebe0ebc57ea2f11",
+      "sql": [
+        2,
+        3,
+        0,
+        63
+      ],
+      "dom": [
+        2,
+        3,
+        0,
+        63
+      ]
+    },
+    {
+      "work_reference": "ecd9343cb729b8b2e9a22bfed17fc4bb095ca7cae1fdd0c25455b3f07c1836fc",
+      "sql": [
+        2,
+        0,
+        4,
+        63
+      ],
+      "dom": [
+        2,
+        0,
+        4,
+        63
+      ]
+    },
+    {
+      "work_reference": "c43c6ee2a93e3724276bffb040086e7a372203ea927d408dfc7d0f1477ceca1e",
+      "sql": [
+        2,
+        3,
+        0,
+        36
+      ],
+      "dom": [
+        2,
+        3,
+        0,
+        36
+      ]
+    },
+    {
+      "work_reference": "5957932377a44eb2215004f993713bb18421d5fea2e58055f482583ac33e0b40",
+      "sql": [
+        2,
+        0,
+        4,
+        36
+      ],
+      "dom": [
+        2,
+        0,
+        4,
+        36
+      ]
+    },
+    {
+      "work_reference": "eb0c8dca77c5bc0f204fde73bdcafd564453bda5a1bf95a693575a502f9b00cd",
+      "sql": [
+        2,
+        3,
+        0,
+        35
+      ],
+      "dom": [
+        2,
+        3,
+        0,
+        35
+      ]
+    },
+    {
+      "work_reference": "6f5ad288a016e67e394ef306aabc40462eefaa62aa620a8c7f840f33bcdff010",
+      "sql": [
+        2,
+        0,
+        4,
+        35
+      ],
+      "dom": [
+        2,
+        0,
+        4,
+        35
+      ]
+    },
+    {
+      "work_reference": "2c62749ce491cfcbf5db4250c3ead0564d115b96fe0ac0941293c7fcaec84689",
+      "sql": [
+        2,
+        3,
+        0,
+        39
+      ],
+      "dom": [
+        2,
+        3,
+        0,
+        39
+      ]
+    },
+    {
+      "work_reference": "de68ae343816fe2fbbdfaaea38dbf27a998c656340fb0e82b2acf6ecf2eb1785",
+      "sql": [
+        2,
+        0,
+        3,
+        39
+      ],
+      "dom": [
+        2,
+        0,
+        3,
+        39
+      ]
+    }
+  ],
+  "pass": true
+}

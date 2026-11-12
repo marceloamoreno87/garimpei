@@ -1,0 +1,9 @@
+{
+  "initial_count": 467,
+  "final_count": 467,
+  "intentional_fixture_change": [
+    "apps/backend/tests/integration/test_profit.py"
+  ],
+  "unexpected_changes": [],
+  "all_production_unchanged": true
+}

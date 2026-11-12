@@ -1,0 +1,6 @@
+Final complete collection:512 cases.
+Shard0:305 passed; exit0;1114.91seconds; production code167135f, unaffected by fixture-only correction.
+Shard1:207 passed; exit0;885.53seconds; corrected fixture d6e8b4b.
+JUnit identifiers match frozen collection with exact multiplicity1. Zero failures/errors/skips.
+Only test_profit.py fixture preparation changed between final shard sources; its four consumers occur exclusively in shard1. Financial test bodies and application code are identical. Interrupted66-case and failed207-case trials are preserved separately and excluded.
+Final input467 hashes are stable. No owned eval processes remain alive.
