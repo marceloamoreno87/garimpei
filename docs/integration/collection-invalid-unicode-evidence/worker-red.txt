@@ -1,0 +1,38 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_invalid_detail_does_not_block_following_items_or_repeat_after_restart __
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-268/test_invalid_detail_does_not_b0')
+
+    def test_invalid_detail_does_not_block_following_items_or_repeat_after_restart(
+        tmp_path: Path,
+    ) -> None:
+        source = UnicodeDetailSource()
+        root = Path(__file__).resolve().parents[4]
+        with serve(source) as url:
+            instance, clock = prepare_listing_instance(root, tmp_path, url)
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                configure(instance)
+>               completed(instance, 1)
+
+apps/backend/tests/integration/test_collection_unicode.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+apps/backend/tests/integration/test_collection.py:69: in completed
+    wait_for(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+predicate = <function completed.<locals>.<lambda> at 0x76a7a2ff8d60>
+description = '1 finalized cycles, latest phase complete', seconds = 22
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for 1 finalized cycles, latest phase complete
+
+apps/backend/tests/integration/test_collection.py:54: Failed
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_collection_unicode.py::test_invalid_detail_does_not_block_following_items_or_repeat_after_restart
+1 failed in 30.80s

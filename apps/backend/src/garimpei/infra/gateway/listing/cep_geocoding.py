@@ -6,6 +6,7 @@ from urllib.request import Request, urlopen
 
 from garimpei.domain.listing.geography import Point
 from garimpei.domain.listing.ports import SourceFailure
+from garimpei.infra.gateway.listing.external_text import evidence_text
 
 
 def _number(value: object) -> float | None:
@@ -34,8 +35,8 @@ def verified_point(value: object) -> Point | None:
         latitude,
         longitude,
         accuracy if accuracy is not None and accuracy >= 0 else None,
-        city,
-        state,
+        evidence_text(city) or "",
+        evidence_text(state) or "",
     )
 
 

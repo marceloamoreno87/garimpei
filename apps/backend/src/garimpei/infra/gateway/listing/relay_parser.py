@@ -10,6 +10,7 @@ from typing import cast
 
 from garimpei.domain.listing.geography import Point
 from garimpei.domain.listing.listing import Candidate, Evidence, Match, canonical_url, money
+from garimpei.infra.gateway.listing.external_text import evidence_text
 from garimpei.infra.gateway.listing.identity import marketplace_id
 
 type JsonValue = None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -113,9 +114,9 @@ def listing_from(row: JsonObject, *, detail: bool, match: Match | None = None) -
 
     evidence = Evidence(
         image_url=https_media(mapping(row.get("primary_listing_photo")).get("image_uri")),
-        title=text(row.get("marketplace_listing_title")),
-        description=text(mapping(row.get("redacted_description")).get("text")),
-        condition=_condition(row),
+        title=evidence_text(row.get("marketplace_listing_title")),
+        description=evidence_text(mapping(row.get("redacted_description")).get("text")),
+        condition=evidence_text(_condition(row)),
         published_at=_published(row.get("creation_time")),
         price=_price(row),
         pickup=pickup,
@@ -163,9 +164,9 @@ def _published(value: JsonValue) -> datetime | None:
 def _location(row: JsonObject) -> Point | None:
     location = mapping(row.get("location")) or mapping(row.get("item_location"))
     reverse = mapping(location.get("reverse_geocode"))
-    city = text(reverse.get("city"))
-    state = text(reverse.get("state"))
-    label = text(mapping(row.get("location_text")).get("text"))
+    city = evidence_text(reverse.get("city"))
+    state = evidence_text(reverse.get("state"))
+    label = evidence_text(mapping(row.get("location_text")).get("text"))
     if label and "," in label:
         city, state = (piece.strip() for piece in label.rsplit(",", 1))
     if not city or not state:

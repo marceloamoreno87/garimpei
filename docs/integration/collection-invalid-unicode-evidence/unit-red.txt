@@ -1,0 +1,88 @@
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_listing_text_replaces_unrepresentable_characters_without_changing_identity[\x00] _
+
+invalid = '\x00'
+
+    @pytest.mark.parametrize("invalid", ["\x00", "\ud800", "\udfff"])
+    def test_listing_text_replaces_unrepresentable_characters_without_changing_identity(
+        invalid: str,
+    ) -> None:
+        row: JsonObject = {
+            "id": "601",
+            "marketplace_listing_title": f"Câmera{invalid}Canon 📷",
+            "redacted_description": {"text": f"Funciona{invalid}bem; literal \\u0000"},
+            "attribute_data": [{"attribute_name": "condition", "label": f"Usada{invalid}boa"}],
+            "location_text": {"text": f"São{invalid}Paulo, SP"},
+            "listing_price": {"amount": "1000.00", "currency": "BRL"},
+        }
+        candidate = listing_from(row, detail=True)
+        assert candidate is not None and candidate.external_id == "601"
+>       assert candidate.evidence.title == "Câmera�Canon 📷"
+E       AssertionError: assert 'Câmera\x00Canon 📷' == 'Câmera�Canon 📷'
+E
+E         - Câmera�Canon 📷
+E         ?       ^
+E         + Câmera\x00Canon 📷
+E         ?       ^
+
+apps/backend/tests/unit/test_listing_unicode.py:21: AssertionError
+_ test_listing_text_replaces_unrepresentable_characters_without_changing_identity[\ud800] _
+
+invalid = '\ud800'
+
+    @pytest.mark.parametrize("invalid", ["\x00", "\ud800", "\udfff"])
+    def test_listing_text_replaces_unrepresentable_characters_without_changing_identity(
+        invalid: str,
+    ) -> None:
+        row: JsonObject = {
+            "id": "601",
+            "marketplace_listing_title": f"Câmera{invalid}Canon 📷",
+            "redacted_description": {"text": f"Funciona{invalid}bem; literal \\u0000"},
+            "attribute_data": [{"attribute_name": "condition", "label": f"Usada{invalid}boa"}],
+            "location_text": {"text": f"São{invalid}Paulo, SP"},
+            "listing_price": {"amount": "1000.00", "currency": "BRL"},
+        }
+        candidate = listing_from(row, detail=True)
+        assert candidate is not None and candidate.external_id == "601"
+>       assert candidate.evidence.title == "Câmera�Canon 📷"
+E       AssertionError: assert 'Câmera\ud800Canon 📷' == 'Câmera�Canon 📷'
+E
+E         - Câmera�Canon 📷
+E         ?       ^
+E         + C\xe2mera\ud800Canon \U0001f4f7
+E         ?       ^
+
+apps/backend/tests/unit/test_listing_unicode.py:21: AssertionError
+_ test_listing_text_replaces_unrepresentable_characters_without_changing_identity[\udfff] _
+
+invalid = '\udfff'
+
+    @pytest.mark.parametrize("invalid", ["\x00", "\ud800", "\udfff"])
+    def test_listing_text_replaces_unrepresentable_characters_without_changing_identity(
+        invalid: str,
+    ) -> None:
+        row: JsonObject = {
+            "id": "601",
+            "marketplace_listing_title": f"Câmera{invalid}Canon 📷",
+            "redacted_description": {"text": f"Funciona{invalid}bem; literal \\u0000"},
+            "attribute_data": [{"attribute_name": "condition", "label": f"Usada{invalid}boa"}],
+            "location_text": {"text": f"São{invalid}Paulo, SP"},
+            "listing_price": {"amount": "1000.00", "currency": "BRL"},
+        }
+        candidate = listing_from(row, detail=True)
+        assert candidate is not None and candidate.external_id == "601"
+>       assert candidate.evidence.title == "Câmera�Canon 📷"
+E       AssertionError: assert 'Câmera\udfffCanon 📷' == 'Câmera�Canon 📷'
+E
+E         - Câmera�Canon 📷
+E         ?       ^
+E         + C\xe2mera\udfffCanon \U0001f4f7
+E         ?       ^
+
+apps/backend/tests/unit/test_listing_unicode.py:21: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_listing_unicode.py::test_listing_text_replaces_unrepresentable_characters_without_changing_identity[\x00]
+FAILED apps/backend/tests/unit/test_listing_unicode.py::test_listing_text_replaces_unrepresentable_characters_without_changing_identity[\ud800]
+FAILED apps/backend/tests/unit/test_listing_unicode.py::test_listing_text_replaces_unrepresentable_characters_without_changing_identity[\udfff]
+3 failed, 1 passed in 0.08s
