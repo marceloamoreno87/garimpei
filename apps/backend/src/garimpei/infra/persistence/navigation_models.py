@@ -66,7 +66,7 @@ class NavigationCheckpoint(models.Model):
     context_hash = models.CharField(max_length=64)
     terms = models.JSONField(default=list)
     term_index = models.PositiveIntegerField(default=0)
-    cursor = models.CharField(max_length=500, null=True)
+    cursor = models.CharField(max_length=4103, null=True)
     signatures = models.JSONField(default=list)
     buffered_candidates = models.JSONField(default=list)
     buffer_proof = models.CharField(max_length=80, null=True)

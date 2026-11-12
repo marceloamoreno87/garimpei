@@ -80,11 +80,12 @@ def _feed(feed: JsonObject) -> Feed:
         if "marketplace_listing_title" in row:
             listings.append(row)
     next_page = mapping(feed.get("page_info")).get("has_next_page")
+    cursor = mapping(feed.get("page_info")).get("end_cursor")
     return Feed(
         tuple(listings),
         next_page if isinstance(next_page, bool) else None,
         empty or edges == [],
-        text(mapping(feed.get("page_info")).get("end_cursor")),
+        cursor if isinstance(cursor, str) and cursor else None,
         empty,
     )
 
