@@ -216,7 +216,10 @@ class PostgresMediaRepository:
         return MediaFile(asset.id, asset.key, asset.mime, asset.sha256, asset.byte_count)
 
     def due(self, now: datetime) -> tuple[UUID, ...]:
-        if not self._policy.budget_bytes:
+        if (
+            not self._policy.budget_bytes
+            or MediaJob.objects.filter(state="running", lease_until__gt=now).exists()
+        ):
             return ()
         return tuple(
             MediaJob.objects.filter(

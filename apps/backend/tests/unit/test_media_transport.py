@@ -131,7 +131,7 @@ def test_cached_detail_requires_recognized_full_gallery_not_only_primary() -> No
 def test_media_root_owner_prevents_cross_instance_cleanup_and_read(tmp_path: Path) -> None:
     from uuid import uuid4
 
-    from garimpei.domain.media.media import MediaClaim
+    from garimpei.domain.media.media import MediaClaim, MediaFile
     from garimpei.infra.gateway.media.image_transport import validate_image
     from garimpei.infra.gateway.media.local_store import LocalMediaStore
 
@@ -145,5 +145,10 @@ def test_media_root_owner_prevents_cross_instance_cleanup_and_read(tmp_path: Pat
     second = LocalMediaStore(first.root, MediaPolicy(min_free_bytes=0), "environment-b")
     with pytest.raises(MediaError, match="media_storage_owner_conflict"):
         second.reconcile_orphans(set(), 0)
+    file = MediaFile(uuid4(), key, content.mime, content.sha256, len(content.data))
+    with pytest.raises(MediaError, match="media_storage_owner_conflict"):
+        second.remove(file)
+    with pytest.raises(MediaError, match="media_storage_owner_conflict"):
+        second.read(file)
     assert first._path(key).read_bytes() == content.data
     assert not first._path(key).stat().st_mode & 0o077

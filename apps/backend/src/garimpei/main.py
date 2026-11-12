@@ -1081,6 +1081,7 @@ def build_media_handler() -> "MediaHandler":
 
 def _handle_media(job_id: str) -> None:
     build_media_runner().execute(UUID(job_id))
+    _enqueue_media_due(build_media_repository())
 
 
 def reconcile_media() -> None:
@@ -1092,8 +1093,7 @@ def reconcile_media() -> None:
     now = timezone.now()
     repository.backfill(now)
     repository.reconcile_orphans(build_media_store().reconcile_orphans, now)
-    for identity in repository.due(now):
-        _enqueue("garimpei.media", "media", 0, job_id=str(identity))
+    _enqueue_media_due(repository)
     CleanMediaUseCase(repository, build_media_store(), timezone.now).execute()
 
 
@@ -1102,3 +1102,10 @@ if TYPE_CHECKING:
     from garimpei.infra.http.media.media_handler import MediaHandler
     from garimpei.infra.repository.media.postgres_repository import PostgresMediaRepository
     from garimpei.usecase.media.obtain_media_usecase import ObtainMediaUseCase
+
+
+def _enqueue_media_due(repository: "PostgresMediaRepository") -> None:
+    from django.utils import timezone
+
+    for identity in repository.due(timezone.now())[:1]:
+        _enqueue("garimpei.media", "media", 0, job_id=str(identity))
