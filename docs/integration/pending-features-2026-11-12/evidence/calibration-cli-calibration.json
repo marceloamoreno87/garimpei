@@ -1,0 +1,390 @@
+{
+  "format_version": 1,
+  "at": "2026-11-12T22:29:58.833829+00:00",
+  "profile": {
+    "version": 1,
+    "stalled_seconds": 180,
+    "tick_seconds": 5,
+    "failures": 3,
+    "queue_limit": 1000,
+    "unit_seconds": 60,
+    "archive_seconds": 300,
+    "data_bytes": 10737418240,
+    "backup_bytes": 10737418240,
+    "reserve_bytes": 1073741824,
+    "backup_interval": 86400,
+    "retention": 7
+  },
+  "profile_sha256": "071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423",
+  "hardware": {
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "python": "3.13.14",
+  "measurements": [
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0009241910011041909,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0008023190021049231,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0007403420022455975,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0006837270047981292,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0007276889955392107,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 20.02040278200002,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 20.019063552012085,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 20.017435771005694,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 20.02035289000196,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 20.02033470099559,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0018715360056376085,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0008415719930781052,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0006286839925451204,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0005997300031594932,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0006813229992985725,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 30.02753768200637,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 30.02807215199573,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 30.03069435300131,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 30.009479373999056,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 30.030020178004634,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.001024418990709819,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0007612009940203279,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0008682309999130666,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0007661660056328401,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0006427499902201816,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 10.010513881003135,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 10.008487653001794,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 10.011043528997106,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 10.0086424399924,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 2
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 10.010611254998366,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 2
+    }
+  ],
+  "new_stage_measurements": [
+    {
+      "repetition": 1,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5466259430104401,
+      "export_seconds_including_cli": 0.3938564400014002,
+      "restore_seconds_including_cli": 0.6666070569917792,
+      "verify_seconds_including_cli": 0.4229954789916519,
+      "destination_startup_seconds": 4.314408428996103,
+      "archive_bytes": 20241,
+      "protected_originals": 1,
+      "source_database_bytes": 12474035,
+      "destination_database_bytes": 12359347,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 2,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5162962279864587,
+      "export_seconds_including_cli": 0.4396692750015063,
+      "restore_seconds_including_cli": 0.6523404309991747,
+      "verify_seconds_including_cli": 0.38584359000378754,
+      "destination_startup_seconds": 4.078012712998316,
+      "archive_bytes": 20405,
+      "protected_originals": 1,
+      "source_database_bytes": 12474035,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 3,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5819667889882112,
+      "export_seconds_including_cli": 0.42240475901053287,
+      "restore_seconds_including_cli": 0.6401649509934941,
+      "verify_seconds_including_cli": 0.38613156200153753,
+      "destination_startup_seconds": 4.265188246004982,
+      "archive_bytes": 20477,
+      "protected_originals": 1,
+      "source_database_bytes": 12547763,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 4,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.562471290002577,
+      "export_seconds_including_cli": 0.3895976790081477,
+      "restore_seconds_including_cli": 0.6938727030064911,
+      "verify_seconds_including_cli": 0.40212887499365024,
+      "destination_startup_seconds": 4.330601145993569,
+      "archive_bytes": 20551,
+      "protected_originals": 1,
+      "source_database_bytes": 12547763,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 5,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.560587995001697,
+      "export_seconds_including_cli": 0.3815406530047767,
+      "restore_seconds_including_cli": 0.619603017999907,
+      "verify_seconds_including_cli": 0.3988100300048245,
+      "destination_startup_seconds": 4.214922523009591,
+      "archive_bytes": 20615,
+      "protected_originals": 1,
+      "source_database_bytes": 12580531,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    }
+  ],
+  "free_bytes": 11680428032,
+  "scope": "operational adapter timeouts and five controls of owned backup/export/restore/verified reconciliation",
+  "pending": [
+    "full fault CLI matrix is not yet implemented; real enablement remains blocked"
+  ],
+  "operational_enablement": false,
+  "profile_confirmed": false
+}

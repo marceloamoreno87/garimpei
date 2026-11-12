@@ -1,0 +1,87 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-497/test_direct_calibration_keeps_0')
+
+    def test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination(
+        tmp_path: Path,
+    ) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-calibration"
+        environment = dict(os.environ)
+        environment.pop("DJANGO_SETTINGS_MODULE", None)
+        environment.pop("GARIMPEI_ENV_FILE", None)
+        environment.pop("VIRTUAL_ENV", None)
+    
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                text=True,
+                capture_output=True,
+                timeout=600,
+            )
+    
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stdout + prepared.stderr
+        try:
+            started = invoke("start")
+            assert started.returncode == 0, started.stdout + started.stderr
+            seeded = invoke("seed", "--scenario", "backup")
+            assert seeded.returncode == 0, seeded.stdout + seeded.stderr
+            calibrated = invoke("calibrate")
+>           assert calibrated.returncode == 0, calibrated.stdout + calibrated.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<frozen runpy>", line 203, in _run_module_as_main
+E               File "<frozen runpy>", line 88, in _run_code
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/tests/factories/operations_lab.py", line 301, in <module>
+E                 main()
+E                 ~~~~^^
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/tests/factories/operations_lab.py", line 292, in main
+E                 calibrate(directory)
+E                 ~~~~~~~~~^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/tests/factories/operations_lab.py", line 242, in calibrate
+E                 from tests.factories.operations_probe import measure_adapters
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/tests/factories/operations_probe.py", line 20, in <module>
+E                 from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/gateway/listing/fixture_source.py", line 18, in <module>
+E                 from garimpei.infra.repository.media.mapper import decode_manifest
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/repository/media/mapper.py", line 2, in <module>
+E                 from garimpei.infra.persistence.media_models import MediaEntry
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/persistence/media_models.py", line 6, in <module>
+E                 class MediaCapture(models.Model):
+E                 ...<12 lines>...
+E                     verified_at = models.DateTimeField(null=True)
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 131, in __new__
+E                 app_config = apps.get_containing_app_config(module)
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/apps/registry.py", line 260, in get_containing_app_config
+E                 self.check_apps_ready()
+E                 ~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/apps/registry.py", line 137, in check_apps_ready
+E                 settings.INSTALLED_APPS
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/conf/__init__.py", line 81, in __getattr__
+E                 self._setup(name)
+E                 ~~~~~~~~~~~^^^^^^
+E               File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/conf/__init__.py", line 61, in _setup
+E                 raise ImproperlyConfigured(
+E                 ...<4 lines>...
+E                 )
+E             django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/bin/python', '-m', 'tests.factor...ther define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.\n').returncode
+
+tests/integration/test_operations_calibration.py:46: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_operations_calibration.py::test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination
+1 failed in 19.82s

@@ -1,0 +1,337 @@
+......................................................................F. [ 32%]
+........................................................................ [ 65%]
+F..................................................F.................... [ 98%]
+...                                                                      [100%]
+=================================== FAILURES ===================================
+____________________ test_migration_preserves_confirmed_f03 ____________________
+
+scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-...462/test_migration_preserves_confi0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_migration_preserves_confirmed_f03(scenario: Scenario) -> None:
+        instance, source, _ = scenario
+>       shell(
+            instance,
+            """
+    from django.core.management import call_command
+    from tests.factories.monitoring import prepare_state
+    from garimpei.main import build_read_monitoring_configuration
+    call_command("migrate", "runtime", "0002", verbosity=0)
+    snapshot = prepare_state("ATIVA")
+    assert snapshot.configured
+    call_command("migrate", "runtime", verbosity=0)
+    assert build_read_monitoring_configuration().execute() == snapshot
+    """,
+        )
+
+tests/integration/test_collection.py:455: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-462/test_migration_preserves_confi0/f04_eed4f4150b.env'))
+code = '\nfrom django.core.management import call_command\nfrom tests.factories.monitoring import prepare_state\nfrom garimpe...ncall_command("migrate", "runtime", verbosity=0)\nassert build_read_monitoring_configuration().execute() == snapshot\n'
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:23:29.213553+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_eed4f4150b", "run_id": "9df01f46-5149-4b49-9b4f-20c33a7702c0"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.UndefinedTable: relation "runtime_integrationsettings" does not exist
+E         LINE 1: ...untime_integrationsettings"."alerts_enabled" FROM "runtime_i...
+E                                                                      ^
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 6, in <module>
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/tests/factories/monitoring.py", line 46, in prepare_state
+E             handler = build_monitoring_handler()
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/main.py", line 420, in build_monitoring_handler
+E             build_read_comparable_research(),
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/main.py", line 1557, in build_read_comparable_research
+E             and _effective_listing_settings().fixture_url is not None,
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/main.py", line 708, in _effective_listing_settings
+E             if store.read().facebook_mode == "profile":
+E                ~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/repository/integration/postgres_repository.py", line 25, in read
+E             row = IntegrationSettings.objects.filter(id="local").first()
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1106, in first
+E             for obj in queryset[:1]:
+E                        ~~~~~~~~^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 386, in __iter__
+E             self._fetch_all()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+E             self._result_cache = list(self._iterable_class(self))
+E                                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+E             results = compiler.execute_sql(
+E                 chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+E             )
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.ProgrammingError: relation "runtime_integrationsettings" does not exist
+E         LINE 1: ...untime_integrationsettings"."alerts_enabled" FROM "runtime_i...
+E                                                                      ^
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...rationsettings"."alerts_enabled" FROM "runtime_i...\n                                                             ^\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+_ test_reconciliation_keeps_original_effect_and_evidence[late_reconciliation] __
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-462/test_reconciliation_keeps_orig2')
+case = 'late_reconciliation'
+
+    @pytest.mark.parametrize(
+        "case",
+        [
+            "original_binding",
+            "late_response",
+            "late_reconciliation",
+            "after_deadline",
+            "after_deadline_empty",
+        ],
+    )
+    def test_reconciliation_keeps_original_effect_and_evidence(tmp_path: Path, case: str) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+                script = """
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l)
+    first=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert first is not None
+    """
+                if case == "original_binding":
+                    script += """
+    store.finish(first,Outcome('uncertain','response_lost'),now)
+    recovered=store.claim(r.intent_id,Binding('changed','300@g.us','400@c.us'),now+timedelta(seconds=61),reconcile=True)
+    assert recovered is not None,'original binding reconciliation was blocked by new configuration'
+    assert recovered.binding==binding and recovered.body==first.body and recovered.reference==first.reference
+    """
+                elif case == "late_response":
+                    script += """
+    newer=store.claim(r.intent_id,binding,now+timedelta(seconds=61),reconcile=True)
+    assert newer is not None and newer.generation>first.generation
+    store.finish(first,Outcome('confirmed','late',Receipt('late-known',True,binding.recipient,first.body,2)),now+timedelta(seconds=62))
+    r.intent.refresh_from_db()
+    assert r.intent.state != 'confirmed' and r.intent.generation==newer.generation
+    assert r.intent.attempts.get(generation=first.generation).message_id=='late-known','late receipt evidence was discarded'
+    """
+                elif case == "late_reconciliation":
+                    script += """
+    second=store.claim(r.intent_id,binding,now+timedelta(seconds=61),reconcile=True)
+    third=store.claim(r.intent_id,binding,now+timedelta(seconds=122),reconcile=True)
+    assert second is not None and third is not None
+    store.finish(second,Outcome('confirmed','late-reconciliation',Receipt('reconcile-late-known',True,binding.recipient,second.body,2)),now+timedelta(seconds=123))
+    r.intent.refresh_from_db()
+    assert r.intent.state != 'confirmed' and r.intent.generation==third.generation
+    assert r.intent.attempts.get(generation=first.generation).message_id=='reconcile-late-known','late reconciliation evidence was discarded'
+    """
+                else:
+                    channel.mode = "lost"
+                    script += """
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    store.finish(first,gateway.send(first),now)
+    later=now+timedelta(hours=49)
+    recovered=store.claim(r.intent_id,binding,later,reconcile=True)
+    assert recovered is not None and recovered.reference==first.reference
+    store.finish(recovered,gateway.reconcile(recovered,later),later)
+    r.intent.refresh_from_db();assert r.intent.state=='confirmed' and r.intent.confirmed_at==later
+    assert r.intent.attempts.count()==1
+    assert not store.ready(later+timedelta(seconds=100),reconcile=False)
+    """
+                script += """
+    from dataclasses import replace
+    changed=replace(build_read_profit().execute(l.id),policy='changed-policy-v2')
+    s.publish(l.id,s.prepare(l.id),changed,now+timedelta(hours=50))
+    assert store.claim(r.intent_id,Binding('changed','300@g.us','400@c.us'),now+timedelta(hours=50),reconcile=False) is None
+    assert r.intent.attempts.count()==1
+    """
+                if case == "after_deadline_empty":
+                    channel.mode = "lost_empty"
+                    script = script.replace(
+                        "assert r.intent.state=='confirmed' and r.intent.confirmed_at==later",
+                        "assert r.intent.state=='review' and r.intent.reason=='reconciliation_window_ended' and r.intent.confirmed_at is None",
+                    )
+>               shell(instance, PREPARE + script)
+
+tests/integration/test_first_alert_reconciliation.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-462/test_reconciliation_keeps_orig2/wave11b_f16_4c92a1cb.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...hanged','300@g.us','400@c.us'),now+timedelta(hours=50),reconcile=False) is None\nassert r.intent.attempts.count()==1\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:29:16.545820+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_4c92a1cb", "run_id": "dca5ae30-5d31-4590-88af-8d1b94cdc594"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 16, in <module>
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/repository/alert/first_alert_repository.py", line 99, in publish
+E             .get(listing_id=identity)
+E              ~~~^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.FirstAlertIdentity.DoesNotExist: FirstAlertIdentity matching query does not exist.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...i.infra.persistence.alert_models.FirstAlertIdentity.DoesNotExist: FirstAlertIdentity matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities []
+F16 intents []
+F16 channel calls []
+___ test_exploration_projection_omits_unused_cycle_json_without_lazy_queries ___
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-462/test_exploration_projection_om0')
+
+    def test_exploration_projection_omits_unused_cycle_json_without_lazy_queries(
+        tmp_path: Path,
+    ) -> None:
+        with first_eligibility_scenario(tmp_path, enabled=False) as (instance, _, _, _):
+            group = pause_worker(instance)
+            try:
+>               _checked_shell(
+                    instance,
+                    """
+    from unittest.mock import patch
+    from django.db import connection,transaction
+    from django.db.models import QuerySet
+    from django.test.utils import CaptureQueriesContext
+    from garimpei.main import build_publish_exploration,_listing_clock
+    from garimpei.config.env import load_listing_settings
+    source=build_publish_exploration()._publisher._source
+    now=_listing_clock(load_listing_settings())()
+    def full_cycle_projection(query,*fields):return query
+    with transaction.atomic():
+     with connection.cursor() as cursor:cursor.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
+     with CaptureQueriesContext(connection) as actual_queries:actual=source.snapshot(now)
+     with patch.object(QuerySet,'defer',full_cycle_projection):
+      with CaptureQueriesContext(connection) as baseline_queries:baseline=source.snapshot(now)
+    assert actual==baseline and len(actual)==6
+    assert len(actual_queries)==len(baseline_queries) and len(actual_queries)<=10
+    projection=' '.join(q['sql'].split(' FROM ',1)[0] for q in actual_queries if q['sql'].startswith('SELECT'))
+    for field in ('results','planned','diagnostics','window_evidence','origin'):
+     assert '"runtime_collectioncycle"."'+field+'"' not in projection,field
+    assert not any('FROM "runtime_collectioncycle" WHERE' in q['sql'] for q in actual_queries)
+    print('F08 projection: five unused JSON fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads',len(actual_queries))
+    """,
+                )
+
+tests/integration/test_exploration_configuration_lock.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-462/test_exploration_projection_om0/wave11b_f16_1bbc61a2.env'))
+code = "\nfrom unittest.mock import patch\nfrom django.db import connection,transaction\nfrom django.db.models import QuerySe...fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads',len(actual_queries))\n"
+
+    def _checked_shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:33:57.995469+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_1bbc61a2", "run_id": "fc4c1ccb-bf9b-48ae-a8a4-18d4fa0bb89c"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 17, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 17, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_exploration_configuration_lock.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16004', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'excluded', 'condition_excluded', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_collection.py::test_migration_preserves_confirmed_f03
+FAILED tests/integration/test_first_alert_reconciliation.py::test_reconciliation_keeps_original_effect_and_evidence[late_reconciliation]
+FAILED tests/integration/test_exploration_configuration_lock.py::test_exploration_projection_omits_unused_cycle_json_without_lazy_queries
+3 failed, 216 passed in 1072.94s (0:17:52)

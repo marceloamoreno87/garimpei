@@ -1,0 +1,134 @@
+{
+  "format_version": 1,
+  "instances": [
+    {
+      "environment_id": "eval_f17_source_51281893",
+      "state": "closed",
+      "database": "garimpei_eval_f17_source_51281893",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    },
+    {
+      "environment_id": "eval_f17_destination_474b7de4",
+      "state": "closed",
+      "database": "garimpei_eval_f17_destination_474b7de4",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    }
+  ],
+  "real_services": false,
+  "private_files_excluded": true,
+  "corpus": {
+    "scenario": "counts",
+    "clock": "2026-11-12T22:24:41+00:00",
+    "controlled": true,
+    "ids": {
+      "A": "9da4ce1a-a623-4b27-85a5-3f9589261c55",
+      "B": "bdfba384-4079-467d-bcf4-14effa112917",
+      "C": "34248211-e610-44b4-a853-2d59ffc0b829",
+      "D": "f2a5053f-f705-4f04-bbe0-a1ac2c61055c",
+      "E": "7b88ac18-668f-447f-9b36-bc3bfcdab357",
+      "F": "0c7bf491-4d7d-4129-b0f2-c26aa9c24475",
+      "G": "7d51ae70-5404-42f9-9ecb-abbfd8ad454d",
+      "H": "6e59c44a-688a-4f09-b0ff-1536a61f9a18",
+      "I": "b42b3517-00e7-4308-96c9-6f932258039d",
+      "J": "4af9a240-8aba-41f2-a9aa-de204a240900",
+      "K": "fba235cf-31e4-4be2-9641-f770e84fafcd",
+      "L": "0b6aefe9-841a-494d-a264-be380e99ac82"
+    },
+    "sets": {
+      "stored": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L"
+      ],
+      "revalidated": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J"
+      ],
+      "with_detail": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "recognized": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "with_sample": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "estimated": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "eligible": [
+        "A",
+        "B",
+        "C"
+      ],
+      "confirmed": [
+        "A",
+        "B"
+      ]
+    },
+    "counts": {
+      "stored": 12,
+      "revalidated": 10,
+      "with_detail": 8,
+      "recognized": 6,
+      "with_sample": 5,
+      "estimated": 4,
+      "eligible": 3,
+      "confirmed": 2
+    },
+    "snapshot_id": "b930eda1-33b2-451a-94c2-8113f8cd42a1",
+    "explanation": "Historical comparable observations precede the current input; D is publication-expired, E lacks purchase, F has a different recognized model. Two loopback HTTP receipts, never delivery/read proof.",
+    "protected_photo": {
+      "corpus": "CONTROLLED F14 local HTTP",
+      "listing_id": "fba235cf-31e4-4be2-9641-f770e84fafcd",
+      "version_id": "0143919b-623e-4748-b438-3552207adf63",
+      "sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+      "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+      "bytes": 26534
+    }
+  }
+}

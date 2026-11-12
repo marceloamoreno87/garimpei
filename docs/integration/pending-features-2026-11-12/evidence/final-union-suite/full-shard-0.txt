@@ -1,0 +1,54 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/a716/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 42 items
+
+tests/integration/test_operations_calibration.py::test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination PASSED [  2%]
+tests/integration/test_multimodal_alert_condition.py::test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[light_wear] PASSED [  4%]
+tests/integration/test_multimodal_alert_condition.py::test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[clear_defect] PASSED [  7%]
+tests/integration/test_multimodal_alert_condition.py::test_activation_preserves_preexisting_confirmed_uncertain_and_terminal_history PASSED [  9%]
+tests/integration/test_multimodal_alert_condition.py::test_alert_note_keeps_damage_suspicion_and_manual_divergence PASSED [ 11%]
+tests/integration/test_listing_condition.py::test_condition_projection_updates_and_identity PASSED [ 14%]
+tests/integration/test_listing_condition.py::test_rollback_constraints_and_concurrent_corrections PASSED [ 16%]
+tests/integration/test_listing_condition.py::test_migration_preserves_f04_observations PASSED [ 19%]
+tests/integration/test_listing_condition.py::test_collection_in_flight_preserves_manual_choice PASSED [ 21%]
+tests/integration/test_inference.py::test_recovery_waits_for_proof_respects_due_and_three_attempts PASSED [ 23%]
+tests/integration/test_inference.py::test_concurrent_admission_and_publication_are_idempotent PASSED [ 26%]
+tests/integration/test_inference.py::test_control_http_validates_csrf_conflict_and_unconfirmed_write PASSED [ 28%]
+tests/integration/test_inference.py::test_retry_success_clears_obsolete_diagnostic PASSED [ 30%]
+tests/integration/test_inference.py::test_pause_during_call_finishes_one_part_and_requires_explicit_resume PASSED [ 33%]
+tests/integration/test_inference.py::test_empty_queue_reconciliation_does_not_enqueue_work PASSED [ 35%]
+tests/integration/test_inference.py::test_uncertain_execution_renders_cause_before_active_claim PASSED [ 38%]
+tests/http/test_listing_condition.py::test_http_choices_stale_revision_validation_and_csrf PASSED [ 40%]
+tests/http/test_listing_condition.py::test_http_failed_save_retains_input_and_escape PASSED [ 42%]
+tests/integration/test_exploration_configuration_lock.py::test_exploration_snapshot_allows_configuration_commit_and_serializes_publishers PASSED [ 45%]
+tests/integration/test_exploration_configuration_lock.py::test_snapshot_configuration_reader_requires_existing_consistent_transaction PASSED [ 47%]
+tests/integration/test_exploration_configuration_lock.py::test_exploration_projection_omits_unused_cycle_json_without_lazy_queries PASSED [ 50%]
+tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status PASSED [ 52%]
+tests/integration/test_operational_reconciliation.py::test_old_copy_requires_complete_inventory_and_original_receipt_before_release PASSED [ 54%]
+tests/integration/test_operational_inflight_restore.py::test_restore_requeues_inflight_media_and_analysis_with_exact_prepared_png PASSED [ 57%]
+tests/integration/test_operational_media_backup.py::test_protected_media_pins_exact_files_missing_bytes_and_restore PASSED [ 59%]
+tests/integration/test_operational_migration.py::test_additive_migration_preserves_business_history_without_inventing_progress PASSED [ 61%]
+tests/integration/test_concurrency.py::test_duplicate_control_with_two_consumers_has_one_successor PASSED [ 64%]
+tests/integration/test_concurrency.py::test_old_run_cannot_renew_current_readiness PASSED [ 66%]
+tests/http/test_operational_status.py::test_status_versions_filters_resume_csrf_and_nonempty_catalog PASSED [ 69%]
+tests/http/test_operational_status.py::test_configuration_read_failure_preserves_submitted_edit_and_active_state PASSED [ 71%]
+tests/lifecycle/test_network_cleanup.py::test_clean_removes_owned_network_and_preserves_foreign_network PASSED [ 73%]
+tests/unit/test_inference_gateway.py::test_connection_loss_after_dispatch_never_means_safe_retry PASSED [ 76%]
+tests/unit/test_inference_gateway.py::test_two_environments_cannot_steal_gpu_ownership PASSED [ 78%]
+tests/unit/test_inference_gateway.py::test_valid_response_stays_structured_without_business_effects PASSED [ 80%]
+tests/unit/test_inference_gateway.py::test_invalid_response_metrics_are_rejected_without_escaping_domain[prompt_eval_count-invalid] PASSED [ 83%]
+tests/unit/test_inference_gateway.py::test_invalid_response_metrics_are_rejected_without_escaping_domain[eval_count-inf] PASSED [ 85%]
+tests/unit/test_inference_gateway.py::test_total_deadline_stops_a_trickling_response PASSED [ 88%]
+tests/unit/test_inference_gateway.py::test_diagnostic_does_not_announce_unprobed_service PASSED [ 90%]
+tests/unit/test_media_network_boundaries.py::test_invalid_network_response_never_becomes_an_image[/fake-mime-media_content_rejected] PASSED [ 92%]
+tests/unit/test_media_network_boundaries.py::test_invalid_network_response_never_becomes_an_image[/truncated-media_truncated] PASSED [ 95%]
+tests/unit/test_media_network_boundaries.py::test_invalid_network_response_never_becomes_an_image[/redirect-media_destination_rejected] PASSED [ 97%]
+tests/unit/test_media_network_boundaries.py::test_validated_numeric_address_is_pinned_and_unexpected_peer_is_closed PASSED [100%]
+
+- generated xml file: /home/marce/.codex/worktrees/a716/garimpei/docs/integration/pending-features-2026-11-12/evidence/final-union-suite/full-shard-0.xml -
+======================== 42 passed in 818.08s (0:13:38) ========================

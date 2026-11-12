@@ -1,0 +1,19 @@
+{
+  "exits": [
+    1,
+    1,
+    0
+  ],
+  "counts": {
+    "passed": 650,
+    "failure": 5,
+    "error": 2
+  },
+  "expected": 657,
+  "actual": 657,
+  "missing": [],
+  "extra": [],
+  "duplicates": [],
+  "changed_inputs": [],
+  "seconds": 1073.6174340248108
+}

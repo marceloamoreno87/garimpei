@@ -1,0 +1,9 @@
+### Ran Playwright code
+```js
+await page.goto('http://127.0.0.1:17263/acompanhamento/backups/');
+```
+### Page
+- Page URL: http://127.0.0.1:17263/acompanhamento/backups/
+- Page Title: Cópias dos dados · Garimpei
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-11-12T21-29-41-929Z.yml)
