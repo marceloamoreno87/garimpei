@@ -60,6 +60,8 @@ class LocalAssessmentInference:
                 tuple(refs[index : index + 4]),
                 VERSION,
                 VERSION,
+                work.id,
+                work.generation,
             )
             ticket = self._request.execute(value)
             requests.append(ticket.request_id)
@@ -96,9 +98,11 @@ class LocalAssessmentInference:
             r["state"] in {"pending", "running", "awaiting_resource", "paused"} for r in responses
         ):
             return None
+        if any(r["state"] == "superseded" for r in responses):
+            return self._resolved(work, (), False, "superseded_input", status="failed")
         failed = next(
             (
-                str(part["reason"])
+                str(part["reason"] or part["state"])
                 for r in responses
                 for part in cast(list[dict[str, object]], r["parts"])
                 if part["state"] != "succeeded"
@@ -107,6 +111,12 @@ class LocalAssessmentInference:
         )
         if failed:
             return self._resolved(work, (), False, _failure(failed), status="failed")
+        if any(
+            not isinstance(p["result"], dict)
+            for r in responses
+            for p in cast(list[dict[str, object]], r["parts"])
+        ):
+            return self._resolved(work, (), False, "invalid_analysis", status="failed")
         findings: list[Finding] = []
         limitations = []
         examined: set[str] = set()
@@ -135,6 +145,11 @@ class LocalAssessmentInference:
             limitations=tuple(limitations),
             conflicts=conflicts,
             examined=examined,
+            controlled=any(
+                cast(dict[str, object], p["metrics"]).get("controlled_fake") is True
+                for r in responses
+                for p in cast(list[dict[str, object]], r["parts"])
+            ),
         )
 
     @staticmethod
@@ -148,6 +163,7 @@ class LocalAssessmentInference:
         limitations: tuple[str, ...] = (),
         conflicts: bool = False,
         examined: set[str] | None = None,
+        controlled: bool = False,
     ) -> Assessment:
         snapshot = work.value.snapshot
         fields = cast(dict[str, str | None], snapshot["text"])
@@ -190,6 +206,7 @@ class LocalAssessmentInference:
             findings=findings,
             limitations=limitations,
             photo_coverage=coverage,
+            runtime="controlled_fake" if controlled else "local_model",
         )
 
 

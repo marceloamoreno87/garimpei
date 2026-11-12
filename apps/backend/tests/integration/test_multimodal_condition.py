@@ -1,5 +1,9 @@
 """PostgreSQL composition with named F19 fakes; does not assert GPU or model quality."""
 
+from pathlib import Path
+
+import pytest
+
 from tests.factories.runtime import FoundationInstance
 from tests.integration.test_media_persistence import media_instance as media_instance
 from tests.integration.test_media_persistence import shell
@@ -265,3 +269,143 @@ assert not AlertIntent.objects.exists() and not AlertAttempt.objects.exists()
 print('manual form CSRF/303/409 preserves chosen tab without manufacturing sufficient analysis or intent PASS')
 """,
     )
+
+
+@pytest.mark.parametrize("photo_count", [5, 12])
+def test_distinct_photo_batches_share_one_current_cohort(
+    media_instance: tuple[FoundationInstance, str],
+    photo_count: int,
+) -> None:
+    import hashlib
+    from pathlib import Path
+
+    from tests.factories.assessment_origin import serve_assessment_images
+
+    instance, origin = media_instance
+    folder = Path(__file__).parents[1] / "fixtures/listing/assessment_images"
+    unique = {
+        hashlib.sha256(path.read_bytes()).hexdigest(): path.name
+        for path in sorted(folder.glob("*.png"))
+    }
+    files = list(unique.values())[:photo_count]
+    assert len(files) == photo_count
+    with serve_assessment_images() as (cohort_origin, _requests):
+        shell(
+            instance,
+            origin,
+            BOOT
+            + """
+from garimpei.domain.media.media import Manifest,Photo,Variant
+from garimpei.infra.repository.media.captures import create_capture
+from garimpei.config.env import load_media_settings
+from garimpei.infra.persistence.listing_models import CollectionCycle
+os.environ['GARIMPEI_MEDIA_EVAL_ORIGIN']=COHORT_ORIGIN
+cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=obs.ordinal+1,observed_at=now(),price=obs.price,evidence=obs.evidence,coverage=obs.coverage)
+listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+photos=tuple(Photo('cohort-'+str(i),(Variant(COHORT_ORIGIN+'/'+name,640,480),),i==0) for i,name in enumerate(FILES))
+create_capture(new,Manifest('present',photos,True,''),load_media_settings().policy,now())
+runner=build_media_runner()
+for _ in range(4*len(FILES)):
+ for job in build_media_repository().due(now()):runner.execute(job)
+work=prepare.execute(listing.id)
+assert len(work.requests)==(len(FILES)+3)//4
+for _ in range(3*len(FILES)):run.execute()
+states=list(InferenceRequest.objects.filter(id__in=work.requests).values_list('state',flat=True))
+assert states==['succeeded']*len(work.requests),states
+assert complete.execute(work.id)
+state=build_read_condition().execute(listing.id).state
+assert state.satisfies_alert_condition and state.assessment.sufficient
+assert len(state.assessment.photo_coverage)==len(FILES)
+assert len({p['sha256'] for p in state.assessment.photo_coverage})==len(FILES)
+print('all distinct photo batches remain current, aggregate sufficient and preserve hashes PASS')
+""".replace("COHORT_ORIGIN", repr(cohort_origin)).replace("FILES", repr(files)),
+        )
+
+
+def test_condition_cohort_does_not_supersede_legacy_profile_and_new_generation_fences_late_batches(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        BOOT
+        + """
+from uuid import uuid4
+from garimpei.domain.inference.request import AnalysisInput
+from garimpei.infra.repository.inference.postgres_repository import _current
+work=prepare.execute(listing.id)
+condition=InferenceRequest.objects.get(id=work.requests[0])
+legacy=AnalysisInput(obs.id,obs.ordinal,'legacy first',())
+legacy_ticket=irepo.admit(legacy,'legacy-artifact',(PreparedPart('text','legacy first'),))
+legacy_row=InferenceRequest.objects.get(id=legacy_ticket.request_id)
+assert _current(condition) and _current(legacy_row)
+latest=irepo.admit(replace(legacy,text='legacy second'),'legacy-artifact',(PreparedPart('text','legacy second'),))
+assert not _current(legacy_row) and _current(InferenceRequest.objects.get(id=latest.request_id))
+assert _current(condition)
+new_group=uuid4()
+value=AnalysisInput(obs.id,obs.ordinal,'new context',(),VERSION,VERSION,new_group,work.generation+1)
+new=irepo.admit(value,condition.artifact,(PreparedPart('text','new context',profile=VERSION),))
+assert not _current(condition) and _current(InferenceRequest.objects.get(id=new.request_id))
+late=irepo.admit(replace(value,text='late old batch',cohort_id=work.id,cohort_generation=work.generation),condition.artifact,(PreparedPart('text','late old batch',profile=VERSION),))
+assert not _current(InferenceRequest.objects.get(id=late.request_id))
+assert _current(InferenceRequest.objects.get(id=new.request_id))
+print('legacy profile temporal supersession unchanged; independent cohorts and later generation fencing PASS')
+""",
+    )
+
+
+def test_static_webp_original_is_preserved_and_analyzed_through_a_png_derivative(
+    media_instance: tuple[FoundationInstance, str],
+    tmp_path: "Path",
+) -> None:
+    import hashlib
+
+    from PIL import Image
+
+    from tests.factories.assessment_origin import serve_assessment_images
+
+    original = tmp_path / "original.webp"
+    Image.new("RGB", (800, 600), "#2f584c").save(original, "WEBP")
+    expected = hashlib.sha256(original.read_bytes()).hexdigest()
+    instance, origin = media_instance
+    with serve_assessment_images({"original.webp": original}) as (webp_origin, _requests):
+        shell(
+            instance,
+            origin,
+            BOOT
+            + """
+from garimpei.domain.media.media import Manifest,Photo,Variant
+from garimpei.infra.repository.media.captures import create_capture
+from garimpei.config.env import load_media_settings
+from garimpei.infra.persistence.listing_models import CollectionCycle
+from garimpei.infra.gateway.inference.input_preparer import image_derivative
+from garimpei.domain.inference.errors import InferenceError
+import hashlib
+os.environ['GARIMPEI_MEDIA_EVAL_ORIGIN']=WEBP_ORIGIN
+cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=obs.ordinal+1,observed_at=now(),price=obs.price,evidence=obs.evidence,coverage=obs.coverage)
+listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+photo=Photo('webp-photo',(Variant(WEBP_ORIGIN+'/original.webp',800,600),),True)
+create_capture(new,Manifest('present',(photo,),True,''),load_media_settings().policy,now())
+runner=build_media_runner()
+for _ in range(4):
+ for job in build_media_repository().due(now()):runner.execute(job)
+photo=queries.gallery(listing.id,new.id).photos[0]
+file=queries.file(listing.id,photo.version_id,'original')
+raw=build_media_store().read(file)
+assert photo.mime=='image/webp' and hashlib.sha256(raw).hexdigest()==EXPECTED_SHA
+work=prepare.execute(listing.id)
+assert len(work.requests)==1,ConditionAssessment.objects.get(id=work.id).input_snapshot
+for _ in range(3):run.execute()
+assert complete.execute(work.id)
+state=build_read_condition().execute(listing.id).state
+assert state.assessment.sufficient and state.satisfies_alert_condition
+assert hashlib.sha256(build_media_store().read(file)).hexdigest()==EXPECTED_SHA
+try:image_derivative(raw)
+except InferenceError as legacy:assert legacy.code=='capacity_limit'
+else:raise AssertionError('legacy F19 format policy changed')
+print('F14 static WebP original/hash preserved; F15 lossless input derivative; legacy F19 unchanged PASS')
+""".replace("WEBP_ORIGIN", repr(webp_origin)).replace("EXPECTED_SHA", repr(expected)),
+        )

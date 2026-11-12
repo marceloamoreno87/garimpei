@@ -12,8 +12,8 @@ from garimpei.domain.inference.request import ImageReference
 from garimpei.domain.listing.assessment_ports import AssessmentWork
 from garimpei.domain.media.errors import MediaError
 from garimpei.domain.media.ports import MediaQueries, MediaRepository, MediaStore
-from garimpei.infra.gateway.inference.input_preparer import image_derivative
 from garimpei.infra.gateway.inference.registry import register_file
+from garimpei.infra.gateway.listing.assessment_image import assessment_derivative
 
 
 def prepare_photos(
@@ -60,7 +60,7 @@ def _register(
     try:
         original = queries.file(work.value.listing_id, UUID(str(photo["version_id"])), "original")
         raw = store.read(original)
-        derived = image_derivative(raw)
+        derived = assessment_derivative(raw)
         # Only the existing F19 registry persists data and accounts for its quota.
         with TemporaryDirectory(prefix="garimpei-assessment-") as temporary:
             path = Path(temporary) / "input.png"

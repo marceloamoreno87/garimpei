@@ -25,6 +25,8 @@ class InferenceControl(models.Model):
 
 class InferenceRequest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
+    cohort_id = models.UUIDField(null=True)
+    cohort_generation = models.PositiveBigIntegerField(null=True)
     observation = models.ForeignKey("ListingObservation", on_delete=models.PROTECT)
     revision = models.PositiveBigIntegerField()
     signature = models.CharField(max_length=64, unique=True)

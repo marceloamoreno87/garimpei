@@ -40,6 +40,8 @@ class AnalysisInput:
     images: tuple[ImageReference, ...]
     prompt_version: str = VERSION
     schema_version: str = VERSION
+    cohort_id: UUID | None = None
+    cohort_generation: int | None = None
 
     def __post_init__(self) -> None:
         if self.revision < 1 or len(self.text.encode()) > 16384 or len(self.images) > 4:
@@ -53,6 +55,17 @@ class AnalysisInput:
             or self.schema_version != self.prompt_version
         ):
             raise InferenceError("unsupported_prompt_or_schema")
+        grouped = (
+            self.cohort_id is not None
+            and self.cohort_generation is not None
+            and self.cohort_generation > 0
+        )
+        if self.prompt_version == CONDITION_VERSION and not grouped:
+            raise InferenceError("condition_cohort_required")
+        if self.prompt_version == VERSION and (
+            self.cohort_id is not None or self.cohort_generation is not None
+        ):
+            raise InferenceError("unsupported_cohort")
 
     def signature(self, artifact: str) -> str:
         data = asdict(self) | {
@@ -66,6 +79,9 @@ class AnalysisInput:
                 "visual_text": False,
             },
         }
+        if self.cohort_id is None:
+            data.pop("cohort_id", None)
+            data.pop("cohort_generation", None)
         if self.prompt_version == CONDITION_VERSION:
             data["condition_profile"] = hashlib.sha256(
                 (CONDITION_PROMPT + json.dumps(CONDITION_SCHEMA, sort_keys=True)).encode()
