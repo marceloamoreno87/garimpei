@@ -38,6 +38,7 @@ def test_restore_requeues_inflight_media_and_analysis_with_exact_prepared_png(
                 f"ORIGIN={origin!r}\n"
                 + """
 import hashlib,io,json
+from datetime import timedelta
 from pathlib import Path
 from PIL import Image
 from django.utils.timezone import now
@@ -55,6 +56,11 @@ capture=MediaCapture.objects.get(observation=listing.latest)
 entry=MediaEntry.objects.create(capture=capture,photo_key='controlled-inflight',position=0,primary=True,candidates=[{'url':ORIGIN+'/primary-large.jpg','width':1280,'height':960}])
 job=MediaJob.objects.create(entry=entry,kind='download',next_at=now(),attempts=1)
 claim=build_media_repository().claim(job.id,now());assert claim and claim.attempts==2
+other=Listing.objects.select_related('latest').get(external_id='16002')
+old_capture=MediaCapture.objects.get(observation=other.latest)
+old_capture.state='running';old_capture.complete=False;old_capture.save()
+expired_entry=MediaEntry.objects.create(capture=old_capture,photo_key='controlled-exhausted',position=0,primary=True,candidates=[{'url':ORIGIN+'/primary-large.jpg','width':1280,'height':960}])
+expired=MediaJob.objects.create(entry=expired_entry,kind='download',next_at=now()-timedelta(seconds=60),state='running',attempts=4,lease_generation=4,lease_until=now()-timedelta(seconds=1))
 image=io.BytesIO();Image.new('RGB',(4,4),'green').save(image,format='PNG');raw=image.getvalue();digest=hashlib.sha256(raw).hexdigest()
 directory=load_inference_settings().directory;directory.mkdir(parents=True,exist_ok=True);(directory/digest).write_bytes(raw)
 value=AnalysisInput(listing.latest_id,listing.latest.ordinal,'Usado. Funciona perfeitamente.',(ImageReference('controlled-image',1,digest),))
@@ -65,7 +71,7 @@ confirmed={'findings':[],'unknowns':['confirmed before copy'],'limitations':[]}
 assert repo.publish(first,confirmed,{'controlled':True},now())
 second=repo.claim(now());assert second and second.part.key=='inflight'
 r=build_backup_repository();backup=r.create();record=BackupRecord.objects.get(id=backup)
-data={'archive':str(load_operations_settings().backup_dir/record.file_key),'media_job':str(job.id),'media_generation':claim.generation,'request':str(ticket.request_id),'old_inference_generation':second.generation,'confirmed_part':first.part_id,'running_part':second.part_id,'image_hash':digest,'image_sha256':hashlib.sha256(raw).hexdigest()}
+data={'archive':str(load_operations_settings().backup_dir/record.file_key),'media_job':str(job.id),'media_generation':claim.generation,'exhausted_media_job':str(expired.id),'request':str(ticket.request_id),'old_inference_generation':second.generation,'confirmed_part':first.part_id,'running_part':second.part_id,'image_hash':digest,'image_sha256':hashlib.sha256(raw).hexdigest()}
 (load_operations_settings().backup_dir/'inflight.json').write_text(json.dumps(data))
 """,
             )
@@ -80,7 +86,7 @@ from django.utils.timezone import now
 from garimpei.config.env import load_inference_settings
 from garimpei.domain.inference.ports import PreparedPart,AnalysisWork
 from garimpei.domain.inference.request import AnalysisInput
-from garimpei.infra.persistence.media_models import MediaJob,MediaAsset
+from garimpei.infra.persistence.media_models import MediaJob,MediaAsset,MediaCapture
 from garimpei.infra.persistence.inference_models import InferenceControl,InferenceRequest,InferencePart
 from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
 from garimpei.usecase.inference.run_analysis_usecase import RunAnalysisUseCase
@@ -89,6 +95,12 @@ r=build_backup_repository();r.restore(DATA['archive'],isolated=True)
 job=MediaJob.objects.get(id=DATA['media_job'])
 assert job.state=='pending' and job.lease_until is None and job.reserved_bytes==0
 assert job.attempts==2 and job.lease_generation==DATA['media_generation']
+expired=MediaJob.objects.select_related('entry__capture').get(id=DATA['exhausted_media_job'])
+assert expired.state=='failed' and expired.reason=='media_retry_exhausted' and expired.attempts==4
+assert expired.lease_generation==4 and expired.lease_until is None and expired.reserved_bytes==0
+assert expired.entry.capture.state=='failed' and not expired.entry.capture.complete
+assert expired.id not in build_media_repository().due(now())
+build_media_runner().execute(expired.id)
 assert job.id in build_media_repository().due(now())
 for _ in range(3):
  for identity in build_media_repository().due(now()):build_media_runner().execute(identity)

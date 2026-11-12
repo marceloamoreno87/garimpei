@@ -25,9 +25,10 @@ from garimpei.infra.gateway.operations.private_fields import (
     sanitize_transient_media,
     validate_private_fields,
 )
+from garimpei.infra.gateway.operations.restored_media import restore_media_work
 from garimpei.infra.gateway.operations.schema import SCHEMA
 from garimpei.infra.persistence.listing_models import ListingEvent
-from garimpei.infra.persistence.media_models import MediaAsset, MediaJob, MediaReference
+from garimpei.infra.persistence.media_models import MediaAsset, MediaReference
 
 
 def schema_hash() -> str:
@@ -141,8 +142,7 @@ class BusinessSnapshotGateway:
             MediaAsset.objects.filter(id__in=omitted, state="available").update(
                 state="removed", reason="unprotected_bytes_not_in_backup"
             )
-        MediaJob.objects.update(lease_until=None, reserved_bytes=0)
-        MediaJob.objects.filter(state="running").update(state="pending")
+        restore_media_work()
         if self._inference is not None:
             self._inference.restore(metadata, files)
         MediaReference.objects.filter(consumer="backup", released_at=None).update(
