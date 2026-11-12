@@ -117,3 +117,46 @@ assert r.create(only_due=True)
 row.refresh_from_db();assert not row.suspended and row.last_progress_at and row.pending==0
 """,
     )
+
+
+def test_due_backup_has_one_creator_across_connections(
+    operational_instance: FoundationInstance,
+) -> None:
+    shell(
+        operational_instance,
+        """
+from concurrent.futures import ThreadPoolExecutor
+from datetime import timedelta
+from threading import Event
+from unittest.mock import patch
+from django.db import connection
+from django.utils.timezone import now
+from garimpei.config.env import load_config
+from garimpei.domain.operations.errors import OperationsError
+from garimpei.infra.persistence.operations_models import BackupRecord,BackupSchedule
+from garimpei.main import build_backup_repository
+r=build_backup_repository();identity=load_config().environment_id
+BackupSchedule.objects.filter(installation=identity).update(next_due_at=now()-timedelta(days=1),failures=0,last_failure_at=None)
+before=BackupRecord.objects.filter(kind='backup',state='completed').count()
+captured,release=Event(),Event();capture=r._snapshot.capture
+def held_capture(execution):
+ value=capture(execution);captured.set()
+ assert release.wait(10)
+ return value
+def create():
+ try:return r.create(only_due=True)
+ finally:connection.close()
+with patch.object(r._snapshot,'capture',held_capture),ThreadPoolExecutor(max_workers=1) as pool:
+ first=pool.submit(create)
+ try:
+  assert captured.wait(10)
+  try:r.create(only_due=True)
+  except OperationsError as error:assert error.code=='maintenance_in_progress'
+  else:raise AssertionError('two simultaneous creators admitted')
+ finally:release.set()
+ assert first.result(timeout=10)
+assert r.create(only_due=True) is None
+assert BackupRecord.objects.filter(kind='backup',state='completed').count()==min(7,before+1)
+assert not BackupRecord.objects.filter(state='creating').exists()
+""",
+    )

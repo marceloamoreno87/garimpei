@@ -85,3 +85,27 @@ row.refresh_from_db();assert not row.suspended and row.pending==0
 with connection.cursor() as cursor:cursor.execute("DELETE FROM procrastinate_jobs WHERE queue_name='valuation' AND status='todo'")
 """,
     )
+
+
+def test_running_turn_allows_one_durable_successor_without_duplicate_requests(
+    operational_instance: FoundationInstance,
+) -> None:
+    shell(
+        operational_instance,
+        """
+from uuid import uuid4
+from django.db import connection
+from garimpei.main import _enqueue
+arguments={'cycle_id':str(uuid4()),'generation':7}
+first=_enqueue('garimpei.collect_listings','listing',0,**arguments)
+with connection.cursor() as cursor:cursor.execute("UPDATE procrastinate_jobs SET status='doing' WHERE id=%s",[first])
+assert _enqueue('garimpei.collect_listings','listing',0,**arguments)==first
+successor=_enqueue('garimpei.collect_listings','listing',0,_continuation=True,**arguments)
+assert successor and successor!=first
+assert _enqueue('garimpei.collect_listings','listing',0,_continuation=True,**arguments)==successor
+with connection.cursor() as cursor:
+ cursor.execute("SELECT status,count(*) FROM procrastinate_jobs WHERE id=ANY(%s) GROUP BY status",[[first,successor]])
+ assert dict(cursor.fetchall())=={'doing':1,'todo':1}
+ cursor.execute("DELETE FROM procrastinate_jobs WHERE id=ANY(%s)",[[first,successor]])
+""",
+    )

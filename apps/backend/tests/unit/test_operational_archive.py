@@ -151,3 +151,57 @@ def test_interrupted_export_keeps_exact_source_and_removes_partial(
     assert path.read_bytes() == before
     assert not tuple((tmp_path / "exports").iterdir())
     assert not tuple((tmp_path / "partial").iterdir())
+
+
+@pytest.mark.parametrize("operation", ["write", "export"])
+def test_archive_deadline_includes_one_slow_member_and_validation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, operation: str
+) -> None:
+    from garimpei.infra.gateway.operations import archive_gateway
+
+    class ControlledArchiveClock:
+        elapsed = 0.0
+
+        def monotonic(self) -> float:
+            return self.elapsed
+
+    gateway = ArchiveGateway(tmp_path, reserve_bytes=0, budget_bytes=1024 * 1024)
+    prior = gateway.write(
+        "completed",
+        "00000000-0000-4000-8000-000000000017",
+        {"format_version": 1},
+        {"records.jsonl": b"{}\n"},
+    )
+    before = prior.read_bytes()
+    clock = ControlledArchiveClock()
+    monkeypatch.setattr(archive_gateway, "time", clock)
+    if operation == "write":
+        add = archive_gateway._add_file
+
+        def slow_member(archive: tarfile.TarFile, name: str, data: bytes) -> None:
+            add(archive, name, data)
+            clock.elapsed = 301
+
+        monkeypatch.setattr(archive_gateway, "_add_file", slow_member)
+        with pytest.raises(ArchiveInvalid):
+            gateway.write(
+                "completed",
+                "00000000-0000-4000-8000-000000000018",
+                {"format_version": 1},
+                {"records.jsonl": b"{}\n"},
+            )
+    else:
+        read = gateway.read
+
+        def slow_validation(path: Path) -> tuple[dict[str, object], dict[str, bytes]]:
+            result = read(path)
+            clock.elapsed = 301
+            return result
+
+        monkeypatch.setattr(gateway, "read", slow_validation)
+        with pytest.raises(ArchiveInvalid):
+            archive_gateway.copy_archive(gateway, prior, "00000000-0000-4000-8000-000000000018")
+    assert prior.read_bytes() == before
+    assert not tuple((tmp_path / "partial").iterdir())
+    assert len(tuple((tmp_path / "completed").iterdir())) == 1
+    assert not tuple((tmp_path / "exports").iterdir())

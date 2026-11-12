@@ -36,6 +36,12 @@ from garimpei.infra.persistence.listing_models import Listing
 from garimpei.infra.persistence.operations_models import BackupRecord
 from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
 from garimpei.config.env import load_operations_settings
+from garimpei.infra.repository.operations.progress_repository import PostgresOperationalRepository
+from django.utils.timezone import now
+progress=PostgresOperationalRepository(load_operations_settings().environment_id,now)
+progress.confirm('listing','restore-budget',1,'confirmed-checkpoint',now(),pending=1)
+progress.failure('listing','restore-budget',1,'source_transport',now())
+progress.failure('listing','restore-budget',1,'source_transport',now())
 l=Listing.objects.select_related('latest').get(external_id='16001')
 e=dict(l.latest.evidence); e['image_url']='https://scontent.example.test/photo.jpg?oh=synthetic-media-canary'
 l.latest.evidence=e; l.latest.save()
@@ -65,7 +71,7 @@ from garimpei.main import build_backup_repository,build_recovery_guard,build_ope
 from garimpei.domain.alert.alert import Binding
 from garimpei.infra.persistence.listing_models import Listing
 from garimpei.infra.persistence.alert_models import AlertFeedCursor
-from garimpei.infra.persistence.operations_models import RecoveryBarrier
+from garimpei.infra.persistence.operations_models import RecoveryBarrier,OperationalUnit
 from garimpei.domain.operations.errors import OperationsError
 from garimpei.config.env import load_operations_settings
 from django.utils import timezone
@@ -75,6 +81,9 @@ assert AlertFeedCursor.objects.get().dispatch_suspended
 assert build_recovery_guard()() and RecoveryBarrier.objects.get().state=='blocked'
 assert load_operations_settings().recovery_file.exists()
 assert build_operational_status().execute()['dispatch_suspended']
+unit=OperationalUnit.objects.get(installation=load_operations_settings().environment_id,scope='restore-budget')
+assert unit.checkpoint=='confirmed-checkpoint' and unit.failures==2 and unit.suspended and unit.reason=='recovery_barrier'
+assert unit.generation==1 and not OperationalUnit.objects.exclude(installation=load_operations_settings().environment_id).exists()
 try:r.restore({selected!r},isolated=True)
 except OperationsError as e:assert e.code=='restore_requires_empty_disposable_eval'
 else:raise AssertionError('nonempty destination accepted')

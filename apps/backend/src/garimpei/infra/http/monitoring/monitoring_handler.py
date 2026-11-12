@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from django.http import (
     Http404,
     HttpRequest,
@@ -39,7 +41,7 @@ class MonitoringHandler:
         update: UpdateMonitoringConfigurationUseCase,
         preview: PreviewProductsUseCase,
         read_collection_status: ReadCollectionStatusUseCase,
-        read_operations: ReadOperationalStatusUseCase | None = None,
+        read_operations: Callable[[], ReadOperationalStatusUseCase] | None = None,
     ) -> None:
         self._read_form = read_form
         self._read_catalog = read_catalog
@@ -89,7 +91,7 @@ class MonitoringHandler:
                 "monitoring/tracking.html",
                 {
                     "collection": self._read_collection_status.execute(),
-                    "operations": status_context(self._read_operations.execute())
+                    "operations": status_context(self._read_operations().execute())
                     if self._read_operations
                     else None,
                 },

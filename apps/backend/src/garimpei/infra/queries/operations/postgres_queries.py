@@ -26,6 +26,7 @@ from garimpei.infra.persistence.operations_models import (
     RecoveryBarrier,
 )
 from garimpei.infra.persistence.valuation_models import ValuationProgress
+from garimpei.infra.queries.operations.native_stages import native_stages
 from garimpei.infra.repository.operations.progress_repository import restore_progress
 from garimpei.infra.repository.operations.recovery_guard import dispatch_blocked
 from garimpei.infra.repository.valuation.mapper import decode_valuation
@@ -63,9 +64,11 @@ class PostgresOperationalQueries:
         clock: Callable[[], datetime],
         configuration: ConfigurationReader,
         media_count: Callable[[tuple[UUID, ...]], int] | None = None,
+        scope_transform: Callable[[Scope], Scope] | None = None,
     ) -> None:
         self._installation, self._file, self._clock = installation, recovery_file, clock
         self._configuration, self._media_count = configuration, media_count
+        self._scope_transform = scope_transform
 
     def read(self, interest: str | None = None, version: UUID | None = None) -> dict[str, object]:
         if version is not None:
@@ -96,6 +99,8 @@ class PostgresOperationalQueries:
         now = self._clock()
         configuration = self._configuration.execute()
         scope = Scope.from_snapshot(configuration)
+        if scope is not None and self._scope_transform is not None:
+            scope = self._scope_transform(scope)
         if interest and (scope is None or interest not in {s.interest.key for s in scope.searches}):
             raise OperationsError("operational_interest_invalid", 400)
         current = Listing.objects.select_related("latest__cycle").filter(latest__isnull=False)
@@ -123,7 +128,7 @@ class PostgresOperationalQueries:
             .values_list("id", flat=True)
             .first(),
             "interest": interest,
-            "stages": self._stages(now),
+            "stages": self._stages(now, identities),
             "counts": {
                 key: {
                     "available": values[key] is not None,
@@ -175,13 +180,17 @@ class PostgresOperationalQueries:
             "confirmed": _confirmed(identities),
         }
 
-    def _stages(self, now: datetime) -> list[dict[str, object]]:
+    def _stages(self, now: datetime, identities: tuple[UUID, ...]) -> list[dict[str, object]]:
         rows = (
             OperationalUnit.objects.filter(installation=self._installation)
             .order_by("stage", "key", "-revision")
             .distinct("stage", "key")
         )
         stages = [_unit_view(row, now) for row in rows]
+        known = {str(item["stage"]) for item in stages}
+        stages.extend(
+            stage for stage in native_stages(identities, now) if stage["stage"] not in known
+        )
         known = {str(item["stage"]) for item in stages}
         for stage in (
             "listing",

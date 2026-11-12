@@ -3,7 +3,7 @@
 {% block head %}{{ block.super }}<script src="{% static 'navigation/progress.js' %}" defer></script><script src="{% static 'operations/status.js' %}" defer></script><link rel="stylesheet" href="{% static 'operations/status.css' %}">{% endblock %}
 {% block title %}Acompanhamento · Garimpei{% endblock %}
 {% block main %}
-    <main id="main" tabindex="-1">
+    <main id="main" tabindex="-1" class="tracking-view">
         <h1>Seu acompanhamento</h1>
         <section class="tracking-state">
             <p class="notice">Configuração concluída</p>

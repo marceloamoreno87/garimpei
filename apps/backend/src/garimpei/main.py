@@ -124,14 +124,18 @@ def build_enqueue_app() -> App:
     return App(connector=SyncPsycopgConnector())
 
 
-def _enqueue(name: str, queue: str, delay: int, **arguments: str | int) -> int:
+def _enqueue(
+    name: str, queue: str, delay: int, *, _continuation: bool = False, **arguments: str | int
+) -> int:
     from django.db import transaction
 
     with transaction.atomic():
-        return _enqueue_owned(name, queue, delay, arguments)
+        return _enqueue_owned(name, queue, delay, arguments, continuation=_continuation)
 
 
-def _enqueue_owned(name: str, queue: str, delay: int, arguments: dict[str, str | int]) -> int:
+def _enqueue_owned(
+    name: str, queue: str, delay: int, arguments: dict[str, str | int], *, continuation: bool
+) -> int:
     from django.db import connection
 
     from garimpei.config.env import load_operations_settings
@@ -140,8 +144,8 @@ def _enqueue_owned(name: str, queue: str, delay: int, arguments: dict[str, str |
     register_tasks()
     connection.ensure_connection()
     operations = load_operations_settings()
-    key = _task_key(name, arguments) if operations.enabled and queue != "runtime" else None
-    existing = _existing_task(key) if key else None
+    key = _task_key(name, arguments) if queue != "runtime" else None
+    existing = _existing_task(key, include_running=not continuation) if key else None
     if existing is not None:
         return existing
     if operations.enabled and not admit_enqueue(
@@ -160,13 +164,13 @@ def _task_key(name: str, arguments: dict[str, str | int]) -> str:
     return name + ":" + hashlib.sha256(json.dumps(arguments, sort_keys=True).encode()).hexdigest()
 
 
-def _existing_task(key: str) -> int | None:
+def _existing_task(key: str, *, include_running: bool = True) -> int | None:
     from django.db import connection
 
     with connection.cursor() as cursor:
         cursor.execute(
-            "SELECT id FROM procrastinate_jobs WHERE queueing_lock=%s AND status IN ('todo','doing') ORDER BY id DESC LIMIT 1",
-            [key],
+            "SELECT id FROM procrastinate_jobs WHERE queueing_lock=%s AND status=ANY(%s::procrastinate_job_status[]) ORDER BY id DESC LIMIT 1",
+            [key, ["todo", "doing"] if include_running else ["todo"]],
         )
         row = cursor.fetchone()
     return int(row[0]) if row is not None else None
@@ -397,7 +401,7 @@ def build_monitoring_handler() -> "MonitoringHandler":
         UpdateMonitoringConfigurationUseCase(unit.transaction, catalog),
         PreviewProductsUseCase(),
         build_read_collection_status(),
-        build_operational_status(),
+        build_operational_status,
     )
 
 
@@ -940,6 +944,7 @@ def _defer_navigation(attempt: "Attempt", delay: int) -> None:
         "garimpei.collect_listings",
         "listing",
         delay,
+        _continuation=True,
         cycle_id=str(attempt.cycle_id),
         generation=attempt.generation,
     )
@@ -954,6 +959,7 @@ def _navigation_collection(settings: ListingSettings) -> "PostgresCollectionRepo
         _defer_listing,
         settings.lease,
         scope_transform=build_navigation_catalog().decorate_scope,
+        operations=build_operational_progress(),
     )
 
 
@@ -1135,6 +1141,7 @@ def build_operational_status() -> "ReadOperationalStatusUseCase":
             _listing_clock(_effective_listing_settings()),
             build_read_monitoring_configuration(repeatable_snapshot=True),
             count_current_media,
+            scope_transform=build_navigation_catalog().decorate_scope,
         )
     )
 

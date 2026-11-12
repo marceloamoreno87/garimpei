@@ -62,13 +62,21 @@ class ArchiveGateway:
             output.write(self._owner)
 
     def write(
-        self, kind: str, identity: str, metadata: dict[str, object], files: dict[str, bytes]
+        self,
+        kind: str,
+        identity: str,
+        metadata: dict[str, object],
+        files: dict[str, bytes],
+        *,
+        started_at: float | None = None,
     ) -> Path:
+        started = time.monotonic() if started_at is None else started_at
         if kind not in {"completed", "exports"} or str(UUID(identity)) != identity:
             raise ArchiveInvalid("archive_key_invalid")
         if any(not _safe_name(name) for name in files):
             raise ArchiveInvalid("archive_entry_invalid")
         self._prepare(sum(len(data) for data in files.values()) * 2 + 65536)
+        _check_timeout(started)
         manifest = metadata | {
             "files": {
                 name: {"sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)}
@@ -77,7 +85,6 @@ class ArchiveGateway:
         }
         partial = self.root / "partial" / (identity + ".tar.gz")
         final = self.root / kind / (identity + ".tar.gz")
-        started = time.monotonic()
         try:
             with partial.open("xb") as output:
                 os.fchmod(output.fileno(), 0o600)
@@ -85,6 +92,7 @@ class ArchiveGateway:
                 output.flush()
                 os.fsync(output.fileno())
             self.read(partial)
+            _check_timeout(started)
             if final.exists():
                 raise ArchiveInvalid("archive_already_exists")
             partial.replace(final)
@@ -105,6 +113,7 @@ class ArchiveGateway:
             for name, data in files.items():
                 _check_timeout(started)
                 _add_file(archive, name, data)
+                _check_timeout(started)
             manifest["finished_at"] = datetime.now(UTC).isoformat()
             _add_file(archive, "manifest.json", json.dumps(manifest, sort_keys=True).encode())
 
@@ -202,11 +211,12 @@ def _sync_directory(directory: Path) -> None:
 
 
 def copy_archive(gateway: ArchiveGateway, source: Path, identity: str) -> Path:
+    started = time.monotonic()
     gateway.read(source)
+    _check_timeout(started)
     gateway._prepare(source.stat().st_size)
     partial = gateway.root / "partial" / (str(UUID(identity)) + ".tar.gz")
     target = gateway.root / "exports" / (str(UUID(identity)) + ".tar.gz")
-    started = time.monotonic()
     try:
         with source.open("rb") as reader, partial.open("xb") as output:
             os.fchmod(output.fileno(), 0o600)
@@ -214,6 +224,7 @@ def copy_archive(gateway: ArchiveGateway, source: Path, identity: str) -> Path:
             output.flush()
             os.fsync(output.fileno())
         gateway.read(partial)
+        _check_timeout(started)
         partial.replace(target)
         _sync_directory(target.parent)
         return target

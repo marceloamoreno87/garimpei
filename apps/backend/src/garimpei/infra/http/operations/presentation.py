@@ -33,6 +33,11 @@ REASONS = {
     "recovery_barrier": "O intervalo após a restauração precisa ser reconciliado antes de novos envios.",
     "queue_full": "A fila atingiu o limite. O pedido e seu progresso foram preservados.",
     "archive_storage_limit": "Falta espaço para uma nova cópia. As cópias concluídas foram preservadas.",
+    "media_pending": "Há fotografias ainda não confirmadas. Consulte a oferta para ver o estado de cada imagem.",
+    "media_configuration_required": "A cópia das fotografias precisa de configuração ou espaço. Confira a oferta antes de repetir.",
+    "media_attention_required": "Uma fotografia esgotou suas tentativas. Abra a oferta para conferir e solicitar nova obtenção.",
+    "analysis_service_unavailable": "A análise local está pausada ou indisponível. Confira seu estado em Integrações.",
+    "analysis_pending": "Há análise local pendente; isso não impede as outras etapas.",
 }
 
 

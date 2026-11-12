@@ -115,5 +115,8 @@ class RestoreBackupGateway:
                 whatsapp_configured=False,
             )
             OperationalUnit.objects.update(
-                suspended=True, reason="recovery_barrier", generation=F("generation") + 1
+                installation=self._config.environment_id,
+                suspended=True,
+                reason="recovery_barrier",
+                generation=F("generation") + 1,
             )

@@ -1,4 +1,5 @@
-.operations { margin-block: 2rem; max-width: 78rem; }
+.operations { margin-block: 2rem; max-width: 78rem; overflow-wrap: anywhere; }
+.tracking-view h1 { overflow-wrap: anywhere; }
 .operations-heading { display: flex; justify-content: space-between; align-items: start; gap: 1.5rem; }
 .operations-heading h2 { margin-block-start: 0; }
 .operations p { max-width: 76ch; overflow-wrap: anywhere; }
@@ -14,9 +15,13 @@
 .operations-summary { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
 .operations-summary dd { margin: .5rem 0; }
 .operations button, .operations .button { min-height: 44px; }
+.operations .button { max-width: 100%; white-space: normal; }
 .operations :focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
 @media (max-width: 650px) {
   .operations-heading, .operations-stages > li, .operations-backups > li { flex-direction: column; }
   .operations-counts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .operations-counts dd { font-size: 1.35rem; }
+}
+@media (max-width: 350px) {
+  .operations-counts { grid-template-columns: minmax(0, 1fr); }
 }

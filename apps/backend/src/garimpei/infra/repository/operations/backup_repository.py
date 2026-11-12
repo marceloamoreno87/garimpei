@@ -1,5 +1,6 @@
 """Bounded, exclusive maintenance. No filesystem path comes from an HTTP caller."""
 
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from uuid import UUID, uuid4
@@ -61,6 +62,7 @@ class PostgresBackupRepository:
             return self._create_archive(record, schedule)
 
     def _create_archive(self, record: BackupRecord, schedule: BackupSchedule) -> UUID:
+        started = time.monotonic()
         captured: CapturedSnapshot | None = None
         try:
             captured = self._snapshot.capture(str(record.id))
@@ -89,7 +91,9 @@ class PostgresBackupRepository:
                 ],
                 "access_recovery": "Facebook and WhatsApp access must be recovered separately",
             }
-            path = self._archives.write("completed", str(record.id), metadata, files)
+            path = self._archives.write(
+                "completed", str(record.id), metadata, files, started_at=started
+            )
             self._commit_archive(record, schedule, path, counts, moment)
             self._retain()
             return record.id
