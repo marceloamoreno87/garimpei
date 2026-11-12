@@ -56,14 +56,14 @@ def verify_process(record: ProcessRecord, root: Path) -> None:
         raise OperationError("Process ownership: command/group mismatch")
 
 
-def stop_process(record: ProcessRecord, root: Path, timeout: int) -> bool:
+def stop_process(record: ProcessRecord, root: Path, timeout: float) -> bool:
     verify_process(record, root)
     if not is_live(record):
         return True
     os.killpg(record["pgid"], signal.SIGTERM)
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline and is_live(record):
-        time.sleep(0.05)
+        time.sleep(min(0.05, max(0, deadline - time.monotonic())))
     if is_live(record):
         verify_process(record, root)
         os.killpg(record["pgid"], signal.SIGKILL)

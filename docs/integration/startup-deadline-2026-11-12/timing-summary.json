@@ -1,0 +1,21 @@
+{
+  "startup_timeout_seconds": 8,
+  "shutdown_timeout_seconds": 1,
+  "before_own_waha_seconds": 8.031603,
+  "before_instrumented_waha_seconds": 8.04644,
+  "instrumented_pre_attempt_seconds": 0.491048,
+  "instrumented_prepare_until_readiness_seconds": 3.285433,
+  "instrumented_readiness_overrun_seconds": 0.12721,
+  "instrumented_process_rollback_seconds": 0.252082,
+  "instrumented_container_stop_seconds": 1.055942,
+  "final_postgres_seconds": 3.817729,
+  "final_waha_seconds": 6.391843,
+  "final_image_seconds": 1.043685,
+  "lifecycle_passed": 36,
+  "lifecycle_seconds": 95.77,
+  "gates_exit_code": 0,
+  "wrapper_reserve_seconds": 1,
+  "wrapper_hardcap": false,
+  "startup_script_modified": false,
+  "all_original_startup_assertions_preserved": true
+}

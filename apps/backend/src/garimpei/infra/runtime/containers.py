@@ -2,6 +2,7 @@ import json
 import subprocess
 
 from garimpei.config.env import RuntimeConfig, process_environment
+from garimpei.infra.runtime.deadline import remaining
 from garimpei.infra.runtime.manifest import OperationError
 
 
@@ -24,7 +25,7 @@ def docker(arguments: list[str], config: RuntimeConfig, *, timeout: float = 30) 
     return result.stdout.strip()
 
 
-def compose(config: RuntimeConfig, arguments: list[str]) -> str:
+def compose(config: RuntimeConfig, arguments: list[str], *, timeout: float | None = None) -> str:
     return docker(
         [
             "compose",
@@ -35,13 +36,15 @@ def compose(config: RuntimeConfig, arguments: list[str]) -> str:
             *arguments,
         ],
         config,
-        timeout=config.startup_timeout,
+        timeout=config.startup_timeout if timeout is None else timeout,
     )
 
 
-def container_ids(config: RuntimeConfig) -> list[str]:
+def container_ids(config: RuntimeConfig, *, timeout: float = 30) -> list[str]:
     output = docker(
-        ["ps", "-aq", "--filter", "label=com.garimpei.environment=" + config.environment_id], config
+        ["ps", "-aq", "--filter", "label=com.garimpei.environment=" + config.environment_id],
+        config,
+        timeout=timeout,
     )
     return output.splitlines() if output else []
 
@@ -58,34 +61,49 @@ def verify_container(identifier: str, config: RuntimeConfig, *, timeout: float =
         raise OperationError("Container ownership: marker/checkout mismatch")
 
 
-def running_containers(config: RuntimeConfig) -> set[str]:
+def running_containers(config: RuntimeConfig, *, timeout: float = 30) -> set[str]:
     output = docker(
-        ["ps", "-q", "--filter", "label=com.garimpei.environment=" + config.environment_id], config
+        ["ps", "-q", "--filter", "label=com.garimpei.environment=" + config.environment_id],
+        config,
+        timeout=timeout,
     )
     return set(output.splitlines()) if output else set()
 
 
-def stop_containers(config: RuntimeConfig, identifiers: list[str]) -> None:
+def stop_containers(
+    config: RuntimeConfig, identifiers: list[str], *, deadline: float | None = None
+) -> None:
     for identifier in identifiers:
-        verify_container(identifier, config)
+        verify_container(identifier, config, timeout=remaining(deadline))
     if identifiers:
+        grace = config.shutdown_timeout
+        if deadline is not None:
+            grace = min(grace, max(0, int(remaining(deadline) - 0.2)))
         docker(
-            ["stop", "--time", str(config.shutdown_timeout), *identifiers],
+            ["stop", "--time", str(grace), *identifiers],
             config,
-            timeout=config.shutdown_timeout + 10,
+            timeout=remaining(deadline, maximum=config.shutdown_timeout + 10),
         )
 
 
-def network_ids(config: RuntimeConfig) -> list[str]:
+def network_ids(config: RuntimeConfig, *, timeout: float = 30) -> list[str]:
     project = "garimpei-" + config.environment_id
     output = docker(
-        ["network", "ls", "-q", "--filter", "label=com.docker.compose.project=" + project], config
+        ["network", "ls", "-q", "--filter", "label=com.docker.compose.project=" + project],
+        config,
+        timeout=timeout,
     )
     return output.splitlines() if output else []
 
 
-def verify_network(identifier: str, config: RuntimeConfig, containers: list[str]) -> None:
-    data = json.loads(docker(["network", "inspect", "--format", "{{json .}}", identifier], config))
+def verify_network(
+    identifier: str, config: RuntimeConfig, containers: list[str], *, timeout: float = 30
+) -> None:
+    data = json.loads(
+        docker(
+            ["network", "inspect", "--format", "{{json .}}", identifier], config, timeout=timeout
+        )
+    )
     labels = data.get("Labels") or {}
     if labels.get("com.garimpei.environment") != config.environment_id or labels.get(
         "com.garimpei.checkout"

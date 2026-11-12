@@ -34,6 +34,7 @@ from garimpei.infra.runtime.containers import (
     verify_container,
     verify_network,
 )
+from garimpei.infra.runtime.deadline import remaining
 from garimpei.infra.runtime.manifest import (
     Manifest,
     OperationError,
@@ -60,7 +61,9 @@ def _check_port(port: int) -> None:
         raise OperationError(f"Port {port}: unavailable; expected unused loopback port") from None
 
 
-def _assert_manifest(manifest: Manifest, config: RuntimeConfig) -> None:
+def _assert_manifest(
+    manifest: Manifest, config: RuntimeConfig, deadline: float | None = None
+) -> None:
     if manifest["environment_id"] != config.environment_id or manifest["checkout"] != str(
         config.root
     ):
@@ -68,14 +71,16 @@ def _assert_manifest(manifest: Manifest, config: RuntimeConfig) -> None:
     for process in manifest["processes"]:
         verify_process(process, config.root)
     for identifier in manifest["containers"]:
-        verify_container(identifier, config)
-    for identifier in network_ids(config):
-        verify_network(identifier, config, manifest["containers"])
+        verify_container(identifier, config, timeout=remaining(deadline))
+    for identifier in network_ids(config, timeout=remaining(deadline)):
+        verify_network(identifier, config, manifest["containers"], timeout=remaining(deadline))
 
 
-def _ready(config: RuntimeConfig, run_id: str) -> bool:
+def _ready(config: RuntimeConfig, run_id: str, timeout: float = 3) -> bool:
     try:
-        with urlopen(f"http://127.0.0.1:{config.web_port}/health/ready", timeout=3) as response:
+        with urlopen(
+            f"http://127.0.0.1:{config.web_port}/health/ready", timeout=timeout
+        ) as response:
             body = json.load(response)
             return bool(
                 response.status == 200
@@ -91,9 +96,13 @@ def _wait_database(config: RuntimeConfig, deadline: float) -> None:
 
     probe = build_database_probe()
     while time.monotonic() < deadline:
+        # Django's authenticated connect/statement probes each allow two seconds.
+        # Do not begin another potentially blocking probe at the end of the phase.
+        remaining(deadline, minimum=2)
         if probe.check():
+            remaining(deadline)
             return
-        time.sleep(0.2)
+        time.sleep(min(0.2, remaining(deadline)))
     raise OperationError("PostgreSQL: authenticated readiness timeout")
 
 
@@ -147,14 +156,21 @@ def _spawn(config: RuntimeConfig, manifest: Manifest) -> None:
 
 
 def start(config: RuntimeConfig, *, disposable: bool = False) -> None:
+    # The shell/uv entry and CLI imports precede this function (measured at 0.49s).
+    # Leave a full second for that envelope and return, rather than spending it twice.
+    deadline = time.monotonic() + max(0, config.startup_timeout - 1)
     if shutil.which("docker") is None:
         raise ConfigurationError("docker: expected Docker with Compose")
     with instance_lock(config.directory):
         previous = read_manifest(config.directory)
         if previous is not None:
-            _assert_manifest(previous, config)
+            _assert_manifest(previous, config, deadline)
         active = previous and any(is_live(process) for process in previous["processes"])
-        if active and previous and _ready(config, previous["run_id"]):
+        if (
+            active
+            and previous
+            and _ready(config, previous["run_id"], remaining(deadline, maximum=3))
+        ):
             print(
                 f"Ready {config.environment_id}: web/worker already running; http://127.0.0.1:{config.web_port}"
             )
@@ -163,15 +179,17 @@ def start(config: RuntimeConfig, *, disposable: bool = False) -> None:
             raise OperationError(
                 "Existing execution is not ready; stop the owned instance before restarting"
             )
-        _start_attempt(config, disposable=disposable)
+        _start_attempt(config, disposable=disposable, deadline=deadline)
 
 
-def _start_attempt(config: RuntimeConfig, *, disposable: bool) -> None:
-    deadline = time.monotonic() + max(0.5, config.startup_timeout - 2)
-    existing = running_containers(config)
-    known = container_ids(config)
-    for identifier in network_ids(config):
-        verify_network(identifier, config, known)
+def _start_attempt(config: RuntimeConfig, *, disposable: bool, deadline: float) -> None:
+    # One shared process grace plus one Docker grace; inspections/manifest get margin.
+    reserve = min(config.startup_timeout / 2, 2 * config.shutdown_timeout + 0.5)
+    startup_deadline = deadline - reserve
+    existing = running_containers(config, timeout=remaining(startup_deadline))
+    known = container_ids(config, timeout=remaining(startup_deadline))
+    for identifier in network_ids(config, timeout=remaining(startup_deadline)):
+        verify_network(identifier, config, known, timeout=remaining(startup_deadline))
     for port in [config.web_port, *([] if existing else [config.pg_port, config.waha_port])]:
         _check_port(port)
     config = _setup(config, str(uuid.uuid4()))
@@ -193,19 +211,19 @@ def _start_attempt(config: RuntimeConfig, *, disposable: bool) -> None:
     }
     write_manifest(config.directory, manifest)
     try:
-        compose(config, ["up", "-d", "--pull", "never"])
-        manifest["containers"] = container_ids(config)
-        _assert_manifest(manifest, config)
-        _wait_database(config, deadline)
+        compose(config, ["up", "-d", "--pull", "never"], timeout=remaining(startup_deadline))
+        manifest["containers"] = container_ids(config, timeout=remaining(startup_deadline))
+        _assert_manifest(manifest, config, startup_deadline)
+        _wait_database(config, startup_deadline)
         call_command("migrate", verbosity=0)
         _start_optional_inference(config, manifest)
         from garimpei.infra.worker.probe_service import begin_run
 
         begin_run(config, config.run_id)
         _spawn(config, manifest)
-        _wait_ready(config, manifest, deadline)
+        _wait_ready(config, manifest, startup_deadline)
     except Exception:
-        _rollback_attempt(config, manifest, existing)
+        _rollback_attempt(config, manifest, existing, deadline)
         raise
     manifest["status"] = "ready"
     write_manifest(config.directory, manifest)
@@ -218,18 +236,26 @@ def _wait_ready(config: RuntimeConfig, manifest: Manifest, deadline: float) -> N
             raise OperationError(
                 "Web/worker: process exited before readiness; inspect private logs"
             )
-        if _ready(config, config.run_id):
+        if _ready(config, config.run_id, remaining(deadline, maximum=3)):
+            remaining(deadline)
             return
-        time.sleep(0.2)
+        time.sleep(min(0.2, remaining(deadline)))
     raise OperationError("Readiness timeout: database, migrations, worker or WAHA unavailable")
 
 
-def _rollback_attempt(config: RuntimeConfig, manifest: Manifest, existing: set[str]) -> None:
+def _rollback_attempt(
+    config: RuntimeConfig, manifest: Manifest, existing: set[str], deadline: float
+) -> None:
+    process_deadline = min(deadline, time.monotonic() + config.shutdown_timeout)
     for process in manifest["processes"]:
-        stop_process(process, config.root, config.shutdown_timeout)
-    created = [identifier for identifier in container_ids(config) if identifier not in existing]
-    stop_containers(config, created)
-    manifest["containers"] = container_ids(config)
+        stop_process(process, config.root, max(0, process_deadline - time.monotonic()))
+    created = [
+        identifier
+        for identifier in container_ids(config, timeout=remaining(deadline))
+        if identifier not in existing
+    ]
+    stop_containers(config, created, deadline=deadline)
+    manifest["containers"] = container_ids(config, timeout=remaining(deadline))
     manifest["status"] = "failed"
     write_manifest(config.directory, manifest)
 
