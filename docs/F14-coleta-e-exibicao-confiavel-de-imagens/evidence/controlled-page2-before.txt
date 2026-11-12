@@ -1,0 +1,41 @@
+### Result
+{
+  "url": "/ofertas/?aba=funcionam&q=&categoria=479353692612078&pagina=2&versao=b0124dc4-ed33-45d5-9a25-63a169ded78b",
+  "photos": [
+    {
+      "listing": "8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f",
+      "path": "/ofertas/8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f/imagens/1d080c0c-8371-481f-bb84-56d052915d0a/miniatura/",
+      "width": 640,
+      "height": 480
+    },
+    {
+      "listing": "5cd2933c-6eda-47e1-a74d-bea88f7b6288",
+      "path": "/ofertas/5cd2933c-6eda-47e1-a74d-bea88f7b6288/imagens/5b2d189d-0686-41d1-a85a-074177d265b9/miniatura/",
+      "width": 640,
+      "height": 640
+    }
+  ],
+  "order": [
+    "8c6aaf1f-f727-441a-8ef0-cd7ccf5090d8",
+    "71c910b8-c6f5-4c36-acda-9e897c3908a3",
+    "afd00228-9bca-4825-bbc8-e215956911a4",
+    "71cd096d-4f51-4c61-a78a-06eb7120db88",
+    "2909b843-0fb4-441d-9a97-c944ad8046f3",
+    "e9c7bf01-138c-4c4f-a094-3109b08eb09c",
+    "5fef070d-94bf-484e-bc2a-0602a6108a85",
+    "3590319f-08ca-477f-8091-d5f1d1e1cd68",
+    "a7a38d16-0a0a-42f6-aae7-a89a400f768b",
+    "548e8acc-cb5f-48f3-b502-0fbb0599d4a8",
+    "2d788aac-844d-4f69-bd87-cf2641d48c95",
+    "5c019e47-19a7-41e1-9bd2-50b95ccff735",
+    "f207ed52-f927-4eb0-bda1-2ec4a84d3d90",
+    "7ddadad5-0514-48e0-b114-2cb71abbaa77",
+    "5cd2933c-6eda-47e1-a74d-bea88f7b6288",
+    "8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f"
+  ],
+  "focused": "exploration-search"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const found=[];for(const id of ["8eb5ee8b-4518-46a4-b03e-a8b2265b7d6f", "5cd2933c-6eda-47e1-a74d-bea88f7b6288"]){const card=document.querySelector(`[data-offer-id="${id}"]`);const image=card?.querySelector("img");if(image){image.scrollIntoView();await image.decode().catch(()=>{});found.push({listing:id,path:new URL(image.src).pathname,width:image.naturalWidth,height:image.naturalHeight})}else found.push({listing:id,missing:true})};document.querySelector("#exploration-search").focus();return {url:location.pathname+location.search,photos:found,order:[...document.querySelectorAll("[data-offer-id]")].map(e=>e.dataset.offerId),focused:document.activeElement.id}}');
+```

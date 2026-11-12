@@ -1,0 +1,21 @@
+### Result
+{
+  "photos": [
+    {
+      "listing": "0b04ae28-4ad3-419a-af9e-5c5399212989",
+      "present": false,
+      "image": false
+    },
+    {
+      "listing": "1045e18d-5994-4a1f-938e-7d0d12da38f7",
+      "present": false,
+      "image": false
+    }
+  ],
+  "path": "/ofertas/",
+  "revision": "5bb81261-cbcd-4738-96c4-219a11259889"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const ids=["0b04ae28-4ad3-419a-af9e-5c5399212989","1045e18d-5994-4a1f-938e-7d0d12da38f7"];const photos=[];for(const id of ids){const card=document.querySelector(`[data-offer-id="${id}"]`);const img=card?.querySelector("img");if(img){img.scrollIntoView();await img.decode().catch(()=>{});photos.push({listing:id,path:new URL(img.src).pathname,width:img.naturalWidth,height:img.naturalHeight})}else{photos.push({listing:id,present:!!card,image:false})}}return {photos,path:location.pathname,revision:new URL(location.href).searchParams.get("versao")}}');
+```

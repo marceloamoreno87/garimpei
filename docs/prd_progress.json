@@ -225,11 +225,11 @@
         "F12"
       ],
       "status": "implemented",
-      "cycles": 1,
-      "failure_reason": "Ciclo1: assinatura F16 inclui media e overflow UI; fonte real ainda sem captura reconhecida.",
-      "report_path": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-12T19-05-22Z.md",
+      "cycles": 2,
+      "failure_reason": "E2E-FONTE-01 pendente: duas resoluções reais da mesma foto não comprovadas; full final da união posterior ao delta UI.",
+      "report_path": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-12T20-12-37Z.md",
       "started_at": "2026-11-12T18:30:51.546640+00:00",
-      "updated_at": "2026-11-12T19:05:22.254656+00:00",
+      "updated_at": "2026-11-12T20:12:37.338768Z",
       "completed_at": null
     },
     "F15": {
@@ -242,12 +242,12 @@
         "F14",
         "F19"
       ],
-      "status": "pending",
+      "status": "implementing",
       "cycles": 0,
-      "failure_reason": null,
+      "failure_reason": "Escopo parcial autorizado; F14 ainda implemented com prova real2res pendente.",
       "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:49:57.524969Z",
+      "started_at": "2026-11-12T20:23:10.929452+00:00",
+      "updated_at": "2026-11-12T20:23:10.929452+00:00",
       "completed_at": null
     },
     "F16": {

@@ -1,0 +1,12 @@
+### Result
+{
+  "label": "Fotos removidas após encerramento da retenção",
+  "gallery": "Fotos removidas após encerramento da retenção\n\nFoto removida após encerramento da retenção.\n\nFoto 1 · 1280 × 960 px · Obtida em 12/11/2026 19:46:41 UTC · Renovação não confirmada\n\nFoto removida após encerramento da retenção.\n\nFoto 2 · 1000 × 800 px · Obtida em 12/11/2026 19:46:41 UTC · Renovação não confirmada\nFoto 1\nFoto 2\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+  "images": 0,
+  "source": true,
+  "text": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({label:document.querySelector(".media-gallery p")?.textContent,gallery:document.querySelector(".media-gallery")?.innerText,images:document.querySelectorAll(".media-gallery img").length,source:!!document.querySelector(".source-link"),text:document.body.innerText.includes("Funciona bem")})');
+```

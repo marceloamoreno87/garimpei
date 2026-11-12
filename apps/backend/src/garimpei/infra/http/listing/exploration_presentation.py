@@ -69,8 +69,10 @@ def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
         result.update(
             price=money_label(offer.evidence.price), resale="Indisponível", profit="Indisponível"
         )
+    from garimpei.infra.http.listing.assessment_presentation import assessment_context
     from garimpei.infra.http.media.presentation import media_context
 
+    result.update(assessment_context(offer))
     result.update(media_context(offer, url(criteria, f"/ofertas/{offer.id}/imagens/reprocessar/")))
     return result
 

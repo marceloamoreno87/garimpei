@@ -335,4 +335,5 @@ def decode_part(value: dict[str, object]) -> PreparedPart:
         str(value["image_hash"]) if value["image_hash"] else None,
         tuple(cast(list[dict[str, object]], value["coverage"])),
         str(value.get("model_digest", "")),
+        str(value.get("profile", "local-evidence-v1")),
     )

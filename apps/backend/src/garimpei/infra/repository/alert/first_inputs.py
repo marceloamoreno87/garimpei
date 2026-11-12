@@ -29,6 +29,16 @@ def automatic_signature(listing: Listing) -> str:
     configuration = (
         MonitoringConfiguration.objects.filter(slot="active").values("id", "revision").first()
     )
+    from garimpei.config.env import load_assessment_enabled
+    from garimpei.infra.repository.listing.condition_mapper import condition_state
+
+    assessment_semantic = None
+    if load_assessment_enabled():
+        state = condition_state(listing)
+        if state.assessment and state.assessment.status == "complete":
+            assessment_semantic = dict(
+                condition=state.analysis.condition, sufficient=state.assessment.sufficient
+            )
     value = dict(
         evidence=evidence,
         coverage=observation.coverage,
@@ -36,6 +46,8 @@ def automatic_signature(listing: Listing) -> str:
         valuation=valuation,
         configuration=configuration,
     )
+    if assessment_semantic is not None:
+        value["condition_assessment"] = assessment_semantic
     return hashlib.sha256(json.dumps(value, sort_keys=True, default=str).encode()).hexdigest()
 
 

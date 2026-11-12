@@ -1,0 +1,66 @@
+### Result
+{
+  "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/",
+  "revision": "5bb81261-cbcd-4738-96c4-219a11259889",
+  "photos": [
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/5fac7fd0-69c8-4dc8-8aae-718f91031d0f/original/",
+      "width": 720,
+      "height": 960,
+      "status": 200,
+      "bytes": 131000,
+      "sha256": "d27beb9f9a52a90d89a8b9f59c5359f5b48935e98c4e07519e87beb279d41ff8",
+      "mime": "image/jpeg",
+      "etag": "\"d27beb9f9a52a90d89a8b9f59c5359f5b48935e98c4e07519e87beb279d41ff8\"",
+      "cache": "private, no-cache"
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/036461d7-f4d8-4aa2-8fec-2baf1ff9d566/original/",
+      "width": 720,
+      "height": 960,
+      "status": 200,
+      "bytes": 66611,
+      "sha256": "8e9d8123d4a9551473bcbcd4ab1f042b32f0950bd0936691dcfdad978dcc5a31",
+      "mime": "image/jpeg",
+      "etag": "\"8e9d8123d4a9551473bcbcd4ab1f042b32f0950bd0936691dcfdad978dcc5a31\"",
+      "cache": "private, no-cache"
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/114e63d0-ba36-457a-a207-781be69840d9/original/",
+      "width": 720,
+      "height": 960,
+      "status": 200,
+      "bytes": 85585,
+      "sha256": "4db42634196dd30d2ac4ee28854383a7445c30ae710241b61a17a31236551e44",
+      "mime": "image/jpeg",
+      "etag": "\"4db42634196dd30d2ac4ee28854383a7445c30ae710241b61a17a31236551e44\"",
+      "cache": "private, no-cache"
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/7619305b-db57-4a73-bbbd-737f743e701e/original/",
+      "width": 720,
+      "height": 960,
+      "status": 200,
+      "bytes": 66913,
+      "sha256": "ec4911fe369e36d2d6e3f62d2d4e4b6d542c5793f66f1092a011a79b62721af5",
+      "mime": "image/jpeg",
+      "etag": "\"ec4911fe369e36d2d6e3f62d2d4e4b6d542c5793f66f1092a011a79b62721af5\"",
+      "cache": "private, no-cache"
+    },
+    {
+      "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/88b4db6f-e253-44f9-bc1e-5266199f6a85/original/",
+      "width": 720,
+      "height": 960,
+      "status": 200,
+      "bytes": 69124,
+      "sha256": "437f9a41e926a439efb4d688e85fe318e841da2e2b6ab2f7b80ebb52878e58f5",
+      "mime": "image/jpeg",
+      "etag": "\"437f9a41e926a439efb4d688e85fe318e841da2e2b6ab2f7b80ebb52878e58f5\"",
+      "cache": "private, no-cache"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const photos=[];for(const i of document.querySelectorAll(".media-gallery img")){await i.decode().catch(()=>{});const r=await fetch(i.src,{cache:"no-store"});const bytes=await r.arrayBuffer();const hash=[...new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))].map(v=>v.toString(16).padStart(2,"0")).join("");photos.push({path:new URL(i.src).pathname,width:i.naturalWidth,height:i.naturalHeight,status:r.status,bytes:bytes.byteLength,sha256:hash,mime:r.headers.get("content-type"),etag:r.headers.get("etag"),cache:r.headers.get("cache-control")})}return {path:location.pathname,revision:new URL(location.href).searchParams.get("versao"),photos}}');
+```

@@ -26,6 +26,7 @@ class AlertMessage:
     url: str
     profit_policy: str = "potential-before-freight-v2"
     financial: FinancialSnapshot | None = None
+    condition_note: str = ""
 
 
 @dataclass(frozen=True)

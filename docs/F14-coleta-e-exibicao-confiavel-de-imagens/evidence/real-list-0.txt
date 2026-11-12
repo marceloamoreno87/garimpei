@@ -1,0 +1,15 @@
+### Result
+{
+  "listing": "0b04ae28-4ad3-419a-af9e-5c5399212989",
+  "path": "/ofertas/0b04ae28-4ad3-419a-af9e-5c5399212989/imagens/5fac7fd0-69c8-4dc8-8aae-718f91031d0f/miniatura/",
+  "width": 480,
+  "height": 640,
+  "status": 200,
+  "mime": "image/webp"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const card=document.querySelector(\'[data-offer-id="0b04ae28-4ad3-419a-af9e-5c5399212989"]\');const i=card?.querySelector("img");if(!i)return {listing:"0b04ae28-4ad3-419a-af9e-5c5399212989",card:!!card,image:false};i.scrollIntoView();await i.decode().catch(()=>{});const r=await fetch(i.src,{cache:"no-store"});return {listing:"0b04ae28-4ad3-419a-af9e-5c5399212989",path:new URL(i.src).pathname,width:i.naturalWidth,height:i.naturalHeight,status:r.status,mime:r.headers.get("content-type")}}');
+```
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T19-39-32-351Z.log#L1

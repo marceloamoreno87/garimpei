@@ -16,6 +16,7 @@ from garimpei.main import (
     build_publish_exploration,
     build_worker_stderr,
     reconcile_alerts,
+    reconcile_assessments,
     reconcile_inference,
     reconcile_listings,
     reconcile_media,
@@ -127,6 +128,7 @@ class Command(BaseCommand):
             _publication_until_stopped,
             _operations_until_stopped,
             _media_until_stopped,
+            _assessments_until_stopped,
         )
         reconcilers = [Thread(target=target, args=(stopped,), daemon=True) for target in targets]
         for reconciler in reconcilers:
@@ -196,3 +198,16 @@ def _media_until_stopped(stopped: Event) -> None:
         finally:
             connections.close_all()
         stopped.wait(30)
+
+
+def _assessments_until_stopped(stopped: Event) -> None:
+    while not stopped.is_set():
+        try:
+            reconcile_assessments()
+        except Exception:
+            logger.error(
+                "assessment_reconcile_failed", extra={"event": "assessment_reconcile_failed"}
+            )
+        finally:
+            connections.close_all()
+        stopped.wait(5)

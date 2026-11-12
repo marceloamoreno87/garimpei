@@ -5,11 +5,20 @@ from decimal import Decimal
 from typing import cast
 from uuid import UUID
 
-from garimpei.domain.listing.condition import ConditionState, automatic_condition
+from garimpei.config.env import load_assessment_enabled
+from garimpei.domain.listing.assessment import Assessment
+from garimpei.domain.listing.condition import (
+    Analysis,
+    Condition,
+    ConditionState,
+    Signal,
+)
+from garimpei.domain.listing.condition_resolution import resolve_condition
 from garimpei.domain.listing.exploration import Offer
 from garimpei.domain.listing.listing import Evidence
 from garimpei.domain.listing.scope import Modality
 from garimpei.domain.valuation.profit import Component, ModalityProfit, ProfitComposition
+from garimpei.infra.repository.listing.assessment_mapper import decode_assessment
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
 from garimpei.infra.repository.valuation.mapper import (
     decode_valuation,
@@ -30,7 +39,7 @@ def encode(offer: Offer) -> dict[str, object]:
     # Calculation time is diagnostic, not changing presentation content.
     composition = cast(dict[str, object], raw["composition"])
     composition.pop("calculated_at")
-    raw.pop("condition")
+    raw["condition_snapshot"] = raw.pop("condition")
     return cast(dict[str, object], json.loads(json.dumps(raw, default=str)))
 
 
@@ -128,7 +137,7 @@ def decode(raw: dict[str, object], at: datetime, state: ConditionState | None = 
         datetime.fromisoformat(str(raw["first_seen_at"])),
         datetime.fromisoformat(str(raw["observed_at"])),
         evidence,
-        state or ConditionState(automatic_condition(evidence)),
+        state or decode_condition(raw.get("condition_snapshot"), evidence),
         tuple(cast(list[str], raw["categories"])),
         bool(raw["pickup"]),
         bool(raw["shipping"]),
@@ -178,3 +187,25 @@ def decode_gallery(value: object) -> "MediaGallery | None":
 
 
 from garimpei.domain.media.media import MediaGallery, MediaPhoto  # noqa: E402
+
+
+def decode_condition(value: object, evidence: Evidence) -> ConditionState:
+    row = mapping(value)
+    if row:
+        analysis = mapping(row["analysis"])
+        signals = tuple(
+            Signal(str(s["field"]), str(s["text"]), cast(Condition, s["condition"]))
+            for s in records(analysis["signals"])
+        )
+        assessment = (
+            decode_assessment(mapping(row["assessment"])) if row.get("assessment") else None
+        )
+        return ConditionState(
+            Analysis(
+                cast(Condition, analysis["condition"]),
+                signals,
+                tuple(cast(list[str], analysis.get("reasons", []))),
+            ),
+            assessment=assessment,
+        )
+    return resolve_condition(evidence, Assessment() if load_assessment_enabled() else None)

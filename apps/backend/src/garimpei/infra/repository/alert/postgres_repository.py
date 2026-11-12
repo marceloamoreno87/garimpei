@@ -5,6 +5,7 @@ from uuid import UUID
 from django.db import transaction
 from django.db.models import Q
 
+from garimpei.config.env import load_assessment_enabled
 from garimpei.domain.alert.alert import AlertPolicy, Binding, Delivery, Outcome
 from garimpei.domain.alert.eligibility import eligibility, verified_receipt
 from garimpei.domain.listing.ports import ConfigurationReader
@@ -21,6 +22,7 @@ from garimpei.infra.persistence.alert_models import (
 from garimpei.infra.persistence.listing_models import ListingEvent
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.queries.alert.event_source import covered, event_condition
+from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.alert.delivery_state import authorize, complete, postpone
 from garimpei.infra.repository.alert.financial import financial_snapshot
@@ -75,7 +77,9 @@ class PostgresAlertRepository:
             event=event,
             defaults={
                 "next_action": now,
-                "state": "waiting" if reason == "eligible" else "excluded",
+                "state": "waiting"
+                if reason in {"eligible", "waiting_condition_assessment"}
+                else "excluded",
                 "reason": "pending_evaluation" if reason == "eligible" else reason,
                 "condition_revision": condition.revision,
             },
@@ -112,6 +116,12 @@ class PostgresAlertRepository:
         self, row: AlertEventDecision, profit: ProfitComposition | None, now: datetime
     ) -> None:
         event = row.event
+        condition = event_condition(event)
+        if condition.reason == "waiting_condition_assessment":
+            row.reason = condition.reason
+            row.next_action = now + timedelta(seconds=self._policy.tick)
+            row.save()
+            return
         if event.kind == "discovered":
             row.state, row.reason, row.evaluated_at = "excluded", "first_eligibility_managed", now
             row.save()
@@ -162,7 +172,7 @@ class PostgresAlertRepository:
             first_before and _first_intent_pending(first_intent, now, self._policy)
         )
         reason = eligibility(
-            event.kind, event.silent, covered(event), True, "good", previous, active
+            event.kind, event.silent, covered(event), True, condition.condition, previous, active
         )
         if reason == "waiting_previous":
             row.reason = reason
@@ -170,6 +180,12 @@ class PostgresAlertRepository:
             row.state, row.reason = "excluded", reason
         else:
             row.state, row.reason, row.financial = financial_snapshot(event, profit)
+        if load_assessment_enabled():
+            assessment = PostgresAssessmentQueries().observation(
+                event.listing_id, event.observation_id
+            )
+            row.assessment_id = assessment.id
+            row.assessment_revision = assessment.revision
         row.next_action, row.evaluated_at = now + timedelta(seconds=self._policy.tick), now
         row.save()
         if row.state == "eligible":

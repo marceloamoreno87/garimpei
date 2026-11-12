@@ -1,0 +1,49 @@
+{
+  "frozen_full": {
+    "commit": "a7e7469",
+    "tests": 533,
+    "passed": 533,
+    "failed": 0,
+    "skipped": 0,
+    "duplicates": 0
+  },
+  "current_inventory": 548,
+  "additional_nodes": [
+    "tests/integration/test_media_contract_matrix.py::test_concurrent_claims_and_write_fault_preserve_quota_and_other_photo_progress",
+    "tests/integration/test_media_contract_matrix.py::test_expired_url_keeps_exact_previous_copy_and_does_not_mark_listing_removed",
+    "tests/integration/test_media_contract_matrix.py::test_interrupted_unlink_is_resumed_without_a_false_removed_state_or_late_pin",
+    "tests/integration/test_media_contract_matrix.py::test_photo_count_and_variant_limits_remain_explicit_without_destroying_prior_copy",
+    "tests/integration/test_media_contract_matrix.py::test_rejected_content_and_destination_leave_previous_copy_available",
+    "tests/integration/test_media_contract_matrix.py::test_rename_before_commit_recovers_with_one_confirmed_version_and_no_double_charge",
+    "tests/integration/test_media_legacy_receipt.py::test_legacy_media_restart_preserves_manual_history_and_confirmed_fake_receipt",
+    "tests/unit/test_media_network_boundaries.py::test_invalid_network_response_never_becomes_an_image[/fake-mime-media_content_rejected]",
+    "tests/unit/test_media_network_boundaries.py::test_invalid_network_response_never_becomes_an_image[/redirect-media_destination_rejected]",
+    "tests/unit/test_media_network_boundaries.py::test_invalid_network_response_never_becomes_an_image[/truncated-media_truncated]",
+    "tests/unit/test_media_network_boundaries.py::test_validated_numeric_address_is_pinned_and_unexpected_peer_is_closed",
+    "tests/unit/test_media_presentation_states.py::test_retention_label_matches_actual_photo_availability[states0-Fotos removidas ap\\xf3s encerramento da reten\\xe7\\xe3o]",
+    "tests/unit/test_media_presentation_states.py::test_retention_label_matches_actual_photo_availability[states1-Remo\\xe7\\xe3o de fotos em andamento]",
+    "tests/unit/test_media_presentation_states.py::test_retention_label_matches_actual_photo_availability[states2-C\\xf3pias dispon\\xedveis; parte das fotos foi removida]",
+    "tests/unit/test_media_presentation_states.py::test_retention_label_matches_actual_photo_availability[states3-Fotos conservadas neste computador]"
+  ],
+  "supplement_runs": [
+    {
+      "file": "supplement-tests.txt",
+      "passed": 14,
+      "seconds": 19.91
+    },
+    {
+      "file": "legacy-receipt-tests.txt",
+      "passed": 1,
+      "seconds": 34.06
+    }
+  ],
+  "post_full_production_delta": [
+    "apps/backend/src/garimpei/infra/http/media/presentation.py"
+  ],
+  "delta_validation": {
+    "focused_tests": 14,
+    "new_presentation_cases": 4,
+    "six_gates": "PASS"
+  },
+  "claim": "Full533 refers to frozen inputs; current548 is collection count, not a claimed full548 run."
+}

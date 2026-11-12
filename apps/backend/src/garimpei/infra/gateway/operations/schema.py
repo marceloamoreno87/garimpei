@@ -2,6 +2,7 @@
 
 from django.db.models import Model
 
+from garimpei.infra.gateway.operations.assessment_schema import ASSESSMENT_SCHEMA
 from garimpei.infra.persistence.alert_models import (
     AlertAttempt,
     AlertEventDecision,
@@ -302,6 +303,8 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
     "runtime.alerteventdecision": (
         AlertEventDecision,
         (
+            "assessment_id",
+            "assessment_revision",
             "event",
             "state",
             "reason",
@@ -367,6 +370,8 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
     "runtime.firsteligibilitydecision": (
         FirstEligibilityDecision,
         (
+            "assessment_id",
+            "assessment_revision",
             "identity",
             "generation",
             "signature",
@@ -514,3 +519,5 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ("unit", "reason", "created_at", "protected"),
     ),
 }
+
+SCHEMA.update(ASSESSMENT_SCHEMA)

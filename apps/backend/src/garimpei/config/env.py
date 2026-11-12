@@ -642,3 +642,11 @@ def _validate_recovery_origin(value: str, environment: str) -> None:
         raise ConfigurationError(
             "Recovery evidence fixture requires owned eval and explicit loopback origin"
         )
+
+
+def load_assessment_enabled() -> bool:
+    values = _values(os.environ)
+    raw = values.get("GARIMPEI_ASSESSMENT_ENABLED", "false")
+    if raw not in {"true", "false"}:
+        raise ConfigurationError("GARIMPEI_ASSESSMENT_ENABLED: expected true or false")
+    return raw == "true"

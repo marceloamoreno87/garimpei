@@ -1,0 +1,37 @@
+{
+  "3": {
+    "label": "Anúncio sem fotos na fonte",
+    "gallery": "Anúncio sem fotos na fonte\n\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+    "images": 0,
+    "source": true,
+    "text": true
+  },
+  "4": {
+    "label": "Fotos ainda não verificadas",
+    "gallery": "Fotos ainda não verificadas\n\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+    "images": 0,
+    "source": true,
+    "text": true
+  },
+  "5": {
+    "label": "Obtenção de fotos pendente",
+    "gallery": "Obtenção de fotos pendente\n\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+    "images": 0,
+    "source": true,
+    "text": true
+  },
+  "6": {
+    "label": "Falha na obtenção de fotos",
+    "gallery": "Falha na obtenção de fotos\n\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+    "images": 0,
+    "source": true,
+    "text": true
+  },
+  "removed": {
+    "label": "Fotos removidas após encerramento da retenção",
+    "gallery": "Fotos removidas após encerramento da retenção\n\nFoto removida após encerramento da retenção.\n\nFoto 1 · 1280 × 960 px · Obtida em 12/11/2026 19:46:41 UTC · Renovação não confirmada\n\nFoto removida após encerramento da retenção.\n\nFoto 2 · 1000 × 800 px · Obtida em 12/11/2026 19:46:41 UTC · Renovação não confirmada\nFoto 1\nFoto 2\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+    "images": 0,
+    "source": true,
+    "text": true
+  }
+}

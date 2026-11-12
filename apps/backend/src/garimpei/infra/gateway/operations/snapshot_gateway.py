@@ -250,6 +250,21 @@ def _validate_schema_coverage() -> None:
     }
     if active != set(SCHEMA):
         raise ArchiveInvalid("archive_business_schema_incomplete")
+    private_fields = {
+        "runtime.integrationsettings": {
+            "facebook_expires_at",
+            "facebook_file",
+            "facebook_login_request",
+            "facebook_login_requested_at",
+            "facebook_login_state",
+            "facebook_saved_at",
+        },
+    }
+    for name, (model, fields) in SCHEMA.items():
+        expected = {field.name for field in model._meta.concrete_fields if not field.primary_key}
+        # A new business column needs an explicit recovery decision before any backup succeeds.
+        if set(fields) != expected - private_fields.get(name, set()):
+            raise ArchiveInvalid("archive_business_schema_incomplete")
 
 
 def _code_hash() -> str:
