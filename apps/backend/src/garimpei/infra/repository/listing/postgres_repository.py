@@ -1,3 +1,4 @@
+import hashlib
 import logging
 from collections import defaultdict
 from collections.abc import Callable, Iterator
@@ -26,6 +27,7 @@ from garimpei.domain.listing.ports import (
 from garimpei.domain.listing.scheduling import retry_schedule
 from garimpei.domain.listing.scope import Scope
 from garimpei.domain.listing.window import PublicationWindow
+from garimpei.domain.operations.ports import ProgressRecorder
 from garimpei.infra.persistence.listing_models import (
     CollectionCandidate,
     CollectionCycle,
@@ -55,7 +57,9 @@ class PostgresCollectionRepository:
         enqueue: Callable[[UUID, int], int],
         lease_seconds: int,
         scope_transform: Callable[[Scope], Scope] | None = None,
+        operations: ProgressRecorder | None = None,
     ) -> None:
+        self._operations = operations
         self._scope_transform = scope_transform
         self._configuration = configuration
         self._clock = clock
@@ -180,6 +184,7 @@ class PostgresCollectionRepository:
                 cycle.window_start, cycle.window_end = window.start, window.end
             cycle.save(update_fields=["phase", "started_at", "window_start", "window_end"])
             scope = replace(scope, window=PublicationWindow(cycle.window_start, cycle.window_end))
+            self._limit_operations(cycle, scope)
             return Work(scope, frozenset(cycle.results), cycle.scanned)
 
     def stage(self, attempt: Attempt, key: str, candidates: tuple[Candidate, ...]) -> None:
@@ -195,6 +200,7 @@ class PostgresCollectionRepository:
                 )
                 row.candidates.extend(item for item in new if item not in row.candidates)
                 row.save(update_fields=["candidates"])
+            self._record_page(cycle, key, candidates)
 
     def record(
         self,
@@ -216,12 +222,19 @@ class PostgresCollectionRepository:
             if window_proof is not None:
                 cycle.window_evidence[key] = window_proof
             cycle.save(update_fields=["results", "window_evidence"])
+            self._record_result(cycle, key, failure, window_proof)
 
     def detail_targets(
         self, attempt: Attempt, *, include_known: bool = True
     ) -> tuple[Revisit, ...]:
         with self._owned(attempt) as (_, cycle, scope):
-            return self._detail_targets(cycle, scope, include_known=include_known)
+            targets = self._detail_targets(cycle, scope, include_known=include_known)
+            return tuple(target for target in targets if self._detail_admitted(target, scope))
+
+    def _detail_admitted(self, target: Revisit, scope: Scope) -> bool:
+        return self._operations is None or self._operations.admits(
+            "listing", scope.key + ":detail:" + target.external_id, scope.revision, self._clock()
+        )
 
     def _detail_targets(
         self, cycle: CollectionCycle, scope: Scope, *, include_known: bool
@@ -420,6 +433,64 @@ class PostgresCollectionRepository:
             ]
         )
         cycle.published_count += 1
+        if self._operations:
+            self._operations.confirm(
+                "listing",
+                scope.key + ":" + listing.external_id,
+                scope.revision,
+                str(observation.id),
+                now,
+            )
+
+    def _limit_operations(self, cycle: CollectionCycle, scope: Scope) -> None:
+        if self._operations is None:
+            return
+        for search in scope.searches:
+            if not self._operations.admits(
+                "listing", scope.key + ":" + search.key, scope.revision, self._clock()
+            ):
+                cycle.results[search.key] = {
+                    "reason": "operational_recovery_wait",
+                    "retry_after": 0,
+                    "access": False,
+                }
+        cycle.save(update_fields=["results"])
+
+    def _record_page(
+        self, cycle: CollectionCycle, key: str, candidates: tuple[Candidate, ...]
+    ) -> None:
+        if self._operations is None or not candidates:
+            return
+        boundary = hashlib.sha256(
+            ",".join(sorted(candidate.external_id for candidate in candidates)).encode()
+        ).hexdigest()
+        self._operations.confirm(
+            "listing", cycle.scope_key + ":" + key, cycle.revision, boundary, self._clock()
+        )
+
+    def _record_result(
+        self,
+        cycle: CollectionCycle,
+        key: str,
+        failure: SourceFailure | None,
+        window_proof: str | None,
+    ) -> None:
+        if self._operations is None:
+            return
+        identity = cycle.scope_key + ":" + key
+        if failure:
+            self._operations.failure(
+                "listing",
+                identity,
+                cycle.revision,
+                failure.reason,
+                self._clock(),
+                retry_after=failure.retry_after,
+            )
+            return
+        self._operations.confirm(
+            "listing", identity, cycle.revision, window_proof or "source_boundary", self._clock()
+        )
 
     def finish(self, attempt: Attempt, policy: CollectionPolicy) -> None:
         with self._owned(attempt) as (state, cycle, _):

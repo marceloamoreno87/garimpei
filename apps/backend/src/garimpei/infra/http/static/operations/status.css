@@ -1,0 +1,22 @@
+.operations { margin-block: 2rem; max-width: 78rem; }
+.operations-heading { display: flex; justify-content: space-between; align-items: start; gap: 1.5rem; }
+.operations-heading h2 { margin-block-start: 0; }
+.operations p { max-width: 76ch; overflow-wrap: anywhere; }
+.operations-counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 2rem; margin-block: 2rem; }
+.operations-counts > div { border-top: 1px solid var(--color-line); padding-block-start: 1rem; }
+.operations-counts dt { font-weight: 600; }
+.operations-counts dd { margin: .4rem 0; font-size: 1.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.operations-counts p { color: var(--color-muted); font-size: .875rem; margin-block: .25rem; }
+.operations-stages, .operations-backups { padding: 0; list-style: none; }
+.operations-stages > li, .operations-backups > li { display: flex; justify-content: space-between; gap: 1.5rem; align-items: start; border-top: 1px solid var(--color-line); padding-block: 1.25rem; }
+.operations-stages h4, .operations-backups h3 { margin-block: 0 .5rem; }
+.operations-state { font-weight: 600; color: var(--color-primary); }
+.operations-summary { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
+.operations-summary dd { margin: .5rem 0; }
+.operations button, .operations .button { min-height: 44px; }
+.operations :focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+@media (max-width: 650px) {
+  .operations-heading, .operations-stages > li, .operations-backups > li { flex-direction: column; }
+  .operations-counts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .operations-counts dd { font-size: 1.35rem; }
+}

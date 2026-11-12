@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from garimpei.infra.http.listing.exploration_handler import ExplorationHandler
     from garimpei.infra.http.monitoring.monitoring_handler import MonitoringHandler
     from garimpei.infra.http.navigation.navigation_handler import NavigationHandler
+    from garimpei.infra.http.operations.status_handler import OperationsHandler
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
     from garimpei.infra.queries.navigation.postgres_queries import PostgresNavigationQueries
@@ -41,6 +42,10 @@ if TYPE_CHECKING:
     from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
     from garimpei.infra.repository.navigation.postgres_repository import (
         PostgresNavigationRepository,
+    )
+    from garimpei.infra.repository.operations.backup_repository import PostgresBackupRepository
+    from garimpei.infra.repository.operations.progress_repository import (
+        PostgresOperationalRepository,
     )
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
@@ -61,6 +66,9 @@ if TYPE_CHECKING:
         ReadMonitoringConfigurationUseCase,
     )
     from garimpei.usecase.navigation.read_suggestions_usecase import ReadSuggestionUseCase
+    from garimpei.usecase.operations.create_backup_usecase import CreateBackupUseCase
+    from garimpei.usecase.operations.read_status_usecase import ReadOperationalStatusUseCase
+    from garimpei.usecase.operations.restore_backup_usecase import RestoreBackupUseCase
     from garimpei.usecase.valuation.read_profit_usecase import ReadProfitUseCase
     from garimpei.usecase.valuation.read_valuation_usecase import ReadValuationUseCase
 
@@ -95,6 +103,7 @@ def register_tasks() -> None:
     from procrastinate.contrib.django import app
 
     app.task(name="garimpei.local_analysis", queue="inference")(_handle_inference)
+    app.task(name="garimpei.operational_maintenance", queue="maintenance")(_handle_operations)
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
     app.task(name="garimpei.runtime_probe", queue="runtime")(_handle_runtime_probe)
     app.task(name="garimpei.collect_listings", queue="listing")(_handle_listing)
@@ -185,6 +194,7 @@ def _collection_store(settings: ListingSettings) -> "PostgresCollectionRepositor
         _listing_clock(settings),
         _defer_listing,
         settings.lease,
+        operations=build_operational_progress(),
     )
 
 
@@ -327,6 +337,7 @@ def build_monitoring_handler() -> "MonitoringHandler":
         UpdateMonitoringConfigurationUseCase(unit.transaction, catalog),
         PreviewProductsUseCase(),
         build_read_collection_status(),
+        build_operational_status(),
     )
 
 
@@ -371,7 +382,7 @@ def _handle_valuation(work_id: str) -> None:
 def build_valuation_store() -> "PostgresValuationRepository":
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
 
-    return PostgresValuationRepository(_defer_valuation)
+    return PostgresValuationRepository(_defer_valuation, build_operational_progress())
 
 
 def reconcile_valuations() -> None:
@@ -494,7 +505,11 @@ def build_alert_store() -> "PostgresAlertRepository":
     from garimpei.infra.repository.alert.postgres_repository import PostgresAlertRepository
 
     return PostgresAlertRepository(
-        build_read_monitoring_configuration(), PostgresListingQueries(), _alert_policy()
+        build_read_monitoring_configuration(),
+        PostgresListingQueries(),
+        _alert_policy(),
+        build_recovery_guard(),
+        build_operational_progress(),
     )
 
 
@@ -1031,3 +1046,121 @@ def _enqueue_navigation_suggestions() -> None:
             ).defer()
     except AlreadyEnqueued:
         return
+
+
+def build_operational_progress() -> "PostgresOperationalRepository | None":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.progress_repository import (
+        PostgresOperationalRepository,
+    )
+
+    settings = load_operations_settings()
+    if not settings.enabled:
+        return None
+    return PostgresOperationalRepository(
+        settings.environment_id, _listing_clock(_effective_listing_settings())
+    )
+
+
+def build_operational_status() -> "ReadOperationalStatusUseCase":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.queries.operations.postgres_queries import PostgresOperationalQueries
+    from garimpei.usecase.operations.read_status_usecase import ReadOperationalStatusUseCase
+
+    settings = load_operations_settings()
+    return ReadOperationalStatusUseCase(
+        PostgresOperationalQueries(
+            settings.environment_id,
+            settings.recovery_file,
+            _listing_clock(_effective_listing_settings()),
+            build_read_monitoring_configuration(repeatable_snapshot=True),
+        )
+    )
+
+
+def build_backup_repository() -> "PostgresBackupRepository":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.infra.gateway.operations.snapshot_gateway import BusinessSnapshotGateway
+    from garimpei.infra.repository.operations.backup_repository import PostgresBackupRepository
+    from garimpei.infra.repository.operations.restore_gateway import RestoreBackupGateway
+
+    settings, config = load_operations_settings(), load_config()
+    archive, snapshot = (
+        ArchiveGateway(settings.backup_dir, owner=settings.environment_id),
+        BusinessSnapshotGateway(),
+    )
+    restore = RestoreBackupGateway(config, settings.recovery_file, archive, snapshot)
+    return PostgresBackupRepository(settings.environment_id, archive, snapshot, restore)
+
+
+def build_recovery_guard() -> Callable[[], bool]:
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.recovery_guard import dispatch_blocked
+
+    settings = load_operations_settings()
+    return lambda: dispatch_blocked(settings.environment_id, settings.recovery_file)
+
+
+def _handle_operations() -> None:
+    build_create_backup().execute(only_due=True)
+    build_backup_repository().prune()
+
+
+def reconcile_operations() -> None:
+    from django.db import connection, transaction
+    from procrastinate.exceptions import AlreadyEnqueued
+
+    from garimpei.config.env import load_operations_settings
+
+    if not load_operations_settings().enabled:
+        return
+    register_tasks()
+    connection.ensure_connection()
+    if not isinstance(connection.connection, Connection):
+        raise RuntimeError("Expected psycopg connection for operational enqueue")
+    try:
+        with transaction.atomic():
+            build_enqueue_app().configure_task(
+                name="garimpei.operational_maintenance",
+                queue="maintenance",
+                lock="operational_maintenance",
+                queueing_lock="operational_maintenance",
+                connection=connection.connection,
+            ).defer()
+    except AlreadyEnqueued:
+        return
+
+
+def build_operations_handler() -> "OperationsHandler":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.http.operations.status_handler import OperationsHandler
+    from garimpei.infra.repository.operations.progress_repository import (
+        PostgresOperationalRepository,
+    )
+    from garimpei.usecase.operations.export_backup_usecase import ExportBackupUseCase
+    from garimpei.usecase.operations.resume_stage_usecase import ResumeStageUseCase
+
+    settings = load_operations_settings()
+    repository = PostgresOperationalRepository(
+        settings.environment_id, _listing_clock(_effective_listing_settings())
+    )
+    backups = build_backup_repository()
+    return OperationsHandler(
+        build_operational_status(),
+        ResumeStageUseCase(repository),
+        ExportBackupUseCase(backups),
+        backups,
+    )
+
+
+def build_create_backup() -> "CreateBackupUseCase":
+    from garimpei.usecase.operations.create_backup_usecase import CreateBackupUseCase
+
+    return CreateBackupUseCase(build_backup_repository())
+
+
+def build_restore_backup() -> "RestoreBackupUseCase":
+    from garimpei.usecase.operations.restore_backup_usecase import RestoreBackupUseCase
+
+    return RestoreBackupUseCase(build_backup_repository())

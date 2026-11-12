@@ -179,3 +179,6 @@ _.first_alert_state
 _.next_action_at
 _.valuation_revision
 _.intent_reference
+
+# argparse internal queue-group selection is read through the TypedDict mapping.
+_.queue_group

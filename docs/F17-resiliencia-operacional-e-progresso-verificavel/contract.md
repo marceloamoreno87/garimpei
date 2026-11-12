@@ -577,3 +577,8 @@ Cada gate deve passar para a feature ser considerada pronta. Não execução ou 
   - Distingue dados medidos de limites escolhidos e de etapas ainda ausentes.
   - Registra suspensão/parcialidade nos tetos sem apagar evidências protegidas.
   - Habilitação real permanece pendente se o perfil não for confirmado ou a medição estiver ausente.
+
+
+## Evidência de calibração inicial — 2026-11-12
+
+[calibration-initial.json](evidence/calibration-initial.json) registra cinco controles e cinco timeouts por adaptador com prazos operacionais (fonte20s, valoração30s, canal10s), além de cinco percursos completos com PostgreSQL e recibo fake F16 em19,30–20,02s incluindo startup. Estes resultados confirmam as fronteiras existentes. O primeiro incremento de manutenção, restauração, isolamento e a integração de mídia ainda requerem ensaio; o contrato continua preliminar e a habilitação real permanece desativada. Nenhum limite foi ampliado e nenhum gate foi dispensado.

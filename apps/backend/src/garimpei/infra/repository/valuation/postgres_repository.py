@@ -10,6 +10,7 @@ from uuid import UUID
 from django.db import transaction
 from django.db.models import Q
 
+from garimpei.domain.operations.ports import ProgressRecorder
 from garimpei.domain.valuation.identity import identify
 from garimpei.domain.valuation.policy import VALUATION_POLICY
 from garimpei.domain.valuation.ports import WorkInput
@@ -41,8 +42,11 @@ class PendingRequest:
 
 
 class PostgresValuationRepository:
-    def __init__(self, enqueue: Callable[[UUID], int]) -> None:
+    def __init__(
+        self, enqueue: Callable[[UUID], int], operations: ProgressRecorder | None = None
+    ) -> None:
         self._enqueue = enqueue
+        self._operations = operations
 
     def reconcile(self, now: datetime) -> None:
         with transaction.atomic():
@@ -144,6 +148,10 @@ class PostgresValuationRepository:
             next_attempt_at__lte=now,
         ).first()
         if pending is not None and (pending.lease_until is None or pending.lease_until <= now):
+            if self._operations is not None and not self._operations.admits(
+                "valuation", str(pending.listing_id), pending.revision, now
+            ):
+                return
             pending.lease_until = now + timedelta(seconds=60)
             pending.attempts += 1
             pending.save(update_fields=["lease_until", "attempts"])
@@ -191,13 +199,29 @@ class PostgresValuationRepository:
             invalidate_first_alert(work.listing_id, value.evaluated_at)
             row.completed, row.diagnostic = True, ""
             row.save(update_fields=["completed", "diagnostic"])
+            if self._operations:
+                self._operations.confirm(
+                    "valuation",
+                    str(work.listing_id),
+                    work.revision,
+                    str(value.id),
+                    value.evaluated_at,
+                )
 
     def failed(self, identity: UUID, now: datetime) -> None:
+        self._record_failure(identity, now)
         ValuationWork.objects.filter(id=identity, completed=False).update(
             diagnostic="valuation_publication_failed",
             lease_until=None,
             next_attempt_at=now + timedelta(seconds=5),
         )
+
+    def _record_failure(self, identity: UUID, now: datetime) -> None:
+        row = ValuationWork.objects.filter(id=identity, completed=False).first()
+        if row is not None and self._operations:
+            self._operations.failure(
+                "valuation", str(row.listing_id), row.revision, "valuation_publication_failed", now
+            )
 
 
 def _listing(row: Listing) -> Comparable:

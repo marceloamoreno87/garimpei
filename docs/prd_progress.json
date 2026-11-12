@@ -284,12 +284,12 @@
         "F10",
         "F12"
       ],
-      "status": "pending",
+      "status": "implementing",
       "cycles": 0,
       "failure_reason": null,
       "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:58:44.568278Z",
+      "started_at": "2026-11-12T18:32:18.093465+00:00",
+      "updated_at": "2026-11-12T18:32:18.093465+00:00",
       "completed_at": null
     },
     "F18": {

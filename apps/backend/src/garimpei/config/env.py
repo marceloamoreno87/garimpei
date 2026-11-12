@@ -536,3 +536,34 @@ def load_navigation_policy() -> NavigationPolicy:
         raise
     except ValueError as error:
         raise ConfigurationError(f"GARIMPEI_NAV_*: {error}") from None
+
+
+@dataclass(frozen=True)
+class OperationsSettings:
+    backup_dir: Path
+    enabled: bool
+    environment_id: str
+    recovery_file: Path
+
+
+def load_operations_settings() -> OperationsSettings:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    directory = (
+        Path(
+            values.get(
+                "GARIMPEI_BACKUP_DIR",
+                str(Path.home() / ".local/share/garimpei/backups" / config.environment_id),
+            )
+        )
+        .expanduser()
+        .resolve()
+    )
+    if directory.is_relative_to(config.root):
+        raise ConfigurationError("GARIMPEI_BACKUP_DIR: expected private directory outside checkout")
+    flag = values.get("GARIMPEI_OPERATIONS_ENABLED", "false")
+    if flag not in {"true", "false"}:
+        raise ConfigurationError("GARIMPEI_OPERATIONS_ENABLED: expected true or false")
+    return OperationsSettings(
+        directory, flag == "true", config.environment_id, config.directory / "recovery-barrier.json"
+    )

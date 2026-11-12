@@ -1,0 +1,49 @@
+<section id="operational-status"
+         aria-labelledby="operations-title"
+         class="operations">
+    <header class="operations-heading">
+        <div>
+            <h2 id="operations-title">O caminho das oportunidades</h2>
+            <p>Leitura de {{ as_of|date:"d/m/Y H:i:s T" }}. Revisão {{ scope_revision|default_if_none:"indisponível" }}.</p>
+        </div>
+        <a class="button secondary" href="{% url 'operations-backups' %}">Cópias dos dados</a>
+    </header>
+    <p>As etapas usam recortes diferentes e podem se sobrepor. Seus números não devem ser somados.</p>
+    <dl class="operations-counts">
+        {% for key, count in counts.items %}
+            <div>
+                <dt>{{ count.label }}</dt>
+                <dd>{% if count.available %}{{ count.value }}{% else %}Indisponível{% endif %}</dd>
+                <p>{{ count.definition }}</p>
+            </div>
+        {% endfor %}
+    </dl>
+    {% if dispatch_suspended %}
+        <p class="notice" role="status">Despacho bloqueado: o intervalo após a cópia precisa ser reconciliado. Ausência de recibo não comprova ausência de envio.</p>
+    {% endif %}
+    <h3>Progresso e próximas ações</h3>
+    <ul class="operations-stages">
+        {% for unit in stages %}
+            <li>
+                <div>
+                    <h4>{{ unit.label }}</h4>
+                    <p class="operations-state">{{ unit.state_label }}</p>
+                    {% if unit.scope %}<p>{{ unit.scope }}</p>{% endif %}
+                    <p>{{ unit.reason_label }}</p>
+                    {% if unit.last_progress_at %}<p>Último avanço {{ unit.last_progress_at|date:"d/m/Y H:i:s T" }}.</p>{% endif %}
+                    {% if unit.pending != None %}<p>Pendências: {{ unit.pending }}. {% if unit.pending_age_seconds %}Mais antiga há {{ unit.pending_age_seconds|floatformat:0 }} segundos.{% endif %}</p>{% endif %}
+                    {% if unit.next_attempt_at %}<p>Próxima tentativa {{ unit.next_attempt_at|date:"d/m/Y H:i:s T" }}.</p>{% endif %}
+                </div>
+                {% if unit.action == "resume" %}
+                    <form method="post" action="{% url 'operations-resume' unit.stage %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="unidade" value="{{ unit.id }}">
+                        <input type="hidden" name="revisao" value="{{ unit.revision }}">
+                        <button class="button secondary" type="submit">Retomar esta etapa</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <p id="operational-feedback" role="alert" aria-live="polite"></p>
+</section>

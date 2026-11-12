@@ -47,3 +47,8 @@
 **10. Entrega verificável** — Atualizar os guias operacionais e produzir `impl-report.md` com comandos, perfil confirmado, evidências por item e recursos encerrados. Encaminhar avaliação do contrato; status de implementação só muda de acordo com o ciclo autorizado e seus resultados.
 
 **Verificação final:** seis gates Python, suíte relevante completa, Django/migrations, harness quando alterado e itens do contrato. Arquivar logs sanitizados; falhas, medições ausentes ou item não executado permanecem pendentes, sem declarar F17 concluída.
+
+
+## Evidência de calibração inicial — 2026-11-12
+
+[calibration-initial.json](evidence/calibration-initial.json) registra cinco controles e cinco timeouts por adaptador com prazos operacionais (fonte20s, valoração30s, canal10s), além de cinco percursos completos com PostgreSQL e recibo fake F16 em19,30–20,02s incluindo startup. Estes resultados confirmam as fronteiras existentes. O primeiro incremento de manutenção, restauração, isolamento e a integração de mídia ainda requerem ensaio; o contrato continua preliminar e a habilitação real permanece desativada. Nenhum limite foi ampliado e nenhum gate foi dispensado.

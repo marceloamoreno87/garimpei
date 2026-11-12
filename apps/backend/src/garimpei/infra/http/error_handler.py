@@ -15,6 +15,7 @@ from garimpei.domain.monitoring.errors import (
     MonitoringError,
 )
 from garimpei.domain.navigation.ports import NavigationError
+from garimpei.domain.operations.errors import OperationsError
 from garimpei.infra.http.listing.condition_presentation import condition_error
 from garimpei.infra.http.listing.exploration_presentation import url
 from garimpei.infra.http.monitoring.presentation import error_response
@@ -38,6 +39,11 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        operational_route = _request.path.startswith("/acompanhamento/")
+        if operational_route and isinstance(
+            _exception, (OperationsError, DatabaseError, ConfigurationReadFailed)
+        ):
+            return operational_error(_request, _exception)
         navigation_route = _request.path.startswith(
             ("/acompanhamento/navegacao/", "/sugestoes/")
         ) or (_request.path == "/configuracoes/" and "sugestao" in _request.GET)
@@ -129,3 +135,33 @@ class ErrorMiddleware:
 def csrf_failure(request: HttpRequest, reason: str = "") -> HttpResponse:
     del reason  # Django passes an internal explanation; do not disclose it in the response or logs.
     return render(request, "monitoring/csrf_error.html", status=403)
+
+
+def operational_error(request: HttpRequest, error: Exception) -> HttpResponse:
+    code = error.code if isinstance(error, OperationsError) else "OPERATIONS_UNAVAILABLE"
+    status = error.status if isinstance(error, OperationsError) else 503
+    message = "Não foi possível concluir a operação. Os dados confirmados continuam preservados."
+    if code == "recovery_barrier":
+        message = "O despacho permanece bloqueado até reconciliar o intervalo após a cópia."
+    response: HttpResponse
+    if request.path.endswith("/estado/") and request.GET.get("formato") != "html":
+        response = JsonResponse(
+            {"error": {"code": code, "message": message}, "retry_url": request.get_full_path()},
+            status=status,
+        )
+    else:
+        template = (
+            "operations/feedback.html"
+            if request.headers.get("HX-Request") == "true"
+            else "operations/error.html"
+        )
+        response = render(
+            request,
+            template,
+            {"message": message, "retry_url": request.get_full_path()},
+            status=status,
+        )
+    response["Cache-Control"] = "no-store"
+    response["HX-Retarget"] = "#operational-feedback"
+    response["HX-Reswap"] = "innerHTML"
+    return response

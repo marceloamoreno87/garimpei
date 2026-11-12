@@ -1,0 +1,10 @@
+{% extends "monitoring/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Não foi possível concluir esta leitura</h1>
+        <div role="alert" class="error-summary">
+            <p>{{ message|default:"Os dados confirmados continuam preservados. Tente novamente nesta página." }}</p>
+        </div>
+        <a class="button secondary" href="{{ retry_url }}">Tentar novamente</a>
+    </main>
+{% endblock %}
