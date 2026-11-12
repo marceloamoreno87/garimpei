@@ -242,12 +242,12 @@
         "F14",
         "F19"
       ],
-      "status": "implementing",
+      "status": "implemented",
       "cycles": 2,
-      "failure_reason": "Escopo parcial autorizado; F14 ainda implemented com prova real2res pendente.",
-      "report_path": null,
+      "failure_reason": "F14 e qualidade humana/real pendentes; versões completas e imagem hostil sem ensaio integral; full final da união pending.",
+      "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-12T22-00-00Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-12T21:46:15.229516+00:00",
+      "updated_at": "2026-11-12T22:00:49.103069+00:00",
       "completed_at": null
     },
     "F16": {

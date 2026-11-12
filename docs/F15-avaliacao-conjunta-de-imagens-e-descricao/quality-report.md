@@ -1,0 +1,11 @@
+# F15 — Qualidade real pendente
+
+A revisão humana e a execução do corpus reservado não foram realizadas. O usuário decidiu explicitamente: “Ok, deixa pendente que vou fazer isso”. Não foram solicitados rótulos novamente, executado o modelo reservado ou preenchidos rótulos por inferência. Todos os rótulos humanos do corpus continuam nulos. `E2E-QUALIDADE-01` permanece BLOCKED; isso impede done/clean.
+
+O pacote revisável está em `human-review-package.md`, `human-review-controls.html` e `human-review-real.html`. O corpus contém 21 controles, incluindo 18 ilustrações sintéticas identificadas de seis categorias e as três regressões textuais. As ilustrações servem à verificação determinística; não medem reconhecimento visual real. O pacote real referencia 13 originais locais preservados por F14, de dois anúncios, por rotas locais públicas. Não há cópia de perfil, cookies, sessão ou URLs assinadas. Dois anúncios não constituem cobertura real das seis categorias nem conjunto reservado revisado.
+
+Alvo configurado, sem alegação de execução nesta entrega: Qwen3.5 4B Q4_K_M, tag `qwen3.5:4b-q4_K_M`, digest `sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04`; política `condition-policy-v1`; prompt/schema `condition-evidence-v1`. A resposta precisa conferir digest, observação, revisão, perfil e coorte solicitados. Fakes usam os metadados exatos do alvo para verificar protocolo, mas são marcados `controlled_fake` e não provam execução do alvo.
+
+Não há matriz de qualidade real, contagem de falsos bons/falsos defeitos, taxa de abstenção real, consumo GPU/RAM ou latências fria/quente medidos. Esses campos ficam pendentes, sem zeros fictícios. As durações dos testes são tempos de automação controlada e não latências do modelo. Cloud não foi usado. F14 também mantém pré-requisito externo de duas resoluções efetivamente oferecidas da mesma foto pendente; esta entrega não dispensa esse aceite.
+
+Após a revisão humana futura, é necessário fechar corpus autorizado e separado entre ajuste/avaliação, registrar IDs/hashes/revisões efetivamente executados, executar F19 real sob coordenação da RTX 5070 e publicar matriz, erros de evidência, limites por categoria e recursos. A ausência de meta aprovada não autoriza inventar percentual de certeza ou precisão aprovada.

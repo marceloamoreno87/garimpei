@@ -1,0 +1,15 @@
+### Result
+{
+  "url": "/ofertas/?aba=incerta&q=Notebook&categoria=&pagina=1&versao=30c1de55-ee40-4696-b4b3-683bd44967e1",
+  "focus": "exploration-search",
+  "order": [
+    "8ae381ac-c740-4f28-9795-8487429e30c5"
+  ],
+  "content": "Condição não confirmada\n\nAguardando análise das fotos\n\nNotebook Dell\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nHistórico de alertas indisponível; envio suspenso\n\nConferir detalhes\nde Notebook Dell"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {document.querySelector("#exploration-search").focus();return {url:location.pathname+location.search,focus:document.activeElement.id,order:[...document.querySelectorAll("[data-offer-id]")].map(e=>e.dataset.offerId),content:document.querySelector(".offer-grid")?.innerText}}');
+```
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T21-44-20-600Z.log#L1

@@ -1,0 +1,17 @@
+### Result
+{
+  "body": "Avaliação conjunta de texto e fotos\n\nAguardando análise das fotos\n\nAparência avaliada nas fotos disponíveis. O funcionamento interno, as portas e as partes não mostradas precisam de teste presencial.\n\nDeclaração do vendedor\n\nO aparelho funciona perfeitamente.\n\nDescrição do anúncio\nAparência e evidências\n\nNenhum sinal visual validado disponível nesta avaliação.\n\nLimitações e verificações presenciais\nAs fotos não substituem inspeção ou teste presencial.\n\nCobertura: 0 de 1 fotos examinadas.\n\nA avaliação atual não satisfaz a condição para alerta automático.",
+  "overflow": false,
+  "photos": [
+    {
+      "path": "/ofertas/8ae381ac-c740-4f28-9795-8487429e30c5/imagens/59207834-7d09-4fae-a58e-938f19c9f25c/original/",
+      "width": 640,
+      "height": 480
+    }
+  ],
+  "source": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const section=document.querySelector(".condition-assessment");section.scrollIntoView();for(const i of document.querySelectorAll(".media-gallery img"))await i.decode();return {body:section.innerText,overflow:document.documentElement.scrollWidth>innerWidth,photos:[...document.querySelectorAll(".media-gallery img")].map(i=>({path:new URL(i.src).pathname,width:i.naturalWidth,height:i.naturalHeight})),source:!!document.querySelector(".source-link")}}');
+```

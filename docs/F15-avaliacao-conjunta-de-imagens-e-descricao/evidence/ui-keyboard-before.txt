@@ -1,0 +1,11 @@
+### Result
+{
+  "name": "Foto 1 da avaliação",
+  "focus": true,
+  "outline": "rgb(40, 91, 64) solid 3px",
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {const s=document.querySelector(".condition-assessment");s.scrollIntoView();const link=s.querySelector("a");link.focus();return {name:link.textContent,focus:document.activeElement===link,outline:getComputedStyle(link).outline,overflow:document.documentElement.scrollWidth>innerWidth}}');
+```

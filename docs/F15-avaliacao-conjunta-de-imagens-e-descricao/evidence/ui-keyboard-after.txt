@@ -1,0 +1,11 @@
+### Result
+{
+  "hash": "#foto-59207834-7d09-4fae-a58e-938f19c9f25c",
+  "photo": true,
+  "visible": true,
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({hash:location.hash,photo:!!document.querySelector(location.hash),visible:document.querySelector(location.hash)?.getBoundingClientRect().top<innerHeight,overflow:document.documentElement.scrollWidth>innerWidth})');
+```

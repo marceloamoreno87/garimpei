@@ -1,0 +1,10 @@
+### Result
+{
+  "url": "/ofertas/8ae381ac-c740-4f28-9795-8487429e30c5/?aba=funcionam&q=&categoria=&pagina=1&versao=8da13520-b435-4a4b-8c30-ffdc3a2701e7",
+  "confirmation": true,
+  "manual": "Funciona bem\n\nSua classificação manual\n\nCorrigir sua classificação\nVer em Funcionam bem"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url:location.pathname+location.search,confirmation:document.body.innerText.includes("Sua classificação foi salva"),manual:document.querySelector(".condition-summary")?.innerText})');
+```
