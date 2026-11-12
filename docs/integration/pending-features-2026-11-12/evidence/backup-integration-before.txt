@@ -1,0 +1,104 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_backup_restores_assessment_and_alert_provenance _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-428/test_backup_restores_assessmen0')
+
+    def test_backup_restores_assessment_and_alert_provenance(tmp_path: Path) -> None:
+        source_private = tmp_path / "source"
+        source_private.mkdir()
+        with first_eligibility_scenario(source_private) as (source, _, _, _):
+            backup_dir = tmp_path / "backups"
+            with source.private_file.open("a") as output:
+                output.write(f"GARIMPEI_BACKUP_DIR={backup_dir}\n")
+            source_group = pause_worker(source)
+            target = prepare_instance(source.root, tmp_path, "union_restore_" + source.config.instance[-8:])
+            command(target, "./scripts/init.sh", "--disposable")
+            target_group = pause_worker(target)
+            try:
+>               shell(
+                    source,
+                    """
+    from uuid import uuid4
+    from django.utils.timezone import now
+    from garimpei.main import build_backup_repository
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.infra.persistence.assessment_models import ConditionAssessment,AssessmentHead
+    from garimpei.infra.persistence.alert_models import AlertEventDecision,FirstAlertIdentity,FirstEligibilityDecision
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.config.env import load_operations_settings
+    listing=Listing.objects.select_related('latest').get(external_id='16001')
+    assessment=ConditionAssessment.objects.create(id=uuid4(),listing=listing,observation=listing.latest,
+     input_fingerprint='a'*64,policy_version='recovery-policy',prompt_version='recovery-prompt',
+     schema_version='recovery-schema',model_revision='recovery-model',input_snapshot={'text':'controlled'},
+     generation=3,status='complete',condition='uncertain',sufficient=False,reason='controlled_history',
+     result={'coverage':'controlled'},created_at=now(),updated_at=now(),analyzed_at=now(),publication_order=3)
+    AssessmentHead.objects.create(listing=listing,observation=listing.latest,input_fingerprint='a'*64,
+     generation=3,current=assessment,confirmed=assessment,updated_at=now())
+    event=ListingEvent.objects.filter(listing=listing).first()
+    assert event is not None
+    AlertEventDecision.objects.update_or_create(event=event,defaults={'next_action':now(),
+     'assessment_id':assessment.id,'assessment_revision':3})
+    identity,_=FirstAlertIdentity.objects.get_or_create(installation='local',listing=listing,
+     defaults={'next_action':now()})
+    FirstEligibilityDecision.objects.create(identity=identity,generation=999,signature='b'*64,
+     observation=listing.latest,state='excluded',reason='controlled_recovery',publication_status='unknown',
+     evaluated_at=now(),assessment_id=assessment.id,assessment_revision=3)
+    repository=build_backup_repository();identity=repository.create(only_due=False)
+    record=BackupRecord.objects.get(id=identity);settings=load_operations_settings()
+    gateway=ArchiveGateway(settings.backup_dir)
+    (settings.backup_dir/'selected').write_text(str(gateway.resolve(record.file_key)))
+    (settings.backup_dir/'assessment').write_text(str(assessment.id))
+    """,
+                )
+
+tests/integration/test_integrated_backup.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-428/test_backup_restores_assessmen0/source/wave11b_f16_03babe0a.env'))
+code = "\nfrom uuid import uuid4\nfrom django.utils.timezone import now\nfrom garimpei.main import build_backup_repository\nf...write_text(str(gateway.resolve(record.file_key)))\n(settings.backup_dir/'assessment').write_text(str(assessment.id))\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 51 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:01:23.485945+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_03babe0a", "run_id": "c77e3357-cd55-4f65-b175-e09bc701b0c8"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 28, in <module>
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 62, in create
+E             return self._create_archive(record, schedule)
+E                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 102, in _create_archive
+E             raise OperationsError("backup_creation_failed", 507) from None
+E         garimpei.domain.operations.errors.OperationsError: backup_creation_failed
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..."backup_creation_failed", 507) from None\ngarimpei.domain.operations.errors.OperationsError: backup_creation_failed\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'excluded', 'condition_excluded', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_integrated_backup.py::test_backup_restores_assessment_and_alert_provenance
+1 failed in 18.99s

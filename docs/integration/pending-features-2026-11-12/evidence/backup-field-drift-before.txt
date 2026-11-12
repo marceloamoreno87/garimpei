@@ -1,0 +1,44 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_snapshot_rejects_a_business_field_missing_from_the_allowlist _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7aaafad0cd60>
+
+    def test_snapshot_rejects_a_business_field_missing_from_the_allowlist(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        model, fields = SCHEMA["runtime.alerteventdecision"]
+        monkeypatch.setitem(
+            SCHEMA,
+            "runtime.alerteventdecision",
+            (model, tuple(name for name in fields if name != "assessment_revision")),
+        )
+        with pytest.raises(ArchiveInvalid, match="archive_business_schema_incomplete"):
+>           BusinessSnapshotGateway().capture("schema-drift")
+
+tests/unit/test_backup_schema_coverage.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/garimpei/infra/gateway/operations/snapshot_gateway.py:54: in capture
+    with transaction.atomic():
+         ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.13/site-packages/django/db/transaction.py:198: in __enter__
+    if not connection.get_autocommit():
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.13/site-packages/django/db/backends/base/base.py:454: in get_autocommit
+    self.ensure_connection()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (<DatabaseWrapper vendor='unknown' alias='default'>,), kwargs = {}
+
+    def complain(*args, **kwargs):
+>       raise ImproperlyConfigured(
+            "settings.DATABASES is improperly configured. "
+            "Please supply the ENGINE value. Check "
+            "settings documentation for more details."
+        )
+E       django.core.exceptions.ImproperlyConfigured: settings.DATABASES is improperly configured. Please supply the ENGINE value. Check settings documentation for more details.
+
+.venv/lib/python3.13/site-packages/django/db/backends/dummy/base.py:20: ImproperlyConfigured
+=========================== short test summary info ============================
+FAILED tests/unit/test_backup_schema_coverage.py::test_snapshot_rejects_a_business_field_missing_from_the_allowlist
+1 failed in 0.05s
