@@ -1,0 +1,22 @@
+### Result
+{
+  "width": 390,
+  "scroll": 390,
+  "conflict": true,
+  "values": [
+    "R$ 1.000,00",
+    "Estimativa indisponível",
+    "Estimativa indisponível"
+  ],
+  "reviewOpen": true,
+  "buttons": [
+    "Manter minha correção revisada",
+    "Usar somente os dados do anúncio",
+    "Salvar os valores acima"
+  ],
+  "context": "?aba=funcionam&q=PlayStation&categoria=479353692612078&pagina=1&versao=9458777c-257d-45f6-b649-09f2760c551e"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({width:innerWidth,scroll:document.documentElement.scrollWidth,conflict:document.body.innerText.includes("sua correção 825gb; anúncio 1tb"),values:[...document.querySelectorAll(".financial-values dd")].map(e=>e.textContent.trim()),reviewOpen:document.querySelector(".identity-form").parentElement.open,buttons:[...document.querySelectorAll(".identity-form button")].map(e=>e.textContent),context:location.search})');
+```

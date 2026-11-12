@@ -1,0 +1,61 @@
+### Ran Playwright code
+```js
+await page.goto('http://127.0.0.1:23511/ofertas/?aba=funcionam&categoria=479353692612078');
+```
+### Page
+- Page URL: http://127.0.0.1:23511/ofertas/?aba=funcionam&q=&categoria=479353692612078&pagina=1&versao=68d2eaef-76e8-4138-a602-d132a662a6ab
+- Page Title: Ofertas · Garimpei
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-11-12T21-57-44-901Z.yml)
+
+### Result
+{
+  "width": 390,
+  "scroll": 390,
+  "present": [
+    {
+      "phrase": "O modelo e a variante do produto ainda não foram identificados",
+      "present": true
+    },
+    {
+      "phrase": "Falta um atributo determinante para identificar o produto",
+      "present": true
+    },
+    {
+      "phrase": "Revise os atributos de identidade em conflito",
+      "present": true
+    },
+    {
+      "phrase": "A avaliação de preços ainda está em andamento",
+      "present": true
+    },
+    {
+      "phrase": "Falha na fonte",
+      "present": true
+    }
+  ],
+  "cards": [
+    "Funciona bem\n\nPlayStation 5\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nFalta um atributo determinante para identificar o produto.\n\nAguardando confirmação da data de publicação\n\nConferir detalhes\nde PlayStation 5",
+    "Funciona bem\n\nPlayStation 5 Slim Digital 2TB\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nRevise os atributos de identidade em conflito.\n\nAguardando confirmação da data de publicação\n\nConferir detalhes\nde PlayStation 5 Slim Digital 2TB",
+    "Funciona bem\n\nProduto eletrônico em bom estado\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nO modelo e a variante do produto ainda não foram identificados.\n\nAguardando avaliação do primeiro alerta\n\nConferir detalhes\nde Produto eletrônico em bom estado",
+    "Funciona bem\n\nPlayStation 5 Slim Digital 825GB\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nA avaliação de preços ainda está em andamento.\n\nAguardando avaliação do primeiro alerta\n\nConferir detalhes\nde PlayStation 5 Slim Digital 825GB"
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {const t=document.body.innerText;const phrases=[\'O modelo e a variante do produto ainda não foram identificados\',\'Falta um atributo determinante para identificar o produto\',\'Revise os atributos de identidade em conflito\',\'A avaliação de preços ainda está em andamento\',\'Falha na fonte\'];const present=phrases.map(p=>({phrase:p,present:t.includes(p)}));if(present.some(p=>!p.present))throw new Error(JSON.stringify(present));return {width:innerWidth,scroll:document.documentElement.scrollWidth,present,cards:[...document.querySelectorAll(\'.offer-summary\')].map(c=>c.innerText)};}');
+```
+
+### Result
+- [Screenshot of full page](.runtime/f18-execution/ui-mobile-reasons.png)
+### Ran Playwright code
+```js
+// Screenshot full page and save it as .runtime/f18-execution/ui-mobile-reasons.png
+await page.screenshot({
+  fullPage: true,
+  path: '.runtime/f18-execution/ui-mobile-reasons.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+

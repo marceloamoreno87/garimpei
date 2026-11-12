@@ -301,12 +301,12 @@
         "F12",
         "F13"
       ],
-      "status": "implementing",
+      "status": "implemented",
       "cycles": 1,
-      "failure_reason": null,
-      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-12T21-09-43Z.md",
+      "failure_reason": "Native geography unproved (6km observed vs500km requested); automatic research disabled. Final union full-suite gate pending at coordinator.",
+      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-12T22-01-57Z.md",
       "started_at": "2026-11-12T19:40:37.616175Z",
-      "updated_at": "2026-11-12T21:37:36.497990Z",
+      "updated_at": "2026-11-12T22:01:57.237584+00:00",
       "completed_at": null
     },
     "F19": {
