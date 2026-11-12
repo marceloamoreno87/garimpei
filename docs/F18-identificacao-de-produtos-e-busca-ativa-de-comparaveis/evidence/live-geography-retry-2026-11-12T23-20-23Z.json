@@ -1,0 +1,22 @@
+{
+  "feature": "F18",
+  "started_at": "2026-11-12T23:20:23.118024+00:00",
+  "query_kind": "approved_corpus_case",
+  "requested_radius_km": 500,
+  "read_only_source": true,
+  "business_writes": 0,
+  "max_queries": 1,
+  "max_pages": 2,
+  "pages": [
+    {
+      "candidate_count": 24,
+      "diagnostic": null,
+      "continuation_present": true,
+      "verified": false,
+      "observed_radius_km": 6
+    }
+  ],
+  "browser_closed": true,
+  "elapsed_seconds": 6.883,
+  "finished_at": "2026-11-12T23:20:30.000718+00:00"
+}
