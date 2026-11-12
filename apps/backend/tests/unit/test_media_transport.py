@@ -106,3 +106,22 @@ def test_primary_and_gallery_fragments_keep_best_same_photo_variant() -> None:
     assert gallery.photos[0].ordered_variants[0].width == 1600
     assert gallery.photos[0].ordered_variants[1].width == 320
     assert gallery.complete
+
+
+def test_cached_detail_requires_recognized_full_gallery_not_only_primary() -> None:
+    from garimpei.infra.gateway.listing.marketplace_browser import _has_listing_gallery
+    from garimpei.infra.gateway.listing.relay_parser import JsonObject
+
+    incomplete: tuple[JsonObject, ...] = (
+        {
+            "id": "1",
+            "primary_listing_photo": {"id": "p", "image": {"uri": "https://a.fbcdn.net/p"}},
+        },
+        {"id": "1", "listing_photos": {}},
+        {"id": "1", "listing_photos": {"edges": []}},
+    )
+    for row in incomplete:
+        assert not _has_listing_gallery((row,), "1")
+    assert _has_listing_gallery(({"id": "1", "listing_photos": []},), "1")
+    assert _has_listing_gallery(({"id": "1", "listing_photos": {"nodes": []}},), "1")
+    assert not _has_listing_gallery(({"id": "2", "listing_photos": []},), "1")
