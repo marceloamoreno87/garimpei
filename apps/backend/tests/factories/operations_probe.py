@@ -81,10 +81,10 @@ def delayed_origin(delay: float) -> Iterator[str]:
             thread.join()
 
 
-def _probe(stage: str, url: str) -> None:
+def _probe(stage: str, url: str) -> str:
     if stage == "valuation":
         RetailNewSource(Path("unused"), url, timeout=30).offers("synthetic", datetime.now(UTC))
-        return
+        return "quotes_returned"
     if stage == "channel":
         delivery = Delivery(
             uuid4(),
@@ -95,12 +95,12 @@ def _probe(stage: str, url: str) -> None:
             None,
             False,
         )
-        WahaGateway(url, "synthetic-only", AlertPolicy()).send(delivery)
-        return
+        return WahaGateway(url, "synthetic-only", AlertPolicy()).send(delivery).state
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "synthetic", ())
     FixtureSource(url, 20).search(
         scope, Search(Match("product", "synthetic"), "synthetic", "marketplace"), None
     )
+    return "page_returned"
 
 
 def measure_adapters(instance: FoundationInstance) -> list[dict[str, object]]:
@@ -118,7 +118,7 @@ def _measure(stage: str, timeout: int, instance: FoundationInstance) -> list[dic
                 started = time.monotonic()
                 outcome = "returned"
                 try:
-                    _probe(stage, url)
+                    outcome = _probe(stage, url)
                 except (SourceFailure, NewSourceFailure):
                     outcome = "controlled_failure"
                 elapsed = time.monotonic() - started
