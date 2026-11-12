@@ -389,6 +389,7 @@ def test_research_does_not_validate_a_saved_five_hundred_km_context() -> None:
     assert page.source_context is not None
     assert page.source_context.radius_km == 500
     assert not page.source_context.verified
+    assert page.diagnostic == "search_geography_unverified"
 
 
 def test_initial_page_matching_radius_does_not_prove_graphql_results() -> None:
@@ -415,3 +416,4 @@ def test_initial_page_matching_radius_does_not_prove_graphql_results() -> None:
     assert page.source_context is not None
     assert page.source_context.radius_km == 20
     assert not page.source_context.verified
+    assert page.diagnostic == "search_geography_unverified"

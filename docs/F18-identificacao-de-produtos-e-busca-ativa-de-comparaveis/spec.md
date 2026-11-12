@@ -210,3 +210,5 @@ Navegador por `playwright-cli` e avaliação visual por `frontend-ui-design`, se
 ### Adendo de produto — raio fixo (2026-11-12)
 
 A coleta e a pesquisa complementar solicitam raio fixo de **20 km** centrado no CEP cadastrado, inclusive quando o perfil da fonte preserva outro raio. A configuração salva na fonte não redefine a política do Garimpei. Uma mudança da política invalida o contexto de pesquisas antigas, sem apagar seu histórico. A requisição não comprova, por si, que a fonte aplicou a região; manter a pesquisa automática bloqueada e não afirmar amostra local validada enquanto faltar evidência do contexto efetivo.
+
+Enquanto a fonte não comprovar que a resposta efetiva usa o CEP e o raio solicitados, a navegação de descoberta deve registrar a limitação e não publicar seus candidatos para avaliação ou alertas. Isso pode interromper a entrada de novas oportunidades; não apaga nem certifica a região do histórico já publicado.
