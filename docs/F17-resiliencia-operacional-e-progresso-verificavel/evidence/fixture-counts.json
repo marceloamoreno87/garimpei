@@ -1,0 +1,107 @@
+{
+  "scenario": "counts",
+  "clock": "2026-11-12T21:52:22+00:00",
+  "controlled": true,
+  "ids": {
+    "A": "d97eb626-b209-4be0-b223-3fec1413030e",
+    "B": "eb90afc9-ba28-404c-a7a7-5ee432133a0f",
+    "C": "2680b84f-f5a4-403d-b46c-b11c37dafba0",
+    "D": "49abf79f-6f35-4474-a4a8-d9014c1befa7",
+    "E": "da6cfced-6017-40c8-818a-d7603efa6672",
+    "F": "44a68960-a494-4bb1-a0c0-b27f04ef9cef",
+    "G": "e7332641-3375-4820-8319-54a8123f7ab0",
+    "H": "f8324462-99ef-4b8c-a0d8-c09d5cffc0df",
+    "I": "fd142acc-316f-4ca0-852f-7ce018e22949",
+    "J": "85f13307-3e2d-40d4-9dc0-ea871c3e7a44",
+    "K": "e1816ee1-da8e-4204-9826-88bb297d4ca1",
+    "L": "184d18aa-d6c9-4345-8cea-c6384ea90375"
+  },
+  "sets": {
+    "stored": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L"
+    ],
+    "revalidated": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J"
+    ],
+    "with_detail": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "recognized": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "with_sample": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "estimated": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "eligible": [
+      "A",
+      "B",
+      "C"
+    ],
+    "confirmed": [
+      "A",
+      "B"
+    ]
+  },
+  "counts": {
+    "stored": 12,
+    "revalidated": 10,
+    "with_detail": 8,
+    "recognized": 6,
+    "with_sample": 5,
+    "estimated": 4,
+    "eligible": 3,
+    "confirmed": 2
+  },
+  "snapshot_id": "1e6dd924-c6d6-49f3-9c3f-2fc8564f3dfd",
+  "explanation": "Historical comparable observations precede the current input; D is publication-expired, E lacks purchase, F has a different recognized model. Two loopback HTTP receipts, never delivery/read proof.",
+  "protected_photo": {
+    "corpus": "CONTROLLED F14 local HTTP",
+    "listing_id": "e1816ee1-da8e-4204-9826-88bb297d4ca1",
+    "version_id": "9540a293-37fc-43b9-9ee6-72cf8b20bc5b",
+    "sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+    "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+    "bytes": 26534
+  }
+}
