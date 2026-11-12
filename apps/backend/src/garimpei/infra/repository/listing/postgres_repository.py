@@ -466,9 +466,16 @@ class PostgresCollectionRepository:
     ) -> None:
         if self._operations is None or not candidates:
             return
-        boundary = hashlib.sha256(
-            ",".join(sorted(candidate.external_id for candidate in candidates)).encode()
-        ).hexdigest()
+        identities = {candidate.external_id for candidate in candidates}
+        known = set(
+            Listing.objects.filter(
+                source=cycle.state.source, external_id__in=identities
+            ).values_list("external_id", flat=True)
+        )
+        fresh = identities - known
+        if not fresh:
+            return
+        boundary = hashlib.sha256(",".join(sorted(fresh)).encode()).hexdigest()
         self._operations.confirm(
             "listing", cycle.scope_key + ":" + key, cycle.revision, boundary, self._clock()
         )
@@ -493,9 +500,7 @@ class PostgresCollectionRepository:
                 retry_after=failure.retry_after,
             )
             return
-        self._operations.confirm(
-            "listing", identity, cycle.revision, window_proof or "source_boundary", self._clock()
-        )
+        self._operations.complete("listing", identity, cycle.revision, self._clock())
 
     def finish(self, attempt: Attempt, policy: CollectionPolicy) -> None:
         with self._owned(attempt) as (state, cycle, _):

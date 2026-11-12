@@ -93,3 +93,4 @@ from garimpei.infra.persistence.operations_models import (  # noqa: E402,F401
     OperationalUnit,
     RecoveryBarrier,
 )
+from garimpei.infra.persistence.operations_models import OperationalSnapshot as OperationalSnapshot  # noqa: E402

@@ -49,7 +49,13 @@ class RestoreBackupGateway:
             if not self._snapshot.is_empty():
                 raise OperationsError("restore_requires_empty_disposable_eval")
             self._block_dispatch(backup_id, snapshot_at)
-            self._import(files)
+            self._import(files, metadata)
+            RecoveryBarrier.objects.filter(installation=self._config.environment_id).update(
+                evidence={
+                    "data_integrity": "verified",
+                    "source_installation": str(metadata["installation"]),
+                }
+            )
         return backup_id
 
     def _validate_target(self, isolated: bool) -> None:
@@ -89,9 +95,9 @@ class RestoreBackupGateway:
             },
         )
 
-    def _import(self, files: dict[str, bytes]) -> None:
+    def _import(self, files: dict[str, bytes], metadata: dict[str, object]) -> None:
         with transaction.atomic():
-            self._snapshot.restore(files)
+            self._snapshot.restore(files, metadata)
             AlertFeedCursor.objects.update(dispatch_suspended=True)
             AlertIntent.objects.update(lease_until=None)
             CollectionState.objects.update(

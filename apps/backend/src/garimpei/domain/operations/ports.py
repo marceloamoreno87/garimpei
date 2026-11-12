@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Protocol
 from uuid import UUID
 
@@ -5,7 +6,9 @@ from garimpei.domain.operations.download import ArchiveDownload
 
 
 class OperationalQueries(Protocol):
-    def read(self, interest: str | None = None) -> dict[str, object]: ...
+    def read(
+        self, interest: str | None = None, version: UUID | None = None
+    ) -> dict[str, object]: ...
 
 
 class OperationalRepository(Protocol):
@@ -22,6 +25,7 @@ class BackupRepository(Protocol):
 
 
 class ProgressRecorder(Protocol):
+    def complete(self, stage: str, key: str, revision: int, now: datetime) -> None: ...
     def confirm(
         self,
         stage: str,
@@ -43,6 +47,3 @@ class ProgressRecorder(Protocol):
         retry_after: int = 0,
     ) -> None: ...
     def admits(self, stage: str, key: str, revision: int, now: "datetime") -> bool: ...
-
-
-from datetime import datetime  # noqa: E402

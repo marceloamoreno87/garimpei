@@ -1,7 +1,8 @@
 """Operational reads share one MVCC snapshot and never recompute business decisions."""
 
+import json
 from collections.abc import Callable
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import cast
 from uuid import UUID, uuid4
@@ -19,9 +20,14 @@ from garimpei.infra.persistence.alert_models import (
 )
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
-from garimpei.infra.persistence.operations_models import OperationalUnit, RecoveryBarrier
+from garimpei.infra.persistence.operations_models import (
+    OperationalSnapshot,
+    OperationalUnit,
+    RecoveryBarrier,
+)
 from garimpei.infra.persistence.valuation_models import ValuationProgress
 from garimpei.infra.repository.operations.progress_repository import restore_progress
+from garimpei.infra.repository.operations.recovery_guard import dispatch_blocked
 from garimpei.infra.repository.valuation.mapper import decode_valuation
 
 DEFINITIONS = {
@@ -61,11 +67,30 @@ class PostgresOperationalQueries:
         self._installation, self._file, self._clock = installation, recovery_file, clock
         self._configuration, self._media_count = configuration, media_count
 
-    def read(self, interest: str | None = None) -> dict[str, object]:
+    def read(self, interest: str | None = None, version: UUID | None = None) -> dict[str, object]:
+        if version is not None:
+            return self._read_version(version, interest)
         with transaction.atomic():
             with connection.cursor() as cursor:
                 cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-            return self._snapshot(interest)
+            result = self._snapshot(interest)
+        OperationalSnapshot.objects.create(
+            id=UUID(str(result["snapshot_id"])),
+            installation=self._installation,
+            created_at=self._clock(),
+            payload=json.loads(json.dumps(result, default=str)),
+        )
+        return result
+
+    def _read_version(self, version: UUID, interest: str | None) -> dict[str, object]:
+        row = OperationalSnapshot.objects.filter(
+            id=version,
+            installation=self._installation,
+            created_at__gte=self._clock() - timedelta(days=7),
+        ).first()
+        if row is None or row.payload.get("interest") != interest:
+            raise OperationsError("operational_snapshot_expired")
+        return cast(dict[str, object], _restore_times(row.payload))
 
     def _snapshot(self, interest: str | None) -> dict[str, object]:
         now = self._clock()
@@ -108,10 +133,7 @@ class PostgresOperationalQueries:
                 }
                 for key, (label, description) in DEFINITIONS.items()
             },
-            "dispatch_suspended": self._file.exists()
-            or RecoveryBarrier.objects.filter(
-                installation=self._installation, state="blocked"
-            ).exists(),
+            "dispatch_suspended": dispatch_blocked(self._installation, self._file),
         }
 
     def _counts(self, rows: tuple[Listing, ...], now: datetime) -> dict[str, int | None]:
@@ -236,6 +258,7 @@ def _unit_view(row: OperationalUnit, now: datetime) -> dict[str, object]:
         "id": str(row.id),
         "stage": row.stage,
         "key": row.key,
+        "scope": _display_scope(row),
         "revision": row.revision,
         "state": state.state_at(now),
         "reason": row.reason,
@@ -250,3 +273,27 @@ def _unit_view(row: OperationalUnit, now: datetime) -> dict[str, object]:
         "failures": row.failures,
         "action": "resume" if row.suspended and row.reason != "access_denied" else None,
     }
+
+
+def _display_scope(row: OperationalUnit) -> str:
+    if ":product:" in row.scope:
+        return row.scope.split(":product:", 1)[1]
+    if ":category:" in row.scope:
+        from garimpei.infra.persistence.monitoring_models import MonitoringInterest
+
+        key = row.scope.split(":category:", 1)[1]
+        interest = MonitoringInterest.objects.filter(kind="category", key=key).first()
+        return interest.label if interest else ""
+    if row.stage in {"valuation", "alert"}:
+        return ""
+    return ""
+
+
+def _restore_times(value: object, field: str = "") -> object:
+    if isinstance(value, dict):
+        return {str(key): _restore_times(child, str(key)) for key, child in value.items()}
+    if isinstance(value, list):
+        return [_restore_times(child) for child in value]
+    if isinstance(value, str) and (field.endswith("_at") or field == "as_of"):
+        return datetime.fromisoformat(value)
+    return value

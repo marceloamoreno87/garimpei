@@ -67,13 +67,29 @@ def _validate_url(value: str) -> None:
         raise ArchiveInvalid("archive_private_url")
 
 
-def sanitize_transient_media(value: object, field: str = "") -> object:
+def sanitize_transient_media(value: object, field: str = "", media_context: bool = False) -> object:
     """Preserve media identity while excluding its temporary access query by schema."""
     if isinstance(value, dict):
-        return {str(key): sanitize_transient_media(child, str(key)) for key, child in value.items()}
+        return {
+            str(key): sanitize_transient_media(
+                child,
+                str(key),
+                media_context or field in {"media", "photos", "variants", "candidates"},
+            )
+            for key, child in value.items()
+        }
     if isinstance(value, list):
-        return [sanitize_transient_media(child, field) for child in value]
-    if isinstance(value, str) and field in {"image_url", "photo_url", "source_url"}:
+        return [
+            sanitize_transient_media(
+                child,
+                field,
+                media_context or field in {"media", "photos", "variants", "candidates"},
+            )
+            for child in value
+        ]
+    if isinstance(value, str) and (
+        field in {"image_url", "photo_url", "source_url"} or (field == "url" and media_context)
+    ):
         return _public_media_origin(value)
     return value
 

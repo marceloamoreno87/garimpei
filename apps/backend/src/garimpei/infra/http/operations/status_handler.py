@@ -66,10 +66,8 @@ class OperationsHandler:
 
 
 def _status(request: HttpRequest, read: ReadOperationalStatusUseCase) -> HttpResponse:
-    if request.GET.get("versao"):
-        _uuid(request.GET.get("versao"))
-        raise OperationsError("operational_snapshot_expired")
-    result = read.execute(request.GET.get("interesse"))
+    version = _uuid(request.GET.get("versao")) if request.GET.get("versao") else None
+    result = read.execute(request.GET.get("interesse"), version)
     if request.GET.get("formato") == "html":
         return _private(render(request, "operations/status.html", status_context(result)))
     return _private(JsonResponse(result))

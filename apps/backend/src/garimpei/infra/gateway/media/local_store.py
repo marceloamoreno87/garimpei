@@ -68,6 +68,14 @@ class LocalMediaStore:
             raise MediaError("MEDIA_FILE_UNAVAILABLE")
         return data
 
+    def restore(self, file: MediaFile, data: bytes) -> None:
+        """Restore an exact verified immutable version into this instance's owned media root."""
+        if len(data) != file.byte_count or hashlib.sha256(data).hexdigest() != file.sha256:
+            raise MediaError("MEDIA_BACKUP_HASH_INVALID")
+        if len(data) > self._policy.max_file_bytes:
+            raise MediaError("MEDIA_BACKUP_FILE_LIMIT")
+        self._atomic(file.key, data)
+
     def derive(self, claim: MediaClaim, original: MediaFile) -> MediaFile:
         data = self.read(original)
         try:

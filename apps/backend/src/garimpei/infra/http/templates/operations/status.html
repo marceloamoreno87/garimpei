@@ -1,6 +1,9 @@
 <section id="operational-status"
          aria-labelledby="operations-title"
-         class="operations">
+         class="operations"
+         hx-get="{% url 'operations-status' %}?formato=html"
+         hx-trigger="every 5s [!document.hidden && !document.activeElement.closest('#operational-status')]"
+         hx-swap="outerHTML">
     <header class="operations-heading">
         <div>
             <h2 id="operations-title">O caminho das oportunidades</h2>

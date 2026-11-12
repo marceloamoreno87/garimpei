@@ -47,6 +47,7 @@ if TYPE_CHECKING:
     from garimpei.infra.repository.operations.progress_repository import (
         PostgresOperationalRepository,
     )
+    from garimpei.infra.repository.operations.verify_recovery import VerifyRecoveryGateway
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
@@ -124,23 +125,81 @@ def build_enqueue_app() -> App:
 
 
 def _enqueue(name: str, queue: str, delay: int, **arguments: str | int) -> int:
+    from django.db import transaction
+
+    with transaction.atomic():
+        return _enqueue_owned(name, queue, delay, arguments)
+
+
+def _enqueue_owned(name: str, queue: str, delay: int, arguments: dict[str, str | int]) -> int:
     from django.db import connection
+
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.admission import admit_enqueue
 
     register_tasks()
     connection.ensure_connection()
+    operations = load_operations_settings()
+    key = _task_key(name, arguments) if operations.enabled and queue != "runtime" else None
+    existing = _existing_task(key) if key else None
+    if existing is not None:
+        return existing
+    if operations.enabled and not admit_enqueue(
+        queue, operations.environment_id, load_config().directory
+    ):
+        return 0
     if not isinstance(connection.connection, Connection):
-        raise RuntimeError("Expected psycopg 3 connection for transactional enqueue")
-    # A dedicated synchronous connector accepts the ORM's connection, including inside workers.
-    return (
-        build_enqueue_app()
-        .configure_task(
-            name=name,
-            queue=queue,
-            connection=connection.connection,
-            schedule_in={"seconds": delay},
+        raise RuntimeError("Expected psycopg connection for transactional enqueue")
+    return _defer_owned_task(name, queue, delay, arguments, connection.connection, key)
+
+
+def _task_key(name: str, arguments: dict[str, str | int]) -> str:
+    import hashlib
+    import json
+
+    return name + ":" + hashlib.sha256(json.dumps(arguments, sort_keys=True).encode()).hexdigest()
+
+
+def _existing_task(key: str) -> int | None:
+    from django.db import connection
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT id FROM procrastinate_jobs WHERE queueing_lock=%s AND status IN ('todo','doing') ORDER BY id DESC LIMIT 1",
+            [key],
         )
-        .defer(**arguments)
-    )
+        row = cursor.fetchone()
+    return int(row[0]) if row is not None else None
+
+
+def _defer_owned_task(
+    name: str,
+    queue: str,
+    delay: int,
+    arguments: dict[str, str | int],
+    database: Connection,
+    key: str | None,
+) -> int:
+    from django.db import transaction
+    from procrastinate.exceptions import AlreadyEnqueued
+
+    try:
+        with transaction.atomic():
+            return (
+                build_enqueue_app()
+                .configure_task(
+                    name=name,
+                    queue=queue,
+                    connection=database,
+                    schedule_in={"seconds": delay},
+                    lock=key,
+                    queueing_lock=key,
+                )
+                .defer(**arguments)
+            )
+    except AlreadyEnqueued:
+        existing = _existing_task(key) if key else None
+        return existing or 0
 
 
 def defer_runtime_probe(probe_id: str, delay: int = 0) -> int:
@@ -1075,6 +1134,7 @@ def build_operational_status() -> "ReadOperationalStatusUseCase":
             settings.recovery_file,
             _listing_clock(_effective_listing_settings()),
             build_read_monitoring_configuration(repeatable_snapshot=True),
+            count_current_media,
         )
     )
 
@@ -1082,6 +1142,7 @@ def build_operational_status() -> "ReadOperationalStatusUseCase":
 def build_backup_repository() -> "PostgresBackupRepository":
     from garimpei.config.env import load_operations_settings
     from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.infra.gateway.operations.media_archive_gateway import MediaArchiveGateway
     from garimpei.infra.gateway.operations.snapshot_gateway import BusinessSnapshotGateway
     from garimpei.infra.repository.operations.backup_repository import PostgresBackupRepository
     from garimpei.infra.repository.operations.restore_gateway import RestoreBackupGateway
@@ -1089,10 +1150,12 @@ def build_backup_repository() -> "PostgresBackupRepository":
     settings, config = load_operations_settings(), load_config()
     archive, snapshot = (
         ArchiveGateway(settings.backup_dir, owner=settings.environment_id),
-        BusinessSnapshotGateway(),
+        BusinessSnapshotGateway(MediaArchiveGateway(build_media_repository(), build_media_store())),
     )
     restore = RestoreBackupGateway(config, settings.recovery_file, archive, snapshot)
-    return PostgresBackupRepository(settings.environment_id, archive, snapshot, restore)
+    return PostgresBackupRepository(
+        settings.environment_id, archive, snapshot, restore, build_verify_recovery()
+    )
 
 
 def build_recovery_guard() -> Callable[[], bool]:
@@ -1100,7 +1163,15 @@ def build_recovery_guard() -> Callable[[], bool]:
     from garimpei.infra.repository.operations.recovery_guard import dispatch_blocked
 
     settings = load_operations_settings()
-    return lambda: dispatch_blocked(settings.environment_id, settings.recovery_file)
+
+    def blocked() -> bool:
+        from garimpei.infra.repository.operations.admission import transmission_capacity
+
+        return dispatch_blocked(settings.environment_id, settings.recovery_file) or (
+            settings.enabled and not transmission_capacity(load_config().directory)
+        )
+
+    return blocked
 
 
 def _handle_operations() -> None:
@@ -1234,3 +1305,37 @@ if TYPE_CHECKING:
     from garimpei.infra.http.media.media_handler import MediaHandler
     from garimpei.infra.repository.media.postgres_repository import PostgresMediaRepository
     from garimpei.usecase.media.obtain_media_usecase import ObtainMediaUseCase
+
+
+def build_verify_recovery() -> "VerifyRecoveryGateway":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.infra.gateway.operations.recovery_evidence import RecoveryEvidenceGateway
+    from garimpei.infra.repository.operations.verify_recovery import VerifyRecoveryGateway
+
+    config, operations = load_config(), load_operations_settings()
+    alerts = _effective_alert_settings()
+    return VerifyRecoveryGateway(
+        config,
+        operations.recovery_file,
+        RecoveryEvidenceGateway(operations.recovery_evidence_url),
+        build_alert_store(),
+        lambda _binding: WahaGateway(alerts.url, alerts.key, _alert_policy()),
+    )
+
+
+def count_current_media(identities: tuple[UUID, ...]) -> int:
+    from django.db.models import F
+
+    from garimpei.infra.persistence.media_models import MediaEntry
+
+    return (
+        MediaEntry.objects.filter(
+            capture__observation__listing_id__in=identities,
+            capture__observation_id=F("capture__observation__listing__latest_id"),
+            asset__state="available",
+        )
+        .values("capture__observation__listing_id")
+        .distinct()
+        .count()
+    )

@@ -2,6 +2,8 @@
 
 import hashlib
 import json
+from collections.abc import Callable
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import cast
@@ -13,14 +15,18 @@ from django.core.management.color import no_style
 from django.db import connection, transaction
 from django.db.migrations.recorder import MigrationRecorder
 from django.db.models import Field, ForeignKey, Max, Model
+from django.utils import timezone
 
+from garimpei.domain.media.media import AnalysisMedia
 from garimpei.infra.gateway.operations.archive_gateway import ArchiveInvalid
+from garimpei.infra.gateway.operations.media_archive_gateway import MediaArchiveGateway
 from garimpei.infra.gateway.operations.private_fields import (
     sanitize_transient_media,
     validate_private_fields,
 )
 from garimpei.infra.gateway.operations.schema import SCHEMA
 from garimpei.infra.persistence.listing_models import ListingEvent
+from garimpei.infra.persistence.media_models import MediaAsset, MediaJob, MediaReference
 
 
 def schema_hash() -> str:
@@ -28,39 +34,79 @@ def schema_hash() -> str:
     return hashlib.sha256(json.dumps(shape, sort_keys=True).encode()).hexdigest()
 
 
+@dataclass(frozen=True)
+class CapturedSnapshot:
+    snapshot_at: datetime
+    files: dict[str, bytes]
+    counts: dict[str, int]
+    information: dict[str, object]
+    close: Callable[[], None]
+
+
 class BusinessSnapshotGateway:
-    def capture(self) -> tuple[datetime, dict[str, bytes], dict[str, int], dict[str, object]]:
+    def __init__(self, media: MediaArchiveGateway | None = None) -> None:
+        self._media = media
+
+    def capture(self, execution: str) -> CapturedSnapshot:
         _validate_schema_coverage()
+        references: list[AnalysisMedia] = []
+        try:
+            with transaction.atomic():
+                _read_only_snapshot()
+                return self._capture_snapshot(execution, references)
+        except BaseException:
+            self._release(tuple(references))
+            raise
+
+    def _capture_snapshot(
+        self, execution: str, references: list[AnalysisMedia]
+    ) -> CapturedSnapshot:
         files: dict[str, bytes] = {}
         counts: dict[str, int] = {}
-        with transaction.atomic():
-            with connection.cursor() as cursor:
-                cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-                cursor.execute("SET LOCAL statement_timeout = '300s'")
-                cursor.execute("SELECT transaction_timestamp()")
-                row = cursor.fetchone()
-            assert row is not None
-            snapshot_at = cast(datetime, row[0])
-            for name, (model, fields) in SCHEMA.items():
-                data, count = _capture_table(model, fields)
-                files[name + ".jsonl"], counts[name] = data, count
-            metadata: dict[str, object] = {
-                "migrations": [
-                    f"{app}.{name}"
-                    for app, name in sorted(MigrationRecorder(connection).applied_migrations())
-                ],
-                "covered_event_cursor": ListingEvent.objects.aggregate(value=Max("sequence"))[
-                    "value"
-                ],
-                "code_sha256": _code_hash(),
-            }
-        return snapshot_at, files, counts, metadata
+        for name, (model, fields) in SCHEMA.items():
+            data, count = _capture_table(model, fields)
+            files[name + ".jsonl"], counts[name] = data, count
+        metadata: dict[str, object] = {
+            "migrations": [
+                f"{app}.{name}"
+                for app, name in sorted(MigrationRecorder(connection).applied_migrations())
+            ],
+            "covered_event_cursor": ListingEvent.objects.aggregate(value=Max("sequence"))["value"],
+            "code_sha256": _code_hash(),
+            "protected_media": [],
+        }
+        if self._media is not None:
+            references.extend(self._media.pin(execution))
+            media_files, information = self._media.capture(tuple(references), files)
+            files.update(media_files)
+            metadata.update(information)
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT transaction_timestamp()")
+            stamp = cursor.fetchone()
+        assert stamp is not None
+        return CapturedSnapshot(
+            cast(datetime, stamp[0]),
+            files,
+            counts,
+            metadata,
+            lambda: self._release(tuple(references)),
+        )
+
+    def _release(self, references: tuple[AnalysisMedia, ...]) -> None:
+        if self._media is not None:
+            self._media.release(references)
 
     def validate(self, metadata: dict[str, object], files: dict[str, bytes]) -> None:
+        try:
+            self._validate(metadata, files)
+        except (ValidationError, ValueError, KeyError, TypeError, UnicodeError, RecursionError):
+            raise ArchiveInvalid("archive_record_invalid") from None
+
+    def _validate(self, metadata: dict[str, object], files: dict[str, bytes]) -> None:
         if metadata.get("schema_hash") != schema_hash():
             raise ArchiveInvalid("archive_schema_incompatible")
         expected = {name + ".jsonl" for name in SCHEMA}
-        if set(files) != expected:
+        if {name for name in files if name.endswith(".jsonl")} != expected:
             raise ArchiveInvalid("archive_tables_incomplete")
         identities = {name: _identities(name, files[name + ".jsonl"]) for name in SCHEMA}
         identities["runtime.listingevent:id"] = {
@@ -69,14 +115,25 @@ class BusinessSnapshotGateway:
             if isinstance(row["fields"], dict)
         }
         try:
-            for name, data in files.items():
-                _validate_table(name.removesuffix(".jsonl"), data, identities)
+            for name in expected:
+                _validate_table(name.removesuffix(".jsonl"), files[name], identities)
         except (ValidationError, ValueError, TypeError):
             raise ArchiveInvalid("archive_field_invalid") from None
+        if self._media is not None:
+            self._media.validate(metadata, files)
 
-    def restore(self, files: dict[str, bytes]) -> None:
-        for name, data in files.items():
-            _restore_table(name, data)
+    def restore(self, files: dict[str, bytes], metadata: dict[str, object]) -> None:
+        for name in SCHEMA:
+            _restore_table(name, files[name + ".jsonl"])
+        if self._media is not None:
+            omitted = self._media.restore(metadata, files)
+            MediaAsset.objects.filter(id__in=omitted, state="available").update(
+                state="removed", reason="unprotected_bytes_not_in_backup"
+            )
+        MediaJob.objects.update(lease_until=None, reserved_bytes=0)
+        MediaReference.objects.filter(consumer="backup", released_at=None).update(
+            released_at=timezone.now()
+        )
         # Imported explicit numeric primary keys must not collide with future inserts.
         sequence_sql = connection.ops.sequence_reset_sql(
             no_style(), [model for model, _ in SCHEMA.values()]
@@ -116,7 +173,7 @@ def _records(data: bytes) -> list[dict[str, object]]:
 def _identities(name: str, data: bytes) -> set[str]:
     result: set[str] = set()
     for row in _records(data):
-        identity = str(row["pk"])
+        identity = str(SCHEMA[name][0]._meta.pk.to_python(row["pk"]))
         if row["model"] != name or identity in result:
             raise ArchiveInvalid("archive_duplicate_or_unknown_record")
         result.add(identity)
@@ -151,7 +208,9 @@ def _validate_field(
     if isinstance(field, ForeignKey) and field.remote_field is not None:
         _validate_relation(field.remote_field.model, value, identities, field.target_field.name)
         return
-    field.to_python(value)
+    converted = field.to_python(value)
+    if converted is not None:
+        field.run_validators(converted)
 
 
 def _validate_relation(
@@ -182,6 +241,7 @@ def _validate_schema_coverage() -> None:
         "backuprecord",
         "backupschedule",
         "recoverybarrier",
+        "operationalsnapshot",
     }
     active = {
         model._meta.label_lower
@@ -199,3 +259,9 @@ def _code_hash() -> str:
         digest.update(str(path.relative_to(root)).encode())
         digest.update(path.read_bytes())
     return digest.hexdigest()
+
+
+def _read_only_snapshot() -> None:
+    with connection.cursor() as cursor:
+        cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
+        cursor.execute("SET LOCAL statement_timeout = '300s'")

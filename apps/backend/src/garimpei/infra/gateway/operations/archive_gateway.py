@@ -4,6 +4,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import tarfile
 import time
@@ -157,7 +158,9 @@ def _mapping(value: object) -> dict[str, object]:
 
 
 def _safe_name(name: str) -> bool:
-    return name.endswith(".jsonl") and "/" not in name and "\\" not in name and ".." not in name
+    return (
+        name.endswith(".jsonl") and "/" not in name and "\\" not in name and ".." not in name
+    ) or re.fullmatch(r"media/[a-f0-9-]{36}/(?:original|thumbnail)", name) is not None
 
 
 def _validate_member(
@@ -165,7 +168,7 @@ def _validate_member(
 ) -> None:
     if not member.isfile() or (member.name != "manifest.json" and not _safe_name(member.name)):
         raise ArchiveInvalid("archive_entry_invalid")
-    if member.name in files or total > budget or len(files) >= 100:
+    if member.name in files or total > budget or len(files) >= 100000:
         raise ArchiveInvalid("archive_limits_exceeded")
     if time.monotonic() - started > 300:
         raise ArchiveInvalid("archive_timeout")

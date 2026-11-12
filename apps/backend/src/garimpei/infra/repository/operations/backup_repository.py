@@ -16,8 +16,16 @@ from garimpei.infra.gateway.operations.archive_gateway import (
     copy_archive,
     file_hash,
 )
-from garimpei.infra.gateway.operations.snapshot_gateway import BusinessSnapshotGateway, schema_hash
-from garimpei.infra.persistence.operations_models import BackupRecord, BackupSchedule
+from garimpei.infra.gateway.operations.snapshot_gateway import (
+    BusinessSnapshotGateway,
+    CapturedSnapshot,
+    schema_hash,
+)
+from garimpei.infra.persistence.operations_models import (
+    BackupRecord,
+    BackupSchedule,
+    RecoveryBarrier,
+)
 from garimpei.infra.repository.operations.maintenance_lock import maintenance_lock
 from garimpei.infra.repository.operations.retention import prune_operations
 
@@ -29,9 +37,11 @@ class PostgresBackupRepository:
         archives: ArchiveGateway,
         snapshot: BusinessSnapshotGateway,
         restore: "RestoreBackupGateway",
+        recovery: "VerifyRecoveryGateway | None" = None,
     ) -> None:
         self._installation, self._archives = installation, archives
         self._snapshot, self._restore = snapshot, restore
+        self._recovery = recovery
 
     def create(self, *, only_due: bool = False) -> UUID | None:
         with maintenance_lock():
@@ -45,8 +55,15 @@ class PostgresBackupRepository:
             return self._create_archive(record, schedule)
 
     def _create_archive(self, record: BackupRecord, schedule: BackupSchedule) -> UUID:
+        captured: CapturedSnapshot | None = None
         try:
-            moment, files, counts, information = self._snapshot.capture()
+            captured = self._snapshot.capture(str(record.id))
+            moment, files, counts, information = (
+                captured.snapshot_at,
+                captured.files,
+                captured.counts,
+                captured.information,
+            )
             metadata: dict[str, object] = information | {
                 "format_version": 1,
                 "id": str(record.id),
@@ -80,6 +97,9 @@ class PostgresBackupRepository:
         except (ArchiveInvalid, OSError, ValueError):
             self._failed(record, schedule)
             raise OperationsError("backup_creation_failed", 507) from None
+        finally:
+            if captured is not None:
+                captured.close()
 
     def export(self, identity: UUID, request_id: UUID) -> UUID:
         with maintenance_lock():
@@ -217,6 +237,13 @@ class PostgresBackupRepository:
         return self._restore.execute(Path(archive), isolated=isolated)
 
     def verify(self, identity: UUID) -> dict[str, object]:
+        if (
+            self._recovery is not None
+            and RecoveryBarrier.objects.filter(
+                installation=self._installation, backup_id=identity
+            ).exists()
+        ):
+            return self._recovery.verify(identity)
         record = self._find(identity)
         if record.state != "completed":
             raise OperationsError("backup_not_completed")
@@ -251,3 +278,6 @@ def _existing_export(existing: BackupRecord, identity: UUID) -> UUID:
     if existing.source_id != identity:
         raise OperationsError("export_request_conflict")
     return existing.id
+
+
+from garimpei.infra.repository.operations.verify_recovery import VerifyRecoveryGateway  # noqa: E402

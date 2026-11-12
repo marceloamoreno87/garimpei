@@ -30,6 +30,13 @@ class PostgresOperationalRepository:
                 state.pending = pending
             _save(row, state)
 
+    def complete(self, stage: str, key: str, revision: int, now: datetime) -> None:
+        with transaction.atomic():
+            row = self._row(stage, key, revision, now)
+            row.last_attempt_at, row.pending = now, 0
+            row.reason = "no_new_frontier"
+            row.save(update_fields=["last_attempt_at", "pending", "reason"])
+
     def failure(
         self,
         stage: str,

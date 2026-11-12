@@ -1,20 +1,55 @@
-"""Inspected version-one business allowlist. Authentication and technical jobs are excluded."""
-
-from typing import cast
+"""Inspected version-one business allowlist. Authentication and technical queue jobs are excluded."""
 
 from django.db.models import Model
 
-from garimpei.infra.persistence import (
-    alert_models,
-    exploration_models,
-    integration_models,
-    operations_models,
+from garimpei.infra.persistence.alert_models import (
+    AlertAttempt,
+    AlertEventDecision,
+    AlertFeedCursor,
+    AlertIntent,
+    FirstAlertIdentity,
+    FirstAlertInventory,
+    FirstEligibilityDecision,
+    ManualConditionHistory,
 )
-from garimpei.infra.persistence import models as registry
+from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision
+from garimpei.infra.persistence.inference_models import InferencePart, InferenceRequest
+from garimpei.infra.persistence.integration_models import IntegrationSettings
+from garimpei.infra.persistence.listing_models import (
+    CollectionCandidate,
+    CollectionCycle,
+    CollectionState,
+    Listing,
+    ListingEvent,
+    ListingInterestMatch,
+    ListingObservation,
+    ManualCondition,
+)
+from garimpei.infra.persistence.media_models import (
+    MediaAsset,
+    MediaCapture,
+    MediaEntry,
+    MediaJob,
+    MediaReference,
+)
+from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration, MonitoringInterest
+from garimpei.infra.persistence.navigation_models import (
+    NavigationCheckpoint,
+    NavigationUnitReceipt,
+    NavigationWork,
+    NicheSuggestion,
+    SuggestionEvidence,
+)
+from garimpei.infra.persistence.operations_models import OperationalDiagnostic, OperationalUnit
+from garimpei.infra.persistence.valuation_models import (
+    ValuationEvaluation,
+    ValuationProgress,
+    ValuationWork,
+)
 
 SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
     "runtime.inferencerequest": (
-        cast(type[Model], registry.InferenceRequest),
+        InferenceRequest,
         (
             "observation",
             "revision",
@@ -31,7 +66,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.inferencepart": (
-        cast(type[Model], registry.InferencePart),
+        InferencePart,
         (
             "request",
             "position",
@@ -45,7 +80,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.collectionstate": (
-        cast(type[Model], registry.CollectionState),
+        CollectionState,
         (
             "configuration_id",
             "source",
@@ -63,7 +98,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.collectioncycle": (
-        cast(type[Model], registry.CollectionCycle),
+        CollectionCycle,
         (
             "state",
             "scope_key",
@@ -83,12 +118,14 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.collectioncandidate": (
-        cast(type[Model], registry.CollectionCandidate),
+        CollectionCandidate,
         ("cycle", "query_key", "external_id", "candidates"),
     ),
     "runtime.listing": (
-        cast(type[Model], registry.Listing),
+        Listing,
         (
+            "media_tracking_active",
+            "media_refresh_after",
             "source",
             "external_id",
             "canonical_url",
@@ -102,7 +139,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.listingobservation": (
-        cast(type[Model], registry.ListingObservation),
+        ListingObservation,
         (
             "listing",
             "cycle",
@@ -115,12 +152,9 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "provenance",
         ),
     ),
-    "runtime.listinginterestmatch": (
-        cast(type[Model], registry.ListingInterestMatch),
-        ("observation", "kind", "key"),
-    ),
+    "runtime.listinginterestmatch": (ListingInterestMatch, ("observation", "kind", "key")),
     "runtime.listingevent": (
-        cast(type[Model], registry.ListingEvent),
+        ListingEvent,
         (
             "publication_order",
             "id",
@@ -132,12 +166,9 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "occurred_at",
         ),
     ),
-    "runtime.manualcondition": (
-        cast(type[Model], registry.ManualCondition),
-        ("choice", "revision", "updated_at"),
-    ),
+    "runtime.manualcondition": (ManualCondition, ("choice", "revision", "updated_at")),
     "runtime.monitoringconfiguration": (
-        cast(type[Model], registry.MonitoringConfiguration),
+        MonitoringConfiguration,
         (
             "slot",
             "revision",
@@ -150,12 +181,9 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "updated_at",
         ),
     ),
-    "runtime.monitoringinterest": (
-        cast(type[Model], registry.MonitoringInterest),
-        ("configuration", "kind", "key", "label"),
-    ),
+    "runtime.monitoringinterest": (MonitoringInterest, ("configuration", "kind", "key", "label")),
     "runtime.navigationwork": (
-        cast(type[Model], registry.NavigationWork),
+        NavigationWork,
         (
             "cycle",
             "configuration_id",
@@ -177,7 +205,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.navigationcheckpoint": (
-        cast(type[Model], registry.NavigationCheckpoint),
+        NavigationCheckpoint,
         (
             "catalog_version",
             "limits",
@@ -197,7 +225,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.navigationunitreceipt": (
-        cast(type[Model], registry.NavigationUnitReceipt),
+        NavigationUnitReceipt,
         (
             "work",
             "unit_key",
@@ -212,7 +240,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.nichesuggestion": (
-        cast(type[Model], registry.NicheSuggestion),
+        NicheSuggestion,
         (
             "configuration_id",
             "revision",
@@ -232,7 +260,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.suggestionevidence": (
-        cast(type[Model], registry.SuggestionEvidence),
+        SuggestionEvidence,
         (
             "suggestion",
             "source",
@@ -245,11 +273,11 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.valuationprogress": (
-        cast(type[Model], registry.ValuationProgress),
+        ValuationProgress,
         ("requested", "signature", "current", "due_at"),
     ),
     "runtime.valuationwork": (
-        cast(type[Model], registry.ValuationWork),
+        ValuationWork,
         (
             "listing",
             "revision",
@@ -262,20 +290,17 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "diagnostic",
         ),
     ),
-    "runtime.valuationevaluation": (
-        cast(type[Model], registry.ValuationEvaluation),
-        ("work", "result"),
-    ),
+    "runtime.valuationevaluation": (ValuationEvaluation, ("work", "result")),
     "runtime.manualconditionhistory": (
-        cast(type[Model], alert_models.ManualConditionHistory),
+        ManualConditionHistory,
         ("listing", "publication_order", "choice", "revision", "confirmed_at"),
     ),
     "runtime.alertfeedcursor": (
-        cast(type[Model], alert_models.AlertFeedCursor),
+        AlertFeedCursor,
         ("sequence", "history_ready", "dispatch_suspended", "next_tick", "updated_at"),
     ),
     "runtime.alerteventdecision": (
-        cast(type[Model], alert_models.AlertEventDecision),
+        AlertEventDecision,
         (
             "event",
             "state",
@@ -287,7 +312,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.alertintent": (
-        cast(type[Model], alert_models.AlertIntent),
+        AlertIntent,
         (
             "decision",
             "first_decision",
@@ -310,7 +335,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.alertattempt": (
-        cast(type[Model], alert_models.AlertAttempt),
+        AlertAttempt,
         (
             "intent",
             "ordinal",
@@ -324,12 +349,9 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "provenance",
         ),
     ),
-    "runtime.firstalertinventory": (
-        cast(type[Model], alert_models.FirstAlertInventory),
-        ("cursor", "completed", "updated_at"),
-    ),
+    "runtime.firstalertinventory": (FirstAlertInventory, ("cursor", "completed", "updated_at")),
     "runtime.firstalertidentity": (
-        cast(type[Model], alert_models.FirstAlertIdentity),
+        FirstAlertIdentity,
         (
             "installation",
             "listing",
@@ -343,7 +365,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.firsteligibilitydecision": (
-        cast(type[Model], alert_models.FirstEligibilityDecision),
+        FirstEligibilityDecision,
         (
             "identity",
             "generation",
@@ -362,11 +384,11 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.explorationrevision": (
-        cast(type[Model], exploration_models.ExplorationRevision),
+        ExplorationRevision,
         ("id", "published_at", "superseded_at", "signature"),
     ),
     "runtime.explorationoffer": (
-        cast(type[Model], exploration_models.ExplorationOffer),
+        ExplorationOffer,
         (
             "revision",
             "listing",
@@ -382,7 +404,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.integrationsettings": (
-        cast(type[Model], integration_models.IntegrationSettings),
+        IntegrationSettings,
         (
             "facebook_revision",
             "facebook_baseline_cycle",
@@ -395,8 +417,79 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "alerts_enabled",
         ),
     ),
+    "runtime.mediacapture": (
+        MediaCapture,
+        (
+            "observation",
+            "revision",
+            "presence",
+            "state",
+            "reason",
+            "complete",
+            "source_complete",
+            "known_count",
+            "refresh_requested",
+            "observed_at",
+            "last_attempt_at",
+            "verified_at",
+        ),
+    ),
+    "runtime.mediaasset": (
+        MediaAsset,
+        (
+            "listing",
+            "photo_key",
+            "sha256",
+            "mime",
+            "width",
+            "height",
+            "byte_count",
+            "key",
+            "obtained_at",
+            "state",
+            "thumbnail_state",
+            "thumbnail_hash",
+            "thumbnail_bytes",
+            "reason",
+            "removed_at",
+        ),
+    ),
+    "runtime.mediaentry": (
+        MediaEntry,
+        (
+            "capture",
+            "photo_key",
+            "position",
+            "primary",
+            "correlated",
+            "candidates",
+            "asset",
+            "generation",
+            "reason",
+        ),
+    ),
+    "runtime.mediajob": (
+        MediaJob,
+        (
+            "entry",
+            "kind",
+            "generation",
+            "state",
+            "attempts",
+            "next_at",
+            "lease_until",
+            "lease_generation",
+            "reserved_bytes",
+            "reason",
+            "refresh_requested",
+        ),
+    ),
+    "runtime.mediareference": (
+        MediaReference,
+        ("asset", "consumer", "execution", "created_at", "released_at"),
+    ),
     "runtime.operationalunit": (
-        cast(type[Model], operations_models.OperationalUnit),
+        OperationalUnit,
         (
             "installation",
             "stage",
@@ -417,7 +510,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
         ),
     ),
     "runtime.operationaldiagnostic": (
-        cast(type[Model], operations_models.OperationalDiagnostic),
+        OperationalDiagnostic,
         ("unit", "reason", "created_at", "protected"),
     ),
 }

@@ -18,6 +18,32 @@
   document.body.addEventListener('htmx:configRequest', event => {
     event.detail.headers['X-Exploration-Context'] = context();
   });
+  let loadedAt = new Date().toLocaleTimeString('pt-BR');
+  const readingFailure = () => {
+    const feedback = document.querySelector('#exploration-feedback');
+    if (!feedback) return;
+    feedback.dataset.readFailure = 'true';
+    feedback.setAttribute('role', 'alert');
+    const text = document.createTextNode(`Não foi possível atualizar. A leitura carregada às ${loadedAt} continua visível. `);
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.className = 'button secondary';
+    retry.textContent = 'Tentar novamente';
+    retry.addEventListener('click', () => {
+      const statusUrl = region()?.dataset.statusUrl;
+      if (window.htmx && statusUrl) window.htmx.ajax('GET', statusUrl, {target:'#updates', swap:'innerHTML'});
+      else location.assign(context());
+    });
+    feedback.replaceChildren(text, retry);
+  };
+  for (const name of ['htmx:sendError', 'htmx:timeout']) {
+    document.body.addEventListener(name, event => {
+      const target = event.detail.target;
+      const requestContext = event.detail.requestConfig?.headers['X-Exploration-Context'];
+      if (requestContext && requestContext !== context()) return;
+      if (target?.id === 'updates' || target?.id === 'exploration' || target?.closest?.('#exploration')) readingFailure();
+    });
+  }
   document.body.addEventListener('htmx:beforeSwap', event => {
     const requestContext = event.detail.requestConfig?.headers['X-Exploration-Context'];
     if (!event.detail.target.isConnected || (requestContext && requestContext !== context())) {
@@ -26,15 +52,21 @@
     }
     if (event.detail.target.id === 'updates' && event.detail.xhr.status >= 400) {
       event.detail.shouldSwap = false;
+      readingFailure();
       return;
     }
     if (event.detail.xhr.status >= 400) {
       event.detail.shouldSwap = false;
-      const feedback = document.querySelector('#exploration-feedback');
-      if (feedback) feedback.textContent = 'Não foi possível atualizar os valores. Tente novamente';
+      readingFailure();
     }
   });
   document.body.addEventListener('htmx:afterSwap', event => {
+    if (region()?.dataset.applied === 'true' && ['main','exploration'].includes(event.detail.target.id)) loadedAt = new Date().toLocaleTimeString('pt-BR');
+    const feedback = document.querySelector('#exploration-feedback');
+    if (event.detail.target.id === 'updates' && feedback?.dataset.readFailure) {
+      feedback.replaceChildren();
+      delete feedback.dataset.readFailure;
+    }
     if (event.detail.target.id === 'updates' && region()?.dataset.detail) {
       region().querySelectorAll('[data-apply]').forEach(a => {
         a.href = region().dataset.refresh + '&aplicar=1';

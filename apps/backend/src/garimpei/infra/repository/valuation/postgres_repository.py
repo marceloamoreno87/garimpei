@@ -130,6 +130,11 @@ class PostgresValuationRepository:
         if progress.signature != request.signature or (
             progress.due_at is not None and progress.due_at < now
         ):
+            if (
+                self._operations is not None
+                and ValuationWork.objects.filter(completed=False).count() >= 1000
+            ):
+                return
             progress.requested += 1
             progress.signature = request.signature
             progress.due_at = None

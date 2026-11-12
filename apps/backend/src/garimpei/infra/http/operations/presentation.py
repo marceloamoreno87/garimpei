@@ -18,6 +18,8 @@ STATES = {
     "unavailable": "Etapa indisponível",
 }
 REASONS = {
+    "no_new_frontier": "A consulta terminou sem informação nova.",
+    "capacity_available": "Há espaço na fila para retomar o processamento.",
     "historical_not_measured": "O progresso anterior à adoção deste diagnóstico não foi medido.",
     "stage_unavailable": "Esta etapa ainda não está disponível nesta instalação.",
     "progress_confirmed": "Uma nova informação foi confirmada e preservada.",

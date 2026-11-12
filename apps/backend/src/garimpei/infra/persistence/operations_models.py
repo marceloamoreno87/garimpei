@@ -92,3 +92,10 @@ class RecoveryBarrier(models.Model):
     state = models.CharField(max_length=12, default="blocked")
     reason = models.CharField(max_length=64, default="unreconciled_interval")
     evidence = models.JSONField(default=dict)
+
+
+class OperationalSnapshot(models.Model):
+    id = models.UUIDField(primary_key=True)
+    installation = models.CharField(max_length=64, db_index=True)
+    created_at = models.DateTimeField(db_index=True)
+    payload = models.JSONField()
