@@ -1,0 +1,41 @@
+{
+  "files": {
+    "primary-small.jpg": {
+      "sha256": "7c82d14fedc7f6dcd6f6e13380af4b966a35599caa389691af6a5e1be3b0a7e3",
+      "width": 320,
+      "height": 240,
+      "bytes": 3279
+    },
+    "primary-large.jpg": {
+      "sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+      "width": 1280,
+      "height": 960,
+      "bytes": 26534
+    },
+    "additional.png": {
+      "sha256": "1df2efcea566e0fc7490282b95cd26a8217360c488ec449ff4aafff26ea95fdb",
+      "width": 1000,
+      "height": 800,
+      "bytes": 4239
+    },
+    "other.png": {
+      "sha256": "bdf2935903a259676ec783915b1e0d1f57c8d27b621d276f055bca234a00bd87",
+      "width": 900,
+      "height": 900,
+      "bytes": 4411
+    }
+  },
+  "cases": [
+    "A",
+    "B",
+    "SEM",
+    "DESCONHECIDA",
+    "PENDENTE",
+    "FALHA",
+    "T",
+    "P",
+    "TP",
+    "C",
+    "LEGADO"
+  ]
+}

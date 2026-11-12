@@ -79,3 +79,10 @@ from garimpei.infra.persistence.alert_models import (  # noqa: E402,F401
 )
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision  # noqa: E402,F401
 from garimpei.infra.persistence.integration_models import IntegrationSettings  # noqa: E402,F401
+from garimpei.infra.persistence.media_models import (  # noqa: E402,F401
+    MediaAsset,
+    MediaCapture,
+    MediaEntry,
+    MediaJob,
+    MediaReference,
+)

@@ -179,3 +179,11 @@ _.first_alert_state
 _.next_action_at
 _.valuation_revision
 _.intent_reference
+
+# F14 public analysis boundary and ORM retention fields; exact consumers in entrypoints.json.
+_.media_tracking_active
+_.removed_at
+AcquireMediaForAnalysisUseCase
+ReadMediaGalleryUseCase
+ReleaseMediaReferenceUseCase
+_.protected_versions

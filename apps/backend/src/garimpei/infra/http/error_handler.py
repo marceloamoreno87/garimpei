@@ -9,6 +9,7 @@ from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.integration.values import IntegrationError
 from garimpei.domain.listing.condition_ports import ConditionError
 from garimpei.domain.listing.exploration import Criteria, ExplorationError
+from garimpei.domain.media.errors import MediaError
 from garimpei.domain.monitoring.errors import (
     ConfigurationReadFailed,
     ConfigurationSaveFailed,
@@ -38,6 +39,10 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        if isinstance(_exception, MediaError):
+            media_response = JsonResponse({"code": _exception.code}, status=_exception.status)
+            media_response["Cache-Control"] = "private, no-cache"
+            return media_response
         navigation_route = _request.path.startswith(
             ("/acompanhamento/navegacao/", "/sugestoes/")
         ) or (_request.path == "/configuracoes/" and "sugestao" in _request.GET)

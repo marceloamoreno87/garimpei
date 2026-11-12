@@ -419,6 +419,11 @@ class PostgresCollectionRepository:
                 "discovery_emitted",
             ]
         )
+        from garimpei.config.env import load_media_settings
+        from garimpei.domain.media.media import Manifest
+        from garimpei.infra.repository.media.captures import create_capture
+
+        create_capture(observation, evidence.media or Manifest(), load_media_settings().policy, now)
         cycle.published_count += 1
 
     def finish(self, attempt: Attempt, policy: CollectionPolicy) -> None:

@@ -436,5 +436,41 @@
     "path": "src/garimpei/domain/alert/diagnostic.py",
     "consumer": "tests/http/test_alert_diagnostic.py",
     "reason": "F16 public diagnostic field asserted against persisted identity, intent and financial revision through Django shell in test_public_diagnostic_fields_history_and_partial_http_failure"
+  },
+  {
+    "symbol": "Listing.media_tracking_active",
+    "path": "src/garimpei/infra/persistence/listing_models.py",
+    "consumer": "tests/integration/test_media_persistence.py",
+    "reason": "F14 public/version-retention contract exercised through PostgreSQL shell integration and HTTP"
+  },
+  {
+    "symbol": "MediaAsset.removed_at",
+    "path": "src/garimpei/infra/persistence/media_models.py",
+    "consumer": "tests/integration/test_media_persistence.py",
+    "reason": "F14 public/version-retention contract exercised through PostgreSQL shell integration and HTTP"
+  },
+  {
+    "symbol": "AcquireMediaForAnalysisUseCase",
+    "path": "src/garimpei/usecase/media/acquire_media_usecase.py",
+    "consumer": "tests/integration/test_media_persistence.py",
+    "reason": "F14 public/version-retention contract exercised through PostgreSQL shell integration and HTTP"
+  },
+  {
+    "symbol": "ReadMediaGalleryUseCase",
+    "path": "src/garimpei/usecase/media/read_gallery_usecase.py",
+    "consumer": "tests/integration/test_media_persistence.py",
+    "reason": "F14 public/version-retention contract exercised through PostgreSQL shell integration and HTTP"
+  },
+  {
+    "symbol": "ReleaseMediaReferenceUseCase",
+    "path": "src/garimpei/usecase/media/release_reference_usecase.py",
+    "consumer": "tests/integration/test_media_persistence.py",
+    "reason": "F14 public/version-retention contract exercised through PostgreSQL shell integration and HTTP"
+  },
+  {
+    "symbol": "PostgresMediaRepository.protected_versions",
+    "path": "src/garimpei/infra/repository/media/postgres_repository.py",
+    "consumer": "tests/integration/test_media_persistence.py",
+    "reason": "Backup pin enumeration exercised in PostgreSQL analysis-retention contract; required by F17 adapter"
   }
 ]

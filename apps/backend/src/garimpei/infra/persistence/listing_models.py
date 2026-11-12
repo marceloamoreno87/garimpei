@@ -66,6 +66,8 @@ class CollectionCandidate(models.Model):
 
 
 class Listing(models.Model):
+    media_tracking_active = models.BooleanField(default=True)
+    media_refresh_after = models.DateTimeField(null=True)
     id = models.UUIDField(primary_key=True, default=uuid4)
     source = models.CharField(max_length=40)
     external_id = models.CharField(max_length=40)

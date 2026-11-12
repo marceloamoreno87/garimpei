@@ -1,0 +1,26 @@
+### Result
+"Foto 2"
+### Ran Playwright code
+```js
+await page.evaluate('() => {document.querySelector(".media-gallery nav a:last-child").focus();return document.activeElement.textContent}');
+```
+### Ran Playwright code
+```js
+// Press Enter
+await page.keyboard.press('Enter');
+```
+### Page
+- Page URL: http://127.0.0.1:23764/ofertas/c754e4b3-4960-4772-a209-19abc030af91/?aba=funcionam&q=&categoria=&pagina=1&versao=cf27e28c-2563-444a-8e3e-3e830bdbc669#foto-4103c951-4298-4e75-8a03-abf5154ec486
+- Page Title: Ofertas · Garimpei
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-11-12T18-55-42-567Z.yml)
+### Result
+{
+  "hash": "#foto-4103c951-4298-4e75-8a03-abf5154ec486",
+  "focused": "\n        \n    Pular para o conteúdo\n    \n        Garimpei.\n        Monitoramento de eletrônicos usados\n        \n            Ofertas\n            Acompanhamento\n            Configurações\n            Integrações\n        \n        Execução local\n    \n    \n        Facebook MarketplaceSão Paulo · SP\n        \n    \n        \n            Conecte o Facebook\n            Abra o navegador do Garimpei e entre na sua conta para permitir a coleta.\n            \n                Conectar Facebook\n            \n        \n    \n    \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n        \n    \n        Voltar aos resultados\n        \n            Anúncio de mídia A\n\n            media_fixture · Anúncio 1 · Observação 12/11/2026 18:46:05 UTC\n        \n        \n    \n    \n        \n\n    \n    \n    \n    \n    \n    \n        \n            \n    Fotos conservadas neste computador\n    \n        \n            \n                \n                    \n                        \n                    \n                    Não foi possível carregar esta cópia. Solicite recuperação abaixo.\n                \n                Foto 1 · 1280 × 960 px · Obtida em 12/11/2026 18:46:34 UTC\n            \n        \n            \n                \n                    \n                        \n                    \n                    Não foi possível carregar esta cópia. Solicite recuperação abaixo.\n                \n                Foto 2 · 1000 × 800 px · Obtida em 12/11/2026 18:47:04 UTC\n            \n        \n        Foto 1 Foto 2 \n    \n    \n        \n            \n            \n            \n            Solicitar recuperação das fotos\n            O pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.\n        \n    \n\n\n            Entenda a estimativa\n\n            \n    \n        Preço de compra\n        \n            Preço não informado\n        \n    \n    \n        Preço de venda estimado\n        \n            Estimativa indisponível\n        \n    \n    \n        Lucro estimado\n        \n            Estimativa indisponível\n        \n    \n\n\n            \n                Taxa provisória · 12,50%\n                Indisponível\n            \n        Motivo da indisponibilidade: O preço de compra ainda não está confirmado.\n        Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace.\n    \n    \n        Referências para comparar\n\n        Preços anunciados de usados. Não representam vendas realizadas.\n        Amostra insuficiente ou avaliação ainda indisponível.\n    \n        Referência de novo\n\n    Referência de novo indisponível.\n    Abrir anúncio original\n\n\n\n    Alerta desta oferta\n    \n        Aguardando avaliação do primeiro alerta\n        \n        Esta oferta ainda não foi avaliada para o primeiro alerta.\n        \n        \n        \n        \n    \n\n\n\n    \n        Funciona bem\n\n        Classificação a partir do anúncio\n        \n        \n        Ver em Funcionam bem\n    \n    \n        O que o anúncio informa\n\n        \n            Condição informada\n            \n                Funciona bem\n            \n            Descrição\n            \n                Produto usado. Funciona bem.\n            \n        \n    \n\n\n\n    \n\n    \n\n",
+  "overflow": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({hash:location.hash,focused:document.activeElement.textContent,overflow:document.documentElement.scrollWidth>innerWidth})');
+```

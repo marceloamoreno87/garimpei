@@ -1,0 +1,20 @@
+### Result
+{
+  "images": [
+    {
+      "src": "/ofertas/c754e4b3-4960-4772-a209-19abc030af91/imagens/c70d3a29-6dbd-4178-90e7-c22b0ab163e8/original/",
+      "w": 1280,
+      "h": 960
+    },
+    {
+      "src": "/ofertas/c754e4b3-4960-4772-a209-19abc030af91/imagens/4103c951-4298-4e75-8a03-abf5154ec486/original/",
+      "w": 1000,
+      "h": 800
+    }
+  ],
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {for(const i of document.images){await i.decode().catch(()=>{});}return {images:[...document.images].map(i=>({src:i.getAttribute("src"),w:i.naturalWidth,h:i.naturalHeight})),overflow:document.documentElement.scrollWidth>innerWidth}}');
+```

@@ -94,6 +94,7 @@ def build_database_probe() -> DatabaseProbe:
 def register_tasks() -> None:
     from procrastinate.contrib.django import app
 
+    app.task(name="garimpei.media", queue="media")(_handle_media)
     app.task(name="garimpei.local_analysis", queue="inference")(_handle_inference)
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
     app.task(name="garimpei.runtime_probe", queue="runtime")(_handle_runtime_probe)
@@ -1031,3 +1032,72 @@ def _enqueue_navigation_suggestions() -> None:
             ).defer()
     except AlreadyEnqueued:
         return
+
+
+def build_media_store() -> "LocalMediaStore":
+    from garimpei.config.env import load_media_settings
+    from garimpei.infra.gateway.media.local_store import LocalMediaStore
+
+    settings = load_media_settings()
+    return LocalMediaStore(settings.root, settings.policy)
+
+
+def build_media_repository() -> "PostgresMediaRepository":
+    from garimpei.config.env import load_media_settings
+    from garimpei.infra.repository.media.postgres_repository import PostgresMediaRepository
+
+    return PostgresMediaRepository(load_media_settings().policy, build_media_store().used_bytes)
+
+
+def build_media_runner() -> "ObtainMediaUseCase":
+    from django.utils import timezone
+
+    from garimpei.config.env import load_media_settings
+    from garimpei.infra.gateway.media.image_transport import BoundedImageTransport
+    from garimpei.usecase.media.obtain_media_usecase import ObtainMediaUseCase
+
+    settings = load_media_settings()
+    return ObtainMediaUseCase(
+        build_media_repository(),
+        BoundedImageTransport(settings.policy, settings.eval_origin),
+        build_media_store(),
+        timezone.now,
+    )
+
+
+def build_media_handler() -> "MediaHandler":
+    from django.utils import timezone
+
+    from garimpei.infra.http.media.media_handler import MediaHandler
+    from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
+    from garimpei.usecase.media.request_recovery_usecase import RequestMediaRecoveryUseCase
+
+    return MediaHandler(
+        PostgresMediaQueries(),
+        build_media_store(),
+        RequestMediaRecoveryUseCase(build_media_repository(), timezone.now),
+    )
+
+
+def _handle_media(job_id: str) -> None:
+    build_media_runner().execute(UUID(job_id))
+
+
+def reconcile_media() -> None:
+    from django.utils import timezone
+
+    from garimpei.usecase.media.clean_media_usecase import CleanMediaUseCase
+
+    repository = build_media_repository()
+    now = timezone.now()
+    repository.backfill(now)
+    for identity in repository.due(now):
+        _enqueue("garimpei.media", "media", 0, job_id=str(identity))
+    CleanMediaUseCase(repository, build_media_store(), timezone.now).execute()
+
+
+if TYPE_CHECKING:
+    from garimpei.infra.gateway.media.local_store import LocalMediaStore
+    from garimpei.infra.http.media.media_handler import MediaHandler
+    from garimpei.infra.repository.media.postgres_repository import PostgresMediaRepository
+    from garimpei.usecase.media.obtain_media_usecase import ObtainMediaUseCase

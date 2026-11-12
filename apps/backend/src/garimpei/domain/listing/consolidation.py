@@ -50,6 +50,7 @@ def consolidate(candidates: list[Candidate], scope: Scope) -> Consolidated:
     )
     evidence = Evidence(
         image_url=select("image_url", lambda e: e.image_url),
+        media=select("media", lambda e: e.media),
         title=select("title", lambda e: e.title),
         description=select("description", lambda e: e.description),
         condition=select("condition", lambda e: e.condition),

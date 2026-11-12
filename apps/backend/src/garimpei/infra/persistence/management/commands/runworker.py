@@ -17,6 +17,7 @@ from garimpei.main import (
     reconcile_alerts,
     reconcile_inference,
     reconcile_listings,
+    reconcile_media,
     reconcile_navigation,
     reconcile_valuations,
     register_tasks,
@@ -100,13 +101,15 @@ class Command(BaseCommand):
         alerts.start()
         inference = Thread(target=_inference_until_stopped, args=(stopped,), daemon=True)
         inference.start()
+        media = Thread(target=_media_until_stopped, args=(stopped,), daemon=True)
+        media.start()
         try:
             with redirect_stderr(build_worker_stderr()):
                 call_command(
                     "procrastinate",
                     "worker",
                     "--queues",
-                    "runtime,listing,valuation,alert,inference",
+                    "runtime,listing,valuation,alert,inference,media",
                     "--concurrency",
                     str(max(4, options["concurrency"] + 1)),
                     "--shutdown-graceful-timeout",
@@ -117,6 +120,7 @@ class Command(BaseCommand):
             reconciler.join(timeout=2)
             alerts.join(timeout=2)
             inference.join(timeout=2)
+            media.join(timeout=2)
             build_facebook_login_handler().close()
 
 
@@ -131,3 +135,14 @@ def _inference_until_stopped(stopped: Event) -> None:
         finally:
             connections.close_all()
         stopped.wait(5)
+
+
+def _media_until_stopped(stopped: Event) -> None:
+    while not stopped.is_set():
+        try:
+            reconcile_media()
+        except Exception:
+            logger.error("media_reconcile_failed", extra={"event": "media_reconcile_failed"})
+        finally:
+            connections.close_all()
+        stopped.wait(30)

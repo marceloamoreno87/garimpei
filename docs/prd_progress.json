@@ -224,12 +224,12 @@
         "F08",
         "F12"
       ],
-      "status": "pending",
+      "status": "implemented",
       "cycles": 0,
-      "failure_reason": null,
+      "failure_reason": "Avaliação completa em curso; prova real E2E-FONTE-01 pendente.",
       "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:46:12.978459Z",
+      "started_at": "2026-11-12T18:30:51.546640+00:00",
+      "updated_at": "2026-11-12T18:56:29.897898+00:00",
       "completed_at": null
     },
     "F15": {
