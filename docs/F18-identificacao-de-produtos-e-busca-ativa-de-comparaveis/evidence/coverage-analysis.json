@@ -1,0 +1,230 @@
+{
+  "version": "f18-coverage-analysis-v1",
+  "source_kind": "real_read_only_database",
+  "analyzed_at": "2026-11-12T20:48:42.318494+00:00",
+  "as_of": "2026-11-12T19:40:37.756780+00:00",
+  "corpus_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+  "human_review_scope": "Only the16 proposals confirmed in the immutable reviewed corpus; remaining counts are automatic analysis.",
+  "interests": [
+    {
+      "kind": "category",
+      "key": "479353692612078",
+      "label": "Electronics",
+      "sample_size": 100,
+      "states": {
+        "unrecognized": 56,
+        "conflicting_identity": 7,
+        "missing_attribute": 27,
+        "unsupported_family": 7,
+        "excluded_item": 1,
+        "identified": 2
+      },
+      "families": {
+        "graphics_card": 3,
+        "television": 11,
+        "camera": 4,
+        "headphone": 10,
+        "iphone": 5,
+        "playstation5": 3,
+        "switch": 1
+      },
+      "attributes": {
+        "capacity": 8,
+        "family": 37,
+        "model": 10,
+        "brand": 13,
+        "memory_type": 1,
+        "edition": 1
+      },
+      "missing_attributes": {
+        "brand": 12,
+        "model": 24,
+        "edition": 6,
+        "generation": 2,
+        "capacity": 3
+      },
+      "valuation": {
+        "not_evaluated": 98,
+        "amostra_insuficiente": 2
+      },
+      "original_sample_size": 100
+    },
+    {
+      "kind": "category",
+      "key": "cameras",
+      "label": "Cameras",
+      "sample_size": 100,
+      "states": {
+        "missing_attribute": 75,
+        "excluded_item": 19,
+        "unrecognized": 2,
+        "conflicting_identity": 4
+      },
+      "families": {
+        "camera": 79
+      },
+      "attributes": {
+        "brand": 75,
+        "family": 79,
+        "model": 15
+      },
+      "missing_attributes": {
+        "model": 60,
+        "edition": 75,
+        "brand": 4
+      },
+      "valuation": {
+        "not_evaluated": 97,
+        "produto_indeterminado": 3
+      },
+      "original_sample_size": 100
+    },
+    {
+      "kind": "category",
+      "key": "cell-phones",
+      "label": "Cell Phones",
+      "sample_size": 0,
+      "states": {},
+      "families": {},
+      "attributes": {},
+      "missing_attributes": {},
+      "valuation": {},
+      "original_sample_size": 0
+    },
+    {
+      "kind": "category",
+      "key": "computers",
+      "label": "Computers",
+      "sample_size": 100,
+      "states": {
+        "unrecognized": 63,
+        "conflicting_identity": 21,
+        "unsupported_family": 11,
+        "missing_attribute": 5
+      },
+      "families": {
+        "graphics_card": 16,
+        "playstation5": 6,
+        "xbox": 2,
+        "iphone": 2,
+        "headphone": 1
+      },
+      "attributes": {
+        "capacity": 23,
+        "family": 27,
+        "model": 24,
+        "generation": 3,
+        "edition": 1,
+        "memory_type": 3
+      },
+      "missing_attributes": {
+        "edition": 4,
+        "generation": 1,
+        "capacity": 3,
+        "brand": 1,
+        "model": 2
+      },
+      "valuation": {
+        "not_evaluated": 96,
+        "produto_indeterminado": 4
+      },
+      "original_sample_size": 100
+    },
+    {
+      "kind": "category",
+      "key": "headphones",
+      "label": "Fones de ouvido",
+      "sample_size": 73,
+      "states": {
+        "excluded_item": 1,
+        "identified": 2,
+        "unrecognized": 11,
+        "missing_attribute": 50,
+        "conflicting_identity": 8,
+        "unsupported_family": 1
+      },
+      "families": {
+        "headphone": 59,
+        "iphone": 1,
+        "playstation5": 1
+      },
+      "attributes": {
+        "brand": 9,
+        "family": 61,
+        "model": 5,
+        "edition": 1
+      },
+      "missing_attributes": {
+        "brand": 45,
+        "model": 50
+      },
+      "valuation": {
+        "not_evaluated": 61,
+        "produto_indeterminado": 11,
+        "amostra_insuficiente": 1
+      },
+      "original_sample_size": 73
+    },
+    {
+      "kind": "category",
+      "key": "tvs",
+      "label": "TVs",
+      "sample_size": 67,
+      "states": {
+        "missing_attribute": 58,
+        "unrecognized": 8,
+        "conflicting_identity": 1
+      },
+      "families": {
+        "television": 59
+      },
+      "attributes": {
+        "brand": 24,
+        "family": 59
+      },
+      "missing_attributes": {
+        "model": 58,
+        "brand": 34
+      },
+      "valuation": {
+        "not_evaluated": 55,
+        "produto_indeterminado": 12
+      },
+      "original_sample_size": 67
+    },
+    {
+      "kind": "category",
+      "key": "video-games",
+      "label": "Videogames e consoles",
+      "sample_size": 55,
+      "states": {
+        "missing_attribute": 21,
+        "excluded_item": 4,
+        "unrecognized": 30
+      },
+      "families": {
+        "switch": 17,
+        "camera": 1,
+        "playstation5": 3
+      },
+      "attributes": {
+        "family": 21,
+        "model": 20,
+        "generation": 1
+      },
+      "missing_attributes": {
+        "generation": 19,
+        "capacity": 20,
+        "brand": 1,
+        "model": 1,
+        "edition": 4
+      },
+      "valuation": {
+        "not_evaluated": 48,
+        "produto_indeterminado": 7
+      },
+      "original_sample_size": 55
+    }
+  ],
+  "analysis_hash": "11a3af98733992ba40328b911a8693ba63c10c6f4453ee9c8866f4992682cd3e"
+}

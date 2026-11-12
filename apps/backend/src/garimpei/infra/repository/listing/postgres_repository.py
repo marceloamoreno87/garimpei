@@ -5,6 +5,7 @@ from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from dataclasses import asdict, replace
 from datetime import datetime, timedelta
+from typing import cast
 from uuid import UUID
 
 from django.db import transaction
@@ -13,7 +14,13 @@ from garimpei.domain.listing.consolidation import Consolidated, consolidate
 from garimpei.domain.listing.coverage import coverage
 from garimpei.domain.listing.discovery import publication_is_new
 from garimpei.domain.listing.geography import Point
-from garimpei.domain.listing.listing import Candidate, Match, canonical_url, price_change
+from garimpei.domain.listing.listing import (
+    Candidate,
+    InterestKind,
+    Match,
+    canonical_url,
+    price_change,
+)
 from garimpei.domain.listing.ports import (
     Attempt,
     Clock,
@@ -327,9 +334,11 @@ class PostgresCollectionRepository:
             cycle.diagnostics[result.external_id] = list(result.conflicts)
         if not result.matches:
             return
-        existing = Listing.objects.filter(
-            source=scope.source, external_id=result.external_id
-        ).exists()
+        existing = (
+            Listing.objects.filter(source=scope.source, external_id=result.external_id)
+            .exclude(origin="reference")
+            .exists()
+        )
         if (
             not existing
             and scope.window is not None
@@ -348,6 +357,12 @@ class PostgresCollectionRepository:
                 "origin": origin,
             },
         )
+        if listing.origin == "reference":
+            listing.origin = origin
+            listing.known_price = None
+            listing.media_tracking_active = True
+            listing.save(update_fields=["origin", "known_price", "media_tracking_active"])
+            created = True
         observed = ListingObservation.objects.filter(cycle=cycle, listing=listing).first()
         if observed is not None:
             ListingInterestMatch.objects.bulk_create(
@@ -371,6 +386,7 @@ class PostgresCollectionRepository:
         created: bool,
         silent: bool,
         is_new: bool,
+        reference_only: bool = False,
     ) -> None:
         now = self._clock()
         evidence = result.evidence
@@ -407,7 +423,7 @@ class PostgresCollectionRepository:
             silent = False
         elif kind == "initial_load":
             silent = True
-        if kind:
+        if kind and not reference_only:
             listing.publication_order += 1
             ListingEvent.objects.create(
                 publication_order=listing.publication_order,
@@ -501,6 +517,50 @@ class PostgresCollectionRepository:
             )
             return
         self._operations.complete("listing", identity, cycle.revision, self._clock())
+
+    def publish_reference(
+        self, scope: Scope, cycle: CollectionCycle, candidate: Candidate
+    ) -> ListingObservation:
+        """Canonical publication with no invented interest or discovery for a reference."""
+        result = consolidate([replace(candidate, matches=())], scope)
+        known = Listing.objects.filter(source=scope.source, external_id=result.external_id).first()
+        if known is not None and known.origin != "reference":
+            active = {search.interest for search in scope.searches}
+            matched = tuple(
+                sorted(
+                    {
+                        Match(cast(InterestKind, row.kind), row.key)
+                        for row in ListingInterestMatch.objects.filter(observation__listing=known)
+                        if Match(cast(InterestKind, row.kind), row.key) in active
+                    }
+                )
+            )
+            result = replace(result, matches=tuple(sorted({*result.matches, *matched})))
+        if result.matches:
+            self._publish(cycle.state, cycle, scope, result)
+            return ListingObservation.objects.get(
+                cycle=cycle, listing__source=scope.source, listing__external_id=result.external_id
+            )
+        now = self._clock()
+        listing, created = Listing.objects.get_or_create(
+            source=scope.source,
+            external_id=result.external_id,
+            defaults=dict(
+                canonical_url=canonical_url(result.external_id),
+                first_seen_at=now,
+                origin="reference",
+                media_tracking_active=False,
+            ),
+        )
+        observed = ListingObservation.objects.filter(cycle=cycle, listing=listing).first()
+        if observed:
+            return observed
+        self._append_observation(
+            listing, cycle, scope, result, created, True, False, reference_only=True
+        )
+        cycle.save(update_fields=["published_count"])
+        assert listing.latest is not None
+        return listing.latest
 
     def finish(self, attempt: Attempt, policy: CollectionPolicy) -> None:
         with self._owned(attempt) as (state, cycle, _):

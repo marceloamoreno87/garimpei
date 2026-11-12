@@ -1,0 +1,44 @@
+<section class="identity-review" aria-labelledby="identity-heading">
+    <h2 id="identity-heading">Identifique o produto</h2>
+    {% if identity_saved %}<p role="status">Sua correção de identidade foi salva. A avaliação usa a revisão vigente e as referências disponíveis.</p>{% endif %}
+    <p>{{ identity_label }}. Observação vigente {{ product_identity.result.input_revision }} · correção {{ product_identity.result.manual_revision }}.</p>
+    <p class="fine">Modelo e atributos sustentam a comparação. A identidade não confirma o funcionamento nem o preço de venda.</p>
+    {% if identity_missing %}<p>Informações ausentes: {{ identity_missing|join:", " }}. Consulte a origem ou faça uma correção opcional.</p>{% endif %}
+    <details>
+        <summary>Ver os atributos e a origem</summary>
+    <dl class="identity-attributes">
+        {% for attribute in identity_attributes %}
+            <dt>{{ attribute.label }}</dt>
+            <dd>{{ attribute.value }} · {{ attribute.origin }}{% if attribute.quote %}<blockquote>{{ attribute.quote }}</blockquote>{% else %}<span class="fine">Informado em {{ attribute.recorded_at|date:"d/m/Y H:i:s" }} UTC, após examinar a observação {{ attribute.reviewed_revision }}.</span>{% endif %}</dd>
+        {% endfor %}
+    </dl>
+    </details>
+    {% if product_identity.result.conflicts %}
+        <div class="notice" role="status">
+            <h3>Revise os valores divergentes</h3>
+            <p>Venda estimada, lucro aplicável e novas autorizações de alerta aguardam a revisão. Sua escolha e o histórico continuam salvos.</p>
+            <ul>{% for conflict in product_identity.result.conflicts %}<li>{{ conflict.name }}: sua correção {{ conflict.manual_value|default:"não informada" }}; anúncio {{ conflict.observed_value }}{% if conflict.quote %} — “{{ conflict.quote }}”{% endif %}.</li>{% endfor %}</ul>
+        </div>
+    {% endif %}
+    <details {% if product_identity.result.conflicts %}open{% endif %}>
+        <summary>{% if product_identity.manual_values %}Revisar sua correção de identidade{% else %}Corrigir modelo ou atributos (opcional){% endif %}</summary>
+        <form action="{{ identity_action_url }}" method="post" class="identity-form">
+            {% csrf_token %}{{ identity_form.action }}{{ identity_form.observed_revision }}{{ identity_form.manual_revision }}
+            <p class="fine">Preencha somente os atributos da família escolhida. Sua correção vale para este anúncio e mantém o texto original.</p>
+            <div class="identity-fields">
+                {% for field in identity_form.visible_fields %}
+                    <div data-identity-field="{{ field.name }}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<p class="help" id="{{ field.id_for_label }}_helptext">{{ field.help_text }}</p>{% endif %}{{ field.errors }}</div>
+                {% endfor %}
+            </div>
+            <div class="actions">
+                {% if product_identity.result.conflicts and product_identity.manual_values %}
+                    <button class="primary" type="submit" name="resolution" value="keep_manual">Manter minha correção revisada</button>
+                    <button class="secondary" type="submit" name="resolution" value="use_observed">Usar somente os dados do anúncio</button>
+                    <button class="secondary" type="submit" name="resolution" value="correct">Salvar os valores acima</button>
+                {% else %}
+                    <button class="primary" type="submit">Salvar correção de identidade</button>
+                {% endif %}
+            </div>
+        </form>
+    </details>
+</section>

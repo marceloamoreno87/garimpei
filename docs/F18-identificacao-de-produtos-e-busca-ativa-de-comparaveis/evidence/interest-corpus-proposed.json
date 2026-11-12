@@ -1,0 +1,295 @@
+{
+  "version": "f18-interest-snapshot-v1",
+  "captured_at": "2026-11-12T19:40:37.756780+00:00",
+  "read_only": true,
+  "human_review": {
+    "state": "pending",
+    "reviewer": null
+  },
+  "interests": [
+    {
+      "kind": "category",
+      "key": "479353692612078",
+      "label": "Electronics",
+      "sample_size": 100,
+      "bounded_latest_sample": true,
+      "automatic_counts": {
+        "needs_identity_review": 98,
+        "identified": 2
+      },
+      "cases": [
+        {
+          "case_id": "REAL-0ede27f553",
+          "url": "https://www.facebook.com/marketplace/item/1009360558879927/",
+          "title": "Apple Watch séries 11 -46mm",
+          "description_excerpt": "Apple Watch series 11 preto\nEm perfeito estado \nBateria 100%\nPoucos meses de uso e com garantia \nAcompanha caixa\n[telefone omitido] WhatsApp",
+          "observed_at": "2026-11-12T19:29:38.715937+00:00",
+          "input_revision": 3,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-8b9dddad8f",
+          "url": "https://www.facebook.com/marketplace/item/1009235535556224/",
+          "title": "Adaptador de Wi-Fi e Bluetooth",
+          "description_excerpt": "",
+          "observed_at": "2026-11-12T19:28:55.430035+00:00",
+          "input_revision": 3,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-2e0b05593b",
+          "url": "https://www.facebook.com/marketplace/item/1034940612974942/",
+          "title": "NVIDIA GeForce RTX 4060 8GB Gainward Dual Fan Seminova (Na Caixa + NF)",
+          "description_excerpt": "Vendo Placa de Vídeo Gainward NVIDIA GeForce RTX 4060 Python II 8GB GDDR6 (Dual Fan) em estado de zero, funcionando 100%!\n\nPlaca excelente, super fria e silenciosa (conta com tecnologia Zero RPM, onde as ventoinhas só giram quando você abre um jogo ou programa pesado). Roda tudo da atualidade com folga e conta com suporte ao DLSS 3 (Frame Generation), Ray Tracing de 3ª geração e NVIDIA Encoder (NVENC), perfeita tanto para jogos quanto para lives e edição.\n\nDestaques e Procedência (Leia com atenç",
+          "observed_at": "2026-11-12T18:57:20.772543+00:00",
+          "input_revision": 3,
+          "proposed_identity": "nvidia:rtx:4060:8gb",
+          "proposed_state": "identified",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-60e4fd39d0",
+          "url": "https://www.facebook.com/marketplace/item/1111786791483113/",
+          "title": "Fone de Ouvido JBL Tune 520BT Bluetooth Original – Preto",
+          "description_excerpt": "🎧 Fone de Ouvido JBL Tune 520BT – Preto\n\nEstou vendendo meu fone JBL Tune 520BT!\n\n✔️ Conexão Bluetooth 5.3\n✔️ Som JBL Pure Bass\n✔️ Bateria de longa duração (até 57 horas, conforme fabricante)\n✔️ Microfone integrado\n✔️ Design dobrável e confortável\n✔️ Carregamento USB-C\n\nProduto usado, com fotos reais.\n\nÓtima opção para quem procura qualidade de som JBL!\n\n📩 Interessados, podem chamar pelo Messenger para mais informações.",
+          "observed_at": "2026-11-12T18:49:56.687782+00:00",
+          "input_revision": 4,
+          "proposed_identity": "jbl:headphone:tune520bt",
+          "proposed_state": "identified",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        }
+      ],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    },
+    {
+      "kind": "category",
+      "key": "cameras",
+      "label": "Cameras",
+      "sample_size": 100,
+      "bounded_latest_sample": true,
+      "automatic_counts": {
+        "needs_identity_review": 100
+      },
+      "cases": [
+        {
+          "case_id": "REAL-af83f83891",
+          "url": "https://www.facebook.com/marketplace/item/1063425143424005/",
+          "title": "Canon EF 300mm F2.8 L até 18x",
+          "description_excerpt": "Lente funcionando perfeitamente, tem marcas de uso.\nAcompanha case original canon.\nNão envio por plataforma, para envio, somente com intermediador após pagamento integral da lente.\nAté 18x com taxa da maquininha (18x 990)",
+          "observed_at": "2026-11-12T19:29:45.494166+00:00",
+          "input_revision": 7,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-73476a373f",
+          "url": "https://www.facebook.com/marketplace/item/1052962924470321/",
+          "title": "Câmera Canon t5i semi nova",
+          "description_excerpt": "Somente o corpo ou venda em conjunto \nCanon t5i R$1550\nLente Tamron 70-300 f.4 (com erro 10) R$560\nValor total=R$2110\nOu venda separadas\nA Câmera está com 19.400 clicks",
+          "observed_at": "2026-11-12T19:29:02.254945+00:00",
+          "input_revision": 3,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        }
+      ],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    },
+    {
+      "kind": "category",
+      "key": "cell-phones",
+      "label": "Cell Phones",
+      "sample_size": 0,
+      "bounded_latest_sample": true,
+      "automatic_counts": {},
+      "cases": [],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    },
+    {
+      "kind": "category",
+      "key": "computers",
+      "label": "Computers",
+      "sample_size": 100,
+      "bounded_latest_sample": true,
+      "automatic_counts": {
+        "needs_identity_review": 100
+      },
+      "cases": [
+        {
+          "case_id": "REAL-968652808e",
+          "url": "https://www.facebook.com/marketplace/item/1104690005948755/",
+          "title": "Setup completo full white + monitor 200hz",
+          "description_excerpt": "Config\n\nRyzen 5 4500\nRx 6600 8gb / equivalente a uma 3060\n16gb de ram xpg 3200mhz\nSsd 500gb + 500gb\nWater cooler \nCabos rgb \nFonte 700w\n\nTeclado\nMouse atack shark r1\nHeadset l80 pro sem fio\n\n\n\nMonitor 30p polegadas branco 200hz na caixa\nMonitor 24p branco 165hz na caixa",
+          "observed_at": "2026-11-12T19:29:52.157690+00:00",
+          "input_revision": 6,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-2955ed2263",
+          "url": "https://www.facebook.com/marketplace/item/1096055793481177/",
+          "title": "PC GAMER",
+          "description_excerpt": "🖥️ ESPECIFICAÇÕES DO PC GAMER\n\n* Processador: AMD Ryzen 5 3500 – 6 núcleos\n* Placa de vídeo: NVIDIA GeForce RTX 2060 – 6 GB\n* Memória RAM: 24 GB\n* Sistema operacional: Windows 11 Pro 64 bits",
+          "observed_at": "2026-11-12T19:29:09.219662+00:00",
+          "input_revision": 2,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        }
+      ],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    },
+    {
+      "kind": "category",
+      "key": "headphones",
+      "label": "Fones de ouvido",
+      "sample_size": 73,
+      "bounded_latest_sample": true,
+      "automatic_counts": {
+        "needs_identity_review": 71,
+        "identified": 2
+      },
+      "cases": [
+        {
+          "case_id": "REAL-f917c4d12a",
+          "url": "https://www.facebook.com/marketplace/item/1109891448331465/",
+          "title": "Suporte fone 3D  o que quiser",
+          "description_excerpt": "",
+          "observed_at": "2026-11-12T19:29:57.846383+00:00",
+          "input_revision": 4,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-d88421241e",
+          "url": "https://www.facebook.com/marketplace/item/1101600332684726/",
+          "title": "Fone JBL Tune 520BT Bluetooth",
+          "description_excerpt": "Novo fone JBL Tune 520BT cor azul com Bluetooth e bateria de 57h. Tem som Pure Bass e microfone para chamadas sem fio. Vem com caixa original.\n\nPreto 249.00\nBranco 299.00\n\nFernando Taborda \nApucarana PR \n[telefone omitido]",
+          "observed_at": "2026-11-12T19:28:35.575316+00:00",
+          "input_revision": 4,
+          "proposed_identity": "jbl:headphone:tune520bt",
+          "proposed_state": "identified",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-19ee50969a",
+          "url": "https://www.facebook.com/marketplace/item/1101544029374862/",
+          "title": "SAMSUNG GALAXY EARBUDS 2 PRO",
+          "description_excerpt": "VENDO EARBUDS SAMSUNG ORIGINAL \nALGUMAS MARCAS DE USO .. MAS FUNCIONANDO PERFEITAMENTE",
+          "observed_at": "2026-11-12T19:27:54.542570+00:00",
+          "input_revision": 5,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-820d006b2d",
+          "url": "https://www.facebook.com/marketplace/item/1111786791483113/",
+          "title": "Fone de Ouvido JBL Tune 520BT Bluetooth Original – Preto",
+          "description_excerpt": "🎧 Fone de Ouvido JBL Tune 520BT – Preto\n\nEstou vendendo meu fone JBL Tune 520BT!\n\n✔️ Conexão Bluetooth 5.3\n✔️ Som JBL Pure Bass\n✔️ Bateria de longa duração (até 57 horas, conforme fabricante)\n✔️ Microfone integrado\n✔️ Design dobrável e confortável\n✔️ Carregamento USB-C\n\nProduto usado, com fotos reais.\n\nÓtima opção para quem procura qualidade de som JBL!\n\n📩 Interessados, podem chamar pelo Messenger para mais informações.",
+          "observed_at": "2026-11-12T18:49:56.687782+00:00",
+          "input_revision": 4,
+          "proposed_identity": "jbl:headphone:tune520bt",
+          "proposed_state": "identified",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        }
+      ],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    },
+    {
+      "kind": "category",
+      "key": "tvs",
+      "label": "TVs",
+      "sample_size": 67,
+      "bounded_latest_sample": true,
+      "automatic_counts": {
+        "needs_identity_review": 67
+      },
+      "cases": [
+        {
+          "case_id": "REAL-cc0121e156",
+          "url": "https://www.facebook.com/marketplace/item/1127474296813080/",
+          "title": "TV Samsung 43 polegadas smart nova funcionando perfeitamente tem garantia de 90 dias",
+          "description_excerpt": "Whatsapp [telefone omitido]",
+          "observed_at": "2026-11-12T19:30:04.741918+00:00",
+          "input_revision": 4,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-029ef51925",
+          "url": "https://www.facebook.com/marketplace/item/1124308817181724/",
+          "title": "Venda ou troca",
+          "description_excerpt": "Vendou ou troco essa tv 43 polegadas ela vai com o aparelho que vira smart fire stick HD  tem todos os aplicativo mais informações meu zap [telefone omitido] sou da zona norte",
+          "observed_at": "2026-11-12T19:29:25.588075+00:00",
+          "input_revision": 4,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        }
+      ],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    },
+    {
+      "kind": "category",
+      "key": "video-games",
+      "label": "Videogames e consoles",
+      "sample_size": 55,
+      "bounded_latest_sample": true,
+      "automatic_counts": {
+        "needs_identity_review": 55
+      },
+      "cases": [
+        {
+          "case_id": "REAL-3983dc57d8",
+          "url": "https://www.facebook.com/marketplace/item/1120829174091011/",
+          "title": "Animal Crossing Nintendo switch",
+          "description_excerpt": "Vendo, estado de novo.",
+          "observed_at": "2026-11-12T19:29:32.164189+00:00",
+          "input_revision": 4,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        },
+        {
+          "case_id": "REAL-64b3984274",
+          "url": "https://www.facebook.com/marketplace/item/1120198957597929/",
+          "title": "Jogos de Nintendo Switch \nLacrado!!!",
+          "description_excerpt": "Pokémon Legends: Z-A \nJogo Nintendo Switch \nNovo lacrado\nVersão Asiática\nR$ 220\n\nLooney Tunes Sports \nNovo lacrado\nR$ 180\n\n*Entrego APENAS na estação Santana do metrô*\n\n*Não dou desconto, já está no valor mínimo*",
+          "observed_at": "2026-11-12T19:28:48.266861+00:00",
+          "input_revision": 4,
+          "proposed_identity": null,
+          "proposed_state": "needs_identity_review",
+          "human_annotation": null,
+          "notes": "Proposta automática baseada nas regras existentes; requer revisão humana, não é rótulo validado."
+        }
+      ],
+      "coverage_note": "Categoria selecionável não garante suporte a todos os produtos; amostra limitada, não cobertura integral."
+    }
+  ],
+  "configuration_revision": 2,
+  "snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d"
+}

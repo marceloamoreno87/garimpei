@@ -11,7 +11,7 @@ from django.db import transaction
 from django.db.models import Q
 
 from garimpei.domain.operations.ports import ProgressRecorder
-from garimpei.domain.valuation.identity import identify
+from garimpei.domain.valuation.identification_values import IdentificationResult
 from garimpei.domain.valuation.policy import VALUATION_POLICY
 from garimpei.domain.valuation.ports import WorkInput
 from garimpei.domain.valuation.values import Comparable, Valuation
@@ -24,6 +24,7 @@ from garimpei.infra.persistence.valuation_models import (
 )
 from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
+from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.mapper import (
     decode_comparable,
     decode_valuation,
@@ -52,8 +53,10 @@ class PostgresValuationRepository:
         with transaction.atomic():
             lock_monitoring_publication()
             rows = tuple(
-                _listing(row)
-                for row in Listing.objects.select_related("latest").order_by("id")
+                _listing(row, identify_row(row, getattr(row, "identity_progress", None)))
+                for row in Listing.objects.select_related(
+                    "latest", "identity_progress__manual__observation"
+                ).order_by("id")
                 if row.latest is not None and row.latest.observed_at <= now
             )
             watermark = ListingObservation.objects.count()
@@ -76,7 +79,7 @@ class PostgresValuationRepository:
         pending: set[UUID],
         now: datetime,
     ) -> tuple[PendingRequest, ...]:
-        products = {row.listing_id: identify(row.evidence) for row in rows}
+        products = {row.listing_id: row.product for row in rows}
         groups: dict[str, list[Comparable]] = defaultdict(list)
         for row in rows:
             product = products[row.listing_id]
@@ -108,7 +111,10 @@ class PostgresValuationRepository:
             candidates=[encode_comparable(row) for row in candidates],
         )
         signature_input = dict(
-            policy=VALUATION_POLICY, product=product, candidates=snapshot["candidates"]
+            policy=VALUATION_POLICY,
+            product=product,
+            target=snapshot["target"],
+            candidates=snapshot["candidates"],
         )
         signature = hashlib.sha256(json.dumps(signature_input, sort_keys=True).encode()).hexdigest()
         return PendingRequest(target.listing_id, snapshot, signature)
@@ -191,7 +197,21 @@ class PostgresValuationRepository:
             if row.completed:
                 return
             progress = ValuationProgress.objects.select_for_update().get(listing_id=work.listing_id)
-            if progress.requested != work.revision:
+            latest = Listing.objects.select_related(
+                "latest", "identity_progress__manual__observation"
+            ).get(id=work.listing_id)
+            current_identity = identify_row(latest, getattr(latest, "identity_progress", None))
+            input_changed = latest.latest is None or latest.latest.ordinal != work.target.revision
+            identity_changed = work.target.identification is not None and (
+                work.target.identification.manual_revision,
+                work.target.identification.state,
+                work.target.identification.product_key,
+            ) != (
+                current_identity.manual_revision,
+                current_identity.state,
+                current_identity.product_key,
+            )
+            if progress.requested != work.revision or input_changed or identity_changed:
                 row.completed = True
                 row.save(update_fields=["completed"])
                 return
@@ -229,7 +249,7 @@ class PostgresValuationRepository:
             )
 
 
-def _listing(row: Listing) -> Comparable:
+def _listing(row: Listing, identification: IdentificationResult | None = None) -> Comparable:
     observation = row.latest
     assert observation is not None
     evidence = decode_evidence(cast(EvidenceRecord, observation.evidence))
@@ -243,4 +263,5 @@ def _listing(row: Listing) -> Comparable:
         observation.observed_at,
         observation.ordinal,
         evidence,
+        identification=identification,
     )

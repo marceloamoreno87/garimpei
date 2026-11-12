@@ -4,7 +4,6 @@ from decimal import ROUND_HALF_UP, Decimal
 from statistics import median
 
 from garimpei.domain.listing.condition import automatic_condition, normalized
-from garimpei.domain.valuation.identity import identify
 from garimpei.domain.valuation.offer_quality import installment_price
 from garimpei.domain.valuation.values import Comparable, NewQuote, NewReference, Resale
 
@@ -28,7 +27,7 @@ def eligible(candidate: Comparable, product: str, now: datetime) -> bool:
         text,
     )
     return (
-        identify(evidence) == product
+        candidate.product == product
         and normalized(evidence.condition or "").startswith("usado")
         and evidence.source_available is True
         and candidate.price is not None
@@ -47,9 +46,9 @@ def eligible(candidate: Comparable, product: str, now: datetime) -> bool:
 
 
 def estimate(target: Comparable, candidates: tuple[Comparable, ...], now: datetime) -> Resale:
-    product = identify(target.evidence)
+    product = target.product
     if product is None:
-        return Resale(None, "produto_indeterminado", (), 0, 0, None)
+        return Resale(None, target.identity_reason, (), 0, 0, None)
     latest: dict[tuple[str, str], Comparable] = {}
     for row in candidates:
         key = (row.source, row.external_id)

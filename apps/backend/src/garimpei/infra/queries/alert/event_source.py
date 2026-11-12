@@ -11,6 +11,7 @@ from garimpei.infra.persistence.listing_models import Listing, ListingEvent, Man
 from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.listing.mapper import decode_evidence
+from garimpei.infra.repository.valuation.identity_mapper import current_identification
 
 
 @dataclass(frozen=True)
@@ -66,6 +67,9 @@ def current_eligibility(
         return "scope_excluded"
     if view.observation.evidence.source_available is not True:
         return "listing_unavailable"
+    identity = current_identification(listing)
+    if identity.state == "conflicting_identity":
+        return identity.reason or "identidade_em_conflito"
     manual = ManualCondition.objects.filter(listing=listing).first()
     assessment = (
         PostgresAssessmentQueries().observation(listing.id, view.observation.id)

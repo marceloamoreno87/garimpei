@@ -650,3 +650,21 @@ def load_assessment_enabled() -> bool:
     if raw not in {"true", "false"}:
         raise ConfigurationError("GARIMPEI_ASSESSMENT_ENABLED: expected true or false")
     return raw == "true"
+
+
+def load_comparable_research_manifest() -> Path:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    return (
+        Path(
+            values.get(
+                "GARIMPEI_RESEARCH_LIMITS",
+                str(
+                    config.root
+                    / "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/limits.json"
+                ),
+            )
+        )
+        .expanduser()
+        .resolve()
+    )

@@ -1,0 +1,25 @@
+{% extends "listing/layout.html" %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <section class="error-summary" role="alert" id="identity-error" tabindex="-1">
+            <h1>Confira a correção de identidade</h1>
+            <p>{{ message }}</p>
+        </section>
+        <form method="post" action="{{ request_path }}" class="identity-form">
+            {% csrf_token %}{{ identity_form.action }}{{ identity_form.observed_revision }}{{ identity_form.manual_revision }}
+            <div class="identity-fields">
+                {% for field in identity_form.visible_fields %}
+                    <div data-identity-field="{{ field.name }}">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}{{ field.errors }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if resolution %}<input type="hidden" name="resolution" value="{{ resolution }}">{% endif %}
+            <div class="actions">
+                <button class="primary" type="submit">Tentar salvar novamente</button>
+                <a href="{{ return_path }}">Reabrir os detalhes</a>
+            </div>
+        </form>
+    </main>
+{% endblock %}

@@ -18,6 +18,7 @@ from garimpei.domain.listing.exploration import (
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision
 from garimpei.infra.persistence.listing_models import Listing, ManualCondition
 from garimpei.infra.queries.listing.exploration_mapper import decode
+from garimpei.infra.queries.listing.identity_overlay import identity_overlay
 
 
 class PostgresExplorationQueries:
@@ -82,7 +83,9 @@ class PostgresExplorationQueries:
     @staticmethod
     def _rows(revision: ExplorationRevision) -> QuerySet[ExplorationOffer]:
         return ExplorationOffer.objects.filter(revision=revision).select_related(
-            "listing__manual_condition"
+            "listing__manual_condition",
+            "listing__latest",
+            "listing__identity_progress__manual__observation",
         )
 
     @staticmethod
@@ -99,7 +102,7 @@ class PostgresExplorationQueries:
                     offer.condition, manual=cast(Choice, manual.choice), revision=manual.revision
                 ),
             )
-        return offer
+        return identity_overlay(offer, row.listing)
 
     def detail(self, identity: UUID, version: UUID | None) -> tuple[Offer | None, UUID | None]:
         try:
@@ -118,7 +121,12 @@ class PostgresExplorationQueries:
         row: ExplorationOffer | None = self._rows(revision).filter(listing_id=identity).first()
         if row is None:
             row = (
-                ExplorationOffer.objects.select_related("revision", "listing__manual_condition")
+                ExplorationOffer.objects.select_related(
+                    "revision",
+                    "listing__manual_condition",
+                    "listing__latest",
+                    "listing__identity_progress__manual__observation",
+                )
                 .filter(listing_id=identity)
                 .order_by("-revision_id")
                 .first()

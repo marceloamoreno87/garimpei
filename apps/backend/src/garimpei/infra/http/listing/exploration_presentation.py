@@ -109,7 +109,8 @@ def compatible_valuation(offer: Offer) -> bool:
         and valuation.listing_id == offer.id
         and valuation.id == offer.composition.evaluation_id
         and valuation.revision == offer.composition.evaluation_revision
-        and valuation.product == identify(offer.evidence)
+        and valuation.product
+        == (offer.identification.product_key if offer.identification else identify(offer.evidence))
         and valuation.resale.price == offer.composition.resale.value
     )
 
@@ -200,6 +201,10 @@ def reason_label(reason: str | None) -> str | None:
         "aguardando_avaliacao": "A avaliação de preços ainda está em andamento",
         "amostra_insuficiente": "Ainda não há comparáveis usados suficientes",
         "amostra_dispersa": "Os preços da amostra variam demais para estimar a revenda",
+        "familia_sem_suporte": "A família ou modelo ainda não tem suporte de comparação",
+        "atributo_ausente": "Falta um atributo determinante para identificar o produto",
+        "identidade_em_conflito": "Revise os atributos de identidade em conflito",
+        "item_excluido": "Acessório, peça ou conjunto fora da comparação",
         "produto_indeterminado": "O modelo e a variante do produto ainda não foram identificados",
         "produto_incompativel": "A avaliação disponível corresponde a outra variante",
         "evidencia_vencida": "As referências de preços precisam ser atualizadas",

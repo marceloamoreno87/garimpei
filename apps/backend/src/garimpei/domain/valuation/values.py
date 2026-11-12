@@ -5,6 +5,8 @@ from typing import Literal
 from uuid import UUID
 
 from garimpei.domain.listing.listing import Evidence
+from garimpei.domain.valuation.identification_values import IdentificationResult
+from garimpei.domain.valuation.identity import identify
 
 METHOD = "median-brl-v1"
 
@@ -21,6 +23,17 @@ class Comparable:
     revision: int
     evidence: Evidence
     price_kind: Literal["announced"] = "announced"
+    identification: IdentificationResult | None = None
+
+    @property
+    def product(self) -> str | None:
+        return self.identification.product_key if self.identification else identify(self.evidence)
+
+    @property
+    def identity_reason(self) -> str:
+        return (
+            self.identification.reason if self.identification else None
+        ) or "produto_indeterminado"
 
 
 @dataclass(frozen=True)
@@ -72,3 +85,4 @@ class Valuation:
     method: str = METHOD
     currency: str = "BRL"
     origin_diagnostic: str | None = None
+    identification: IdentificationResult | None = None

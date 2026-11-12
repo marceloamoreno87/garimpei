@@ -191,3 +191,18 @@ AcquireMediaForAnalysisUseCase
 ReadMediaGalleryUseCase
 ReleaseMediaReferenceUseCase
 _.protected_versions
+
+# F18 exact template/ORM/asdict consumers documented in entrypoints.json.
+_.shared_targets
+_.gaps
+_.measured_at
+_.memory_type
+_.investigation
+
+_.conflicting
+_.unrecognized
+_.insufficient
+_.not_evaluated
+_.corpus_version
+
+_.attempt_limit

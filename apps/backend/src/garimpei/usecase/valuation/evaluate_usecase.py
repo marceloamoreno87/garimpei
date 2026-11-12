@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from uuid import UUID, uuid4
 
-from garimpei.domain.valuation.identity import identify
 from garimpei.domain.valuation.policy import NEW_WINDOW, USED_WINDOW, estimate, new_reference
 from garimpei.domain.valuation.ports import Clock, NewPriceSource, NewSourceFailure, ValuationStore
 from garimpei.domain.valuation.values import NewQuote, NewReference, Valuation
@@ -16,7 +15,7 @@ class EvaluateValuationUseCase:
         if work is None:
             return
         now = self._clock()
-        product = identify(work.target.evidence)
+        product = work.target.product
         reference = NewReference("produto_indeterminado")
         if product is not None:
             reference = self._reference(product, work.previous, now)
@@ -30,6 +29,7 @@ class EvaluateValuationUseCase:
             now,
             resale,
             reference,
+            identification=work.target.identification,
         )
         due = now + NEW_WINDOW
         expirations = [

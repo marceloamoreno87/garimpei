@@ -14,7 +14,7 @@ from django.core.exceptions import ValidationError
 from django.core.management.color import no_style
 from django.db import connection, transaction
 from django.db.migrations.recorder import MigrationRecorder
-from django.db.models import Field, ForeignKey, Max, Model
+from django.db.models import DateTimeField, Field, ForeignKey, Max, Model
 from django.utils import timezone
 
 from garimpei.domain.media.media import AnalysisMedia
@@ -152,11 +152,22 @@ def _capture_table(model: type[Model], fields: tuple[str, ...]) -> tuple[bytes, 
     for row in model._default_manager.order_by(model._meta.pk.name).iterator(chunk_size=100):
         raw = serializers.serialize("json", [row], fields=fields)
         record = json.loads(raw)[0]
+        _preserve_timestamp_precision(row, record["fields"])
         record["fields"] = sanitize_transient_media(record["fields"])
         validate_private_fields(record["fields"])
         result.extend(json.dumps(record, separators=(",", ":")).encode() + b"\n")
         count += 1
     return bytes(result), count
+
+
+def _preserve_timestamp_precision(row: Model, values: dict[str, object]) -> None:
+    # Django's JSON encoder truncates timestamps to milliseconds, unlike JSONField provenance.
+    for field in row._meta.concrete_fields:
+        if not isinstance(field, DateTimeField) or field.name not in values:
+            continue
+        value: datetime | None = getattr(row, field.attname)
+        if value is not None:
+            values[field.name] = value.isoformat()
 
 
 def _records(data: bytes) -> list[dict[str, object]]:

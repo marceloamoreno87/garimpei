@@ -82,6 +82,11 @@ from garimpei.infra.persistence.assessment_models import (  # noqa: E402,F401
     ConditionAssessment,
 )
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision  # noqa: E402,F401
+from garimpei.infra.persistence.identity_models import (  # noqa: E402,F401
+    IdentityProgress,
+    ManualIdentityRevision,
+    ProductIdentification,
+)
 from garimpei.infra.persistence.integration_models import IntegrationSettings  # noqa: E402,F401
 from garimpei.infra.persistence.media_models import (  # noqa: E402,F401
     MediaAsset,
@@ -98,3 +103,9 @@ from garimpei.infra.persistence.operations_models import (  # noqa: E402,F401
     RecoveryBarrier,
 )
 from garimpei.infra.persistence.operations_models import OperationalSnapshot as OperationalSnapshot  # noqa: E402
+from garimpei.infra.persistence.research_models import (  # noqa: E402,F401
+    ComparableInvestigation,
+    InvestigationTarget,
+    ResearchCandidateDecision,
+    ResearchQuery,
+)

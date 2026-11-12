@@ -47,6 +47,7 @@ class SearchFilters:
     origin: Point
     radius_km: int
     window: PublicationWindow | None
+    all_publication_dates: bool = False
 
 
 class MarketplaceNavigation(Protocol):
@@ -445,6 +446,8 @@ class MarketplaceBrowser:
                 "commerce_enable_shipping": True,
             }
         )
+        if filters.all_publication_dates:
+            browse.pop("commerce_search_and_rp_ctime_days", None)
         if filters.window is not None:
             first = int(filters.window.start.timestamp()) // 86400 - 1
             last = int(filters.window.end.timestamp()) // 86400 + 1

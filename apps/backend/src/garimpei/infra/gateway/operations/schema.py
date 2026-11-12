@@ -3,6 +3,7 @@
 from django.db.models import Model
 
 from garimpei.infra.gateway.operations.assessment_schema import ASSESSMENT_SCHEMA
+from garimpei.infra.gateway.operations.research_schema import RESEARCH_SCHEMA
 from garimpei.infra.persistence.alert_models import (
     AlertAttempt,
     AlertEventDecision,
@@ -523,3 +524,4 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
 }
 
 SCHEMA.update(ASSESSMENT_SCHEMA)
+SCHEMA.update(RESEARCH_SCHEMA)

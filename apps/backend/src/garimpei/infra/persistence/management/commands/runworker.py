@@ -17,6 +17,7 @@ from garimpei.main import (
     build_worker_stderr,
     reconcile_alerts,
     reconcile_assessments,
+    reconcile_comparable_research,
     reconcile_inference,
     reconcile_listings,
     reconcile_media,
@@ -41,6 +42,7 @@ def _reconcile_until_stopped(stopped: Event) -> None:
             build_facebook_login_handler().execute()
             reconcile_listings(recover_access=recover_access)
             reconcile_navigation()
+            reconcile_comparable_research()
         except ConfigurationReadFailed:
             logger.warning(
                 "collection_configuration_read_failed",

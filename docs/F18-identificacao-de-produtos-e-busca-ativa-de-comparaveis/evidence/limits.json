@@ -1,0 +1,11 @@
+{
+  "policy_version": "f18-calibration-pending",
+  "status": "pending_controlled_measurement_and_final_union",
+  "measured_at": "2026-11-12T21:06:27.936664+00:00",
+  "corpus_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+  "evidence_paths": [
+    "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/live-validation.json"
+  ],
+  "automatic_activation": false,
+  "reason": "The real probe is measured, but the combined measured policy and final union verification are not yet complete."
+}

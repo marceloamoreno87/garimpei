@@ -17,9 +17,11 @@ from garimpei.domain.monitoring.errors import (
 )
 from garimpei.domain.navigation.ports import NavigationError
 from garimpei.domain.operations.errors import OperationsError
+from garimpei.domain.valuation.identity_errors import IdentityError
 from garimpei.infra.http.listing.condition_presentation import condition_error
 from garimpei.infra.http.listing.exploration_presentation import url
 from garimpei.infra.http.monitoring.presentation import error_response
+from garimpei.infra.http.valuation.identity_forms import IdentityForm
 from garimpei.usecase.listing.read_condition_usecase import ReadConditionUseCase
 
 
@@ -53,6 +55,26 @@ class ErrorMiddleware:
         ):
             return operational_error(_request, _exception)
 
+        if isinstance(_exception, IdentityError) or (
+            _request.path.endswith("/identidade/") and isinstance(_exception, DatabaseError)
+        ):
+            response = render(
+                _request,
+                "valuation/identity_error.html",
+                {
+                    "message": _exception.message
+                    if isinstance(_exception, IdentityError)
+                    else "Não foi possível gravar a identidade. Sua entrada continua disponível para tentar novamente.",
+                    "identity_form": IdentityForm(_request.POST),
+                    "resolution": _request.POST.get("resolution", ""),
+                    "request_path": _request.get_full_path(),
+                    "return_path": _request.path.removesuffix("identidade/")
+                    + ("?" + _request.GET.urlencode() if _request.GET else ""),
+                },
+                status=_exception.status if isinstance(_exception, IdentityError) else 503,
+            )
+            response["Cache-Control"] = "no-store"
+            return response
         if isinstance(_exception, MediaError):
             media_response = JsonResponse({"code": _exception.code}, status=_exception.status)
             media_response["Cache-Control"] = "private, no-cache"

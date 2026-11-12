@@ -147,6 +147,7 @@ class ExplorationSource:
                     evidence.freight if evidence.freight_cep == config.cep else None,
                     config,
                     valuation,
+                    identification=valuation.identification,
                 ),
                 now,
             ),
@@ -155,6 +156,7 @@ class ExplorationSource:
             last_valid,
             raw.id,
             media,
+            valuation.identification,
         )
 
 
