@@ -1,0 +1,184 @@
+### Browser `f16-integrated-restart` opened with pid 2129679.
+### Ran Playwright code
+```js
+await page.goto('http://127.0.0.1:20773/ofertas/41151f1e-6e17-4e65-9bfd-aacf9b65dccc/');
+```
+### Page
+- Page URL: http://127.0.0.1:20773/ofertas/41151f1e-6e17-4e65-9bfd-aacf9b65dccc/
+- Page Title: Ofertas · Garimpei
+- Console: 1 errors, 0 warnings
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-11-12T14-33-21-117Z.yml)
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T14-33-20-989Z.log#L1
+### Ran Playwright code
+```js
+await page.setViewportSize({ width: 1440, height: 1100 });
+```
+### Page
+- Page URL: http://127.0.0.1:20773/ofertas/41151f1e-6e17-4e65-9bfd-aacf9b65dccc/
+- Page Title: Ofertas · Garimpei
+- Console: 1 errors, 0 warnings
+### Snapshot
+```yaml
+- generic [active] [ref=e1]:
+  - link "Pular para o conteúdo" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=e3]:
+    - link "Garimpei." [ref=e4] [cursor=pointer]:
+      - /url: /
+    - paragraph [ref=e5]: Monitoramento de eletrônicos usados
+    - navigation "Navegação principal" [ref=e6]:
+      - link "Ofertas" [ref=e7] [cursor=pointer]:
+        - /url: /ofertas/
+      - link "Acompanhamento" [ref=e8] [cursor=pointer]:
+        - /url: /acompanhamento/
+      - link "Configurações" [ref=e9] [cursor=pointer]:
+        - /url: /configuracoes/
+      - link "Integrações" [ref=e10] [cursor=pointer]:
+        - /url: /integracoes/
+    - paragraph [ref=e11]: Execução local
+  - generic [ref=e12]:
+    - banner [ref=e13]:
+      - generic [ref=e14]: Facebook Marketplace
+      - generic [ref=e15]: São Paulo · SP
+    - status "Acesso ao Facebook" [ref=e17]:
+      - strong [ref=e18]: Conecte o Facebook
+      - paragraph [ref=e19]: Abra o navegador do Garimpei e entre na sua conta para permitir a coleta.
+      - link "Conectar Facebook" [ref=e20] [cursor=pointer]:
+        - /url: /integracoes/#facebook
+    - main [ref=e21]:
+      - link "Voltar aos resultados" [ref=e22] [cursor=pointer]:
+        - /url: /ofertas/?aba=funcionam&q=&categoria=&pagina=1&versao=fd61da35-effb-49bf-a08d-722ea6493b32
+      - generic [ref=e23]:
+        - heading "PlayStation 5 Slim disco 1TB" [level=1] [ref=e24]
+        - paragraph [ref=e25]: Facebook Marketplace · Anúncio 16001 · Observação 12/11/2026 12:01:01 UTC
+      - status
+      - generic [ref=e26]:
+        - region [ref=e27]:
+          - img "Imagem não disponível para PlayStation 5 Slim disco 1TB" [ref=e29]: Imagem não disponível
+          - heading "Entenda a estimativa" [level=2] [ref=e30]
+          - generic "Valores da oferta" [ref=e31]:
+            - generic [ref=e32]:
+              - term [ref=e33]: Preço de compra
+              - definition [ref=e34]: R$ 1.000,00
+            - generic [ref=e35]:
+              - term [ref=e36]: Preço de venda estimado
+              - definition [ref=e37]: R$ 1.500,00
+            - generic [ref=e38]:
+              - term [ref=e39]: Lucro estimado
+              - definition [ref=e40]: R$ 350,00
+          - generic [ref=e41]:
+            - term [ref=e42]: Taxa provisória · 10,00%
+            - definition [ref=e43]: R$ 150,00
+          - paragraph [ref=e44]: Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace.
+        - region [ref=e45]:
+          - heading "Referências para comparar" [level=2] [ref=e46]
+          - paragraph [ref=e47]: Preços anunciados de usados. Não representam vendas realizadas.
+          - list [ref=e48]:
+            - listitem [ref=e49]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=e50]
+              - paragraph [ref=e51]: Facebook Marketplace · 16004 · 12/11/2026 12:01:01 UTC
+              - strong [ref=e52]: R$ 1.500,00
+              - link "Abrir referência" [ref=e53] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16004/
+            - listitem [ref=e54]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=e55]
+              - paragraph [ref=e56]: Facebook Marketplace · 16006 · 12/11/2026 12:01:01 UTC
+              - strong [ref=e57]: R$ 1.550,00
+              - link "Abrir referência" [ref=e58] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16006/
+            - listitem [ref=e59]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=e60]
+              - paragraph [ref=e61]: Facebook Marketplace · 16005 · 12/11/2026 12:01:01 UTC
+              - strong [ref=e62]: R$ 1.525,00
+              - link "Abrir referência" [ref=e63] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16005/
+            - listitem [ref=e64]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=e65]
+              - paragraph [ref=e66]: Facebook Marketplace · 16002 · 12/11/2026 12:01:01 UTC
+              - strong [ref=e67]: R$ 1.450,00
+              - link "Abrir referência" [ref=e68] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16002/
+            - listitem [ref=e69]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=e70]
+              - paragraph [ref=e71]: Facebook Marketplace · 16003 · 12/11/2026 12:01:01 UTC
+              - strong [ref=e72]: R$ 1.475,00
+              - link "Abrir referência" [ref=e73] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16003/
+          - generic [ref=e74]:
+            - heading "Referência de novo" [level=3] [ref=e75]
+            - paragraph [ref=e76]: Referência de novo indisponível.
+          - link "Abrir anúncio original" [ref=e77] [cursor=pointer]:
+            - /url: https://www.facebook.com/marketplace/item/16001/
+      - region [ref=e78]:
+        - heading "Alerta desta oferta" [level=2] [ref=e79]
+        - paragraph [ref=e80]:
+          - strong [ref=e81]: Confirmada no servidor
+        - paragraph [ref=e82]: "Avaliação atual: Oferta pronta para o primeiro alerta."
+        - paragraph [ref=e83]: "Última avaliação: 12/11/2026 12:01:01 UTC."
+        - paragraph [ref=e84]: "Publicação: 12/11/2026 10:00:00 UTC. Limite do primeiro alerta: 14/11/2026 10:00:00 UTC."
+        - paragraph [ref=e85]: "Confirmação histórica no servidor: 12/11/2026 12:01:07 UTC. Isso não comprova entrega ou leitura no grupo."
+        - group [ref=e86]:
+          - generic "Histórico de alertas" [ref=e87]
+      - region "Condição da oferta" [ref=e88]:
+        - generic [ref=e89]:
+          - heading "Funciona bem" [level=2] [ref=e90]
+          - paragraph [ref=e91]: Classificação a partir do anúncio
+          - link "Ver em Funcionam bem" [ref=e92] [cursor=pointer]:
+            - /url: /ofertas/?aba=funcionam&q=&categoria=&pagina=1&versao=fd61da35-effb-49bf-a08d-722ea6493b32
+        - generic [ref=e93]:
+          - heading "O que o anúncio informa" [level=2] [ref=e94]
+          - generic [ref=e95]:
+            - term [ref=e96]: Condição informada
+            - definition [ref=e97]: Usado — seminovo
+            - term [ref=e98]: Descrição
+            - definition [ref=e99]: Usado. Funciona perfeitamente.
+```
+### Result
+{
+  "title": "Ofertas · Garimpei",
+  "confirmed": true,
+  "history": true,
+  "caveat": true,
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({title:document.title,confirmed:document.body.innerText.includes(\'Confirmada no servidor\'),history:document.body.innerText.includes(\'Confirmação histórica no servidor\'),caveat:document.body.innerText.includes(\'não comprova entrega ou leitura\'),overflow:document.documentElement.scrollWidth>innerWidth})');
+```
+### Result
+- [Screenshot of full page](docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/evidence/integrated-after-restart/detail-after-restart-desktop.png)
+### Ran Playwright code
+```js
+// Screenshot full page and save it as docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/evidence/integrated-after-restart/detail-after-restart-desktop.png
+await page.screenshot({
+  fullPage: true,
+  path: 'docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/evidence/integrated-after-restart/detail-after-restart-desktop.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+### Ran Playwright code
+```js
+await page.setViewportSize({ width: 360, height: 900 });
+```
+### Result
+- [Screenshot of full page](docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/evidence/integrated-after-restart/detail-after-restart-mobile.png)
+### Ran Playwright code
+```js
+// Screenshot full page and save it as docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/evidence/integrated-after-restart/detail-after-restart-mobile.png
+await page.screenshot({
+  fullPage: true,
+  path: 'docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/evidence/integrated-after-restart/detail-after-restart-mobile.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+### Result
+false
+### Ran Playwright code
+```js
+await page.evaluate('() => document.documentElement.scrollWidth>innerWidth');
+```
+Browser 'f16-integrated-restart' closed

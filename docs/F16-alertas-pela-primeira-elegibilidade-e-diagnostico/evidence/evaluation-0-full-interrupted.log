@@ -1,0 +1,204 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/34bb/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 435 items
+
+apps/backend/tests/http/test_alert_diagnostic.py::test_public_diagnostic_fields_history_and_partial_http_failure PASSED [  0%]
+apps/backend/tests/http/test_condition_recovery.py::test_condition_read_failure_has_recovery_and_structured_log PASSED [  0%]
+apps/backend/tests/http/test_condition_recovery.py::test_condition_failed_write_and_read_require_reload PASSED [  0%]
+apps/backend/tests/http/test_financial_presentation.py::test_published_financial_html_preserves_components_pages_and_http_errors PASSED [  0%]
+apps/backend/tests/http/test_health.py::test_liveness_does_not_query_database PASSED [  1%]
+apps/backend/tests/http/test_health.py::test_unsupported_method PASSED   [  1%]
+apps/backend/tests/http/test_health.py::test_template_uses_local_verified_htmx PASSED [  1%]
+apps/backend/tests/http/test_listing_condition.py::test_http_choices_stale_revision_validation_and_csrf PASSED [  1%]
+apps/backend/tests/http/test_listing_condition.py::test_http_failed_save_retains_input_and_escape PASSED [  2%]
+apps/backend/tests/http/test_monitoring.py::test_setup_region_is_a_real_form PASSED [  2%]
+apps/backend/tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status PASSED [  2%]
+apps/backend/tests/integration/test_alert_consumers.py::test_integrated_worker_matrix_reductions_classification_and_restart PASSED [  2%]
+apps/backend/tests/integration/test_alert_consumers.py::test_manual_history_at_publication_and_revalidation PASSED [  2%]
+apps/backend/tests/integration/test_alert_consumers.py::test_interest_edit_republication_allows_unknown_logistics PASSED [  3%]
+apps/backend/tests/integration/test_alert_consumers.py::test_incremental_comparables_complete_the_same_waiting_discovery PASSED [  3%]
+apps/backend/tests/integration/test_alert_delivery.py::test_durable_attempts_rollback_history_and_generations PASSED [  3%]
+apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries PASSED [  3%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[confirmed] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[lost] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[incomplete] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_real_http_loss_reconciles_exact_original_message_without_post[lost_empty] PASSED [  4%]
+apps/backend/tests/integration/test_alert_gateway.py::test_pending_known_id_and_negative_history_controls PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_session_identity_and_authentication_are_required PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_same_provider_id_with_conflicting_body_does_not_confirm PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_refused_connection_is_proven_not_transmitted PASSED [  5%]
+apps/backend/tests/integration/test_alert_gateway.py::test_group_receipt_matches_canonical_device_jid_without_weakening_identity PASSED [  5%]
+apps/backend/tests/integration/test_collection.py::test_initial_service_coverage_and_resume_after_stop PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_verified_empty_and_partial_retry PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_lease_and_new_scope_fence_old_worker PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch PASSED [  6%]
+apps/backend/tests/integration/test_collection.py::test_initial_partial_and_scope_change_preserve_silence PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_migration_preserves_confirmed_f03 PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_exact_48_hour_window_out_of_order_and_legacy_evidence PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_confirmed_unavailable_preserves_history_and_can_finish_initial_load PASSED [  7%]
+apps/backend/tests/integration/test_collection.py::test_details_are_published_before_next_interest_finishes PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_proven_new_listing_can_alert_with_initial_history_partial PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_policy_adoption_preserves_history_receipts_and_sets_a_safe_boundary PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_incomplete_pagination_does_not_accumulate_network_backoff PASSED [  8%]
+apps/backend/tests/integration/test_collection.py::test_repeated_detail_errors_pause_after_three_attempts_and_recover PASSED [  8%]
+apps/backend/tests/integration/test_concurrency.py::test_duplicate_control_with_two_consumers_has_one_successor PASSED [  9%]
+apps/backend/tests/integration/test_concurrency.py::test_old_run_cannot_renew_current_readiness PASSED [  9%]
+apps/backend/tests/integration/test_exploration.py::test_order_snapshots_update_manual_and_history PASSED [  9%]
+apps/backend/tests/integration/test_exploration.py::test_costs_references_expiry_failures_and_concurrent_publishers PASSED [  9%]
+apps/backend/tests/integration/test_facebook_gateway.py::test_loopback_gateway_context_continuation_and_access_failures PASSED [ 10%]
+apps/backend/tests/integration/test_facebook_profile.py::test_real_chromium_profile_keeps_cookies_and_local_storage PASSED [ 10%]
+apps/backend/tests/integration/test_facebook_profile.py::test_login_request_verification_and_challenge_preserve_history PASSED [ 10%]
+apps/backend/tests/integration/test_financial_messages.py::test_financial_authorization_freezes_same_event_and_preserves_legacy PASSED [ 10%]
+apps/backend/tests/integration/test_financial_messages.py::test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price PASSED [ 11%]
+apps/backend/tests/integration/test_financial_messages.py::test_additive_migration_keeps_authorized_legacy_and_event_history PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_adoption.py::test_populated_schema_migration_and_inventory_resume_after_hundred PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[concurrent] PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[zero] PASSED [ 11%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[negative] PASSED [ 12%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[manual_race] PASSED [ 12%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[manual_defect] PASSED [ 12%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[stale_observation] PASSED [ 12%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[history_unavailable] PASSED [ 13%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[oscillation] PASSED [ 13%]
+apps/backend/tests/integration/test_first_alert_boundaries.py::test_slow_channel_check_crossing_publication_deadline_never_posts PASSED [ 13%]
+apps/backend/tests/integration/test_first_alert_reconciliation.py::test_reconciliation_keeps_original_effect_and_evidence[original_binding] PASSED [ 13%]
+apps/backend/tests/integration/test_first_alert_reconciliation.py::test_reconciliation_keeps_original_effect_and_evidence[late_response] PASSED [ 14%]
+apps/backend/tests/integration/test_first_alert_reconciliation.py::test_reconciliation_keeps_original_effect_and_evidence[late_reconciliation] PASSED [ 14%]
+apps/backend/tests/integration/test_first_alert_reconciliation.py::test_reconciliation_keeps_original_effect_and_evidence[after_deadline] PASSED [ 14%]
+apps/backend/tests/integration/test_first_alert_reconciliation.py::test_uncertain_reduction_without_current_binding_never_becomes_sendable PASSED [ 14%]
+apps/backend/tests/integration/test_first_alert_recovery.py::test_inventory_and_independent_recovery[legacy_queued_partial] PASSED [ 14%]
+apps/backend/tests/integration/test_first_alert_recovery.py::test_inventory_and_independent_recovery[legacy_conflict] PASSED [ 15%]
+apps/backend/tests/integration/test_first_alert_recovery.py::test_inventory_and_independent_recovery[isolated_profit_failure] PASSED [ 15%]
+apps/backend/tests/integration/test_first_alert_review_regressions.py::test_final_authorization_and_adoption_guards[legacy_queued_expired] PASSED [ 15%]
+apps/backend/tests/integration/test_first_alert_review_regressions.py::test_final_authorization_and_adoption_guards[legacy_waiting] PASSED [ 15%]
+apps/backend/tests/integration/test_first_alert_review_regressions.py::test_final_authorization_and_adoption_guards[financial_expired] PASSED [ 16%]
+apps/backend/tests/integration/test_first_alert_review_regressions.py::test_final_authorization_and_adoption_guards[safe_retry_refresh] PASSED [ 16%]
+apps/backend/tests/integration/test_first_eligibility.py::test_first_alert_enrichment_and_restart_keeps_one_receipt PASSED [ 16%]
+apps/backend/tests/integration/test_first_eligibility.py::test_manual_choice_is_consumed_but_later_input_can_alert PASSED [ 16%]
+apps/backend/tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post PASSED [ 17%]
+apps/backend/tests/integration/test_first_eligibility.py::test_missing_and_untrusted_dates_reach_diagnostic_then_valid_date_alerts PASSED [ 17%]
+apps/backend/tests/integration/test_foundation.py::test_manual_probe_runs_while_web_is_stopped PASSED [ 17%]
+apps/backend/tests/integration/test_foundation.py::test_two_instances_have_distinct_resources_and_local_binds PASSED [ 17%]
+apps/backend/tests/integration/test_foundation.py::test_init_is_idempotent_and_runtime_probe_is_real PASSED [ 17%]
+apps/backend/tests/integration/test_foundation.py::test_real_http_boundaries[GET-not-allowed.example-400] PASSED [ 18%]
+apps/backend/tests/integration/test_foundation.py::test_real_http_boundaries[OPTIONS-127.0.0.1-405] PASSED [ 18%]
+apps/backend/tests/integration/test_foundation.py::test_dependency_failure_is_not_liveness_failure[postgres] PASSED [ 18%]
+apps/backend/tests/integration/test_foundation.py::test_dependency_failure_is_not_liveness_failure[waha] PASSED [ 18%]
+apps/backend/tests/integration/test_foundation.py::test_commit_and_rollback_share_real_postgres_transaction PASSED [ 19%]
+apps/backend/tests/integration/test_foundation.py::test_pending_migration_degrades_readiness_without_applying PASSED [ 19%]
+apps/backend/tests/integration/test_inference.py::test_recovery_waits_for_proof_respects_due_and_three_attempts PASSED [ 19%]
+apps/backend/tests/integration/test_inference.py::test_concurrent_admission_and_publication_are_idempotent PASSED [ 19%]
+apps/backend/tests/integration/test_inference.py::test_control_http_validates_csrf_conflict_and_unconfirmed_write PASSED [ 20%]
+apps/backend/tests/integration/test_inference.py::test_retry_success_clears_obsolete_diagnostic PASSED [ 20%]
+apps/backend/tests/integration/test_inference.py::test_pause_during_call_finishes_one_part_and_requires_explicit_resume PASSED [ 20%]
+apps/backend/tests/integration/test_inference.py::test_empty_queue_reconciliation_does_not_enqueue_work PASSED [ 20%]
+apps/backend/tests/integration/test_inference.py::test_uncertain_execution_renders_cause_before_active_claim PASSED [ 20%]
+apps/backend/tests/integration/test_integrations.py::test_cookie_privacy_renewal_and_expiration_notice PASSED [ 21%]
+apps/backend/tests/integration/test_integrations.py::test_connect_qr_group_validation_and_persistence PASSED [ 21%]
+apps/backend/tests/integration/test_integrations.py::test_group_delivery_uses_selected_binding_and_verifies_gows_receipt PASSED [ 21%]
+apps/backend/tests/integration/test_integrations.py::test_gows_sender_alias_confirms_only_the_bound_account_and_chat[100@lid] PASSED [ 21%]
+apps/backend/tests/integration/test_integrations.py::test_gows_sender_alias_confirms_only_the_bound_account_and_chat[12345@g.us] PASSED [ 22%]
+apps/backend/tests/integration/test_integrations.py::test_selected_group_drives_real_worker_event_and_preserves_old_destination FAILED [ 22%]
+apps/backend/tests/integration/test_integrations.py::test_cookie_renewal_fences_collection_already_in_flight PASSED [ 22%]
+apps/backend/tests/integration/test_listing_condition.py::test_condition_projection_updates_and_identity PASSED [ 22%]
+apps/backend/tests/integration/test_listing_condition.py::test_rollback_constraints_and_concurrent_corrections PASSED [ 22%]
+apps/backend/tests/integration/test_listing_condition.py::test_migration_preserves_f04_observations PASSED [ 23%]
+apps/backend/tests/integration/test_listing_condition.py::test_collection_in_flight_preserves_manual_choice PASSED [ 23%]
+apps/backend/tests/integration/test_marketplace_browser.py::test_browser_navigation_keeps_django_sync_io_and_consistent_stealth PASSED [ 23%]
+apps/backend/tests/integration/test_marketplace_browser.py::test_browser_search_applies_effective_filters_and_uses_server_cursor PASSED [ 23%]
+apps/backend/tests/integration/test_monitoring_persistence.py::test_real_database_draft_publication_idempotence_and_whole_edit PASSED [ 24%]
+apps/backend/tests/integration/test_monitoring_persistence.py::test_real_database_rollback_on_failure_and_read_error PASSED [ 24%]
+apps/backend/tests/integration/test_monitoring_persistence.py::test_real_http_validation_csrf_escaping_catalog_and_last_interest PASSED [ 24%]
+apps/backend/tests/integration/test_monitoring_persistence.py::test_category_only_product_only_and_both_are_independent PASSED [ 24%]
+apps/backend/tests/integration/test_monitoring_persistence.py::test_concurrent_creations_and_edits_cannot_overwrite_a_newer_version PASSED [ 25%]
+apps/backend/tests/integration/test_monitoring_persistence.py::test_confirmed_reader_never_observes_partial_publication PASSED [ 25%]
+apps/backend/tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits PASSED [ 25%]
+apps/backend/tests/integration/test_profit.py::test_reduction_event_is_immutable_and_revalidates_cep_and_variant PASSED [ 25%]
+apps/backend/tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale PASSED [ 25%]
+apps/backend/tests/integration/test_profit.py::test_consistent_snapshot_during_two_head_publication PASSED [ 26%]
+apps/backend/tests/integration/test_valuation.py::test_worker_updates_history_failure_and_resumption PASSED [ 26%]
+apps/backend/tests/integration/test_valuation.py::test_current_validity_new_fallback_and_atomic_rollback PASSED [ 26%]
+apps/backend/tests/integration/test_valuation.py::test_publication_rollback_retains_recoverable_work PASSED [ 26%]
+apps/backend/tests/integration/test_valuation.py::test_pending_service_and_indeterminate_product PASSED [ 27%]
+apps/backend/tests/integration/test_valuation.py::test_out_of_order_completion_and_additive_migration
+
+=================================== FAILURES ===================================
+__ test_selected_group_drives_real_worker_event_and_preserves_old_destination __
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-245/test_selected_group_drives_rea0')
+
+    def test_selected_group_drives_real_worker_event_and_preserves_old_destination(
+        tmp_path: Path,
+    ) -> None:
+        from tests.factories.alert_scenario import wait_alerts
+        from tests.factories.integration import SessionServer, serve_session
+        from tests.factories.listing import serve
+        from tests.factories.valuation import (
+            ValuationSource,
+            listing,
+            prepare_valuation_instance,
+            wait_valuation,
+        )
+
+        source = ValuationSource()
+        source.rows["699"]["description"] = "Com defeito. Não funciona."
+        state = SessionServer(present=True, phase="WORKING")
+        with serve(source) as url, serve_session(state) as waha:
+            instance, clock = prepare_valuation_instance(
+                Path(__file__).resolve().parents[4], tmp_path, url
+            )
+            with instance.private_file.open("a") as output:
+                output.write(
+                    f"GARIMPEI_ALERT_FIXTURE_URL={waha}\nGARIMPEI_INTEGRATION_PRIVATE_DIR={tmp_path / 'private-session'}\n"
+                )
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                configure(instance)
+                completed(instance, 1)
+                wait_valuation(instance, price="2300.00")
+                browser = ConditionBrowser(instance)
+                assert (
+                    post(
+                        browser,
+                        {
+                            "action": "whatsapp",
+                            "group": "12345@g.us",
+                            "account": "200@c.us",
+                            "enabled": "on",
+                        },
+                    )[0]
+                    == 303
+                )
+                clock.advance(1)
+                source.rows["981"] = listing(
+                    "981",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+                completed(instance, 2)
+                wait_alerts(instance, 1, clock)
+                assert len(state.messages) == 1 and state.messages[0]["from"] == "12345@g.us"
+                old = sql(
+                    instance,
+                    "SELECT a.id,a.recipient FROM runtime_alertintent a JOIN runtime_alerteventdecision d ON a.decision_id=d.id JOIN runtime_listingevent e ON d.event_id=e.id JOIN runtime_listing l ON e.listing_id=l.id WHERE l.external_id='981' AND a.state='confirmed'",
+                )
+>               assert len(old) == 1 and old[0][1] == "12345@g.us"
+E               assert (0 == 1)
+E                +  where 0 = len([])
+
+apps/backend/tests/integration/test_integrations.py:289: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_integrations.py::test_selected_group_drives_real_worker_event_and_preserves_old_destination
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/selectors.py:398: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+================== 1 failed, 117 passed in 1404.81s (0:23:24) ==================

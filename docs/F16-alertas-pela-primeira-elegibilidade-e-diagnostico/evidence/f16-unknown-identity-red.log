@@ -1,0 +1,131 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_public_diagnostic_fields_history_and_partial_http_failure ________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-253/test_public_diagnostic_fields_0')
+
+    def test_public_diagnostic_fields_history_and_partial_http_failure(tmp_path: Path) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, _):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + """
+    from uuid import uuid4
+    from unittest.mock import patch
+    from django.db import DatabaseError
+    from django.test import RequestFactory
+    from garimpei.domain.alert.diagnostic import AlertDiagnosticReadFailed
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    from garimpei.main import build_read_alert_diagnostic,build_exploration_handler,build_publish_exploration
+    from garimpei.infra.queries.alert.diagnostic_queries import PostgresAlertDiagnosticQueries
+    from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
+    from garimpei.infra.persistence.alert_models import AlertAttempt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);intent=r.intent
+    reader=build_read_alert_diagnostic()
+    before=(AlertIntent.objects.count(),AlertAttempt.objects.count())
+    d=reader.execute(l.id,l.latest_id)
+    assert d.first_alert_state=='queued'
+    assert d.next_action_at==intent.next_action
+    assert d.valuation_revision==intent.first_decision.financial['evaluation_revision']
+    assert d.intent_reference==intent.id
+    assert d.observation_id==l.latest_id and d.matches_displayed_observation
+    assert d.condition_revision==intent.first_decision.condition_revision
+    from garimpei.main import build_read_condition
+    assert d.condition_revision==build_read_condition().execute(l.id).state.revision
+    assert d.evaluated_at is not None and d.first_alert_deadline==now+timedelta(hours=46)
+    assert reader.execute(l.id,uuid4()).matches_displayed_observation is False
+    assert reader.execute(uuid4()) is None
+    old_title=e['title'];e['title']='Console sem modelo identificado';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    u=reader.execute(l.id,l.latest_id)
+    assert u.current_reason=='produto_indeterminado' and 'produto_incompativel' not in u.reasons,u
+    # Restore the producer input before the original transmission assertions.
+    e['title']=old_title;l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    assert (AlertIntent.objects.count(),AlertAttempt.objects.count())==before
+    with patch.object(PostgresAlertDiagnosticQueries,'_read',side_effect=DatabaseError('controlled')):
+     try:reader.execute(l.id)
+     except AlertDiagnosticReadFailed:pass
+     else:raise AssertionError('technical failure was hidden as absence')
+    delivery=store.claim(intent.id,binding,now,reconcile=False)
+    store.finish(delivery,Outcome('uncertain','response_lost'),now)
+    d=reader.execute(l.id,l.latest_id);assert d.state=='uncertain' and 'incerto' in d.label
+    store.finish(delivery,Outcome('confirmed','ack',Receipt('svc-receipt',True,binding.recipient,delivery.body,1)),now)
+    e['description']='Com defeito. Não funciona.';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    d=reader.execute(l.id,l.latest_id)
+    assert d.first_alert_state=='confirmed' and d.confirmed_at==now
+    assert d.state=='confirmed' and d.current_reason=='condition_excluded'
+    assert 'condition_excluded' in d.reasons
+    # A later uncertain reduction remains primary while the first receipt stays confirmed.
+    event=ListingEvent.objects.create(listing=l,observation=l.latest,kind='price_decreased',silent=False,occurred_at=now,publication_order=l.publication_order)
+    decision=AlertEventDecision.objects.create(event=event,state='eligible',reason='eligible',next_action=now)
+    AlertIntent.objects.create(decision=decision,state='uncertain',reason='response_lost',body='synthetic reduction',created_at=now+timedelta(seconds=1),next_action=now)
+    d=reader.execute(l.id,l.latest_id);assert d.first_alert_state=='confirmed' and d.state=='uncertain' and d.confirmed_at==now
+    latest=r.decisions.latest('generation');latest.reason='analysis_pending';latest.save(update_fields=['reason'])
+    before_read=(AlertIntent.objects.count(),AlertAttempt.objects.count())
+    d=reader.execute(l.id,l.latest_id);assert d.current_reason=='analysis_pending' and d.current_label=='Aguardando análise das fotos'
+    assert (AlertIntent.objects.count(),AlertAttempt.objects.count())==before_read
+    build_publish_exploration().execute()
+    handler=build_exploration_handler()
+    path=f'/ofertas/{l.id}/?aba=defeitos&q=PlayStation&pagina=1'
+    request=RequestFactory().get(path)
+    class FailingDiagnostic:
+     def read(self,listing_id,displayed_observation_id):raise AlertDiagnosticReadFailed()
+    handler._diagnostic=ReadAlertDiagnosticUseCase(FailingDiagnostic())
+    response=handler.handle(request,l.id)
+    assert response.status_code==200
+    body=response.content.decode()
+    assert 'PlayStation 5' in body and 'Não foi possível consultar o estado do alerta' in body
+    assert 'Tentar consultar novamente' in body and 'aba=defeitos' in body and 'pagina=1' in body
+    print('SVC01/02/03;DTO first_alert_state,next_action_at,valuation_revision,intent_reference;partial HTTP200 PASS')
+    """,
+                )
+
+tests/http/test_alert_diagnostic.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/34bb/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-253/test_public_diagnostic_fields_0/wave11b_f16_3d7ae850.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...\nprint('SVC01/02/03;DTO first_alert_state,next_action_at,valuation_revision,intent_reference;partial HTTP200 PASS')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 33 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T14:36:42.037762+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_3d7ae850", "run_id": "361c2ec0-2f8c-45b2-9ca0-1cb0e3d6782d"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 44, in <module>
+E         AssertionError: AlertDiagnostic(listing_id=UUID('b6410ed3-a27c-4da8-8718-9d98cb2dd121'), state='queued', reason='pending_channel', label='Pronta para envio; aguardando o canal', first_alert_state='queued', reasons=('pending_channel', 'produto_incompativel'), current_reason='produto_incompativel', current_label='Aguardando avaliação da variante atual', evaluated_at=datetime.datetime(2026, 11, 12, 12, 0, tzinfo=datetime.timezone.utc), next_action_at=datetime.datetime(2026, 11, 12, 12, 0, tzinfo=datetime.timezone.utc), observation_id=UUID('2a16c473-5e22-47da-b6a5-b95f115dc622'), configuration_revision=None, valuation_revision=None, condition_revision=0, displayed_observation_id=UUID('2a16c473-5e22-47da-b6a5-b95f115dc622'), matches_displayed_observation=True, publication_status='trusted', published_at=datetime.datetime(2026, 11, 12, 10, 0, tzinfo=datetime.timezone.utc), first_alert_deadline=datetime.datetime(2026, 11, 14, 10, 0, tzinfo=datetime.timezone.utc), history=(AlertHistory(reference=UUID('21e4af66-9e28-43ee-a544-dbe46da643e9'), kind='first_eligibility', state='queued', confirmed_at=None),), confirmed_at=None, intent_reference=UUID('21e4af66-9e28-43ee-a544-dbe46da643e9'), policy='first-eligibility-v1')
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...onfirmed_at=None, intent_reference=UUID(\'21e4af66-9e28-43ee-a544-dbe46da643e9\'), policy=\'first-eligibility-v1\')\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'produto_incompativel', UUID('21e4af66-9e28-43ee-a544-dbe46da643e9'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('queued', 'pending_channel', UUID('32a177da-a801-44c0-96cc-ac81143fdd72'), datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/http/test_alert_diagnostic.py::test_public_diagnostic_fields_history_and_partial_http_failure
+1 failed in 10.71s

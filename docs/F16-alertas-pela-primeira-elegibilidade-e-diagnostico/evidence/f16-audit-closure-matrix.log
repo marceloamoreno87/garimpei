@@ -1,0 +1,332 @@
+............................F.....FF.                                    [100%]
+=================================== FAILURES ===================================
+_ test_reconciliation_keeps_original_effect_and_evidence[after_deadline_empty] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-251/test_reconciliation_keeps_orig4')
+case = 'after_deadline_empty'
+
+    @pytest.mark.parametrize(
+        "case",
+        [
+            "original_binding",
+            "late_response",
+            "late_reconciliation",
+            "after_deadline",
+            "after_deadline_empty",
+        ],
+    )
+    def test_reconciliation_keeps_original_effect_and_evidence(tmp_path: Path, case: str) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+                script = """
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l)
+    first=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert first is not None
+    """
+                if case == "original_binding":
+                    script += """
+    store.finish(first,Outcome('uncertain','response_lost'),now)
+    recovered=store.claim(r.intent_id,Binding('changed','300@g.us','400@c.us'),now+timedelta(seconds=61),reconcile=True)
+    assert recovered is not None,'original binding reconciliation was blocked by new configuration'
+    assert recovered.binding==binding and recovered.body==first.body and recovered.reference==first.reference
+    """
+                elif case == "late_response":
+                    script += """
+    newer=store.claim(r.intent_id,binding,now+timedelta(seconds=61),reconcile=True)
+    assert newer is not None and newer.generation>first.generation
+    store.finish(first,Outcome('confirmed','late',Receipt('late-known',True,binding.recipient,first.body,2)),now+timedelta(seconds=62))
+    r.intent.refresh_from_db()
+    assert r.intent.state != 'confirmed' and r.intent.generation==newer.generation
+    assert r.intent.attempts.get(generation=first.generation).message_id=='late-known','late receipt evidence was discarded'
+    """
+                elif case == "late_reconciliation":
+                    script += """
+    second=store.claim(r.intent_id,binding,now+timedelta(seconds=61),reconcile=True)
+    third=store.claim(r.intent_id,binding,now+timedelta(seconds=122),reconcile=True)
+    assert second is not None and third is not None
+    store.finish(second,Outcome('confirmed','late-reconciliation',Receipt('reconcile-late-known',True,binding.recipient,second.body,2)),now+timedelta(seconds=123))
+    r.intent.refresh_from_db()
+    assert r.intent.state != 'confirmed' and r.intent.generation==third.generation
+    assert r.intent.attempts.get(generation=first.generation).message_id=='reconcile-late-known','late reconciliation evidence was discarded'
+    """
+                else:
+                    channel.mode = "lost"
+                    script += """
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    store.finish(first,gateway.send(first),now)
+    later=now+timedelta(hours=49)
+    recovered=store.claim(r.intent_id,binding,later,reconcile=True)
+    assert recovered is not None and recovered.reference==first.reference
+    store.finish(recovered,gateway.reconcile(recovered,later),later)
+    r.intent.refresh_from_db();assert r.intent.state=='confirmed' and r.intent.confirmed_at==later
+    assert r.intent.attempts.count()==1
+    assert not store.ready(later+timedelta(seconds=100),reconcile=False)
+    """
+                script += """
+    from dataclasses import replace
+    changed=replace(build_read_profit().execute(l.id),policy='changed-policy-v2')
+    s.publish(l.id,s.prepare(l.id),changed,now+timedelta(hours=50))
+    assert store.claim(r.intent_id,Binding('changed','300@g.us','400@c.us'),now+timedelta(hours=50),reconcile=False) is None
+    assert r.intent.attempts.count()==1
+    """
+                if case == "after_deadline_empty":
+                    channel.mode = "lost_empty"
+                    script = script.replace(
+                        "assert r.intent.state=='confirmed' and r.intent.confirmed_at==later",
+                        "assert r.intent.state=='uncertain' and r.intent.confirmed_at is None",
+                    )
+>               shell(instance, PREPARE + script)
+
+tests/integration/test_first_alert_reconciliation.py:86:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/34bb/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-251/test_reconciliation_keeps_orig4/wave11b_f16_123efa10.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...hanged','300@g.us','400@c.us'),now+timedelta(hours=50),reconcile=False) is None\nassert r.intent.attempts.count()==1\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 33 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T14:33:01.039858+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_123efa10", "run_id": "aa2183e4-5044-45c7-b1b9-910ca4fa0b2e"}
+E         {"timestamp": "2026-11-12T14:33:01.139558+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_123efa10", "run_id": "aa2183e4-5044-45c7-b1b9-910ca4fa0b2e", "alert_reference": "a06a78d8-272e-47e4-ae1f-6a8d6fb1604f", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E         {"timestamp": "2026-11-12T14:33:01.151704+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_123efa10", "run_id": "aa2183e4-5044-45c7-b1b9-910ca4fa0b2e", "alert_reference": "a06a78d8-272e-47e4-ae1f-6a8d6fb1604f", "alert_state": "uncertain", "alert_reason": "response_lost_or_incomplete"}
+E         {"timestamp": "2026-11-12T14:33:01.158078+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_123efa10", "run_id": "aa2183e4-5044-45c7-b1b9-910ca4fa0b2e", "alert_reference": "a06a78d8-272e-47e4-ae1f-6a8d6fb1604f", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E         {"timestamp": "2026-11-12T14:33:01.168849+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_123efa10", "run_id": "aa2183e4-5044-45c7-b1b9-910ca4fa0b2e", "alert_reference": "a06a78d8-272e-47e4-ae1f-6a8d6fb1604f", "alert_state": "review", "alert_reason": "reconciliation_window_ended"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 29, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 29, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'eligible', 'eligible', UUID('a06a78d8-272e-47e4-ae1f-6a8d6fb1604f'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('review', 'reconciliation_window_ended', UUID('26c944e9-ec5e-47c4-9358-2a3e7c288189'), datetime.datetime(2026, 11, 14, 13, 0, 30, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls [('POST', '/api/sendText'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=0&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=100&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=200&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=300&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=400&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=500&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=600&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=700&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=800&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false'), ('GET', '/api/synthetic/chats/100%40g.us/messages?limit=100&offset=900&filter.timestamp.gte=1794484500&filter.timestamp.lte=1794661500&downloadMedia=false')]
+___________ test_channel_unavailable_queue_expires_with_wait_history ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-251/test_channel_unavailable_queue0')
+
+    def test_channel_unavailable_queue_expires_with_wait_history(tmp_path: Path) -> None:
+        with first_eligibility_scenario(tmp_path, enabled=False) as (instance, _, clock, channel):
+            group = pause_worker(instance)
+            try:
+                from tests.integration.test_first_alert_review_regressions import PREPARE
+
+                shell(
+                    instance,
+                    PREPARE
+                    + """
+    e['published_at']=(now-timedelta(hours=48)+timedelta(seconds=1)).isoformat();l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    """,
+                )
+                channel.ready = False
+>               shell(
+                    instance,
+                    """
+    from garimpei.main import build_alert_handler
+    from garimpei.infra.persistence.alert_models import FirstAlertIdentity
+    build_alert_handler('send').execute()
+    r=FirstAlertIdentity.objects.get(listing__external_id='16001')
+    assert r.intent.state=='blocked' and r.intent.reason=='session_unavailable'
+    assert r.decisions.filter(reason='eligible').exists()
+    """,
+                )
+
+tests/integration/test_first_eligibility.py:260:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/34bb/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-251/test_channel_unavailable_queue0/wave11b_f16_43e3c36e.env'))
+code = "\nfrom garimpei.main import build_alert_handler\nfrom garimpei.infra.persistence.alert_models import FirstAlertIdenti...t.state=='blocked' and r.intent.reason=='session_unavailable'\nassert r.decisions.filter(reason='eligible').exists()\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 33 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T14:35:21.131277+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_43e3c36e", "run_id": "13a16053-afa2-4da3-9e99-8eb5aae1a0a5"}
+E         {"timestamp": "2026-11-12T14:35:21.176951+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_43e3c36e", "run_id": "13a16053-afa2-4da3-9e99-8eb5aae1a0a5", "alert_reference": "cfab5e74-9eb5-4256-8fa9-7c79cbb1ddb6", "alert_state": "blocked", "alert_reason": "configuration_missing"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 6, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 6, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'eligible', 'eligible', UUID('cfab5e74-9eb5-4256-8fa9-7c79cbb1ddb6'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('blocked', 'configuration_missing', UUID('2cd639f9-9115-4f4b-a0db-9f44496ccb58'), datetime.datetime(2026, 11, 12, 12, 0, 15, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+________ test_public_diagnostic_fields_history_and_partial_http_failure ________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-251/test_public_diagnostic_fields_0')
+
+    def test_public_diagnostic_fields_history_and_partial_http_failure(tmp_path: Path) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, _):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + """
+    from uuid import uuid4
+    from unittest.mock import patch
+    from django.db import DatabaseError
+    from django.test import RequestFactory
+    from garimpei.domain.alert.diagnostic import AlertDiagnosticReadFailed
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    from garimpei.main import build_read_alert_diagnostic,build_exploration_handler,build_publish_exploration
+    from garimpei.infra.queries.alert.diagnostic_queries import PostgresAlertDiagnosticQueries
+    from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
+    from garimpei.infra.persistence.alert_models import AlertAttempt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);intent=r.intent
+    reader=build_read_alert_diagnostic()
+    before=(AlertIntent.objects.count(),AlertAttempt.objects.count())
+    d=reader.execute(l.id,l.latest_id)
+    assert d.first_alert_state=='queued'
+    assert d.next_action_at==intent.next_action
+    assert d.valuation_revision==intent.first_decision.financial['evaluation_revision']
+    assert d.intent_reference==intent.id
+    assert d.observation_id==l.latest_id and d.matches_displayed_observation
+    assert d.condition_revision==intent.first_decision.condition_revision
+    from garimpei.main import build_read_condition
+    assert d.condition_revision==build_read_condition().execute(l.id).state.revision
+    assert d.evaluated_at is not None and d.first_alert_deadline==now+timedelta(hours=46)
+    assert reader.execute(l.id,uuid4()).matches_displayed_observation is False
+    assert reader.execute(uuid4()) is None
+    from dataclasses import replace
+    unknown=replace(build_read_profit().execute(l.id),resale=replace(build_read_profit().execute(l.id).resale,value=None,reason='produto_indeterminado'),reasons=('produto_indeterminado',))
+    s.publish(l.id,s.prepare(l.id),unknown,now)
+    u=reader.execute(l.id,l.latest_id)
+    assert u.current_reason=='produto_indeterminado' and 'produto_incompativel' not in u.reasons
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    assert (AlertIntent.objects.count(),AlertAttempt.objects.count())==before
+    with patch.object(PostgresAlertDiagnosticQueries,'_read',side_effect=DatabaseError('controlled')):
+     try:reader.execute(l.id)
+     except AlertDiagnosticReadFailed:pass
+     else:raise AssertionError('technical failure was hidden as absence')
+    delivery=store.claim(intent.id,binding,now,reconcile=False)
+    store.finish(delivery,Outcome('uncertain','response_lost'),now)
+    d=reader.execute(l.id,l.latest_id);assert d.state=='uncertain' and 'incerto' in d.label
+    store.finish(delivery,Outcome('confirmed','ack',Receipt('svc-receipt',True,binding.recipient,delivery.body,1)),now)
+    e['description']='Com defeito. Não funciona.';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    d=reader.execute(l.id,l.latest_id)
+    assert d.first_alert_state=='confirmed' and d.confirmed_at==now
+    assert d.state=='confirmed' and d.current_reason=='condition_excluded'
+    assert 'condition_excluded' in d.reasons
+    # A later uncertain reduction remains primary while the first receipt stays confirmed.
+    event=ListingEvent.objects.create(listing=l,observation=l.latest,kind='price_decreased',silent=False,occurred_at=now,publication_order=l.publication_order)
+    decision=AlertEventDecision.objects.create(event=event,state='eligible',reason='eligible',next_action=now)
+    AlertIntent.objects.create(decision=decision,state='uncertain',reason='response_lost',body='synthetic reduction',created_at=now+timedelta(seconds=1),next_action=now)
+    d=reader.execute(l.id,l.latest_id);assert d.first_alert_state=='confirmed' and d.state=='uncertain' and d.confirmed_at==now
+    latest=r.decisions.latest('generation');latest.reason='analysis_pending';latest.save(update_fields=['reason'])
+    before_read=(AlertIntent.objects.count(),AlertAttempt.objects.count())
+    d=reader.execute(l.id,l.latest_id);assert d.current_reason=='analysis_pending' and d.current_label=='Aguardando análise das fotos'
+    assert (AlertIntent.objects.count(),AlertAttempt.objects.count())==before_read
+    build_publish_exploration().execute()
+    handler=build_exploration_handler()
+    path=f'/ofertas/{l.id}/?aba=defeitos&q=PlayStation&pagina=1'
+    request=RequestFactory().get(path)
+    class FailingDiagnostic:
+     def read(self,listing_id,displayed_observation_id):raise AlertDiagnosticReadFailed()
+    handler._diagnostic=ReadAlertDiagnosticUseCase(FailingDiagnostic())
+    response=handler.handle(request,l.id)
+    assert response.status_code==200
+    body=response.content.decode()
+    assert 'PlayStation 5' in body and 'Não foi possível consultar o estado do alerta' in body
+    assert 'Tentar consultar novamente' in body and 'aba=defeitos' in body and 'pagina=1' in body
+    print('SVC01/02/03;DTO first_alert_state,next_action_at,valuation_revision,intent_reference;partial HTTP200 PASS')
+    """,
+                )
+
+tests/http/test_alert_diagnostic.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/34bb/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-251/test_public_diagnostic_fields_0/wave11b_f16_81400c6d.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...\nprint('SVC01/02/03;DTO first_alert_state,next_action_at,valuation_revision,intent_reference;partial HTTP200 PASS')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 33 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T14:35:31.361929+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_81400c6d", "run_id": "72503ed6-eb4f-4c7c-854a-938830b08d0f"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 45, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 45, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'profit_incomplete', UUID('4f591f29-de6b-45cc-8685-937838ff6ca6'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('queued', 'pending_channel', UUID('95dcd126-c2b6-414d-b531-7a08946cc473'), datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_first_alert_reconciliation.py::test_reconciliation_keeps_original_effect_and_evidence[after_deadline_empty]
+FAILED tests/integration/test_first_eligibility.py::test_channel_unavailable_queue_expires_with_wait_history
+FAILED tests/http/test_alert_diagnostic.py::test_public_diagnostic_fields_history_and_partial_http_failure
+3 failed, 34 passed in 427.06s (0:07:07)

@@ -1,0 +1,189 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-262/test_worker_trio_exact_brl_val0')
+
+    def test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price(
+        tmp_path: Path,
+    ) -> None:
+        from tests.factories.alert import WahaServer, serve_waha
+        from tests.factories.exploration import prepare_exploration_instance
+        from tests.factories.financial_presentation_lab import FinancialSource, publish_and_check
+        from tests.factories.listing import serve
+        from tests.integration.test_collection import command, shell
+
+        source, channel = FinancialSource(), WahaServer()
+        with serve(source) as origin, serve_waha(channel) as waha:
+            instance, clock = prepare_exploration_instance(
+                Path(__file__).resolve().parents[4], tmp_path, origin
+            )
+            with instance.private_file.open("a") as out:
+                out.write(
+                    f"GARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_ALERT_FIXTURE_URL={waha}\nGARIMPEI_WAHA_SESSION=synthetic\nGARIMPEI_WAHA_RECIPIENT=100@c.us\nGARIMPEI_WAHA_ACCOUNT=200@c.us\n"
+                )
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                shell(
+                    instance,
+                    "from tests.factories.financial_presentation_lab import configure_financial; configure_financial()",
+                )
+                completed(instance, 1)
+                publish_and_check(instance)
+                clock.advance(1)
+                for n, price in [(10951, "1000"), (10952, "1350"), (10953, "1400"), (10954, "1200")]:
+                    source.rows[str(n)] = listing(
+                        str(n),
+                        price + ",00",
+                        title="PS5 Slim Digital 825GB",
+                        condition="Funciona bem",
+                        published_at=clock.value.isoformat(),
+                        pickup=True,
+                        delivery=False,
+                    )
+                clock.advance(61)
+                completed(instance, 2)
+                wait_for(
+                    lambda: (
+                        sql(
+                            instance,
+                            "SELECT count(*) FROM runtime_valuationprogress p JOIN runtime_listing l ON p.listing_id=l.id WHERE l.external_id IN ('10951','10952','10953','10954') AND p.current_id IS NOT NULL",
+                        )
+                        == [(4,)]
+                    ),
+                    "exact monetary inputs",
+                    seconds=45,
+                )
+                group = pause_worker(instance)
+                try:
+                    alert_shell(
+                        instance,
+                        """
+    from garimpei.main import build_read_listing_changes,_effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    store.ingest(build_read_listing_changes().execute(),clock())
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    for key,expected in [('10951','350.00'),('10952','0.00'),('10953','-50.00'),('10954','150.00')]:
+     p=build_read_profit().execute(target(key).id,event=False)
+     assert p.resale.value==Decimal('1500') and p.profit.value==Decimal(expected)
+     prepare_first(key)
+     delivery=store.claim(intent(key).id,binding,clock(),reconcile=False)
+     assert delivery
+     store.finish(delivery,gateway.send(delivery),clock())
+     row=intent(key)
+     assert row.state=='confirmed' and row.financial['resale']=='1500.00' and Decimal(row.financial['profit'])==Decimal(expected)
+     assert '*Lucro estimado:' in row.body
+    print('WRK-MENSAGEM-01/08 exact positive, zero and negative confirmed by synthetic WAHA PASS')
+    """,
+                    )
+                finally:
+                    resume_worker(group)
+                for count, price in [(3, "1000"), (4, "900")]:
+                    source.rows["10954"]["price"] = "R$ " + price + ",00"
+                    clock.advance(61)
+                    completed(instance, count)
+                group = pause_worker(instance)
+                try:
+>                   alert_shell(
+                        instance,
+                        """
+    from garimpei.main import build_read_listing_changes,_effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    store.ingest(build_read_listing_changes().execute(),clock())
+    event=ListingEvent.objects.get(listing=target('10954'),kind='price_decreased',observation__price=1000)
+    p=build_read_profit().execute(event.id,event=True)
+    assert p.purchase.value==1000 and target('10954').latest.price==900
+    store.evaluate(event.id,p,clock())
+    row=AlertIntent.objects.get(decision__event=event)
+    # Exercise the valid worker ordering that can happen before this test pauses it.
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    SendAlertUseCase(store,gateway,None,build_read_listing_changes(),clock).execute()
+    delivery=store.claim(row.id,binding,clock(),reconcile=False);row.refresh_from_db();assert delivery,(row.state,row.reason,row.next_action,row.lease_until,clock(),row.attempts.count())
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    store.finish(delivery,gateway.send(delivery),clock());row.refresh_from_db()
+    assert row.state=='confirmed'
+    assert Decimal(row.financial['purchase'])==1000 and Decimal(row.financial['resale'])==1500 and Decimal(row.financial['profit'])==350
+    assert 'Preço de compra: R$ 1.000,00' in row.body and 'Preço anterior: R$ 1.200,00' in row.body
+    assert 'R$ 900,00' not in row.body
+    # Change the actual persisted fee, then collect a separately identified fractional case.
+    from garimpei.main import build_read_monitoring_configuration,build_monitoring_handler
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    config=build_read_monitoring_configuration().execute()
+    build_monitoring_handler()._update.execute(StepInput('editar',config.revision,cep=config.cep,resale_fee_percent='12.50',category_ids=config.category_ids,product_names=config.product_names))
+    print('WRK-MENSAGEM-02 event 1000 remains frozen after observation 900 PASS')
+    """,
+                    )
+
+apps/backend/tests/integration/test_financial_messages.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/34bb/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-262/test_worker_trio_exact_brl_val0/f04_6f05a65930.env'))
+code = "\nfrom garimpei.main import build_read_listing_changes,_effective_alert_settings,_alert_policy\nfrom garimpei.infra.g...,product_names=config.product_names))\nprint('WRK-MENSAGEM-02 event 1000 remains frozen after observation 900 PASS')\n"
+
+    def alert_shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(
+            """
+    from datetime import timedelta
+    from decimal import Decimal
+    from uuid import UUID
+    from django.db import transaction
+    from django.utils import timezone
+    from garimpei.main import build_alert_store,build_first_alert_store,build_alert_handler,build_read_profit,build_read_condition,build_classify_condition
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor,AlertEventDecision,AlertIntent,AlertAttempt,ManualConditionHistory,FirstAlertIdentity,FirstEligibilityDecision,FirstAlertInventory
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    clock=_listing_clock(load_listing_settings())
+    store=build_alert_store()
+    binding=Binding('synthetic','100@c.us','200@c.us')
+    def target(key='903'): return Listing.objects.get(external_id=key)
+    def decision(key='903'): return AlertEventDecision.objects.get(event__listing=target(key),event__kind='discovered')
+    def first_state(key='903'): return FirstAlertIdentity.objects.get(listing=target(key))
+    def first_decision(key='903'): return first_state(key).decisions.latest('generation')
+    def prepare_first(key='903', at=None):
+        listing=target(key);now=at or clock();repository=build_first_alert_store();repository.adopt(now)
+        repository.publish(listing.id,repository.prepare(listing.id),build_read_profit().execute(listing.id,event=False),now)
+    def intent(key='903'):
+        row=first_state(key)
+        return row.intent if row.intent_id else AlertIntent.objects.get(decision=decision(key))
+    def financial_decision(row): return row.first_decision if row.first_decision_id else row.decision
+    """
+            + code
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+               ^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: 33 objects imported automatically (use -v 2 for details).
+E
+E       {"timestamp": "2026-11-12T15:04:06.475761+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_6f05a65930", "run_id": "b94470eb-48e5-492e-9f59-4867cc63bf7d"}
+E       {"timestamp": "2026-11-12T15:04:06.692432+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_6f05a65930", "run_id": "b94470eb-48e5-492e-9f59-4867cc63bf7d", "alert_reference": "7c2aaeea-83b4-40ba-908e-05810376ef77", "alert_state": "blocked", "alert_reason": "configuration_missing"}
+E       Traceback (most recent call last):
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/manage.py", line 8, in <module>
+E           execute_from_command_line()
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E           utility.execute()
+E           ~~~~~~~~~~~~~~~^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E           self.fetch_command(subcommand).run_from_argv(self.argv)
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E           self.execute(*args, **cmd_options)
+E           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E           output = self.handle(*args, **options)
+E         File "/home/marce/.codex/worktrees/34bb/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E           exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         File "<string>", line 40, in <module>
+E       AssertionError: ('blocked', 'configuration_missing', datetime.datetime(2026, 11, 10, 18, 3, 19, tzinfo=datetime.timezone.utc), None, datetime.datetime(2026, 11, 10, 18, 3, 4, tzinfo=datetime.timezone.utc), 0)
+
+apps/backend/tests/factories/alert_scenario.py:155: AssertionError
+----------------------------- Captured stdout call -----------------------------
+33 objects imported automatically (use -v 2 for details).
+
+WRK-MENSAGEM-01/08 exact positive, zero and negative confirmed by synthetic WAHA PASS
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_financial_messages.py::test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price
+1 failed in 27.86s

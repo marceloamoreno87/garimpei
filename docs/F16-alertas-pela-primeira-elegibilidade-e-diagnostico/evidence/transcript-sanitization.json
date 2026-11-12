@@ -66,6 +66,11 @@
       "path": "f16-cycle3-gates.log",
       "original_sha256": "f6ac0c602296822ed19990c90431041a566e96c5700a3effb60b154f848b341f",
       "public_sha256": "538cf9c84f8d6ce68f016355ffb3fb1de8ea0cdb82455b520bb85b2305348f94"
+    },
+    {
+      "path": "integrated-after-restart/browser.log",
+      "original_sha256": "e82e99bb7625588e8ea7290939f6b40d020e80cdd274eb93b2279c67650a71f3",
+      "public_sha256": "86ffeb457ed44cba62e923821ee28fd87b55e4fc82d1c18628b95622aa26beb8"
     }
   ]
 }
