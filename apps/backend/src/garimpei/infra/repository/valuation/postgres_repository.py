@@ -10,10 +10,12 @@ from uuid import UUID
 from django.db import transaction
 from django.db.models import Q
 
-from garimpei.domain.valuation.identity import identify
+from garimpei.domain.operations.ports import ProgressRecorder
+from garimpei.domain.valuation.identification_values import IdentificationResult
 from garimpei.domain.valuation.policy import VALUATION_POLICY
 from garimpei.domain.valuation.ports import WorkInput
 from garimpei.domain.valuation.values import Comparable, Valuation
+from garimpei.infra.persistence.identity_models import ManualIdentityRevision
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.persistence.valuation_models import (
@@ -23,6 +25,7 @@ from garimpei.infra.persistence.valuation_models import (
 )
 from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
+from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.mapper import (
     decode_comparable,
     decode_valuation,
@@ -41,25 +44,35 @@ class PendingRequest:
 
 
 class PostgresValuationRepository:
-    def __init__(self, enqueue: Callable[[UUID], int]) -> None:
+    def __init__(
+        self, enqueue: Callable[[UUID], int], operations: ProgressRecorder | None = None
+    ) -> None:
         self._enqueue = enqueue
+        self._operations = operations
 
     def reconcile(self, now: datetime) -> None:
         with transaction.atomic():
             lock_monitoring_publication()
-            rows = tuple(
-                _listing(row)
-                for row in Listing.objects.select_related("latest").order_by("id")
+            snapshots = tuple(
+                row
+                for row in Listing.objects.select_related(
+                    "latest", "identity_progress__manual__observation"
+                ).order_by("id")
                 if row.latest is not None and row.latest.observed_at <= now
             )
-            watermark = ListingObservation.objects.count()
+            watermark = (ListingObservation.objects.count(), ManualIdentityRevision.objects.count())
             progress = {p.listing_id: p for p in ValuationProgress.objects.all()}
             pending = set(
                 ValuationWork.objects.filter(completed=False, next_attempt_at__lte=now)
                 .filter(Q(lease_until=None) | Q(lease_until__lte=now))
                 .values_list("listing_id", flat=True)
             )
-        # Matching and signatures are CPU work, not part of the shared publication transaction.
+        # All related observation/manual rows above are eagerly captured immutable inputs.
+        # Identity parsing and matching run outside the collection publication transaction.
+        rows = tuple(
+            _listing(row, identify_row(row, getattr(row, "identity_progress", None)))
+            for row in snapshots
+        )
         requests = self._requests(rows, progress, pending, now)
         for offset in range(0, len(requests), 10):
             if not self._request_batch(requests[offset : offset + 10], watermark, now):
@@ -72,7 +85,7 @@ class PostgresValuationRepository:
         pending: set[UUID],
         now: datetime,
     ) -> tuple[PendingRequest, ...]:
-        products = {row.listing_id: identify(row.evidence) for row in rows}
+        products = {row.listing_id: row.product for row in rows}
         groups: dict[str, list[Comparable]] = defaultdict(list)
         for row in rows:
             product = products[row.listing_id]
@@ -104,18 +117,25 @@ class PostgresValuationRepository:
             candidates=[encode_comparable(row) for row in candidates],
         )
         signature_input = dict(
-            policy=VALUATION_POLICY, product=product, candidates=snapshot["candidates"]
+            policy=VALUATION_POLICY,
+            product=product,
+            target=snapshot["target"],
+            candidates=snapshot["candidates"],
         )
         signature = hashlib.sha256(json.dumps(signature_input, sort_keys=True).encode()).hexdigest()
         return PendingRequest(target.listing_id, snapshot, signature)
 
     def _request_batch(
-        self, requests: tuple[PendingRequest, ...], watermark: int, now: datetime
+        self, requests: tuple[PendingRequest, ...], watermark: tuple[int, int], now: datetime
     ) -> bool:
         with transaction.atomic():
             lock_monitoring_publication()
-            # Discard the remainder if collection advanced while matching. Never mix snapshots.
-            if ListingObservation.objects.count() != watermark:
+            # Both histories are append-only. A manual edit also fences every remaining batch,
+            # even when no new listing observation was published while analysis was running.
+            if (
+                ListingObservation.objects.count(),
+                ManualIdentityRevision.objects.count(),
+            ) != watermark:
                 return False
             for request in requests:
                 self._request(request, now)
@@ -126,6 +146,11 @@ class PostgresValuationRepository:
         if progress.signature != request.signature or (
             progress.due_at is not None and progress.due_at < now
         ):
+            if (
+                self._operations is not None
+                and ValuationWork.objects.filter(completed=False).count() >= 1000
+            ):
+                return
             progress.requested += 1
             progress.signature = request.signature
             progress.due_at = None
@@ -144,6 +169,10 @@ class PostgresValuationRepository:
             next_attempt_at__lte=now,
         ).first()
         if pending is not None and (pending.lease_until is None or pending.lease_until <= now):
+            if self._operations is not None and not self._operations.admits(
+                "valuation", str(pending.listing_id), pending.revision, now
+            ):
+                return
             pending.lease_until = now + timedelta(seconds=60)
             pending.attempts += 1
             pending.save(update_fields=["lease_until", "attempts"])
@@ -178,7 +207,21 @@ class PostgresValuationRepository:
             if row.completed:
                 return
             progress = ValuationProgress.objects.select_for_update().get(listing_id=work.listing_id)
-            if progress.requested != work.revision:
+            latest = Listing.objects.select_related(
+                "latest", "identity_progress__manual__observation"
+            ).get(id=work.listing_id)
+            current_identity = identify_row(latest, getattr(latest, "identity_progress", None))
+            input_changed = latest.latest is None or latest.latest.ordinal != work.target.revision
+            identity_changed = work.target.identification is not None and (
+                work.target.identification.manual_revision,
+                work.target.identification.state,
+                work.target.identification.product_key,
+            ) != (
+                current_identity.manual_revision,
+                current_identity.state,
+                current_identity.product_key,
+            )
+            if progress.requested != work.revision or input_changed or identity_changed:
                 row.completed = True
                 row.save(update_fields=["completed"])
                 return
@@ -191,16 +234,32 @@ class PostgresValuationRepository:
             invalidate_first_alert(work.listing_id, value.evaluated_at)
             row.completed, row.diagnostic = True, ""
             row.save(update_fields=["completed", "diagnostic"])
+            if self._operations:
+                self._operations.confirm(
+                    "valuation",
+                    str(work.listing_id),
+                    work.revision,
+                    str(value.id),
+                    value.evaluated_at,
+                )
 
     def failed(self, identity: UUID, now: datetime) -> None:
+        self._record_failure(identity, now)
         ValuationWork.objects.filter(id=identity, completed=False).update(
             diagnostic="valuation_publication_failed",
             lease_until=None,
             next_attempt_at=now + timedelta(seconds=5),
         )
 
+    def _record_failure(self, identity: UUID, now: datetime) -> None:
+        row = ValuationWork.objects.filter(id=identity, completed=False).first()
+        if row is not None and self._operations:
+            self._operations.failure(
+                "valuation", str(row.listing_id), row.revision, "valuation_publication_failed", now
+            )
 
-def _listing(row: Listing) -> Comparable:
+
+def _listing(row: Listing, identification: IdentificationResult | None = None) -> Comparable:
     observation = row.latest
     assert observation is not None
     evidence = decode_evidence(cast(EvidenceRecord, observation.evidence))
@@ -214,4 +273,5 @@ def _listing(row: Listing) -> Comparable:
         observation.observed_at,
         observation.ordinal,
         evidence,
+        identification=identification,
     )

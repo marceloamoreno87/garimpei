@@ -1,0 +1,45 @@
+<section class="identity-review" aria-labelledby="research-heading">
+    <h2 id="research-heading">Busca de comparáveis</h2>
+    {% if not comparable_research.enabled %}
+        <p role="status">{% if comparable_research.reason == "real_geography_unproved" %}A pesquisa automática aguarda a confirmação da localização e do raio na fonte.{% elif comparable_research.reason == "final_union_validation_pending" %}A pesquisa automática aguarda a verificação final da integração.{% else %}A pesquisa automática aguarda a calibração dos limites com a fonte.{% endif %} As referências já confirmadas continuam sujeitas à validade e às regras de comparação.</p>
+    {% else %}
+        <p>Pesquisa em etapas, com limite de tempo e revisão de contexto. Cinco anúncios retidos sustentam a estimativa; preço anunciado não confirma venda.</p>
+    {% endif %}
+    {% for investigation in comparable_research.investigations %}
+        <article class="surface">
+            <h3>{{ investigation.term }}</h3>
+            <p>{% if investigation.state == "sufficient" %}Amostra suficiente{% elif investigation.state == "exhausted" %}Fonte percorrida sem amostra suficiente{% elif investigation.state == "limited" %}Cobertura parcial: limite ou contexto não confirmado{% elif investigation.state == "suspended_access" %}Acesso suspenso. Confira a conexão com o Facebook.{% elif investigation.state == "superseded" %}Pesquisa de uma revisão anterior{% elif investigation.state == "waiting_retry" %}Aguardando nova tentativa{% elif investigation.state == "running" %}Confirmando referências{% else %}Aguardando evidências{% endif %}</p>
+            <p>{{ investigation.pages }} de até {{ investigation.page_limit }} páginas por consulta · {{ investigation.details }} detalhes confirmados · {{ investigation.shared_targets }} ofertas compartilham esta pesquisa.</p>
+            <p>Por etapa: até {{ investigation.detail_limit }} detalhes e {{ investigation.slice_seconds }} segundos. {{ investigation.attempts }} de {{ investigation.attempt_limit }} tentativas usadas nesta entrada.</p>
+            {% if investigation.reason == "search_geography_unverified" %}<p>Não foi possível confirmar a localização e o raio na resposta da fonte. Nenhuma amostra local foi publicada por esta pesquisa.</p>{% elif investigation.reason == "source_rate_limit" %}<p>A fonte pediu uma pausa antes de uma nova tentativa.</p>{% elif investigation.reason == "native_cursor_unavailable" %}<p>A fonte não permitiu retomar a próxima página com segurança. As referências confirmadas foram preservadas.</p>{% endif %}
+            <p>Contexto solicitado: {{ investigation.requested }}. {{ investigation.observed }}</p>
+            {% if investigation.last_progress_at %}<p>Último avanço: {{ investigation.last_progress_at|date:"d/m/Y H:i:s T" }}.</p>{% endif %}
+            {% if investigation.next_attempt_at %}<p>Próxima oportunidade: {{ investigation.next_attempt_at|date:"d/m/Y H:i:s T" }}.</p>{% endif %}
+            {% if investigation.decisions %}
+                <details>
+                    <summary>Ver candidatos e motivos de comparação</summary>
+                    <ul>{% for decision in investigation.decisions %}<li><a href="{{ decision.url }}" rel="noopener noreferrer" target="_blank">{{ decision.title }}</a> · {% if decision.price %}R$ {{ decision.price }}{% else %}Preço não confirmado{% endif %} · observado {{ decision.observed_at|date:"d/m/Y H:i T" }} · {% if decision.decision == "accepted" %}Aceito pelas regras de identidade, condição e atualidade{% else %}Excluído: {{ decision.reasons|join:", " }}{% endif %}.</li>{% endfor %}</ul>
+                </details>
+            {% endif %}
+        </article>
+    {% empty %}
+        <p>Ainda não há pesquisa confirmada para esta oferta. A pesquisa exige um modelo identificado, interesse ativo e amostra insuficiente.</p>
+    {% endfor %}
+    {% if comparable_research.coverage %}
+        <details>
+            <summary>Ver a cobertura dos interesses no recorte revisado</summary>
+            <p>Recorte {{ comparable_research.corpus_version }} de {{ comparable_research.corpus_date }}. As 16 propostas textuais selecionadas foram confirmadas por você. As contagens restantes são análise automática do recorte; novas ofertas podem exigir revisão.</p>
+            {% for row in comparable_research.coverage %}
+                <article class="coverage-interest">
+                    <h3>{{ row.interest }}</h3>
+                    <p>{{ row.observed }} observações examinadas · {{ row.recognized }} identidades reconhecidas.</p>
+                    <p>{{ row.unsupported }} sem suporte · {{ row.missing }} com atributo ausente · {{ row.conflicting }} em conflito · {{ row.unrecognized }} não reconhecidas · {{ row.excluded }} excluídas.</p>
+                    <p>{{ row.insufficient }} avaliações com amostra insuficiente · {{ row.not_evaluated }} sem avaliação financeira confirmada no recorte.</p>
+                    {% if row.families %}<p>Famílias com menção textual: {{ row.families|join:"; " }}.</p>{% else %}<p>Nenhuma família com evidência confirmada nesta amostra.</p>{% endif %}
+                    {% if row.attributes %}<p>Atributos encontrados: {{ row.attributes|join:"; " }}.</p>{% endif %}
+                    <p class="fine">{{ row.gaps }}</p>
+                </article>
+            {% endfor %}
+        </details>
+    {% endif %}
+</section>

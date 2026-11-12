@@ -180,6 +180,10 @@ _.next_action_at
 _.valuation_revision
 _.intent_reference
 
+# argparse internal queue-group selection is read through the TypedDict mapping.
+_.queue_group
+
+
 # F14 public analysis boundary and ORM retention fields; exact consumers in entrypoints.json.
 _.media_tracking_active
 _.removed_at
@@ -187,3 +191,18 @@ AcquireMediaForAnalysisUseCase
 ReadMediaGalleryUseCase
 ReleaseMediaReferenceUseCase
 _.protected_versions
+
+# F18 exact template/ORM/asdict consumers documented in entrypoints.json.
+_.shared_targets
+_.gaps
+_.measured_at
+_.memory_type
+_.investigation
+
+_.conflicting
+_.unrecognized
+_.insufficient
+_.not_evaluated
+_.corpus_version
+
+_.attempt_limit

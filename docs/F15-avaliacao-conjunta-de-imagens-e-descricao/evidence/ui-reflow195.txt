@@ -1,0 +1,12 @@
+### Result
+{
+  "method": "CSS viewport195 corresponds to390 at200percent; not browser zoom automation",
+  "width": 195,
+  "overflow": false,
+  "section": 155,
+  "source": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({method:"CSS viewport195 corresponds to390 at200percent; not browser zoom automation",width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth,section:document.querySelector(".condition-assessment").getBoundingClientRect().width,source:!!document.querySelector(".source-link")})');
+```

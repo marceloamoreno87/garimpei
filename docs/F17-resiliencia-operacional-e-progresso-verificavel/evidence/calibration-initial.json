@@ -1,0 +1,341 @@
+{
+  "format_version": 1,
+  "at": "2026-11-12T18:38:52.911554+00:00",
+  "profile": {
+    "version": 1,
+    "stalled_seconds": 180,
+    "tick_seconds": 5,
+    "failures": 3,
+    "queue_limit": 1000,
+    "unit_seconds": 60,
+    "archive_seconds": 300,
+    "data_bytes": 10737418240,
+    "backup_bytes": 10737418240,
+    "reserve_bytes": 1073741824,
+    "backup_interval": 86400,
+    "retention": 7
+  },
+  "profile_sha256": "071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423",
+  "hardware": {
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "python": "3.13.14",
+  "measurements": [
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0009312839974882081,
+      "timeout_seconds": 20,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0006958240119274706,
+      "timeout_seconds": 20,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0006304470007307827,
+      "timeout_seconds": 20,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0006026250048307702,
+      "timeout_seconds": 20,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0008188170031644404,
+      "timeout_seconds": 20,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 20.020002133998787,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 20.020480231993133,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 20.018695370003115,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 20.020522635997622,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 20.01881384299486,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0036496440006885678,
+      "timeout_seconds": 30,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0007889960106695071,
+      "timeout_seconds": 30,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0007320089935092255,
+      "timeout_seconds": 30,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0006650330033153296,
+      "timeout_seconds": 30,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0006549340032506734,
+      "timeout_seconds": 30,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 30.030458388006082,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 30.02900651699747,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 30.023919598010252,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 30.030420659008087,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 30.030363162004505,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.001280291995499283,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0007912950095487759,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0006663400126853958,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0007490010029869154,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0006853210070403293,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 10.009222791995853,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 10.01031708100345,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 10.002333737007575,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 10.009438676992431,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 10.01050678800675,
+      "timeout_seconds": 10,
+      "outcome": "returned",
+      "pending_jobs": 1
+    }
+  ],
+  "free_bytes": 16394821632,
+  "scope": "Existing boundaries confirmed; first increment and media integration still under evaluation; real enablement remains false.",
+  "operational_enablement": false,
+  "healthy_pipeline": [
+    {
+      "stage": "complete_pipeline",
+      "repetition": 1,
+      "seconds_including_startup": 20.021995624003466,
+      "confirmed_receipts": 1,
+      "database_bytes": 11482803,
+      "real_messages": 0
+    },
+    {
+      "stage": "complete_pipeline",
+      "repetition": 2,
+      "seconds_including_startup": 19.77470302999427,
+      "confirmed_receipts": 1,
+      "database_bytes": 11482803,
+      "real_messages": 0
+    },
+    {
+      "stage": "complete_pipeline",
+      "repetition": 3,
+      "seconds_including_startup": 19.30221550099668,
+      "confirmed_receipts": 1,
+      "database_bytes": 11482803,
+      "real_messages": 0
+    },
+    {
+      "stage": "complete_pipeline",
+      "repetition": 4,
+      "seconds_including_startup": 19.310047279999708,
+      "confirmed_receipts": 1,
+      "database_bytes": 11482803,
+      "real_messages": 0
+    },
+    {
+      "stage": "complete_pipeline",
+      "repetition": 5,
+      "seconds_including_startup": 19.489910756994504,
+      "confirmed_receipts": 1,
+      "database_bytes": 11482803,
+      "real_messages": 0
+    }
+  ]
+}

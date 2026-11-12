@@ -20,6 +20,7 @@ from garimpei.domain.listing.scope import Modality
 from garimpei.domain.valuation.profit import Component, ModalityProfit, ProfitComposition
 from garimpei.infra.repository.listing.assessment_mapper import decode_assessment
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
+from garimpei.infra.repository.valuation.identity_mapper import decode_identity
 from garimpei.infra.repository.valuation.mapper import (
     decode_valuation,
     encode_valuation,
@@ -148,6 +149,7 @@ def decode(raw: dict[str, object], at: datetime, state: ConditionState | None = 
         datetime.fromisoformat(str(raw["last_valid_at"])) if raw["last_valid_at"] else None,
         identity(raw.get("observation_id", value.observation_id)),
         decode_gallery(raw.get("media")),
+        decode_identity(mapping(raw["identification"])) if raw.get("identification") else None,
     )
 
 

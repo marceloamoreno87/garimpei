@@ -1,0 +1,249 @@
+........................................................................ [ 32%]
+..................................................................F..F.. [ 65%]
+...........................................................EE........... [ 98%]
+...                                                                      [100%]
+==================================== ERRORS ====================================
+_______ ERROR at setup of test_order_snapshots_update_manual_and_history _______
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-461/test_order_snapshots_update_ma0')
+
+    @pytest.fixture
+    def exploration(
+        tmp_path: Path,
+    ) -> Iterator[tuple[FoundationInstance, ExplorationSource, ControlledClock]]:
+        source = ExplorationSource()
+        with serve(source) as origin:
+            instance, clock = prepare_exploration_instance(
+                Path(__file__).resolve().parents[4], tmp_path, origin
+            )
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                assert instance.http("/health/ready")[0] == 200
+                assert "Prepare seu acompanhamento" in instance.http("/ofertas/")[2]
+                shell(instance, "from tests.factories.exploration import configure; configure()")
+                completed(instance, 1)
+>               wait_profit(instance, "530.00")
+
+tests/integration/test_exploration.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_exploration.py:45: in wait_profit
+    wait_for(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = <function wait_profit.<locals>.<lambda> at 0x7a6606101620>
+description = 'published CAM04 530.00', seconds = 45
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for published CAM04 530.00
+
+tests/integration/test_collection.py:54: Failed
+_ ERROR at setup of test_costs_references_expiry_failures_and_concurrent_publishers _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-461/test_costs_references_expiry_f0')
+
+    @pytest.fixture
+    def exploration(
+        tmp_path: Path,
+    ) -> Iterator[tuple[FoundationInstance, ExplorationSource, ControlledClock]]:
+        source = ExplorationSource()
+        with serve(source) as origin:
+            instance, clock = prepare_exploration_instance(
+                Path(__file__).resolve().parents[4], tmp_path, origin
+            )
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                assert instance.http("/health/ready")[0] == 200
+                assert "Prepare seu acompanhamento" in instance.http("/ofertas/")[2]
+                shell(instance, "from tests.factories.exploration import configure; configure()")
+                completed(instance, 1)
+>               wait_profit(instance, "530.00")
+
+tests/integration/test_exploration.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_exploration.py:45: in wait_profit
+    wait_for(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = <function wait_profit.<locals>.<lambda> at 0x7a660cd07d80>
+description = 'published CAM04 530.00', seconds = 45
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for published CAM04 530.00
+
+tests/integration/test_collection.py:54: Failed
+=================================== FAILURES ===================================
+________________ test_pending_service_and_indeterminate_product ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-461/test_pending_service_and_indet0')
+
+    def test_pending_service_and_indeterminate_product(tmp_path: Path) -> None:
+        source = ValuationSource(pause_path="/new")
+        with serve(source) as url:
+            i, clock = prepare_valuation_instance(Path(__file__).resolve().parents[4], tmp_path, url)
+            command(i, "./scripts/init.sh", "--disposable")
+            try:
+                configure(i)
+                completed(i, 1)
+                assert source.held.wait(10)
+                read_assert(
+                    i,
+                    "assert v.id is None and v.resale.price is None and v.resale.reason=='aguardando_avaliacao'\n",
+                )
+                source.pause_path = None
+                source.release.set()
+                current = wait_valuation(i, price="2300.00")
+                source.rows["699"]["title"] = "PlayStation 5"
+                clock.advance(61)
+                completed(i, 2)
+                wait_valuation(i, int(current["revision"]) + 1)
+>               read_assert(
+                    i,
+                    "assert v.resale.price is None and v.resale.reason=='produto_indeterminado' and v.new.quote is None\nassert build_read_listing().execute(target.id) is not None\n",
+                )
+
+tests/integration/test_valuation.py:230: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_valuation.py:31: in read_assert
+    shell(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-461/test_pending_service_and_indet0/f04_3e89652fe5.env'))
+code = "\nfrom uuid import UUID,uuid4\nfrom decimal import Decimal\nfrom dataclasses import replace\nfrom garimpei.main impor....reason=='produto_indeterminado' and v.new.quote is None\nassert build_read_listing().execute(target.id) is not None\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:25:05.064285+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_3e89652fe5", "run_id": "99e5d935-0a30-4e40-9f41-9ecbdb6c0b2f"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 12, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 12, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+__ test_slow_identity_analysis_does_not_hold_the_collection_publication_lock ___
+
+valuation_scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-...1/test_slow_identity_analysis_do0/clock'), value=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_slow_identity_analysis_does_not_hold_the_collection_publication_lock(
+        valuation_scenario: Scenario,
+    ) -> None:
+        from tests.factories.runtime import pause_worker, resume_worker
+    
+        instance, _, _ = valuation_scenario
+        wait_valuation(instance)
+        group = pause_worker(instance)
+        try:
+>           shell(
+                instance,
+                """
+    from threading import Thread,Event
+    from unittest.mock import patch
+    from django.db import connection,connections,transaction
+    from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
+    from garimpei.domain.valuation.identity import identify
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    entered,released=Event(),Event()
+    errors=[]
+    def slow_identity(evidence):
+        entered.set()
+        assert released.wait(10)
+        return identify(evidence)
+    def enqueue(identity): return 1
+    def reconcile():
+        try: PostgresValuationRepository(enqueue).reconcile(_listing_clock(load_listing_settings())())
+        except Exception as error: errors.append(type(error).__name__)
+        finally: connections.close_all()
+    with patch('garimpei.infra.repository.valuation.postgres_repository.identify',side_effect=slow_identity):
+        worker=Thread(target=reconcile);worker.start()
+        try:
+            assert entered.wait(5)
+            with transaction.atomic():
+                with connection.cursor() as cursor:
+                    cursor.execute('SELECT pg_try_advisory_xact_lock(73003)')
+                    assert cursor.fetchone()[0], 'Price analysis held the shared collection lock'
+        finally:
+            released.set();worker.join(10)
+    assert not worker.is_alive() and not errors
+    """,
+            )
+
+tests/integration/test_valuation.py:328: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-461/test_slow_identity_analysis_do0/f04_e66358e78c.env'))
+code = "\nfrom threading import Thread,Event\nfrom unittest.mock import patch\nfrom django.db import connection,connections,t... collection lock'\n    finally:\n        released.set();worker.join(10)\nassert not worker.is_alive() and not errors\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:25:52.928176+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_e66358e78c", "run_id": "64ff2d14-3f44-46a6-9d56-dcc0bee37093"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 20, in <module>
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/unittest/mock.py", line 1503, in __enter__
+E             original, local = self.get_original()
+E                               ~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/unittest/mock.py", line 1473, in get_original
+E             raise AttributeError(
+E                 "%s does not have the attribute %r" % (target, name)
+E             )
+E         AttributeError: <module 'garimpei.infra.repository.valuation.postgres_repository' from '/home/marce/.codex/worktrees/a716/garimpei/apps/backend/src/garimpei/infra/repository/valuation/postgres_repository.py'> does not have the attribute 'identify'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana.../backend/src/garimpei/infra/repository/valuation/postgres_repository.py\'> does not have the attribute \'identify\'\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+=========================== short test summary info ============================
+ERROR tests/integration/test_exploration.py::test_order_snapshots_update_manual_and_history
+ERROR tests/integration/test_exploration.py::test_costs_references_expiry_failures_and_concurrent_publishers
+FAILED tests/integration/test_valuation.py::test_pending_service_and_indeterminate_product
+FAILED tests/integration/test_valuation.py::test_slow_identity_analysis_does_not_hold_the_collection_publication_lock
+2 failed, 215 passed, 2 errors in 1016.37s (0:16:56)

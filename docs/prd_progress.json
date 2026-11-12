@@ -226,10 +226,10 @@
       ],
       "status": "implemented",
       "cycles": 2,
-      "failure_reason": "E2E-FONTE-01 pendente: duas resoluções reais da mesma foto não comprovadas; full final da união posterior ao delta UI.",
+      "failure_reason": "E2E-FONTE-01 pendente: duas resoluções reais da mesma foto não comprovadas. União final:676 testes e seis gates aprovados; aceite da fonte permanece pendente.",
       "report_path": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-12T20-12-37Z.md",
       "started_at": "2026-11-12T18:30:51.546640+00:00",
-      "updated_at": "2026-11-12T20:12:37.338768Z",
+      "updated_at": "2026-11-12T22:46:37.683458+00:00",
       "completed_at": null
     },
     "F15": {
@@ -242,12 +242,12 @@
         "F14",
         "F19"
       ],
-      "status": "implementing",
-      "cycles": 0,
-      "failure_reason": "Escopo parcial autorizado; F14 ainda implemented com prova real2res pendente.",
-      "report_path": null,
+      "status": "implemented",
+      "cycles": 2,
+      "failure_reason": "F14 e qualidade humana/real pendentes, com revisão humana adiada pelo usuário; versões completas e imagem hostil sem ensaio integral. União final:676 testes e seis gates aprovados.",
+      "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-12T22-00-00Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-12T20:23:10.929452+00:00",
+      "updated_at": "2026-11-12T22:46:37.683458+00:00",
       "completed_at": null
     },
     "F16": {
@@ -284,12 +284,12 @@
         "F10",
         "F12"
       ],
-      "status": "pending",
+      "status": "implementing",
       "cycles": 0,
-      "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:58:44.568278Z",
+      "failure_reason": "Perfil preliminar; subcomando fault e matriz completa ausentes; confirmação do perfil e avaliação integral pendentes. Calibração direta corrigida e medida. União final:676 testes e seis gates aprovados.",
+      "report_path": "docs/F17-resiliencia-operacional-e-progresso-verificavel/eval-report-2026-11-12T22-04-00Z.md",
+      "started_at": "2026-11-12T18:32:18.093465+00:00",
+      "updated_at": "2026-11-12T22:46:37.683458+00:00",
       "completed_at": null
     },
     "F18": {
@@ -301,12 +301,12 @@
         "F12",
         "F13"
       ],
-      "status": "pending",
-      "cycles": 0,
-      "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:49:52.828954Z",
+      "status": "implemented",
+      "cycles": 1,
+      "failure_reason": "Geografia nativa não comprovada (6km observados versus500km solicitados); pesquisa automática desativada e política medida combinada incompleta. União final:676 testes e seis gates aprovados.",
+      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-12T22-01-57Z.md",
+      "started_at": "2026-11-12T19:40:37.616175Z",
+      "updated_at": "2026-11-12T22:46:37.683458+00:00",
       "completed_at": null
     },
     "F19": {

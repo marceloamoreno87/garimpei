@@ -1,0 +1,5 @@
+............................postgres startup including rollback: 3.817729s
+.waha startup including rollback: 6.391843s
+.image startup including rollback: 1.043685s
+......
+36 passed in 95.77s (0:01:35)

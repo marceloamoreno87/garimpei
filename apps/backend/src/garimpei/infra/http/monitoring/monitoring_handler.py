@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from django.http import (
     Http404,
     HttpRequest,
@@ -8,6 +10,7 @@ from django.shortcuts import render
 
 from garimpei.infra.http.monitoring.forms import parse_input
 from garimpei.infra.http.monitoring.presentation import form_context, render_form
+from garimpei.infra.http.operations.presentation import status_context
 from garimpei.usecase.listing.read_collection_status_usecase import ReadCollectionStatusUseCase
 from garimpei.usecase.monitoring.complete_configuration_usecase import (
     CompleteMonitoringConfigurationUseCase,
@@ -18,6 +21,10 @@ from garimpei.usecase.monitoring.read_form_usecase import MonitoringForm, ReadMo
 from garimpei.usecase.monitoring.save_step_usecase import SaveMonitoringStepUseCase
 from garimpei.usecase.monitoring.update_configuration_usecase import (
     UpdateMonitoringConfigurationUseCase,
+)
+from garimpei.usecase.operations.read_status_usecase import ReadOperationalStatusUseCase
+from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
+    ReadComparableResearchDiagnosticUseCase,
 )
 
 
@@ -37,6 +44,8 @@ class MonitoringHandler:
         update: UpdateMonitoringConfigurationUseCase,
         preview: PreviewProductsUseCase,
         read_collection_status: ReadCollectionStatusUseCase,
+        read_operations: Callable[[], ReadOperationalStatusUseCase] | None = None,
+        research: Callable[[], ReadComparableResearchDiagnosticUseCase] | None = None,
     ) -> None:
         self._read_form = read_form
         self._read_catalog = read_catalog
@@ -45,6 +54,8 @@ class MonitoringHandler:
         self._update = update
         self._preview = preview
         self._read_collection_status = read_collection_status
+        self._read_operations = read_operations
+        self._research = research
 
     def handle(self, request: HttpRequest, action: str = "root", step: str = "") -> HttpResponse:
         allowed = (
@@ -83,7 +94,13 @@ class MonitoringHandler:
             return render(
                 request,
                 "monitoring/tracking.html",
-                {"collection": self._read_collection_status.execute()},
+                {
+                    "collection": self._read_collection_status.execute(),
+                    "operations": status_context(self._read_operations().execute())
+                    if self._read_operations
+                    else None,
+                    "comparable_research": self._research().execute() if self._research else None,
+                },
             )
         context = form_context(request, state, screen, catalog)
         setattr(request, "monitoring_context", context)

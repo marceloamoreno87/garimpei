@@ -65,6 +65,8 @@ class PostgresInferenceRepository:
             signature=signature,
             artifact=artifact,
             prompt_version=value.prompt_version,
+            cohort_id=value.cohort_id,
+            cohort_generation=value.cohort_generation,
             schema_version=value.schema_version,
             created_at=clock_now(),
             coverage=[entry for part in parts for entry in part.coverage],
@@ -321,9 +323,15 @@ def _current(row: InferenceRequest, *, lock: bool = False) -> bool:
     listing_id = ListingObservation.objects.get(pk=row.observation_id).listing_id
     query = Listing.objects.select_for_update() if lock else Listing.objects
     current = query.filter(pk=listing_id, latest_id=row.observation_id).exists()
-    newer = InferenceRequest.objects.filter(
-        observation_id=row.observation_id, created_at__gt=row.created_at
-    ).exists()
+    peers = InferenceRequest.objects.filter(
+        observation_id=row.observation_id, prompt_version=row.prompt_version
+    )
+    # Legacy requests still supersede by time. A condition cohort consists of
+    # independent bounded image batches; only a later desired generation replaces it.
+    if row.cohort_id is not None:
+        newer = peers.filter(cohort_generation__gt=row.cohort_generation).exists()
+    else:
+        newer = peers.filter(created_at__gt=row.created_at).exists()
     return current and not newer
 
 

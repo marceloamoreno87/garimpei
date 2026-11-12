@@ -9,6 +9,7 @@ from garimpei.domain.listing.coverage import Coverage
 from garimpei.domain.listing.read_models import Observation
 from garimpei.domain.listing.scope import Modality
 from garimpei.domain.monitoring.snapshot import MonitoringSnapshot
+from garimpei.domain.valuation.identification_values import IdentificationResult
 from garimpei.domain.valuation.identity import identify
 from garimpei.domain.valuation.offer_quality import ambiguous_purchase
 from garimpei.domain.valuation.values import Valuation
@@ -49,6 +50,7 @@ class ProfitInput:
     configuration: MonitoringSnapshot
     valuation: Valuation | None
     event_id: UUID | None = None
+    identification: IdentificationResult | None = None
 
 
 @dataclass(frozen=True)
@@ -102,8 +104,21 @@ def _resale(value: ProfitInput, now: datetime) -> Component:
         return Component(None, "indisponivel", "observation", "preco_parcial_ou_troca")
     if valuation is None:
         return Component(None, "indisponivel", "valuation", "aguardando_avaliacao")
-    product = identify(value.observation.evidence)
-    if product is None or product != valuation.product or valuation.listing_id != value.listing_id:
+    product = (
+        value.identification.product_key
+        if value.identification
+        else identify(value.observation.evidence)
+    )
+    if value.identification and value.identification.state != "identified":
+        return Component(
+            None,
+            "indisponivel",
+            "valuation",
+            value.identification.reason or "produto_indeterminado",
+        )
+    if product is None:
+        return Component(None, "indisponivel", "valuation", "produto_indeterminado")
+    if product != valuation.product or valuation.listing_id != value.listing_id:
         return Component(None, "indisponivel", "valuation", "produto_incompativel")
     if valuation.resale.valid_until is not None and now > valuation.resale.valid_until:
         return Component(None, "indisponivel", "valuation", "evidencia_vencida")

@@ -16,9 +16,12 @@ from garimpei.domain.monitoring.errors import (
     MonitoringError,
 )
 from garimpei.domain.navigation.ports import NavigationError
+from garimpei.domain.operations.errors import OperationsError
+from garimpei.domain.valuation.identity_errors import IdentityError
 from garimpei.infra.http.listing.condition_presentation import condition_error
 from garimpei.infra.http.listing.exploration_presentation import url
 from garimpei.infra.http.monitoring.presentation import error_response
+from garimpei.infra.http.valuation.identity_forms import IdentityForm
 from garimpei.usecase.listing.read_condition_usecase import ReadConditionUseCase
 
 
@@ -39,6 +42,39 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        operational_route = _request.path == "/acompanhamento/" or _request.path.startswith(
+            (
+                "/acompanhamento/estado/",
+                "/acompanhamento/etapas/",
+                "/acompanhamento/backups/",
+                "/acompanhamento/exportacoes/",
+            )
+        )
+        if operational_route and isinstance(
+            _exception, (OperationsError, DatabaseError, ConfigurationReadFailed)
+        ):
+            return operational_error(_request, _exception)
+
+        if isinstance(_exception, IdentityError) or (
+            _request.path.endswith("/identidade/") and isinstance(_exception, DatabaseError)
+        ):
+            response = render(
+                _request,
+                "valuation/identity_error.html",
+                {
+                    "message": _exception.message
+                    if isinstance(_exception, IdentityError)
+                    else "Não foi possível gravar a identidade. Sua entrada continua disponível para tentar novamente.",
+                    "identity_form": IdentityForm(_request.POST),
+                    "resolution": _request.POST.get("resolution", ""),
+                    "request_path": _request.get_full_path(),
+                    "return_path": _request.path.removesuffix("identidade/")
+                    + ("?" + _request.GET.urlencode() if _request.GET else ""),
+                },
+                status=_exception.status if isinstance(_exception, IdentityError) else 503,
+            )
+            response["Cache-Control"] = "no-store"
+            return response
         if isinstance(_exception, MediaError):
             media_response = JsonResponse({"code": _exception.code}, status=_exception.status)
             media_response["Cache-Control"] = "private, no-cache"
@@ -134,3 +170,33 @@ class ErrorMiddleware:
 def csrf_failure(request: HttpRequest, reason: str = "") -> HttpResponse:
     del reason  # Django passes an internal explanation; do not disclose it in the response or logs.
     return render(request, "monitoring/csrf_error.html", status=403)
+
+
+def operational_error(request: HttpRequest, error: Exception) -> HttpResponse:
+    code = error.code if isinstance(error, OperationsError) else "OPERATIONS_UNAVAILABLE"
+    status = error.status if isinstance(error, OperationsError) else 503
+    message = "Não foi possível concluir a operação. Os dados confirmados continuam preservados."
+    if code == "recovery_barrier":
+        message = "O despacho permanece bloqueado até reconciliar o intervalo após a cópia."
+    response: HttpResponse
+    if request.path.endswith("/estado/") and request.GET.get("formato") != "html":
+        response = JsonResponse(
+            {"error": {"code": code, "message": message}, "retry_url": request.get_full_path()},
+            status=status,
+        )
+    else:
+        template = (
+            "operations/feedback.html"
+            if request.headers.get("HX-Request") == "true"
+            else "operations/error.html"
+        )
+        response = render(
+            request,
+            template,
+            {"message": message, "retry_url": request.get_full_path()},
+            status=status,
+        )
+    response["Cache-Control"] = "no-store"
+    response["HX-Retarget"] = "#operational-feedback"
+    response["HX-Reswap"] = "innerHTML"
+    return response

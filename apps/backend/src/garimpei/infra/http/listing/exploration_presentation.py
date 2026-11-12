@@ -62,12 +62,16 @@ def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
         else "",
         complete_profit_label="Lucro estimado",
         resale=money_label(composition.resale.value),
+        finance_reason=reason_label(composition.resale.reason),
         detail_url=url(criteria, f"/ofertas/{offer.id}/"),
         url=safe_url(offer.url),
     )
     if not compatible_composition(offer):
         result.update(
-            price=money_label(offer.evidence.price), resale="Indisponível", profit="Indisponível"
+            price=money_label(offer.evidence.price),
+            resale="Indisponível",
+            profit="Indisponível",
+            finance_reason="A composição não corresponde à revisão desta oferta",
         )
     from garimpei.infra.http.listing.assessment_presentation import assessment_context
     from garimpei.infra.http.media.presentation import media_context
@@ -109,7 +113,8 @@ def compatible_valuation(offer: Offer) -> bool:
         and valuation.listing_id == offer.id
         and valuation.id == offer.composition.evaluation_id
         and valuation.revision == offer.composition.evaluation_revision
-        and valuation.product == identify(offer.evidence)
+        and valuation.product
+        == (offer.identification.product_key if offer.identification else identify(offer.evidence))
         and valuation.resale.price == offer.composition.resale.value
     )
 
@@ -200,6 +205,10 @@ def reason_label(reason: str | None) -> str | None:
         "aguardando_avaliacao": "A avaliação de preços ainda está em andamento",
         "amostra_insuficiente": "Ainda não há comparáveis usados suficientes",
         "amostra_dispersa": "Os preços da amostra variam demais para estimar a revenda",
+        "familia_sem_suporte": "A família ou modelo ainda não tem suporte de comparação",
+        "atributo_ausente": "Falta um atributo determinante para identificar o produto",
+        "identidade_em_conflito": "Revise os atributos de identidade em conflito",
+        "item_excluido": "Acessório, peça ou conjunto fora da comparação",
         "produto_indeterminado": "O modelo e a variante do produto ainda não foram identificados",
         "produto_incompativel": "A avaliação disponível corresponde a outra variante",
         "evidencia_vencida": "As referências de preços precisam ser atualizadas",

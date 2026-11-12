@@ -2,6 +2,7 @@
     <section class="condition-assessment" aria-labelledby="assessment-heading">
         <h2 id="assessment-heading">Avaliação conjunta de texto e fotos</h2>
         <p role="status">{{ assessment_reason }}</p>
+        {% if assessment.runtime == "controlled_fake" %}<p class="notice">Resultado controlado de avaliação; não é uma execução do modelo real.</p>{% endif %}
         <p class="fine">Aparência avaliada nas fotos disponíveis. O funcionamento interno, as portas e as partes não mostradas precisam de teste presencial.</p>
         {% if offer.condition.conflict %}<p class="notice">Sua classificação foi mantida; a avaliação automática aponta uma divergência.</p>{% endif %}
         <h3>Declaração do vendedor</h3>
@@ -18,8 +19,8 @@
         {% empty %}<p>Nenhum sinal visual validado disponível nesta avaliação.</p>{% endfor %}
         <h3>Limitações e verificações presenciais</h3>
         <ul>{% for limitation in assessment.limitations %}<li>{{ limitation }}</li>{% empty %}<li>As fotos não substituem inspeção ou teste presencial.</li>{% endfor %}</ul>
-        <p class="fine">Cobertura: {{ assessment_count }} de {{ assessment_total }} fotos examinadas.</p>
-        {% if assessment.analyzed_at %}<p class="fine">Analisada em {{ assessment.analyzed_at|date:"d/m/Y H:i:s" }} UTC. Modelo Qwen3.5 4B Q4_K_M · {{ assessment.model_revision }}. Revisão {{ assessment.revision }}.</p>{% endif %}
+        {% if assessment_total %}<p class="fine">Cobertura: {{ assessment_count }} de {{ assessment_total }} fotos examinadas.</p>{% else %}<p class="fine">Cobertura visual ainda não preparada ou sem fotos disponíveis.</p>{% endif %}
+        {% if assessment.analyzed_at %}<p class="fine">{% if assessment.status == "complete" %}Resultado registrado em{% elif assessment.status == "failed" %}Tentativa não concluída em{% else %}Resultado parcial registrado em{% endif %} {{ assessment.analyzed_at|date:"d/m/Y H:i:s" }} UTC. {% if assessment.runtime == "controlled_fake" %}Perfil alvo de teste{% else %}Configuração local Qwen3.5 4B Q4_K_M{% endif %} · {{ assessment.model_revision }}. Revisão {{ assessment.revision }}.</p>{% endif %}
         {% if assessment.previous %}<p class="fine">Análise anterior conservada no histórico: {{ assessment.previous }}. Ela não substitui a avaliação desta entrada.</p>{% endif %}
         {% if not offer.condition.satisfies_alert_condition %}<p>A avaliação atual não satisfaz a condição para alerta automático.</p>{% endif %}
     </section>

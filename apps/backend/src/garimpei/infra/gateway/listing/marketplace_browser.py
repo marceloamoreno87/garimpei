@@ -47,6 +47,7 @@ class SearchFilters:
     origin: Point
     radius_km: int
     window: PublicationWindow | None
+    all_publication_dates: bool = False
 
 
 class MarketplaceNavigation(Protocol):
@@ -176,6 +177,7 @@ class MarketplaceBrowser:
             if self._profile is not None:
                 self._context = self._engine.chromium.launch_persistent_context(
                     self._profile,
+                    timeout=self._timeout,
                     headless=self._profile_headless,
                     locale="pt-BR",
                     timezone_id="America/Sao_Paulo",
@@ -196,6 +198,7 @@ class MarketplaceBrowser:
             ).hook_playwright_context(self._engine)
             self._browser = self._engine.chromium.launch(
                 headless=True,
+                timeout=self._timeout,
                 args=["--disable-blink-features=AutomationControlled"],
                 ignore_default_args=["--enable-automation"],
             )
@@ -445,6 +448,8 @@ class MarketplaceBrowser:
                 "commerce_enable_shipping": True,
             }
         )
+        if filters.all_publication_dates:
+            browse.pop("commerce_search_and_rp_ctime_days", None)
         if filters.window is not None:
             first = int(filters.window.start.timestamp()) // 86400 - 1
             last = int(filters.window.end.timestamp()) // 86400 + 1

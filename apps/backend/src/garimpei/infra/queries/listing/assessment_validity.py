@@ -1,11 +1,13 @@
 from typing import cast
 
 from garimpei.config.env import load_inference_settings
+from garimpei.domain.inference.condition_evidence import VERSION
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.listing.assessment_policy import POLICY_VERSION
 from garimpei.domain.media.media import MediaGallery
 from garimpei.infra.gateway.inference.input_preparer import read_lock
 from garimpei.infra.persistence.assessment_models import ConditionAssessment
+from garimpei.infra.queries.listing.assessment_context import assessment_context
 
 
 def model_revision() -> str:
@@ -25,10 +27,14 @@ def applicable(row: ConditionAssessment, gallery: MediaGallery, model: str) -> b
         if row.listing.latest
         else {}
     )
+    context = assessment_context(row.listing) if row.listing.latest else {}
     return bool(
         row.model_revision == model
         and row.policy_version == POLICY_VERSION
+        and row.prompt_version == VERSION
+        and row.schema_version == VERSION
         and old["text"] == text
+        and all(old.get(key) == value for key, value in context.items())
         and row.observation_id == row.listing.latest_id
         and original == current
         and old["complete"] == gallery.complete

@@ -1,0 +1,54 @@
+{% extends "monitoring/layout.html" %}
+{% load static %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'operations/status.css' %}">{% endblock %}
+{% block title %}Cópias dos dados · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1" class="operations">
+        <a href="{% url 'monitoring-tracking' %}">Voltar ao acompanhamento</a>
+        <h1>Cópias dos seus dados</h1>
+        <p>Uma cópia a cada 24 horas de operação. São conservadas as sete últimas cópias concluídas.</p>
+        <dl class="operations-summary">
+            <div>
+                <dt>Última cópia concluída</dt>
+                <dd>
+                    {{ last_success_at|date:"d/m/Y H:i:s T"|default:"Nenhuma ainda" }}
+                </dd>
+            </div>
+            <div>
+                <dt>Próxima cópia</dt>
+                <dd>
+                    {{ next_due_at|date:"d/m/Y H:i:s T"|default:"Ainda não agendada" }}
+                </dd>
+            </div>
+            {% if last_failure_at %}<div><dt>Última falha</dt><dd>{{ last_failure_at|date:"d/m/Y H:i:s T" }}</dd></div>{% endif %}
+        </dl>
+        <p class="notice">Cópia no mesmo disco não cobre a perda desse disco. Para guardar em outro lugar, exporte uma cópia concluída. O acesso ao Facebook e o pareamento do WhatsApp precisam ser recuperados separadamente.</p>
+        <h2>Histórico de cópias</h2>
+        <ul class="operations-backups">
+            {% for record in records %}
+                <li>
+                    <div>
+                        <h3>{% if record.kind == "export" %}Exportação{% else %}Cópia local{% endif %} de {{ record.started_at|date:"d/m/Y H:i" }}</h3>
+                        <p>{% if record.state == "completed" %}Concluída{% elif record.state == "failed" %}Falhou. As cópias concluídas continuam preservadas.{% elif record.state == "removed" %}Removida pela retenção{% else %}Em preparação{% endif %}</p>
+                        <p>Dados até {{ record.snapshot_at|date:"d/m/Y H:i:s T"|default:"ainda não confirmado" }}. Formato {{ record.format_version }}.</p>
+                        <p>Restauração: {% if record.restoration_state == "verified" %}verificada em ambiente isolado{% else %}não testada{% endif %}.</p>
+                    </div>
+                    {% if record.state == "completed" %}
+                        {% if record.kind == "backup" %}
+                            <form method="post" action="{% url 'operations-export' record.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="request_id" value="{{ request_id }}">
+                                <button type="submit" class="button secondary">Exportar esta cópia</button>
+                            </form>
+                        {% else %}
+                            <a class="button secondary"
+                               href="{% url 'operations-download' record.id %}">Baixar exportação</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>Ainda não há cópias concluídas. O acompanhamento informa quando a próxima operação estiver disponível.</li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}

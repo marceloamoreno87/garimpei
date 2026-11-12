@@ -279,3 +279,44 @@ def test_media_carousel_fragment_binds_only_to_verified_listing_identity() -> No
     assert candidate.evidence.media.complete
     assert [photo.key for photo in candidate.evidence.media.photos] == ["photo-a"]
     assert candidate.evidence.media.photos[0].variants[0].width == 720
+
+
+def test_comparable_research_does_not_inherit_publication_age_filter() -> None:
+    from dataclasses import replace
+    from urllib.parse import parse_qs, urlsplit
+
+    from garimpei.domain.listing.listing import Match
+    from garimpei.domain.listing.scope import Search
+    from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
+
+    scope = Scope.from_snapshot(
+        MonitoringSnapshot(
+            configured=True,
+            configuration_id=uuid4(),
+            revision=1,
+            cep="01001000",
+            product_names=("PlayStation 5",),
+        )
+    )
+    assert scope is not None
+    source = FacebookMarketplace(
+        RecordedNavigation((Feed((), False, True),), []), FixedCep(), CategoryCatalog("", "", ())
+    )
+    query = Search(
+        Match("product", "sony:ps5:slim:disc:1tb"),
+        "PlayStation 5 slim disco 1tb",
+        "marketplace",
+        purpose="research",
+    )
+    assert "daysSinceListed" not in parse_qs(urlsplit(source._url(scope, query)).query)
+    assert parse_qs(urlsplit(source._url(scope, replace(query, purpose="active"))).query)[
+        "daysSinceListed"
+    ] == ["3"]
+    browser = MarketplaceBrowser.__new__(MarketplaceBrowser)
+    browser._filters = SearchFilters(
+        Point(-23.55, -46.63, None, "São Paulo", "SP"), 500, None, all_publication_dates=True
+    )
+    observed: JsonObject = {"commerce_search_and_rp_ctime_days": "20000;19999"}
+    browser._patch_filters(observed)
+    assert "commerce_search_and_rp_ctime_days" not in observed
+    assert observed["filter_radius_km"] == 500

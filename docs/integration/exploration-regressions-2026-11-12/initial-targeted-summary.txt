@@ -1,0 +1,4 @@
+Initial targeted run after fixture/query changes, before cycle synchronization:
+
+FAILED apps/backend/tests/integration/test_exploration.py::test_costs_references_expiry_failures_and_concurrent_publishers
+1 failed, 4 passed in 171.50s (0:02:51)

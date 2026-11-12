@@ -1,0 +1,21 @@
+{
+  "owned_web_ports_closed": {
+    "22712": true,
+    "20353": true,
+    "23275": true,
+    "13728": true,
+    "16629": true
+  },
+  "browser_sessions_closed": [
+    "f15-final-list",
+    "f15-final-detail",
+    "f15-assessment",
+    "f15-list"
+  ],
+  "active_final_lab_exit": 0,
+  "initial_eval_f15assessment_stop_clean_exit": 0,
+  "external_profile_used": false,
+  "real_whatsapp_transmissions": 0,
+  "feature_lock_released": true,
+  "checked_at": "2026-11-12T22:01:35.143075+00:00"
+}

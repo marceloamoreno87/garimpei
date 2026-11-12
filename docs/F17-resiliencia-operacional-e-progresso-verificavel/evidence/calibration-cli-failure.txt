@@ -1,0 +1,36 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab.py", line 301, in <module>
+    main()
+    ~~~~^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab.py", line 292, in main
+    calibrate(directory)
+    ~~~~~~~~~^^^^^^^^^^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab.py", line 242, in calibrate
+    from tests.factories.operations_probe import measure_adapters
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_probe.py", line 20, in <module>
+    from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/src/garimpei/infra/gateway/listing/fixture_source.py", line 18, in <module>
+    from garimpei.infra.repository.media.mapper import decode_manifest
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/src/garimpei/infra/repository/media/mapper.py", line 2, in <module>
+    from garimpei.infra.persistence.media_models import MediaEntry
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/src/garimpei/infra/persistence/media_models.py", line 6, in <module>
+    class MediaCapture(models.Model):
+    ...<12 lines>...
+        verified_at = models.DateTimeField(null=True)
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 131, in __new__
+    app_config = apps.get_containing_app_config(module)
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/apps/registry.py", line 260, in get_containing_app_config
+    self.check_apps_ready()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/apps/registry.py", line 137, in check_apps_ready
+    settings.INSTALLED_APPS
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/conf/__init__.py", line 81, in __getattr__
+    self._setup(name)
+    ~~~~~~~~~~~^^^^^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/conf/__init__.py", line 61, in _setup
+    raise ImproperlyConfigured(
+    ...<4 lines>...
+    )
+django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.

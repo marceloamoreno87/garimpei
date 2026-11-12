@@ -1,0 +1,25 @@
+{
+  "scope": "Owned eval database and synthetic source only",
+  "expected_source_price": "1720.00",
+  "expected_target_profit": "376.00",
+  "observations": [
+    {
+      "external_id": "20003",
+      "observed_price": "1700.00",
+      "observation_ordinal": 2,
+      "valuation_requested": 3,
+      "resale_price": null
+    },
+    {
+      "external_id": "10004",
+      "observed_price": "1000.00",
+      "observation_ordinal": 2,
+      "valuation_requested": 3,
+      "resale_price": "1700.00"
+    }
+  ],
+  "next_expected_cycle_before_fix": 2,
+  "actual_old_price_cycle": 2,
+  "failure": "source mutation occurred after configuration cycle had captured old price; waiting for finalized cycle 2 was insufficient",
+  "diagnostic_limit": "Temporary failure hook also referenced a nonexistent failures field; only preceding captured row values are used as evidence. Temporary hook removed."
+}

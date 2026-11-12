@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from tests.factories.condition_http import ConditionBrowser, listing_id
 from tests.factories.listing import fail_next_condition_write
+from tests.factories.runtime import pause_worker, resume_worker
 from tests.integration.test_collection import completed, shell, sql, wait_for
 from tests.integration.test_listing_condition import ConditionScenario, condition_scenario
 
@@ -16,55 +17,67 @@ def test_http_choices_stale_revision_validation_and_csrf(
     identity = listing_id(instance)
     assert "R$ 2.300,00" in browser.request("/ofertas/")[1]
     other = listing_id(instance, "507")
-    baseline = sql(instance, "SELECT id,kind FROM runtime_listingevent ORDER BY sequence")
-    jobs = sql(instance, "SELECT id FROM procrastinate_jobs WHERE queue_name='listing' ORDER BY id")
-    assert browser.choose(identity, "wrong")[0] == 400
-    assert browser.choose(identity, "good", "-1")[0] == 400
-    assert browser.choose(identity, "good", "x")[0] == 400
-    assert (
-        browser.request(f"/ofertas/{identity}/condicao/", {"choice": "good", "revision": "0"})[0]
-        == 403
-    )
-    assert browser.request(f"/ofertas/{uuid4()}/")[0] == 404
-    assert browser.request("/ofertas/invalid/")[0] == 404
-    assert browser.request("/ofertas/?aba=invalid")[0] == 400
-    assert browser.request(f"/ofertas/{identity}/condicao/")[0] == 405
-    assert browser.request(f"/ofertas/{identity}/", method="OPTIONS")[0] == 405
-    assert (
-        browser.request(f"/ofertas/{uuid4()}/condicao/", {"choice": "good", "revision": "0"})[0]
-        == 403
-    )
-    # Reuse a valid CSRF token with a missing ID and an automatically conclusive listing.
-    import re
+    group = pause_worker(instance)
+    try:
+        baseline = sql(instance, "SELECT id,kind FROM runtime_listingevent ORDER BY sequence")
+        jobs = sql(
+            instance, "SELECT id FROM procrastinate_jobs WHERE queue_name='listing' ORDER BY id"
+        )
+        assert browser.choose(identity, "wrong")[0] == 400
+        assert browser.choose(identity, "good", "-1")[0] == 400
+        assert browser.choose(identity, "good", "x")[0] == 400
+        assert (
+            browser.request(f"/ofertas/{identity}/condicao/", {"choice": "good", "revision": "0"})[
+                0
+            ]
+            == 403
+        )
+        assert browser.request(f"/ofertas/{uuid4()}/")[0] == 404
+        assert browser.request("/ofertas/invalid/")[0] == 404
+        assert browser.request("/ofertas/?aba=invalid")[0] == 400
+        assert browser.request(f"/ofertas/{identity}/condicao/")[0] == 405
+        assert browser.request(f"/ofertas/{identity}/", method="OPTIONS")[0] == 405
+        assert (
+            browser.request(f"/ofertas/{uuid4()}/condicao/", {"choice": "good", "revision": "0"})[0]
+            == 403
+        )
+        # Reuse a valid CSRF token with a missing ID and an automatically conclusive listing.
+        import re
 
-    body = browser.request(f"/ofertas/{identity}/")[1]
-    match = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', body)
-    assert match is not None
-    data = {"choice": "good", "revision": "0", "csrfmiddlewaretoken": match[1]}
-    assert browser.request(f"/ofertas/{uuid4()}/condicao/", data)[0] == 404
-    assert browser.request(f"/ofertas/{listing_id(instance, '501')}/condicao/", data)[0] == 409
-    status, _, location = browser.choose(identity, "good")
-    assert status == 303 and location == f"/ofertas/{identity}/"
-    status, body, _ = browser.request(location)
-    assert (
-        status == 200
-        and "Sua classificação foi salva" in body
-        and "Sua classificação manual" in body
-    )
-    assert 'value="1"' in body
-    assert identity in browser.request("/ofertas/?aba=funcionam")[1]
-    assert identity not in browser.request("/ofertas/?aba=incerta")[1]
-    assert browser.choose(identity, "defect")[0] == 303
-    status, body, _ = browser.choose(identity, "good", "1")
-    assert status == 409 and "Esta oferta mudou" in body
-    assert "Não funciona bem" in body and 'value="2"' in body
-    assert identity in browser.request("/ofertas/?aba=defeitos")[1]
-    assert browser.choose(other, "defect")[0] == 303
-    assert sql(instance, "SELECT id,kind FROM runtime_listingevent ORDER BY sequence") == baseline
-    assert (
-        sql(instance, "SELECT id FROM procrastinate_jobs WHERE queue_name='listing' ORDER BY id")
-        == jobs
-    )
+        body = browser.request(f"/ofertas/{identity}/")[1]
+        match = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', body)
+        assert match is not None
+        data = {"choice": "good", "revision": "0", "csrfmiddlewaretoken": match[1]}
+        assert browser.request(f"/ofertas/{uuid4()}/condicao/", data)[0] == 404
+        assert browser.request(f"/ofertas/{listing_id(instance, '501')}/condicao/", data)[0] == 409
+        status, _, location = browser.choose(identity, "good")
+        assert status == 303 and location == f"/ofertas/{identity}/"
+        status, body, _ = browser.request(location)
+        assert (
+            status == 200
+            and "Sua classificação foi salva" in body
+            and "Sua classificação manual" in body
+        )
+        assert 'value="1"' in body
+        assert identity in browser.request("/ofertas/?aba=funcionam")[1]
+        assert identity not in browser.request("/ofertas/?aba=incerta")[1]
+        assert browser.choose(identity, "defect")[0] == 303
+        status, body, _ = browser.choose(identity, "good", "1")
+        assert status == 409 and "Esta oferta mudou" in body
+        assert "Não funciona bem" in body and 'value="2"' in body
+        assert identity in browser.request("/ofertas/?aba=defeitos")[1]
+        assert browser.choose(other, "defect")[0] == 303
+        assert (
+            sql(instance, "SELECT id,kind FROM runtime_listingevent ORDER BY sequence") == baseline
+        )
+        assert (
+            sql(
+                instance, "SELECT id FROM procrastinate_jobs WHERE queue_name='listing' ORDER BY id"
+            )
+            == jobs
+        )
+    finally:
+        resume_worker(group)
     # First-choice eligibility must be checked against the current accepted observation.
     uncertain = listing_id(instance, "508")
     source.rows["VAZIA"]["description"] = "Precisa de reparo."

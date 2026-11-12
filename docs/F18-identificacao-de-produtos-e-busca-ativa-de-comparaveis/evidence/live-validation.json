@@ -1,0 +1,123 @@
+{
+  "feature": "F18",
+  "source_kind": "real",
+  "started_at": "2026-11-12T20:57:16.752371+00:00",
+  "status": "partial_source_context",
+  "read_only": true,
+  "profile_copied": false,
+  "real_whatsapp_posts": 0,
+  "source_seconds_limit": 180,
+  "request_timeout_seconds": 20,
+  "max_searches": 1,
+  "max_pages": 2,
+  "max_details": 2,
+  "searches": 1,
+  "pages": [
+    {
+      "index": 1,
+      "seconds": 6.52847608900629,
+      "candidate_count": 24,
+      "invalid_cards": 0,
+      "diagnostic": null,
+      "window_proof": null,
+      "source_context": {
+        "verified": false,
+        "radius_km": 6,
+        "query": "RTX 4060 8gb",
+        "location_sha256": "e9c4530c9f16beadb5c4b745fcd2a8ffcea4b10e336c7ed7f3a93698841bf67f",
+        "requested_radius_km": 500
+      },
+      "continuation_present": true,
+      "continuation_kind": "source",
+      "continuation_length": 2077,
+      "continuation_sha256": "e5761265fdf789693bc1c0c665a3a252ed4f75571c79f1e5966b2cb89696ca3a"
+    },
+    {
+      "index": 2,
+      "seconds": 2.159454877997632,
+      "candidate_count": 24,
+      "invalid_cards": 0,
+      "diagnostic": null,
+      "window_proof": null,
+      "source_context": {
+        "verified": false,
+        "radius_km": 6,
+        "query": "RTX 4060 8gb",
+        "location_sha256": "e9c4530c9f16beadb5c4b745fcd2a8ffcea4b10e336c7ed7f3a93698841bf67f",
+        "requested_radius_km": 500
+      },
+      "continuation_present": true,
+      "continuation_kind": "source",
+      "continuation_length": 2321,
+      "continuation_sha256": "02209974b36a4e03e433de6284325f79a666d36a8431dda2902724ae83110f50"
+    }
+  ],
+  "details": [
+    {
+      "external_id": "2279569789283954",
+      "url": "https://www.facebook.com/marketplace/item/2279569789283954/",
+      "seconds": 5.569101438988582,
+      "title": "RTX4060 8GB Zotac",
+      "description_excerpt": "RTX4060 8GB Zotac.\n1 ano de uso.\nAcompanha caixa.",
+      "price": "2100.00",
+      "source_available": true,
+      "published_at": "2026-11-12T17:52:53+00:00",
+      "identity_state": "identified",
+      "product_key": "nvidia:rtx:4060:8gb",
+      "condition": "Usado — seminovo",
+      "observed_at": "2026-11-12T20:57:32.737926+00:00"
+    },
+    {
+      "external_id": "1503612405004696",
+      "url": "https://www.facebook.com/marketplace/item/1503612405004696/",
+      "seconds": 6.797725754004205,
+      "title": "Placa de Vídeo RTX 4060 8GB PNY",
+      "description_excerpt": "Vendo placa de vídeo Nvidia RTX 4060 8GB modelo da marca PNY, placa de vídeo funcionando 100% em perfeito estado com pouco tempo de uso\n\nParcelo até 12x no cartão de crédito com juros por conta do comprador",
+      "price": "2200.00",
+      "source_available": true,
+      "published_at": "2026-11-12T17:13:06+00:00",
+      "identity_state": "identified",
+      "product_key": "nvidia:rtx:4060:8gb",
+      "condition": "Novo",
+      "observed_at": "2026-11-12T20:57:39.535880+00:00"
+    }
+  ],
+  "corpus_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+  "publication_filter": null,
+  "used_observation_window_days": 14,
+  "configuration_revision": 2,
+  "target_case": "REAL-2e0b05593b",
+  "before_business_hash": "17041378a46613b1cd778599400ed310c5fa3c4c2134872dd6e9a6aba5cbf287",
+  "prepared_at": "2026-11-12T20:57:16.766221+00:00",
+  "stop_exit": 0,
+  "exclusive_source_started_at": "2026-11-12T20:57:18.479660+00:00",
+  "source_elapsed_seconds": 21.0561799529969,
+  "browser_closed": true,
+  "exclusive_source_finished_at": "2026-11-12T20:57:39.670376+00:00",
+  "restore_exit": 0,
+  "readiness": true,
+  "after_business_hash": "17041378a46613b1cd778599400ed310c5fa3c4c2134872dd6e9a6aba5cbf287",
+  "business_state_unchanged": true,
+  "facebook_login_state_after": "ready",
+  "finished_at": "2026-11-12T20:57:43.585411+00:00",
+  "local_candidates_retained": 0,
+  "business_observations_published": 0,
+  "unique_source_candidates": "not counted: card counts may overlap between pages",
+  "coverage": "Two observed pages; source still offered continuation. No claim of source exhaustion or local geography.",
+  "limitations": [
+    "Native observed radius6km differs from requested500km; no local sample was published.",
+    "Only two details were read; first lacks positive functioning evidence, second is explicitly marked Novo.",
+    "This proof does not assert five real retained comparables or universal family support."
+  ],
+  "measurements": {
+    "query_seconds": [
+      6.52847608900629,
+      2.159454877997632
+    ],
+    "detail_seconds": [
+      5.569101438988582,
+      6.797725754004205
+    ],
+    "source_window_seconds": 21.0561799529969
+  }
+}

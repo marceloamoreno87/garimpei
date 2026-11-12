@@ -438,6 +438,12 @@
     "reason": "F16 public diagnostic field asserted against persisted identity, intent and financial revision through Django shell in test_public_diagnostic_fields_history_and_partial_http_failure"
   },
   {
+    "symbol": "WorkerOptions.queue_group",
+    "path": "src/garimpei/infra/persistence/management/commands/runworker.py",
+    "consumer": "src/garimpei/infra/worker/reserved_consumers.py",
+    "reason": "TypedDict mapping key parsed by argparse; reserved queue consumers invoke the same management entry with --queue-group and the handler reads options[queue_group]."
+  },
+  {
     "symbol": "Listing.media_tracking_active",
     "path": "src/garimpei/infra/persistence/listing_models.py",
     "consumer": "tests/integration/test_media_persistence.py",
@@ -472,5 +478,77 @@
     "path": "src/garimpei/infra/repository/media/postgres_repository.py",
     "consumer": "tests/integration/test_media_persistence.py",
     "reason": "Backup pin enumeration exercised in PostgreSQL analysis-retention contract; required by F17 adapter"
+  },
+  {
+    "symbol": "InvestigationView.shared_targets",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the count of active targets sharing a research investigation"
+  },
+  {
+    "symbol": "InterestCoverage.gaps",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the explicitly bounded interest coverage gap"
+  },
+  {
+    "symbol": "ResearchLimits.measured_at",
+    "path": "src/garimpei/domain/valuation/research_limits.py",
+    "consumer": "src/garimpei/infra/repository/valuation/research_mapper.py",
+    "reason": "dataclasses.asdict persists the reviewed measurement timestamp in every investigation budget"
+  },
+  {
+    "symbol": "IdentityForm.memory_type",
+    "path": "src/garimpei/infra/http/valuation/identity_forms.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/identity.html",
+    "reason": "Django visible_fields binds the optional graphics-card memory field"
+  },
+  {
+    "symbol": "InvestigationTarget.investigation",
+    "path": "src/garimpei/infra/persistence/research_models.py",
+    "consumer": "src/garimpei/infra/repository/valuation/research_repository.py",
+    "reason": "Django ORM resolves FK and related-name joins"
+  },
+  {
+    "symbol": "ResearchQuery.investigation",
+    "path": "src/garimpei/infra/persistence/research_models.py",
+    "consumer": "src/garimpei/infra/repository/valuation/research_repository.py",
+    "reason": "Django ORM resolves FK and related-name joins"
+  },
+  {
+    "symbol": "InterestCoverage.conflicting",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the explicitly measured corpus coverage projection and its version"
+  },
+  {
+    "symbol": "InterestCoverage.unrecognized",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the explicitly measured corpus coverage projection and its version"
+  },
+  {
+    "symbol": "InterestCoverage.insufficient",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the explicitly measured corpus coverage projection and its version"
+  },
+  {
+    "symbol": "InterestCoverage.not_evaluated",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the explicitly measured corpus coverage projection and its version"
+  },
+  {
+    "symbol": "ResearchDiagnostic.corpus_version",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the explicitly measured corpus coverage projection and its version"
+  },
+  {
+    "symbol": "InvestigationView.attempt_limit",
+    "path": "src/garimpei/domain/valuation/research_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
+    "reason": "Django renders the measured per-input attempt ceiling alongside consumption"
   }
 ]

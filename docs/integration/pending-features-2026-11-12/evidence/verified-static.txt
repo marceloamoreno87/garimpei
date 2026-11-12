@@ -1,0 +1,2 @@
+
+3 static files copied to '/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.test-static', 17 unmodified.

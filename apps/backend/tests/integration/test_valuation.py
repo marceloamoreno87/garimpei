@@ -229,7 +229,7 @@ def test_pending_service_and_indeterminate_product(tmp_path: Path) -> None:
             wait_valuation(i, int(current["revision"]) + 1)
             read_assert(
                 i,
-                "assert v.resale.price is None and v.resale.reason=='produto_indeterminado' and v.new.quote is None\nassert build_read_listing().execute(target.id) is not None\n",
+                "assert v.resale.price is None and v.resale.reason=='atributo_ausente' and not v.resale.comparables and v.new.quote is None\nassert v.identification.state=='missing_attribute' and set(v.identification.missing_attributes)=={'generation','edition','capacity'}\nassert build_read_listing().execute(target.id) is not None\n",
             )
         finally:
             source.release.set()
@@ -332,21 +332,21 @@ from threading import Thread,Event
 from unittest.mock import patch
 from django.db import connection,connections,transaction
 from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
-from garimpei.domain.valuation.identity import identify
+from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.config.env import load_listing_settings
 from garimpei.main import _listing_clock
 entered,released=Event(),Event()
 errors=[]
-def slow_identity(evidence):
+def slow_identity(row,progress=None):
     entered.set()
     assert released.wait(10)
-    return identify(evidence)
+    return identify_row(row,progress)
 def enqueue(identity): return 1
 def reconcile():
     try: PostgresValuationRepository(enqueue).reconcile(_listing_clock(load_listing_settings())())
     except Exception as error: errors.append(type(error).__name__)
     finally: connections.close_all()
-with patch('garimpei.infra.repository.valuation.postgres_repository.identify',side_effect=slow_identity):
+with patch('garimpei.infra.repository.valuation.postgres_repository.identify_row',side_effect=slow_identity):
     worker=Thread(target=reconcile);worker.start()
     try:
         assert entered.wait(5)

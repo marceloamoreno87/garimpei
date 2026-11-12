@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from datetime import datetime, timedelta
 from uuid import UUID
 
@@ -9,6 +10,7 @@ from garimpei.domain.alert.alert import AlertPolicy, Binding, Delivery, Outcome
 from garimpei.domain.alert.eligibility import eligibility, verified_receipt
 from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.domain.listing.read_models import ChangePage
+from garimpei.domain.operations.ports import ProgressRecorder
 from garimpei.domain.valuation.profit import ProfitComposition
 from garimpei.infra.persistence.alert_models import (
     AlertEventDecision,
@@ -32,8 +34,12 @@ class PostgresAlertRepository:
         configuration: ConfigurationReader,
         listings: PostgresListingQueries,
         policy: AlertPolicy,
+        recovery_guard: Callable[[], bool] | None = None,
+        operations: ProgressRecorder | None = None,
     ) -> None:
         self._configuration, self._listings, self._policy = configuration, listings, policy
+        self._recovery_guard = recovery_guard
+        self._operations = operations
 
     def cursor(self) -> int | None:
         row = AlertFeedCursor.objects.filter(installation="local").first()
@@ -207,6 +213,8 @@ class PostgresAlertRepository:
     ) -> Delivery | None:
         with transaction.atomic():
             lock_monitoring_publication()
+            if self._recovery_guard is not None and self._recovery_guard():
+                return None
             cursor = AlertFeedCursor.objects.get(installation="local")
             if (
                 not cursor.history_ready
@@ -224,6 +232,12 @@ class PostgresAlertRepository:
                 .select_related("decision__event__listing", "decision__event__observation")
                 .get(id=identity)
             )
+            if (
+                not reconcile
+                and self._operations is not None
+                and not self._operations.admits("alert", str(identity), 0, now)
+            ):
+                return None
             return authorize(
                 row, binding, now, reconcile, self._configuration, self._listings, self._policy
             )
@@ -240,6 +254,15 @@ class PostgresAlertRepository:
                 _retain_late_evidence(row, delivery, outcome, now)
                 return
             complete(row, delivery, outcome, now, self._policy)
+            self._record_outcome(row, outcome, now)
+
+    def _record_outcome(self, row: AlertIntent, outcome: Outcome, now: datetime) -> None:
+        if self._operations is None:
+            return
+        if row.state == "confirmed":
+            self._operations.confirm("alert", str(row.id), 0, str(row.confirmed_message), now)
+            return
+        self._operations.failure("alert", str(row.id), 0, outcome.reason, now)
 
 
 def _retain_late_evidence(

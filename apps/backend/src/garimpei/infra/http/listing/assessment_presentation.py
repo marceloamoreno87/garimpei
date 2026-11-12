@@ -1,5 +1,7 @@
 from garimpei.domain.listing.exploration import Offer
 
+FIELD_LABELS = {"title": "Título", "description": "Descrição", "condition": "Condição informada"}
+
 REASONS = {
     "no_photos": "Condição não confirmada: não há fotos para avaliar",
     "waiting_photos": "Aguardando obtenção das fotos para análise",
@@ -36,7 +38,12 @@ def assessment_context(offer: Offer) -> dict[str, object]:
                 (p for p in assessment.photo_coverage if p["photo_id"] == reference.photo_id), None
             )
             refs.append(
-                dict(kind=reference.kind, field=reference.field, quote=reference.quote, photo=photo)
+                dict(
+                    kind=reference.kind,
+                    field=FIELD_LABELS.get(reference.field, reference.field),
+                    quote=reference.quote,
+                    photo=photo,
+                )
             )
         evidence.append(
             dict(
@@ -52,7 +59,9 @@ def assessment_context(offer: Offer) -> dict[str, object]:
             assessment.reason, "Condição não confirmada; a oferta aguarda revisão"
         ),
         assessment_findings=evidence,
-        assessment_text=tuple((s.field, s.text) for s in offer.condition.analysis.signals),
+        assessment_text=tuple(
+            (FIELD_LABELS.get(s.field, s.field), s.text) for s in offer.condition.analysis.signals
+        ),
         assessment_count=sum(p.get("examined") is True for p in assessment.photo_coverage),
         assessment_total=len(assessment.photo_coverage),
     )

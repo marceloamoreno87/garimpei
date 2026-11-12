@@ -1,0 +1,19 @@
+{
+  "source_commit": "e4052ff",
+  "status": "blocked",
+  "operational_enablement": false,
+  "profile_confirmed": false,
+  "direct_cli": {
+    "exit": 1,
+    "reason": "Django settings not configured in FixtureSource import chain"
+  },
+  "wrapper": {
+    "exit": 1,
+    "override": "DJANGO_SETTINGS_MODULE=garimpei.config.test_settings; django.setup(); invoke operations_lab.main",
+    "reason": "Second repetition stop --clean attempted after first repetition already cleaned owned target; disposable marker correctly absent"
+  },
+  "calibration_json_published": false,
+  "persisted_measurements": false,
+  "full_fault_cli_matrix": "not implemented",
+  "source_changes_after_freeze": false
+}

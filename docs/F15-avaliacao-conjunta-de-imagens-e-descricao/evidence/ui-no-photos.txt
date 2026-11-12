@@ -1,0 +1,13 @@
+### Result
+{
+  "text": "Avaliação conjunta de texto e fotos\n\nCondição não confirmada: não há fotos para avaliar\n\nAparência avaliada nas fotos disponíveis. O funcionamento interno, as portas e as partes não mostradas precisam de teste presencial.\n\nDeclaração do vendedor\n\nO aparelho funciona perfeitamente.\n\nDescrição do anúncio\nAparência e evidências\n\nNenhum sinal visual validado disponível nesta avaliação.\n\nLimitações e verificações presenciais\nAs fotos não substituem inspeção ou teste presencial.\n\nCobertura visual ainda não preparada ou sem fotos disponíveis.\n\nAnálise anterior conservada no histórico: 945502fd-03b0-4d51-9ca2-d5496b64ecaf. Ela não substitui a avaliação desta entrada.\n\nA avaliação atual não satisfaz a condição para alerta automático.",
+  "images": 0,
+  "modelTimestampShown": false,
+  "manual": "Funciona bem\n\nSua classificação manual\n\nCorrigir sua classificação\nVer em Funcionam bem",
+  "source": true,
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {const s=document.querySelector(".condition-assessment");s.scrollIntoView();return {text:s.innerText,images:document.querySelectorAll(".media-gallery img").length,modelTimestampShown:s.innerText.includes("registrado em"),manual:document.querySelector(".condition-summary")?.innerText,source:!!document.querySelector(".source-link"),overflow:document.documentElement.scrollWidth>innerWidth}}');
+```

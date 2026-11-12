@@ -1,0 +1,11 @@
+### Result
+{
+  "url": "/ofertas/?aba=incerta&q=Notebook&categoria=&pagina=1&versao=e3bae781-2086-4563-a57a-fc9d87ca7471",
+  "empty": true,
+  "filter": "Notebook",
+  "rows": 0
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url:location.pathname+location.search,empty:document.body.innerText.includes("Nenhuma oferta neste recorte"),filter:document.querySelector("#exploration-search").value,rows:document.querySelectorAll("[data-offer-id]").length})');
+```

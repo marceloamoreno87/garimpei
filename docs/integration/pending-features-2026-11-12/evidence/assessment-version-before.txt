@@ -1,0 +1,156 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history[prompt_version] _
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-480/media-database0/media_7abc682a94.env')), 'http://127.0.0.1:33417')
+version_field = 'prompt_version'
+
+    @pytest.mark.parametrize("version_field", ["prompt_version", "schema_version"])
+    def test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history(
+        media_instance: tuple[FoundationInstance, str], version_field: str
+    ) -> None:
+        instance, origin = media_instance
+>       shell(
+            instance,
+            origin,
+            BOOT
+            + "\nVERSION_FIELD="
+            + repr(version_field)
+            + """
+    from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
+    first=prepare.execute(listing.id)
+    for _ in range(3):run.execute()
+    assert complete.execute(first.id)
+    assert build_read_condition().execute(listing.id).state.satisfies_alert_condition
+    row=ConditionAssessment.objects.get(id=first.id)
+    historical_result=row.result;calls=gateway.calls
+    ConditionAssessment.objects.filter(id=first.id).update(**{VERSION_FIELD:'condition-evidence-old'})
+    current=PostgresAssessmentQueries().observation(listing.id,obs.id)
+    assert current.reason=='superseded_input', 'old prompt/schema still authorized current evidence'
+    assert current.previous==first.id and not current.sufficient
+    condition=build_read_condition().execute(listing.id).state
+    assert not condition.satisfies_alert_condition and condition.assessment.previous==first.id
+    row.refresh_from_db()
+    assert row.status=='complete' and row.result==historical_result
+    assert gateway.calls==calls, 'public read invoked inference'
+    print('old prompt/schema is immediately inapplicable; confirmed historical result remains intact and no model executes PASS')
+    """,
+        )
+
+tests/integration/test_identity_assessment.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-480/media-database0/media_7abc682a94.env'))
+origin = 'http://127.0.0.1:33417'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...d prompt/schema is immediately inapplicable; confirmed historical result remains intact and no model executes PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:43:14.621593+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_7abc682a94", "run_id": "95ef82ba-4efd-4f9c-9363-4b12afe7d741"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 102, in <module>
+E         AssertionError: old prompt/schema still authorized current evidence
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^\n  File "<string>", line 102, in <module>\nAssertionError: old prompt/schema still authorized current evidence\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+_ test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history[schema_version] _
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-480/media-database0/media_7abc682a94.env')), 'http://127.0.0.1:33417')
+version_field = 'schema_version'
+
+    @pytest.mark.parametrize("version_field", ["prompt_version", "schema_version"])
+    def test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history(
+        media_instance: tuple[FoundationInstance, str], version_field: str
+    ) -> None:
+        instance, origin = media_instance
+>       shell(
+            instance,
+            origin,
+            BOOT
+            + "\nVERSION_FIELD="
+            + repr(version_field)
+            + """
+    from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
+    first=prepare.execute(listing.id)
+    for _ in range(3):run.execute()
+    assert complete.execute(first.id)
+    assert build_read_condition().execute(listing.id).state.satisfies_alert_condition
+    row=ConditionAssessment.objects.get(id=first.id)
+    historical_result=row.result;calls=gateway.calls
+    ConditionAssessment.objects.filter(id=first.id).update(**{VERSION_FIELD:'condition-evidence-old'})
+    current=PostgresAssessmentQueries().observation(listing.id,obs.id)
+    assert current.reason=='superseded_input', 'old prompt/schema still authorized current evidence'
+    assert current.previous==first.id and not current.sufficient
+    condition=build_read_condition().execute(listing.id).state
+    assert not condition.satisfies_alert_condition and condition.assessment.previous==first.id
+    row.refresh_from_db()
+    assert row.status=='complete' and row.result==historical_result
+    assert gateway.calls==calls, 'public read invoked inference'
+    print('old prompt/schema is immediately inapplicable; confirmed historical result remains intact and no model executes PASS')
+    """,
+        )
+
+tests/integration/test_identity_assessment.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/a716/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-480/media-database0/media_7abc682a94.env'))
+origin = 'http://127.0.0.1:33417'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...d prompt/schema is immediately inapplicable; confirmed historical result remains intact and no model executes PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T21:43:16.990113+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_7abc682a94", "run_id": "95ef82ba-4efd-4f9c-9363-4b12afe7d741"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 102, in <module>
+E         AssertionError: old prompt/schema still authorized current evidence
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^\n  File "<string>", line 102, in <module>\nAssertionError: old prompt/schema still authorized current evidence\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_identity_assessment.py::test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history[prompt_version]
+FAILED tests/integration/test_identity_assessment.py::test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history[schema_version]
+2 failed, 2 deselected in 12.46s

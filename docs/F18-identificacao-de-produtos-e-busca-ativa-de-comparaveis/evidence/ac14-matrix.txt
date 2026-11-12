@@ -1,0 +1,3 @@
+MATRIX_BEFORE [('19601', 'publication_expired', None, 0), ('19602', 'publication_missing', None, 0), ('19603', 'identidade_em_conflito', None, 0), ('19604', 'eligible', 'uncertain', 1)]
+AC14_PASS old publication_expired;missing publication_missing;conflict nointent;uncertain onePOST/oneattempt/sameintent/samebody across restart+manualrevision+contradictoryobservation; channel loopback only
+CLEANUP owned scenario stopped --clean; no real WAHA

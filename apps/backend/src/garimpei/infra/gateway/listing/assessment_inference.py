@@ -60,6 +60,8 @@ class LocalAssessmentInference:
                 tuple(refs[index : index + 4]),
                 VERSION,
                 VERSION,
+                work.id,
+                work.generation,
             )
             ticket = self._request.execute(value)
             requests.append(ticket.request_id)
@@ -90,15 +92,17 @@ class LocalAssessmentInference:
                 if snapshot["presence"] == "none"
                 else "waiting_photos"
             )
-            return self._resolved(work, (), False, reason)
+            return self._resolved(work, (), False, reason, analyzed=False)
         responses = [PostgresInferenceQueries().analysis(r) for r in work.requests]
         if any(
             r["state"] in {"pending", "running", "awaiting_resource", "paused"} for r in responses
         ):
             return None
+        if any(r["state"] == "superseded" for r in responses):
+            return self._resolved(work, (), False, "superseded_input", status="failed")
         failed = next(
             (
-                str(part["reason"])
+                str(part["reason"] or part["state"])
                 for r in responses
                 for part in cast(list[dict[str, object]], r["parts"])
                 if part["state"] != "succeeded"
@@ -107,6 +111,14 @@ class LocalAssessmentInference:
         )
         if failed:
             return self._resolved(work, (), False, _failure(failed), status="failed")
+        if any(
+            not isinstance(p["result"], dict)
+            for r in responses
+            for p in cast(list[dict[str, object]], r["parts"])
+        ):
+            return self._resolved(work, (), False, "invalid_analysis", status="failed")
+        if any(not _matches_request(response, work) for response in responses):
+            return self._resolved(work, (), False, "invalid_analysis", status="failed")
         findings: list[Finding] = []
         limitations = []
         examined: set[str] = set()
@@ -135,6 +147,11 @@ class LocalAssessmentInference:
             limitations=tuple(limitations),
             conflicts=conflicts,
             examined=examined,
+            controlled=any(
+                cast(dict[str, object], p["metrics"]).get("controlled_fake") is True
+                for r in responses
+                for p in cast(list[dict[str, object]], r["parts"])
+            ),
         )
 
     @staticmethod
@@ -148,6 +165,8 @@ class LocalAssessmentInference:
         limitations: tuple[str, ...] = (),
         conflicts: bool = False,
         examined: set[str] | None = None,
+        controlled: bool = False,
+        analyzed: bool = True,
     ) -> Assessment:
         snapshot = work.value.snapshot
         fields = cast(dict[str, str | None], snapshot["text"])
@@ -186,10 +205,11 @@ class LocalAssessmentInference:
             condition=decision.condition,
             sufficient=decision.sufficient,
             model_revision=work.value.model_revision,
-            analyzed_at=now(),
+            analyzed_at=now() if analyzed else None,
             findings=findings,
             limitations=limitations,
             photo_coverage=coverage,
+            runtime="controlled_fake" if controlled else "local_model",
         )
 
 
@@ -216,3 +236,15 @@ def _failure(code: str) -> str:
         "invalid_output": "invalid_analysis",
         "superseded": "superseded_input",
     }.get(code, "model_unavailable")
+
+
+def _matches_request(response: dict[str, object], work: AssessmentWork) -> bool:
+    return bool(
+        response.get("observation_id") == str(work.value.observation_id)
+        and response.get("revision") == work.value.observation_revision
+        and response.get("model_digest") == work.value.model_revision
+        and response.get("prompt_version") == VERSION
+        and response.get("schema_version") == VERSION
+        and response.get("cohort_id") == str(work.id)
+        and response.get("cohort_generation") == work.generation
+    )

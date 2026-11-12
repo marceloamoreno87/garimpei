@@ -63,6 +63,8 @@
        rel="noopener noreferrer">Abrir anúncio original</a>
 </section>
 </div>
+{% if comparable_research %}{% include "valuation/research.html" %}{% endif %}
+{% if product_identity %}{% include "valuation/identity.html" %}{% endif %}
 {% include "listing/alert_diagnostic.html" %}
 {% include "listing/assessment.html" %}
 <section class="condition-detail-layout" aria-label="Condição da oferta">

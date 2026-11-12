@@ -1,0 +1,26 @@
+{
+  "version": "f18-controlled-v1",
+  "source_kind": "controlled",
+  "now": "2026-11-12T12:00:00+00:00",
+  "SUFFICIENT": {"title": "PlayStation 5 Slim Digital 825GB", "target_price": "1000", "prices": ["2300", "2300", "2300", "2300", "2300"], "resale": "2300.00"},
+  "UNKNOWN": {"title": "Produto eletrônico em bom estado", "state": "unrecognized"},
+  "MISSING": {"title": "PlayStation 5 Slim Digital", "state": "missing_attribute", "missing": "capacity"},
+  "CONFLICT": {"title": "iPhone 12 128GB", "description": "Capacidade 256GB", "state": "conflicting_identity"},
+  "EXCLUSIONS": [
+    {"description": "Não funciona. Para peças."},
+    {"description": "Entrada de R$ 100. Usado."},
+    {"description": "Lote de 2 consoles. Funcionando perfeitamente."},
+    {"title": "Controle avulso para PlayStation 5 Slim Digital 825GB"},
+    {"title": "PlayStation 5 Slim Digital 1TB"}
+  ],
+  "AGE_BOUNDARY": {"accepted_seconds": 1209600, "rejected_seconds": 1209601},
+  "DISPERSION": {"prices": ["100", "130", "160", "170", "180"], "reason": "amostra_dispersa"},
+  "NO_RESULTS": {"pages": [], "state": "exhausted", "reason": "no_results"},
+  "SOURCE_FAILURE": {"reason": "source_rate_limit", "retry_after": 120, "state": "waiting_retry"},
+  "RETENTION": {"used_days": 14, "new_days": 7, "preserve_history": true},
+  "RACE": {"change": "manual_revision", "publish_stale": false},
+  "SHARED": {"targets": 2, "search_calls": 1, "slice_details": 2},
+  "GEOGRAPHY": {"requested_radius_km": 500, "observed_verified": false, "state": "limited", "publish_candidates": false},
+  "MANUAL": {"family": "playstation5", "model": "ps5", "generation": "slim", "edition": "digital", "capacity": "825gb"},
+  "NON_INTERFERENCE": {"source_io_inside_publication_transaction": false, "queue": "listing", "new_interests": false, "real_whatsapp": false}
+}

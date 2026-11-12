@@ -212,3 +212,8 @@ Todos os nomes novos abaixo são artefatos a produzir durante a implementação,
 Criar a fixture operacional descrita em `contract.md`, com comando reproduzível e manifesto sanitizado; não depender do banco do usuário. Cobrir perda de conexão/timeouts, item persistente falho, fila cheia, disco cheio, erro de gravação/rename, tarefa antiga, concorrência e pontos de queda antes/depois de autorização/POST/recibo. Para F14/F19 ausentes, exercitar contrato de indisponibilidade do estágio; não simular uma avaliação multimodal como feature entregue.
 
 Gates de implementação: `node scripts/run-gates.mjs` já é runner Python atual; `uv run --project apps/backend --frozen --no-sync pytest apps/backend/tests`; checks Django/migrations; verificação do harness se lifecycle/scripts forem alterados. Navegação por `playwright-cli`, evidências desktop e janela estreita, com avaliação visual conforme `frontend-ui-design`. Registrar evidência por item e resultado de calibração/restauração; documentação produzida não comprova esses gates nem muda F17 para `done`.
+
+
+## Evidência de calibração inicial — 2026-11-12
+
+[calibration-initial.json](evidence/calibration-initial.json) registra cinco controles e cinco timeouts por adaptador com prazos operacionais (fonte20s, valoração30s, canal10s), além de cinco percursos completos com PostgreSQL e recibo fake F16 em19,30–20,02s incluindo startup. Estes resultados confirmam as fronteiras existentes. O primeiro incremento de manutenção, restauração, isolamento e a integração de mídia ainda requerem ensaio; o contrato continua preliminar e a habilitação real permanece desativada. Nenhum limite foi ampliado e nenhum gate foi dispensado.

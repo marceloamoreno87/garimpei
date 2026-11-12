@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/a716/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/a716/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 1 item
+
+tests/lifecycle/test_startup_failures.py::test_real_unavailable_service_or_image_refuses_start_and_rolls_back[waha] FAILED [100%]
+
+=================================== FAILURES ===================================
+__ test_real_unavailable_service_or_image_refuses_start_and_rolls_back[waha] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-492/test_real_unavailable_service_0')
+fault = 'waha'
+
+    @pytest.mark.parametrize("fault", ["postgres", "waha", "image"])
+    def test_real_unavailable_service_or_image_refuses_start_and_rolls_back(
+        tmp_path: Path, fault: str
+    ) -> None:
+        root = Path(__file__).resolve().parents[4]
+        copy = prepare_checkout_copy(root, tmp_path)
+        instance = prepare_instance(copy, tmp_path, "fault_" + uuid.uuid4().hex[:10])
+        compose = copy / "compose.yaml"
+        text = compose.read_text()
+        if fault == "postgres":
+            text = text.replace(
+                "${POSTGRES_PASSWORD:?private password required}", "technical-mismatch-canary"
+            )
+        elif fault == "waha":
+            text = text.replace(
+                "${WAHA_API_KEY:?private API key required}", "technical-mismatch-canary"
+            )
+        else:
+            text = text.replace(
+                "ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f", "0" * 64
+            )
+        compose.write_text(text)
+        with instance.private_file.open("a") as file:
+            file.write("GARIMPEI_STARTUP_TIMEOUT_SECONDS=8\nGARIMPEI_SHUTDOWN_TIMEOUT_SECONDS=1\n")
+        started = time.monotonic()
+        try:
+            result = instance.command("./scripts/init.sh", "--disposable")
+            assert result.returncode == 1, result.stdout + result.stderr
+>           assert time.monotonic() - started <= 8
+E           assert (123978.262774289 - 123970.154235232) <= 8
+E            +  where 123978.262774289 = <built-in function monotonic>()
+E            +    where <built-in function monotonic> = time.monotonic
+
+tests/lifecycle/test_startup_failures.py:41: AssertionError
+=========================== short test summary info ============================
+FAILED tests/lifecycle/test_startup_failures.py::test_real_unavailable_service_or_image_refuses_start_and_rolls_back[waha] - assert (123978.262774289 - 123970.154235232) <= 8
+ +  where 123978.262774289 = <built-in function monotonic>()
+ +    where <built-in function monotonic> = time.monotonic
+============================== 1 failed in 9.63s ===============================

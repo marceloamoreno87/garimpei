@@ -1,0 +1,172 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_distinct_photo_batches_share_one_current_cohort[5] ____________
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-431/media-database0/media_ee0aa53b0b.env')), 'http://127.0.0.1:42945')
+photo_count = 5
+
+    @pytest.mark.parametrize('photo_count',[5,12])
+    def test_distinct_photo_batches_share_one_current_cohort(
+        media_instance: tuple[FoundationInstance,str],photo_count: int,
+    )->None:
+        import hashlib
+        from pathlib import Path
+        from tests.factories.assessment_origin import serve_assessment_images
+        instance,origin=media_instance
+        folder=Path(__file__).parents[1]/'fixtures/listing/assessment_images'
+        unique={hashlib.sha256(path.read_bytes()).hexdigest():path.name for path in sorted(folder.glob('*.png'))}
+        files=list(unique.values())[:photo_count]
+        assert len(files)==photo_count
+        with serve_assessment_images() as (cohort_origin,_requests):
+>           shell(instance,origin,BOOT+'''
+    from garimpei.domain.media.media import Manifest,Photo,Variant
+    from garimpei.infra.repository.media.captures import create_capture
+    from garimpei.config.env import load_media_settings
+    from garimpei.infra.persistence.listing_models import CollectionCycle
+    os.environ['GARIMPEI_MEDIA_EVAL_ORIGIN']=COHORT_ORIGIN
+    cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+    new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=obs.ordinal+1,observed_at=now(),price=obs.price,evidence=obs.evidence,coverage=obs.coverage)
+    listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+    photos=tuple(Photo('cohort-'+str(i),(Variant(COHORT_ORIGIN+'/'+name,640,480),),i==0) for i,name in enumerate(FILES))
+    create_capture(new,Manifest('present',photos,True,''),load_media_settings().policy,now())
+    runner=build_media_runner()
+    for _ in range(4*len(FILES)):
+     for job in build_media_repository().due(now()):runner.execute(job)
+    work=prepare.execute(listing.id)
+    assert len(work.requests)==(len(FILES)+3)//4
+    for _ in range(3*len(FILES)):run.execute()
+    states=list(InferenceRequest.objects.filter(id__in=work.requests).values_list('state',flat=True))
+    assert states==['succeeded']*len(work.requests),states
+    assert complete.execute(work.id)
+    state=build_read_condition().execute(listing.id).state
+    assert state.satisfies_alert_condition and state.assessment.sufficient
+    assert len(state.assessment.photo_coverage)==len(FILES)
+    assert len({p['sha256'] for p in state.assessment.photo_coverage})==len(FILES)
+    print('all distinct photo batches remain current, aggregate sufficient and preserve hashes PASS')
+    '''.replace('COHORT_ORIGIN',repr(cohort_origin)).replace('FILES',repr(files)))
+
+apps/backend/tests/integration/test_multimodal_condition.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-431/media-database0/media_ee0aa53b0b.env'))
+origin = 'http://127.0.0.1:42945'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...light_wear.png'])\nprint('all distinct photo batches remain current, aggregate sufficient and preserve hashes PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 45 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T21:02:23.747279+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_ee0aa53b0b", "run_id": "1fbff83d-db8a-4d8d-b40f-0affb69e0807"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 109, in <module>
+E         AssertionError: ['superseded', 'succeeded']
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 109, in <module>\nAssertionError: [\'superseded\', \'succeeded\']\n').returncode
+
+apps/backend/tests/integration/test_media_persistence.py:65: AssertionError
+___________ test_distinct_photo_batches_share_one_current_cohort[12] ___________
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-431/media-database0/media_ee0aa53b0b.env')), 'http://127.0.0.1:42945')
+photo_count = 12
+
+    @pytest.mark.parametrize('photo_count',[5,12])
+    def test_distinct_photo_batches_share_one_current_cohort(
+        media_instance: tuple[FoundationInstance,str],photo_count: int,
+    )->None:
+        import hashlib
+        from pathlib import Path
+        from tests.factories.assessment_origin import serve_assessment_images
+        instance,origin=media_instance
+        folder=Path(__file__).parents[1]/'fixtures/listing/assessment_images'
+        unique={hashlib.sha256(path.read_bytes()).hexdigest():path.name for path in sorted(folder.glob('*.png'))}
+        files=list(unique.values())[:photo_count]
+        assert len(files)==photo_count
+        with serve_assessment_images() as (cohort_origin,_requests):
+>           shell(instance,origin,BOOT+'''
+    from garimpei.domain.media.media import Manifest,Photo,Variant
+    from garimpei.infra.repository.media.captures import create_capture
+    from garimpei.config.env import load_media_settings
+    from garimpei.infra.persistence.listing_models import CollectionCycle
+    os.environ['GARIMPEI_MEDIA_EVAL_ORIGIN']=COHORT_ORIGIN
+    cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+    new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=obs.ordinal+1,observed_at=now(),price=obs.price,evidence=obs.evidence,coverage=obs.coverage)
+    listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+    photos=tuple(Photo('cohort-'+str(i),(Variant(COHORT_ORIGIN+'/'+name,640,480),),i==0) for i,name in enumerate(FILES))
+    create_capture(new,Manifest('present',photos,True,''),load_media_settings().policy,now())
+    runner=build_media_runner()
+    for _ in range(4*len(FILES)):
+     for job in build_media_repository().due(now()):runner.execute(job)
+    work=prepare.execute(listing.id)
+    assert len(work.requests)==(len(FILES)+3)//4
+    for _ in range(3*len(FILES)):run.execute()
+    states=list(InferenceRequest.objects.filter(id__in=work.requests).values_list('state',flat=True))
+    assert states==['succeeded']*len(work.requests),states
+    assert complete.execute(work.id)
+    state=build_read_condition().execute(listing.id).state
+    assert state.satisfies_alert_condition and state.assessment.sufficient
+    assert len(state.assessment.photo_coverage)==len(FILES)
+    assert len({p['sha256'] for p in state.assessment.photo_coverage})==len(FILES)
+    print('all distinct photo batches remain current, aggregate sufficient and preserve hashes PASS')
+    '''.replace('COHORT_ORIGIN',repr(cohort_origin)).replace('FILES',repr(files)))
+
+apps/backend/tests/integration/test_multimodal_condition.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-431/media-database0/media_ee0aa53b0b.env'))
+origin = 'http://127.0.0.1:42945'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...-suspected.png'])\nprint('all distinct photo batches remain current, aggregate sufficient and preserve hashes PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 45 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T21:02:26.732545+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_ee0aa53b0b", "run_id": "1fbff83d-db8a-4d8d-b40f-0affb69e0807"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 109, in <module>
+E         AssertionError: ['superseded', 'superseded', 'succeeded']
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^\n  File "<string>", line 109, in <module>\nAssertionError: [\'superseded\', \'superseded\', \'succeeded\']\n').returncode
+
+apps/backend/tests/integration/test_media_persistence.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_multimodal_condition.py::test_distinct_photo_batches_share_one_current_cohort[5]
+FAILED apps/backend/tests/integration/test_multimodal_condition.py::test_distinct_photo_batches_share_one_current_cohort[12]
+2 failed, 6 deselected in 13.21s

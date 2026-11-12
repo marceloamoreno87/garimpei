@@ -539,6 +539,45 @@ def load_navigation_policy() -> NavigationPolicy:
 
 
 @dataclass(frozen=True)
+class OperationsSettings:
+    backup_dir: Path
+    enabled: bool
+    environment_id: str
+    recovery_file: Path
+    recovery_evidence_url: str | None = None
+
+
+def load_operations_settings() -> OperationsSettings:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    directory = (
+        Path(
+            values.get(
+                "GARIMPEI_BACKUP_DIR",
+                str(Path.home() / ".local/share/garimpei/backups" / config.environment_id),
+            )
+        )
+        .expanduser()
+        .resolve()
+    )
+    if directory.is_relative_to(config.root):
+        raise ConfigurationError("GARIMPEI_BACKUP_DIR: expected private directory outside checkout")
+    flag = values.get("GARIMPEI_OPERATIONS_ENABLED", "false")
+    if flag not in {"true", "false"}:
+        raise ConfigurationError("GARIMPEI_OPERATIONS_ENABLED: expected true or false")
+    evidence = values.get("GARIMPEI_RECOVERY_EVIDENCE_FIXTURE_URL")
+    if evidence:
+        _validate_recovery_origin(evidence, config.environment)
+    return OperationsSettings(
+        directory,
+        flag == "true",
+        config.environment_id,
+        config.directory / "recovery-barrier.json",
+        evidence,
+    )
+
+
+@dataclass(frozen=True)
 class MediaSettings:
     root: Path
     policy: MediaPolicy
@@ -587,9 +626,52 @@ def load_media_settings(environ: Mapping[str, str] | None = None) -> MediaSettin
 from garimpei.domain.media.policy import MediaPolicy  # noqa: E402
 
 
+def _validate_recovery_origin(value: str, environment: str) -> None:
+    parsed = urlsplit(value)
+    if (
+        environment != "eval"
+        or parsed.scheme != "http"
+        or parsed.hostname != "127.0.0.1"
+        or parsed.port is None
+        or parsed.username
+        or parsed.password
+        or parsed.query
+        or parsed.fragment
+        or parsed.path not in {"", "/"}
+    ):
+        raise ConfigurationError(
+            "Recovery evidence fixture requires owned eval and explicit loopback origin"
+        )
+
+
 def load_assessment_enabled() -> bool:
     values = _values(os.environ)
     raw = values.get("GARIMPEI_ASSESSMENT_ENABLED", "false")
     if raw not in {"true", "false"}:
         raise ConfigurationError("GARIMPEI_ASSESSMENT_ENABLED: expected true or false")
     return raw == "true"
+
+
+def load_comparable_research_manifest() -> Path:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    return (
+        Path(
+            values.get(
+                "GARIMPEI_RESEARCH_LIMITS",
+                str(
+                    config.root
+                    / "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/limits.json"
+                ),
+            )
+        )
+        .expanduser()
+        .resolve()
+    )
+
+
+def comparable_research_enabled_for_environment() -> bool:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    # Eval instances opt into their own explicit policy; a deployment manifest is not a test seed.
+    return config.environment == "dev" or bool(values.get("GARIMPEI_RESEARCH_LIMITS"))

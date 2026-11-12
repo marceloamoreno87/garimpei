@@ -1,3 +1,4 @@
+from typing import cast
 from uuid import UUID
 
 from garimpei.domain.listing.assessment import Assessment
@@ -69,4 +70,8 @@ def assessment_from_row(
         reason="waiting_inference",
         model_revision=row.model_revision,
         previous=previous,
+        photo_coverage=tuple(
+            dict(p, examined=False, reason="waiting_inference")
+            for p in cast(list[dict[str, object]], row.input_snapshot.get("photos", []))
+        ),
     )

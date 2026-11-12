@@ -1,0 +1,27 @@
+{
+  "run": "2026-11-12T20-51-30Z",
+  "mode": "native-agents",
+  "base": "8e94dab3c4b25e1316239ae780f6892ad8386ae3",
+  "features": [
+    "F14",
+    "F15",
+    "F17",
+    "F18"
+  ],
+  "integration": "local master authorized",
+  "shared_progress_writer": "coordinator",
+  "existing_active_teams": {
+    "F15": "e16d",
+    "F17": "0d94",
+    "F18": "baf1"
+  },
+  "coordination_limit": "Resolved through original parent relay; all original teams final and clean",
+  "master_checkpoint": "616ddc1",
+  "integration_worktree": "/home/marce/.codex/worktrees/a716/garimpei",
+  "integration_branch": "integration/pending-features-2026-11-12",
+  "integration_checkpoint": "e6bbc22",
+  "source_window": "closed; original resources terminated",
+  "status": "all-failed",
+  "integration_validation": "676 PASS; six gates PASS",
+  "finished_at": "2026-11-12T22:46:37.683458+00:00"
+}

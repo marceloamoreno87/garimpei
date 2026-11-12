@@ -15,6 +15,7 @@ if TYPE_CHECKING:
         ListingSource,
     )
     from garimpei.domain.navigation.catalog import Catalog
+    from garimpei.domain.valuation.research_limits import ResearchLimits
     from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
     from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
     from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
@@ -26,6 +27,8 @@ if TYPE_CHECKING:
     from garimpei.infra.http.listing.exploration_handler import ExplorationHandler
     from garimpei.infra.http.monitoring.monitoring_handler import MonitoringHandler
     from garimpei.infra.http.navigation.navigation_handler import NavigationHandler
+    from garimpei.infra.http.operations.status_handler import OperationsHandler
+    from garimpei.infra.http.valuation.identity_handler import IdentityHandler
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
     from garimpei.infra.queries.navigation.postgres_queries import PostgresNavigationQueries
@@ -42,11 +45,21 @@ if TYPE_CHECKING:
     from garimpei.infra.repository.navigation.postgres_repository import (
         PostgresNavigationRepository,
     )
+    from garimpei.infra.repository.operations.backup_repository import PostgresBackupRepository
+    from garimpei.infra.repository.operations.progress_repository import (
+        PostgresOperationalRepository,
+    )
+    from garimpei.infra.repository.operations.verify_recovery import VerifyRecoveryGateway
+    from garimpei.infra.repository.valuation.identity_repository import PostgresIdentityRepository
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
+    from garimpei.infra.repository.valuation.research_repository import (
+        PostgresComparableResearchRepository,
+    )
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
     from garimpei.infra.worker.assessment_handler import AssessmentHandler
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
     from garimpei.infra.worker.listing_handler import ListingTaskHandler
+    from garimpei.infra.worker.research_handler import ComparableResearchTaskHandler
     from garimpei.infra.worker.valuation_handler import ValuationTaskHandler
     from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
     from garimpei.usecase.inference.read_analysis_usecase import ReadAnalysisUseCase
@@ -62,8 +75,16 @@ if TYPE_CHECKING:
         ReadMonitoringConfigurationUseCase,
     )
     from garimpei.usecase.navigation.read_suggestions_usecase import ReadSuggestionUseCase
+    from garimpei.usecase.operations.create_backup_usecase import CreateBackupUseCase
+    from garimpei.usecase.operations.read_status_usecase import ReadOperationalStatusUseCase
+    from garimpei.usecase.operations.restore_backup_usecase import RestoreBackupUseCase
+    from garimpei.usecase.valuation.read_identity_usecase import ReadIdentityUseCase
     from garimpei.usecase.valuation.read_profit_usecase import ReadProfitUseCase
+    from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
+        ReadComparableResearchDiagnosticUseCase,
+    )
     from garimpei.usecase.valuation.read_valuation_usecase import ReadValuationUseCase
+    from garimpei.usecase.valuation.save_identity_usecase import SaveIdentityUseCase
 
 from procrastinate import App, SyncPsycopgConnector
 from psycopg import Connection
@@ -95,8 +116,10 @@ def build_database_probe() -> DatabaseProbe:
 def register_tasks() -> None:
     from procrastinate.contrib.django import app
 
+    app.task(name="garimpei.comparable_research", queue="listing")(_handle_comparable_research)
     app.task(name="garimpei.media", queue="media")(_handle_media)
     app.task(name="garimpei.local_analysis", queue="inference")(_handle_inference)
+    app.task(name="garimpei.operational_maintenance", queue="maintenance")(_handle_operations)
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
     app.task(name="garimpei.runtime_probe", queue="runtime")(_handle_runtime_probe)
     app.task(name="garimpei.collect_listings", queue="listing")(_handle_listing)
@@ -115,24 +138,88 @@ def build_enqueue_app() -> App:
     return App(connector=SyncPsycopgConnector())
 
 
-def _enqueue(name: str, queue: str, delay: int, **arguments: str | int) -> int:
+def _enqueue(
+    name: str, queue: str, delay: int, *, _continuation: bool = False, **arguments: str | int
+) -> int:
+    from django.db import transaction
+
+    with transaction.atomic():
+        return _enqueue_owned(name, queue, delay, arguments, continuation=_continuation)
+
+
+def _enqueue_owned(
+    name: str, queue: str, delay: int, arguments: dict[str, str | int], *, continuation: bool
+) -> int:
     from django.db import connection
+
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.admission import admit_enqueue
 
     register_tasks()
     connection.ensure_connection()
+    operations = load_operations_settings()
+    key = _task_key(name, arguments, load_config().run_id) if queue != "runtime" else None
+    existing = _existing_task(key, include_running=not continuation) if key else None
+    if existing is not None:
+        return existing
+    if operations.enabled and not admit_enqueue(
+        queue, operations.environment_id, load_config().directory
+    ):
+        return 0
     if not isinstance(connection.connection, Connection):
-        raise RuntimeError("Expected psycopg 3 connection for transactional enqueue")
-    # A dedicated synchronous connector accepts the ORM's connection, including inside workers.
-    return (
-        build_enqueue_app()
-        .configure_task(
-            name=name,
-            queue=queue,
-            connection=connection.connection,
-            schedule_in={"seconds": delay},
+        raise RuntimeError("Expected psycopg connection for transactional enqueue")
+    return _defer_owned_task(name, queue, delay, arguments, connection.connection, key)
+
+
+def _task_key(name: str, arguments: dict[str, str | int], run_id: str) -> str:
+    import hashlib
+    import json
+
+    # A dead consumer's technical doing row must not lock a later process generation.
+    value = {"run_id": run_id, "arguments": arguments}
+    return name + ":" + hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+
+
+def _existing_task(key: str, *, include_running: bool = True) -> int | None:
+    from django.db import connection
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT id FROM procrastinate_jobs WHERE queueing_lock=%s AND status=ANY(%s::procrastinate_job_status[]) ORDER BY id DESC LIMIT 1",
+            [key, ["todo", "doing"] if include_running else ["todo"]],
         )
-        .defer(**arguments)
-    )
+        row = cursor.fetchone()
+    return int(row[0]) if row is not None else None
+
+
+def _defer_owned_task(
+    name: str,
+    queue: str,
+    delay: int,
+    arguments: dict[str, str | int],
+    database: Connection,
+    key: str | None,
+) -> int:
+    from django.db import transaction
+    from procrastinate.exceptions import AlreadyEnqueued
+
+    try:
+        with transaction.atomic():
+            return (
+                build_enqueue_app()
+                .configure_task(
+                    name=name,
+                    queue=queue,
+                    connection=database,
+                    schedule_in={"seconds": delay},
+                    lock=key,
+                    queueing_lock=key,
+                )
+                .defer(**arguments)
+            )
+    except AlreadyEnqueued:
+        existing = _existing_task(key) if key else None
+        return existing or 0
 
 
 def defer_runtime_probe(probe_id: str, delay: int = 0) -> int:
@@ -187,6 +274,7 @@ def _collection_store(settings: ListingSettings) -> "PostgresCollectionRepositor
         _listing_clock(settings),
         _defer_listing,
         settings.lease,
+        operations=build_operational_progress(),
     )
 
 
@@ -329,6 +417,8 @@ def build_monitoring_handler() -> "MonitoringHandler":
         UpdateMonitoringConfigurationUseCase(unit.transaction, catalog),
         PreviewProductsUseCase(),
         build_read_collection_status(),
+        build_operational_status,
+        build_read_comparable_research,
     )
 
 
@@ -373,10 +463,11 @@ def _handle_valuation(work_id: str) -> None:
 def build_valuation_store() -> "PostgresValuationRepository":
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
 
-    return PostgresValuationRepository(_defer_valuation)
+    return PostgresValuationRepository(_defer_valuation, build_operational_progress())
 
 
 def reconcile_valuations() -> None:
+    build_identity_repository().reconcile()
     build_valuation_store().reconcile(_listing_clock(load_listing_settings())())
 
 
@@ -413,6 +504,7 @@ def build_read_profit() -> "ReadProfitUseCase":
             build_read_monitoring_configuration(),
             PostgresListingQueries(),
             PostgresValuationQueries(),
+            build_identity_repository(),
         ),
         _listing_clock(load_listing_settings()),
     )
@@ -468,6 +560,8 @@ def build_exploration_handler() -> "ExplorationHandler":
         exploration_categories(),
         _exploration_worker_active,
         build_read_alert_diagnostic(),
+        build_read_identity(),
+        build_read_comparable_research(),
     )
 
 
@@ -496,7 +590,11 @@ def build_alert_store() -> "PostgresAlertRepository":
     from garimpei.infra.repository.alert.postgres_repository import PostgresAlertRepository
 
     return PostgresAlertRepository(
-        build_read_monitoring_configuration(), PostgresListingQueries(), _alert_policy()
+        build_read_monitoring_configuration(),
+        PostgresListingQueries(),
+        _alert_policy(),
+        build_recovery_guard(),
+        build_operational_progress(),
     )
 
 
@@ -867,6 +965,7 @@ def _defer_navigation(attempt: "Attempt", delay: int) -> None:
         "garimpei.collect_listings",
         "listing",
         delay,
+        _continuation=True,
         cycle_id=str(attempt.cycle_id),
         generation=attempt.generation,
     )
@@ -881,6 +980,7 @@ def _navigation_collection(settings: ListingSettings) -> "PostgresCollectionRepo
         _defer_listing,
         settings.lease,
         scope_transform=build_navigation_catalog().decorate_scope,
+        operations=build_operational_progress(),
     )
 
 
@@ -1035,6 +1135,146 @@ def _enqueue_navigation_suggestions() -> None:
         return
 
 
+def build_operational_progress() -> "PostgresOperationalRepository | None":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.progress_repository import (
+        PostgresOperationalRepository,
+    )
+
+    settings = load_operations_settings()
+    if not settings.enabled:
+        return None
+    return PostgresOperationalRepository(
+        settings.environment_id, _listing_clock(_effective_listing_settings())
+    )
+
+
+def build_operational_status() -> "ReadOperationalStatusUseCase":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.queries.operations.postgres_queries import PostgresOperationalQueries
+    from garimpei.usecase.operations.read_status_usecase import ReadOperationalStatusUseCase
+
+    settings = load_operations_settings()
+    return ReadOperationalStatusUseCase(
+        PostgresOperationalQueries(
+            settings.environment_id,
+            settings.recovery_file,
+            _listing_clock(_effective_listing_settings()),
+            build_read_monitoring_configuration(repeatable_snapshot=True),
+            count_current_media,
+            scope_transform=build_navigation_catalog().decorate_scope,
+        )
+    )
+
+
+def build_backup_repository() -> "PostgresBackupRepository":
+    from garimpei.config.env import load_inference_settings, load_operations_settings
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.infra.gateway.operations.inference_archive_gateway import InferenceArchiveGateway
+    from garimpei.infra.gateway.operations.media_archive_gateway import MediaArchiveGateway
+    from garimpei.infra.gateway.operations.snapshot_gateway import BusinessSnapshotGateway
+    from garimpei.infra.repository.operations.backup_repository import PostgresBackupRepository
+    from garimpei.infra.repository.operations.restore_gateway import RestoreBackupGateway
+
+    settings, config = load_operations_settings(), load_config()
+    archive, snapshot = (
+        ArchiveGateway(settings.backup_dir, owner=settings.environment_id),
+        BusinessSnapshotGateway(
+            MediaArchiveGateway(build_media_repository(), build_media_store()),
+            InferenceArchiveGateway(load_inference_settings().directory),
+        ),
+    )
+    restore = RestoreBackupGateway(config, settings.recovery_file, archive, snapshot)
+    return PostgresBackupRepository(
+        settings.environment_id,
+        archive,
+        snapshot,
+        restore,
+        build_verify_recovery(),
+        build_operational_progress(),
+    )
+
+
+def build_recovery_guard() -> Callable[[], bool]:
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.recovery_guard import dispatch_blocked
+
+    settings = load_operations_settings()
+
+    def blocked() -> bool:
+        from garimpei.infra.repository.operations.admission import transmission_capacity
+
+        return dispatch_blocked(settings.environment_id, settings.recovery_file) or (
+            settings.enabled and not transmission_capacity(load_config().directory)
+        )
+
+    return blocked
+
+
+def _handle_operations() -> None:
+    build_create_backup().execute(only_due=True)
+    build_backup_repository().prune()
+
+
+def reconcile_operations() -> None:
+    from django.db import connection, transaction
+    from procrastinate.exceptions import AlreadyEnqueued
+
+    from garimpei.config.env import load_operations_settings
+
+    if not load_operations_settings().enabled:
+        return
+    register_tasks()
+    connection.ensure_connection()
+    if not isinstance(connection.connection, Connection):
+        raise RuntimeError("Expected psycopg connection for operational enqueue")
+    try:
+        with transaction.atomic():
+            build_enqueue_app().configure_task(
+                name="garimpei.operational_maintenance",
+                queue="maintenance",
+                lock="operational_maintenance",
+                queueing_lock="operational_maintenance",
+                connection=connection.connection,
+            ).defer()
+    except AlreadyEnqueued:
+        return
+
+
+def build_operations_handler() -> "OperationsHandler":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.http.operations.status_handler import OperationsHandler
+    from garimpei.infra.repository.operations.progress_repository import (
+        PostgresOperationalRepository,
+    )
+    from garimpei.usecase.operations.export_backup_usecase import ExportBackupUseCase
+    from garimpei.usecase.operations.resume_stage_usecase import ResumeStageUseCase
+
+    settings = load_operations_settings()
+    repository = PostgresOperationalRepository(
+        settings.environment_id, _listing_clock(_effective_listing_settings())
+    )
+    backups = build_backup_repository()
+    return OperationsHandler(
+        build_operational_status(),
+        ResumeStageUseCase(repository),
+        ExportBackupUseCase(backups),
+        backups,
+    )
+
+
+def build_create_backup() -> "CreateBackupUseCase":
+    from garimpei.usecase.operations.create_backup_usecase import CreateBackupUseCase
+
+    return CreateBackupUseCase(build_backup_repository())
+
+
+def build_restore_backup() -> "RestoreBackupUseCase":
+    from garimpei.usecase.operations.restore_backup_usecase import RestoreBackupUseCase
+
+    return RestoreBackupUseCase(build_backup_repository())
+
+
 def build_media_store() -> "LocalMediaStore":
     from garimpei.config.env import load_media_settings
     from garimpei.infra.gateway.media.local_store import LocalMediaStore
@@ -1105,6 +1345,40 @@ if TYPE_CHECKING:
     from garimpei.usecase.media.obtain_media_usecase import ObtainMediaUseCase
 
 
+def build_verify_recovery() -> "VerifyRecoveryGateway":
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.infra.gateway.operations.recovery_evidence import RecoveryEvidenceGateway
+    from garimpei.infra.repository.operations.verify_recovery import VerifyRecoveryGateway
+
+    config, operations = load_config(), load_operations_settings()
+    alerts = _effective_alert_settings()
+    return VerifyRecoveryGateway(
+        config,
+        operations.recovery_file,
+        RecoveryEvidenceGateway(operations.recovery_evidence_url),
+        build_alert_store(),
+        lambda _binding: WahaGateway(alerts.url, alerts.key, _alert_policy()),
+    )
+
+
+def count_current_media(identities: tuple[UUID, ...]) -> int:
+    from django.db.models import F
+
+    from garimpei.infra.persistence.media_models import MediaEntry
+
+    return (
+        MediaEntry.objects.filter(
+            capture__observation__listing_id__in=identities,
+            capture__observation_id=F("capture__observation__listing__latest_id"),
+            asset__state="available",
+        )
+        .values("capture__observation__listing_id")
+        .distinct()
+        .count()
+    )
+
+
 def _enqueue_media_due(repository: "PostgresMediaRepository") -> None:
     from django.utils import timezone
 
@@ -1142,3 +1416,170 @@ def reconcile_assessments() -> None:
 
     if load_assessment_enabled():
         build_assessment_handler().execute()
+
+
+def build_identity_repository() -> "PostgresIdentityRepository":
+    from garimpei.infra.repository.valuation.identity_repository import PostgresIdentityRepository
+
+    return PostgresIdentityRepository(_listing_clock(load_listing_settings()))
+
+
+def build_read_identity() -> "ReadIdentityUseCase":
+    from garimpei.usecase.valuation.read_identity_usecase import ReadIdentityUseCase
+
+    return ReadIdentityUseCase(build_identity_repository())
+
+
+def build_save_identity() -> "SaveIdentityUseCase":
+    from garimpei.usecase.valuation.save_identity_usecase import SaveIdentityUseCase
+
+    return SaveIdentityUseCase(build_identity_repository())
+
+
+def build_identity_handler() -> "IdentityHandler":
+    from garimpei.infra.http.valuation.identity_handler import IdentityHandler
+
+    return IdentityHandler(build_save_identity())
+
+
+def build_comparable_research_repository() -> "PostgresComparableResearchRepository":
+    from garimpei.infra.repository.valuation.research_repository import (
+        PostgresComparableResearchRepository,
+    )
+
+    settings = _effective_listing_settings()
+    limits = _comparable_research_limits()
+    return PostgresComparableResearchRepository(
+        build_read_monitoring_configuration(),
+        _listing_clock(settings),
+        limits,
+        _navigation_collection(settings),
+        build_navigation_catalog().decorate_scope,
+    )
+
+
+def reconcile_comparable_research() -> None:
+    from django.db import transaction
+
+    from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+    from garimpei.infra.persistence.research_models import ComparableInvestigation
+
+    repository = build_comparable_research_repository()
+    repository.reconcile()
+    access = build_integration_repository().read()
+    if access.facebook_mode == "profile" and access.facebook_phase != "connected":
+        return
+    if access.facebook_phase == "connected":
+        repository.resume_verified_access(access.facebook_saved_at)
+    with transaction.atomic():
+        lock_monitoring_publication()
+        if not ComparableInvestigation.objects.filter(
+            state__in=["pending", "waiting_evidence", "waiting_retry", "running"]
+        ).exists():
+            return
+        if _comparable_research_job_pending():
+            return
+        _enqueue("garimpei.comparable_research", "listing", 0)
+
+
+def _handle_comparable_research() -> None:
+    build_comparable_research_handler().execute()
+
+
+def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
+    from time import monotonic
+
+    from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
+    from garimpei.infra.gateway.listing.facebook_marketplace import (
+        FacebookMarketplace,
+        UnavailableMarketplace,
+    )
+    from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+    from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
+    from garimpei.infra.worker.research_handler import ComparableResearchTaskHandler
+    from garimpei.usecase.valuation.run_research_usecase import RunComparableResearchUseCase
+
+    settings = _effective_listing_settings()
+    limits = _comparable_research_limits()
+    timeout = min(settings.timeout, limits.request_timeout_seconds) if limits else settings.timeout
+    source: ListingSource
+    close: Callable[[], None] | None = None
+    if settings.fixture_url:
+        source = FixtureSource(settings.fixture_url, timeout)
+    elif settings.facebook_profile or settings.facebook_state:
+        path = settings.facebook_profile or settings.facebook_state
+        assert path is not None
+        browser = MarketplaceBrowser(
+            path, timeout, settings.cadence_ms, profile=settings.facebook_profile
+        )
+        live = FacebookMarketplace(
+            browser, BrasilApiGeocoding(timeout), build_monitoring_catalog().load()
+        )
+        source, close = live, live.close
+    else:
+        source = UnavailableMarketplace()
+    return ComparableResearchTaskHandler(
+        RunComparableResearchUseCase(
+            build_comparable_research_repository(),
+            source,
+            monotonic,
+            source_overhead_seconds=settings.cadence_ms / 500,
+        ),
+        close,
+    )
+
+
+def build_read_comparable_research() -> "ReadComparableResearchDiagnosticUseCase":
+    from garimpei.config.env import load_comparable_research_manifest
+    from garimpei.infra.gateway.valuation.interest_corpus import read_interest_corpus
+    from garimpei.infra.gateway.valuation.research_manifest import research_activation_reason
+    from garimpei.infra.queries.valuation.research_queries import PostgresComparableResearchQueries
+    from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
+        ReadComparableResearchDiagnosticUseCase,
+    )
+
+    config = load_config(require_secrets=False)
+    corpus = (
+        config.root
+        / "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json"
+    )
+    date, digest, coverage, version = read_interest_corpus(corpus)
+    return ReadComparableResearchDiagnosticUseCase(
+        PostgresComparableResearchQueries(
+            _comparable_research_limits(),
+            date,
+            digest,
+            coverage,
+            version,
+            research_activation_reason(load_comparable_research_manifest()),
+        )
+    )
+
+
+def _comparable_research_job_pending() -> bool:
+    from django.db import connection
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT 1 FROM procrastinate_jobs WHERE task_name=%s AND status IN ('todo','doing') LIMIT 1",
+            ["garimpei.comparable_research"],
+        )
+        return cursor.fetchone() is not None
+
+
+def _comparable_research_limits() -> "ResearchLimits | None":
+    from garimpei.config.env import (
+        comparable_research_enabled_for_environment,
+        load_comparable_research_manifest,
+    )
+    from garimpei.infra.gateway.valuation.research_manifest import load_research_limits
+
+    if not comparable_research_enabled_for_environment():
+        return None
+    config = load_config(require_secrets=False)
+    return load_research_limits(
+        load_comparable_research_manifest(),
+        config.root,
+        allow_controlled=config.environment == "eval"
+        and _effective_listing_settings().fixture_url is not None,
+    )

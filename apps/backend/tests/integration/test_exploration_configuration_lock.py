@@ -168,6 +168,14 @@ from django.db.models import QuerySet
 from django.test.utils import CaptureQueriesContext
 from garimpei.main import build_publish_exploration,_listing_clock
 from garimpei.config.env import load_listing_settings
+from django.utils.timezone import now as wall_now
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.persistence.identity_models import IdentityProgress,ManualIdentityRevision
+listing=Listing.objects.select_related('latest').get(external_id='16001')
+manual=ManualIdentityRevision.objects.create(listing=listing,observation=listing.latest,revision=999,
+ action='save',recorded_at=wall_now(),values=dict(family='playstation5',model='ps5',generation='slim',edition='disc',capacity='1tb'))
+IdentityProgress.objects.update_or_create(listing=listing,
+ defaults=dict(manual_revision=999,manual=manual,current=None))
 source=build_publish_exploration()._publisher._source
 now=_listing_clock(load_listing_settings())()
 def full_cycle_projection(query,*fields):return query
@@ -177,7 +185,11 @@ with transaction.atomic():
  with patch.object(QuerySet,'defer',full_cycle_projection):
   with CaptureQueriesContext(connection) as baseline_queries:baseline=source.snapshot(now)
 assert actual==baseline and len(actual)==6
-assert len(actual_queries)==len(baseline_queries) and len(actual_queries)<=10
+identity=next(offer.identification for offer in actual if offer.id==listing.id)
+assert identity is not None and identity.manual_revision==999
+assert all(attribute.origin=='manual' and attribute.observation_id==listing.latest_id
+ and attribute.recorded_at==manual.recorded_at for attribute in identity.attributes)
+assert len(actual_queries)==len(baseline_queries) and len(actual_queries)<=10,(len(actual_queries),len(baseline_queries),[query['sql'].split(' FROM ',1)[-1].split(' ',1)[0] for query in actual_queries])
 projection=' '.join(q['sql'].split(' FROM ',1)[0] for q in actual_queries if q['sql'].startswith('SELECT'))
 for field in ('results','planned','diagnostics','window_evidence','origin'):
  assert '"runtime_collectioncycle"."'+field+'"' not in projection,field

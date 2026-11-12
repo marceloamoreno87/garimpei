@@ -38,7 +38,9 @@ def test_real_unavailable_service_or_image_refuses_start_and_rolls_back(
     try:
         result = instance.command("./scripts/init.sh", "--disposable")
         assert result.returncode == 1, result.stdout + result.stderr
-        assert time.monotonic() - started <= 8
+        elapsed = time.monotonic() - started
+        print(f"{fault} startup including rollback: {elapsed:.6f}s")
+        assert elapsed <= 8
         assert "Ready" not in result.stdout
         assert "technical-mismatch-canary" not in result.stdout + result.stderr
         running = instance.command(
