@@ -1,0 +1,12 @@
+### Result
+{"preservedWhileOffline":true,"preservedAfterRetry":true,"feedback":"Não foi possível atualizar. A leitura carregada às 17:57:24 continua visível. Tentar novamente","recovered":true,"loadedCards":6}
+### Ran Playwright code
+```js
+await (async page => { const read=()=>page.evaluate(()=>({url:location.href,cards:[...document.querySelectorAll(".offer-card")].map(e=>e.innerText),query:document.querySelector("input[name=q]")?.value,canonical:document.querySelector("#exploration")?.dataset.canonical})); const before=await read(); await page.context().setOffline(true); await page.evaluate(()=>window.htmx.trigger(document.body,"exploration-poll")); await page.waitForTimeout(700); const failed=await read(); const feedback=await page.locator("#exploration-feedback").innerText(); await page.context().setOffline(false); await page.getByRole("button",{name:"Tentar novamente"}).click(); await page.waitForTimeout(400); const after=await read(); return {preservedWhileOffline:JSON.stringify(before)===JSON.stringify(failed),preservedAfterRetry:JSON.stringify(before)===JSON.stringify(after),feedback,recovered:(await page.locator("#exploration-feedback").innerText())==="",loadedCards:before.cards.length}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:16844/ofertas/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=b7414f9b-c4da-4ae7-b17b-80dd754dc54c
+- Page Title: Ofertas · Garimpei
+- Console: 3 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T20-57-24-616Z.log#L1-L3

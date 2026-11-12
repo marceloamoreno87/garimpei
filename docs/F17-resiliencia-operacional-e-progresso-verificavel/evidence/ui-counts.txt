@@ -1,0 +1,48 @@
+### Result
+{
+  "counts": [
+    {
+      "label": "Armazenados",
+      "value": "12"
+    },
+    {
+      "label": "Revalidados",
+      "value": "10"
+    },
+    {
+      "label": "Com detalhe",
+      "value": "8"
+    },
+    {
+      "label": "Com foto",
+      "value": "0"
+    },
+    {
+      "label": "Reconhecidos",
+      "value": "6"
+    },
+    {
+      "label": "Com amostra",
+      "value": "5"
+    },
+    {
+      "label": "Estimados",
+      "value": "4"
+    },
+    {
+      "label": "Elegíveis",
+      "value": "3"
+    },
+    {
+      "label": "Envio confirmado",
+      "value": "2"
+    }
+  ],
+  "scope": "Leitura de 12/11/2026 20:51:33 UTC. Revisão 1."
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => (({counts:[...document.querySelectorAll(\'.operations-counts >div\')].map(e=>({label:e.querySelector(\'dt\').textContent,value:e.querySelector(\'dd\').textContent.trim()})),scope:document.querySelector(\'.operations-heading p\').textContent}))');
+```
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T20-54-08-182Z.log#L1

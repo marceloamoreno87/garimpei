@@ -286,10 +286,10 @@
       ],
       "status": "implementing",
       "cycles": 0,
-      "failure_reason": null,
-      "report_path": null,
+      "failure_reason": "Perfil preliminar; CLI fault/matriz ausentes e calibrate direto falha sem Django setup. Full final da união pendente.",
+      "report_path": "docs/F17-resiliencia-operacional-e-progresso-verificavel/eval-report-2026-11-12T22-04-00Z.md",
       "started_at": "2026-11-12T18:32:18.093465+00:00",
-      "updated_at": "2026-11-12T18:32:18.093465+00:00",
+      "updated_at": "2026-11-12T22:04:00Z",
       "completed_at": null
     },
     "F18": {

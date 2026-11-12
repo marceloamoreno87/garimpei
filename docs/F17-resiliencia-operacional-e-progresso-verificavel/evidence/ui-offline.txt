@@ -1,0 +1,12 @@
+### Result
+{"sameCounts":true,"feedback":"Não foi possível atualizar o acompanhamento. A última leitura continua visível. Tente novamente.","url":"http://127.0.0.1:23264/acompanhamento/","recovered":true,"overflow":false}
+### Ran Playwright code
+```js
+await (async page => { const before=await page.locator(".operations-counts").innerText(); await page.context().setOffline(true); await page.locator("#operational-status button[hx-get]").click(); await page.waitForTimeout(700); const result={sameCounts:before===await page.locator(".operations-counts").innerText(),feedback:await page.locator("#operational-feedback").innerText(),url:page.url()}; await page.context().setOffline(false); await page.locator("#operational-status button[hx-get]").click(); await page.waitForTimeout(300); return {...result,recovered:(await page.locator("#operational-feedback").innerText())==="",overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:23264/acompanhamento/
+- Page Title: Acompanhamento · Garimpei
+- Console: 3 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T20-07-09-779Z.log#L1-L3
