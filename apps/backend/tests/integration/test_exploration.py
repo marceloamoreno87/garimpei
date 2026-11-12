@@ -231,6 +231,9 @@ assert build_read_profit().execute(UUID(int=4)).profit.value==Decimal('360.00')
 """,
     )
     wait_profit(i, "360.00")
+    # The configuration revision also starts a collection. Finish its old-price
+    # inputs before changing the source, so the next round observes that mutation.
+    completed(i, 2)
     assert "Há atualizações" in i.http("/ofertas/atualizacoes/?versao=" + original)[2]
     assert "R$ 530,00" in i.http(f"/ofertas/{UUID(int=4)}/?versao=" + original)[2]
     costs = latest(i)
@@ -238,7 +241,7 @@ assert build_read_profit().execute(UUID(int=4)).profit.value==Decimal('360.00')
     event_count = sql(i, "SELECT count(*) FROM runtime_listingevent")[0][0]
     source.rows["20003"]["price"] = "R$ 1.720,00"
     clock.advance(61)
-    completed(i, 2)
+    completed(i, 3)
     wait_profit(i, "376.00")
     assert (
         latest(i) != costs

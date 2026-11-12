@@ -11,13 +11,14 @@ from tests.factories.listing import CEP, DATA, ControlledClock, serve
 from tests.factories.runtime import FoundationInstance
 from tests.factories.valuation import (
     FIXED,
-    KEY,
-    TITLE,
     ValuationSource,
     listing,
     prepare_valuation_instance,
     quote,
 )
+
+CAMERA_KEY = "sony:alpha:a6000:body"
+CAMERA_TITLE = "Câmera Sony A6000 somente corpo"
 
 CASES = json.loads(
     (Path(__file__).parents[1] / "fixtures/listing/exploration_cases.json").read_text()
@@ -48,19 +49,18 @@ def rows() -> dict[str, dict[str, object]]:
         )
         price = Decimal("1530") - profit if profit is not None else Decimal("1000")
         camera = n <= 42 or n >= 48
-        description = "PlayStation 5 Slim Digital 825GB."
-        if n in (5, 42):
-            description = "iPhone 13 128GB." if n == 5 else "iPhone 12 64GB."
+        model = "A6300" if n == 5 else "" if n == 42 else "A6000"
+        description = f"Câmera Sony {model} somente corpo." if camera else "Fone JBL Tune 520BT."
         result[external] = listing(
             external,
             f"{price:.2f}".replace(".", ","),
-            title=f"Câmera {n:02}"
+            title=f"Câmera {n:02} Sony {model}"
             if n <= 42
-            else f"Fone {n}"
+            else f"Fone {n} JBL Tune 520BT"
             if n <= 47
-            else "Câmera com defeito"
+            else "Câmera Sony A6000 com defeito"
             if n == 48
-            else "Câmera Incerta",
+            else "Câmera Incerta Sony A6000",
             description=description,
             condition="Funciona bem" if n <= 47 else "Não funciona" if n == 48 else None,
             published_at=None,
@@ -73,8 +73,8 @@ def rows() -> dict[str, dict[str, object]]:
             image_url="https://media.exploration.invalid/camera.jpg" if n != 42 else None,
         )
     for product, base, title in (
-        (KEY, 20000, TITLE),
-        ("apple:iphone13:standard:128gb", 20100, "iPhone 13 128GB"),
+        (CAMERA_KEY, 20000, CAMERA_TITLE),
+        ("sony:alpha:a6300:body", 20100, "Câmera Sony A6300 somente corpo"),
     ):
         for n, price in enumerate(CASES["comparables"], 1):
             key = str(base + n)
@@ -94,7 +94,11 @@ def rows() -> dict[str, dict[str, object]]:
 @dataclass
 class ExplorationSource(ValuationSource):
     rows: dict[str, dict[str, object]] = field(default_factory=rows)
-    offers: list[dict[str, object]] = field(default_factory=lambda: [quote("2400.00")])
+    offers: list[dict[str, object]] = field(
+        default_factory=lambda: [
+            quote("2400.00", product=CAMERA_KEY) | {"title": CAMERA_TITLE + " Nova"}
+        ]
+    )
     empty: bool = False
 
     def respond(self, path: str, parameters: dict[str, str]) -> tuple[int, dict[str, object]]:

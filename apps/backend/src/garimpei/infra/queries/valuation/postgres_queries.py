@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from dataclasses import replace
 from datetime import datetime
 from uuid import UUID
@@ -27,7 +28,13 @@ class PostgresValuationQueries:
         )
         return self._value(listing, progress, now, self._diagnostic(), identity_progress)
 
-    def current_many(self, listings: tuple[Listing, ...], now: datetime) -> dict[UUID, Valuation]:
+    def current_many(
+        self,
+        listings: tuple[Listing, ...],
+        now: datetime,
+        *,
+        identities: Mapping[UUID, IdentityProgress | None] | None = None,
+    ) -> dict[UUID, Valuation]:
         progress = {
             p.listing_id: p
             for p in ValuationProgress.objects.select_related("current").filter(
@@ -35,12 +42,14 @@ class PostgresValuationQueries:
             )
         }
         diagnostic = self._diagnostic()
-        identities = {
-            p.listing_id: p
-            for p in IdentityProgress.objects.select_related("manual__observation").filter(
-                listing_id__in=[row.id for row in listings]
-            )
-        }
+        # Snapshot callers already load this provenance with their listings.
+        if identities is None:
+            identities = {
+                p.listing_id: p
+                for p in IdentityProgress.objects.select_related("manual__observation").filter(
+                    listing_id__in=[row.id for row in listings]
+                )
+            }
         return {
             row.id: self._value(row, progress.get(row.id), now, diagnostic, identities.get(row.id))
             for row in listings
