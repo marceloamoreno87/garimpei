@@ -1,0 +1,92 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_static_webp_original_is_preserved_and_analyzed_through_a_png_derivative _
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-436/media-database0/media_b210685327.env')), 'http://127.0.0.1:42575')
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-436/test_static_webp_original_is_p0')
+
+    def test_static_webp_original_is_preserved_and_analyzed_through_a_png_derivative(
+        media_instance: tuple[FoundationInstance,str],tmp_path: 'Path',
+    )->None:
+        import hashlib
+        from PIL import Image
+        from tests.factories.assessment_origin import serve_assessment_images
+        original=tmp_path/'original.webp'
+        Image.new('RGB',(800,600),'#2f584c').save(original,'WEBP')
+        expected=hashlib.sha256(original.read_bytes()).hexdigest()
+        instance,origin=media_instance
+        with serve_assessment_images({'original.webp':original}) as (webp_origin,_requests):
+>           shell(instance,origin,BOOT+'''
+    from garimpei.domain.media.media import Manifest,Photo,Variant
+    from garimpei.infra.repository.media.captures import create_capture
+    from garimpei.config.env import load_media_settings
+    from garimpei.infra.persistence.listing_models import CollectionCycle
+    from garimpei.infra.gateway.inference.input_preparer import image_derivative
+    import hashlib
+    os.environ['GARIMPEI_MEDIA_EVAL_ORIGIN']=WEBP_ORIGIN
+    cycle=CollectionCycle.objects.create(state=obs.cycle.state,scope_key=obs.cycle.scope_key,revision=obs.cycle.revision)
+    new=ListingObservation.objects.create(listing=listing,cycle=cycle,ordinal=obs.ordinal+1,observed_at=now(),price=obs.price,evidence=obs.evidence,coverage=obs.coverage)
+    listing.latest=new;listing.ordinal=new.ordinal;listing.save()
+    photo=Photo('webp-photo',(Variant(WEBP_ORIGIN+'/original.webp',800,600),),True)
+    create_capture(new,Manifest('present',(photo,),True,''),load_media_settings().policy,now())
+    runner=build_media_runner()
+    for _ in range(4):
+     for job in build_media_repository().due(now()):runner.execute(job)
+    photo=queries.gallery(listing.id,new.id).photos[0]
+    file=queries.file(listing.id,photo.version_id,'original')
+    raw=build_media_store().read(file)
+    assert photo.mime=='image/webp' and hashlib.sha256(raw).hexdigest()==EXPECTED_SHA
+    work=prepare.execute(listing.id)
+    assert len(work.requests)==1,ConditionAssessment.objects.get(id=work.id).input_snapshot
+    for _ in range(3):run.execute()
+    assert complete.execute(work.id)
+    state=build_read_condition().execute(listing.id).state
+    assert state.assessment.sufficient and state.satisfies_alert_condition
+    assert hashlib.sha256(build_media_store().read(file)).hexdigest()==EXPECTED_SHA
+    try:image_derivative(raw)
+    except InferenceError as legacy:assert legacy.code=='capacity_limit'
+    else:raise AssertionError('legacy F19 format policy changed')
+    print('F14 static WebP original/hash preserved; F15 lossless input derivative; legacy F19 unchanged PASS')
+    '''.replace('WEBP_ORIGIN',repr(webp_origin)).replace('EXPECTED_SHA',repr(expected)))
+
+apps/backend/tests/integration/test_multimodal_condition.py:369:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-436/media-database0/media_b210685327.env'))
+origin = 'http://127.0.0.1:42575'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...hanged')\nprint('F14 static WebP original/hash preserved; F15 lossless input derivative; legacy F19 unchanged PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 45 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T21:06:18.667457+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_b210685327", "run_id": "253ea7a4-3711-4706-9f89-ee244e25b553"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 112, in <module>
+E         AssertionError: {'text': {'title': 'Notebook Dell', 'condition': None, 'description': 'O aparelho funciona perfeitamente.'}, 'photos': [{'key': 'webp-photo', 'state': 'available', 'sha256': '7797962ef663fbfcf3cdcbec85d889a53cc591802b68ec96f2cfddffae7b6bbe', 'photo_id': 'p_7797962ef663fbfcf3cdcbec85d889a53cc591802b68ec96f2cfddffae7b6bbe', 'position': 0, 'version_id': '6e59222b-ce27-4f45-a1b6-8bf43e024073'}], 'category': 'computer', 'complete': True, 'identity': None, 'presence': 'present', 'capture_id': 'af3e20a9-e538-4c57-a610-c149174f14e3', 'media_state': 'ready', 'media_revision': 3, 'technical_omissions': {'7797962ef663fbfcf3cdcbec85d889a53cc591802b68ec96f2cfddffae7b6bbe': 'capacity_limit'}}
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...'technical_omissions\': {\'7797962ef663fbfcf3cdcbec85d889a53cc591802b68ec96f2cfddffae7b6bbe\': \'capacity_limit\'}}\n').returncode
+
+apps/backend/tests/integration/test_media_persistence.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_multimodal_condition.py::test_static_webp_original_is_preserved_and_analyzed_through_a_png_derivative
+1 failed, 9 deselected in 9.29s

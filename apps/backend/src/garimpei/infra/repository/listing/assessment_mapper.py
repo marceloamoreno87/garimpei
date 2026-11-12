@@ -40,6 +40,7 @@ def decode_assessment(raw: dict[str, object]) -> Assessment:
         tuple(cast(list[dict[str, object]], raw.get("photo_coverage", []))),
         UUID(str(raw["previous"])) if raw.get("previous") else None,
         int(str(raw.get("revision", 0))),
+        str(raw.get("runtime", "local_model")),
     )
 
 

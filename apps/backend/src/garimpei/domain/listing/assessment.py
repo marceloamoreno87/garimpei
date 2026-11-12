@@ -37,6 +37,13 @@ class Assessment:
     photo_coverage: tuple[dict[str, object], ...] = ()
     previous: UUID | None = None
     revision: int = 0
+    runtime: str = "local_model"
+
+    def __post_init__(self) -> None:
+        if self.runtime not in {"local_model", "controlled_fake"}:
+            raise ValueError("assessment runtime: expected local_model or controlled_fake")
+        if self.condition == "good" and not (self.sufficient and self.status == "complete"):
+            raise ValueError("good assessment: expected complete and sufficient evidence")
 
 
 @dataclass(frozen=True)

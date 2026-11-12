@@ -7,3 +7,7 @@ Escopo parcial autorizado: implementar e verificar partes independentes. F14 imp
 ## Ciclo0
 
 Implementação iniciada; corpus humano em preparo, rótulos não fabricados.
+
+## Correção1 — revisão de aa2c6b2
+
+Dois P1s reproduzidos/corrigidos: lotes irmãos >4 fotos e WebP válido.84 afetadosPASS+6gatesPASS; correction-cycle1.md. Full final da união permanece pendente; semdone. Modelo real/GPU não usados.

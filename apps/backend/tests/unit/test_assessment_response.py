@@ -70,3 +70,15 @@ def test_untraceable_or_malformed_output_cannot_support_condition(fault: str) ->
         finding["references"] = []
     with pytest.raises(InferenceError, match="invalid_output"):
         validate_condition_result(json.dumps(value), TEXT, {"p": "a" * 64})
+
+
+def test_legacy_inference_signature_is_byte_compatible_without_a_cohort() -> None:
+    from uuid import UUID
+
+    from garimpei.domain.inference.request import AnalysisInput
+
+    value = AnalysisInput(UUID(int=1), 1, "legacy cache", ())
+    assert (
+        value.signature("artifact")
+        == "1a1bff9e55322cfeb4f069937df420be7b2df74bee94c80ca6f85e18e792b7c4"
+    )

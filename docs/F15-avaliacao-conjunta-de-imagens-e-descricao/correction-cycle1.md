@@ -1,0 +1,9 @@
+# F15 — Correção 1: coortes e formato de entrada
+
+Revisão do coordenador sobre aa2c6b2 identificou dois defeitos reproduzidos. `WRK-IMAGENS-01/02`:5 e12 fotos distintas geravam respectivamente2/3 solicitações F19, porém _current invalidava lotes irmãos por created_at; o conjunto12 retornou superseded/superseded/succeeded. Além disso, WebP estático válido e conservado por F14 era omitido por herdar a restrição JPEG/PNG de F19.
+
+Correções: perfil condition-evidence-v1 exige cohort_id/generation explícitos; todos os lotes da mesma avaliação permanecem aplicáveis e apenas geração posterior os substitui. O perfil local-evidence-v1 mantém a supersessão temporal anterior e a assinatura SHA exata para chamadas semcoorte. Perfis independentes não se invalidam. Aditiva0022_condition_inference_cohort sobre0021 inclui dois campos opcionais em InferenceRequest, sem reescrever migration já aplicada. Agregação trata superseded/result ausente como diagnóstico, nunca como dict válido.
+
+F15 agora prepara PNG independente limitado512px a partir de JPEG/PNG/WebP estático até os limites de entrada F14, aplicando orientação e fundo explícito para transparência; o original/pin/hash F14 permanece intacto. A política e o helper legados de F19 não foram ampliados. O intermediário vive em TemporaryDirectory e somente o registro F19 persiste/contabiliza o derivado.
+
+Regressões:5/12 fotos suficientes; coortes versus legado; geração posterior cerca lote antigo criado depois; assinatura legada bytecompatível; WebP HTTP/F14→pin→PNG→inferência controlada→condição suficiente, comhash original idêntico e helper F19 legado ainda recusando WebP. Afetados84PASS35,71s; seis gatesPASS. Evidências cycle1-*-red/green/gates. Não há full próprio congelado; full final da união permanece pendente com coordenador. Rótulos humanos/F14 pendentes não foram dispensados.

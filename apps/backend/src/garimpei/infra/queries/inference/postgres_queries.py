@@ -39,6 +39,8 @@ class PostgresInferenceQueries:
             "model_digest": parts[0].content.get("model_digest", "") if parts else "",
             "prompt_version": row.prompt_version,
             "schema_version": row.schema_version,
+            "cohort_id": str(row.cohort_id) if row.cohort_id else None,
+            "cohort_generation": row.cohort_generation,
             "coverage": coverage,
             "parts": [
                 {
