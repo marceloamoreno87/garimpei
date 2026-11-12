@@ -1,9 +1,9 @@
 # Integração da F13
 
-A implementação permanece na branch `feat/F13-navegacao-ativa`, worktree `/home/marce/.codex/worktrees/e38a/garimpei`, sobre a base `c8ca8ae`. O código desta frente ainda não foi integrado à `master` nem publicado.
+Implementação integrada na master por autorização explícita do usuário, preservando os históricos das branches. O orçamento da interface com perfil salvo foi corrigido e a união comF16/F19/F20 passou na suíte final de504 testes, seis gates, Django, drift e build. Os529 inputs avaliados permaneceram idênticos durante a execução e após o merge.
 
-A avaliação local aprovou 443 testes, os seis grupos Python, Django, migrations e build. Os 440 arquivos de entrada permaneceram idênticos durante a suíte. O contrato registra 19 PASS e um MANUAL; a feature permanece `implemented`, sem `done`.
+F13 permanece `implemented`, ciclo2:19 PASS/1 MANUAL e6 ACs verificados/1 indeterminado. A prova real confirmou busca, detalhe, contexto, retomada e14/14 artigos DOM/API/SQL. A continuação exata não foi comprovada; não há done nem substituição dessa evidência por fake.
 
-A prova real de leitura/continuidade no Facebook será realizada na instalação principal autenticada, conforme a preferência explícita do usuário. Esta consolidação registra evidências e progresso; não executa essa prova ou reinicia a aplicação principal.
+A instalação principal foi reiniciada normalmente, preservando banco, perfil Facebook e pareamento WhatsApp. Dados históricos foram conferidos por hash. O estado original dos alertas foi restaurado após manutenção; nenhum envio de teste adicional foi executado.
 
-O laboratório 15087 foi parado normalmente, preservando banco, perfil e pareamento. Os ambientes sintéticos descartáveis foram encerrados.
+Os laboratórios pareados15087/20411 permanecem parados com dados/sessões preservados; laboratórios sintéticos próprios foram limpos. A documentação de integração e a avaliação mais recente constam do progresso.

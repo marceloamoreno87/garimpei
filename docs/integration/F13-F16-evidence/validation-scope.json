@@ -1,0 +1,12 @@
+{
+  "baseline_commit": "71a74a2f2a8f3db426ecc051182ddab6edae87b3",
+  "baseline_tests": 500,
+  "baseline_frozen_inputs": 527,
+  "baseline_changed_inputs": [],
+  "final_commit": "41e27e568ee829dbe347948288c1a690494fcf2d",
+  "final_focal_tests": 3,
+  "final_frozen_inputs": 528,
+  "final_changed_inputs": [],
+  "after_baseline_scope": "main.build_navigation_queries uses effective Facebook configuration; one new PostgreSQL regression test",
+  "full_suite_not_repeated_for_localized_composition_fix": true
+}

@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-11-12T17:56:19.615047+00:00",
+  "source_commit": "c8c86fabef0a5f7f0e1f328caf5765dffdaa634e",
+  "ready": true,
+  "http_statuses": {
+    "/health/ready": 200,
+    "/acompanhamento/": 200,
+    "/sugestoes/": 200,
+    "/integracoes/whatsapp/status/": 200
+  },
+  "whatsapp_connected": true,
+  "bindings_preserved": true,
+  "new_run_application_errors": [],
+  "last_observed_counts_before_restoring_alerts": {
+    "listings": 2549,
+    "observations": 6557,
+    "events": 2584,
+    "receipts": 385,
+    "page_receipts": 146,
+    "detail_receipts": 239,
+    "intents": 0,
+    "attempts": 0,
+    "canon_observations": 0,
+    "canon_replacement_observations": 0,
+    "inventory_complete": true,
+    "adopted_listings": 2549
+  },
+  "alerts_original_setting_restored": {
+    "original_enabled": true,
+    "restored_enabled": true,
+    "bindings_preserved": true,
+    "action": "restore existing product configuration; no test message dispatched"
+  },
+  "history": {
+    "historical_records_preserved": true,
+    "tables": {
+      "runtime_listingobservation": {
+        "original_records": 6365,
+        "current_records": 6554,
+        "changed_or_missing_original_records": 0
+      },
+      "runtime_listingevent": {
+        "original_records": 2575,
+        "current_records": 2584,
+        "changed_or_missing_original_records": 0
+      },
+      "runtime_manualcondition": {
+        "original_records": 0,
+        "current_records": 0,
+        "changed_or_missing_original_records": 0
+      },
+      "runtime_manualconditionhistory": {
+        "original_records": 0,
+        "current_records": 0,
+        "changed_or_missing_original_records": 0
+      },
+      "runtime_alertintent": {
+        "original_records": 0,
+        "current_records": 0,
+        "changed_or_missing_original_records": 0
+      },
+      "runtime_alertattempt": {
+        "original_records": 0,
+        "current_records": 0,
+        "changed_or_missing_original_records": 0
+      }
+    }
+  },
+  "f13_real_continuation": "MANUAL: exact successful unit starting from an observed cursor not confirmed"
+}

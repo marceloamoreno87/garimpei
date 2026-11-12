@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-11-12T17:45:57.092032+00:00",
+  "finished_at": "2026-11-12T17:48:52.274820+00:00",
+  "bounded_seconds": 175,
+  "polls": 175,
+  "read_only": true,
+  "pause_used": false,
+  "public_cursor_policy": "Raw cursor used only in memory to derive mapper unit hash; never exported",
+  "confirmed": false,
+  "success": null,
+  "error": null,
+  "observed_inputs": [
+    {
+      "work_reference": "8221c09795349882997caf9e3d108f4a",
+      "cycle_reference": "ad193695588f9f8dcf125324425e7486",
+      "context_hash": "bdaf81859cb0503579d851ebb38299ef441df2ae5702fba1acb305dbd3067232",
+      "input_revision": 2,
+      "page_unit_hash": "060ba2c8a6fe9cfc6b5ca9391c01435cb7e08f08b4916505eaec42b8559666ef",
+      "cursor_kind": "numeric",
+      "observed_at": "2026-11-12T17:45:57.099807+00:00",
+      "prior_pages": 19,
+      "failures": {}
+    }
+  ]
+}

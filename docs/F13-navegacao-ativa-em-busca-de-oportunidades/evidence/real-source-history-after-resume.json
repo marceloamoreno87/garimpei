@@ -1,0 +1,35 @@
+{
+  "historical_records_preserved": true,
+  "tables": {
+    "runtime_listingobservation": {
+      "original_records": 6365,
+      "current_records": 6386,
+      "changed_or_missing_original_records": 0
+    },
+    "runtime_listingevent": {
+      "original_records": 2575,
+      "current_records": 2576,
+      "changed_or_missing_original_records": 0
+    },
+    "runtime_manualcondition": {
+      "original_records": 0,
+      "current_records": 0,
+      "changed_or_missing_original_records": 0
+    },
+    "runtime_manualconditionhistory": {
+      "original_records": 0,
+      "current_records": 0,
+      "changed_or_missing_original_records": 0
+    },
+    "runtime_alertintent": {
+      "original_records": 0,
+      "current_records": 0,
+      "changed_or_missing_original_records": 0
+    },
+    "runtime_alertattempt": {
+      "original_records": 0,
+      "current_records": 0,
+      "changed_or_missing_original_records": 0
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "exit_codes": [
+    0,
+    0
+  ],
+  "elapsed_seconds": 984.7,
+  "collected": 500,
+  "executed": {
+    "tests": 500,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "frozen_inputs": 527,
+  "changed_inputs": [],
+  "all_passed": true
+}

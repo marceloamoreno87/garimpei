@@ -1,0 +1,332 @@
+{
+  "at": "2026-11-12T17:00:51.283791+00:00",
+  "counts": {
+    "listings": 2546,
+    "observations": 6376,
+    "events": 2576,
+    "receipts": 5,
+    "page_receipts": 3,
+    "detail_receipts": 2,
+    "intents": 0,
+    "attempts": 0,
+    "canon_observations": 0,
+    "canon_replacement_observations": 0,
+    "inventory_complete": false,
+    "adopted_listings": 1600
+  },
+  "state": [
+    {
+      "revision": 2,
+      "phase": "running",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "generation": 484,
+      "access_suspended": false,
+      "finished_at": null,
+      "published": 1155,
+      "results": 1157
+    }
+  ],
+  "works": [
+    {
+      "work": "111bc416246401a5a410407155896c7c",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "waiting",
+      "reason": "category_unavailable",
+      "generation": 1,
+      "last_turn": 4,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "bc0208e5b04175da84bb2fd5e249605fee8fc644f6c68915d7ac030154ebe19d",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "70e10b1ceca2e5450c0d4f8c8d7a26b5",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "740aa8e482a241d96e58136e9f1de63467ef6bf64a7c89fba7b2bf32c036f7cf",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "141fab3398ec99e6fa7689596066d8d6",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "7612d1b7dfb47a689884f06104068a8ee4d7570bf63418c863366c3c050624b4",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "3dc10ac48e998356cf3aa479d13935a5",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "740aa8e482a241d96e58136e9f1de63467ef6bf64a7c89fba7b2bf32c036f7cf",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "160294935e8f0b64af290daf10ad9fd7",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "pending_details_limit",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "5c1a8ef61b9cab357fca569bc7caab07206863dee85c0ab4666b42d4d3a1388d",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "d94015aa3944f8b8576e48a964e9bb82",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "bdaf81859cb0503579d851ebb38299ef441df2ae5702fba1acb305dbd3067232",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "b9f16b88afaec8ca367106453fba7357",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "7612d1b7dfb47a689884f06104068a8ee4d7570bf63418c863366c3c050624b4",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "8221c09795349882997caf9e3d108f4a",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "bdaf81859cb0503579d851ebb38299ef441df2ae5702fba1acb305dbd3067232",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "63a89af78eeb5f870f546a4376a6b5fc",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 1,
+      "last_turn": 1,
+      "pages": 0,
+      "details": 1,
+      "has_cursor": false,
+      "context_hash": "5c1a8ef61b9cab357fca569bc7caab07206863dee85c0ab4666b42d4d3a1388d",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": "2026-11-12T17:00:27.129989+00:00"
+    },
+    {
+      "work": "8e8674036d7d47c9fe055f78138403db",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 1,
+      "last_turn": 5,
+      "pages": 1,
+      "details": 0,
+      "has_cursor": true,
+      "context_hash": "f31779a995121da9ece771f18dbd3ca82b7c7e023fea0d7ebe31cf3419ff6913",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": "2026-11-12T17:00:49.006914+00:00"
+    },
+    {
+      "work": "4ff9e578a52a2d1be49fba121a464912",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 0,
+      "last_turn": 0,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "bc0208e5b04175da84bb2fd5e249605fee8fc644f6c68915d7ac030154ebe19d",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "76bd58032e18bfcf47f041804df6fe82",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "running",
+      "reason": "",
+      "generation": 1,
+      "last_turn": 6,
+      "pages": 0,
+      "details": 0,
+      "has_cursor": false,
+      "context_hash": "f31779a995121da9ece771f18dbd3ca82b7c7e023fea0d7ebe31cf3419ff6913",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": null
+    },
+    {
+      "work": "9446e987fd810c53b2913e052f97651d",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "investigation",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 1,
+      "last_turn": 3,
+      "pages": 0,
+      "details": 1,
+      "has_cursor": false,
+      "context_hash": "8b0f15f359b23e0c1df5907abc9cda6b9b815e7ff76294ecde3689e929770598",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": "2026-11-12T17:00:36.268061+00:00"
+    },
+    {
+      "work": "044090b2b2bb76de4958707b37ce1472",
+      "cycle": "ad193695588f9f8dcf125324425e7486",
+      "front": "discovery",
+      "revision": 2,
+      "purpose": "active",
+      "phase": "pending",
+      "reason": "",
+      "generation": 1,
+      "last_turn": 2,
+      "pages": 1,
+      "details": 0,
+      "has_cursor": true,
+      "context_hash": "8b0f15f359b23e0c1df5907abc9cda6b9b815e7ff76294ecde3689e929770598",
+      "catalog": "2026-11-12.1",
+      "limits": {
+        "cycle_pages": 100,
+        "cycle_terms": 3
+      },
+      "last_progress_at": "2026-11-12T17:00:34.270786+00:00"
+    }
+  ],
+  "integration": {
+    "alerts_enabled": false,
+    "whatsapp_configured": true,
+    "facebook_mode": "profile",
+    "facebook_login_state": "ready"
+  },
+  "bindings_preserved": true
+}

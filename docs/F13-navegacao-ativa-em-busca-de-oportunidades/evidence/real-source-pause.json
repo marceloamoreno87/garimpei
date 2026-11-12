@@ -1,0 +1,19 @@
+{
+  "paused_at": "2026-11-12T17:01:55.680774+00:00",
+  "resumed_at": "2026-11-12T17:02:00.690184+00:00",
+  "pause_seconds": 5,
+  "counts_before_pause": [
+    19,
+    6380,
+    0
+  ],
+  "counts_while_paused": [
+    19,
+    6380,
+    0
+  ],
+  "stable_while_paused": true,
+  "ownership_verified": true,
+  "alerts_enabled_during_proof": false,
+  "resume_signal_sent": true
+}

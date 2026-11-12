@@ -1,0 +1,24 @@
+{
+  "curated_at": "2026-11-12T17:52:51.403913+00:00",
+  "runtime_commit_at_capture": "41e27e568ee829dbe347948288c1a690494fcf2d",
+  "scope": "real-source artifacts and noncanonical draft only; no source/config/alert/progress changes",
+  "dom_sql_confirmed": true,
+  "continuation_confirmed": false,
+  "proposed_e2e_verdict": "MANUAL",
+  "additional_pause_seconds": 1.468,
+  "resume_signal_sent": true,
+  "own_session_closed": true,
+  "files": {
+    "real-source-after-resume.json": "bb55d938dc88d3f83f9aed8ae8385618927997a188e5b9a4ace939ce066a0d17",
+    "real-source-continuation-aggregate.json": "4bd322f4a17f83a44c9c1fca9ff265f519b9b38c0aa2272c286b8a9522f852ed",
+    "real-source-continuation-observation.json": "d4c7486ff1be512d089beb4956789b0da09b10ddfcbae0670068f83db5830c53",
+    "real-source-dom-sql.json": "af1038f90e24697161201e3480527c897bd6c526df1a24e224106225d7bb5caa",
+    "real-source-dom-sql.png": "ec8ad04aa0c92dced86f480e192b4efb58c2e18d84bb20b7424a3c484205f68b",
+    "real-source-history-after-migrations.json": "7403fc6c17796d2164b2900cc6fad3c27fed9f9d811575f97f872b282287dca9",
+    "real-source-history-after-resume.json": "7790f73de028a47c93092cbb437c103a09e9fcb148c8ba82169f78e9fdedc17d",
+    "real-source-pause.json": "b920948bbf11cf76cda7ff17ec9e5f307c2cf92b521cc81749a83ed3ee8f5bc4",
+    "real-source-progress-3.json": "292768aa6eb8718d8de4250844de7d77117f4985fa7068d0623ccfbcca5c4bf1",
+    "real-source-progress-4.json": "8f7b196f642e3095d406d761611caa33dec470c7894f3e0f583a524cb093bdda",
+    "real-source-summary.md": "716b504a504a77afe6bc42f4e18576c7868e27b8a1ce6d92f325738968cdb692"
+  }
+}
