@@ -1,0 +1,16 @@
+### Result
+{"url":"http://127.0.0.1:16972/ofertas/796e0fa4-7ef2-4185-859c-5f9382d39394/?aba=incerta&q=PlayStation&categoria=&pagina=1&versao=69981176-a0f0-4f65-ad95-5dc44e42f5b3","viewport":{"width":1440,"height":1100},"overflow":false,"fonts":{"h1":"\"Bricolage Grotesque\", sans-serif","body":"Manrope, sans-serif"},"elements":[{"text":"Alerta desta oferta","color":"rgb(27, 43, 35)","background":"rgb(246, 248, 243)","fontSize":"24px","contrast":13.87},{"text":"Confirmada no servidor","color":"rgb(27, 43, 35)","background":"rgb(246, 248, 243)","fontSize":"16px","contrast":13.87},{"text":"Confirmada no servidor","color":"rgb(27, 43, 35)","background":"rgb(246, 248, 243)","fontSize":"16px","contrast":13.87},{"text":"Avaliação atual: A condição efetiva ainda não permite alerta.","color":"rgb(27, 43, 35)","background":"rgb(246, 248, 243)","fontSize":"16px","contrast":13.87},{"text":"Última avaliação: 12/11/2026 12:00:00 UTC.","color":"rgb(89, 107, 94)","background":"rgb(246, 248, 243)","fontSize":"14px","contrast":5.32},{"text":"O diagnóstico usa uma observação mais recente que a oferta exibida. Esta leitura preserva a revisão e os valores da oferta.","color":"rgb(32, 76, 51)","background":"rgb(231, 239, 224)","fontSize":"16px","contrast":8.32},{"text":"Publicação: 12/11/2026 10:00:00 UTC. Limite do primeiro alerta: 14/11/2026 10:00:00 UTC.","color":"rgb(89, 107, 94)","background":"rgb(246, 248, 243)","fontSize":"14px","contrast":5.32},{"text":"Confirmação histórica no servidor: 12/11/2026 12:01:01 UTC. Isso não comprova entrega ou leitura no grupo.","color":"rgb(27, 43, 35)","background":"rgb(246, 248, 243)","fontSize":"16px","contrast":13.87},{"text":"Histórico de alertas","color":"rgb(27, 43, 35)","background":"rgb(246, 248, 243)","fontSize":"16px","contrast":13.87}]}
+### Ran Playwright code
+```js
+await (async page => {
+  const rgb = x => (x.match(/[\d.]+/g)||[]).slice(0,3).map(Number);
+  const luminance = c => rgb(c).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+  const background = e => { for(let p=e;p;p=p.parentElement){const c=getComputedStyle(p).backgroundColor;if(c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;}return 'rgb(255, 255, 255)';};
+  return await page.evaluate(({rgbText,luminanceText,backgroundText})=>{
+    const luminance=eval('('+luminanceText+')');const rgb=eval('('+rgbText+')');const background=eval('('+backgroundText+')');
+    const block=document.querySelector('[aria-labelledby="alert-heading"]');
+    return {url:location.href,viewport:{width:innerWidth,height:innerHeight},overflow:document.documentElement.scrollWidth>innerWidth,fonts:{h1:getComputedStyle(document.querySelector('h1')).fontFamily,body:getComputedStyle(document.body).fontFamily},elements:[...block.querySelectorAll('h2,p,strong,summary,a')].map(e=>{const s=getComputedStyle(e),bg=background(e),a=luminance(s.color),b=luminance(bg);return {text:e.innerText,color:s.color,background:bg,fontSize:s.fontSize,contrast:Number(((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2))};})};
+  },{rgbText:rgb.toString(),luminanceText:luminance.toString(),backgroundText:background.toString()});
+}
+)(page);
+```

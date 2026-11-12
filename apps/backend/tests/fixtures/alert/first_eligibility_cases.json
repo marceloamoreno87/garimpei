@@ -1,0 +1,119 @@
+{
+  "now": "2026-11-12T12:00:00+00:00",
+  "BASE": {
+    "16001": {
+      "price": "1000,00",
+      "published_at": "2026-11-12T10:00:00+00:00",
+      "description": "Usado. Não foi testado.",
+      "expected_profit": "350.00"
+    },
+    "16002": {
+      "price": "1450,00",
+      "published_at": "2026-11-12T11:00:00+00:00"
+    },
+    "16003": {
+      "price": "1475,00",
+      "published_at": "2026-11-12T11:00:00+00:00"
+    },
+    "16004": {
+      "price": "1500,00",
+      "published_at": "2026-11-12T11:00:00+00:00"
+    },
+    "16005": {
+      "price": "1525,00",
+      "published_at": "2026-11-12T11:00:00+00:00"
+    },
+    "16006": {
+      "price": "1550,00",
+      "published_at": "2026-11-12T11:00:00+00:00"
+    }
+  },
+  "variations": {
+    "exact": {
+      "published_at": "2026-11-10T12:00:00+00:00",
+      "expected": "eligible"
+    },
+    "expired": {
+      "published_at": "2026-11-10T11:59:59.999999+00:00",
+      "expected": "publication_expired"
+    },
+    "missing": {
+      "published_at": null,
+      "expected": "publication_missing"
+    },
+    "future": {
+      "published_at": "2026-11-12T12:00:00.000001+00:00",
+      "expected": "publication_future"
+    },
+    "untrusted": {
+      "published_at": "há 2 horas",
+      "expected": "publication_untrusted"
+    },
+    "zero": {
+      "price": "1350,00",
+      "expected_profit": "0.00"
+    },
+    "negative": {
+      "price": "1400,00",
+      "expected_profit": "-50.00"
+    },
+    "stale": {
+      "observation": "previous",
+      "expected": "profit_observation_mismatch"
+    }
+  },
+  "LEGADO": {
+    "count": 101,
+    "states": [
+      "confirmed",
+      "queued",
+      "authorized",
+      "uncertain",
+      "review"
+    ],
+    "preserve": [
+      "id",
+      "body",
+      "recipient",
+      "account",
+      "session",
+      "confirmed_message",
+      "attempts"
+    ]
+  },
+  "QUEDAS": {
+    "prices": [
+      "1000.00",
+      "900.00",
+      "900.00",
+      "1000.00",
+      "900.00"
+    ],
+    "distinct_reductions": 2
+  },
+  "observation": {
+    "target": "16001",
+    "comparables": [
+      "16002",
+      "16003",
+      "16004",
+      "16005",
+      "16006"
+    ],
+    "published_at_source": "fixture.published_at",
+    "observed_at": "2026-11-12T12:00:00+00:00",
+    "manual": "good",
+    "automatic": "uncertain"
+  },
+  "channel": {
+    "session": "synthetic",
+    "recipient": "100@g.us",
+    "account": "200@c.us",
+    "transport": "loopback"
+  },
+  "barrier": {
+    "inventory_batch": 100,
+    "slow_channel_seconds": 2,
+    "failure_backoff_seconds": 5
+  }
+}

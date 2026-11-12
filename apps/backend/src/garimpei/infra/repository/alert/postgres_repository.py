@@ -5,11 +5,17 @@ from django.db import transaction
 from django.db.models import Q
 
 from garimpei.domain.alert.alert import AlertPolicy, Binding, Delivery, Outcome
-from garimpei.domain.alert.eligibility import eligibility
+from garimpei.domain.alert.eligibility import eligibility, verified_receipt
 from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.domain.listing.read_models import ChangePage
 from garimpei.domain.valuation.profit import ProfitComposition
-from garimpei.infra.persistence.alert_models import AlertEventDecision, AlertFeedCursor, AlertIntent
+from garimpei.infra.persistence.alert_models import (
+    AlertEventDecision,
+    AlertFeedCursor,
+    AlertIntent,
+    FirstAlertIdentity,
+    FirstAlertInventory,
+)
 from garimpei.infra.persistence.listing_models import ListingEvent
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.queries.alert.event_source import covered, event_condition
@@ -57,6 +63,8 @@ class PostgresAlertRepository:
             False,
         )
         reason = condition.reason or reason
+        if event.kind == "discovered":
+            reason = "first_eligibility_managed"
         AlertEventDecision.objects.get_or_create(
             event=event,
             defaults={
@@ -86,7 +94,7 @@ class PostgresAlertRepository:
         with transaction.atomic():
             lock_monitoring_publication()
             row = (
-                AlertEventDecision.objects.select_for_update()
+                AlertEventDecision.objects.select_for_update(of=("self",))
                 .select_related("event__observation")
                 .get(event__id=identity)
             )
@@ -98,11 +106,36 @@ class PostgresAlertRepository:
         self, row: AlertEventDecision, profit: ProfitComposition | None, now: datetime
     ) -> None:
         event = row.event
+        if event.kind == "discovered":
+            row.state, row.reason, row.evaluated_at = "excluded", "first_eligibility_managed", now
+            row.save()
+            return
         earlier = AlertIntent.objects.filter(
             decision__event__listing_id=event.listing_id,
             decision__event__sequence__lt=event.sequence,
         )
-        previous = earlier.filter(state="confirmed").exists()
+        first = (
+            FirstAlertIdentity.objects.filter(listing_id=event.listing_id)
+            .select_related("intent__first_decision__observation")
+            .first()
+        )
+        first_intent = first.intent if first else None
+        if (
+            first_intent
+            and first_intent.first_decision
+            and first_intent.first_decision.observation.ordinal >= event.observation.ordinal
+        ):
+            row.state, row.reason = "excluded", "first_alert_causal_event"
+            row.save()
+            return
+        first_before = bool(
+            first_intent
+            and first_intent.first_decision
+            and first_intent.first_decision.observation.ordinal < event.observation.ordinal
+        )
+        previous = earlier.filter(state="confirmed").exists() or bool(
+            first_before and first_intent and first_intent.state == "confirmed"
+        )
         active = earlier.filter(state__in=["queued", "blocked", "safe_retry"]).exists()
         active = (
             active
@@ -118,6 +151,9 @@ class PostgresAlertRepository:
                 event__sequence__lt=event.sequence,
                 state="waiting",
             ).exists()
+        )
+        active = active or bool(
+            first_before and _first_intent_pending(first_intent, now, self._policy)
         )
         reason = eligibility(
             event.kind, event.silent, covered(event), True, "good", previous, active
@@ -156,10 +192,19 @@ class PostgresAlertRepository:
         with transaction.atomic():
             lock_monitoring_publication()
             cursor = AlertFeedCursor.objects.get(installation="local")
-            if not cursor.history_ready or cursor.dispatch_suspended:
+            if (
+                not cursor.history_ready
+                or cursor.dispatch_suspended
+                or (
+                    not reconcile
+                    and not FirstAlertInventory.objects.filter(
+                        installation="local", completed=True
+                    ).exists()
+                )
+            ):
                 return None
             row = (
-                AlertIntent.objects.select_for_update()
+                AlertIntent.objects.select_for_update(of=("self",))
                 .select_related("decision__event__listing", "decision__event__observation")
                 .get(id=identity)
             )
@@ -176,5 +221,34 @@ class PostgresAlertRepository:
                 "authorized",
                 "uncertain",
             ]:
+                _retain_late_evidence(row, delivery, outcome, now)
                 return
             complete(row, delivery, outcome, now, self._policy)
+
+
+def _retain_late_evidence(
+    row: AlertIntent, delivery: Delivery, outcome: Outcome, now: datetime
+) -> None:
+    receipt = outcome.receipt
+    if receipt is not None and verified_receipt(receipt, delivery.binding, delivery.body):
+        attempts = (
+            row.attempts.filter(id=delivery.attempt_id)
+            if delivery.attempt_id
+            else row.attempts.filter(generation=delivery.generation)
+        )
+        attempts.update(
+            message_id=receipt.id, ack=receipt.ack, provenance="late_response", finished_at=now
+        )
+
+
+def _first_intent_pending(intent: AlertIntent | None, now: datetime, policy: AlertPolicy) -> bool:
+    if intent is None:
+        return False
+    if intent.state in {"queued", "blocked", "safe_retry"}:
+        return True
+    return (
+        intent.state in {"authorized", "uncertain"}
+        and intent.attempts.filter(
+            authorized_at__gt=now - timedelta(seconds=policy.window)
+        ).exists()
+    )

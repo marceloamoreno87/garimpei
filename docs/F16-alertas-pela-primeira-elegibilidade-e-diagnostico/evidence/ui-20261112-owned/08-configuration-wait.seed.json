@@ -1,0 +1,5 @@
+{
+  "returncode": 0,
+  "stdout": "33 objects imported automatically (use -v 2 for details).\n\n",
+  "stderr": "{\"timestamp\": \"2026-11-12T12:55:29.550148+00:00\", \"level\": \"INFO\", \"logger\": \"procrastinate.blueprints\", \"event\": \"runtime_event\", \"environment_id\": \"eval_wave11b_f16_4b870bf9\", \"run_id\": \"fbdb1c56-b71c-4508-aded-73a174fc2e28\"}\n{\"timestamp\": \"2026-11-12T12:55:29.595714+00:00\", \"level\": \"INFO\", \"logger\": \"garimpei.alert\", \"event\": \"alert_state\", \"environment_id\": \"eval_wave11b_f16_4b870bf9\", \"run_id\": \"fbdb1c56-b71c-4508-aded-73a174fc2e28\", \"alert_reference\": \"45837c3d-ca8c-4705-b993-d0b18ce21e16\", \"alert_state\": \"blocked\", \"alert_reason\": \"configuration_missing\"}\n"
+}

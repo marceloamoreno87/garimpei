@@ -117,6 +117,13 @@ def listing_from(row: JsonObject, *, detail: bool, match: Match | None = None) -
         description=text(mapping(row.get("redacted_description")).get("text")),
         condition=_condition(row),
         published_at=_published(row.get("creation_time")),
+        published_at_source=(
+            "facebook.creation_time"
+            if _published(row.get("creation_time"))
+            else "facebook.creation_time.invalid"
+            if row.get("creation_time") is not None
+            else None
+        ),
         price=_price(row),
         pickup=pickup,
         location=location,

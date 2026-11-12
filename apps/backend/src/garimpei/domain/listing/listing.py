@@ -36,6 +36,7 @@ class Evidence:
     source_available: bool | None = None
     availability_evidence: str | None = None
     image_url: str | None = None
+    published_at_source: str | None = None
 
 
 @dataclass(frozen=True)

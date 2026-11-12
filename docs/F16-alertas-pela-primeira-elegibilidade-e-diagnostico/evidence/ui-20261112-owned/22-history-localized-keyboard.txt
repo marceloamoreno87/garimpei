@@ -1,0 +1,6 @@
+### Result
+{"focused":true,"open":true,"history":"Histórico de alertas\nPrimeiro alerta · Não enviada · encerrada\nPrimeiro alerta · Confirmada no servidor · 12/11/2026 12:01:01 UTC\nPrimeiro alerta · Não enviada · encerrada","overflow":false}
+### Ran Playwright code
+```js
+await (async page => {await page.locator("summary").focus(); await page.keyboard.press("Enter"); return {focused:await page.locator("summary").evaluate(el=>el===document.activeElement),open:await page.locator("details").evaluate(el=>el.open),history:await page.locator("details").innerText(),overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}; })(page);
+```

@@ -1,0 +1,9 @@
+### Result
+{"status":200,"url":"http://127.0.0.1:11646/ofertas/8a5a8005-b885-4922-a5b4-d61983ff0480/?aba=incerta&q=PlayStation&pagina=1","diagnostic":"Alerta desta oferta\n\nAguardando análise das fotos\n\nÚltima avaliação: 12/11/2026 12:00:00 UTC.\n\nPublicação: 12/11/2026 10:00:00 UTC. Limite do primeiro alerta: 14/11/2026 10:00:00 UTC.","overflow":false,"viewport":{"width":360,"height":900}}
+### Ran Playwright code
+```js
+await (async page => {const response=await page.reload();const block=page.locator("[aria-labelledby=alert-heading]");return {status:response.status(),url:page.url(),diagnostic:await block.innerText(),overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),viewport:await page.viewportSize()};})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:11646/ofertas/8a5a8005-b885-4922-a5b4-d61983ff0480/?aba=incerta&q=PlayStation&pagina=1
+- Page Title: Ofertas · Garimpei

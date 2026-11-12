@@ -1,0 +1,45 @@
+{
+  "item": "WRK-PRAZO-01",
+  "independent_owned_instances": true,
+  "results": [
+    {
+      "state": "eligible",
+      "reason": "eligible",
+      "intent_state": "confirmed",
+      "authorized_at": "2026-11-12T12:00:00+00:00",
+      "publication": "2026-11-10T12:00:00+00:00",
+      "authorization_clock": "2026-11-12T12:00:00+00:00",
+      "case": "exact48",
+      "expected_posts": 1,
+      "observed_posts": 1,
+      "fake_only": true,
+      "instance": "eval_wave11b_f16_eccdc08c"
+    },
+    {
+      "state": "excluded",
+      "reason": "publication_expired",
+      "intent_state": null,
+      "authorized_at": null,
+      "publication": "2026-11-10T11:59:59.999999+00:00",
+      "authorization_clock": "2026-11-12T12:00:00+00:00",
+      "case": "over48",
+      "expected_posts": 0,
+      "observed_posts": 0,
+      "fake_only": true,
+      "instance": "eval_wave11b_f16_26607f34"
+    },
+    {
+      "state": "eligible",
+      "reason": "eligible",
+      "intent_state": "confirmed",
+      "authorized_at": "2026-11-12T12:00:00+00:00",
+      "publication": "2026-11-12T12:00:00+00:00",
+      "authorization_clock": "2026-11-12T12:00:00+00:00",
+      "case": "publication_now",
+      "expected_posts": 1,
+      "observed_posts": 1,
+      "fake_only": true,
+      "instance": "eval_wave11b_f16_29507f39"
+    }
+  ]
+}

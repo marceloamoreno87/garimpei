@@ -51,7 +51,11 @@ from garimpei.domain.listing.read_models import ChangePage
 from garimpei.main import build_read_listing_changes
 # Cursor and decision are one transaction even when a failure occurs mid-page.
 AlertFeedCursor.objects.all().delete()
+FirstAlertIdentity.objects.update(intent=None)
 AlertIntent.objects.all().delete()
+FirstEligibilityDecision.objects.all().delete()
+FirstAlertIdentity.objects.all().delete()
+FirstAlertInventory.objects.update(completed=False,cursor=None)
 AlertEventDecision.objects.all().delete()
 page=build_read_listing_changes().execute()
 original=store._accept
@@ -71,20 +75,22 @@ assert AlertEventDecision.objects.count()==len(page.events)
 assert store.cursor()==page.cursor
 print('WRK-RETOMADA-03 PASS')
 # A wrong observation never supplies the financial calculation.
-p=build_read_profit().execute(decision().event.id,event=True)
+p=build_read_profit().execute(target().id,event=False)
 assert p.profit.value is not None
-store.evaluate(decision().event.id,replace(p,observation_id=target('901').latest_id),clock())
-assert decision().state=='waiting' and decision().reason=='profit_observation_mismatch'
-assert not AlertIntent.objects.filter(decision=decision()).exists()
-store.evaluate(decision().event.id,None,clock())
-assert decision().state=='waiting'
-store.evaluate(decision().event.id,p,clock())
-assert intent().decision.financial['observation_id']==str(p.observation_id)
-print('WRK-ELEGIBILIDADE-03/08 PASS')
+first_store=build_first_alert_store();first_store.adopt(clock())
+signature=first_store.prepare(target().id)
+first_store.publish(target().id,signature,replace(p,observation_id=target('901').latest_id),clock())
+assert first_decision().state=='waiting' and first_decision().reason=='profit_observation_mismatch'
+assert first_state().intent_id is None
+first_store.publish(target().id,signature,None,clock())
+assert first_decision().state=='waiting'
+first_store.publish(target().id,signature,p,clock())
+assert intent().first_decision.financial['observation_id']==str(p.observation_id)
+print('WRK-ELEGIBILIDADE-03/08 current composition PASS')
 reduction=ListingEvent.objects.get(listing=target(),kind='price_decreased')
 reduction_profit=build_read_profit().execute(reduction.id,event=True)
 store.evaluate(reduction.id,reduction_profit,clock())
-assert AlertEventDecision.objects.get(event=reduction).reason=='waiting_previous'
+assert AlertEventDecision.objects.get(event=reduction).reason=='first_alert_causal_event'
 assert not AlertIntent.objects.filter(decision__event=reduction).exists()
 
 # History failure prevents authorizations until ingestion restores it.
@@ -116,10 +122,10 @@ assert AlertAttempt.objects.count()==2
 assert store.claim(intent().id,binding,recovered_at,reconcile=False) is None
 store.finish(second,Outcome('confirmed','late',Receipt('old',True,binding.recipient,second.body,2)),recovered_at)
 assert intent().state=='uncertain' and intent().confirmed_at is None
-# Changing any part of a bound channel suspends the original intent.
-assert store.claim(intent().id,replace(binding,recipient='300@c.us'),recovered_at+timedelta(seconds=61),reconcile=True) is None
-assert intent().reason=='binding_changed' and intent().recipient==binding.recipient
-resume_at=intent().next_action+timedelta(seconds=61)
+# A changed configuration still reconciles the original immutable binding.
+changed=store.claim(intent().id,replace(binding,recipient='300@c.us'),recovered_at+timedelta(seconds=61),reconcile=True)
+assert changed and changed.binding==binding and intent().recipient==binding.recipient
+resume_at=recovered_at+timedelta(seconds=122)
 recovery=store.claim(intent().id,binding,resume_at,reconcile=True)
 assert recovery
 from garimpei.usecase.alert.reconcile_alert_usecase import ReconcileAlertUseCase
@@ -130,13 +136,13 @@ assert not store.ready(resume_at+timedelta(days=2),reconcile=True)
 assert AlertAttempt.objects.count()==2
 print('WRK-ENVIO-05/06/07 PASS')
 store.evaluate(reduction.id,reduction_profit,resume_at+timedelta(days=1))
-assert AlertEventDecision.objects.get(event=reduction).reason=='no_previous_confirmation'
+assert AlertEventDecision.objects.get(event=reduction).reason=='first_alert_causal_event'
 assert AlertEventDecision.objects.get(event=reduction).state=='excluded'
 print('WRK-ELEGIBILIDADE-09 PASS')
 # Two independent ORM connections race for the same intent; only one authorizes.
 from concurrent.futures import ThreadPoolExecutor
 from django.db import connections
-store.evaluate(decision('901').event.id,build_read_profit().execute(decision('901').event.id,event=True),clock())
+prepare_first('901')
 AlertIntent.objects.filter(id=intent('901').id).update(next_action=clock())
 def race_claim(_):
     try:return build_alert_store().claim(intent('901').id,binding,clock(),reconcile=False)

@@ -63,6 +63,9 @@ from garimpei.infra.persistence.alert_models import (  # noqa: E402,F401
     AlertEventDecision,
     AlertFeedCursor,
     AlertIntent,
+    FirstAlertIdentity,
+    FirstAlertInventory,
+    FirstEligibilityDecision,
     ManualConditionHistory,
 )
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision  # noqa: E402,F401

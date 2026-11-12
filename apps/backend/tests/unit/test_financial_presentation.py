@@ -70,6 +70,11 @@ def test_complete_snapshot_roundtrip_validates_components_and_provenance() -> No
     )
     raw = encode_snapshot(value)
     assert decode_snapshot(raw) == value
+    first = replace(value, event_id=None, schema_version=2)
+    first_raw = encode_snapshot(first)
+    assert first_raw["event_id"] is None and decode_snapshot(first_raw) == first
+    assert decode_snapshot(first_raw | {"schema_version": 3}) is None
+    assert decode_snapshot(raw | {"event_id": None}) is None
     for key, corrupted in [
         ("schema_version", 2),
         ("profit", "18.38"),

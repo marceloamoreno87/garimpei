@@ -191,7 +191,8 @@ def _expected_chat(value: dict[str, object], delivery: Delivery) -> str | None:
     ):
         return None
     # GOWS can store its own sender as a LID and expose the verified phone JID in SenderAlt.
-    if sender and sender != info.get("Sender"):
+    original_sender = info.get("Sender")
+    if sender and (not isinstance(original_sender, str) or not _own_jid(sender, original_sender)):
         return None
     own = _own_jid(info.get("Sender"), binding.account) or _own_jid(
         info.get("SenderAlt"), binding.account

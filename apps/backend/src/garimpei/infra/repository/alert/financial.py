@@ -12,7 +12,7 @@ def encode_snapshot(value: FinancialSnapshot) -> dict[str, object]:
     return {
         "schema_version": value.schema_version,
         "listing_id": str(value.listing_id),
-        "event_id": str(value.event_id),
+        "event_id": str(value.event_id) if value.event_id else None,
         "observation_id": str(value.observation_id),
         "evaluation_id": str(value.evaluation_id),
         "evaluation_revision": value.evaluation_revision,
@@ -33,7 +33,7 @@ def decode_snapshot(raw: dict[str, object]) -> FinancialSnapshot | None:
     try:
         return FinancialSnapshot(
             UUID(str(raw["listing_id"])),
-            UUID(str(raw["event_id"])),
+            UUID(str(raw["event_id"])) if raw["event_id"] is not None else None,
             UUID(str(raw["observation_id"])),
             UUID(str(raw["evaluation_id"])),
             int(str(raw["evaluation_revision"])),

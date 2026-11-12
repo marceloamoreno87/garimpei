@@ -1,0 +1,62 @@
+from datetime import timedelta
+import json
+from garimpei.main import build_first_alert_store,build_read_profit,build_alert_store,build_read_alert_diagnostic,build_publish_exploration,_listing_clock
+from garimpei.config.env import load_listing_settings,load_config
+from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+from garimpei.infra.persistence.listing_models import Listing,ListingObservation,ListingInterestMatch,CollectionCycle
+from garimpei.infra.persistence.alert_models import FirstAlertIdentity,AlertIntent,AlertAttempt,AlertFeedCursor
+now=_listing_clock(load_listing_settings())()
+l=Listing.objects.select_related('latest').get(external_id='16001')
+e=dict(l.latest.evidence)
+s=build_first_alert_store();store=build_alert_store();binding=Binding('synthetic','100@g.us','200@c.us')
+s.adopt(now)
+def publish():
+ l.latest.evidence=e;l.latest.save(update_fields=['evidence'])
+ s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+ d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+ print(json.dumps(dict(state=d.state,reason=d.reason,current_reason=d.current_reason,first_alert_state=d.first_alert_state,listing_id=str(l.id),observation_id=str(l.latest_id),database=load_config().database,environment=load_config().environment_id),default=str))
+from http.server import BaseHTTPRequestHandler,HTTPServer
+from threading import Thread
+from urllib.parse import urlsplit,parse_qs
+from garimpei.domain.listing.scope import Scope
+from garimpei.domain.listing.ports import Attempt
+from garimpei.main import _collection_store,build_read_monitoring_configuration
+from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+from garimpei.infra.repository.listing.mapper import encode_evidence,decode_evidence
+from garimpei.domain.listing.consolidation import consolidate
+from garimpei.infra.persistence.listing_models import CollectionState
+
+raw={'url':'https://www.facebook.com/marketplace/item/16901/','title':'PlayStation 5 Slim disco 1TB','description':'Funciona perfeitamente.','condition':'Usado','price':'1000,00','published_at':'há 2 horas','shipping_offered':True,'context_cep':'01001000'}
+calls=[]
+class Handler(BaseHTTPRequestHandler):
+ def do_GET(self):
+  parsed=urlsplit(self.path);params={k:v[0] for k,v in parse_qs(parsed.query,keep_blank_values=True).items()};calls.append(parsed.path)
+  if parsed.path=='/search':
+   context={k:v for k,v in params.items() if k!='page'};payload={'context':context,'cards':[raw],'next':None,'end':True,'empty':False}
+  else:payload=raw
+  body=json.dumps(payload).encode();self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(body)
+ def log_message(self,*_):pass
+server=HTTPServer(('127.0.0.1',0),Handler);thread=Thread(target=server.serve_forever,daemon=True);thread.start()
+try:
+ settings=load_listing_settings();repo=_collection_store(settings)
+ scope=Scope.from_snapshot(build_read_monitoring_configuration().execute());query=next(q for q in scope.searches if q.interest.kind=='product')
+ state=CollectionState.objects.get(configuration_id=scope.configuration_id,source=scope.source)
+ cycle=CollectionCycle.objects.create(state=state,scope_key=scope.key,revision=scope.revision,planned=[query.key])
+ state.current=cycle;state.generation+=1;state.lease_until=now+timedelta(seconds=60);state.next_attempt_at=state.lease_until;state.save()
+ attempt=Attempt(cycle.id,state.generation);work=repo.begin(attempt)
+ fixture=FixtureSource('http://127.0.0.1:'+str(server.server_port),20)
+ page=fixture.search(work.scope,query,None);candidate=fixture.detail(work.scope,'16901')
+ result=consolidate([*page.candidates,candidate],work.scope)
+ restored=decode_evidence(encode_evidence(result.evidence))
+ assert restored.published_at is None and restored.published_at_source=='fixture.published_at.invalid'
+ repo.stage(attempt,query.key,page.candidates);repo.stage(attempt,'detail:16901',(candidate,));repo.record(attempt,'detail:16901',None)
+ while repo.publish_batch(attempt,ready_only=True):pass
+ target=Listing.objects.select_related('latest').get(external_id='16901')
+ assert target.latest.evidence['published_at_source']=='fixture.published_at.invalid'
+ s.adopt(now);s.publish(target.id,s.prepare(target.id),build_read_profit().execute(target.id),now)
+ d=build_read_alert_diagnostic().execute(target.id,target.latest_id)
+ assert d.reason=='publication_untrusted' and d.first_alert_state=='not_sent'
+ build_publish_exploration().execute()
+ print(json.dumps({'path':'loopback HTTP FixtureSource.search/detail → consolidation → encode/decode → public repository stage/publish_batch → first eligibility → diagnostic','requests':calls,'raw_date':raw['published_at'],'source_after_consolidation':restored.published_at_source,'persisted_source':target.latest.evidence['published_at_source'],'listing_id':str(target.id),'diagnostic':d.reason,'first_alert_state':d.first_alert_state}))
+finally:
+ server.shutdown();server.server_close();thread.join()

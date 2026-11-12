@@ -1,0 +1,17 @@
+from datetime import timedelta
+import json
+from garimpei.main import build_first_alert_store,build_read_profit,build_alert_store,build_read_alert_diagnostic,build_publish_exploration,_listing_clock
+from garimpei.config.env import load_listing_settings,load_config
+from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+from garimpei.infra.persistence.listing_models import Listing,ListingObservation,ListingInterestMatch,CollectionCycle
+from garimpei.infra.persistence.alert_models import FirstAlertIdentity,AlertIntent,AlertAttempt,AlertFeedCursor
+now=_listing_clock(load_listing_settings())()
+l=Listing.objects.select_related('latest').get(external_id='16001')
+e=dict(l.latest.evidence)
+s=build_first_alert_store();store=build_alert_store();binding=Binding('synthetic','100@g.us','200@c.us')
+s.adopt(now)
+def publish():
+ l.latest.evidence=e;l.latest.save(update_fields=['evidence'])
+ s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+ d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+ print(json.dumps(dict(state=d.state,reason=d.reason,current_reason=d.current_reason,first_alert_state=d.first_alert_state,listing_id=str(l.id),observation_id=str(l.latest_id),database=load_config().database,environment=load_config().environment_id),default=str))

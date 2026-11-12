@@ -230,7 +230,7 @@ def test_gows_sender_alias_confirms_only_the_bound_account_and_chat(recipient: s
 def test_selected_group_drives_real_worker_event_and_preserves_old_destination(
     tmp_path: Path,
 ) -> None:
-    from tests.factories.alert_scenario import wait_alerts
+    from tests.factories.alert_scenario import wait_listing_alerts
     from tests.factories.integration import SessionServer, serve_session
     from tests.factories.listing import serve
     from tests.factories.valuation import (
@@ -280,11 +280,14 @@ def test_selected_group_drives_real_worker_event_and_preserves_old_destination(
             )
             clock.advance(61)
             completed(instance, 2)
-            wait_alerts(instance, 1, clock)
-            assert len(state.messages) == 1 and state.messages[0]["from"] == "12345@g.us"
+            wait_listing_alerts(instance, "981", 1, clock)
+            first_messages = [
+                message for message in state.messages if "/item/981/" in str(message["body"])
+            ]
+            assert len(first_messages) == 1 and first_messages[0]["from"] == "12345@g.us"
             old = sql(
                 instance,
-                "SELECT a.id,a.recipient FROM runtime_alertintent a JOIN runtime_alerteventdecision d ON a.decision_id=d.id JOIN runtime_listingevent e ON d.event_id=e.id JOIN runtime_listing l ON e.listing_id=l.id WHERE l.external_id='981' AND a.state='confirmed'",
+                "SELECT a.id,a.recipient,a.body,a.financial FROM runtime_alertintent a LEFT JOIN runtime_alerteventdecision d ON a.decision_id=d.id LEFT JOIN runtime_listingevent e ON d.event_id=e.id LEFT JOIN runtime_firsteligibilitydecision f ON a.first_decision_id=f.id LEFT JOIN runtime_firstalertidentity i ON f.identity_id=i.id JOIN runtime_listing l ON COALESCE(e.listing_id,i.listing_id)=l.id WHERE l.external_id='981' AND a.state='confirmed'",
             )
             assert len(old) == 1 and old[0][1] == "12345@g.us"
             assert (
@@ -310,12 +313,21 @@ def test_selected_group_drives_real_worker_event_and_preserves_old_destination(
             )
             clock.advance(61)
             completed(instance, 3)
-            wait_alerts(instance, 2, clock)
-            assert len(state.messages) == 2 and state.messages[1]["from"] == "54321-123@g.us"
+            wait_listing_alerts(instance, "982", 1, clock)
+            second_messages = [
+                message for message in state.messages if "/item/982/" in str(message["body"])
+            ]
+            assert len(second_messages) == 1 and second_messages[0]["from"] == "54321-123@g.us"
+            assert (
+                len([message for message in state.messages if "/item/981/" in str(message["body"])])
+                == 1
+            )
             assert sql(
                 instance,
-                "SELECT recipient FROM runtime_alertintent WHERE id='" + str(old[0][0]) + "'",
-            ) == [("12345@g.us",)]
+                "SELECT recipient,body,financial FROM runtime_alertintent WHERE id='"
+                + str(old[0][0])
+                + "'",
+            ) == [("12345@g.us", old[0][2], old[0][3])]
             print("WRK-GRUPOS-01 integrated F03/F04/F05/F07/F09 + UI selected groups PASS")
         finally:
             command(instance, "./scripts/stop.sh", "--clean")

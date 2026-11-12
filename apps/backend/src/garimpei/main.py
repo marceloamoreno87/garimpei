@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from garimpei.infra.http.monitoring.monitoring_handler import MonitoringHandler
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
+    from garimpei.infra.repository.alert.first_alert_repository import PostgresFirstAlertRepository
     from garimpei.infra.repository.alert.postgres_repository import PostgresAlertRepository
     from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
     from garimpei.infra.repository.integration.facebook_profile_repository import (
@@ -33,6 +34,7 @@ if TYPE_CHECKING:
     from garimpei.infra.worker.facebook_login_handler import FacebookLoginHandler
     from garimpei.infra.worker.listing_handler import ListingTaskHandler
     from garimpei.infra.worker.valuation_handler import ValuationTaskHandler
+    from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
     from garimpei.usecase.inference.read_analysis_usecase import ReadAnalysisUseCase
     from garimpei.usecase.inference.request_analysis_usecase import RequestAnalysisUseCase
     from garimpei.usecase.inference.run_analysis_usecase import RunAnalysisUseCase
@@ -448,11 +450,28 @@ def build_exploration_handler() -> "ExplorationHandler":
         build_read_monitoring_configuration(),
         exploration_categories(),
         _exploration_worker_active,
+        build_read_alert_diagnostic(),
     )
 
 
 def _exploration_worker_active() -> bool:
     return WorkerProbe(load_config()).check()
+
+
+def build_first_alert_store() -> "PostgresFirstAlertRepository":
+    from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
+    from garimpei.infra.repository.alert.first_alert_repository import PostgresFirstAlertRepository
+
+    return PostgresFirstAlertRepository(
+        build_read_monitoring_configuration(), PostgresListingQueries()
+    )
+
+
+def build_read_alert_diagnostic() -> "ReadAlertDiagnosticUseCase":
+    from garimpei.infra.queries.alert.diagnostic_queries import PostgresAlertDiagnosticQueries
+    from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
+
+    return ReadAlertDiagnosticUseCase(PostgresAlertDiagnosticQueries())
 
 
 def build_alert_store() -> "PostgresAlertRepository":
@@ -484,9 +503,13 @@ def build_alert_handler(stage: str) -> "AlertTaskHandler":
     from garimpei.domain.alert.alert import Binding
     from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
     from garimpei.infra.worker.alert_handler import AlertTaskHandler
+    from garimpei.usecase.alert.adopt_first_alerts_usecase import AdoptFirstAlertsUseCase
     from garimpei.usecase.alert.consume_listing_events_usecase import ConsumeListingEventsUseCase
     from garimpei.usecase.alert.evaluate_alert_usecase import EvaluateAlertUseCase
     from garimpei.usecase.alert.reconcile_alert_usecase import ReconcileAlertUseCase
+    from garimpei.usecase.alert.refresh_first_eligibility_usecase import (
+        RefreshFirstEligibilityUseCase,
+    )
     from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
 
     settings, store, clock = (
@@ -507,6 +530,10 @@ def build_alert_handler(stage: str) -> "AlertTaskHandler":
         else None
     )
     actions = {
+        "adopt": AdoptFirstAlertsUseCase(build_first_alert_store(), clock).execute,
+        "refresh": RefreshFirstEligibilityUseCase(
+            build_first_alert_store(), build_read_profit(), clock
+        ).execute,
         "ingest": ConsumeListingEventsUseCase(store, build_read_listing_changes(), clock).execute,
         "evaluate": EvaluateAlertUseCase(store, build_read_profit(), clock).execute,
         "send": SendAlertUseCase(
@@ -528,13 +555,13 @@ def reconcile_alerts(*, recovery: bool = False) -> None:
     from django.utils import timezone
 
     from garimpei.infra.persistence.alert_models import AlertFeedCursor, AlertIntent
-    from garimpei.infra.persistence.listing_models import ListingEvent
+    from garimpei.infra.persistence.listing_models import Listing, ListingEvent
     from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 
     now = timezone.now()
     with transaction.atomic():
         lock_monitoring_publication()
-        if not ListingEvent.objects.exists():
+        if not Listing.objects.exists() and not ListingEvent.objects.exists():
             return
         cursor, _ = AlertFeedCursor.objects.select_for_update().get_or_create(installation="local")
         if recovery:
@@ -543,7 +570,7 @@ def reconcile_alerts(*, recovery: bool = False) -> None:
             )
         if cursor.next_tick and cursor.next_tick > now:
             return
-        for stage in ("ingest", "evaluate", "reconcile", "send"):
+        for stage in ("adopt", "ingest", "refresh", "evaluate", "reconcile", "send"):
             _enqueue("garimpei.alert_tick", "alert", 0, stage=stage)
         cursor.next_tick = now + timedelta(seconds=_alert_policy().tick)
         cursor.save(update_fields=["next_tick"])

@@ -1,0 +1,23 @@
+[
+  {
+    "seconds_since_authorization": 86399,
+    "policy_window": 86400,
+    "observed_state": "waiting",
+    "observed_reason": "waiting_previous",
+    "expected_reason": "waiting_previous"
+  },
+  {
+    "seconds_since_authorization": 86400,
+    "policy_window": 86400,
+    "observed_state": "waiting",
+    "observed_reason": "waiting_previous",
+    "expected_reason": "no_previous_confirmation"
+  },
+  {
+    "seconds_since_authorization": 86401,
+    "policy_window": 86400,
+    "observed_state": "waiting",
+    "observed_reason": "waiting_previous",
+    "expected_reason": "no_previous_confirmation"
+  }
+]

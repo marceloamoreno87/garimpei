@@ -5,7 +5,14 @@ from contextlib import contextmanager
 from django.db import connection
 
 logger = logging.getLogger("garimpei.alert")
-STAGES = {"ingest": 74001, "evaluate": 74002, "send": 74003, "reconcile": 74004}
+STAGES = {
+    "ingest": 74001,
+    "evaluate": 74002,
+    "send": 74003,
+    "reconcile": 74004,
+    "adopt": 74005,
+    "refresh": 74006,
+}
 
 
 @contextmanager

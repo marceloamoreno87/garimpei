@@ -1,0 +1,7 @@
+{
+  "files_scanned": 161,
+  "private_value_hits": 0,
+  "affected_files": [],
+  "raw_values_exported": false,
+  "post_scan_additions": "Final cleanup/orchestration metadata contains only booleans, counts, local references and hashes; no new private data"
+}

@@ -1,0 +1,10 @@
+### Result
+{
+  "url": "http://127.0.0.1:16972/ofertas/796e0fa4-7ef2-4185-859c-5f9382d39394/?aba=incerta&q=PlayStation&categoria=&pagina=1&versao=69981176-a0f0-4f65-ad95-5dc44e42f5b3",
+  "diagnostic": "Alerta desta oferta\n\nAguardando identificação do produto\n\nÚltima avaliação: 12/11/2026 12:00:00 UTC.\n\nPublicação: 12/11/2026 10:00:00 UTC. Limite do primeiro alerta: 14/11/2026 10:00:00 UTC.\n\nHistórico de alertas",
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url:location.href, diagnostic:document.querySelector(\'[aria-labelledby="alert-heading"]\').innerText, overflow:document.documentElement.scrollWidth>innerWidth})');
+```

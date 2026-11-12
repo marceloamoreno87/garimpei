@@ -1,4 +1,4 @@
-"""Validated immutable composition authorized for one event and observation."""
+"""Validated immutable composition for one observation and its alert origin."""
 
 from dataclasses import dataclass
 from datetime import datetime
@@ -11,7 +11,7 @@ FORMAT = "financial-trio-v1"
 @dataclass(frozen=True)
 class FinancialSnapshot:
     listing_id: UUID
-    event_id: UUID
+    event_id: UUID | None
     observation_id: UUID
     evaluation_id: UUID
     evaluation_revision: int
@@ -28,8 +28,14 @@ class FinancialSnapshot:
     schema_version: int = 1
 
     def __post_init__(self) -> None:
-        if self.schema_version != 1:
-            raise ValueError("schema_version: expected financial snapshot version 1")
+        if (
+            self.schema_version not in {1, 2}
+            or (self.schema_version == 1 and self.event_id is None)
+            or (self.schema_version == 2 and self.event_id is not None)
+        ):
+            raise ValueError(
+                "schema_version: expected event snapshot v1 or first eligibility snapshot v2"
+            )
         money = (self.purchase, self.resale, self.fee, self.profit)
         if not all(v.is_finite() and v == v.quantize(Decimal(".01")) for v in money):
             raise ValueError("financial: expected finite BRL amounts with at most two decimals")

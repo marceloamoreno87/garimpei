@@ -263,13 +263,13 @@
         "F10",
         "F12"
       ],
-      "status": "pending",
-      "cycles": 0,
+      "status": "done",
+      "cycles": 3,
       "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:44:58.752908Z",
-      "completed_at": null
+      "report_path": "docs/F16-alertas-pela-primeira-elegibilidade-e-diagnostico/eval-report-2026-11-12T16-16-18Z.md",
+      "started_at": "2026-11-12T12:11:34Z",
+      "updated_at": "2026-11-12T16:16:18.254135Z",
+      "completed_at": "2026-11-12T16:16:18.254135Z"
     },
     "F17": {
       "name": "Resiliência operacional e progresso verificável",
