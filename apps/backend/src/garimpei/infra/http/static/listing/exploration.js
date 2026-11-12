@@ -65,3 +65,12 @@
     location.assign(tabs[moves[event.key]].href);
   });
 })();
+
+// Image transfer failures preserve the text and recovery controls already on this page.
+document.addEventListener("error", event => {
+  const target = event.target;
+  if (!(target instanceof HTMLImageElement) || !target.matches("[data-media-image]")) return;
+  target.hidden = true;
+  const fallback = target.closest("figure, .offer-image")?.querySelector(".media-load-error");
+  if (fallback) fallback.hidden = false;
+}, true);

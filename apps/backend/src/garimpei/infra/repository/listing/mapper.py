@@ -4,6 +4,7 @@ from typing import Literal, NotRequired, TypedDict
 
 from garimpei.domain.listing.geography import Point
 from garimpei.domain.listing.listing import Candidate, Evidence, InterestKind, Match
+from garimpei.infra.repository.media.mapper import decode_manifest, encode_manifest
 
 
 class PointRecord(TypedDict):
@@ -16,6 +17,7 @@ class PointRecord(TypedDict):
 
 
 class EvidenceRecord(TypedDict):
+    media: NotRequired[dict[str, object] | None]
     published_at_source: NotRequired[str | None]
     image_url: NotRequired[str | None]
     title: str | None
@@ -52,6 +54,7 @@ def encode_evidence(evidence: Evidence) -> EvidenceRecord:
     point = evidence.location
     return {
         "image_url": evidence.image_url,
+        "media": encode_manifest(evidence.media) if evidence.media is not None else None,
         "published_at_source": evidence.published_at_source,
         "title": evidence.title,
         "description": evidence.description,
@@ -84,6 +87,7 @@ def encode_evidence(evidence: Evidence) -> EvidenceRecord:
 def decode_evidence(raw: EvidenceRecord) -> Evidence:
     return Evidence(
         image_url=raw.get("image_url"),
+        media=decode_manifest(raw["media"]) if raw.get("media") is not None else None,
         published_at_source=raw.get("published_at_source"),
         title=raw["title"],
         description=raw["description"],

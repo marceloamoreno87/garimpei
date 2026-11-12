@@ -17,3 +17,10 @@
 #exploration{container-type:inline-size}.offer-summary .button{max-width:100%;white-space:normal;overflow-wrap:anywhere}.offer-image span{min-width:0;overflow-wrap:anywhere}
 @container(max-width:600px){.offer-grid{grid-template-columns:minmax(0,1fr)}.offer-card.featured{grid-template-columns:minmax(0,1fr)}}
 .financial-values dd{font-size:clamp(.75rem,8cqi,1rem)}
+
+.media-gallery { min-width: 0; }
+.media-photo { margin: 0 0 1rem; scroll-margin-top: 1rem; }
+.media-photo img { display: block; max-width: 100%; height: auto; object-fit: contain; }
+.media-photo figcaption { overflow-wrap: anywhere; font-size: .85rem; margin-top: .5rem; }
+.media-gallery nav { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0; }
+.media-gallery a:focus-visible { outline: 3px solid var(--color-accent, #9a451c); outline-offset: 3px; }

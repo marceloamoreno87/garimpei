@@ -12,6 +12,7 @@ from garimpei.domain.listing.read_models import Observation
 from garimpei.domain.listing.scope import Scope
 from garimpei.domain.valuation.profit import ProfitInput, compose_profit
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
+from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
 from garimpei.infra.queries.valuation.postgres_queries import PostgresValuationQueries
 from garimpei.infra.repository.listing.mapper import decode_evidence
 
@@ -120,6 +121,7 @@ class ExplorationSource:
             unavailable,
             last_valid,
             raw.id,
+            PostgresMediaQueries().gallery(row.id, raw.id),
         )
 
 

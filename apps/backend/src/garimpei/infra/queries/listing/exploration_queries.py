@@ -87,7 +87,10 @@ class PostgresExplorationQueries:
 
     @staticmethod
     def _decode(row: ExplorationOffer, revision: ExplorationRevision) -> Offer:
+        from garimpei.infra.queries.media.postgres_queries import availability_overlay
+
         offer = decode(row.payload, revision.published_at)
+        offer = replace(offer, media=availability_overlay(offer.media))
         manual: ManualCondition | None = getattr(row.listing, "manual_condition", None)
         if manual:
             offer = replace(

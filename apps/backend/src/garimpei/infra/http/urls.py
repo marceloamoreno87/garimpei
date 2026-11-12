@@ -6,10 +6,17 @@ from garimpei.infra.http.health_handler import health, ready
 from garimpei.infra.http.inference.routes import inference_view
 from garimpei.infra.http.integration.routes import integration_view
 from garimpei.infra.http.listing.routes import condition_view
+from garimpei.infra.http.media.routes import media_view
 from garimpei.infra.http.monitoring.routes import monitoring_view
 from garimpei.infra.http.navigation.routes import navigation_view
 
 urlpatterns = [
+    path(
+        "ofertas/<uuid:identity>/imagens/<uuid:version>/<str:variant>/",
+        media_view,
+        name="media-file",
+    ),
+    path("ofertas/<uuid:identity>/imagens/reprocessar/", media_view, name="media-recovery"),
     path("acompanhamento/navegacao/", navigation_view, name="navigation-status"),
     path(
         "acompanhamento/navegacao/retomar/",

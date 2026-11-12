@@ -111,8 +111,10 @@ def listing_from(row: JsonObject, *, detail: bool, match: Match | None = None) -
         )
     location = _location(row)
     from garimpei.infra.gateway.listing.media import https_media
+    from garimpei.infra.gateway.media.gallery_parser import extract_gallery
 
     evidence = Evidence(
+        media=extract_gallery(row, detail),
         image_url=https_media(mapping(row.get("primary_listing_photo")).get("image_uri")),
         title=evidence_text(row.get("marketplace_listing_title")),
         description=evidence_text(mapping(row.get("redacted_description")).get("text")),

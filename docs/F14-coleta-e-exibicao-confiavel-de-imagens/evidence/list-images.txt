@@ -1,0 +1,42 @@
+### Result
+[
+  {
+    "src": "/ofertas/c8780615-32f6-45c5-b90f-eb3e0100bc43/imagens/262b9506-9a64-4b6a-8b5b-3839384258c5/miniatura/",
+    "width": 640,
+    "height": 480
+  },
+  {
+    "src": "/ofertas/6efc2e55-a2d4-45eb-ae68-fdfad2c41f41/imagens/3e1e1a46-3aa0-4e0f-a462-9b2b83594aa2/miniatura/",
+    "width": 640,
+    "height": 480
+  },
+  {
+    "src": "/ofertas/084d4184-c822-4873-892a-d9704eba246d/imagens/9f19be2c-6767-43b6-823d-1c2d05b8e201/miniatura/",
+    "width": 640,
+    "height": 480
+  },
+  {
+    "src": "/ofertas/79416682-c44d-4c56-a0ca-a0e87703ee4e/imagens/72f6c746-bb7b-46f9-a53b-8e905a3ad18c/miniatura/",
+    "width": 640,
+    "height": 480
+  },
+  {
+    "src": "/ofertas/ae3ebd42-8234-4987-9e55-aafad3fecba8/imagens/84c53695-510a-4875-ac35-4fcc14c31fa9/miniatura/",
+    "width": 640,
+    "height": 480
+  },
+  {
+    "src": "/ofertas/3fd75b41-7732-49cd-9088-f6f1e9cd6c05/imagens/c39c3076-499a-45d3-807e-f8afaab4105d/miniatura/",
+    "width": 640,
+    "height": 640
+  },
+  {
+    "src": "/ofertas/c754e4b3-4960-4772-a209-19abc030af91/imagens/c70d3a29-6dbd-4178-90e7-c22b0ab163e8/miniatura/",
+    "width": 640,
+    "height": 480
+  }
+]
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const imgs=[...document.images];return await Promise.all(imgs.map(async i=>{i.scrollIntoView();await i.decode().catch(()=>{});return {src:i.getAttribute("src"),width:i.naturalWidth,height:i.naturalHeight}}))}');
+```

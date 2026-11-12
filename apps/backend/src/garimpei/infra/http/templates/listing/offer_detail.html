@@ -28,15 +28,14 @@
     </div>
     {% if applied %}<p class="notice"
                        role="status">Dados atualizados. A nova revisão será mantida ao voltar aos resultados.</p>{% endif %}
+    {% if media_requested %}<p class="notice" role="status">Recuperação das fotos solicitada. O pedido será processado em segundo plano, respeitando a próxima tentativa permitida.</p>{% endif %}
     {% if offer.unavailable %}<div class="notice"><h2>Anúncio indisponível na origem</h2>
 
         <p>Última observação válida: {{ offer.last_valid_at|date:"d/m/Y H:i:s"|default:"não informada" }} UTC. O link identificado continua disponível.</p></div>{% endif %}
     {% if confirmation %}<p class="notice" role="status">Sua classificação foi salva. A oferta está em <strong>{{ live.state.tab_label }}</strong>.</p>{% endif %}
     <div class="exploration-detail">
         <section class="detail-finance" aria-labelledby="finance-heading">
-            <div class="offer-image">{% if offer.evidence.image_url %}<img src="{{ offer.evidence.image_url }}"
-                                                                           alt="{{ title }} · imagem do anúncio"
-                                                                           referrerpolicy="no-referrer">{% else %}<span role="img" aria-label="Imagem não disponível para {{ title }}">Imagem não disponível</span>{% endif %}</div>
+            {% include "media/gallery.html" %}
             <h2 id="finance-heading">Entenda a estimativa</h2>
 
             {% include "listing/financial_values.html" %}
