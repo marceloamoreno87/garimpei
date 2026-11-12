@@ -1,0 +1,10 @@
+{
+  "base": "41e27e568ee829dbe347948288c1a690494fcf2d",
+  "branch": "fix/exploration-configuration-lock",
+  "files": {
+    "apps/backend/src/garimpei/infra/queries/monitoring/postgres_queries.py": "195208a9c4aee32fc6ccd377ead924fdceeca5659b5a7ff09650b85a48c506f7",
+    "apps/backend/src/garimpei/infra/queries/listing/exploration_source.py": "31ca65000fde40e14209cc3fb25eab856a30646824349ba5e83254c60cd2f7eb",
+    "apps/backend/src/garimpei/main.py": "e3e47dfd094dba42edc3050056144a828005528a95f773e84a5d6939c8ae2e5e",
+    "apps/backend/tests/integration/test_exploration_configuration_lock.py": "4a461cdb38cc90b76724b9f25457604e735acc4109adae106739e980ca30ce3c"
+  }
+}

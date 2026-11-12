@@ -32,6 +32,13 @@ class ExplorationSource:
         scope = Scope.from_snapshot(config)
         rows = tuple(
             Listing.objects.select_related("latest__cycle__state")
+            .defer(
+                "latest__cycle__results",
+                "latest__cycle__planned",
+                "latest__cycle__diagnostics",
+                "latest__cycle__window_evidence",
+                "latest__cycle__origin",
+            )
             .exclude(latest=None)
             .prefetch_related("latest__matches")
             .order_by("id")

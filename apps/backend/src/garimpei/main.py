@@ -267,13 +267,15 @@ def build_worker_stderr() -> WorkerNoticeStream:
     return WorkerNoticeStream()
 
 
-def build_monitoring_queries() -> "PostgresMonitoringQueries":
+def build_monitoring_queries(*, repeatable_snapshot: bool = False) -> "PostgresMonitoringQueries":
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
     from garimpei.infra.repository.monitoring.postgres_repository import (
         PostgresMonitoringRepository,
     )
 
-    return PostgresMonitoringQueries(PostgresMonitoringRepository())
+    return PostgresMonitoringQueries(
+        PostgresMonitoringRepository(), repeatable_snapshot=repeatable_snapshot
+    )
 
 
 def build_monitoring_catalog() -> "FacebookCategoryCatalog":
@@ -286,12 +288,16 @@ def build_monitoring_catalog() -> "FacebookCategoryCatalog":
     )
 
 
-def build_read_monitoring_configuration() -> "ReadMonitoringConfigurationUseCase":
+def build_read_monitoring_configuration(
+    *, repeatable_snapshot: bool = False
+) -> "ReadMonitoringConfigurationUseCase":
     from garimpei.usecase.monitoring.read_configuration_usecase import (
         ReadMonitoringConfigurationUseCase,
     )
 
-    return ReadMonitoringConfigurationUseCase(build_monitoring_queries())
+    return ReadMonitoringConfigurationUseCase(
+        build_monitoring_queries(repeatable_snapshot=repeatable_snapshot)
+    )
 
 
 def build_monitoring_handler() -> "MonitoringHandler":
@@ -423,7 +429,9 @@ def build_publish_exploration() -> "PublishExplorationUseCase":
     return PublishExplorationUseCase(
         PostgresExplorationRepository(
             ExplorationSource(
-                build_read_monitoring_configuration(), PostgresValuationQueries(), labels
+                build_read_monitoring_configuration(repeatable_snapshot=True),
+                PostgresValuationQueries(),
+                labels,
             ),
             load_exploration_settings().retention,
         ),
