@@ -1,0 +1,13 @@
+### Result
+{
+  "hash": "#foto-d8afc8af-3d3d-4b4f-a62c-3b60a2439460",
+  "selectedCaption": "Foto 2 · 1000 × 800 px · Obtida em 12/11/2026 19:46:41 UTC",
+  "visible": true,
+  "overflow": false,
+  "origin": true,
+  "amplification": "/ofertas/548e8acc-cb5f-48f3-b502-0fbb0599d4a8/imagens/d8afc8af-3d3d-4b4f-a62c-3b60a2439460/original/"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {const target=document.querySelector(location.hash);return {hash:location.hash,selectedCaption:target?.querySelector("figcaption")?.textContent,visible:target?.getBoundingClientRect().top<innerHeight,overflow:document.documentElement.scrollWidth>innerWidth,origin:!!document.querySelector(".source-link"),amplification:target?.querySelector("a")?.getAttribute("href")}}');
+```

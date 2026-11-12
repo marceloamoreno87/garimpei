@@ -1,0 +1,29 @@
+{
+  "total": 533,
+  "passed": 533,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duplicates": 0,
+  "complete_inventory": true,
+  "shards": [
+    {
+      "shard": 0,
+      "total": 222,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "shard": 1,
+      "total": 311,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "frozen_files": 513,
+  "changed_frozen_files": [],
+  "additional_unfrozen_test_file": "tests/integration/test_media_contract_matrix.py",
+  "supplement_passed": 5
+}

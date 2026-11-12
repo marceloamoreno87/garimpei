@@ -1,0 +1,23 @@
+### Result
+{
+  "name": "Foto 2",
+  "focused": true,
+  "outline": "rgb(154, 69, 28) solid 3px",
+  "overflow": false,
+  "photos": [
+    {
+      "path": "/ofertas/548e8acc-cb5f-48f3-b502-0fbb0599d4a8/imagens/95d2011f-3e84-45b6-93c8-6bdb80db59ca/original/",
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "path": "/ofertas/548e8acc-cb5f-48f3-b502-0fbb0599d4a8/imagens/d8afc8af-3d3d-4b4f-a62c-3b60a2439460/original/",
+      "width": 1000,
+      "height": 800
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const imgs=[...document.querySelectorAll(".media-gallery img")];for(const i of imgs)await i.decode();const c=document.querySelector(".media-gallery nav a:last-child");c.focus();return {name:c.textContent,focused:document.activeElement===c,outline:getComputedStyle(c).outline,overflow:document.documentElement.scrollWidth>innerWidth,photos:imgs.map(i=>({path:new URL(i.src).pathname,width:i.naturalWidth,height:i.naturalHeight}))}}');
+```
