@@ -1,5 +1,6 @@
 from datetime import UTC, datetime, timedelta
 from email.utils import format_datetime
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -7,7 +8,7 @@ import pytest
 from garimpei.domain.media.errors import MediaError
 from garimpei.domain.media.policy import MediaPolicy
 from garimpei.infra.gateway.media.image_transport import BoundedImageTransport, source_delay
-from tests.factories.media import generate_corpus, serve_media
+from tests.factories.media import CORPUS, generate_corpus, serve_media
 
 
 def test_real_bytes_best_quality_and_credential_free_transport() -> None:
@@ -125,3 +126,24 @@ def test_cached_detail_requires_recognized_full_gallery_not_only_primary() -> No
     assert _has_listing_gallery(({"id": "1", "listing_photos": []},), "1")
     assert _has_listing_gallery(({"id": "1", "listing_photos": {"nodes": []}},), "1")
     assert not _has_listing_gallery(({"id": "2", "listing_photos": []},), "1")
+
+
+def test_media_root_owner_prevents_cross_instance_cleanup_and_read(tmp_path: Path) -> None:
+    from uuid import uuid4
+
+    from garimpei.domain.media.media import MediaClaim
+    from garimpei.infra.gateway.media.image_transport import validate_image
+    from garimpei.infra.gateway.media.local_store import LocalMediaStore
+
+    generate_corpus()
+    content = validate_image(
+        (CORPUS / "primary-large.jpg").read_bytes(), "image/jpeg", MediaPolicy()
+    )
+    claim = MediaClaim(uuid4(), 1, "download", uuid4(), uuid4(), uuid4(), "p", (), 1)
+    first = LocalMediaStore(tmp_path / "media", MediaPolicy(min_free_bytes=0), "environment-a")
+    key = first.put(claim, content)
+    second = LocalMediaStore(first.root, MediaPolicy(min_free_bytes=0), "environment-b")
+    with pytest.raises(MediaError, match="media_storage_owner_conflict"):
+        second.reconcile_orphans(set(), 0)
+    assert first._path(key).read_bytes() == content.data
+    assert not first._path(key).stat().st_mode & 0o077

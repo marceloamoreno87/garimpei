@@ -34,7 +34,11 @@ def gallery_label(gallery: MediaGallery | None, photos: bool) -> str:
     if gallery.presence == "none":
         return "Anúncio sem fotos na fonte"
     if gallery.state == "configuration_required":
-        return "Fotos aguardam configuração do armazenamento"
+        return (
+            "Fotos ainda não verificadas; obtenção aguarda configuração do armazenamento"
+            if gallery.presence == "unknown"
+            else "Fotos aguardam configuração do armazenamento"
+        )
     if gallery.state in {"pending", "running"} and gallery.presence != "unknown":
         return "Obtenção de fotos pendente"
     if gallery.state == "failed":

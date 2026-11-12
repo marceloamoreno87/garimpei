@@ -47,6 +47,8 @@ assert list(AlertIntent.objects.order_by('id').values_list('id','decision_id','b
 assert list(ListingObservation.objects.order_by('id').values_list('id','evidence','provenance','listing_id'))==observations
 assert AlertAttempt.objects.filter(state='confirmed').count()==101
 assert ManualCondition.objects.get(listing_id=base.id).choice=='good'
+# Adoption executes current application code after verifying the historical migration.
+executor=MigrationExecutor(connection);executor.migrate(executor.loader.graph.leaf_nodes())
 store=build_first_alert_store();store.adopt(now)
 progress=FirstAlertInventory.objects.get();assert not progress.completed and progress.cursor is not None
 assert FirstAlertIdentity.objects.count()==100

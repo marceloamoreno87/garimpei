@@ -1,0 +1,42 @@
+### Result
+{
+  "method": "CSS viewport195 for physical390 at200percent",
+  "width": 195,
+  "overflow": false,
+  "photos": [
+    {
+      "width": 155,
+      "natural": 1280
+    },
+    {
+      "width": 155,
+      "natural": 1000
+    }
+  ],
+  "actions": [
+    {
+      "name": "Ampliar foto 1 de Anúncio de mídia A",
+      "width": 155
+    },
+    {
+      "name": "Ampliar foto 2 de Anúncio de mídia A",
+      "width": 155
+    },
+    {
+      "name": "Foto 1",
+      "width": 77.046875
+    },
+    {
+      "name": "Foto 2",
+      "width": 79.25
+    },
+    {
+      "name": "Solicitar recuperação das fotos",
+      "width": 155
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({method:"CSS viewport195 for physical390 at200percent",width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth,photos:[...document.querySelectorAll(".media-gallery img")].map(i=>({width:i.getBoundingClientRect().width,natural:i.naturalWidth})),actions:[...document.querySelectorAll(".media-gallery a,.media-gallery button")].map(e=>({name:e.getAttribute("aria-label")||e.textContent,width:e.getBoundingClientRect().width}))})');
+```

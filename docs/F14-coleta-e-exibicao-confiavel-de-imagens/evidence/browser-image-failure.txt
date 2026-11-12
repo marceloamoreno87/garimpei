@@ -1,0 +1,29 @@
+### Result
+{
+  "broken": [
+    {
+      "natural": 0,
+      "hidden": true
+    },
+    {
+      "natural": 0,
+      "hidden": true
+    }
+  ],
+  "fallbacks": [
+    {
+      "hidden": false,
+      "text": "Não foi possível carregar esta cópia. Solicite recuperação abaixo."
+    },
+    {
+      "hidden": false,
+      "text": "Não foi possível carregar esta cópia. Solicite recuperação abaixo."
+    }
+  ],
+  "textVisible": true,
+  "originLink": true
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({broken:[...document.querySelectorAll(".media-gallery img")].map(i=>({natural:i.naturalWidth,hidden:i.hidden})),fallbacks:[...document.querySelectorAll(".media-load-error")].map(e=>({hidden:e.hidden,text:e.textContent})),textVisible:document.body.innerText.includes("O que o anúncio informa"),originLink:!!document.querySelector(".source-link")})');
+```

@@ -1039,7 +1039,7 @@ def build_media_store() -> "LocalMediaStore":
     from garimpei.infra.gateway.media.local_store import LocalMediaStore
 
     settings = load_media_settings()
-    return LocalMediaStore(settings.root, settings.policy)
+    return LocalMediaStore(settings.root, settings.policy, settings.environment_id)
 
 
 def build_media_repository() -> "PostgresMediaRepository":
@@ -1091,6 +1091,7 @@ def reconcile_media() -> None:
     repository = build_media_repository()
     now = timezone.now()
     repository.backfill(now)
+    repository.reconcile_orphans(build_media_store().reconcile_orphans, now)
     for identity in repository.due(now):
         _enqueue("garimpei.media", "media", 0, job_id=str(identity))
     CleanMediaUseCase(repository, build_media_store(), timezone.now).execute()

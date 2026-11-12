@@ -71,7 +71,10 @@ class PostgresMediaRepository:
                 .values("key")
                 .annotate(n=Max("byte_count"), t=Max("thumbnail_bytes"))
             )
-            used = max(sum(r["n"] + r["t"] for r in files), self._physical_bytes())
+            physical = self._storage_size(entry, now)
+            if physical is None:
+                return None
+            used = max(sum(r["n"] + r["t"] for r in files), physical)
             reserved = MediaJob.objects.aggregate(n=Sum("reserved_bytes"))["n"] or 0
             required = self._policy.max_file_bytes * (2 if job.kind == "download" else 1)
             if used + reserved + required > self._policy.budget_bytes:
@@ -98,6 +101,13 @@ class PostgresMediaRepository:
                 entry.asset_id,
             )
 
+    def _storage_size(self, entry: MediaEntry, now: datetime) -> int | None:
+        try:
+            return self._physical_bytes()
+        except MediaError as failure:
+            self._capture_state(entry, "configuration_required", failure.code, now)
+            return None
+
     def _owned(self, claim: MediaClaim, now: datetime) -> MediaJob:
         job = (
             MediaJob.objects.select_for_update(of=("self",))
@@ -119,32 +129,10 @@ class PostgresMediaRepository:
     ) -> None:
         with quota_lock():
             job = self._owned(claim, now)
-            asset, _ = MediaAsset.objects.get_or_create(
-                listing_id=claim.listing_id,
-                photo_key=claim.photo_key,
-                sha256=content.sha256,
-                defaults={
-                    "id": uuid4(),
-                    "mime": content.mime,
-                    "width": content.width,
-                    "height": content.height,
-                    "byte_count": len(content.data),
-                    "key": key,
-                    "obtained_at": now,
-                },
-            )
-            if asset.state != "available":
-                raise MediaError("media_content_removed", 409)
             entry = job.entry
-            # Renewals never downgrade an already confirmed copy of the same source photo.
-            if (
-                entry.asset_id
-                and entry.asset
-                and entry.asset.width * entry.asset.height > content.width * content.height
-            ):
-                reason = reason or "media_lower_quality_preserved"
-            else:
-                entry.asset = asset
+            asset, limitation = self._best_asset(entry, claim, content, key, now)
+            entry.asset = asset
+            reason = reason or limitation
             entry.reason = reason
             entry.save(update_fields=["asset", "reason"])
             job.state, job.reserved_bytes, job.lease_until = "done", 0, None
@@ -157,6 +145,31 @@ class PostgresMediaRepository:
                     defaults={"id": uuid4(), "next_at": now},
                 )
             self._settle(entry.capture, now)
+
+    @staticmethod
+    def _best_asset(
+        entry: MediaEntry, claim: MediaClaim, content: Transfer, key: str, now: datetime
+    ) -> tuple[MediaAsset, str]:
+        prior = entry.asset
+        if prior and prior.width * prior.height > content.width * content.height:
+            return prior, "media_lower_quality_preserved"
+        asset, _ = MediaAsset.objects.get_or_create(
+            listing_id=claim.listing_id,
+            photo_key=claim.photo_key,
+            sha256=content.sha256,
+            defaults={
+                "id": uuid4(),
+                "mime": content.mime,
+                "width": content.width,
+                "height": content.height,
+                "byte_count": len(content.data),
+                "key": key,
+                "obtained_at": now,
+            },
+        )
+        if asset.state != "available":
+            raise MediaError("media_content_removed", 409)
+        return asset, ""
 
     def fail(self, claim: MediaClaim, code: str, now: datetime, retry_after: int = 0) -> None:
         with quota_lock():
@@ -310,12 +323,16 @@ class PostgresMediaRepository:
         with quota_lock():
             record = (
                 MediaCapture.objects.select_for_update(of=("self",))
+                .select_related("observation__listing")
                 .filter(id=capture, observation__listing_id=listing)
                 .first()
             )
             if record is None:
                 raise MediaError("MEDIA_NOT_FOUND", 404)
-            if record.revision != revision:
+            if (
+                record.revision != revision
+                or record.observation.listing.latest_id != record.observation_id
+            ):
                 raise MediaError("MEDIA_REVISION_CONFLICT", 409)
             for entry in record.entries.all():
                 self._retry_entry(entry, now)
@@ -398,3 +415,15 @@ class PostgresMediaRepository:
         return self.acquire(
             asset.listing_id, entry.capture.observation_id, asset.id, "backup", execution, now
         )
+
+    def reconcile_orphans(self, cleanup: Callable[[set[str], int], int], now: datetime) -> int:
+        with quota_lock():
+            if MediaJob.objects.filter(state="running", lease_until__gt=now).exists():
+                return 0
+            assets = MediaAsset.objects.exclude(state="removed")
+            keys = set(assets.values_list("key", flat=True))
+            keys.update(
+                key + ".thumb"
+                for key in assets.filter(thumbnail_state="ready").values_list("key", flat=True)
+            )
+            return cleanup(keys, self._policy.lease_seconds)

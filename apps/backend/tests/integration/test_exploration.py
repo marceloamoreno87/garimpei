@@ -120,7 +120,7 @@ def test_order_snapshots_update_manual_and_history(
     assert "frete/transporte" not in detail.lower()
     assert "Frete ·" not in detail and "exploration-modality" not in bodies[0]
     assert "Referência de novo indisponível" in i.http(f"/ofertas/{UUID(int=5)}/")[2]
-    assert "Imagem não disponível" in i.http(f"/ofertas/{UUID(int=42)}/")[2]
+    assert "Fotos ainda não verificadas" in i.http(f"/ofertas/{UUID(int=42)}/")[2]
     assert "Há atualizações" not in i.http("/ofertas/atualizacoes/" + query)[2]
     # Technical reobservations with identical commercial fields do not publish a revision.
     clock.advance(61)

@@ -542,6 +542,7 @@ def load_navigation_policy() -> NavigationPolicy:
 class MediaSettings:
     root: Path
     policy: MediaPolicy
+    environment_id: str
     eval_origin: str | None = None
 
 
@@ -580,7 +581,7 @@ def load_media_settings(environ: Mapping[str, str] | None = None) -> MediaSettin
         _integer(values, "GARIMPEI_MEDIA_MIN_FREE_BYTES", 256 * 1024**2, 0, 1024**4),
         _integer(values, "GARIMPEI_MEDIA_LEASE_SECONDS", 60, 30, 600),
     )
-    return MediaSettings(root, policy, origin)
+    return MediaSettings(root, policy, config.environment_id, origin)
 
 
 from garimpei.domain.media.policy import MediaPolicy  # noqa: E402

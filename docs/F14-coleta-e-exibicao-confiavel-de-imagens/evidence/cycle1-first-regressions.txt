@@ -1,0 +1,50 @@
+.F..                                                                     [100%]
+=================================== FAILURES ===================================
+________________ test_order_snapshots_update_manual_and_history ________________
+
+exploration = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/7ae4/garimpei'), private_file=PosixPath('/tmp/pytest-...9/test_order_snapshots_update_ma0/clock'), value=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_order_snapshots_update_manual_and_history(
+        exploration: tuple[FoundationInstance, ExplorationSource, ControlledClock],
+    ) -> None:
+        i, source, clock = exploration
+        version = latest(i)
+        query = f"?aba=funcionam&q=camera&categoria=cameras&modalidade=retirada&versao={version}"
+        bodies = [i.http("/ofertas/" + query + f"&pagina={p}")[2] for p in (1, 2, 3)]
+        ordered = [key for body in bodies for key in offered(body)]
+        assert [len(offered(body)) for body in bodies] == [20, 20, 12]
+        assert ordered[:4] == [KEYS[k] for k in ("CAM02", "CAM03", "CAM01", "CAM04")]
+        assert len(set(ordered)) == 52
+        assert ordered[39:41] == [KEYS["CAM40"], KEYS["CAM41"]]
+        assert ordered[-1] == KEYS["CAM42"]
+        assert (
+            "R$ 0,00" in bodies[1]
+            and "−R$ 50,00" in bodies[2]
+            and "Estimativa indisponível" in bodies[2]
+        )
+        assert "41–52 de 52" in bodies[2] and "Página 3 de 3" in bodies[2]
+        for query_error in ("?aba=wrong", "?pagina=-1", "?versao=bad", "?categoria=not-known"):
+            assert i.http("/ofertas/" + query_error)[0] == 400
+        assert i.http(f"/ofertas/?versao={uuid4()}")[0] == 410
+        assert i.http(f"/ofertas/{uuid4()}/")[0] == 404
+        detail = i.http(f"/ofertas/{UUID(int=4)}/" + query)[2]
+        for value in (
+            "R$ 1.000,00",
+            "R$ 1.700,00",
+            "R$ 170,00",
+            "R$ 530,00",
+            "R$ 2.400,00",
+        ):
+            assert value in detail, value
+        assert detail.count("Abrir referência</a>") == 5
+        assert "Lucro estimado" in detail
+        assert "frete/transporte" not in detail.lower()
+        assert "Frete ·" not in detail and "exploration-modality" not in bodies[0]
+        assert "Referência de novo indisponível" in i.http(f"/ofertas/{UUID(int=5)}/")[2]
+>       assert "Fotos ainda não verificadas" in i.http(f"/ofertas/{UUID(int=42)}/")[2]
+E       assert 'Fotos ainda não verificadas' in '\n<!DOCTYPE html>\n<html lang="pt-br">\n    <head>\n        <meta charset="utf-8">\n        <meta name="viewport" con...ne 12 64GB.\n            </dd>\n        </dl>\n    </div>\n</section>\n</main>\n\n    </div>\n\n    </body>\n</html>\n'
+
+tests/integration/test_exploration.py:123: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_exploration.py::test_order_snapshots_update_manual_and_history
+1 failed, 3 passed in 52.76s

@@ -10,6 +10,7 @@ from garimpei.domain.listing.listing import InterestKind, Match
 from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.domain.listing.read_models import Observation
 from garimpei.domain.listing.scope import Scope
+from garimpei.domain.media.media import MediaGallery
 from garimpei.domain.valuation.profit import ProfitInput, compose_profit
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
 from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
@@ -51,8 +52,15 @@ class ExplorationSource:
             .annotate(at=Max("observed_at"))
         }
         values = self._valuations.current_many(rows, now)
+        galleries = PostgresMediaQueries().galleries(
+            tuple((row.id, row.latest_id) for row in rows if row.latest_id is not None)
+        )
         return tuple(
-            self._offer(row, scope, config, values[row.id], now, valid.get(row.id)) for row in rows
+            self._offer(
+                row, scope, config, values[row.id], now, valid.get(row.id), galleries[row.latest_id]
+            )
+            for row in rows
+            if row.latest_id is not None
         )
 
     def search_text(self, value: Offer) -> str:
@@ -68,6 +76,7 @@ class ExplorationSource:
         valuation: "Valuation",
         now: datetime,
         last_valid: datetime | None,
+        media: MediaGallery,
     ) -> Offer:
         raw = row.latest
         assert raw is not None
@@ -121,7 +130,7 @@ class ExplorationSource:
             unavailable,
             last_valid,
             raw.id,
-            PostgresMediaQueries().gallery(row.id, raw.id),
+            media,
         )
 
 

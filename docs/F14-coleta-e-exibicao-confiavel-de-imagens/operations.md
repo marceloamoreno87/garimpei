@@ -37,3 +37,7 @@ Backfill cria manifestos desconhecidos para até5observações legadas por rodad
 - F17 pode chamar `build_media_repository().protected_versions(execution,now)` para enumerar e adquirir pins de backup atomicamente. Deve copiar originais/derivados e metadados, verificar hashes e liberar pins explicitamente ao concluir/abortar; a existência desta fronteira não comprova integração do backup.
 
 Não publicar manifesto privado, URLs assinadas, cookies, QRcode ou fotos identificáveis em relatórios. A prova real precisa de dois anúncios distintos e variantes comprovadas, coordenada pelo proprietário do perfil.
+
+## Propriedade da raiz
+
+O marcador privado `.garimpei-media-owner` identifica o environment_id. Não o copie de outra instância nem apague para forçar adoção. Raiz personalizada não vazia e sem marcador suspende aquisição/limpeza até verificação de propriedade; a configuração padrão por environment_id suporta a atualização da instalação existente. GET de cópias legadas não cria marcador. Backup deve preservar isolamento e escrever o proprietário do destino após restauração validada, sem reutilizar marcador de outra instalação.
