@@ -1,0 +1,541 @@
+{
+  "schema_version": 1,
+  "rubric": "condition-policy-v1",
+  "human_review": "pending",
+  "cases": [
+    {
+      "id": "electronics-light_wear",
+      "split": "adjustment",
+      "category": "electronics",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Eletrônico portátil",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "electronics-light_wear",
+          "sha256": "5a931230ae08903ba760b668c96baf2dacad519f403a34fc295b2162635bec45",
+          "path": "assessment_images/electronics-light_wear.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "light_wear"
+    },
+    {
+      "id": "electronics-clear_defect",
+      "split": "reserved",
+      "category": "electronics",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Eletrônico portátil",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "electronics-clear_defect",
+          "sha256": "c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d",
+          "path": "assessment_images/electronics-clear_defect.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "clear_defect"
+    },
+    {
+      "id": "electronics-suspected",
+      "split": "reserved",
+      "category": "electronics",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Eletrônico portátil",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "electronics-suspected",
+          "sha256": "ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf",
+          "path": "assessment_images/electronics-suspected.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "suspected"
+    },
+    {
+      "id": "camera-light_wear",
+      "split": "adjustment",
+      "category": "camera",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Câmera Canon T5i",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "camera-light_wear",
+          "sha256": "09080ca91d3558830dcd06172ee358685005664d8caec4306c446247a89ee325",
+          "path": "assessment_images/camera-light_wear.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "light_wear"
+    },
+    {
+      "id": "camera-clear_defect",
+      "split": "reserved",
+      "category": "camera",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Câmera Canon T5i",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "camera-clear_defect",
+          "sha256": "73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097",
+          "path": "assessment_images/camera-clear_defect.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "clear_defect"
+    },
+    {
+      "id": "camera-suspected",
+      "split": "reserved",
+      "category": "camera",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Câmera Canon T5i",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "camera-suspected",
+          "sha256": "1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2",
+          "path": "assessment_images/camera-suspected.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "suspected"
+    },
+    {
+      "id": "computer-light_wear",
+      "split": "adjustment",
+      "category": "computer",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Notebook Dell",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "computer-light_wear",
+          "sha256": "01a103eb0741cb5a807ec4f37e65fc32b5f203248b51aae44a46e4eca4c3180c",
+          "path": "assessment_images/computer-light_wear.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "light_wear"
+    },
+    {
+      "id": "computer-clear_defect",
+      "split": "reserved",
+      "category": "computer",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Notebook Dell",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "computer-clear_defect",
+          "sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+          "path": "assessment_images/computer-clear_defect.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "clear_defect"
+    },
+    {
+      "id": "computer-suspected",
+      "split": "reserved",
+      "category": "computer",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Notebook Dell",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "computer-suspected",
+          "sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+          "path": "assessment_images/computer-suspected.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "suspected"
+    },
+    {
+      "id": "console-light_wear",
+      "split": "adjustment",
+      "category": "console",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "PlayStation 5 Slim disco 1TB",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "console-light_wear",
+          "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+          "path": "assessment_images/console-light_wear.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "light_wear"
+    },
+    {
+      "id": "console-clear_defect",
+      "split": "reserved",
+      "category": "console",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "PlayStation 5 Slim disco 1TB",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "console-clear_defect",
+          "sha256": "ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93",
+          "path": "assessment_images/console-clear_defect.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "clear_defect"
+    },
+    {
+      "id": "console-suspected",
+      "split": "reserved",
+      "category": "console",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "PlayStation 5 Slim disco 1TB",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "console-suspected",
+          "sha256": "6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0",
+          "path": "assessment_images/console-suspected.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "suspected"
+    },
+    {
+      "id": "headphone-light_wear",
+      "split": "adjustment",
+      "category": "headphone",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Fone JBL Tune 520BT",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "headphone-light_wear",
+          "sha256": "b67057767104f50745a1e135bb2d6e1869c3df72fc7b05dbb774af54c09889da",
+          "path": "assessment_images/headphone-light_wear.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "light_wear"
+    },
+    {
+      "id": "headphone-clear_defect",
+      "split": "reserved",
+      "category": "headphone",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Fone JBL Tune 520BT",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "headphone-clear_defect",
+          "sha256": "0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30",
+          "path": "assessment_images/headphone-clear_defect.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "clear_defect"
+    },
+    {
+      "id": "headphone-suspected",
+      "split": "reserved",
+      "category": "headphone",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "Fone JBL Tune 520BT",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "headphone-suspected",
+          "sha256": "9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df",
+          "path": "assessment_images/headphone-suspected.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "suspected"
+    },
+    {
+      "id": "television-light_wear",
+      "split": "adjustment",
+      "category": "television",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "TV Samsung 55 polegadas",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "television-light_wear",
+          "sha256": "01a103eb0741cb5a807ec4f37e65fc32b5f203248b51aae44a46e4eca4c3180c",
+          "path": "assessment_images/television-light_wear.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "light_wear"
+    },
+    {
+      "id": "television-clear_defect",
+      "split": "reserved",
+      "category": "television",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "TV Samsung 55 polegadas",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "television-clear_defect",
+          "sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+          "path": "assessment_images/television-clear_defect.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "clear_defect"
+    },
+    {
+      "id": "television-suspected",
+      "split": "reserved",
+      "category": "television",
+      "kind": "synthetic_control",
+      "text": {
+        "title": "TV Samsung 55 polegadas",
+        "description": "O aparelho funciona perfeitamente.",
+        "condition": "Usado"
+      },
+      "photos": [
+        {
+          "id": "television-suspected",
+          "sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+          "path": "assessment_images/television-suspected.png",
+          "width": 640,
+          "height": 480,
+          "provenance": "Project-created deterministic synthetic illustration",
+          "authorization": "Project-created control"
+        }
+      ],
+      "authorization": "Project-created synthetic control; real photos are separate",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending",
+      "illustration_scenario": "suspected"
+    },
+    {
+      "id": "intermittent",
+      "split": "reserved",
+      "category": "console",
+      "kind": "text_regression",
+      "text": {
+        "title": "PlayStation 5 Slim disco 1TB",
+        "description": "Funciona perfeitamente, mas desliga sozinho depois de dez minutos",
+        "condition": null
+      },
+      "photos": [],
+      "authorization": "User-provided regression text",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending"
+    },
+    {
+      "id": "battery",
+      "split": "reserved",
+      "category": "computer",
+      "kind": "text_regression",
+      "text": {
+        "title": "Notebook portátil com bateria",
+        "description": "Funciona perfeitamente, mas só funciona conectado na tomada",
+        "condition": null
+      },
+      "photos": [],
+      "authorization": "User-provided regression text",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending"
+    },
+    {
+      "id": "untested",
+      "split": "reserved",
+      "category": "camera",
+      "kind": "text_regression",
+      "text": {
+        "title": "Câmera Canon T5i",
+        "description": "Não foi testado. Funciona perfeitamente.",
+        "condition": null
+      },
+      "photos": [],
+      "authorization": "User-provided regression text",
+      "human_label": null,
+      "human_findings": [],
+      "review_status": "pending"
+    }
+  ]
+}

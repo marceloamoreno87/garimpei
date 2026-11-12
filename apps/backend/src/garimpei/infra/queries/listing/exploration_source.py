@@ -3,7 +3,10 @@ from typing import cast
 
 from django.db.models import Max
 
-from garimpei.domain.listing.condition import ConditionState, automatic_condition, normalized
+from garimpei.config.env import load_assessment_enabled
+from garimpei.domain.listing.assessment import Assessment
+from garimpei.domain.listing.condition import normalized
+from garimpei.domain.listing.condition_resolution import resolve_condition
 from garimpei.domain.listing.coverage import Coverage
 from garimpei.domain.listing.exploration import Offer
 from garimpei.domain.listing.listing import InterestKind, Match
@@ -13,6 +16,7 @@ from garimpei.domain.listing.scope import Scope
 from garimpei.domain.media.media import MediaGallery
 from garimpei.domain.valuation.profit import ProfitInput, compose_profit
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
+from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
 from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
 from garimpei.infra.queries.valuation.postgres_queries import PostgresValuationQueries
 from garimpei.infra.repository.listing.mapper import decode_evidence
@@ -55,9 +59,23 @@ class ExplorationSource:
         galleries = PostgresMediaQueries().galleries(
             tuple((row.id, row.latest_id) for row in rows if row.latest_id is not None)
         )
+        assessments = (
+            PostgresAssessmentQueries().current_many(tuple(row.id for row in rows), galleries)
+            if load_assessment_enabled()
+            else {}
+        )
         return tuple(
             self._offer(
-                row, scope, config, values[row.id], now, valid.get(row.id), galleries[row.latest_id]
+                row,
+                scope,
+                config,
+                values[row.id],
+                now,
+                valid.get(row.id),
+                galleries[row.latest_id],
+                assessments.get(row.id, Assessment(observation_id=row.latest_id))
+                if load_assessment_enabled()
+                else None,
             )
             for row in rows
             if row.latest_id is not None
@@ -77,6 +95,7 @@ class ExplorationSource:
         now: datetime,
         last_valid: datetime | None,
         media: MediaGallery,
+        assessment: Assessment | None = None,
     ) -> Offer:
         raw = row.latest
         assert raw is not None
@@ -110,7 +129,12 @@ class ExplorationSource:
             row.first_seen_at,
             raw.observed_at,
             evidence,
-            ConditionState(automatic_condition(evidence)),
+            resolve_condition(
+                evidence,
+                assessment
+                if assessment is None or assessment.observation_id == raw.id
+                else Assessment(observation_id=raw.id),
+            ),
             tuple(sorted(m.key for m in observation.interests if m.kind == "category")),
             coverage.pickup == "confirmed",
             coverage.shipping == "confirmed",

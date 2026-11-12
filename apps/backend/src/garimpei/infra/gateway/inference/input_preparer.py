@@ -11,6 +11,15 @@ from PIL import Image
 from tokenizers import Tokenizer
 
 from garimpei.config.env import InferenceSettings
+from garimpei.domain.inference.condition_evidence import (
+    PROMPT as CONDITION_PROMPT,
+)
+from garimpei.domain.inference.condition_evidence import (
+    SCHEMA as CONDITION_SCHEMA,
+)
+from garimpei.domain.inference.condition_evidence import (
+    VERSION as CONDITION_VERSION,
+)
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import PreparedPart
 from garimpei.domain.inference.request import AnalysisInput, ImageReference
@@ -52,7 +61,7 @@ class LocalInputPreparer:
     def prepare(self, value: AnalysisInput) -> tuple[PreparedPart, ...]:
         parts: list[PreparedPart] = []
         if value.text.strip():
-            self._text_budget(value.text)
+            self._text_budget(value.text, value.prompt_version)
             digest = hashlib.sha256(value.text.encode()).hexdigest()
             parts.append(
                 PreparedPart(
@@ -72,12 +81,17 @@ class LocalInputPreparer:
                 )
             )
         parts.extend(self._image(reference) for reference in value.images)
+        if value.prompt_version == CONDITION_VERSION:
+            if value.images:
+                parts = [part for part in parts if part.image_id is not None]
+            # Each bounded image call includes the full verified textual context.
+            parts = [replace(part, text=value.text, profile=CONDITION_VERSION) for part in parts]
         if not parts:
             raise InferenceError("insufficient_input")
         digest = str(read_lock(self._settings.model_lock)["model_digest"])
         return tuple(replace(part, model_digest=digest) for part in parts)
 
-    def _text_budget(self, text: str) -> None:
+    def _text_budget(self, text: str, profile: str = "local-evidence-v1") -> None:
         settings = self._settings
         lock = read_lock(settings.model_lock)
         tokenizer = cast(dict[str, str], lock.get("tokenizer", {}))
@@ -86,7 +100,9 @@ class LocalInputPreparer:
         if hashlib.sha256(settings.tokenizer.read_bytes()).hexdigest() != tokenizer.get("sha256"):
             raise InferenceError("artifact_mismatch", 503)
         codec = Tokenizer.from_file(str(settings.tokenizer))
-        count = len(codec.encode(PROMPT + json.dumps(bounded_schema(text, None)) + text).ids) + 256
+        prompt = CONDITION_PROMPT if profile == CONDITION_VERSION else PROMPT
+        schema = CONDITION_SCHEMA if profile == CONDITION_VERSION else bounded_schema(text, None)
+        count = len(codec.encode(prompt + json.dumps(schema) + text).ids) + 256
         if count > settings.text_tokens:
             raise InferenceError("context_unverified")
 
@@ -128,6 +144,7 @@ class LocalInputPreparer:
                     "reason": "pending",
                     "transformation": "512-v1",
                     "derived_hash": digest,
+                    "source_sha256": metadata.get("source_sha256", reference.sha256),
                 },
             ),
         )

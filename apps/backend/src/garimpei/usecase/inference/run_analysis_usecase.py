@@ -1,5 +1,11 @@
 from typing import cast
 
+from garimpei.domain.inference.condition_evidence import (
+    VERSION as CONDITION_VERSION,
+)
+from garimpei.domain.inference.condition_evidence import (
+    validate_condition_result,
+)
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import Clock, InferenceGateway, InferenceRepository
 from garimpei.domain.inference.result import validate_result
@@ -25,6 +31,21 @@ class RunAnalysisUseCase:
             if not isinstance(raw, str):
                 raise InferenceError("invalid_output")
             images = (work.part.image_id,) if work.part.image_id is not None else ()
+            if work.part.profile == CONDITION_VERSION:
+                photos = (
+                    {
+                        work.part.image_id: str(
+                            work.part.coverage[0].get(
+                                "source_sha256", work.part.coverage[0]["sha256"]
+                            )
+                        )
+                    }
+                    if work.part.image_id
+                    else {}
+                )
+                condition_payload = validate_condition_result(raw, work.part.text, photos)
+                metrics = cast(dict[str, object], envelope.get("metrics", {}))
+                return self._repository.publish(work, condition_payload, metrics, self._clock())
             result = validate_result(raw, work.part.text, images)
             payload: dict[str, object] = {
                 "findings": list(result.findings),

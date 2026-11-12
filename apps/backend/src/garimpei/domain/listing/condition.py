@@ -1,9 +1,11 @@
 import re
-import unicodedata
 from dataclasses import dataclass
 from typing import Literal
 
+from garimpei.domain.listing.assessment import Assessment
 from garimpei.domain.listing.listing import Evidence
+from garimpei.domain.listing.text_caveats import restrictions
+from garimpei.domain.listing.text_normalization import normalize_text
 
 Condition = Literal["good", "defect", "uncertain"]
 Choice = Literal["good", "defect"]
@@ -37,18 +39,18 @@ DEFECT = frozenset(
 class Signal:
     field: str
     text: str
-    condition: Choice
+    condition: Condition
 
 
 @dataclass(frozen=True)
 class Analysis:
     condition: Condition
     signals: tuple[Signal, ...]
+    reasons: tuple[str, ...] = ()
 
 
 def normalized(text: str) -> str:
-    value = unicodedata.normalize("NFKD", unicodedata.normalize("NFKC", text).casefold())
-    return " ".join("".join(char for char in value if not unicodedata.combining(char)).split())
+    return normalize_text(text)
 
 
 def _signal(field: str, text: str) -> Signal | None:
@@ -61,7 +63,7 @@ def _signal(field: str, text: str) -> Signal | None:
         value,
     ):
         return None
-    if re.search(r"^(?:controle|carregador|cabo|fone)\b", value):
+    if re.search(r"^(?:o |a )?(?:controle|carregador|cabo|fone)\b", value):
         return None
     negative = re.search(
         r"\b(?:nao (?:esta |estao |ta )?(?:funciona\w*|liga)|com defeitos?|defeituos\w*|"
@@ -110,7 +112,11 @@ def automatic_condition(evidence: Evidence) -> Analysis:
         condition = "good"
     if any(signal.condition == "defect" for signal in signals):
         condition = "defect"
-    return Analysis(condition, tuple(signals))
+    caveats = restrictions(evidence)
+    signals.extend(Signal(c.field, c.text, "defect" if c.defect else "uncertain") for c in caveats)
+    if caveats and condition != "defect":
+        condition = "defect" if any(c.defect for c in caveats) else "uncertain"
+    return Analysis(condition, tuple(signals), tuple(c.reason for c in caveats))
 
 
 @dataclass(frozen=True)
@@ -118,6 +124,7 @@ class ConditionState:
     analysis: Analysis
     manual: Choice | None = None
     revision: int = 0
+    assessment: Assessment | None = None
 
     @property
     def effective(self) -> Condition:
@@ -142,7 +149,10 @@ class ConditionState:
 
     @property
     def satisfies_alert_condition(self) -> bool:
-        return self.effective == "good"
+        return self.effective == "good" and (
+            self.assessment is None
+            or (self.assessment.sufficient and self.assessment.status == "complete")
+        )
 
     @property
     def label(self) -> str:

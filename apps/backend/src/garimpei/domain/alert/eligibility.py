@@ -69,6 +69,7 @@ def message_text(value: AlertMessage) -> str:
             value.source,
             *amounts,
             *previous,
+            *((value.condition_note,) if value.condition_note else ()),
             observed.strftime("Observado em %d/%m/%Y às %H:%M (São Paulo)"),
             value.url,
             "Ref. " + str(value.reference),

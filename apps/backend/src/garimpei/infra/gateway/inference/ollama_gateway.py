@@ -11,6 +11,15 @@ from typing import cast
 from urllib.parse import urlsplit
 
 from garimpei.config.env import InferenceSettings
+from garimpei.domain.inference.condition_evidence import (
+    PROMPT as CONDITION_PROMPT,
+)
+from garimpei.domain.inference.condition_evidence import (
+    SCHEMA as CONDITION_SCHEMA,
+)
+from garimpei.domain.inference.condition_evidence import (
+    VERSION as CONDITION_VERSION,
+)
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import PreparedPart
 from garimpei.domain.inference.request import MODEL
@@ -59,6 +68,20 @@ class OllamaGateway:
 
     def _body(self, part: PreparedPart) -> dict[str, object]:
         content = part.text if part.image_id is None else "Examine image_id=" + part.image_id
+        if part.profile == CONDITION_VERSION:
+            content = part.text + (
+                "\nFoto atual: "
+                + json.dumps(
+                    {
+                        "photo_id": part.image_id,
+                        "sha256": part.coverage[0].get(
+                            "source_sha256", part.coverage[0].get("sha256")
+                        ),
+                    }
+                )
+                if part.image_id
+                else ""
+            )
         message: dict[str, object] = {"role": "user", "content": content}
         if part.image_hash:
             raw = (self._settings.directory / part.image_hash).read_bytes()
@@ -67,8 +90,16 @@ class OllamaGateway:
             message["images"] = [base64.b64encode(raw).decode("ascii")]
         return {
             "model": MODEL,
-            "messages": [{"role": "system", "content": PROMPT}, message],
-            "format": bounded_schema(part.text, part.image_id),
+            "messages": [
+                {
+                    "role": "system",
+                    "content": CONDITION_PROMPT if part.profile == CONDITION_VERSION else PROMPT,
+                },
+                message,
+            ],
+            "format": CONDITION_SCHEMA
+            if part.profile == CONDITION_VERSION
+            else bounded_schema(part.text, part.image_id),
             "stream": False,
             "think": False,
             "truncate": False,

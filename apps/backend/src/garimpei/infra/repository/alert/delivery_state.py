@@ -8,6 +8,7 @@ from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.infra.persistence.alert_models import AlertAttempt, AlertIntent
 from garimpei.infra.queries.alert.event_source import current_eligibility
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
+from garimpei.infra.repository.alert.assessment_note import assessment_note
 from garimpei.infra.repository.alert.financial import decode_snapshot
 from garimpei.infra.repository.alert.first_authorization import first_body, prepare_first
 from garimpei.infra.repository.alert.message_authorization import prepare_financial
@@ -91,7 +92,7 @@ def _claim(
     if not reconcile:
         assert row.decision is not None
         reason = current_eligibility(row.decision.event.listing, configuration, listings)
-        if reason == "waiting_scope":
+        if reason in {"waiting_scope", "waiting_condition_assessment"}:
             postpone(row, reason, now, policy)
             return None
         if reason != "eligible":
@@ -138,6 +139,9 @@ def _attempt(row: AlertIntent, binding: Binding, now: datetime, reconcile: bool)
                 event.listing.canonical_url,
                 profit_policy=snapshot.policy,
                 financial=snapshot,
+                condition_note=assessment_note(
+                    row.decision.assessment_id, row.decision.assessment_revision
+                ),
             )
         )
         row.session, row.recipient, row.account = (

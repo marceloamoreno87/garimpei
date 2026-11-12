@@ -585,3 +585,11 @@ def load_media_settings(environ: Mapping[str, str] | None = None) -> MediaSettin
 
 
 from garimpei.domain.media.policy import MediaPolicy  # noqa: E402
+
+
+def load_assessment_enabled() -> bool:
+    values = _values(os.environ)
+    raw = values.get("GARIMPEI_ASSESSMENT_ENABLED", "false")
+    if raw not in {"true", "false"}:
+        raise ConfigurationError("GARIMPEI_ASSESSMENT_ENABLED: expected true or false")
+    return raw == "true"
