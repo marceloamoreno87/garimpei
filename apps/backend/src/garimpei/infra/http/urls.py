@@ -3,11 +3,15 @@ from django.urls import path
 from django.views.static import serve
 
 from garimpei.infra.http.health_handler import health, ready
+from garimpei.infra.http.inference.routes import inference_view
 from garimpei.infra.http.integration.routes import integration_view
 from garimpei.infra.http.listing.routes import condition_view
 from garimpei.infra.http.monitoring.routes import monitoring_view
 
 urlpatterns = [
+    path("integracoes/ia/", inference_view, name="inference-status"),
+    path("integracoes/ia/pausar/", inference_view, {"action": "pause"}, name="inference-pause"),
+    path("integracoes/ia/retomar/", inference_view, {"action": "resume"}, name="inference-resume"),
     path(
         "integracoes/facebook/status/",
         integration_view,

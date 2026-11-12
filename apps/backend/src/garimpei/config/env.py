@@ -35,6 +35,7 @@ class RuntimeConfig:
     shutdown_timeout: int
     log_level: str
     run_id: str
+    ai_port: int = 11434
 
     @property
     def directory(self) -> Path:
@@ -175,6 +176,7 @@ def load_config(
         _integer(values, "GARIMPEI_SHUTDOWN_TIMEOUT_SECONDS", 30, 1, 120),
         level,
         values.get("GARIMPEI_RUN_ID", ""),
+        _ai_port(values, root / ".runtime" / identity, ports),
     )
     override = values.get("DATABASE_URL")
     if override and urlsplit(override) != urlsplit(config.database_url):
@@ -196,6 +198,7 @@ def process_environment(config: RuntimeConfig, run_id: str) -> dict[str, str]:
             "GARIMPEI_WEB_PORT": str(config.web_port),
             "GARIMPEI_PG_PORT": str(config.pg_port),
             "GARIMPEI_WAHA_PORT": str(config.waha_port),
+            "GARIMPEI_AI_PORT": str(config.ai_port),
             "GARIMPEI_DB_NAME": config.database,
             "DJANGO_SECRET_KEY": config.django_secret,
             "POSTGRES_PASSWORD": config.postgres_password,
@@ -448,3 +451,62 @@ def load_facebook_browser_origin() -> tuple[str, bool]:
     ):
         raise ConfigurationError("Facebook browser fixture requires eval and loopback HTTP origin")
     return fixture.rstrip("/"), True
+
+
+def _ai_port(values: Mapping[str, str], directory: Path, ports: tuple[int, int, int]) -> int:
+    manifest = directory / "manifest.json"
+    saved = json.loads(manifest.read_text()).get("ports", {}) if manifest.exists() else {}
+    seed = 10000 + int(hashlib.sha256(str(directory).encode()).hexdigest()[:6], 16) % 15000
+    with ExitStack() as stack:
+        default = saved.get("ai") or _reserve_port(stack, seed + 300)
+    value = _integer(values, "GARIMPEI_AI_PORT", default, 1024, 65535)
+    if value in ports:
+        raise ConfigurationError("GARIMPEI_AI_PORT: expected distinct owned loopback port")
+    return value
+
+
+@dataclass(frozen=True)
+class InferenceSettings:
+    service_enabled: bool
+    endpoint: str
+    directory: Path
+    model_lock: Path
+    tokenizer: Path
+    gpu_lock: Path
+    owner: str
+    queue_limit: int = 100
+    disk_limit: int = 1073741824
+    timeout: int = 180
+    idle_seconds: int = 300
+    lease_seconds: int = 240
+    attempts: int = 3
+    text_tokens: int = 2048
+    context_tokens: int = 4096
+    output_tokens: int = 512
+    photo_manifest: Path | None = None
+
+
+def load_inference_settings() -> InferenceSettings:
+    values = _values(os.environ)
+    config = load_config(require_secrets=False)
+    enabled = values.get("GARIMPEI_AI_SERVICE_ENABLED", "false")
+    if enabled not in {"true", "false"}:
+        raise ConfigurationError("GARIMPEI_AI_SERVICE_ENABLED: expected true or false")
+    folder = config.directory / "inference"
+    return InferenceSettings(
+        enabled == "true",
+        f"http://127.0.0.1:{config.ai_port}",
+        folder,
+        config.root / "docs/F19-inferencia-multimodal-local-em-docker/model-lock.json",
+        folder / "tokenizer.json",
+        Path.home() / ".local/share/garimpei/gpu-owner.json",
+        f"{config.root}:{config.environment_id}",
+        _integer(values, "GARIMPEI_AI_QUEUE_LIMIT", 100, 1, 100),
+        _integer(values, "GARIMPEI_AI_DISK_LIMIT", 1073741824, 1048576, 1073741824),
+        _integer(values, "GARIMPEI_AI_TIMEOUT", 180, 1, 180),
+        _integer(values, "GARIMPEI_AI_IDLE_SECONDS", 300, 1, 300),
+        _integer(values, "GARIMPEI_AI_LEASE_SECONDS", 240, 240, 240),
+        photo_manifest=Path(values["GARIMPEI_AI_PHOTO_MANIFEST"]).expanduser().resolve()
+        if values.get("GARIMPEI_AI_PHOTO_MANIFEST")
+        else None,
+    )

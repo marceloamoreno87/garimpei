@@ -10,6 +10,7 @@
         <nav class="integration-links" aria-label="Integrações">
             <a href="#facebook">Facebook Marketplace</a>
             <a href="#whatsapp">WhatsApp</a>
+            <a href="{% url 'inference-status' %}">IA local</a>
         </nav>
         {% if saved == "facebook" %}
             <p class="notice" role="status">Solicitação recebida. Acompanhe o estado da conexão abaixo.</p>

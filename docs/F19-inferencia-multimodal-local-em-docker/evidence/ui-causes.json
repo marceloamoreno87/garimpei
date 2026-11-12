@@ -1,0 +1,95 @@
+{
+  "scope": "Controlled persisted diagnostics on owned A; worker paused, no GPU faults or inference",
+  "cases": [
+    {
+      "reason": "service_unavailable",
+      "expected_title": "Servi\u00e7o local indispon\u00edvel",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "model_missing",
+      "expected_title": "Modelo ainda n\u00e3o preparado",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "model_corrupt",
+      "expected_title": "Pesos do modelo inv\u00e1lidos",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "gpu_unavailable",
+      "expected_title": "Aguardando a GPU",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "gpu_degraded",
+      "expected_title": "Acelera\u00e7\u00e3o incompleta",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "out_of_memory",
+      "expected_title": "Mem\u00f3ria da GPU insuficiente",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "invalid_output",
+      "expected_title": "Resposta do modelo recusada",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "idle_unloaded",
+      "expected_title": "Modelo descarregado por inatividade",
+      "title_present": true,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": false,
+      "browser_exit": 0
+    },
+    {
+      "reason": "execution_unknown",
+      "expected_title": "Conferindo a chamada anterior",
+      "title_present": false,
+      "http": 200,
+      "last_result_visible": true,
+      "controlled_persisted_state": true,
+      "active_request": true,
+      "browser_exit": 0
+    }
+  ]
+}

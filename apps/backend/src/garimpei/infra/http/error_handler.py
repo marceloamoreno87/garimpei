@@ -1,9 +1,11 @@
 import logging
 from collections.abc import Callable
 
+from django.db import DatabaseError
 from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 
+from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.integration.values import IntegrationError
 from garimpei.domain.listing.condition_ports import ConditionError
 from garimpei.domain.listing.exploration import Criteria, ExplorationError
@@ -35,6 +37,23 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        if _request.path.startswith("/integracoes/ia/") and isinstance(
+            _exception, (InferenceError, DatabaseError)
+        ):
+            status = _exception.status if isinstance(_exception, InferenceError) else 503
+            message = "Não foi possível gravar ou ler o estado da IA. Tente novamente."
+            if status == 409:
+                message = (
+                    "O estado mudou em outra janela. Confira o estado atual e tente novamente."
+                )
+            if status == 400:
+                message = "Revisão inválida. Reabra o estado da IA antes de enviar a ação."
+            return render(
+                _request,
+                "inference/error.html",
+                {"integration_page": True, "message": message},
+                status=status,
+            )
         if isinstance(_exception, IntegrationError):
             response = render(
                 _request,

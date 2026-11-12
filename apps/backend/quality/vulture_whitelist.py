@@ -135,3 +135,11 @@ _.secure
 _.sameSite
 _.groups_unavailable
 integration_context
+
+# F19: verified template/stdlib/argparse consumers in entrypoints.json.
+_.last_result_at
+_.makefile
+_.download
+
+# F19 optional manifest capability recorded by lifecycle and consumed by Docker transport.
+_.inference_container

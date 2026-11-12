@@ -15,6 +15,7 @@ from garimpei.main import (
     build_publish_exploration,
     build_worker_stderr,
     reconcile_alerts,
+    reconcile_inference,
     reconcile_listings,
     reconcile_valuations,
     register_tasks,
@@ -95,15 +96,17 @@ class Command(BaseCommand):
         reconciler.start()
         alerts = Thread(target=_alerts_until_stopped, args=(stopped,), daemon=True)
         alerts.start()
+        inference = Thread(target=_inference_until_stopped, args=(stopped,), daemon=True)
+        inference.start()
         try:
             with redirect_stderr(build_worker_stderr()):
                 call_command(
                     "procrastinate",
                     "worker",
                     "--queues",
-                    "runtime,listing,valuation,alert",
+                    "runtime,listing,valuation,alert,inference",
                     "--concurrency",
-                    str(options["concurrency"]),
+                    str(max(4, options["concurrency"] + 1)),
                     "--shutdown-graceful-timeout",
                     "20",
                 )
@@ -111,4 +114,18 @@ class Command(BaseCommand):
             stopped.set()
             reconciler.join(timeout=2)
             alerts.join(timeout=2)
+            inference.join(timeout=2)
             build_facebook_login_handler().close()
+
+
+def _inference_until_stopped(stopped: Event) -> None:
+    while not stopped.is_set():
+        try:
+            reconcile_inference()
+        except Exception:
+            logger.error(
+                "inference_reconcile_failed", extra={"event": "inference_reconcile_failed"}
+            )
+        finally:
+            connections.close_all()
+        stopped.wait(5)

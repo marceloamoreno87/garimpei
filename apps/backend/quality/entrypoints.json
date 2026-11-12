@@ -262,5 +262,35 @@
     "path": "src/garimpei/infra/http/integration/context.py",
     "consumer": "src/garimpei/config/settings.py",
     "reason": "Django template context processor discovered through dotted settings path"
+  },
+  {
+    "symbol": "InferenceStatus.last_result_at",
+    "path": "src/garimpei/domain/inference/ports.py",
+    "consumer": "src/garimpei/infra/http/templates/inference/status.html",
+    "reason": "Django template renders prior confirmed analysis timestamp"
+  },
+  {
+    "symbol": "_ResponseSocket.makefile",
+    "path": "src/garimpei/infra/gateway/inference/docker_transport.py",
+    "consumer": "src/garimpei/infra/gateway/inference/docker_transport.py",
+    "reason": "stdlib HTTPResponse invokes socket-like makefile while parsing complete bounded local HTTP responses"
+  },
+  {
+    "symbol": "Options.download",
+    "path": "src/garimpei/infra/persistence/management/commands/local_ai.py",
+    "consumer": "src/garimpei/infra/persistence/management/commands/local_ai.py",
+    "reason": "argparse download flag read through TypedDict mapping, never Python attribute"
+  },
+  {
+    "symbol": "Command.handle",
+    "path": "src/garimpei/infra/persistence/management/commands/local_ai.py",
+    "consumer": "manage.py",
+    "reason": "Django management command discovery for explicit artifact preparation and smoke tests"
+  },
+  {
+    "symbol": "Manifest.inference_container",
+    "path": "src/garimpei/infra/runtime/manifest.py",
+    "consumer": "src/garimpei/infra/gateway/inference/docker_transport.py",
+    "reason": "Optional immutable Docker container capability written by lifecycle and read as TypedDict mapping for owned run; legacy manifests omit it"
   }
 ]

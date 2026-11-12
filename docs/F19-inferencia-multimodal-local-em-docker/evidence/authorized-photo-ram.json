@@ -1,0 +1,118 @@
+{
+  "scenario": "Authorized public photo new observation revision; no cache reuse; warm or cold indicated by measured load_duration",
+  "photo_source_sha256": "08905d5f2bbb73fd08c4f1e21463052d9c2f7d260d083eb2114a47247a2943db",
+  "elapsed_seconds": 3.3727331870031776,
+  "analysis": {
+    "request_id": "fe8c8f4e-b80c-431a-a802-1fc31649b65e",
+    "observation_id": "554b388d-e248-4fc1-bfde-d18586597952",
+    "revision": 2,
+    "state": "succeeded",
+    "model": "qwen3.5:4b-q4_K_M",
+    "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+    "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "prompt_version": "local-evidence-v1",
+    "schema_version": "local-evidence-v1",
+    "created_at": "2026-11-12T04:09:28.048124+00:00",
+    "completed_at": "2026-11-12T04:09:29.598307+00:00",
+    "coverage": [
+      {
+        "kind": "image",
+        "id": "public-ps5-dualsense",
+        "revision": 1,
+        "provided": true,
+        "sent": true,
+        "examined": true,
+        "reason": "examined"
+      }
+    ],
+    "parts": [
+      {
+        "state": "succeeded",
+        "metrics": {
+          "sent": true,
+          "size_vram": 3140495604,
+          "eval_count": 149,
+          "load_duration": 3894541,
+          "context_length": 4096,
+          "total_duration": 1501477302,
+          "prompt_eval_count": 385,
+          "gpu_samples": [
+            {
+              "monotonic": 58943.351960971,
+              "memory_mib": 6215,
+              "utilization_percent": 0
+            },
+            {
+              "monotonic": 58943.638762587,
+              "memory_mib": 6215,
+              "utilization_percent": 57
+            },
+            {
+              "monotonic": 58943.922297176,
+              "memory_mib": 6215,
+              "utilization_percent": 68
+            },
+            {
+              "monotonic": 58944.206841422,
+              "memory_mib": 6215,
+              "utilization_percent": 49
+            },
+            {
+              "monotonic": 58944.490733368,
+              "memory_mib": 6215,
+              "utilization_percent": 77
+            },
+            {
+              "monotonic": 58944.773492058,
+              "memory_mib": 6215,
+              "utilization_percent": 71
+            }
+          ]
+        },
+        "result_counts": {
+          "findings": 2,
+          "unknowns": 0,
+          "limitations": 0
+        }
+      }
+    ]
+  },
+  "samples": [
+    {
+      "elapsed": 1.049015025004337,
+      "docker_stats": "{\"BlockIO\":\"4.91MB / 0B\",\"CPUPerc\":\"867.99%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"3.19%\",\"MemUsage\":\"1023MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"75\"}",
+      "app_rss_bytes": 207233024,
+      "host_ram_used_bytes": 15079088128,
+      "state": "running",
+      "health": 200
+    },
+    {
+      "elapsed": 3.052823352001724,
+      "docker_stats": "{\"BlockIO\":\"4.91MB / 0B\",\"CPUPerc\":\"0.05%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"3.18%\",\"MemUsage\":\"1021MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"74\"}",
+      "app_rss_bytes": 207314944,
+      "host_ram_used_bytes": 15099281408,
+      "state": "succeeded",
+      "health": 200
+    }
+  ],
+  "business_before": {
+    "sha256": "1f61cb0caf2308628ca73cae16af4e4d8efc15cc3baea6299bddd207453e091b",
+    "counts": {
+      "runtime_manualcondition": 1,
+      "runtime_alerteventdecision": 1,
+      "runtime_alertintent": 1,
+      "runtime_alertattempt": 1
+    }
+  },
+  "business_after": {
+    "sha256": "1f61cb0caf2308628ca73cae16af4e4d8efc15cc3baea6299bddd207453e091b",
+    "counts": {
+      "runtime_manualcondition": 1,
+      "runtime_alerteventdecision": 1,
+      "runtime_alertintent": 1,
+      "runtime_alertattempt": 1
+    }
+  },
+  "pull_count_before": 4,
+  "pull_count_after": 4
+}

@@ -1,0 +1,156 @@
+{
+  "scenario": "Synthetic Unicode text new observation revision; cold after confirmed prior unload; no cache reuse",
+  "input_origin": "CC0 synthetic Unicode corpus",
+  "elapsed_seconds": 5.406539869996777,
+  "analysis": {
+    "request_id": "0b8a0934-a006-48d1-84da-0cd624eb75e4",
+    "observation_id": "c1ae2ba0-8457-4d82-9270-7c95d921ed19",
+    "revision": 3,
+    "state": "succeeded",
+    "model": "qwen3.5:4b-q4_K_M",
+    "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+    "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "prompt_version": "local-evidence-v1",
+    "schema_version": "local-evidence-v1",
+    "created_at": "2026-11-12T04:17:09.713690+00:00",
+    "completed_at": "2026-11-12T04:17:12.992812+00:00",
+    "coverage": [
+      {
+        "kind": "text",
+        "revision": 3,
+        "hash": "3150b06514805254dc8ecd67ab13fdb197a81a6cd0b0b109c104571e62398b01",
+        "provided": true,
+        "sent": true,
+        "examined": true,
+        "reason": "examined"
+      }
+    ],
+    "parts": [
+      {
+        "state": "succeeded",
+        "metrics": {
+          "sent": true,
+          "size_vram": 3140495604,
+          "eval_count": 119,
+          "load_duration": 2128225075,
+          "context_length": 4096,
+          "total_duration": 3228596370,
+          "prompt_eval_count": 181,
+          "gpu_samples": [
+            {
+              "monotonic": 59405.025689808,
+              "memory_mib": 2338,
+              "utilization_percent": 0
+            },
+            {
+              "monotonic": 59405.323646704,
+              "memory_mib": 2338,
+              "utilization_percent": 0
+            },
+            {
+              "monotonic": 59405.603230239,
+              "memory_mib": 2338,
+              "utilization_percent": 1
+            },
+            {
+              "monotonic": 59405.882812024,
+              "memory_mib": 2499,
+              "utilization_percent": 3
+            },
+            {
+              "monotonic": 59406.169550091,
+              "memory_mib": 2499,
+              "utilization_percent": 2
+            },
+            {
+              "monotonic": 59406.478431802,
+              "memory_mib": 5015,
+              "utilization_percent": 18
+            },
+            {
+              "monotonic": 59406.761113838,
+              "memory_mib": 5295,
+              "utilization_percent": 26
+            },
+            {
+              "monotonic": 59407.043220353,
+              "memory_mib": 6167,
+              "utilization_percent": 10
+            },
+            {
+              "monotonic": 59407.323355415,
+              "memory_mib": 6175,
+              "utilization_percent": 2
+            },
+            {
+              "monotonic": 59407.603009439,
+              "memory_mib": 6175,
+              "utilization_percent": 47
+            },
+            {
+              "monotonic": 59407.882767146,
+              "memory_mib": 6175,
+              "utilization_percent": 76
+            },
+            {
+              "monotonic": 59408.163407687,
+              "memory_mib": 6175,
+              "utilization_percent": 75
+            }
+          ]
+        },
+        "result_counts": {
+          "findings": 0,
+          "unknowns": 2,
+          "limitations": 2
+        }
+      }
+    ]
+  },
+  "samples": [
+    {
+      "elapsed": 1.045194550002634,
+      "docker_stats": "{\"BlockIO\":\"36.9kB / 0B\",\"CPUPerc\":\"76.23%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"1.44%\",\"MemUsage\":\"462.3MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"58\"}",
+      "app_rss_bytes": 207011840,
+      "host_ram_used_bytes": 14527160320,
+      "state": "running",
+      "health": 200
+    },
+    {
+      "elapsed": 3.0509247969966964,
+      "docker_stats": "{\"BlockIO\":\"1.74MB / 0B\",\"CPUPerc\":\"883.63%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"2.25%\",\"MemUsage\":\"722.4MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"74\"}",
+      "app_rss_bytes": 207147008,
+      "host_ram_used_bytes": 14695485440,
+      "state": "running",
+      "health": 200
+    },
+    {
+      "elapsed": 5.078462156998285,
+      "docker_stats": "{\"BlockIO\":\"1.74MB / 0B\",\"CPUPerc\":\"0.05%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"2.25%\",\"MemUsage\":\"721MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"73\"}",
+      "app_rss_bytes": 207163392,
+      "host_ram_used_bytes": 14670942208,
+      "state": "succeeded",
+      "health": 200
+    }
+  ],
+  "business_before": {
+    "sha256": "1f61cb0caf2308628ca73cae16af4e4d8efc15cc3baea6299bddd207453e091b",
+    "counts": {
+      "runtime_manualcondition": 1,
+      "runtime_alerteventdecision": 1,
+      "runtime_alertintent": 1,
+      "runtime_alertattempt": 1
+    }
+  },
+  "business_after": {
+    "sha256": "1f61cb0caf2308628ca73cae16af4e4d8efc15cc3baea6299bddd207453e091b",
+    "counts": {
+      "runtime_manualcondition": 1,
+      "runtime_alerteventdecision": 1,
+      "runtime_alertintent": 1,
+      "runtime_alertattempt": 1
+    }
+  },
+  "pull_count_before": 4,
+  "pull_count_after": 4
+}

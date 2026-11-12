@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-12T02:17:31.223099+00:00",
+  "image": "ollama/ollama:0.40.16@sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592",
+  "platform": "linux/amd64",
+  "image_platform_digest": "sha256:a372a1c0d1e15b68e9521189785c3ca17795c26c2356f8b1b10122cfb59ed0d7",
+  "server_version": "0.40.16",
+  "model": "qwen3.5:4b-q4_K_M",
+  "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "manifest": {
+    "schemaVersion": 2,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "config": {
+      "mediaType": "application/vnd.docker.container.image.v1+json",
+      "digest": "sha256:788a4d94bc3f431ac0cd067005be4b838a09330427962952420b05d10ecf84db",
+      "size": 177
+    },
+    "layers": [
+      {
+        "mediaType": "application/vnd.ollama.image.projector",
+        "digest": "sha256:e56a899b1540860385465756dd308c84417410b94dbc1c380adffd20a921ca60",
+        "size": 675569120,
+        "from": "mmproj.gguf"
+      },
+      {
+        "mediaType": "application/vnd.ollama.image.model",
+        "digest": "sha256:a9d0a3e1d8c91732a3812becd31f8d4a8ff57414903f226306069f0437e2ac50",
+        "size": 2648593216,
+        "from": "model.gguf"
+      },
+      {
+        "mediaType": "application/vnd.ollama.image.template",
+        "digest": "sha256:b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+        "size": 13
+      },
+      {
+        "mediaType": "application/vnd.ollama.image.license",
+        "digest": "sha256:50cbab8a892c5f2993b8c7351a99182507472def3b1374558308605d99b86b32",
+        "size": 11343
+      },
+      {
+        "mediaType": "application/vnd.ollama.image.params",
+        "digest": "sha256:9371364b27a52acac9d87f88bd93c9db1174d8d6ec57f6888925cdc1788871ff",
+        "size": 65
+      }
+    ],
+    "runner": "llamacpp",
+    "format": "gguf"
+  },
+  "quantization": "Q4_K_M",
+  "required_capabilities": [
+    "completion",
+    "vision"
+  ],
+  "tokenizer": {
+    "repository": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/tokenizer.json",
+    "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+  },
+  "prompt_version": "local-evidence-v1",
+  "schema": "local-evidence-v1",
+  "visual_context_verified": true,
+  "runtime_verified": true,
+  "sources": [
+    "https://api.github.com/repos/ollama/ollama/releases/latest",
+    "https://registry.ollama.ai/v2/library/qwen3.5/manifests/4b-q4_K_M",
+    "https://ollama.com/library/qwen3.5:4b-q4_K_M"
+  ],
+  "transport": "docker-exec-rest-v2-persistent",
+  "preparation_verified": true,
+  "visual_profile": {
+    "max_derivative": [
+      512,
+      512
+    ],
+    "one_image_per_call": true,
+    "metrics": {
+      "total_duration": 10844237418,
+      "load_duration": 756215,
+      "prompt_eval_count": 428,
+      "eval_count": 141,
+      "size_vram": 3140495604,
+      "context_length": 4096,
+      "gpu_samples": [
+        {
+          "monotonic": 54718.868485486,
+          "memory_mib": 6290,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54719.149091758,
+          "memory_mib": 6334,
+          "utilization_percent": 15,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54719.44036202,
+          "memory_mib": 6334,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54719.724937051,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54720.00990338,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54720.290497655,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54720.571728357,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54720.851669392,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54721.133025799,
+          "memory_mib": 6336,
+          "utilization_percent": 1,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54721.413898999,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54721.697595242,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54721.986715896,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54722.268695557,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54722.554671054,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54722.839089642,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54723.125834704,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54723.410275834,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54723.689791873,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54723.970960066,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54724.252072483,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54724.533660242,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54724.814501392,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54725.099887494,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54725.382758483,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54725.661895729,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54725.942231429,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54726.223835093,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54726.513053749,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54726.793396707,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54727.07821262,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54727.359246409,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54727.640800963,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54727.922172314,
+          "memory_mib": 6336,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54728.208513666,
+          "memory_mib": 6340,
+          "utilization_percent": 0,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54728.492386198,
+          "memory_mib": 6340,
+          "utilization_percent": 53,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54728.773804324,
+          "memory_mib": 6340,
+          "utilization_percent": 68,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54729.069233378,
+          "memory_mib": 6340,
+          "utilization_percent": 41,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54729.35517896,
+          "memory_mib": 6340,
+          "utilization_percent": 73,
+          "scope": "host"
+        },
+        {
+          "monotonic": 54729.636213592,
+          "memory_mib": 6340,
+          "utilization_percent": 62,
+          "scope": "host"
+        }
+      ]
+    },
+    "schema": "bounded-references-v1"
+  },
+  "runtime_verified_at": "2026-11-12T03:13:22.394543+00:00"
+}

@@ -1,0 +1,512 @@
+{
+  "run": "20261112-controls",
+  "scope": "Owned eval C; fake inference only, no Ollama/GPU",
+  "cases": [
+    {
+      "name": "owned-init",
+      "items": [
+        "prerequisite"
+      ],
+      "status": "PASS",
+      "observed": {
+        "exit_code": 0,
+        "instance": "eval_wave11_f19_controls"
+      }
+    },
+    {
+      "name": "persistent-failure-service_unavailable",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "service_unavailable",
+        "gateway_calls": 3,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "awaiting_resource",
+            "reason": "service_unavailable",
+            "part_state": "pending",
+            "active": false,
+            "next_delay": 15.0
+          },
+          {
+            "attempt": 2,
+            "state": "awaiting_resource",
+            "reason": "service_unavailable",
+            "part_state": "pending",
+            "active": false,
+            "next_delay": 30.0
+          },
+          {
+            "attempt": 3,
+            "state": "failed",
+            "reason": "service_unavailable",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-model_missing",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "model_missing",
+        "gateway_calls": 1,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "failed",
+            "reason": "model_missing",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-model_corrupt",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "model_corrupt",
+        "gateway_calls": 1,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "failed",
+            "reason": "model_corrupt",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-gpu_unavailable",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "gpu_unavailable",
+        "gateway_calls": 3,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "awaiting_resource",
+            "reason": "gpu_unavailable",
+            "part_state": "pending",
+            "active": false,
+            "next_delay": 15.0
+          },
+          {
+            "attempt": 2,
+            "state": "awaiting_resource",
+            "reason": "gpu_unavailable",
+            "part_state": "pending",
+            "active": false,
+            "next_delay": 30.0
+          },
+          {
+            "attempt": 3,
+            "state": "failed",
+            "reason": "gpu_unavailable",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-gpu_degraded",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "gpu_degraded",
+        "gateway_calls": 1,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "failed",
+            "reason": "gpu_degraded",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-out_of_memory",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "out_of_memory",
+        "gateway_calls": 3,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "awaiting_resource",
+            "reason": "out_of_memory",
+            "part_state": "pending",
+            "active": false,
+            "next_delay": 15.0
+          },
+          {
+            "attempt": 2,
+            "state": "awaiting_resource",
+            "reason": "out_of_memory",
+            "part_state": "pending",
+            "active": false,
+            "next_delay": 30.0
+          },
+          {
+            "attempt": 3,
+            "state": "failed",
+            "reason": "out_of_memory",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-timeout",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "timeout",
+        "gateway_calls": 3,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "awaiting_resource",
+            "reason": "timeout",
+            "part_state": "running",
+            "active": true,
+            "next_delay": null
+          },
+          {
+            "attempt": 2,
+            "state": "awaiting_resource",
+            "reason": "timeout",
+            "part_state": "running",
+            "active": true,
+            "next_delay": null
+          },
+          {
+            "attempt": 3,
+            "state": "awaiting_resource",
+            "reason": "timeout",
+            "part_state": "running",
+            "active": true,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-execution_unknown",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "execution_unknown",
+        "gateway_calls": 3,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "awaiting_resource",
+            "reason": "execution_unknown",
+            "part_state": "running",
+            "active": true,
+            "next_delay": null
+          },
+          {
+            "attempt": 2,
+            "state": "awaiting_resource",
+            "reason": "execution_unknown",
+            "part_state": "running",
+            "active": true,
+            "next_delay": null
+          },
+          {
+            "attempt": 3,
+            "state": "awaiting_resource",
+            "reason": "execution_unknown",
+            "part_state": "running",
+            "active": true,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "persistent-failure-invalid_output",
+      "items": [
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "failure": "invalid_output",
+        "gateway_calls": 1,
+        "trace": [
+          {
+            "attempt": 1,
+            "state": "failed",
+            "reason": "invalid_output",
+            "part_state": "failed",
+            "active": false,
+            "next_delay": null
+          }
+        ],
+        "prior_result_unchanged": true,
+        "condition_financial_intent_receipt_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c"
+      }
+    },
+    {
+      "name": "schema-invalid-results-persist-and-no-business-effects",
+      "items": [
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": [
+        {
+          "variant": "money",
+          "state": "failed",
+          "reason": "invalid_output"
+        },
+        {
+          "variant": "tool",
+          "state": "failed",
+          "reason": "invalid_output"
+        },
+        {
+          "variant": "missing-reference",
+          "state": "failed",
+          "reason": "invalid_output"
+        },
+        {
+          "variant": "incomplete-json",
+          "state": "failed",
+          "reason": "invalid_output"
+        }
+      ]
+    },
+    {
+      "name": "hostile-material-is-data-in-service-pipeline",
+      "items": [
+        "WRK-VALIDACAO-02"
+      ],
+      "status": "PASS",
+      "observed": {
+        "text": "Synthetic hostile text and synthetic named image reference",
+        "parts_processed": 2,
+        "no_business_effects": true,
+        "limitation": "Named image fake; no real hostile bitmap/model interpretation measured"
+      }
+    },
+    {
+      "name": "service-invalidation-and-compatible-cache",
+      "items": [
+        "SVC-ANALISE-01",
+        "SVC-ANALISE-02",
+        "WRK-RETOMADA-02"
+      ],
+      "status": "PASS",
+      "observed": {
+        "same_signature_reused": true,
+        "distinct_requests": 6,
+        "changed": [
+          "text",
+          "image_revision_hash",
+          "artifact",
+          "observation_revision"
+        ],
+        "unsupported_prompt_schema_rejected": true,
+        "old_result_identified_superseded": true
+      }
+    },
+    {
+      "name": "queue-100-concurrent-admissions",
+      "items": [
+        "WRK-LIMITES-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "concurrent_clients": 8,
+        "submitted": 120,
+        "accepted": 100,
+        "refused": 20,
+        "reason": "queue_full",
+        "pending_confirmed": 100
+      }
+    },
+    {
+      "name": "input-image-context-and-concurrent-disk-boundaries",
+      "items": [
+        "SVC-COBERTURA-01",
+        "WRK-LIMITES-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "text_16385_bytes": "capacity_limit",
+        "five_images": "capacity_limit",
+        "text_tokens": {
+          "counted": 4825,
+          "limit": 2048,
+          "error": "context_unverified"
+        },
+        "image_10MiB_plus1": "invalid_image_content",
+        "derivative_20MP": [
+          512,
+          410
+        ],
+        "image_over_20MP": "capacity_limit",
+        "no_upscale": [
+          100,
+          50
+        ],
+        "concurrent_disk_quota": {
+          "accepted": 5,
+          "refused_capacity_limit": 15,
+          "limit_bytes": 11010048,
+          "reservation_bytes": 2097152
+        }
+      }
+    },
+    {
+      "name": "output-context-and-cpu-fallback-envelope-boundaries",
+      "items": [
+        "WRK-LIMITES-01",
+        "WRK-FALHAS-01",
+        "WRK-VALIDACAO-01"
+      ],
+      "status": "PASS",
+      "observed": {
+        "output512": "invalid_output",
+        "context4097": "context_unverified",
+        "output_truncated": "invalid_output",
+        "cpu_partial_offload": "gpu_degraded"
+      }
+    },
+    {
+      "name": "business-control-invariants-final",
+      "items": [
+        "WRK-VALIDACAO-01",
+        "WRK-VALIDACAO-02",
+        "E2E-ISOLAMENTO-01-subset"
+      ],
+      "status": "PASS",
+      "observed": {
+        "unchanged_sha256": "593761596c332f1db94f50fc7c977734f736fe81de43245e04c10bb5bcb6dc2c",
+        "nonempty_manual_condition": 1,
+        "nonempty_financial_decision": 1,
+        "nonempty_authorized_intent_receipt": 1,
+        "prior_analysis_payload_preserved": true
+      }
+    },
+    {
+      "name": "inner-process",
+      "items": [
+        "execution"
+      ],
+      "status": "PASS",
+      "observed": {
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "owned-cleanup",
+      "items": [
+        "prerequisite"
+      ],
+      "status": "PASS",
+      "observed": {
+        "exit_code": 0,
+        "only_instance": "eval_wave11_f19_controls"
+      }
+    },
+    {
+      "name": "unprobed-service-must-not-be-announced-responding",
+      "items": [
+        "UI-OPERACAO-01",
+        "WRK-FALHAS-01-diagnostic-subset"
+      ],
+      "status": "FAIL",
+      "expected": "Without any HTTP probe, a failed GPU reservation must not claim that service is responding",
+      "observed": {
+        "diagnostic": {
+          "service": true,
+          "resident": false,
+          "reason": "gpu_unavailable",
+          "artifact": ""
+        },
+        "http_requests": 0,
+        "guard_owned": false
+      }
+    }
+  ],
+  "environment": "eval_wave11_f19_controls",
+  "database": "garimpei_eval_wave11_f19_controls",
+  "source_verification": {
+    "comparison_manifest": "final-source-cycle-1-before.json",
+    "baseline_sha256": "3a7119de4e88b212b43db63d60f8904b5f13f7348293da808aeabc369e2db488",
+    "checked_files": 384,
+    "mismatches": [],
+    "controls_script_did_not_modify_source": true
+  },
+  "limitations": [
+    "Fake inference/GPU causes are injected at gateway boundary; no real OOM, CPU fallback, download or GPU operation was performed.",
+    "Hostile photo case uses a named image reference and controlled fake, not actual model interpretation of a hostile bitmap.",
+    "Business snapshot contains a nonempty manual choice, stored financial decision, authorized intent and confirmed receipt. It does not replace real A/B stop-and-restore evidence.",
+    "Output/context envelope limits were exercised through validator with a mocked resident record; no inference was executed for this boundary.",
+    "Pins/CLI negatives are owned by independent pins-* evidence and are outside this report.",
+    "No global clean verdict or progress state is assigned by this subset."
+  ]
+}

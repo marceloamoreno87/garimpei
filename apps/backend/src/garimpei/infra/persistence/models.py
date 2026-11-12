@@ -3,6 +3,9 @@ import uuid
 from django.db import models
 from django.utils import timezone
 
+from garimpei.infra.persistence.inference_models import InferenceControl as InferenceControl
+from garimpei.infra.persistence.inference_models import InferencePart as InferencePart
+from garimpei.infra.persistence.inference_models import InferenceRequest as InferenceRequest
 from garimpei.infra.persistence.listing_models import CollectionCandidate as CollectionCandidate
 from garimpei.infra.persistence.listing_models import CollectionCycle as CollectionCycle
 from garimpei.infra.persistence.listing_models import CollectionState as CollectionState

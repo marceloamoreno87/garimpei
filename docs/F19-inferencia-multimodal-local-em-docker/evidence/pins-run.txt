@@ -1,0 +1,18 @@
+{"timestamp": "2026-11-12T03:39:01.476108+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+valid_metadata_control ready CLI 0 readiness PASS codes PASS
+lock_absent artifact_mismatch CLI 64 readiness PASS codes FAIL
+lock_invalid_json artifact_mismatch CLI 64 readiness PASS codes FAIL
+model_digest_divergent artifact_mismatch CLI 64 readiness PASS codes FAIL
+server_version_divergent artifact_mismatch CLI 64 readiness PASS codes FAIL
+image_latest_unpinned ready CLI 0 readiness FAIL codes FAIL
+image_divergent ready CLI 0 readiness FAIL codes FAIL
+image_digest_incomplete ready CLI 0 readiness FAIL codes FAIL
+image_pin_absent ready CLI 0 readiness FAIL codes FAIL
+manifest_layers_incomplete ready CLI 0 readiness FAIL codes FAIL
+model_tag_divergent ready CLI 0 readiness FAIL codes FAIL
+weights_missing model_missing CLI 64 readiness PASS codes FAIL
+weights_corrupt model_corrupt CLI 1 readiness PASS codes PASS
+vision_missing artifact_mismatch CLI 64 readiness PASS codes FAIL
+gpu_reservation_absent gpu_unavailable CLI 1 readiness PASS codes FAIL
+prepare_without_download CLI 64
+Evidence /home/marce/.codex/worktrees/6c3f/garimpei/docs/F19-inferencia-multimodal-local-em-docker/evidence/pins-2026-11-12T03-38-57Z.json
