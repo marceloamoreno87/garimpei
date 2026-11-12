@@ -3,7 +3,7 @@ from dataclasses import replace
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from garimpei.domain.listing.geography import Point
+from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM, Point
 from garimpei.domain.listing.listing import Candidate
 from garimpei.domain.listing.ports import ListingUnavailable, Page, SearchContext, SourceFailure
 from garimpei.infra.gateway.listing.marketplace_browser import (
@@ -64,7 +64,7 @@ class FacebookMarketplace:
                 url,
                 SearchFilters(
                     self._origin,
-                    20 if query.modality == "pickup" else 500,
+                    MARKETPLACE_RADIUS_KM,
                     scope.window,
                     all_publication_dates=query.purpose == "research",
                 ),
@@ -188,7 +188,7 @@ class FacebookMarketplace:
                 "source_native_sort": self._native_sort,
                 "source_geography_verified": query.modality == "pickup"
                 and self._context_reason is None,
-                "source_radius_km": 20 if query.modality == "pickup" else 500,
+                "source_radius_km": MARKETPLACE_RADIUS_KM,
             },
         )
 
@@ -224,7 +224,7 @@ class FacebookMarketplace:
             "daysSinceListed": str(max(3, (scope.window.end - scope.window.start).days + 1))
             if scope.window
             else "3",
-            "radius": "20" if query.modality == "pickup" else "500",
+            "radius": str(MARKETPLACE_RADIUS_KM),
             "latitude": str(point.latitude),
             "longitude": str(point.longitude),
             "exact": "true",
@@ -294,9 +294,10 @@ class FacebookMarketplace:
         observed_radius = effective.get("filter_radius_km")
         geo_verified = (
             self._origin is not None
+            and not any(row.get("_garimpei_response_context_unverified") is True for row in rows)
             and isinstance(latitude, (int, float))
             and isinstance(longitude, (int, float))
-            and observed_radius == (20 if query.modality == "pickup" else 500)
+            and observed_radius == MARKETPLACE_RADIUS_KM
             and abs(latitude - self._origin.latitude) <= 0.0001
             and abs(longitude - self._origin.longitude) <= 0.0001
         )
@@ -309,7 +310,9 @@ class FacebookMarketplace:
         )
         if query.modality == "marketplace":
             return None
-        radius = 20 if query.modality == "pickup" else 500
+        if any(row.get("_garimpei_response_context_unverified") is True for row in rows):
+            return "search_geography_unverified"
+        radius = MARKETPLACE_RADIUS_KM
         if effective.get("filter_radius_km") != radius or self._origin is None:
             return "search_geography_unverified"
         latitude, longitude = (

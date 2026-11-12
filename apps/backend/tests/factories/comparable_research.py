@@ -64,7 +64,7 @@ class ControlledResearchSource:
             raise self.failure
         index = int(continuation or "0")
         rows = self.pages[index] if self.pages else ()
-        context = SearchContext(self.verified, -23.55, -46.63, 500, query.term)
+        context = SearchContext(self.verified, -23.55, -46.63, 20, query.term)
         return Page(
             rows,
             str(index + 1) if index + 1 < len(self.pages) else None,
@@ -208,7 +208,7 @@ class ResearchLoopbackSource(ValuationSource):
                 city="São Paulo",
                 state="SP",
                 accuracy_m=None,
-                radius_km=500,
+                radius_km=20,
                 query=parameters["term"],
             ),
         )

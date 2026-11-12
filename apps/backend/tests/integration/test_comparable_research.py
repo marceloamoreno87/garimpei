@@ -63,6 +63,31 @@ manual_values=tuple(sorted(dict(family='playstation5',model='ps5',generation='sl
 """
 
 
+def test_old_geographic_scope_is_superseded_before_research_resumes(
+    research_instance: FoundationInstance,
+) -> None:
+    shell(
+        research_instance,
+        PREPARE
+        + """
+from django.db import transaction
+with transaction.atomic():
+    listing=seed_case('18991')
+    repo.reconcile()
+    row=ComparableInvestigation.objects.get(product_key=KEY, state='pending')
+    assert row.context['radius_km']==20
+    row.scope_key='legacy-500-km-scope'
+    row.context['radius_km']=500
+    row.save(update_fields=['scope_key','context'])
+    assert repo.claim() is None
+    row.refresh_from_db()
+    assert row.state=='superseded' and row.reason=='input_revision_changed'
+    assert ResearchQuery.objects.filter(investigation=row).count()==0
+    transaction.set_rollback(True)
+""",
+    )
+
+
 def test_manual_identity_history_cas_and_new_contradiction(
     research_instance: FoundationInstance,
 ) -> None:

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Literal
 from uuid import uuid4
 
 import pytest
@@ -168,7 +169,7 @@ def test_live_source_search_continuation_and_detail_evidence() -> None:
     assert first.candidates[0].external_id == "101"
     assert second.candidates[0].external_id == "102" and second.continuation is None
     assert first.diagnostic is None and first.candidates[0].evidence.pickup_scope_verified is None
-    assert "radius=500" in browser.calls[0] and "query=PlayStation+5" in browser.calls[0]
+    assert "radius=20" in browser.calls[0] and "query=PlayStation+5" in browser.calls[0]
     browser.detail_rows = ({"_garimpei_unavailable_product_id": "101"}, row)
     with pytest.raises(ListingUnavailable) as unavailable:
         source.detail(scope, "101")
@@ -320,3 +321,97 @@ def test_comparable_research_does_not_inherit_publication_age_filter() -> None:
     browser._patch_filters(observed)
     assert "commerce_search_and_rp_ctime_days" not in observed
     assert observed["filter_radius_km"] == 500
+
+
+@pytest.mark.parametrize("purpose", ["active", "research"])
+def test_marketplace_search_requests_twenty_km_around_registered_cep(
+    purpose: Literal["active", "research"],
+) -> None:
+    from urllib.parse import parse_qs, urlsplit
+
+    from garimpei.domain.listing.listing import Match
+    from garimpei.domain.listing.scope import Search
+
+    class CaptureNavigation(RecordedNavigation):
+        requested_filters: SearchFilters | None = None
+
+        def search(
+            self, url: str, filters: SearchFilters
+        ) -> tuple[tuple[JsonObject, ...], Feed | None]:
+            self.requested_filters = filters
+            return super().search(url, filters)
+
+    browser = CaptureNavigation((Feed((), False, True),), [])
+    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "scope", ())
+    query = Search(
+        Match("product", "playstation 5"), "PlayStation 5", "marketplace", purpose=purpose
+    )
+    source.search(scope, query, None)
+    assert browser.requested_filters is not None
+    assert browser.requested_filters.radius_km == 20
+    assert browser.requested_filters.origin == FixedCep().resolve("01001000")
+    assert parse_qs(urlsplit(browser.calls[0]).query)["radius"] == ["20"]
+
+
+def test_research_does_not_validate_a_saved_five_hundred_km_context() -> None:
+    from garimpei.domain.listing.listing import Match
+    from garimpei.domain.listing.scope import Search
+
+    class SavedRadiusNavigation(RecordedNavigation):
+        def search(
+            self, url: str, filters: SearchFilters
+        ) -> tuple[tuple[JsonObject, ...], Feed | None]:
+            rows, feed = super().search(url, filters)
+            metadata: JsonObject = {
+                "variables": {
+                    "params": {
+                        "browse_request_params": {
+                            "filter_location_latitude": filters.origin.latitude,
+                            "filter_location_longitude": filters.origin.longitude,
+                            "filter_radius_km": 500,
+                        }
+                    }
+                }
+            }
+            return (metadata,) + rows[1:], feed
+
+    browser = SavedRadiusNavigation((Feed((), False, True),), [])
+    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "scope", ())
+    page = source.search(
+        scope,
+        Search(
+            Match("product", "playstation 5"), "PlayStation 5", "marketplace", purpose="research"
+        ),
+        None,
+    )
+    assert page.source_context is not None
+    assert page.source_context.radius_km == 500
+    assert not page.source_context.verified
+
+
+def test_initial_page_matching_radius_does_not_prove_graphql_results() -> None:
+    from garimpei.domain.listing.listing import Match
+    from garimpei.domain.listing.scope import Search
+
+    class InitialOnlyNavigation(RecordedNavigation):
+        def search(
+            self, url: str, filters: SearchFilters
+        ) -> tuple[tuple[JsonObject, ...], Feed | None]:
+            rows, feed = super().search(url, filters)
+            return rows + ({"_garimpei_response_context_unverified": True},), feed
+
+    browser = InitialOnlyNavigation((Feed((), False, True),), [])
+    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "scope", ())
+    page = source.search(
+        scope,
+        Search(
+            Match("product", "playstation 5"), "PlayStation 5", "marketplace", purpose="research"
+        ),
+        None,
+    )
+    assert page.source_context is not None
+    assert page.source_context.radius_km == 20
+    assert not page.source_context.verified

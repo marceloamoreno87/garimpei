@@ -329,7 +329,7 @@ class MarketplaceBrowser:
         feed = self._request_page()
         # Original native metadata is observed evidence. Patched request filters are not proof
         # that the source applied them and must never be spliced into those observations.
-        return rows, feed
+        return rows + ({"_garimpei_response_context_unverified": True},), feed
 
     @staticmethod
     def _query_template(

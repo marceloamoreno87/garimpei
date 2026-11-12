@@ -262,6 +262,9 @@ def test_browser_search_applies_effective_filters_and_uses_server_cursor(tmp_pat
             from garimpei.infra.gateway.listing.relay_parser import browse_parameters
 
             assert browse_parameters(observed_rows) == {"filter_radius_km": 6}
+            assert any(
+                row.get("_garimpei_response_context_unverified") is True for row in observed_rows
+            )
             # Detail navigation must preserve the pending search cursor and native request.
             browser.navigate(f"http://127.0.0.1:{server.server_port}/marketplace/item/101/")
             second = browser.scroll()
