@@ -1,3 +1,5 @@
+**Atualização 2026-11-12T19-32-55Z:** F13 está `done`, ciclo acumulado4, após512 testes, seis gates e prova de continuação real exata. Ver [eval-report-2026-11-12T19-32-55Z.md](eval-report-2026-11-12T19-32-55Z.md). Os registros anteriores abaixo preservam o estado observado antes desta reavaliação.
+
 # Mapa de evidências — F13
 
 Suíte completa: 443 PASS, exit 0, com 440 hashes preservados. A avaliação canônica em eval-report-2026-11-12T15-11-54Z.md registra 19 PASS e um MANUAL. Os probes abaixo detalham cada bullet; fontes fake não substituem a prova real adiada.

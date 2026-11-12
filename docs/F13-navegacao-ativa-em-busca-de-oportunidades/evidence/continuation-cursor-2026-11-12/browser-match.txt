@@ -1,0 +1,11 @@
+### Result
+{
+  "url": "/acompanhamento/",
+  "articles": 14,
+  "title": "Percurso da navegação",
+  "sourceCursorExposed": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({url:location.pathname,articles:document.querySelectorAll("#navigation-progress article").length,title:document.querySelector("#navigation-title")?.textContent,sourceCursorExposed:document.body.textContent.includes("source:")})');
+```

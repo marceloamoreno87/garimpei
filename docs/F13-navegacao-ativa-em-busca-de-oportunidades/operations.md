@@ -1,3 +1,5 @@
+**Atualização 2026-11-12T19-32-55Z:** F13 está `done`, ciclo acumulado4, após512 testes, seis gates e prova de continuação real exata. Ver [eval-report-2026-11-12T19-32-55Z.md](eval-report-2026-11-12T19-32-55Z.md). Os registros anteriores abaixo preservam o estado observado antes desta reavaliação.
+
 # Operação — F13 Navegação ativa
 
 Esta feature usa Python/Django, templates/HTMX, PostgreSQL e Procrastinate. Não há serviço de IA, processamento de fotos F14 ou política F16 nesta entrega. A configuração central continua em `garimpei.config.env` e a composição explícita em `garimpei.main`.
@@ -58,3 +60,16 @@ GARIMPEI_ENV_FILE=/caminho/privado/f13.env ./scripts/stop.sh
 ```
 
 `stop.sh --clean` fica restrito aos ambientes sintéticos próprios descartáveis. Antes de encerrar, feche somente sessões Playwright próprias, confirme propriedade dos processos pelo cwd/manifesto e libere somente o lock da execução. Artefatos públicos ficam nesta pasta; segredos, perfis e diagnósticos privados permanecem fora do versionamento.
+
+
+## Adendo de 12/11/2026 — Cursor nativo e retomada entre jobs
+
+O diagnóstico real limitado encontrou um cursor de 1.674 caracteres fora do alfabeto base64 presumido. O limite anterior de 480 descartava esse valor e produzia continuação numérica dependente da memória do adaptador; o job seguinte perdia esse contexto. O patch `167135f` preserva exatamente cursores opacos ASCII imprimíveis de até 4.096 caracteres, sem trim/truncamento; o campo persistido admite 4.103 incluindo o prefixo interno. O cursor é enviado somente como valor JSON à consulta autenticada reconstruída, sem persistir cookies, token ou corpo autenticado. Recibos continuam usando hash da unidade.
+
+A migration `0017_navigation_cursor` é aditiva. Um checkpoint numérico legado segue a reconstrução existente: limpa a continuação incompatível, conserva recibos e páginas confirmadas e obtém o cursor nativo em nova busca. Não executar reset de observações/eventos/marco nem replay arbitrário para migrar cursores. A reconstrução nativa continua reservando duas páginas e dois timeouts/cadências antes do I/O.
+
+A observação somente leitura de 18:40:44 a 18:44:47 UTC correlacionou uma continuação persistida observada de 2.078 caracteres (2.071 do cursor nativo mais o prefixo interno source:) à chave da próxima unidade e ao recibo exato, revisão2, consumindo duas páginas; o checkpoint passou de 1 para 3 e guardou a próxima continuação persistida de 2.410 caracteres (cursor nativo de 2.403). A comparação da rota pública com SQL estável confirmou14/14 artigos. Ver evidence/continuation-cursor-2026-11-12/real-continuation-proof.json e real-tracking-match.json. Esta evidência complementa as provas anteriores de detalhe e pausa/retomada; não as reescreve.
+
+A primeira janela encontrou suspensão browser_session_closed. A recuperação aconteceu pelo fluxo público F11 (abrir navegador e confirmar a sessão existente), antes da continuação; nenhuma suspensão foi removida por SQL. A prova não abriu um segundo browser da fonte nem enviou mensagem real. A captura de aplicação usa sessão Playwright própria, com rótulos de interesse omitidos depois da verificação.
+
+O teto4.096 é técnico e finito, não garantia universal do tamanho dos cursores da fonte. O fallback numérico legado ainda existe quando a origem não fornece cursor aceito; um cursor futuro maior ou fora desse conjunto não está comprovado pela amostra e pode exigir nova adaptação. Não inferir cobertura integral nem sucesso de continuação a partir de páginas agregadas, falhas ou simples presença de cursor.
