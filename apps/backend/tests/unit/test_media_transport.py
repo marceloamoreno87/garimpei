@@ -76,3 +76,33 @@ def test_parser_ignores_other_listing_and_does_not_claim_absence() -> None:
     assert {p.key for p in found.photos} == {"p", "q"}
     assert extract_gallery({}, True).presence == "unknown"
     assert extract_gallery({"listing_photos": []}, True).presence == "none"
+
+
+def test_primary_and_gallery_fragments_keep_best_same_photo_variant() -> None:
+    from garimpei.infra.gateway.media.gallery_parser import extract_gallery
+
+    row = {
+        "primary_listing_photo": {
+            "id": "same-photo",
+            "image_full_screen": {
+                "uri": "https://a.fbcdn.net/large",
+                "width": 1600,
+                "height": 1200,
+            },
+        },
+        "listing_photos": [
+            {
+                "id": "same-photo",
+                "image": {"uri": "https://a.fbcdn.net/small", "width": 320, "height": 240},
+            },
+            {
+                "id": "additional",
+                "image": {"uri": "https://a.fbcdn.net/add", "width": 1000, "height": 800},
+            },
+        ],
+    }
+    gallery = extract_gallery(row, True)
+    assert len(gallery.photos) == 2
+    assert gallery.photos[0].ordered_variants[0].width == 1600
+    assert gallery.photos[0].ordered_variants[1].width == 320
+    assert gallery.complete
