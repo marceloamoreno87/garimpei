@@ -45,6 +45,7 @@ from tests.factories.media import seed_media_cases, inspect_media_cases
 with connection.cursor() as c:
     c.execute('TRUNCATE runtime_listing, runtime_collectionstate CASCADE')
 cases = seed_media_cases(ORIGIN)
+assert not MediaCapture.objects.get(id=cases['A']['capture']).complete
 runner = build_media_runner()
 for _ in range(3):
     for identity in build_media_repository().due(now()):

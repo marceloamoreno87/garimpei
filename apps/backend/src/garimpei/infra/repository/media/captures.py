@@ -20,7 +20,7 @@ def create_capture(
             "id": uuid4(),
             "observed_at": observation.observed_at,
             "presence": manifest.presence,
-            "complete": manifest.complete,
+            "complete": manifest.complete and manifest.presence == "none",
             "source_complete": manifest.complete,
             "reason": manifest.reason,
             "known_count": manifest.known_count,
@@ -34,7 +34,8 @@ def create_capture(
     if not created:
         return capture
     bounded = manifest.bounded(policy.max_photos)
-    capture.complete, capture.reason = bounded.complete, bounded.reason
+    capture.complete = bounded.complete and manifest.presence == "none"
+    capture.reason = bounded.reason
     capture.source_complete = bounded.complete
     capture.known_count = bounded.known_count
     capture.save(update_fields=["complete", "source_complete", "reason", "known_count"])

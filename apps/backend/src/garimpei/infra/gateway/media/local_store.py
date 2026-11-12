@@ -101,6 +101,7 @@ class LocalMediaStore:
         )
 
     def remove(self, file: MediaFile) -> None:
+        self._ensure_owner()
         self._path(file.key).unlink(missing_ok=True)
         self._path(file.key + ".thumb").unlink(missing_ok=True)
 
