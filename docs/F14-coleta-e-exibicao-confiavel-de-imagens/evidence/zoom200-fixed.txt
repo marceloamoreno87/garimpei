@@ -1,0 +1,9 @@
+### Result
+{
+  "zoom": "2",
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {document.body.style.zoom="2";return {zoom:getComputedStyle(document.body).zoom,overflow:document.documentElement.scrollWidth>innerWidth}}');
+```

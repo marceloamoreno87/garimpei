@@ -198,6 +198,9 @@ def test_browser_search_applies_effective_filters_and_uses_server_cursor(tmp_pat
                         "data": {
                             "listing": {
                                 "id": variables["targetId"],
+                                **(
+                                    {"listing_photos": []} if variables["targetId"] == "102" else {}
+                                ),
                                 "marketplace_listing_title": "PlayStation 5",
                                 "listing_price": {"amount": "2200.00", "currency": "BRL"},
                             }
@@ -285,6 +288,8 @@ def test_browser_search_applies_effective_filters_and_uses_server_cursor(tmp_pat
             assert requests[-1]["targetId"] == "102"
             assert "/marketplace/item/101/" in navigated
             assert "/marketplace/item/102/" not in navigated
+            rows, _ = browser.navigate(base_url + "/marketplace/item/105/")
+            assert "/marketplace/item/105/" in navigated
             rows, _ = browser.navigate(base_url + "/marketplace/item/103/")
             assert any(row.get("id") == "103" and "listing_price" in row for row in rows)
             assert "/marketplace/item/103/" in navigated

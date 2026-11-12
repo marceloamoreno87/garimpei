@@ -58,3 +58,15 @@ Suíte completa: **443 PASS em 1425,39 s (23:45), exit 0**. Os mesmos **440 arqu
 O módulo histórico completo passou com 13 testes tanto no probe quanto no full. Foram usados um ciclo de correção de até três; nenhum commit/push/merge foi criado. A única pendência é E2E-PERCURSO-01, por instrução explícita do usuário. F13 permanece implemented e a orquestração termina manual-pending, sem done/clean.
 
 O laboratório visual e as fixtures descartáveis foram limpos; sessões Playwright próprias encerradas. A instância15087 foi parada normalmente com exit0, preservando banco, perfil e pareamento; a última leitura confirmou alertas desativados. O único manifesto restante é o ambiente próprio preservado em estado stopped. A liberação do lock desta execução consta de evidence/cleanup.json. Nenhum recurso principal foi tocado.
+
+
+## Correção de continuidade — 12/11/2026
+
+A retomada da avaliação revelou 164 falhas continuation_scope_mismatch para 164 primeiras páginas no banco real. Uma busca diagnóstica isolada confirmou cursor nativo de 1.674 caracteres, descartado pelo limite/alfabeto presumidos. Patch `167135f` amplia a preservação opaca limitada e o schema, mantendo o cursor exato, a identidade por hash e o orçamento de reconstrução.
+
+Regressão inicialmente falhou porque o adaptador devolvia "2" em vez do cursor nativo. Após a correção passaram 14 casos unitários e 3 casos PostgreSQL; os seis gates, Django, drift e build passaram. A prova real correlacionada confirmou o recibo da próxima unidade e o acompanhamento14/14. A suíte completa desta correção e o veredito canônico constarão do novo relatório de avaliação; este adendo não declara done por conta própria.
+
+A migration `0017_navigation_cursor` conserva valores legados e históricos. Valores numéricos antigos são reconstruídos sem reabrir eventos. O teto4.096 não prova suporte a todos os cursores futuros; a limitação está no adendo operacional. Nenhum contrato/spec/plano foi relaxado ou editado.
+
+
+A reavaliação final aprovou512 testes e os seis gates, com20 itens PASS e7 ACs verificados. Ver [eval-report-2026-11-12T19-32-55Z.md](eval-report-2026-11-12T19-32-55Z.md); o veredito clean/done pertence a esse relatório. A correção adicional d6e8b4b fortaleceu somente a espera da fixture F07, preservando integralmente os quatro corpos de testes financeiros.

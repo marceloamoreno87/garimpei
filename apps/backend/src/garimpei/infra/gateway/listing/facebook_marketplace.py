@@ -304,7 +304,7 @@ class FacebookMarketplace:
         ]
         if not matches:
             raise SourceFailure("listing_detail_unavailable")
-        row = max(matches, key=lambda item: len(item))
+        row = max(matches, key=lambda item: len(item)) | _verified_media_fields(rows, external_id)
         candidate = listing_from(row, detail=True)
         if candidate is None:
             raise SourceFailure("unverified_identity")
@@ -312,3 +312,19 @@ class FacebookMarketplace:
 
     def close(self) -> None:
         self._browser.close()
+
+
+def _verified_media_fields(rows: tuple["JsonObject", ...], external_id: str) -> "JsonObject":
+    # Marketplace sends the carousel in another fragment for the same verified listing ID.
+    result: JsonObject = {}
+    for row in rows:
+        if row.get("id") != external_id:
+            continue
+        result.update(
+            {
+                key: row[key]
+                for key in ("listing_photos", "primary_listing_photo")
+                if row.get(key) is not None
+            }
+        )
+    return result

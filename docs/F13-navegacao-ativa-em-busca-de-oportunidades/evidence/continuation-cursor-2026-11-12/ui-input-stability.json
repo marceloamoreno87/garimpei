@@ -1,0 +1,362 @@
+{
+  "base": "3ce35d5",
+  "count": 71,
+  "all_unchanged": true,
+  "files": [
+    {
+      "file": "apps/backend/src/garimpei/infra/http/error_handler.py",
+      "sha256": "2553347e6538666ec6adf258e5bfb2e4dde5a1f823f32f02e22d65ec19f607ab",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/health_handler.py",
+      "sha256": "1d05e30845442a79998b2f127a606b65ad915d331ca6b2006b9a961399916872",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/urls.py",
+      "sha256": "4c4f5f68662f735838f8da856437a184bd32778b12e8cdbfa9bbcd20763cc0d6",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/navigation/navigation_handler.py",
+      "sha256": "92e97ee2f518371967d0af332220d0ac573434fd73191327208905af219d6adc",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/navigation/routes.py",
+      "sha256": "60c36ba5bfaff87f5bb46e1c4a98bdbae6a27f2b60e8d1e383c07c03774e3f34",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/inference/inference_handler.py",
+      "sha256": "37f5fa3a3b2f1d7f83c8d9124f24f61c34b2cb6240cb3a56b3e124df9ded3dce",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/inference/routes.py",
+      "sha256": "16d5001f286b54b8dc92fa818391a7457815a0f2b7c5d2ab2e1e7be01717274e",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/integration/presentation.py",
+      "sha256": "a362c4207d8d6faeada9c250ebac737d76ea6fdc0ab7b63d651dcfc823b32fd2",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/integration/integration_handler.py",
+      "sha256": "725c0a7218cff9cd078a0019771e58932e7c4419f6902971d03753c30f07824b",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/integration/context.py",
+      "sha256": "2d544aed78bb438812fe00ff135f39105189c586f55c3ecd978e1d8f8e5d568d",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/integration/routes.py",
+      "sha256": "5871d82cd9a935a074b9456f9da60782a7a845aef50570619a99c27a76e98b14",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/base.html",
+      "sha256": "dbb05c9778c572515c34434014d4931f0b37bf4c46915f74cb5462bd253c087b",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/monitoring/presentation.py",
+      "sha256": "7f0c231df6080de5fa923f575958765c502a95f0358668d3d4bba5d4bd021a3b",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/monitoring/monitoring_handler.py",
+      "sha256": "de2c0e91760840899e9207f227a0a89e939592a25fa1d27250f31f075fbbf8a6",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/monitoring/forms.py",
+      "sha256": "84b44125312ea6b22bf1c52b23062e92a74b74f4793f89fa719f509a689b82d0",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/monitoring/routes.py",
+      "sha256": "8dd2e0770affdf19adbff99b56668040bcf92c6ac07811962b35c90c816cabf0",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/exploration_presentation.py",
+      "sha256": "6e90f996b121071480ce67b379b9a5ca3d52a24fe81ce32601815d2d0c14db0e",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/alert_presentation.py",
+      "sha256": "022c3a0e2943f3cac76de4b34acad25288416490f299ab6bb0e2989d62ace604",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/condition_handler.py",
+      "sha256": "3edff80664c36c326791b7efb26e3c9eb1a7fd7681ff767c64cbacfa31425bc6",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/condition_presentation.py",
+      "sha256": "028a03b490ead582fb8c5b587514a418210504f4f50d55ffc52f20befd738f81",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/exploration_handler.py",
+      "sha256": "6e2fb49479fa97613d4c7e46bb886d3b279ca9aaae22fb9e962ba99f5e94ba80",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/listing/routes.py",
+      "sha256": "4754e6fc2cb8b14f77326186bbbced1027922476405925a9b320324a357ff44d",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/navigation/error.html",
+      "sha256": "973a9229474a3ba237dff51055fe48356fdbaa87eab6d4095afd53819e13d0d1",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/navigation/suggestions.html",
+      "sha256": "6681b90dc5ed50c7fe2ac4991cd737a764c6df446169bc1185c568f326cf881f",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/navigation/progress.html",
+      "sha256": "d070a67d91b018d6099c716a734088eccd6b2cafab123cd6a3b5cf02f2394710",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/inference/error.html",
+      "sha256": "527425b89a1a36f7e54d6fd96b11cf4d2e75766219ba92fc698ee083d59ddddb",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/inference/status.html",
+      "sha256": "93b7e72b53ccf36da5d80a916150aaebaa9567c53143967e029819a77b7415da",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/integration/error.html",
+      "sha256": "be7db89039481ffacd0d6da09c598fe1515dc833bb10ce0404a66d3ad8f660ca",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/integration/whatsapp_status.html",
+      "sha256": "1e8f33d910034bce3148863bf2828a42d679ed4d2b9b788656790748913c75f4",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/integration/facebook_notice.html",
+      "sha256": "c284050fbcde6a4ba530b3526de10fcec4ad09abe6dd14e347c7d6e2d6fccc25",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/integration/settings.html",
+      "sha256": "ec89dea2a6c2578be1c5de96323b3f4dd6faf6d375f06be3877fc8f21daacaec",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/error.html",
+      "sha256": "62a0be4e29527a5a86d82dcdd150f10a249efd69f843199529641db50296e44f",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/csrf_error.html",
+      "sha256": "75ae8d1045e8208abc2f52d8ca588f5225275edaff9a2b2375bb5baa706cfe75",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/tracking.html",
+      "sha256": "b8d25bbf054534f95bd8e649908a31e2f7e07b853e1a09c084f86d0ea296582b",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/region_fields.html",
+      "sha256": "a8f195099f33563a01406e3b66a4d5b8d921d220c0eba39f30073a93bb859a8f",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/layout.html",
+      "sha256": "fe93a328be1bbb0780424c2cafe44b58084012128c676e9054972ce0145de16f",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/cost_fields.html",
+      "sha256": "e67a9b00686f701cada77b5f0b86d954f672f599ea5c5e3334207d0f174e25d0",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/interest_fields.html",
+      "sha256": "2379d8f4078fccfc7d3b2e42e7ae47633d4524057a0d1031fad41464bb21f9fc",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/monitoring/form.html",
+      "sha256": "8119af46da2a3a100bd74e4771058ca38e17808588860bcf026f3b11586de2b5",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/offer_detail.html",
+      "sha256": "8d4ee35ec160888c8ce19a3fe68df20444db8462440f55f777d39f993c6377d6",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/updates.html",
+      "sha256": "71c51898dc003a5b353d76e05306f546c94fcbcc68498cff21e2826f4bc4b753",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/exploration_error.html",
+      "sha256": "14e87c0ba1acaa5c891710d28f9d230602da18cd9d789a078f4e81849551f356",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/financial_values.html",
+      "sha256": "9465808a7eafe2bc5bb3649476b83bbfb87b00e4cbcfa72124f4e37cccf65cb2",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/layout.html",
+      "sha256": "1b87a2320cabfadfa4608b1b2d7a1761006ba3bec5dae0dc953ebbea72db6a20",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/detail.html",
+      "sha256": "54c5a248653af974109841383e4dd9db1d3dc2781bc391614a3fee4a3969c830",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/results.html",
+      "sha256": "ec7ba08135903b50fe30027a45114bec36cd97e9f85e079acdbd9479c1192c82",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/exploration.html",
+      "sha256": "b323323d799e43541aa51886d46a1a3abf73e8f0a1df23476c3f83daafca669e",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/list.html",
+      "sha256": "0eb2fe4c956a94c66856a35ee18baf07f145bf51efd23dbe7fc2dcfd6a04e045",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/templates/listing/alert_diagnostic.html",
+      "sha256": "1a0bb28339ac106acbfdbf3d0c903c671a11b75844c8be9de878fb01b5abdbe1",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/navigation/progress.js",
+      "sha256": "6d2e1a74510a3be0231cd11fbe4f83b6274e7493a829ebb6fcec47ffb2209918",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/inference/status.css",
+      "sha256": "bc2ad528bf99a3355bc51adffda7cb16f9a5d3c87ea2c362d9cf206dcfa9a04e",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/integration/settings.css",
+      "sha256": "496760b57c46359e4bb291896f2379d289ceb0f30c3faa903efe60d69c18f5db",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/vendor/HTMX-LICENSE",
+      "sha256": "d3d2456f76414f2456104660ebd65aff1c04cd7966b942bdabd63f3cdb316a38",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/vendor/htmx.min.js",
+      "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/forms.js",
+      "sha256": "45e363c411dd54e2b9b1603a891a5ef20ce2e867faa34bcd1cd1e952ca442c46",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/bricolagegrotesque-OFL.txt",
+      "sha256": "4b5a7d8f37f5602621c8a8d7358a6a2e71317e6c231c661e15aef0275d3e07ba",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/tokens.css",
+      "sha256": "fad91de2f8d5e2faa6ec207d9fae277e3a5f5fe7e1ca3bb9d6fa9139f9a8461c",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/style.css",
+      "sha256": "dfd799ea2d27958c9534af0a322ceacb92b822e8ebc2db21160a9f01ef9cf513",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/manrope.woff2",
+      "sha256": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/manrope-OFL.txt",
+      "sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/monitoring/bricolage-600.ttf",
+      "sha256": "284891c74c258cff7233962e048d9470bfb9fc326b53dd0bca408789297c3409",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/listing/condition.css",
+      "sha256": "69737f5f0a0eed4068bb117e711545b098049a1628e2b8ab3a012e06cdab7e90",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/listing/condition.js",
+      "sha256": "efe1374be2376f5744b5381434eac7c6ff693aa3e6d26f84ce319ba0e57471af",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/listing/exploration.css",
+      "sha256": "90d9e7cc8e60e5bb7087adcf50a289e3496273aef6585d27948834ba094fa454",
+      "unchanged_from_base": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/http/static/listing/exploration.js",
+      "sha256": "c7acaf509006bcdc04dd72c608d211c1d912a41e3e6707bb4617e203a8d87dfe",
+      "unchanged_from_base": true
+    }
+  ]
+}

@@ -45,6 +45,7 @@ from tests.factories.media import seed_media_cases, inspect_media_cases
 with connection.cursor() as c:
     c.execute('TRUNCATE runtime_listing, runtime_collectionstate CASCADE')
 cases = seed_media_cases(ORIGIN)
+assert not MediaCapture.objects.get(id=cases['A']['capture']).complete
 runner = build_media_runner()
 for _ in range(3):
     for identity in build_media_repository().due(now()):
@@ -163,6 +164,9 @@ for _ in range(3):
     for identity in build_media_repository().due(now()):runner.execute(identity)
 assert queries.gallery(listing.id,new.id).photos[0].width==900
 assert queries.gallery(listing.id,old.id).photos[0].width==1280
+try:build_media_repository().retry(listing.id,UUID(a['capture']),queries.gallery(listing.id,old.id).revision,now())
+except MediaError as exc:assert exc.code=='MEDIA_REVISION_CONFLICT'
+else:raise AssertionError('recovery accepted superseded observation')
 try:queries.gallery(listing.id,old.id,999999)
 except MediaError as exc:assert exc.status==409
 else:raise AssertionError('revision conflict ignored')
@@ -365,3 +369,53 @@ print('known-interest listing absent in search recovered through owned detail bo
 """.replace("SOURCE_URL", repr(source_url)),
         )
     assert any(path == "/detail/11" for path, _ in source.calls)
+
+
+def test_orphan_reconciliation_waits_for_owner_and_preserves_confirmed_versions(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        """
+import os
+repo=build_media_repository();store=build_media_store()
+photo=gallery.photos[0];original=queries.file(UUID(a['listing']),photo.version_id,'original')
+key=f"{a['listing']}/"+'f'*64
+orphan=store._path(key);orphan.write_bytes(b'crash-before-db-commit')
+os.utime(orphan,(0,0))
+job=MediaJob.objects.filter(entry__capture_id=a['capture']).first()
+job.state='running';job.lease_until=now()+timedelta(seconds=60);job.save()
+assert repo.reconcile_orphans(store.reconcile_orphans,now())==0 and orphan.exists()
+job.lease_until=now()-timedelta(seconds=1);job.save()
+assert repo.reconcile_orphans(store.reconcile_orphans,now())>=1 and not orphan.exists()
+assert store.read(original)
+print('orphan reconciliation waits for lease and preserves confirmed originals PASS')
+""",
+    )
+
+
+def test_lower_resolution_refresh_preserves_best_copy_and_backup_provenance(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        """
+entry=MediaEntry.objects.get(capture_id=a['capture'],position=0)
+asset=entry.asset;before=MediaAsset.objects.count()
+entry.candidates=[dict(url=ORIGIN+'/primary-small.jpg',width=320,height=240)];entry.save()
+job=MediaJob.objects.get(entry=entry,kind='download');job.state='pending';job.next_at=now();job.save()
+runner.execute(job.id)
+entry.refresh_from_db()
+assert entry.asset_id==asset.id and entry.reason=='media_lower_quality_preserved'
+assert MediaAsset.objects.count()==before
+assert queries.gallery(UUID(a['listing']),UUID(a['observation'])).state=='partial'
+assert queries.file(UUID(a['listing']),asset.id,'original').sha256==asset.sha256
+repo=build_media_repository()
+for pin in repo.protected_versions('lower-quality-backup',now()):repo.release(pin.reference_id,now())
+print('lower resolution never downgrades original or leaves unbound backup assets PASS')
+""",
+    )

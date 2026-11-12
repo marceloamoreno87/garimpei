@@ -1,0 +1,41 @@
+{
+  "finished_at": "2026-11-12T19:31:46.028733+00:00",
+  "total": 512,
+  "executed_exactly_once_in_final_validation": true,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "partitions": [
+    {
+      "partition": 0,
+      "expected": 305,
+      "exit_code": 0,
+      "elapsed_seconds": 1115.4,
+      "actual": 305,
+      "collection_matches": true,
+      "code_source": "167135f",
+      "fixture_change_applicable": false
+    },
+    {
+      "partition": 1,
+      "expected": 207,
+      "exit_code": 0,
+      "elapsed_seconds": 886.07,
+      "fixture_corrected": true,
+      "actual": 207,
+      "collection_matches": true,
+      "code_source": "d6e8b4b",
+      "fixture_change_applicable": true
+    }
+  ],
+  "final_inputs": 467,
+  "changed_inputs_during_final_shard_retry": [],
+  "intentional_change_between_shards": [
+    "apps/backend/tests/integration/test_profit.py"
+  ],
+  "fixture_consumers_only_in_shard": 1,
+  "production_inputs_identical_between_shards": true,
+  "interrupted_and_failed_trials_excluded": true,
+  "all_passed": true,
+  "own_evaluation_processes_alive": []
+}

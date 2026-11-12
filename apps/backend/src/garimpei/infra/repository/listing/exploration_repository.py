@@ -82,6 +82,7 @@ def semantic(value: object) -> object:
     technical = {
         "id",
         "observation_id",
+        "capture_id",
         "evaluation_id",
         "evaluation_revision",
         "configuration_revision",

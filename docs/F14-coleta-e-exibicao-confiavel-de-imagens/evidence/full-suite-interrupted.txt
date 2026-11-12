@@ -1,0 +1,438 @@
+....................................F......F...F......F..
+=================================== FAILURES ===================================
+___ test_policy_adoption_preserves_history_receipts_and_sets_a_safe_boundary ___
+
+scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/7ae4/garimpei'), private_file=PosixPath('/tmp/pytest-...313/test_policy_adoption_preserves0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_policy_adoption_preserves_history_receipts_and_sets_a_safe_boundary(
+        scenario: Scenario,
+    ) -> None:
+        from tests.factories.runtime import pause_worker, resume_worker
+    
+        instance, _, _ = scenario
+        configure(instance)
+        completed(instance, 1)
+        group = pause_worker(instance)
+        try:
+>           shell(
+                instance,
+                """
+    from django.db import connection
+    from django.db.migrations.executor import MigrationExecutor
+    from django.utils import timezone
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent,CollectionState
+    from garimpei.infra.persistence.alert_models import AlertEventDecision,AlertIntent
+    now=timezone.now()
+    listing=Listing.objects.get(external_id='101')
+    Listing.objects.filter(id=listing.id).update(origin='discovered')
+    event=ListingEvent.objects.filter(listing=listing).first()
+    decision,_=AlertEventDecision.objects.get_or_create(event=event,defaults={'next_action':now})
+    receipt=AlertIntent.objects.create(decision=decision,state='confirmed',next_action=now,created_at=now,
+        confirmed_at=now,confirmed_ack=1,confirmed_message='synthetic-preserved-receipt',body='historical frozen message')
+    before_events=list(ListingEvent.objects.values_list('id','kind','silent'))
+    MigrationExecutor(connection).migrate([('runtime','0011_facebook_browser_profile')])
+    cutover=timezone.now()
+    executor=MigrationExecutor(connection)
+    target=[('runtime','0012_opportunity_collection')]
+    executor.migrate(target)
+    historical_state=executor.loader.project_state(target).apps.get_model('runtime','CollectionState')
+    state=historical_state.objects.get()
+    assert cutover <= state.monitoring_started_at <= timezone.now()
+    assert list(ListingEvent.objects.values_list('id','kind','silent'))==before_events
+    assert Listing.objects.get(id=listing.id).discovery_emitted
+    assert not Listing.objects.get(external_id='102').discovery_emitted
+    # Current ORM includes additive fields from subsequent features.
+    executor=MigrationExecutor(connection)
+    executor.migrate(executor.loader.graph.leaf_nodes())
+    preserved=AlertIntent.objects.get(id=receipt.id)
+    assert preserved.state=='confirmed' and preserved.confirmed_message=='synthetic-preserved-receipt'
+    assert preserved.confirmed_ack==1 and preserved.body=='historical frozen message'
+    """,
+            )
+
+tests/integration/test_collection.py:646: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/7ae4/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-313/test_policy_adoption_preserves0/f04_ea6781cc4b.env'))
+code = "\nfrom django.db import connection\nfrom django.db.migrations.executor import MigrationExecutor\nfrom django.utils im...ge=='synthetic-preserved-receipt'\nassert preserved.confirmed_ack==1 and preserved.body=='historical frozen message'\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 43 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T19:01:01.472717+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_ea6781cc4b", "run_id": "7ef3234f-3262-4ca5-b729-7013fc1c67fa"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.UndefinedColumn: column runtime_listing.media_tracking_active does not exist
+E         LINE 1: SELECT "runtime_listing"."media_tracking_active", "runtime_l...
+E                        ^
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 24, in <module>
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 631, in get
+E             num = len(clone)
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+E             self._fetch_all()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+E             self._result_cache = list(self._iterable_class(self))
+E                                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+E             results = compiler.execute_sql(
+E                 chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+E             )
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.ProgrammingError: column runtime_listing.media_tracking_active does not exist
+E         LINE 1: SELECT "runtime_listing"."media_tracking_active", "runtime_l...
+E                        ^
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...ng_active does not exist\nLINE 1: SELECT "runtime_listing"."media_tracking_active", "runtime_l...\n               ^\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+________________ test_order_snapshots_update_manual_and_history ________________
+
+exploration = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/7ae4/garimpei'), private_file=PosixPath('/tmp/pytest-...3/test_order_snapshots_update_ma0/clock'), value=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_order_snapshots_update_manual_and_history(
+        exploration: tuple[FoundationInstance, ExplorationSource, ControlledClock],
+    ) -> None:
+        i, source, clock = exploration
+        version = latest(i)
+        query = f"?aba=funcionam&q=camera&categoria=cameras&modalidade=retirada&versao={version}"
+        bodies = [i.http("/ofertas/" + query + f"&pagina={p}")[2] for p in (1, 2, 3)]
+        ordered = [key for body in bodies for key in offered(body)]
+        assert [len(offered(body)) for body in bodies] == [20, 20, 12]
+        assert ordered[:4] == [KEYS[k] for k in ("CAM02", "CAM03", "CAM01", "CAM04")]
+        assert len(set(ordered)) == 52
+        assert ordered[39:41] == [KEYS["CAM40"], KEYS["CAM41"]]
+        assert ordered[-1] == KEYS["CAM42"]
+        assert (
+            "R$ 0,00" in bodies[1]
+            and "−R$ 50,00" in bodies[2]
+            and "Estimativa indisponível" in bodies[2]
+        )
+        assert "41–52 de 52" in bodies[2] and "Página 3 de 3" in bodies[2]
+        for query_error in ("?aba=wrong", "?pagina=-1", "?versao=bad", "?categoria=not-known"):
+            assert i.http("/ofertas/" + query_error)[0] == 400
+        assert i.http(f"/ofertas/?versao={uuid4()}")[0] == 410
+        assert i.http(f"/ofertas/{uuid4()}/")[0] == 404
+        detail = i.http(f"/ofertas/{UUID(int=4)}/" + query)[2]
+        for value in (
+            "R$ 1.000,00",
+            "R$ 1.700,00",
+            "R$ 170,00",
+            "R$ 530,00",
+            "R$ 2.400,00",
+        ):
+            assert value in detail, value
+        assert detail.count("Abrir referência</a>") == 5
+        assert "Lucro estimado" in detail
+        assert "frete/transporte" not in detail.lower()
+        assert "Frete ·" not in detail and "exploration-modality" not in bodies[0]
+        assert "Referência de novo indisponível" in i.http(f"/ofertas/{UUID(int=5)}/")[2]
+>       assert "Imagem não disponível" in i.http(f"/ofertas/{UUID(int=42)}/")[2]
+E       assert 'Imagem não disponível' in '\n<!DOCTYPE html>\n<html lang="pt-br">\n    <head>\n        <meta charset="utf-8">\n        <meta name="viewport" con...ne 12 64GB.\n            </dd>\n        </dl>\n    </div>\n</section>\n</main>\n\n    </div>\n\n    </body>\n</html>\n'
+
+tests/integration/test_exploration.py:123: AssertionError
+___ test_exploration_projection_omits_unused_cycle_json_without_lazy_queries ___
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-313/test_exploration_projection_om0')
+
+    def test_exploration_projection_omits_unused_cycle_json_without_lazy_queries(
+        tmp_path: Path,
+    ) -> None:
+        with first_eligibility_scenario(tmp_path, enabled=False) as (instance, _, _, _):
+            group = pause_worker(instance)
+            try:
+>               _checked_shell(
+                    instance,
+                    """
+    from unittest.mock import patch
+    from django.db import connection,transaction
+    from django.db.models import QuerySet
+    from django.test.utils import CaptureQueriesContext
+    from garimpei.main import build_publish_exploration,_listing_clock
+    from garimpei.config.env import load_listing_settings
+    source=build_publish_exploration()._publisher._source
+    now=_listing_clock(load_listing_settings())()
+    def full_cycle_projection(query,*fields):return query
+    with transaction.atomic():
+     with connection.cursor() as cursor:cursor.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
+     with CaptureQueriesContext(connection) as actual_queries:actual=source.snapshot(now)
+     with patch.object(QuerySet,'defer',full_cycle_projection):
+      with CaptureQueriesContext(connection) as baseline_queries:baseline=source.snapshot(now)
+    assert actual==baseline and len(actual)==6
+    assert len(actual_queries)==len(baseline_queries) and len(actual_queries)<=10
+    projection=' '.join(q['sql'].split(' FROM ',1)[0] for q in actual_queries if q['sql'].startswith('SELECT'))
+    for field in ('results','planned','diagnostics','window_evidence','origin'):
+     assert '"runtime_collectioncycle"."'+field+'"' not in projection,field
+    assert not any('FROM "runtime_collectioncycle" WHERE' in q['sql'] for q in actual_queries)
+    print('F08 projection: five unused JSON fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads',len(actual_queries))
+    """,
+                )
+
+tests/integration/test_exploration_configuration_lock.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/7ae4/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-313/test_exploration_projection_om0/wave11b_f16_cb085c2c.env'))
+code = "\nfrom unittest.mock import patch\nfrom django.db import connection,transaction\nfrom django.db.models import QuerySe...fields absent; full Offer tuples identical; bounded same query count and no lazy cycle reloads',len(actual_queries))\n"
+
+    def _checked_shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 43 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T19:03:41.059821+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_cb085c2c", "run_id": "5971a86d-113d-4ff1-9cc1-72a05a578801"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 17, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 17, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_exploration_configuration_lock.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+______ test_populated_schema_migration_and_inventory_resume_after_hundred ______
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-313/test_populated_schema_migratio0')
+
+    def test_populated_schema_migration_and_inventory_resume_after_hundred(tmp_path: Path) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, source, _, channel):
+            group = pause_worker(instance)
+            try:
+                before_calls = list(channel.calls)
+                before_source_calls = list(source.calls)
+>               shell(
+                    instance,
+                    """
+    from django.db import connection
+    from django.db.migrations.executor import MigrationExecutor
+    from garimpei.main import build_first_alert_store,_listing_clock
+    from garimpei.config.env import load_listing_settings
+    now=_listing_clock(load_listing_settings())()
+    old_target=[('runtime','0014_merge_inference_and_financial_snapshot')]
+    executor=MigrationExecutor(connection);executor.migrate(old_target)
+    apps=executor.loader.project_state(old_target).apps
+    L=apps.get_model('runtime','Listing');O=apps.get_model('runtime','ListingObservation');E=apps.get_model('runtime','ListingEvent')
+    D=apps.get_model('runtime','AlertEventDecision');I=apps.get_model('runtime','AlertIntent');A=apps.get_model('runtime','AlertAttempt');M=apps.get_model('runtime','ManualCondition')
+    base=L.objects.select_related('latest').get(external_id='16001');sample=base.latest
+    count=COUNT
+    for index in range(count-6):
+     row=L.objects.create(source='facebook_marketplace',external_id=str(16100+index),canonical_url=f'https://www.facebook.com/marketplace/item/{16100+index}/',first_seen_at=now,origin='initial',ordinal=1)
+     obs=O.objects.create(listing=row,cycle_id=sample.cycle_id,ordinal=1,observed_at=now,price=sample.price,evidence=sample.evidence,coverage=sample.coverage,provenance=sample.provenance)
+     row.latest_id=obs.id;row.save()
+    assert L.objects.count()==count
+    for index,row in enumerate(L.objects.select_related('latest').order_by('id')):
+     event=E.objects.create(listing=row,observation=row.latest,kind='price_decreased' if index==0 else 'discovered',silent=False,occurred_at=now,publication_order=1)
+     decision=D.objects.create(event=event,state='eligible',reason='eligible',financial={'legacy':index},next_action=now)
+     intent=I.objects.create(decision=decision,body=f'LEGACY IMMUTABLE {index}',session='synthetic',account='200@c.us',recipient='100@g.us',financial={'legacy':index},state='confirmed',reason='send_response_ack',next_action=now,created_at=now,confirmed_at=now,confirmed_message=f'legacy-{index}',confirmed_ack=1)
+     A.objects.create(intent=intent,ordinal=1,generation=1,authorized_at=now,state='confirmed',message_id=f'legacy-{index}',ack=1,finished_at=now)
+    M.objects.create(listing=base,choice='good',revision=1,updated_at=now)
+    frozen=list(I.objects.order_by('id').values_list('id','decision_id','body','financial','session','recipient','account','confirmed_message','confirmed_at','confirmed_ack'))
+    observations=list(O.objects.order_by('id').values_list('id','evidence','provenance','listing_id'))
+    assert not connection.introspection.table_names().__contains__('runtime_firstalertidentity')
+    executor=MigrationExecutor(connection);executor.migrate([('runtime','0015_first_eligibility')])
+    from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt,FirstAlertInventory,FirstAlertIdentity
+    from garimpei.infra.persistence.listing_models import ListingObservation,ManualCondition
+    assert list(AlertIntent.objects.order_by('id').values_list('id','decision_id','body','financial','session','recipient','account','confirmed_message','confirmed_at','confirmed_ack'))==frozen
+    assert list(ListingObservation.objects.order_by('id').values_list('id','evidence','provenance','listing_id'))==observations
+    assert AlertAttempt.objects.filter(state='confirmed').count()==101
+    assert ManualCondition.objects.get(listing_id=base.id).choice=='good'
+    store=build_first_alert_store();store.adopt(now)
+    progress=FirstAlertInventory.objects.get();assert not progress.completed and progress.cursor is not None
+    assert FirstAlertIdentity.objects.count()==100
+    from garimpei.main import build_alert_store,build_read_profit,build_read_alert_diagnostic,build_read_listing_changes,_effective_alert_settings,_alert_policy
+    from garimpei.domain.alert.alert import Binding
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.usecase.alert.refresh_first_eligibility_usecase import RefreshFirstEligibilityUseCase
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    assert store.pending(now)==()
+    RefreshFirstEligibilityUseCase(store,build_read_profit(),lambda:now).execute()
+    known=FirstAlertIdentity.objects.first();delivery_store=build_alert_store();binding=Binding('synthetic','100@g.us','200@c.us')
+    assert delivery_store.claim(known.intent_id,binding,now,reconcile=False) is None
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    SendAlertUseCase(delivery_store,gateway,binding,build_read_listing_changes(),lambda:now).execute()
+    cursor=progress.cursor
+    # A fresh repository resumes from committed cursor; no process-local inventory is needed.
+    store=build_first_alert_store();store.adopt(now)
+    progress.refresh_from_db();assert progress.completed
+    assert FirstAlertIdentity.objects.count()==101
+    assert FirstAlertIdentity.objects.filter(intent__state='confirmed').count()==101
+    store.adopt(now)
+    assert AlertIntent.objects.count()==101
+    assert list(AlertIntent.objects.order_by('id').values_list('id','decision_id','body','financial','session','recipient','account','confirmed_message','confirmed_at','confirmed_ack'))==frozen
+    d=build_read_alert_diagnostic().execute(base.id,base.latest_id)
+    assert d.first_alert_state=='confirmed' and d.confirmed_at==now
+    assert d.intent_reference==AlertIntent.objects.get(decision__event__listing_id=base.id).id
+    assert d.history and d.history[0].state=='confirmed'
+    print('MigrationExecutor0014->0015;101 identities;100+1 adoption;original bodies/receipts/choices intact')
+    """.replace("COUNT", str(first_cases()["LEGADO"]["count"])),
+                )
+
+tests/integration/test_first_alert_adoption.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/7ae4/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-313/test_populated_schema_migratio0/wave11b_f16_18b01488.env'))
+code = "\nfrom django.db import connection\nfrom django.db.migrations.executor import MigrationExecutor\nfrom garimpei.main i...nfirmed'\nprint('MigrationExecutor0014->0015;101 identities;100+1 adoption;original bodies/receipts/choices intact')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 43 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T19:05:54.804789+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_18b01488", "run_id": "b95d7a20-a70d-4d9d-a877-99537843b5e0"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.UndefinedColumn: column runtime_listing.media_tracking_active does not exist
+E         LINE 1: SELECT "runtime_listing"."media_tracking_active", "runtime_l...
+E                        ^
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 35, in <module>
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/src/garimpei/infra/repository/alert/first_alert_repository.py", line 44, in adopt
+E             page = tuple(rows.select_related("latest")[:100])
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 386, in __iter__
+E             self._fetch_all()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+E             self._result_cache = list(self._iterable_class(self))
+E                                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+E             results = compiler.execute_sql(
+E                 chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+E             )
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/7ae4/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.ProgrammingError: column runtime_listing.media_tracking_active does not exist
+E         LINE 1: SELECT "runtime_listing"."media_tracking_active", "runtime_l...
+E                        ^
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...ng_active does not exist\nLINE 1: SELECT "runtime_listing"."media_tracking_active", "runtime_l...\n               ^\n').returncode
+
+tests/integration/test_collection.py:85: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities []
+F16 intents [('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('confirmed', 'send_response_ack', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_collection.py::test_policy_adoption_preserves_history_receipts_and_sets_a_safe_boundary
+FAILED tests/integration/test_exploration.py::test_order_snapshots_update_manual_and_history
+FAILED tests/integration/test_exploration_configuration_lock.py::test_exploration_projection_omits_unused_cycle_json_without_lazy_queries
+FAILED tests/integration/test_first_alert_adoption.py::test_populated_schema_migration_and_inventory_resume_after_hundred
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/subprocess.py:2079: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+4 failed, 53 passed in 852.05s (0:14:12)

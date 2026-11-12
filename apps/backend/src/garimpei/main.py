@@ -1243,7 +1243,7 @@ def build_media_store() -> "LocalMediaStore":
     from garimpei.infra.gateway.media.local_store import LocalMediaStore
 
     settings = load_media_settings()
-    return LocalMediaStore(settings.root, settings.policy)
+    return LocalMediaStore(settings.root, settings.policy, settings.environment_id)
 
 
 def build_media_repository() -> "PostgresMediaRepository":
@@ -1285,6 +1285,7 @@ def build_media_handler() -> "MediaHandler":
 
 def _handle_media(job_id: str) -> None:
     build_media_runner().execute(UUID(job_id))
+    _enqueue_media_due(build_media_repository())
 
 
 def reconcile_media() -> None:
@@ -1295,8 +1296,8 @@ def reconcile_media() -> None:
     repository = build_media_repository()
     now = timezone.now()
     repository.backfill(now)
-    for identity in repository.due(now):
-        _enqueue("garimpei.media", "media", 0, job_id=str(identity))
+    repository.reconcile_orphans(build_media_store().reconcile_orphans, now)
+    _enqueue_media_due(repository)
     CleanMediaUseCase(repository, build_media_store(), timezone.now).execute()
 
 
@@ -1339,3 +1340,10 @@ def count_current_media(identities: tuple[UUID, ...]) -> int:
         .distinct()
         .count()
     )
+
+
+def _enqueue_media_due(repository: "PostgresMediaRepository") -> None:
+    from django.utils import timezone
+
+    for identity in repository.due(timezone.now())[:1]:
+        _enqueue("garimpei.media", "media", 0, job_id=str(identity))

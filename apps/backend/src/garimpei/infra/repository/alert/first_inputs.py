@@ -17,6 +17,7 @@ def automatic_signature(listing: Listing) -> str:
         return ""
     evidence = dict(observation.evidence)
     evidence.pop("image_url", None)
+    evidence.pop("media", None)
     evidence.pop("freight", None)
     evidence.pop("freight_cep", None)
     for field in ("title", "description", "condition"):
@@ -64,6 +65,7 @@ def semantic_candidates(raw: object) -> list[dict[str, object]]:
         if isinstance(candidate.get("evidence"), dict):
             evidence = dict(candidate["evidence"])
             evidence.pop("image_url", None)
+            evidence.pop("media", None)
             candidate["evidence"] = evidence
         candidates.append(candidate)
     return sorted(candidates, key=lambda value: str(value.get("listing_id", "")))

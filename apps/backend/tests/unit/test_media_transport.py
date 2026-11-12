@@ -1,5 +1,6 @@
 from datetime import UTC, datetime, timedelta
 from email.utils import format_datetime
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -7,7 +8,7 @@ import pytest
 from garimpei.domain.media.errors import MediaError
 from garimpei.domain.media.policy import MediaPolicy
 from garimpei.infra.gateway.media.image_transport import BoundedImageTransport, source_delay
-from tests.factories.media import generate_corpus, serve_media
+from tests.factories.media import CORPUS, generate_corpus, serve_media
 
 
 def test_real_bytes_best_quality_and_credential_free_transport() -> None:
@@ -76,3 +77,78 @@ def test_parser_ignores_other_listing_and_does_not_claim_absence() -> None:
     assert {p.key for p in found.photos} == {"p", "q"}
     assert extract_gallery({}, True).presence == "unknown"
     assert extract_gallery({"listing_photos": []}, True).presence == "none"
+
+
+def test_primary_and_gallery_fragments_keep_best_same_photo_variant() -> None:
+    from garimpei.infra.gateway.media.gallery_parser import extract_gallery
+
+    row = {
+        "primary_listing_photo": {
+            "id": "same-photo",
+            "image_full_screen": {
+                "uri": "https://a.fbcdn.net/large",
+                "width": 1600,
+                "height": 1200,
+            },
+        },
+        "listing_photos": [
+            {
+                "id": "same-photo",
+                "image": {"uri": "https://a.fbcdn.net/small", "width": 320, "height": 240},
+            },
+            {
+                "id": "additional",
+                "image": {"uri": "https://a.fbcdn.net/add", "width": 1000, "height": 800},
+            },
+        ],
+    }
+    gallery = extract_gallery(row, True)
+    assert len(gallery.photos) == 2
+    assert gallery.photos[0].ordered_variants[0].width == 1600
+    assert gallery.photos[0].ordered_variants[1].width == 320
+    assert gallery.complete
+
+
+def test_cached_detail_requires_recognized_full_gallery_not_only_primary() -> None:
+    from garimpei.infra.gateway.listing.marketplace_browser import _has_listing_gallery
+    from garimpei.infra.gateway.listing.relay_parser import JsonObject
+
+    incomplete: tuple[JsonObject, ...] = (
+        {
+            "id": "1",
+            "primary_listing_photo": {"id": "p", "image": {"uri": "https://a.fbcdn.net/p"}},
+        },
+        {"id": "1", "listing_photos": {}},
+        {"id": "1", "listing_photos": {"edges": []}},
+    )
+    for row in incomplete:
+        assert not _has_listing_gallery((row,), "1")
+    assert _has_listing_gallery(({"id": "1", "listing_photos": []},), "1")
+    assert _has_listing_gallery(({"id": "1", "listing_photos": {"nodes": []}},), "1")
+    assert not _has_listing_gallery(({"id": "2", "listing_photos": []},), "1")
+
+
+def test_media_root_owner_prevents_cross_instance_cleanup_and_read(tmp_path: Path) -> None:
+    from uuid import uuid4
+
+    from garimpei.domain.media.media import MediaClaim, MediaFile
+    from garimpei.infra.gateway.media.image_transport import validate_image
+    from garimpei.infra.gateway.media.local_store import LocalMediaStore
+
+    generate_corpus()
+    content = validate_image(
+        (CORPUS / "primary-large.jpg").read_bytes(), "image/jpeg", MediaPolicy()
+    )
+    claim = MediaClaim(uuid4(), 1, "download", uuid4(), uuid4(), uuid4(), "p", (), 1)
+    first = LocalMediaStore(tmp_path / "media", MediaPolicy(min_free_bytes=0), "environment-a")
+    key = first.put(claim, content)
+    second = LocalMediaStore(first.root, MediaPolicy(min_free_bytes=0), "environment-b")
+    with pytest.raises(MediaError, match="media_storage_owner_conflict"):
+        second.reconcile_orphans(set(), 0)
+    file = MediaFile(uuid4(), key, content.mime, content.sha256, len(content.data))
+    with pytest.raises(MediaError, match="media_storage_owner_conflict"):
+        second.remove(file)
+    with pytest.raises(MediaError, match="media_storage_owner_conflict"):
+        second.read(file)
+    assert first._path(key).read_bytes() == content.data
+    assert not first._path(key).stat().st_mode & 0o077

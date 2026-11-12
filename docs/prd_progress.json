@@ -207,13 +207,13 @@
         "F11",
         "F12"
       ],
-      "status": "implemented",
-      "cycles": 2,
-      "failure_reason": "E2E-PERCURSO-01 MANUAL: busca/detalhe/contexto/retomada e DOM/SQL reais confirmados; continuação exata a partir de cursor não comprovada na observação limitada.",
-      "report_path": "docs/F13-navegacao-ativa-em-busca-de-oportunidades/eval-report-2026-11-12T17-57-33Z.md",
+      "status": "done",
+      "cycles": 4,
+      "failure_reason": null,
+      "report_path": "docs/F13-navegacao-ativa-em-busca-de-oportunidades/eval-report-2026-11-12T19-32-55Z.md",
       "started_at": "2026-11-12T12:10:45.939839+00:00",
-      "updated_at": "2026-11-12T17:57:33.814229Z",
-      "completed_at": null
+      "updated_at": "2026-11-12T19:32:55.995403Z",
+      "completed_at": "2026-11-12T19:32:55.995403Z"
     },
     "F14": {
       "name": "Coleta e exibição confiável de imagens",
@@ -225,11 +225,11 @@
         "F12"
       ],
       "status": "implemented",
-      "cycles": 0,
-      "failure_reason": "Avaliação completa em curso; prova real E2E-FONTE-01 pendente.",
-      "report_path": null,
+      "cycles": 1,
+      "failure_reason": "Ciclo1: assinatura F16 inclui media e overflow UI; fonte real ainda sem captura reconhecida.",
+      "report_path": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-12T19-05-22Z.md",
       "started_at": "2026-11-12T18:30:51.546640+00:00",
-      "updated_at": "2026-11-12T18:56:29.897898+00:00",
+      "updated_at": "2026-11-12T19:05:22.254656+00:00",
       "completed_at": null
     },
     "F15": {

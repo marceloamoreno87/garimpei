@@ -1,0 +1,34 @@
+{
+  "started_at": "2026-11-12T18:35:27.922384+00:00",
+  "search_count": 1,
+  "read_only_business_state": true,
+  "cursor_policy": "only length, validity and sha256; no raw cursor, query, address or session",
+  "stop_exit": 0,
+  "page_info_keys": [
+    [
+      "end_cursor",
+      "has_next_page"
+    ]
+  ],
+  "feeds": [
+    {
+      "listings": 20,
+      "has_next": true,
+      "cursor_present": true,
+      "cursor_length": 1674,
+      "cursor_sha256": "60c54afc05ad67246458f8adc729f41cc9b5a9d5c843a7b4d8a5113eaed577bb",
+      "accepted_by_current_adapter": false,
+      "accepted_charset_unbounded": false,
+      "has_whitespace": false
+    }
+  ],
+  "duration_seconds": 10.3,
+  "page": {
+    "candidate_count": 20,
+    "continuation_kind": "numeric",
+    "diagnostic": null,
+    "window_proof": null
+  },
+  "restore_exit": 0,
+  "finished_at": "2026-11-12T18:35:44.238151+00:00"
+}
