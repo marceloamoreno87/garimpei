@@ -1,0 +1,59 @@
+{
+  "audited_at": "2026-11-12T20:51:43.062395+00:00",
+  "scope": "Existing evidence only; no browser, source request, service, or database action",
+  "source_files": [
+    {
+      "path": "real-media-manifest.json",
+      "sha256": "cf373d24336656952ad9e62b2e8096bccc792b9e3479fd1966016cb37f63653a"
+    },
+    {
+      "path": "real-media-check.json",
+      "sha256": "bea95e73dbd55a6fe793b975cefff8a2aa12fb54809eec9bff46434a47ad195b"
+    },
+    {
+      "path": "real-source-quality-summary.json",
+      "sha256": "f1ee9b9c31cc202147274fc2796c2d956007f2e13558b9a8d5f7b7b943c46441"
+    },
+    {
+      "path": "real-source-cli-summary.json",
+      "sha256": "91df46ca535c07499968f6c8e29e4bf9e0384221af8b37d7ed4c05f3b5b1b951"
+    }
+  ],
+  "real_samples": 2,
+  "real_photos": 13,
+  "photos_with_multiple_offered_dimensions": 0,
+  "received_preserved_hash_pairs_match": true,
+  "native_thumbnail_natural_dimensions": [
+    735,
+    960
+  ],
+  "native_main_natural_dimensions": [
+    735,
+    960
+  ],
+  "same_uri_digest_present": true,
+  "prior_private_probe_summaries": [
+    {
+      "artifact": "f14-source-quality-sanitized.json",
+      "sha256": "84f1d73cf86bed11566650a0fe9e0594a3db982b8bbebe1758d260ed86a3dd31",
+      "photo_count": 10,
+      "photos_with_multiple_source_dimensions": 0
+    },
+    {
+      "artifact": "f14-source-quality-v2-sanitized.json",
+      "sha256": "20e6187ebf144de9116889ffc27ee729c26e4cc9a38c27cca6ce45038158ac63",
+      "photo_count": 10,
+      "photos_with_multiple_source_dimensions": 0
+    },
+    {
+      "artifact": "f14-source-quality-v3-sanitized.json",
+      "sha256": "67f82059b494121d831bde56a1b670672308363db217a937d6f4b739116c791b",
+      "photo_count": 10,
+      "photos_with_multiple_source_dimensions": 0
+    }
+  ],
+  "E2E-FONTE-01": "BLOCKED",
+  "canonical_report_unchanged": "eval-report-2026-11-12T20-12-37Z.md",
+  "full_suite_rerun": false,
+  "feature_completed": false
+}
