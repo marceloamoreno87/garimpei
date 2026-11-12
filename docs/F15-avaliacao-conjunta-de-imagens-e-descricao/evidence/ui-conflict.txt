@@ -1,0 +1,10 @@
+### Result
+{
+  "text": "Avaliação conjunta de texto e fotos\n\nDefeito declarado ou dano relevante identificado nas evidências\n\nResultado controlado de avaliação; não é uma execução do modelo real.\n\nAparência avaliada nas fotos disponíveis. O funcionamento interno, as portas e as partes não mostradas precisam de teste presencial.\n\nSua classificação foi mantida; a avaliação automática aponta uma divergência.\n\nDeclaração do vendedor\n\nO aparelho funciona perfeitamente.\n\nDescrição do anúncio\nAparência e evidências\n\nSinal visual do controle sintético\n\nFoto 1 da avaliação\nLimitações e verificações presenciais\nBateria e portas precisam de teste presencial\n\nCobertura: 1 de 1 fotos examinadas.\n\nResultado registrado em 12/11/2026 21:48:12 UTC. Perfil alvo de teste · sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04. Revisão 2.\n\nAnálise anterior conservada no histórico: 6ebd736d-ee2d-4620-97c7-bc694a231dae. Ela não substitui a avaliação desta entrada.",
+  "manual": "Funciona bem\n\nSua classificação manual\n\nA informação do anúncio diverge da sua classificação\n\nSua escolha continua ativa. Observação vigente: 01/01/2026 12:02:02 UTC.\n\nCorrigir sua classificação\nVer em Funcionam bem",
+  "overflow": false
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => {const s=document.querySelector(".condition-assessment");s.scrollIntoView();return {text:s.innerText,manual:document.querySelector(".condition-summary")?.innerText,overflow:document.documentElement.scrollWidth>innerWidth}}');
+```

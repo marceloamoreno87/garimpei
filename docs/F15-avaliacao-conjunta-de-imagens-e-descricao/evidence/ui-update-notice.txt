@@ -1,0 +1,28 @@
+### Result
+{
+  "before": {
+    "url": "/ofertas/?aba=incerta&q=Notebook&categoria=&pagina=1&versao=30c1de55-ee40-4696-b4b3-683bd44967e1",
+    "focus": "exploration-search",
+    "order": [
+      "8ae381ac-c740-4f28-9795-8487429e30c5"
+    ],
+    "rows": [
+      "Condição não confirmada\n\nAguardando análise das fotos\n\nNotebook Dell\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nHistórico de alertas indisponível; envio suspenso\n\nConferir detalhes\nde Notebook Dell"
+    ]
+  },
+  "after": {
+    "url": "/ofertas/?aba=incerta&q=Notebook&categoria=&pagina=1&versao=30c1de55-ee40-4696-b4b3-683bd44967e1",
+    "focus": "exploration-search",
+    "order": [
+      "8ae381ac-c740-4f28-9795-8487429e30c5"
+    ],
+    "rows": [
+      "Condição não confirmada\n\nAguardando análise das fotos\n\nNotebook Dell\nPreço de compra\nR$ 1.000,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível\n\nHistórico de alertas indisponível; envio suspenso\n\nConferir detalhes\nde Notebook Dell"
+    ]
+  },
+  "notice": "Há atualizações\n\nSeus resultados continuam como estavam até você atualizar.\n\nAtualizar lista"
+}
+### Ran Playwright code
+```js
+await page.evaluate('async () => {const capture=()=>({url:location.pathname+location.search,focus:document.activeElement.id,order:[...document.querySelectorAll("[data-offer-id]")].map(e=>e.dataset.offerId),rows:[...document.querySelectorAll("[data-offer-id]")].map(e=>e.innerText)});const before=capture();document.body.dispatchEvent(new Event("exploration-poll",{bubbles:true}));for(let i=0;i<30;i++){if(document.querySelector("#updates")?.innerText.includes("Há atualizações"))break;await new Promise(r=>setTimeout(r,100))};return {before,after:capture(),notice:document.querySelector("#updates")?.innerText}}');
+```
