@@ -9,6 +9,7 @@ import subprocess
 import time
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import cast
 from uuid import uuid4
 
 import psutil
@@ -81,8 +82,13 @@ def instances(directory: Path) -> list[FoundationInstance]:
 
 def lifecycle(directory: Path, start: bool) -> None:
     if not start:
+        # An absent marker is acceptable only after verifying this owned lab has
+        # no orphaned processes, containers, networks or volumes.
+        inspect(directory)
         _resume_owned(directory)
     for instance in instances(directory):
+        if not start and not (instance.config.directory / "manifest.json").exists():
+            continue
         result = instance.command(
             "./scripts/init.sh" if start else "./scripts/stop.sh",
             "--disposable" if start else "--clean",
@@ -99,21 +105,10 @@ def inspect(directory: Path) -> dict[str, object]:
         manifest_file = instance.config.directory / "manifest.json"
         manifest = instance.manifest if manifest_file.exists() else None
         live = _owned_processes(instance)
-        containers = subprocess.run(
-            [
-                "docker",
-                "ps",
-                "-a",
-                "--filter",
-                f"label=com.docker.compose.project=garimpei-{instance.config.environment_id}",
-                "--format",
-                "{{.ID}}",
-            ],
-            capture_output=True,
-            text=True,
-            check=True,
-        ).stdout.splitlines()
-        if manifest is None and (live or containers):
+        containers = _owned_docker_resources(instance, "container")
+        networks = _owned_docker_resources(instance, "network")
+        volumes = _owned_docker_resources(instance, "volume")
+        if manifest is None and (live or containers or networks or volumes):
             raise RuntimeError("Owned resources remain without a lifecycle manifest")
         inventory.append(
             {
@@ -123,6 +118,8 @@ def inspect(directory: Path) -> dict[str, object]:
                 "ports": manifest["ports"] if manifest else {},
                 "live_processes": live,
                 "owned_containers": len(containers),
+                "owned_networks": len(networks),
+                "owned_volumes": len(volumes),
             }
         )
     result: dict[str, object] = {
@@ -136,6 +133,23 @@ def inspect(directory: Path) -> dict[str, object]:
     }
     (directory / "fixture-manifest.json").write_text(json.dumps(result, indent=2) + "\n")
     return result
+
+
+def _owned_docker_resources(instance: FoundationInstance, kind: str) -> list[str]:
+    operation = ["ps", "-a"] if kind == "container" else [kind, "ls"]
+    return subprocess.run(
+        [
+            "docker",
+            *operation,
+            "--filter",
+            f"label=com.docker.compose.project=garimpei-{instance.config.environment_id}",
+            "--format",
+            "{{.Name}}" if kind == "volume" else "{{.ID}}",
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.splitlines()
 
 
 def _owned_processes(instance: FoundationInstance) -> list[int]:
@@ -239,7 +253,6 @@ def calibrate(directory: Path) -> None:
     from concurrent.futures import ThreadPoolExecutor
 
     from tests.factories.operations_lab_calibration import measure_new_stages
-    from tests.factories.operations_probe import measure_adapters
 
     source, target = instances(directory)
     if (
@@ -249,8 +262,9 @@ def calibrate(directory: Path) -> None:
         raise ValueError(
             "Calibration requires the owned backup scenario and retained fake provider history"
         )
+    inspect(directory)
     with ThreadPoolExecutor(max_workers=2) as pool:
-        adapters = pool.submit(measure_adapters, source)
+        adapters = pool.submit(_measure_adapter_controls, directory, source)
         stages = pool.submit(measure_new_stages, directory, source, target)
         measurements, new_stages = adapters.result(), stages.result()
     result = {
@@ -268,8 +282,40 @@ def calibrate(directory: Path) -> None:
             "full fault CLI matrix is not yet implemented; real enablement remains blocked"
         ],
         "operational_enablement": False,
+        "profile_confirmed": False,
     }
     (directory / "calibration.json").write_text(json.dumps(result, indent=2) + "\n")
+
+
+def _measure_adapter_controls(
+    directory: Path, source: FoundationInstance
+) -> list[dict[str, object]]:
+    output = directory / "adapter-measurements.json"
+    code = (
+        "import json;from pathlib import Path;"
+        "from tests.factories.operations_probe import measure_adapters;"
+        "from tests.factories.runtime import FoundationInstance;"
+        f"source=FoundationInstance(Path({str(source.root)!r}),Path({str(source.private_file)!r}));"
+        f"Path({str(output)!r}).write_text(json.dumps(measure_adapters(source),indent=2)+'\\n')"
+    )
+    # Five timeouts at the three adapter boundaries exceed shell()'s 90s default.
+    result = source.command(
+        "uv",
+        "run",
+        "--project",
+        "apps/backend",
+        "--frozen",
+        "--no-sync",
+        "python",
+        "apps/backend/manage.py",
+        "shell",
+        "-c",
+        code,
+        timeout=600,
+    )
+    if result.returncode:
+        raise RuntimeError(result.stdout + result.stderr)
+    return cast(list[dict[str, object]], json.loads(output.read_text()))
 
 
 def main() -> None:

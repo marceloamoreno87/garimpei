@@ -35,6 +35,12 @@ def measure_new_stages(
             output.write(
                 f"GARIMPEI_RECOVERY_EVIDENCE_FIXTURE_URL={evidence_url}\nGARIMPEI_ALERT_FIXTURE_URL={channel_url}\nGARIMPEI_WAHA_SESSION=synthetic\nGARIMPEI_WAHA_ACCOUNT=200@c.us\nGARIMPEI_WAHA_RECIPIENT=100@g.us\n"
             )
+        # Each repetition cleans its destination in finally; only the original
+        # started destination needs a cleanup before entering the first turn.
+        if (target.config.directory / "manifest.json").exists():
+            stopped = target.command("./scripts/stop.sh", "--clean", timeout=180)
+            if stopped.returncode:
+                raise RuntimeError(stopped.stdout + stopped.stderr)
         for repetition in range(1, 6):
             rows.append(_repetition(directory, source, target, proof, repetition))
         if any(method == "POST" for method, _ in channel.calls):
@@ -62,9 +68,6 @@ def _repetition(
     _scan_private_inputs(directory, source, selected)
     proof.clear()
     proof.update(cast(dict[str, object], data["proof"]))
-    stopped = target.command("./scripts/stop.sh", "--clean", timeout=180)
-    if stopped.returncode:
-        raise RuntimeError(stopped.stdout + stopped.stderr)
     started = time.monotonic()
     ready = target.command("./scripts/init.sh", "--disposable", timeout=180)
     if ready.returncode:
