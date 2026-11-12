@@ -4,12 +4,14 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from uuid import UUID, uuid4
 
+from django.db import transaction
 from django.db.models import F
 from django.utils import timezone
 
 from garimpei.domain.operations.download import ArchiveDownload
 from garimpei.domain.operations.errors import OperationsError
 from garimpei.domain.operations.limits import PROFILE
+from garimpei.domain.operations.ports import ProgressRecorder
 from garimpei.infra.gateway.operations.archive_gateway import (
     ArchiveGateway,
     ArchiveInvalid,
@@ -26,6 +28,7 @@ from garimpei.infra.persistence.operations_models import (
     BackupSchedule,
     RecoveryBarrier,
 )
+from garimpei.infra.repository.operations.interrupted import recover_interrupted
 from garimpei.infra.repository.operations.maintenance_lock import maintenance_lock
 from garimpei.infra.repository.operations.retention import prune_operations
 
@@ -38,13 +41,16 @@ class PostgresBackupRepository:
         snapshot: BusinessSnapshotGateway,
         restore: "RestoreBackupGateway",
         recovery: "VerifyRecoveryGateway | None" = None,
+        progress: ProgressRecorder | None = None,
     ) -> None:
         self._installation, self._archives = installation, archives
         self._snapshot, self._restore = snapshot, restore
         self._recovery = recovery
+        self._progress = progress
 
     def create(self, *, only_due: bool = False) -> UUID | None:
         with maintenance_lock():
+            recover_interrupted(self._installation, self._archives, self._progress)
             schedule, _ = BackupSchedule.objects.get_or_create(installation=self._installation)
             now = timezone.now()
             if only_due and not _is_due(schedule, now):
@@ -84,14 +90,7 @@ class PostgresBackupRepository:
                 "access_recovery": "Facebook and WhatsApp access must be recovered separately",
             }
             path = self._archives.write("completed", str(record.id), metadata, files)
-            self._complete(record, path, {"counts": counts}, moment)
-            assert record.finished_at is not None
-            schedule.last_success_at, schedule.next_due_at = (
-                record.finished_at,
-                record.finished_at + timedelta(days=1),
-            )
-            schedule.failures, schedule.revision = 0, schedule.revision + 1
-            schedule.save()
+            self._commit_archive(record, schedule, path, counts, moment)
             self._retain()
             return record.id
         except (ArchiveInvalid, OSError, ValueError):
@@ -101,8 +100,31 @@ class PostgresBackupRepository:
             if captured is not None:
                 captured.close()
 
+    def _commit_archive(
+        self,
+        record: BackupRecord,
+        schedule: BackupSchedule,
+        path: Path,
+        counts: dict[str, int],
+        moment: datetime,
+    ) -> None:
+        with transaction.atomic():
+            self._complete(record, path, {"counts": counts}, moment)
+            assert record.finished_at is not None
+            schedule.last_success_at, schedule.next_due_at = (
+                record.finished_at,
+                record.finished_at + timedelta(days=1),
+            )
+            schedule.failures, schedule.revision = 0, schedule.revision + 1
+            schedule.save()
+            if self._progress:
+                self._progress.confirm(
+                    "maintenance", "automatic-backup", 1, str(record.id), record.finished_at
+                )
+
     def export(self, identity: UUID, request_id: UUID) -> UUID:
         with maintenance_lock():
+            recover_interrupted(self._installation, self._archives, self._progress)
             existing = BackupRecord.objects.filter(
                 installation=self._installation, request_id=request_id
             ).first()
@@ -151,14 +173,15 @@ class PostgresBackupRepository:
         record.scope, record.snapshot_at = scope, snapshot_at
         record.save()
 
-    @staticmethod
-    def _failed(record: BackupRecord, schedule: BackupSchedule) -> None:
+    def _failed(self, record: BackupRecord, schedule: BackupSchedule) -> None:
         now = timezone.now()
         record.state, record.reason, record.finished_at = "failed", "backup_creation_failed", now
         record.save()
         schedule.failures += 1
         schedule.last_failure_at = now
         schedule.save()
+        if self._progress:
+            self._progress.failure("maintenance", "automatic-backup", 1, record.reason, now)
 
     def _retain(self) -> None:
         rows = list(
@@ -175,6 +198,7 @@ class PostgresBackupRepository:
 
     def prune(self) -> dict[str, int]:
         with maintenance_lock():
+            recover_interrupted(self._installation, self._archives, self._progress)
             self._retain()
             return prune_operations(self._installation, self._archives)
 

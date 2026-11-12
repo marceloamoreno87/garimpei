@@ -49,3 +49,28 @@ assert client.get(f'/acompanhamento/exportacoes/{uuid4()}/arquivo/').status_code
 catalog=client.get('/acompanhamento/backups/');assert catalog.status_code==200 and b'Exportar esta' in catalog.content
 """,
     )
+
+
+def test_configuration_read_failure_preserves_submitted_edit_and_active_state(
+    operational_instance: FoundationInstance,
+) -> None:
+    shell(
+        operational_instance,
+        """
+from unittest.mock import patch
+from django.test import Client
+from garimpei.domain.monitoring.errors import ConfigurationReadFailed
+from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration
+client=Client(enforce_csrf_checks=True,HTTP_HOST='127.0.0.1')
+assert client.get('/configuracoes/').status_code==200
+token=client.cookies['csrftoken'].value
+before=list(MonitoringConfiguration.objects.values())
+with patch('garimpei.infra.queries.monitoring.postgres_queries.PostgresMonitoringQueries.read_form',side_effect=ConfigurationReadFailed()):
+ first=client.get('/acompanhamento/')
+ assert first.status_code==503 and b'Prepare seu garimpo' not in first.content
+ response=client.post('/configuracoes/',{'csrfmiddlewaretoken':token,'revision':'1','cep':'22222-222','shipping_estimate':'123,45','resale_fee_percent':'12,34','product_names[]':['Produto de entrada preservado']})
+ assert response.status_code==503 and b'22222-222' in response.content and b'12,34' in response.content
+ assert b'Produto de entrada preservado' in response.content and b'Gravado' not in response.content
+assert list(MonitoringConfiguration.objects.values())==before
+""",
+    )

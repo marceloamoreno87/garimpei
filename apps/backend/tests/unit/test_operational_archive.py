@@ -1,4 +1,5 @@
 import io
+import json
 import tarfile
 from pathlib import Path
 
@@ -85,3 +86,68 @@ def test_signed_media_access_is_excluded_while_version_and_hash_remain() -> None
         "sha256": "a" * 64,
     }
     assert "synthetic-canary" not in str(sanitized)
+
+
+@pytest.mark.parametrize("corruption", ["truncated", "hash", "version", "duplicate", "symlink"])
+def test_archive_rejects_isolated_corruptions(tmp_path: Path, corruption: str) -> None:
+    gateway = ArchiveGateway(tmp_path, reserve_bytes=0, budget_bytes=1024 * 1024)
+    path = gateway.write(
+        "completed",
+        "00000000-0000-4000-8000-000000000017",
+        {"format_version": 1},
+        {"records.jsonl": b"{}\n"},
+    )
+    manifest, files = gateway.read(path)
+    damaged = tmp_path / "damaged.tar.gz"
+    if corruption == "truncated":
+        damaged.write_bytes(path.read_bytes()[:40])
+    else:
+        if corruption == "version":
+            manifest["format_version"] = 999
+        if corruption == "hash":
+            files["records.jsonl"] = b"altered"
+        with tarfile.open(damaged, "w:gz") as archive:
+            for name, data in files.items():
+                member = tarfile.TarInfo(name)
+                member.size = len(data)
+                archive.addfile(member, io.BytesIO(data))
+                if corruption == "duplicate":
+                    archive.addfile(member, io.BytesIO(data))
+            data = json.dumps(manifest).encode()
+            member = tarfile.TarInfo("manifest.json")
+            member.size = len(data)
+            archive.addfile(member, io.BytesIO(data))
+            if corruption == "symlink":
+                member = tarfile.TarInfo("link.jsonl")
+                member.type, member.linkname = tarfile.SYMTYPE, "../outside"
+                archive.addfile(member)
+    with pytest.raises(ArchiveInvalid):
+        gateway.read(damaged)
+    assert not (tmp_path.parent / "outside").exists()
+    assert gateway.read(path)[1] == {"records.jsonl": b"{}\n"}
+
+
+def test_interrupted_export_keeps_exact_source_and_removes_partial(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from garimpei.infra.gateway.operations.archive_gateway import copy_archive
+
+    gateway = ArchiveGateway(tmp_path, reserve_bytes=0, budget_bytes=1024 * 1024)
+    path = gateway.write(
+        "completed",
+        "00000000-0000-4000-8000-000000000017",
+        {"format_version": 1},
+        {"records.jsonl": b"{}\n"},
+    )
+    before = path.read_bytes()
+
+    def interrupt(reader: io.BufferedReader, output: io.BufferedWriter, started: float) -> None:
+        output.write(reader.read(16))
+        raise OSError("controlled interrupted export")
+
+    monkeypatch.setattr("garimpei.infra.gateway.operations.archive_gateway._copy_bytes", interrupt)
+    with pytest.raises(OSError):
+        copy_archive(gateway, path, "00000000-0000-4000-8000-000000000018")
+    assert path.read_bytes() == before
+    assert not tuple((tmp_path / "exports").iterdir())
+    assert not tuple((tmp_path / "partial").iterdir())

@@ -1154,7 +1154,12 @@ def build_backup_repository() -> "PostgresBackupRepository":
     )
     restore = RestoreBackupGateway(config, settings.recovery_file, archive, snapshot)
     return PostgresBackupRepository(
-        settings.environment_id, archive, snapshot, restore, build_verify_recovery()
+        settings.environment_id,
+        archive,
+        snapshot,
+        restore,
+        build_verify_recovery(),
+        build_operational_progress(),
     )
 
 

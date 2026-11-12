@@ -48,6 +48,8 @@ class ArchiveGateway:
             directory.chmod(0o700)
 
     def _verify_owner(self) -> None:
+        if self.root.is_symlink():
+            raise ArchiveInvalid("archive_directory_invalid")
         marker = self.root / ".garimpei-backup-owner"
         if marker.exists():
             if marker.is_symlink() or marker.read_text() != self._owner:
@@ -109,7 +111,7 @@ class ArchiveGateway:
     def read(self, path: Path) -> tuple[dict[str, object], dict[str, bytes]]:
         try:
             return self._read_archive(path)
-        except (OSError, tarfile.TarError, ValueError, UnicodeError, KeyError, TypeError):
+        except (OSError, EOFError, tarfile.TarError, ValueError, UnicodeError, KeyError, TypeError):
             raise ArchiveInvalid("archive_invalid") from None
 
     def _read_archive(self, path: Path) -> tuple[dict[str, object], dict[str, bytes]]:
@@ -146,9 +148,20 @@ class ArchiveGateway:
         if parts[1] != str(UUID(identity)) + ".tar.gz":
             raise ArchiveInvalid("archive_key_invalid")
         path = self.root / key
-        if path.resolve().parent != (self.root / parts[0]).resolve() or path.is_symlink():
+        if self.root.is_symlink() or path.parent.is_symlink() or path.is_symlink():
             raise ArchiveInvalid("archive_key_invalid")
         return path
+
+    def discard_unpublished(self, identity: UUID, kind: str) -> None:
+        if not self.root.exists():
+            return
+        self._verify_owner()
+        directory = "completed" if kind == "backup" else "exports"
+        self.resolve(f"{directory}/{identity}.tar.gz").unlink(missing_ok=True)
+        partial = self.root / "partial" / f"{identity}.tar.gz"
+        if partial.parent.is_symlink() or partial.is_symlink():
+            raise ArchiveInvalid("archive_directory_invalid")
+        partial.unlink(missing_ok=True)
 
 
 def _mapping(value: object) -> dict[str, object]:

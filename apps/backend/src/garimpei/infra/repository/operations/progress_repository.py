@@ -8,6 +8,7 @@ from django.db import transaction
 from garimpei.domain.operations.errors import OperationsError
 from garimpei.domain.operations.progress import OperationalProgress, ProgressConflict
 from garimpei.infra.persistence.operations_models import (
+    BackupSchedule,
     OperationalDiagnostic,
     OperationalUnit,
     RecoveryBarrier,
@@ -103,6 +104,10 @@ class PostgresOperationalRepository:
             OperationalDiagnostic.objects.create(
                 id=uuid4(), unit=row, reason="explicit_resume", created_at=self._clock()
             )
+            if row.stage == "maintenance" and row.scope == "automatic-backup":
+                BackupSchedule.objects.filter(installation=self._installation).update(
+                    failures=0, last_failure_at=None, next_due_at=self._clock()
+                )
 
 
 def restore_progress(row: OperationalUnit) -> OperationalProgress:

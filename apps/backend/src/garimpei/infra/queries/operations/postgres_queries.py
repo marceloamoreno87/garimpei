@@ -50,7 +50,7 @@ DEFINITIONS = {
     ),
     "confirmed": (
         "Envio confirmado",
-        "Recibo aceito pelo servidor; não comprova entrega ou leitura.",
+        "Identidades do recorte com recibo aceito pelo servidor no histórico; não comprova entrega ou leitura.",
     ),
 }
 
@@ -172,12 +172,14 @@ class PostgresOperationalQueries:
             "with_sample": len(sampled),
             "estimated": len(estimated),
             "eligible": len(eligible),
-            "confirmed": AlertIntent.objects.filter(state="confirmed").count(),
+            "confirmed": _confirmed(identities),
         }
 
     def _stages(self, now: datetime) -> list[dict[str, object]]:
-        rows = OperationalUnit.objects.filter(installation=self._installation).order_by(
-            "stage", "key"
+        rows = (
+            OperationalUnit.objects.filter(installation=self._installation)
+            .order_by("stage", "key", "-revision")
+            .distinct("stage", "key")
         )
         stages = [_unit_view(row, now) for row in rows]
         known = {str(item["stage"]) for item in stages}
@@ -250,6 +252,17 @@ def _estimated(
         ):
             result.add(row.listing_id)
     return result
+
+
+def _confirmed(identities: tuple[UUID, ...]) -> int:
+    receipts = AlertIntent.objects.filter(state="confirmed")
+    first = receipts.filter(first_decision__identity__listing_id__in=identities).values_list(
+        "first_decision__identity__listing_id", flat=True
+    )
+    reductions = receipts.filter(decision__event__listing_id__in=identities).values_list(
+        "decision__event__listing_id", flat=True
+    )
+    return len(set(first) | set(reductions))
 
 
 def _unit_view(row: OperationalUnit, now: datetime) -> dict[str, object]:
