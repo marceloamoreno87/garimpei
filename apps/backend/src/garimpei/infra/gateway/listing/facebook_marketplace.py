@@ -1,5 +1,4 @@
 import logging
-import re
 from dataclasses import replace
 from datetime import datetime
 from typing import TYPE_CHECKING
@@ -11,6 +10,7 @@ from garimpei.infra.gateway.listing.marketplace_browser import (
     MarketplaceContinuation,
     MarketplaceNavigation,
     SearchFilters,
+    valid_source_cursor,
 )
 
 if TYPE_CHECKING:
@@ -83,7 +83,7 @@ class FacebookMarketplace:
         return self._page(feed, query, scope)
 
     def _resume(self, scope: Scope, query: Search, cursor: str) -> Page:
-        if not re.fullmatch(r"[A-Za-z0-9+/=_-]{1,480}", cursor) or not isinstance(
+        if not valid_source_cursor(cursor) or not isinstance(
             self._browser, MarketplaceContinuation
         ):
             raise SourceFailure("cursor_expired")
@@ -137,7 +137,7 @@ class FacebookMarketplace:
             None
             if boundary or exhausted
             else "source:" + feed.cursor
-            if feed.cursor and re.fullmatch(r"[A-Za-z0-9+/=_-]{1,480}", feed.cursor)
+            if feed.cursor and valid_source_cursor(feed.cursor)
             else str(self._page_number + 1),
             len(feed.listings) - len(candidates),
             self._context_reason,

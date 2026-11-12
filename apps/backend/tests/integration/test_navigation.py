@@ -460,7 +460,7 @@ row.refresh_from_db();assert row.phase=='partial' and row.reason=='window_limit'
     )
 
 
-def test_opaque_cursor_480_characters_does_not_overflow_unit_identity(
+def test_opaque_cursor_4096_characters_does_not_overflow_unit_identity(
     navigation_instance: FoundationInstance,
 ) -> None:
     shell(
@@ -469,12 +469,16 @@ def test_opaque_cursor_480_characters_does_not_overflow_unit_identity(
         + """
 row=NavigationWork.objects.filter(front='discovery').order_by('origin_interest').first()
 checkpoint=NavigationCheckpoint.objects.get(work=row)
-checkpoint.cursor='source:'+'A'*480;checkpoint.save()
+opaque=' {\"offset\":\"'+'A'*4070+'\",\"page\":2} '
+assert len(opaque)<=4096
+checkpoint.cursor='source:'+opaque;checkpoint.save()
+checkpoint.refresh_from_db()
+assert checkpoint.cursor=='source:'+opaque
 unit=nav.claim(attempt,scope,pages=2,details=False)
 assert unit and len(unit.unit_key)<=450
 nav.page(attempt,unit,Page((),None))
 receipt=NavigationUnitReceipt.objects.get(work_id=unit.turn.id)
-assert len(receipt.unit_key)<=450 and 'A'*480 not in receipt.unit_key
+assert len(receipt.unit_key)<=450 and opaque not in receipt.unit_key
 """,
     )
 
@@ -860,5 +864,37 @@ with patch('garimpei.infra.repository.navigation.postgres_repository.PostgresNav
     response=client.post('/acompanhamento/navegacao/retomar/',body)
     assert response.status_code==503 and b'Tente novamente' in response.content
 assert snapshot()==before
+""",
+    )
+
+
+def test_legacy_numeric_cursor_rebuild_keeps_confirmed_history_and_budget(
+    navigation_instance: FoundationInstance,
+) -> None:
+    shell(
+        navigation_instance,
+        BOOTSTRAP
+        + """
+row=NavigationWork.objects.filter(front='discovery').order_by('origin_interest').first()
+NavigationWork.objects.exclude(id=row.id).update(phase='complete')
+checkpoint=NavigationCheckpoint.objects.get(work=row)
+checkpoint.cursor='2';checkpoint.pages=1;checkpoint.save()
+unit=nav.claim(attempt,scope,pages=2,details=False)
+assert unit is not None and unit.cursor=='2'
+nav.failed(attempt,unit,SourceFailure('continuation_scope_mismatch'))
+checkpoint.refresh_from_db();row.refresh_from_db()
+assert checkpoint.cursor is None and checkpoint.pages==1
+assert row.reason=='cursor_rebuilt' and row.last_progress_at is None
+prior=list(NavigationUnitReceipt.objects.values_list('id','unit_key','reason'))
+assert len(prior)==1 and prior[0][2]=='continuation_scope_mismatch'
+NavigationWork.objects.filter(id=row.id).update(next_attempt_at=None)
+unit=nav.claim(attempt,scope,pages=2,details=False)
+assert unit is not None and unit.cursor is None
+opaque=' {"offset":"'+'x'*1650+'","page":2} '
+nav.page(attempt,unit,Page((), 'source:'+opaque))
+checkpoint.refresh_from_db()
+assert checkpoint.cursor=='source:'+opaque and checkpoint.pages==2
+assert NavigationUnitReceipt.objects.filter(id=prior[0][0],unit_key=prior[0][1],reason=prior[0][2]).exists()
+assert NavigationUnitReceipt.objects.count()==2
 """,
     )

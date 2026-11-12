@@ -36,6 +36,12 @@ from garimpei.infra.gateway.listing.relay_parser import (
 from garimpei.infra.repository.integration.private_session import private_directory
 
 
+def valid_source_cursor(cursor: str) -> bool:
+    # Native end cursors are opaque strings, not necessarily base64. They are
+    # returned only as JSON data; controls and unbounded input remain rejected.
+    return re.fullmatch(r"[\x20-\x7e]{1,4096}", cursor) is not None
+
+
 @dataclass(frozen=True)
 class SearchFilters:
     origin: Point
@@ -109,7 +115,7 @@ class MarketplaceBrowser:
     def _continue_from(self, cursor: str) -> Feed:
         # Only the opaque end cursor is restored; authenticated variables/tokens
         # are captured afresh by search() in this owned browser context.
-        if self._query_payload is None or not re.fullmatch(r"[A-Za-z0-9+/=_-]{1,480}", cursor):
+        if self._query_payload is None or not valid_source_cursor(cursor):
             raise SourceFailure("cursor_expired")
         self._cursor = cursor
         return self._request_page()
