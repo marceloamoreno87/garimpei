@@ -7,7 +7,7 @@ from http.client import HTTPConnection, HTTPException
 from typing import Literal, cast
 from urllib.parse import urlencode, urlsplit
 
-from garimpei.domain.listing.geography import Point
+from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM, Point
 from garimpei.domain.listing.listing import Candidate, Evidence, Match, money
 from garimpei.domain.listing.ports import ListingUnavailable, Page, SearchContext, SourceFailure
 from garimpei.domain.listing.scope import Scope, Search
@@ -163,12 +163,14 @@ class FixtureSource:
                 bool(
                     point
                     and observed.get("cep") == scope.cep
-                    and observed.get("radius_km") == 500
+                    and observed.get("radius_km") == MARKETPLACE_RADIUS_KM
                     and observed.get("query") == query.term
                 ),
                 point.latitude if point else None,
                 point.longitude if point else None,
-                500 if observed.get("radius_km") == 500 else None,
+                MARKETPLACE_RADIUS_KM
+                if observed.get("radius_km") == MARKETPLACE_RADIUS_KM
+                else None,
                 str(observed["query"]) if observed.get("query") is not None else None,
             )
         return Page(tuple(candidates), next_page, invalid, source_context=source_context)

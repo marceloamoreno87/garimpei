@@ -349,3 +349,10 @@ Texto dos critérios reproduzido literalmente do PRD. Cobertura define verifica�
   - Reinício preserva identidade de envio e recibos, sem duplicação.
   - Correção somente de condição mantém a exceção F05/F16 e não envia por essa ação isolada.
 - notes: integração condicional; ausência de F16 mantém este item pendente nessa integração e não altera as dependências da base textual.
+
+### Adendo de produto — raio fixo de 20 km (2026-11-12)
+
+- **SVC-GEOGRAPHY-20-01:** coleta e pesquisa solicitam 20 km em torno da posição obtida do CEP configurado, independentemente do raio salvo na fonte; parâmetros solicitados não são tratados como prova de aplicação.
+- **WRK-GEOGRAPHY-20-01:** pesquisa anterior com contexto de raio diferente é superada antes de retomar ou publicar. Resultado sem confirmação da região permanece parcial e não produz amostra local validada; histórico é preservado.
+
+Esses itens complementam `WRK-GEOGRAPHY-01` e não convertem uma verificação controlada em prova real.

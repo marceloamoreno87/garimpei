@@ -20,7 +20,7 @@
   "RETENTION": {"used_days": 14, "new_days": 7, "preserve_history": true},
   "RACE": {"change": "manual_revision", "publish_stale": false},
   "SHARED": {"targets": 2, "search_calls": 1, "slice_details": 2},
-  "GEOGRAPHY": {"requested_radius_km": 500, "observed_verified": false, "state": "limited", "publish_candidates": false},
+  "GEOGRAPHY": {"requested_radius_km": 20, "observed_verified": false, "state": "limited", "publish_candidates": false},
   "MANUAL": {"family": "playstation5", "model": "ps5", "generation": "slim", "edition": "digital", "capacity": "825gb"},
   "NON_INTERFERENCE": {"source_io_inside_publication_transaction": false, "queue": "listing", "new_interests": false, "real_whatsapp": false}
 }

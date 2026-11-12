@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Literal
 from uuid import UUID
 
+from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM
 from garimpei.domain.listing.interest_match import matches_product, tokens
 from garimpei.domain.listing.listing import MAX_INTEREST_KEY_LENGTH, Match
 from garimpei.domain.listing.window import PublicationWindow
@@ -67,7 +68,13 @@ class Scope:
         identity = [(interest.kind, interest.key) for interest in sorted(interests)]
         key = hashlib.sha256(
             json.dumps(
-                [snapshot.source, snapshot.cep, identity, "48h-marketplace-potential-v3"]
+                [
+                    snapshot.source,
+                    snapshot.cep,
+                    identity,
+                    "48h-marketplace-potential-v4",
+                    MARKETPLACE_RADIUS_KM,
+                ]
             ).encode()
         ).hexdigest()
         return cls(

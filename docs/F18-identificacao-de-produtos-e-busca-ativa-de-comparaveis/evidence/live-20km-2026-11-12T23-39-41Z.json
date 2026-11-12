@@ -1,0 +1,13 @@
+{
+  "feature": "F18",
+  "started_at": "2026-11-12T23:39:41Z",
+  "context": "consulta limitada com perfil autorizado, sem alterar configuração nem publicar dados",
+  "source_log_requested_radius_km": 20,
+  "initial_html_radius_km": 500,
+  "candidate_count": 24,
+  "response_objects": 256,
+  "recognized_response_geography": false,
+  "effective_radius_proven": false,
+  "browser_closed": true,
+  "limitation": "Campo solicitado no arquivo temporário do driver permaneceu com valor estático 500; descartado como evidência. O log da aplicação informou 20, e testes controlados verificam URL e filtros da requisição. Resposta real sem confirmação geográfica reconhecível."
+}

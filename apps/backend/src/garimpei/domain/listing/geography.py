@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+MARKETPLACE_RADIUS_KM = 20
+
 
 @dataclass(frozen=True)
 class Point:
