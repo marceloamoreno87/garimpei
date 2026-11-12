@@ -136,13 +136,19 @@ class AssessmentLab:
                 break
             for job in due:
                 build_media_runner().execute(job)
+        for listing in Listing.objects.exclude(latest=None):
+            work = self.context.prepare.execute(listing.id)
+            self.context.complete.execute(work.id)
         build_publish_exploration().execute()
         return self.status()
 
     def complete(self, kind: str = "light_wear") -> dict[str, object]:
         self.context.gateway.kind = kind
         for _ in range(120):
-            if not self.context.run.execute():
+            self.context.run.execute()
+            if not InferenceRequest.objects.filter(
+                state__in=["pending", "running", "awaiting_resource"]
+            ).exists():
                 break
         for row in ConditionAssessment.objects.filter(publication_order=None):
             self.context.complete.execute(row.id)

@@ -1,0 +1,65 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_result_from_a_different_model_revision_cannot_be_published_as_requested_model _
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-474/media-database0/media_068bf71617.env')), 'http://127.0.0.1:42407')
+
+    def test_result_from_a_different_model_revision_cannot_be_published_as_requested_model(
+        media_instance: tuple[FoundationInstance,str],
+    )->None:
+        instance,origin=media_instance
+>       shell(instance,origin,BOOT+'''
+    original_prepare=ControlledEvidencePreparer.prepare
+    def wrong_revision(self,value):
+     return tuple(replace(part,model_digest='sha256:'+'b'*64) for part in original_prepare(self,value))
+    ControlledEvidencePreparer.prepare=wrong_revision
+    work=prepare.execute(listing.id)
+    for _ in range(3):run.execute()
+    assert complete.execute(work.id)
+    state=build_read_condition().execute(listing.id).state
+    assert state.assessment.status=='failed' and state.assessment.reason=='invalid_analysis'
+    assert not state.satisfies_alert_condition
+    print('reported model revision must equal the immutable requested revision; mismatched output is not relabeled PASS')
+    ''')
+
+apps/backend/tests/integration/test_multimodal_condition.py:587:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-474/media-database0/media_068bf71617.env'))
+origin = 'http://127.0.0.1:42407'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...rint('reported model revision must equal the immutable requested revision; mismatched output is not relabeled PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 45 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-12T21:37:31.901305+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_068bf71617", "run_id": "0b9957e3-ad6e-4ff0-b672-b178fb72d3e6"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 100, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 100, in <module>\nAssertionError\n').returncode
+
+apps/backend/tests/integration/test_media_persistence.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_multimodal_condition.py::test_result_from_a_different_model_revision_cannot_be_published_as_requested_model
+1 failed, 14 deselected in 10.28s

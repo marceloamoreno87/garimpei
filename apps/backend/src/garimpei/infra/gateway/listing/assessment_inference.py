@@ -92,7 +92,7 @@ class LocalAssessmentInference:
                 if snapshot["presence"] == "none"
                 else "waiting_photos"
             )
-            return self._resolved(work, (), False, reason)
+            return self._resolved(work, (), False, reason, analyzed=False)
         responses = [PostgresInferenceQueries().analysis(r) for r in work.requests]
         if any(
             r["state"] in {"pending", "running", "awaiting_resource", "paused"} for r in responses
@@ -116,6 +116,8 @@ class LocalAssessmentInference:
             for r in responses
             for p in cast(list[dict[str, object]], r["parts"])
         ):
+            return self._resolved(work, (), False, "invalid_analysis", status="failed")
+        if any(not _matches_request(response, work) for response in responses):
             return self._resolved(work, (), False, "invalid_analysis", status="failed")
         findings: list[Finding] = []
         limitations = []
@@ -164,6 +166,7 @@ class LocalAssessmentInference:
         conflicts: bool = False,
         examined: set[str] | None = None,
         controlled: bool = False,
+        analyzed: bool = True,
     ) -> Assessment:
         snapshot = work.value.snapshot
         fields = cast(dict[str, str | None], snapshot["text"])
@@ -202,7 +205,7 @@ class LocalAssessmentInference:
             condition=decision.condition,
             sufficient=decision.sufficient,
             model_revision=work.value.model_revision,
-            analyzed_at=now(),
+            analyzed_at=now() if analyzed else None,
             findings=findings,
             limitations=limitations,
             photo_coverage=coverage,
@@ -233,3 +236,15 @@ def _failure(code: str) -> str:
         "invalid_output": "invalid_analysis",
         "superseded": "superseded_input",
     }.get(code, "model_unavailable")
+
+
+def _matches_request(response: dict[str, object], work: AssessmentWork) -> bool:
+    return bool(
+        response.get("observation_id") == str(work.value.observation_id)
+        and response.get("revision") == work.value.observation_revision
+        and response.get("model_digest") == work.value.model_revision
+        and response.get("prompt_version") == VERSION
+        and response.get("schema_version") == VERSION
+        and response.get("cohort_id") == str(work.id)
+        and response.get("cohort_generation") == work.generation
+    )

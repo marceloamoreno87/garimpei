@@ -26,6 +26,7 @@ class ControlledConditionPreparer:
 
     def prepare(self, value: AnalysisInput) -> tuple[PreparedPart, ...]:
         from garimpei.config.env import load_inference_settings
+        from garimpei.infra.gateway.inference.input_preparer import read_lock
         from garimpei.infra.gateway.inference.registry import registered
 
         parts = []
@@ -45,7 +46,9 @@ class ControlledConditionPreparer:
                             source_sha256=meta["source_sha256"],
                         ),
                     ),
-                    model_digest="controlled-fake-model",
+                    model_digest=str(
+                        read_lock(load_inference_settings().model_lock)["model_digest"]
+                    ),
                     profile=VERSION,
                 )
             )
