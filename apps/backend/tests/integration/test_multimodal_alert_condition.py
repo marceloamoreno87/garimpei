@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from tests.factories.assessment_origin import serve_assessment_images
 from tests.factories.first_eligibility import first_eligibility_scenario
 from tests.factories.runtime import pause_worker, resume_worker
@@ -7,8 +9,10 @@ from tests.integration.test_collection import command, shell
 from tests.integration.test_first_eligibility import target_messages, wait_first
 
 
+@pytest.mark.parametrize("finding", ["light_wear", "clear_defect"])
 def test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt(
     tmp_path: Path,
+    finding: str,
 ) -> None:
     with (
         serve_assessment_images() as (origin, _requests),
@@ -79,14 +83,14 @@ for _ in range(40):
  build_listing_task_handler().execute(str(state.current_id),state.generation)
 for _ in range(8):
  for job in build_media_repository().due(now()):build_media_runner().execute(job)
-l=Listing.objects.get(external_id='16001');context=assessment_context();work=context.prepare.execute(l.id)
+l=Listing.objects.get(external_id='16001');context=assessment_context();context.gateway.kind=FINDING_KIND;work=context.prepare.execute(l.id)
 assert not build_read_condition().execute(l.id).state.satisfies_alert_condition
 for _ in range(6):context.run.execute()
 assert context.complete.execute(work.id)
 state=build_read_condition().execute(l.id).state
 assert state.assessment.sufficient and state.satisfies_alert_condition and state.manual=='good'
 assert state.assessment.runtime=='controlled_fake'
-""",
+""".replace("FINDING_KIND", repr(finding)),
             )
         finally:
             resume_worker(group)
@@ -94,6 +98,9 @@ assert state.assessment.runtime=='controlled_fake'
         assert len(target_messages(channel)) == 1
         body = str(target_messages(channel)[0]["body"])
         assert "Condição provável:" in body and "funcionamento declarado pelo vendedor" in body
+        assert "Sinal visual do controle sintético" in body
+        if finding == "clear_defect":
+            assert "Escolha manual" in body and "diverge" in body
         assert (
             "Preço de compra: R$ 1.000,00" in body
             and "Preço de venda estimado: R$ 1.500,00" in body
@@ -164,3 +171,29 @@ AlertAttempt.objects.create(intent=intent,ordinal=1,generation=1,authorized_at=n
             assert target_messages(channel) == before
         finally:
             resume_worker(group)
+
+
+def test_alert_note_keeps_damage_suspicion_and_manual_divergence(tmp_path: Path) -> None:
+    with first_eligibility_scenario(tmp_path, enabled=False) as (
+        instance,
+        _source,
+        _clock,
+        channel,
+    ):
+        shell(
+            instance,
+            """from uuid import uuid4
+from django.utils.timezone import now
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.persistence.assessment_models import ConditionAssessment
+from garimpei.infra.repository.alert.assessment_note import assessment_note
+l=Listing.objects.get(external_id='16001');identity=uuid4()
+findings=[dict(dimension='appearance',assessment=kind,description=description,references=[]) for kind,description in [('clear_defect','Trinca no item principal'),('suspected','Possível oxidação'),('unknown','Área encoberta sem inspeção')]]
+row=ConditionAssessment.objects.create(id=identity,listing=l,observation=l.latest,input_fingerprint='f'*64,policy_version='condition-policy-v1',prompt_version='condition-evidence-v1',schema_version='condition-evidence-v1',model_revision='controlled',input_snapshot={},generation=1,status='complete',condition='defect',sufficient=True,reason='clear_defect',result=dict(id=str(identity),condition='defect',sufficient=True,status='complete',revision=7,findings=findings),created_at=now(),updated_at=now())
+note=assessment_note(identity,7)
+for description in ('Trinca no item principal','Possível oxidação','Área encoberta sem inspeção'):assert description in note
+assert 'Escolha manual' in note and 'diverge' in note
+assert str(identity) in note and 'revisão 7' in note
+""",
+        )
+        assert not target_messages(channel)
