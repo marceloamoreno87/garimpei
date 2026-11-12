@@ -104,6 +104,7 @@ class ExplorationHandler:
         context = detail_context(offer, criteria.at(version))
         context.update(alert_context(self._diagnostic, identity, offer.observation_id))
         context.update(
+            media_requested=request.GET.get("midia") == "solicitada",
             live=current,
             selected_choice=current.state.manual if current else None,
             confirmation=bool(

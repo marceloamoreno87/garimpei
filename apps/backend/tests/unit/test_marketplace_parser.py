@@ -133,3 +133,22 @@ def test_shipping_requires_explicit_offer_and_preserves_source_order() -> None:
     terminal = feed_from(documents(json.dumps(marker)))
     assert terminal is not None and terminal.main_results_ended
     assert [item["id"] for item in terminal.listings] == ["101"]
+
+
+def test_native_cursor_is_preserved_byte_for_byte_instead_of_trimmed() -> None:
+    cursor = ' {"opaque":"value with spaces"} '
+    feed = feed_from(
+        documents(
+            json.dumps(
+                {
+                    "marketplace_search": {
+                        "feed_units": {
+                            "edges": [],
+                            "page_info": {"has_next_page": True, "end_cursor": cursor},
+                        }
+                    }
+                }
+            )
+        )
+    )
+    assert feed is not None and feed.cursor == cursor

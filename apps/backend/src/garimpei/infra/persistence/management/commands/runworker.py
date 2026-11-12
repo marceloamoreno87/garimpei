@@ -18,6 +18,7 @@ from garimpei.main import (
     reconcile_alerts,
     reconcile_inference,
     reconcile_listings,
+    reconcile_media,
     reconcile_navigation,
     reconcile_operations,
     reconcile_valuations,
@@ -125,6 +126,7 @@ class Command(BaseCommand):
             _valuations_until_stopped,
             _publication_until_stopped,
             _operations_until_stopped,
+            _media_until_stopped,
         )
         reconcilers = [Thread(target=target, args=(stopped,), daemon=True) for target in targets]
         for reconciler in reconcilers:
@@ -183,3 +185,14 @@ def _independent(stopped: Event, operation: "Callable[[], None]", event: str) ->
 
 
 from collections.abc import Callable  # noqa: E402
+
+
+def _media_until_stopped(stopped: Event) -> None:
+    while not stopped.is_set():
+        try:
+            reconcile_media()
+        except Exception:
+            logger.error("media_reconcile_failed", extra={"event": "media_reconcile_failed"})
+        finally:
+            connections.close_all()
+        stopped.wait(30)

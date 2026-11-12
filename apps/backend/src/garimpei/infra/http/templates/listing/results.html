@@ -47,19 +47,16 @@
     {% if not configured %}
         <div class="empty">
             <h2>Prepare seu acompanhamento</h2>
-
             <p>Conclua a configuração para começar a encontrar ofertas.</p>
             <a class="button primary" href="/">Configurar interesses</a>
         </div>
     {% elif not page.published_at %}
         <div class="empty" role="status"><h2>{% if collection.initial_completed_at %}Nenhuma oferta encontrada na coleta{% else %}Coleta inicial em andamento{% endif %}</h2>
-
             <p>{% if collection.initial_completed_at %}A coleta foi concluída sem ofertas neste escopo.{% else %}Estamos preenchendo sua lista. Publicações comprovadamente novas já podem gerar alertas.{% endif %}</p><a href="{% url 'monitoring-tracking' %}">Ver acompanhamento</a></div>
     {% endif %}
     {% if collection.phase == "partial" or collection.phase == "unavailable" %}<div class="notice" role="status"><strong>{% if collection.phase == "partial" %}Coleta parcial{% else %}Falha na fonte{% endif %}</strong><p>Os últimos dados disponíveis foram preservados. Última coleta válida: {{ collection.last_success_at|date:"d/m/Y H:i:s"|default:"ainda não concluída" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
     {% if configured and not worker_active %}<div class="notice" role="status"><strong>Acompanhamento interrompido</strong><p>O worker não está ativo. Os últimos dados disponíveis continuam legíveis: {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
     <header class="result-heading"><h2 id="results-title" tabindex="-1">{% if page.total %}{{ page.start }}–{{ page.end }} de {{ page.total }}{% else %}Nenhum resultado{% endif %}</h2>
-
         <p>Lucro estimado, do maior para o menor</p>
     </header>
     <div class="offer-grid">
@@ -67,14 +64,13 @@
             <article class="offer-card {% if forloop.first %}featured{% endif %}"
                      data-offer-id="{{ card.identity }}"
                      data-key="{{ card.key }}">
-                <div class="offer-image">{% if card.offer.evidence.image_url %}<img src="{{ card.offer.evidence.image_url }}"
-                                                                                    alt="{{ card.title }} · imagem do anúncio"
-                                                                                    loading="lazy"
-                                                                                    referrerpolicy="no-referrer">{% else %}<span role="img" aria-label="Imagem não disponível para {{ card.title }}">Imagem não disponível</span>{% endif %}</div>
+                <div class="offer-image">{% if card.media_primary and card.media_primary.photo.state == "available" and card.media_primary.photo.thumbnail_state == "ready" %}<img src="{{ card.media_primary.thumbnail }}"
+                                                                                                                                                                                   alt="{{ card.title }} · foto principal"
+                                                                                                                                                                                   loading="lazy"
+                                                                                                                                                                                   data-media-image><span class="media-load-error" hidden>Falha ao carregar a foto</span>{% else %}<span>{{ card.media_label }}</span>{% endif %}</div>
                 <div class="offer-summary">
                     <p class="fine">{{ card.offer.condition.label }}</p>
                     <h3><a class="offer-title" href="{{ card.detail_url }}">{{ card.title }}</a></h3>
-
                     {% include "listing/financial_values.html" with price=card.price resale=card.resale profit=card.profit %}
                     <p class="fine">{% if card.alert_failed %}Estado do alerta indisponível{% elif card.alert %}{{ card.alert.label }}{% else %}Aguardando avaliação do alerta{% endif %}</p>
                     <a class="button secondary"
@@ -83,7 +79,6 @@
             </article>
         {% empty %}
             {% if page.published_at %}<div class="empty"><h3>Nenhuma oferta neste recorte</h3>
-
                 <p>Tente outra busca ou remova os filtros para voltar à lista.</p><a class="button secondary" href="{{ clear }}">Limpar filtros</a></div>{% endif %}
         {% endfor %}
     </div>

@@ -80,11 +80,12 @@ def _feed(feed: JsonObject) -> Feed:
         if "marketplace_listing_title" in row:
             listings.append(row)
     next_page = mapping(feed.get("page_info")).get("has_next_page")
+    cursor = mapping(feed.get("page_info")).get("end_cursor")
     return Feed(
         tuple(listings),
         next_page if isinstance(next_page, bool) else None,
         empty or edges == [],
-        text(mapping(feed.get("page_info")).get("end_cursor")),
+        cursor if isinstance(cursor, str) and cursor else None,
         empty,
     )
 
@@ -111,8 +112,10 @@ def listing_from(row: JsonObject, *, detail: bool, match: Match | None = None) -
         )
     location = _location(row)
     from garimpei.infra.gateway.listing.media import https_media
+    from garimpei.infra.gateway.media.gallery_parser import extract_gallery
 
     evidence = Evidence(
+        media=extract_gallery(row, detail),
         image_url=https_media(mapping(row.get("primary_listing_photo")).get("image_uri")),
         title=evidence_text(row.get("marketplace_listing_title")),
         description=evidence_text(mapping(row.get("redacted_description")).get("text")),

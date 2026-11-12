@@ -182,3 +182,12 @@ _.intent_reference
 
 # argparse internal queue-group selection is read through the TypedDict mapping.
 _.queue_group
+
+
+# F14 public analysis boundary and ORM retention fields; exact consumers in entrypoints.json.
+_.media_tracking_active
+_.removed_at
+AcquireMediaForAnalysisUseCase
+ReadMediaGalleryUseCase
+ReleaseMediaReferenceUseCase
+_.protected_versions

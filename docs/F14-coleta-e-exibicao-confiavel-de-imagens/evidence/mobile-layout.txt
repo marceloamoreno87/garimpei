@@ -1,0 +1,26 @@
+### Result
+{
+  "overflow": true,
+  "links": [
+    {
+      "name": "Ampliar foto 1 de Anúncio de mídia A",
+      "href": "/ofertas/c754e4b3-4960-4772-a209-19abc030af91/imagens/c70d3a29-6dbd-4178-90e7-c22b0ab163e8/original/"
+    },
+    {
+      "name": "Ampliar foto 2 de Anúncio de mídia A",
+      "href": "/ofertas/c754e4b3-4960-4772-a209-19abc030af91/imagens/4103c951-4298-4e75-8a03-abf5154ec486/original/"
+    },
+    {
+      "name": "Foto 1",
+      "href": "#foto-c70d3a29-6dbd-4178-90e7-c22b0ab163e8"
+    },
+    {
+      "name": "Foto 2",
+      "href": "#foto-4103c951-4298-4e75-8a03-abf5154ec486"
+    }
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({overflow:document.documentElement.scrollWidth>innerWidth,links:[...document.querySelectorAll(".media-gallery a")].map(a=>({name:a.getAttribute("aria-label")||a.textContent,href:a.getAttribute("href")}))})');
+```

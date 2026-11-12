@@ -1,0 +1,38 @@
+<section class="media-gallery"
+         aria-label="Fotos de {{ title }}"
+         data-media-gallery>
+    <p class="fine" role="status">{{ media_label }}</p>
+    {% if media_photos %}
+        {% for item in media_photos %}
+            <figure id="foto-{{ item.photo.version_id }}" class="media-photo">
+                {% if item.photo.state == "removed" or item.photo.state == "removing" %}
+                    <p>Foto removida após encerramento da retenção.</p>
+                {% else %}
+                    <a href="{{ item.original }}"
+                       target="_blank"
+                       rel="noopener"
+                       aria-label="Ampliar foto {{ forloop.counter }} de {{ title }}">
+                        <img src="{{ item.original }}"
+                             alt="{{ title }} · foto {{ forloop.counter }}"
+                             loading="lazy"
+                             data-media-image>
+                    </a>
+                    <p class="media-load-error"
+                       role="status"
+                       hidden>Não foi possível carregar esta cópia. Solicite recuperação abaixo.</p>
+                {% endif %}
+                <figcaption>Foto {{ forloop.counter }} · {{ item.photo.width }} × {{ item.photo.height }} px · Obtida em {{ item.photo.obtained_at|date:"d/m/Y H:i:s" }} UTC{% if item.photo.reason %} · Renovação não confirmada{% endif %}</figcaption>
+            </figure>
+        {% endfor %}
+        <nav aria-label="Selecionar foto">{% for item in media_photos %}<a class="button secondary" href="#foto-{{ item.photo.version_id }}">Foto {{ forloop.counter }}</a> {% endfor %}</nav>
+    {% endif %}
+    {% if media_gallery.capture_id %}
+        <form method="post" action="{{ media_recovery }}">
+            {% csrf_token %}
+            <input type="hidden" name="media_capture" value="{{ media_gallery.capture_id }}">
+            <input type="hidden" name="media_revision" value="{{ media_gallery.revision }}">
+            <button class="secondary" type="submit">Solicitar recuperação das fotos</button>
+            <p class="fine">O pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.</p>
+        </form>
+    {% endif %}
+</section>

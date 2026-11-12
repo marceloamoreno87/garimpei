@@ -21,6 +21,9 @@ from garimpei.infra.repository.valuation.mapper import (
 
 def encode(offer: Offer) -> dict[str, object]:
     raw = asdict(offer)
+    evidence = cast(dict[str, object], raw["evidence"])
+    evidence.pop("media", None)
+    evidence["image_url"] = None
     raw["valuation"] = (
         encode_valuation(offer.valuation) if offer.valuation and offer.valuation.id else None
     )
@@ -135,4 +138,43 @@ def decode(raw: dict[str, object], at: datetime, state: ConditionState | None = 
         bool(raw["unavailable"]),
         datetime.fromisoformat(str(raw["last_valid_at"])) if raw["last_valid_at"] else None,
         identity(raw.get("observation_id", value.observation_id)),
+        decode_gallery(raw.get("media")),
     )
+
+
+def decode_gallery(value: object) -> "MediaGallery | None":
+    if not value:
+        return None
+    row = mapping(value)
+    return MediaGallery(
+        UUID(str(row["listing_id"])),
+        UUID(str(row["observation_id"])),
+        identity(row.get("capture_id")),
+        int(str(row["revision"])),
+        str(row["presence"]),
+        str(row["state"]),
+        str(row["reason"]),
+        bool(row["complete"]),
+        int(str(row["known_count"])) if row.get("known_count") is not None else None,
+        tuple(
+            MediaPhoto(
+                str(p["key"]),
+                int(str(p["position"])),
+                bool(p["primary"]),
+                identity(p["version_id"]),
+                str(p["state"]),
+                str(p["thumbnail_state"]),
+                str(p["sha256"]),
+                str(p["mime"]),
+                int(str(p["width"])),
+                int(str(p["height"])),
+                int(str(p["byte_count"])),
+                datetime.fromisoformat(str(p["obtained_at"])) if p.get("obtained_at") else None,
+                str(p.get("reason", "")),
+            )
+            for p in records(row.get("photos", []))
+        ),
+    )
+
+
+from garimpei.domain.media.media import MediaGallery, MediaPhoto  # noqa: E402

@@ -5,6 +5,7 @@ from decimal import Decimal
 from typing import Literal
 
 from garimpei.domain.listing.geography import Point
+from garimpei.domain.media.media import Manifest
 
 MAX_INTEREST_KEY_LENGTH = 400
 InterestKind = Literal["category", "product"]
@@ -36,6 +37,7 @@ class Evidence:
     source_available: bool | None = None
     availability_evidence: str | None = None
     image_url: str | None = None
+    media: Manifest | None = None
     published_at_source: str | None = None
 
 

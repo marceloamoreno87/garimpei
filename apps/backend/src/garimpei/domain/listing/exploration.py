@@ -10,6 +10,7 @@ from uuid import UUID
 
 from garimpei.domain.listing.condition import ConditionState, normalized
 from garimpei.domain.listing.listing import Evidence
+from garimpei.domain.media.media import MediaGallery
 from garimpei.domain.valuation.profit import ProfitComposition
 from garimpei.domain.valuation.values import Valuation
 
@@ -98,6 +99,7 @@ class Offer:
     unavailable: bool = False
     last_valid_at: datetime | None = None
     observation_id: UUID | None = None
+    media: MediaGallery | None = None
 
     @property
     def title(self) -> str:

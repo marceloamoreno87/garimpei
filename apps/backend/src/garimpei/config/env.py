@@ -567,3 +567,51 @@ def load_operations_settings() -> OperationsSettings:
     return OperationsSettings(
         directory, flag == "true", config.environment_id, config.directory / "recovery-barrier.json"
     )
+
+
+@dataclass(frozen=True)
+class MediaSettings:
+    root: Path
+    policy: MediaPolicy
+    eval_origin: str | None = None
+
+
+def load_media_settings(environ: Mapping[str, str] | None = None) -> MediaSettings:
+    from garimpei.domain.media.policy import MediaPolicy
+
+    values = _values(os.environ if environ is None else environ)
+    config = load_config(values, require_secrets=False)
+    default = Path.home() / ".local/share/garimpei/media" / config.environment_id
+    root = Path(values.get("GARIMPEI_MEDIA_ROOT", str(default))).expanduser().resolve()
+    if root == config.root or config.root in root.parents:
+        raise ConfigurationError("GARIMPEI_MEDIA_ROOT: expected private directory outside checkout")
+    raw = values.get("GARIMPEI_MEDIA_BUDGET_BYTES", "")
+    budget = int(raw) if raw.isdecimal() and 0 < int(raw) <= 1024**5 else None
+    origin = values.get("GARIMPEI_MEDIA_EVAL_ORIGIN")
+    if origin:
+        parsed = urlsplit(origin)
+        if (
+            config.environment != "eval"
+            or parsed.scheme != "http"
+            or parsed.hostname != "127.0.0.1"
+            or not parsed.port
+            or parsed.path not in {"", "/"}
+        ):
+            raise ConfigurationError(
+                "GARIMPEI_MEDIA_EVAL_ORIGIN: expected explicit eval loopback origin"
+            )
+        origin = origin.rstrip("/")
+    policy = MediaPolicy(
+        budget,
+        _integer(values, "GARIMPEI_MEDIA_MAX_PHOTOS", 12, 1, 100),
+        _integer(values, "GARIMPEI_MEDIA_MAX_FILE_BYTES", 20 * 1024**2, 1024, 20 * 1024**2),
+        _integer(values, "GARIMPEI_MEDIA_MAX_PIXELS", 40_000_000, 1, 40_000_000),
+        _integer(values, "GARIMPEI_MEDIA_THUMB_EDGE", 640, 16, 640),
+        _integer(values, "GARIMPEI_MEDIA_TIMEOUT_SECONDS", 20, 1, 20),
+        _integer(values, "GARIMPEI_MEDIA_MIN_FREE_BYTES", 256 * 1024**2, 0, 1024**4),
+        _integer(values, "GARIMPEI_MEDIA_LEASE_SECONDS", 60, 30, 600),
+    )
+    return MediaSettings(root, policy, origin)
+
+
+from garimpei.domain.media.policy import MediaPolicy  # noqa: E402

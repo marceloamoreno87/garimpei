@@ -15,6 +15,7 @@ from garimpei.infra.gateway.listing.cep_geocoding import verified_point
 from garimpei.infra.gateway.listing.external_text import evidence_text
 from garimpei.infra.gateway.listing.identity import marketplace_id
 from garimpei.infra.gateway.listing.media import https_media
+from garimpei.infra.repository.media.mapper import decode_manifest
 
 
 def _mapping(value: object) -> dict[str, object]:
@@ -66,6 +67,7 @@ def _candidate(
     return Candidate(
         identity,
         Evidence(
+            media=decode_manifest(row["media"]) if row.get("media") is not None else None,
             image_url=https_media(row.get("image_url")),
             title=evidence_text(row.get("title")),
             description=evidence_text(row.get("description")),
