@@ -342,6 +342,48 @@
       "started_at": "2026-11-12T02:10:44.020008+00:00",
       "updated_at": "2026-11-12T03:22:50.153023+00:00",
       "completed_at": "2026-11-12T03:22:50.153023+00:00"
+    },
+    "F21": {
+      "name": "Alertas ouro por condição e histórico comparável",
+      "priority": 1,
+      "wave": 13,
+      "dependencies": [
+        "F06",
+        "F07",
+        "F15",
+        "F16",
+        "F18",
+        "F20"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T22:45:32.311073Z",
+      "completed_at": null
+    },
+    "F22": {
+      "name": "Controle global de ligar e desligar o robô",
+      "priority": 1,
+      "wave": 13,
+      "dependencies": [
+        "F02",
+        "F03",
+        "F08",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F19"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-12T22:54:21.020099Z",
+      "completed_at": null
     }
   }
 }

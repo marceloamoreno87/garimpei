@@ -1,8 +1,10 @@
 # Garimpei — PRD
 
-Revisão de produto: 2026-11-11, horário de São Paulo (2026-11-12 UTC). **F01–F12: avaliadas nos contratos existentes; F13–F20: requisitos de evolução, pendentes de especificação e implementação.** O [progresso](prd_progress.json) conserva os IDs, relatórios, ciclos e datas anteriores. Esta revisão não declara implementadas as novas capacidades.
+Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** é a evolução especificada nesta revisão de 2026-11-12, ainda `pending`. IDs, contratos avaliados, ciclos e datas anteriores são preservados.
 
-As regras abaixo consolidam a F12: uma busca por interesse, publicação incremental, cálculo por compra/venda/taxa e descoberta de publicações novas mesmo com histórico parcial. A nova política de primeiro alerta ao se tornar elegível, aprovada nesta conversa, será implementada em F16. Até lá, o runtime conserva a regra F12. Contratos e avaliações anteriores documentam o comportamento da sua época; não são reescritos nem reaprovados por esta revisão. A nova decisão remove frete/transporte da experiência do produto e exige preço de compra, preço de venda estimado e lucro estimado juntos; a apresentação existente será atualizada em F20. F19/F20 permanecem pendentes, sem instalação de modelo ou mudança do aplicativo nesta rodada.
+A base F12 consolidou uma busca por interesse, publicação incremental, cálculo por compra/venda/taxa e descoberta de publicações novas com histórico parcial. F16 acrescentou a primeira elegibilidade e F20 padronizou compra, venda estimada e lucro, conforme seus contratos e avaliações históricos. A F21 exige qualificação conjunta de condição por título/descrição/fotos, produto normalizado, histórico comparável e lucro estimado estritamente positivo para novas autorizações após sua adoção. Este adendo não altera o aplicativo nem reaprova contratos anteriores.
+
+Adendo de controle operacional: **F22 — Controle global de ligar e desligar o robô**, requisito confirmado em 2026-11-12. A etapa começa `pending`; o estado das demais entregas permanece no progresso e em suas avaliações.
 
 ## 1. Resumo executivo
 
@@ -79,7 +81,7 @@ Usuário inicial: o próprio idealizador, começando na compra de eletrônicos u
 
 ### Avaliação e lucro
 
-Uma oferta é qualquer anúncio apresentado, inclusive sem estimativa ou com condição incerta. Uma oportunidade precisa de evidências de condição, identidade e potencial de revenda; preço baixo isolado não basta. A lista atual admite lucro positivo, zero ou negativo, sem corte mínimo. Mudar esse critério exige decisão explícita.
+Uma oferta é qualquer anúncio apresentado, inclusive sem estimativa ou com condição incerta. Uma oportunidade precisa de evidências de condição, identidade e potencial de revenda; preço baixo isolado não basta. A lista admite lucro positivo, zero ou negativo, sem corte mínimo. Para novos alertas, a F21 acrescenta a exigência de lucro estimado estritamente positivo após a taxa configurada; ofertas zero/negativas continuam consultáveis.
 
 A fórmula de produto é **lucro estimado = preço de venda estimado − preço de compra − taxa provisória de venda**. Taxa = preço de venda estimado × percentual configurado. A taxa já aprovada é preservada e aparece na composição detalhada; a retirada solicitada não elimina essa taxa. A composição distingue valores conhecidos, estimados e indisponíveis. O lucro é uma estimativa, não resultado de venda realizada.
 
@@ -97,7 +99,7 @@ Quando não houver amostra válida, manter preço de compra conhecido e exibir �
 
 ### Estimativa de preço
 
-A revenda usa preços pedidos de usados equivalentes; referência de novo é independente. Atualmente a política exige no mínimo cinco comparáveis retidos, com até 14 dias da observação; usa mediana, remove valores fora de metade a 1,5 vez a mediana preliminar e rejeita dispersão máxima/mínima superior a 1,5. A referência de novo tem validade de sete dias e cobertura inicial restrita. Ausência de novo não invalida automaticamente os usados. Amostra insuficiente, identidade incerta ou referência vencida permanecem explícitas, sem fabricar lucro zero.
+A revenda usa preços pedidos de usados equivalentes; referência de novo é independente. Para a F21, “preço médio” significa o preço representativo obtido pela mediana já adotada em F06; não há mudança para média aritmética nem afirmação de vendas realizadas. Normalizar nomes agrupa aliases comprovados da mesma identidade de produto, preservando marca/modelo/geração/edição/capacidade e demais atributos determinantes. Anúncios distintos continuam com suas próprias identidades. Atualmente a política exige no mínimo cinco comparáveis retidos, com até 14 dias da observação; usa mediana, remove valores fora de metade a 1,5 vez a mediana preliminar e rejeita dispersão máxima/mínima superior a 1,5. A referência de novo tem validade de sete dias e cobertura inicial restrita. Ausência de novo não invalida automaticamente os usados. Amostra insuficiente, identidade incerta ou referência vencida permanecem explícitas, sem fabricar lucro zero.
 
 ### Tempo, apresentação e alertas
 
@@ -252,9 +254,21 @@ Esses requisitos são aceites transversais das etapas de evolução. Limites té
 - Como usuário, quero uma apresentação sem campos ou menções de frete/transporte, com a taxa de venda explicada nos detalhes.
 - Como usuário, quero distinguir preço conhecido de estimativa indisponível e conferir os valores usados em uma mensagem, mesmo depois de a oferta ser atualizada.
 
+### F21. Alertas ouro por condição e histórico comparável
+
+- Como usuário, quero receber alerta apenas de item com condição analisada em título, descrição e fotos, produto identificado e potencial de revenda com lucro positivo sustentado por histórico comparável.
+- Como usuário, quero que nomes escritos de formas diferentes sejam normalizados para comparar o mesmo produto, preservando diferenças relevantes de modelo e variante.
+- Como usuário, quero conferir quais anúncios históricos, preços e evidências sustentaram o alerta e por que uma oferta ainda não se qualifica.
+
+### F22. Controle global de ligar e desligar o robô
+
+- Como usuário, quero ligar e desligar o robô pela interface para controlar coleta, análises e novos alertas em conjunto, mantendo as ofertas já salvas acessíveis.
+- Como usuário, quero que a pausa sobreviva ao reinício e que a retomada conserve histórico e trabalho válido, sem duplicar mensagens.
+- Como usuário, quero distinguir robô ligado, desligando, desligado e estado não confirmado, sabendo se uma operação já iniciada ainda está concluindo.
+
 ## 6. Funcionalidades
 
-F01–F12 descrevem a base desenvolvida e as substituições da F12. F13–F20 descrevem o escopo novo: possuem aceite de produto, mas exigem especificação/contrato e decisões pendentes antes de implementação. Sugestões adicionais do documento de evolução permanecem propostas.
+F01–F12 descrevem a base e as substituições consolidadas da F12. F13–F20 registram as etapas de evolução, cujo estado efetivo consta do progresso e de suas avaliações. F21 acrescenta os requisitos de alertas ouro ainda pendentes de implementação. Sugestões adicionais do documento de evolução permanecem propostas.
 
 ### F01. Discovery e viabilidade de integrações
 
@@ -460,7 +474,7 @@ F01–F12 descrevem a base desenvolvida e as substituições da F12. F13–F20 d
 - Reavaliar entradas relevantes como obtenção de detalhes, identificação, comparáveis e classificação automática. Não fabricar descoberta, reabrir decisões antigas indiscriminadamente nem gerar mensagem só porque uma foto apareceu.
 - Na adoção e na retomada, considerar ofertas recentes ainda sem alerta confirmado, inclusive estoque inicial elegível. Preservar recibos anteriores, intenções em andamento e transmissão incerta; reinício, mudança de política ou oscilação elegível/incerta/elegível não criam outro primeiro alerta.
 - Manter reduções de preço como eventos distintos, com exigência de primeiro envio confirmado e idempotência por evento. O limite de 48 horas aprovado é para o primeiro alerta; alterar a janela das reduções exige decisão separada.
-- Preservar a escolha manual sem alerta por si só, conforme decisão confirmada no brainstorming de F16. Gravar ou corrigir essa escolha muda a aba e não cria intenção de envio, imediata ou adiada para a retomada; entradas automáticas independentes continuam sujeitas à política de elegibilidade vigente e à precedência da condição manual. Elegibilidade não recebe corte mínimo de lucro nesta revisão.
+- Preservar a escolha manual sem alerta por si só, conforme decisão confirmada no brainstorming de F16. Gravar ou corrigir essa escolha muda a aba e não cria intenção de envio, imediata ou adiada para a retomada; entradas automáticas independentes continuam sujeitas à política de elegibilidade vigente e à precedência da condição manual. Na política originalmente avaliada em F16 não há corte mínimo de lucro; a nova qualificação F21 exigirá lucro positivo nas novas autorizações após sua adoção.
 - A regra de escolha manual acima refere-se à condição F05. Na integração posterior com F18, correção manual de identidade pode completar a primeira elegibilidade e autorizar primeiro alerta, com publicação confiável dentro de 48 horas, ausência de conflito e deduplicação; isso não torna F18 pré-requisito de F16.
 - Mostrar por oferta um estado compreensível: aguardando data, condição, identificação, amostra, configuração ou análise; excluída com motivo; pronta/na fila; envio incerto; confirmada no servidor; falha recuperável. Distinguir causa atual do motivo histórico e mostrar horário da última avaliação.
 
@@ -608,13 +622,54 @@ No modo equilibrado, o acompanhamento distingue “IA pausada pelo usuário”, 
 - Estimativa inválida ou ausente: mostrar “Indisponível” em venda/lucro e o motivo nos detalhes; não fabricar preço zero, lucro ou nova elegibilidade.
 - Mensagem com transmissão incerta ou retomada após falha: conservar corpo e estado de F09 para reconciliação. A adoção do novo formato não autoriza repetir o envio.
 
+### F21. Alertas ouro por condição e histórico comparável
+
+**Consome**: análise de condição e evidências de título/descrição/fotos de F15; identidade normalizada, atributos/proveniência e pesquisas de F18; amostra histórica, comparáveis, mediana e validade de F06; composição de compra/venda/taxa/lucro de F07; elegibilidade, prazo, intenções e recibos de F16; apresentação financeira versionada de F20. F14/F19 são pré-requisitos transitivos da análise F15.
+
+**Fornece**: qualificação versionada e justificativa rastreável para autorização de primeiro alerta e redução de preço pelo fluxo existente de F16/F09; diagnóstico e evidências nos detalhes, na lista e nas novas mensagens. A extensão preserva o DAG e a responsabilidade de cada feature.
+
+**Capacidades**
+
+- Um alerta ouro é uma oferta no escopo vigente com potencial de revenda e lucro estimado positivo, sustentado conjuntamente por condição suficiente, identidade comparável e histórico válido. Todos os requisitos são obrigatórios para novas autorizações após a adoção de F21; indisponibilidade de uma dependência não libera o fluxo antigo como alternativa.
+- Analisar título, descrição disponível e fotos versionadas do próprio anúncio com F15. Exigir evidência textual suficiente de funcionamento e análise visual aplicável concluída, sem defeito relevante ou conflito não resolvido. Ausência de foto, análise pendente/falha/inconclusiva ou resultado de revisão antiga mantém espera; desgaste leve pode ser aceito com ressalva. Uma escolha manual não fabrica análise visual nem supera esses requisitos.
+- Usar identidade normalizada de F18 por família/modelo e atributos determinantes, com aliases validados e origem rastreável. Variação de escrita não separa produtos equivalentes; semelhança de nome não mistura geração, capacidade, edição, acessório, peça ou lote. Atributo obrigatório ausente ou contraditório bloqueia a comparação. Normalizar produto não funde anúncios distintos.
+- Sustentar o preço de venda estimado no histórico persistido de pesquisas: última observação aplicável por fonte/ID, no mínimo cinco comparáveis usados equivalentes retidos, até 14 dias, com exclusões, corte de discrepantes e dispersão de F06. A própria oferta e repetições não contam; referência de novo não completa amostra usada. Expor mediana, preços, datas, origem e motivos; não exigir duração histórica adicional inventada nem tratar preço pedido como venda realizada.
+- Exigir `lucro estimado > R$ 0,00`, calculado por F07 em centavos após a taxa configurada. Preservar compra, venda estimada e lucro da mesma composição. Não criar margem percentual ou valor mínimo adicional; zero/negativo e valores indisponíveis impedem alerta, mantendo a oferta visível para análise. Não acrescentar custo logístico ao cálculo.
+- Reavaliar dados relevantes e conferir qualificação, versões e validade imediatamente antes de nova autorização de transmissão, inclusive para intenção já em fila e reduções. Preservar limite de 48 horas da publicação confiável para primeiro alerta, exceção da classificação manual isolada, identidade de cada redução e exigência de primeiro envio confirmado. Esta revisão não acrescenta janela de 48 horas às reduções.
+- Na adoção, preservar recibos e corpos históricos; não criar outro primeiro alerta de oferta já confirmada nem repetir POST possivelmente transmitido. Intenção comprovadamente não transmitida precisa da qualificação nova antes de seguir. Estado sem prova de ausência de transmissão permanece em reconciliação; mudança de política não reescreve o corpo de mensagem histórica ou incerta.
+
+**Experiência**: nos detalhes, conferir nome normalizado e atributos, sinais e fotos da análise, histórico de comparáveis, preço representativo e composição. Mostrar separadamente qualificação atual, motivo de espera/exclusão e histórico de envio. Mensagem nova traz nome do produto, compra, venda estimada, lucro e resumo da base histórica, com ressalvas e referência para consultar as evidências na aplicação; recepção no WAHA não significa entrega/leitura. Manter filtros, revisão e atualização mediante clique.
+
+**Tratamento de erros**: foto/análise indisponível aguarda evidência; identidade incerta/conflitante aguarda identificação/revisão; histórico insuficiente/disperso/vencido aguarda amostra aplicável; lucro não positivo informa ausência de ganho estimado; erro de leitura suspende nova autorização e conserva diagnóstico anterior identificado como tal. Nenhuma falha gera evidência, preço ou confirmação fictícios.
+
+### F22. Controle global de ligar e desligar o robô
+
+**Consome**: processos/tarefas persistentes F02, configuração F03, navegação e leitura de ofertas F08, checkpoints de pesquisa/coleta F13, transferências de mídia F14, avaliações F15, autorizações/recibos F16 e controle da inferência F19.
+
+**Fornece**: intenção global persistida de execução, revisão e estado efetivo, aplicados aos estágios existentes e exibidos na interface. F22 integra essas fronteiras durante sua implementação; os dados voltam aos estágios por extensão, sem inverter o DAG. F17/F18 integrarão o controle quando disponíveis, sem serem pré-requisitos desta etapa.
+
+**Capacidades**
+
+- Oferecer ações explícitas “Ligar robô” e “Desligar robô”. A decisão confirmada é pausar coleta, análises e novos alertas em conjunto; a aplicação, as configurações, as ofertas e o histórico continuam acessíveis.
+- Persistir a intenção global por instalação. Fechar a aba, reiniciar processos ou editar configuração não reativa uma pausa salva. Preservar o comportamento anterior de início após configuração quando ainda não houver escolha global; a migração não pausa nem inicia processos por si só.
+- Ao desligar, impedir novas unidades de pesquisa/coleta, download de imagens, identificação/valoração, análise multimodal/inferência e autorização de envio, inclusive de tarefas já enfileiradas ou workers concorrentes. Conferir a decisão também na fronteira da operação, além do agendamento.
+- Concluir apenas unidades já autorizadas, dentro dos timeouts e regras existentes, salvando resultado/checkpoint aplicável. Não iniciar a próxima página, detalhe, imagem, parte de inferência ou mensagem por estar no mesmo job. Mostrar “Desligando” enquanto houver operação em curso; estado incerto não é apresentado como parada confirmada.
+- Conservar filas, dados, escolhas manuais, perfis, pesos e recibos. Chamada de mensagem já autorizada pode concluir; transmissão incerta continua apenas em reconciliação, sem novo POST por pausa, reinício ou retomada. Operações de integridade, leitura de status e manutenção necessária permanecem disponíveis.
+- Ao ligar, retomar trabalho válido a partir das fronteiras confirmadas, respeitando revisões, exclusividade dos recursos, limites da fonte, suspensão de acesso, barreiras de restauração e controles específicos de IA/alertas. Ligar o robô não liga alertas desativados nem remove pausa manual da IA.
+- O tempo continua passando durante a pausa: revalidar elegibilidade, validade dos comparáveis e janela de 48 horas antes de autorizar um primeiro alerta após retomar. Não enviar um lote de ofertas vencidas para compensar o intervalo desligado.
+- Confirmar a mudança somente depois de gravada, com proteção contra duas abas e comandos repetidos. Falha de banco/controle impede novas autorizações e mostra indisponibilidade; não exibir “Desligado” como consequência presumida de erro ou worker sem resposta.
+
+**Experiência**: controle acessível em Acompanhamento, com resumo do estado global nas telas de ofertas. Exibir a ação correspondente à intenção atual, confirmação da gravação e indicação das unidades em conclusão quando aplicável. “Ligado” significa habilitado, e bloqueios de configuração/acesso/recursos ficam explícitos. Consultar ou editar dados continua possível desligado; uma ação manual que demande trabalho automatizado conserva a pendência até a retomada.
+
+**Tratamento de erros**: revisão divergente solicita recarregar o estado; falha ao gravar conserva a última decisão confirmada sem anunciar sucesso; worker indisponível ou operação de término incerto mostra pendência de confirmação. Desligar não encerra serviços Docker nem tenta cancelar silenciosamente efeito externo possivelmente iniciado.
+
 ## 7. Fora de escopo
 
 - Negociação, contato automático com vendedor, compra, pagamento, revenda e acompanhamento de transações dentro do Garimpei. A navegação autônoma cobre pesquisa e avaliação.
 - Garantia de lucro, autenticidade, ausência de fraude, funcionamento real ou correspondência entre preço anunciado e venda realizada.
 - Loja própria, integrações de venda, múltiplos usuários, acesso por rede/celular e hospedagem 24 horas. Operação atual é local e sem login no Garimpei.
 - Integração obrigatória de outras plataformas além do Facebook nesta evolução; eletrodomésticos grandes continuam fora do recorte inicial.
-- Resumos substituindo mensagens individuais, alertas de defeitos/incertos/sem estimativa e envio automático com data de publicação não confiável na nova política.
+- Resumos substituindo mensagens individuais, alertas de defeitos/incertos/sem estimativa, alertas com lucro não positivo após adoção de F21 e envio automático com data de publicação não confiável na nova política.
 - Inferência em nuvem, contratação de API de IA paga e fallback remoto automático. A escolha é local via Ollama/Docker; limites e métricas operacionais serão especificados em F19.
 - Cálculo ou apresentação de frete/transporte no fluxo financeiro desta versão; a informação não é necessária para compra, venda estimada e lucro.
 
@@ -646,6 +701,8 @@ A exploração de novos nichos para sugestões foi aprovada; monitorá-los e ale
 | F19 | Inferência multimodal local em Docker | 1 | F02, F12 |
 | F15 | Avaliação conjunta de imagens e descrição | 1 | F05, F06, F14, F19 |
 | F20 | Compra, venda estimada e lucro na apresentação | 1 | F07, F08, F09, F12 |
+| F21 | Alertas ouro por condição e histórico comparável | 1 | F06, F07, F15, F16, F18, F20 |
+| F22 | Controle global de ligar e desligar o robô | 1 | F02, F03, F08, F13, F14, F15, F16, F19 |
 
 Dependências têm semântica AND e ordem topológica. F13/F14/F16 podem usar a classificação textual existente sem aguardar F15; a análise multimodal entra na mesma fronteira de condição quando estiver disponível. As entregas incrementais compartilham partes do coletor, projeções e alertas; isso exige sequenciar alterações concorrentes nesses arquivos, mesmo quando as ondas coincidem. A ordem prática prioriza as falhas textuais identificadas, imagens e transparência, junto da recuperação operacional; a ampliação da identificação/amostra precisa acompanhar a nova regra de alertas para produzir oportunidades avaliáveis.
 
@@ -667,6 +724,7 @@ F02 prepara a infraestrutura comum e é sequencial. F19 acrescenta a infraestrut
 - **Onda 10**: F12.
 - **Onda 11**: F13, F14, F16, F17, F19, F20.
 - **Onda 12**: F15, F18.
+- **Onda 13**: F21, F22.
 
 Cálculo: 1 sem dependências; caso contrário, 1 + maior onda das dependências. Ondas são relações de pré-requisito; não autorizam execução paralela ou início de implementação.
 
@@ -700,6 +758,8 @@ graph TD
   F19["F19 IA local"]
   F15["F15 Avaliação multimodal"]
   F20["F20 Valores financeiros"]
+  F22["F22 Controle global"]
+  F21["F21 Alertas ouro"]
   F01 --> F02
   F02 --> F03
   F03 --> F04
@@ -761,11 +821,25 @@ graph TD
   F08 --> F20
   F09 --> F20
   F12 --> F20
+  F06 --> F21
+  F07 --> F21
+  F15 --> F21
+  F16 --> F21
+  F18 --> F21
+  F20 --> F21
+  F02 --> F22
+  F03 --> F22
+  F08 --> F22
+  F13 --> F22
+  F14 --> F22
+  F15 --> F22
+  F16 --> F22
+  F19 --> F22
 ```
 
 ## 9. Critérios de aceite
 
-Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F09 refletem substituições já aprovadas e avaliadas na F12; seus contratos antigos continuam históricos. A nova política aprovada nesta conversa possui critérios próprios em F16 e permanece pendente. `done` exige avaliação completa do contrato e gates aplicáveis; revisão documental não altera esse estado.
+Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F09 refletem substituições já aprovadas e avaliadas na F12; seus contratos antigos continuam históricos. A primeira elegibilidade possui critérios próprios em F16; a nova qualificação ouro possui critérios em F21 e permanece pendente de implementação. `done` exige avaliação completa do contrato e gates aplicáveis; revisão documental não altera esse estado.
 
 ### F01. Discovery e viabilidade de integrações
 
@@ -958,6 +1032,29 @@ Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F
 - **F20-AC07**: intenção anterior à adoção de F20, já com corpo autorizado, mantém seu texto/valores originais em fila, retomada, confirmação ou reconciliação, ainda que não contenha venda estimada. A atualização de formato não completa esse dado com a avaliação atual, não cria intenção duplicada nem repete POST possivelmente transmitido; recibos anteriores continuam associados ao mesmo evento e destino.
 - **F20-AC08**: composição ausente ou incompatível informa indisponibilidade sem misturar revisões ou autorizar mensagem com valores inconsistentes. Falha de atualização conserva a leitura anterior aplicável com revisão/data, erro visível e opção de tentar novamente, preservando filtros/página; a falha não confirma atualização nem libera alerta.
 
+### F21. Alertas ouro por condição e histórico comparável
+
+- **F21-AC01**: nova autorização de alerta exige conjuntamente análise aplicável de título/descrição/fotos com condição suficiente, identidade normalizada sem conflito, amostra histórica equivalente válida e lucro estimado estritamente positivo após a taxa; falta de qualquer requisito impede envio.
+- **F21-AC02**: nomes equivalentes validados produzem a mesma identidade de produto e permitem comparação, preservando atributos determinantes. Modelo/variante incompatível, peça, acessório, lote, atributo obrigatório ausente ou conflito não são equivalentes; anúncios diferentes preservam fonte/ID e histórico próprios.
+- **F21-AC03**: estimativa histórica é reproduzível pelos comparáveis persistidos e segue F06: última observação por fonte/ID, exclusão do alvo/repetições/incompatíveis, mínimo de cinco retidos, observação até 14 dias, corte de discrepantes, dispersão e mediana. Referência de novo e preço da própria oferta não completam a amostra; ausência/insuficiência/vencimento não vira preço ou lucro fictício.
+- **F21-AC04**: lucro em centavos maior que zero após taxa pode satisfazer o requisito financeiro; lucro zero, negativo ou indisponível bloqueia alerta sem ocultar a oferta. Não há margem percentual ou valor mínimo adicional, custo logístico ou garantia de venda/lucro.
+- **F21-AC05**: ausência de fotos, análise pendente/falha/inconclusiva, defeito relevante, conflito ou análise antiga não autorizam alerta, mesmo com frase positiva ou escolha manual boa. Desgaste cosmético leve é aceito com ressalva somente quando a evidência de funcionamento e a análise são suficientes.
+- **F21-AC06**: dados relevantes são conferidos novamente antes de nova transmissão para primeiro alerta e redução, inclusive após espera na fila. Revisão de identidade/condição/amostra/configuração incompatível ou vencida suspende a autorização e provoca reavaliação; comparação com histórico de outra variante nunca sustenta envio.
+- **F21-AC07**: detalhes e mensagem nova explicam produto normalizado, compra, venda estimada, lucro e base histórica com datas/quantidade/método, ressalvas e acesso às evidências. Diagnóstico distingue falta de análise, identidade, amostra e lucro não positivo, conserva revisão/data e separa situação atual de recibos históricos; falha de atualização preserva leitura e filtros.
+- **F21-AC08**: chegada de evidências suficientes pode completar a primeira elegibilidade dentro de 48 horas da publicação confiável; repetição, concorrência e troca de política não duplicam primeiro alerta ou redução. Classificação manual isolada não gera intenção adiada; reduções continuam exigindo primeiro envio confirmado e não ganham nova janela de publicação nesta revisão.
+- **F21-AC09**: adoção e reinício preservam corpos/recibos e reconciliação anteriores; intenção comprovadamente não transmitida só segue após qualificação F21. Transmissão incerta não repete POST, e ausência/falha de dependência suspende novas autorizações sem recorrer à política anterior. Provar percurso completo e casos adversos em recursos isolados, distinguindo teste controlado de análise real.
+
+### F22. Controle global de ligar e desligar o robô
+
+- **F22-AC01**: O usuário liga e desliga o robô por ações explícitas em Acompanhamento; estado global fica visível também nas ofertas, e desligar mantém interface, configuração, dados e histórico consultáveis.
+- **F22-AC02**: Após confirmar a pausa, nenhuma nova unidade de coleta/pesquisa, mídia, identificação/valoração, avaliação/inferência ou envio é autorizada, inclusive por tarefa já enfileirada e por workers concorrentes; verificar a barreira antes da operação, sem depender apenas do agendador.
+- **F22-AC03**: Unidades já autorizadas podem concluir e persistir resultado/checkpoint aplicável sem iniciar a próxima unidade; mostrar desligando enquanto houver operação em curso e não declarar desligado quando sua conclusão for indeterminada.
+- **F22-AC04**: Pausa, reinício e retomada preservam filas, escolhas, configurações, sessão, pesos, intenções e recibos. Mensagem já autorizada pode concluir; envio incerto continua em reconciliação no vínculo original sem novo POST automático.
+- **F22-AC05**: A intenção global salva sobrevive ao fechamento da aba, reinício e edição de configuração. Comando repetido é idempotente; comando conflitante de outra aba não sobrescreve decisão mais recente. Adoção sem escolha global preserva o comportamento anterior de configuração/início.
+- **F22-AC06**: Ligar retoma apenas trabalho aplicável, sem duplicar coleta/evento/primeiro alerta, sem remover suspensão de acesso, barreira de recuperação ou pausas específicas da IA/alertas. Validade das referências e idade de publicação são conferidas novamente; oferta vencida durante a pausa não recebe primeiro envio.
+- **F22-AC07**: Falha ao ler ou gravar o controle mostra erro recuperável sem confirmação falsa nem mudança silenciosa da decisão persistida; novas operações ficam bloqueadas quando o estado não puder ser verificado. Worker ausente ou conclusão incerta aparece distinto de desligado confirmado.
+- **F22-AC08**: Jornada em ambiente isolado comprova desligar durante atividade, preservar consulta de ofertas, bloquear novos trabalhos/envios, reiniciar mantendo a pausa e ligar retomando trabalho válido sem mensagens duplicadas; testes não alteram recursos reais do usuário.
+
 ### Integração entre features
 
 - **INT-01 — F03 → F04**: categorias, produtos e CEP salvos alimentam a coleta; as duas formas de interesse coexistem.
@@ -992,6 +1089,13 @@ Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F
 - **INT-25 — F09 → F20**: mensagens novas de primeiro alerta e redução usam os três valores congelados na autorização. Corpos anteriores, inclusive pendentes ou incertos, e recibos conservam composição, evento e destino; mudança de formato, taxa ou revisão não reautoriza nem duplica envio.
 - **INT-26 — F12 → F20**: publicação incremental preserva estados de cálculo e indisponibilidade da política sem custo logístico. Venda/lucro ausentes não viram zero e mudança de rótulo não altera os eventos ou a elegibilidade vigentes; a integração futura com F16 conserva essa fronteira.
 
+- **INT-27 — F15/F18/F06/F07 → F21**: condição multimodal aplicável e identidade normalizada vinculam a mesma oferta aos comparáveis históricos; mediana e composição sustentam lucro positivo com proveniência, sem misturar variantes ou revisões.
+- **INT-28 — F16/F20 ↔ F21**: qualificação bloqueia novas autorizações inelegíveis e explica evidências no trio financeiro e diagnóstico, preservando prazo, exceção manual, identidade de envio e reconciliação. Estados históricos não são recalculados como se tivessem sido qualificados por F21.
+
+- **INT-29 — F02/F03/F08/F13/F14/F15/F16/F19 → F22**: controles e tarefas existentes compõem uma decisão global persistente, sem sobrescrever configuração, checkpoints ou preferências específicas. A pausa alcança cada fronteira de execução já disponível.
+- **INT-30 — F22 → coleta/mídia/avaliação/inferência/alertas**: comando de desligar confirmado impede nova unidade mesmo com job antigo reclamado; unidade já autorizada pode terminar e conservar checkpoint/recibo, sem encadear outra. Reconciliação não produz novo envio.
+- **INT-31 — F22 → F08/F16/F19**: estado visível distingue intenção e execução efetiva; ligar preserva controles de IA/alertas e revalida prazo/versões antes do próximo efeito, sem duplicar primeiro alerta ou liberar publicação ultrapassada.
+
 A primeira revenda lucrativa é validação de valor fora do sistema; não substitui estes critérios técnicos.
 
 ## Pendências e decisões da revisão
@@ -1018,5 +1122,8 @@ A primeira revenda lucrativa é validação de valor fora do sistema; não subst
 | P18 | Recorte dos interesses ativos e contexto Facebook existentes; brainstorming confirmou mesma região sem ampliação automática, correção manual opcional de identidade, conflito posterior bloqueante até revisão e primeiro alerta após correção elegível com F16. Na especificação, materializar corpus/atributos/aliases, persistência e concorrência das correções, validação geográfica e limites medidos de duração, consultas, detalhes, tentativas e prioridade. Cobertura real e amostra suficiente permanecem a verificar, sem reduzir a política F06. | F18 |
 | P19 | Modelo, execução local e modo equilibrado definidos: análise automática, descarregamento após inatividade e pausa/retomada manual da IA. Na especificação/contrato, fixar versão/digest do Ollama, revisão completa de `qwen3.5:4b-q4_K_M`, intervalo de inatividade, tratamento da inferência em execução ao pausar, limites de imagens/resolução/saída/fila, timeouts, tentativas e recuperação; calibrar contexto e recursos com medição na GPU real antes de concluir a etapa. O perfil inicial é referência de teste, sem meta numérica de desempenho aprovada. A qualidade da decisão de condição permanece em F15. O modelo não foi instalado nesta revisão. | F19 |
 | P20 | Escopo de produto consolidado em F20: trio financeiro, retirada de custo logístico, valores indisponíveis e preservação de corpos já autorizados/recibos. Pendente especificar contrato e implementar a transição do formato e suas evidências; a revisão do PRD não conclui a feature. | F20 |
+
+| P21 | Definição confirmada pelo usuário: alerta exige condição por título/descrição/fotos, produto normalizado, histórico de equivalentes e lucro positivo. Especificação F21 preserva mediana e qualidade F06, cálculo F07 e entrega F16/F20; falta implementar/avaliar a integração após F15 e F18. Não foi definida margem adicional além de lucro estritamente positivo. | F21 |
+| P22 | Confirmado: controle global liga/desliga pausa coleta, análises e novos alertas, com consulta e dados preservados. Especificação define persistência, drenagem das unidades em andamento, barreira de autorização e retomada sem duplicação. Implementação e avaliação permanecem pendentes. | F22 |
 
 A documentação registra decisões confirmadas e lacunas. Resolver pendência material antes de especificar o trecho afetado; novas features começam `pending`, sem ciclos, relatórios ou conclusão. [Recomendações de evolução](evolucao-produto-2026-11-12.md) não são requisitos aprovados por estarem documentadas.
