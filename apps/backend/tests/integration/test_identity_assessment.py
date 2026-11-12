@@ -1,5 +1,7 @@
 """Effective identity changes fence old visual assessments before the next worker turn."""
 
+import pytest
+
 from tests.factories.runtime import FoundationInstance
 from tests.integration.test_media_persistence import media_instance as media_instance
 from tests.integration.test_media_persistence import shell
@@ -68,5 +70,38 @@ from decimal import Decimal
 obs.price=Decimal('125.00');obs.save(update_fields=['price'])
 assert inputs.read(listing.id).fingerprint==before.fingerprint
 print('recognized family supplies rubric without title keyword; equivalent manual and price-only changes reuse content PASS')
+""",
+    )
+
+
+@pytest.mark.parametrize("version_field", ["prompt_version", "schema_version"])
+def test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history(
+    media_instance: tuple[FoundationInstance, str], version_field: str
+) -> None:
+    instance, origin = media_instance
+    shell(
+        instance,
+        origin,
+        BOOT
+        + "\nVERSION_FIELD="
+        + repr(version_field)
+        + """
+from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
+first=prepare.execute(listing.id)
+for _ in range(3):run.execute()
+assert complete.execute(first.id)
+assert build_read_condition().execute(listing.id).state.satisfies_alert_condition
+row=ConditionAssessment.objects.get(id=first.id)
+historical_result=row.result;calls=gateway.calls
+ConditionAssessment.objects.filter(id=first.id).update(**{VERSION_FIELD:'condition-evidence-old'})
+current=PostgresAssessmentQueries().observation(listing.id,obs.id)
+assert current.reason=='superseded_input', 'old prompt/schema still authorized current evidence'
+assert current.previous==first.id and not current.sufficient
+condition=build_read_condition().execute(listing.id).state
+assert not condition.satisfies_alert_condition and condition.assessment.previous==first.id
+row.refresh_from_db()
+assert row.status=='complete' and row.result==historical_result
+assert gateway.calls==calls, 'public read invoked inference'
+print('old prompt/schema is immediately inapplicable; confirmed historical result remains intact and no model executes PASS')
 """,
     )
