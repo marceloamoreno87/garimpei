@@ -1,0 +1,6 @@
+### Result
+{"status":200,"url":"http://127.0.0.1:16972/ofertas/e3fe255e-2650-4a81-9fec-40eb4f433d32/?aba=funcionam&q=PlayStation&pagina=1","diagnostic":"Alerta desta oferta\n\nAguardando confirmação da data de publicação\n\nÚltima avaliação: 12/11/2026 12:00:00 UTC."}
+### Ran Playwright code
+```js
+await (async page => { const response=await page.reload(); return {status:response.status(),url:page.url(),diagnostic:await page.locator("[aria-labelledby=alert-heading]").innerText()}; })(page);
+```

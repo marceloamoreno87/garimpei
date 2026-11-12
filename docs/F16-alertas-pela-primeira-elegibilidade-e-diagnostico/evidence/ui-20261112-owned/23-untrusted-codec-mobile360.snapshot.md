@@ -1,0 +1,78 @@
+- generic [active] [ref=f19e1]:
+  - link "Pular para o conteúdo" [ref=f19e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=f19e3]:
+    - link "Garimpei." [ref=f19e4] [cursor=pointer]:
+      - /url: /
+    - navigation "Navegação principal" [ref=f19e5]:
+      - link "Ofertas" [ref=f19e6] [cursor=pointer]:
+        - /url: /ofertas/
+      - link "Acompanhamento" [ref=f19e7] [cursor=pointer]:
+        - /url: /acompanhamento/
+      - link "Configurações" [ref=f19e8] [cursor=pointer]:
+        - /url: /configuracoes/
+      - link "Integrações" [ref=f19e9] [cursor=pointer]:
+        - /url: /integracoes/
+  - generic [ref=f19e10]:
+    - banner [ref=f19e11]:
+      - generic [ref=f19e12]: Facebook Marketplace
+      - generic [ref=f19e13]: São Paulo · SP
+    - status "Acesso ao Facebook" [ref=f19e15]:
+      - strong [ref=f19e16]: Conecte o Facebook
+      - paragraph [ref=f19e17]: Abra o navegador do Garimpei e entre na sua conta para permitir a coleta.
+      - link "Conectar Facebook" [ref=f19e18] [cursor=pointer]:
+        - /url: /integracoes/#facebook
+    - main [ref=f19e19]:
+      - link "Voltar aos resultados" [ref=f19e20] [cursor=pointer]:
+        - /url: /ofertas/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=3fe6d006-2991-4570-8a04-9901c4533e4c
+      - generic [ref=f19e21]:
+        - heading "PlayStation 5 Slim disco 1TB" [level=1] [ref=f19e22]
+        - paragraph [ref=f19e23]: Facebook Marketplace · Anúncio 16901 · Observação 12/11/2026 12:00:00 UTC
+      - status
+      - generic [ref=f19e24]:
+        - region [ref=f19e25]:
+          - img "Imagem não disponível para PlayStation 5 Slim disco 1TB" [ref=f19e27]: Imagem não disponível
+          - heading "Entenda a estimativa" [level=2] [ref=f19e28]
+          - generic "Valores da oferta" [ref=f19e29]:
+            - generic [ref=f19e30]:
+              - term [ref=f19e31]: Preço de compra
+              - definition [ref=f19e32]: Preço não informado
+            - generic [ref=f19e33]:
+              - term [ref=f19e34]: Preço de venda estimado
+              - definition [ref=f19e35]: Estimativa indisponível
+            - generic [ref=f19e36]:
+              - term [ref=f19e37]: Lucro estimado
+              - definition [ref=f19e38]: Estimativa indisponível
+          - generic [ref=f19e39]:
+            - term [ref=f19e40]: Taxa provisória · 10,00%
+            - definition [ref=f19e41]: Indisponível
+          - paragraph [ref=f19e42]: "Motivo da indisponibilidade: O preço de compra ainda não está confirmado."
+          - paragraph [ref=f19e43]: Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace.
+        - region [ref=f19e44]:
+          - heading "Referências para comparar" [level=2] [ref=f19e45]
+          - paragraph [ref=f19e46]: Preços anunciados de usados. Não representam vendas realizadas.
+          - list [ref=f19e47]:
+            - listitem [ref=f19e48]: Amostra insuficiente ou avaliação ainda indisponível.
+          - generic [ref=f19e49]:
+            - heading "Referência de novo" [level=3] [ref=f19e50]
+            - paragraph [ref=f19e51]: Referência de novo indisponível.
+          - link "Abrir anúncio original" [ref=f19e52] [cursor=pointer]:
+            - /url: https://www.facebook.com/marketplace/item/16901/
+      - region [ref=f19e53]:
+        - heading "Alerta desta oferta" [level=2] [ref=f19e54]
+        - paragraph [ref=f19e55]:
+          - strong [ref=f19e56]: Aguardando confirmação da data de publicação
+        - paragraph [ref=f19e57]: "Última avaliação: 12/11/2026 12:00:00 UTC."
+      - region "Condição da oferta" [ref=f19e58]:
+        - generic [ref=f19e59]:
+          - heading "Funciona bem" [level=2] [ref=f19e60]
+          - paragraph [ref=f19e61]: Classificação a partir do anúncio
+          - link "Ver em Funcionam bem" [ref=f19e62] [cursor=pointer]:
+            - /url: /ofertas/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=3fe6d006-2991-4570-8a04-9901c4533e4c
+        - generic [ref=f19e63]:
+          - heading "O que o anúncio informa" [level=2] [ref=f19e64]
+          - generic [ref=f19e65]:
+            - term [ref=f19e66]: Condição informada
+            - definition [ref=f19e67]: Usado
+            - term [ref=f19e68]: Descrição
+            - definition [ref=f19e69]: Funciona perfeitamente.

@@ -1,0 +1,8 @@
+{
+  "reference": "040048a8-8845-4375-9ca1-0b31ad3324c9",
+  "group_name": "garimpei - alertas",
+  "user_confirmation": "Sim, a mensagem está visível",
+  "source": "Current conversation, relayed by coordinator after asking about this exact message/reference",
+  "separate_from_provider_ack": true,
+  "provider_ack_not_inferred_from_user_observation": true
+}

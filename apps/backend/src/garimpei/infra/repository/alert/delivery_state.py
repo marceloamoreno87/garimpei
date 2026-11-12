@@ -9,6 +9,7 @@ from garimpei.infra.persistence.alert_models import AlertAttempt, AlertIntent
 from garimpei.infra.queries.alert.event_source import current_eligibility
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.alert.financial import decode_snapshot
+from garimpei.infra.repository.alert.first_authorization import first_body, prepare_first
 from garimpei.infra.repository.alert.message_authorization import prepare_financial
 
 logger = logging.getLogger("garimpei.alert")
@@ -36,6 +37,17 @@ def authorize(
     states = ["authorized", "uncertain"] if reconcile else ["queued", "blocked", "safe_retry"]
     if row.state not in states or row.next_action > now:
         return None
+    if reconcile and not all((row.session, row.recipient, row.account)):
+        row.state, row.reason, row.lease_until = (
+            "review",
+            "binding_history_missing" if row.body else "authorized_body_missing",
+            None,
+        )
+        row.save()
+        log_state(row)
+        return None
+    if reconcile:
+        binding = Binding(row.session, row.recipient, row.account)
     if binding is None:
         postpone(row, "configuration_missing", now, policy)
         return None
@@ -61,12 +73,23 @@ def _claim(
     listings: PostgresListingQueries,
     policy: AlertPolicy,
 ) -> Delivery | None:
+    if (
+        not reconcile
+        and row.first_decision_id is None
+        and row.decision is not None
+        and row.decision.event.kind == "discovered"
+    ):
+        postpone(row, "first_evaluation_pending", now, policy)
+        return None
+    if row.first_decision_id is not None:
+        return _claim_first(row, binding, now, reconcile, configuration, listings, policy)
     reason = prepare_financial(row, now)
     if reason is not None:
         if row.state != "review":
             postpone(row, reason, now, policy)
         return None
     if not reconcile:
+        assert row.decision is not None
         reason = current_eligibility(row.decision.event.listing, configuration, listings)
         if reason == "waiting_scope":
             postpone(row, reason, now, policy)
@@ -90,6 +113,7 @@ def _claim(
         attempt.authorized_at,
         attempt.message_id,
         reconcile,
+        attempt.id,
     )
 
 
@@ -97,6 +121,7 @@ def _attempt(row: AlertIntent, binding: Binding, now: datetime, reconcile: bool)
     if reconcile:
         return row.attempts.latest("ordinal")
     if not row.body:
+        assert row.decision is not None
         event, financial = row.decision.event, row.financial
         snapshot = decode_snapshot(financial)
         assert snapshot is not None
@@ -160,4 +185,65 @@ def log_state(row: AlertIntent) -> None:
             "alert_reason": row.reason,
             "alert_body_format": row.body_format,
         },
+    )
+
+
+def _claim_first(
+    row: AlertIntent,
+    binding: Binding,
+    now: datetime,
+    reconcile: bool,
+    configuration: ConfigurationReader,
+    listings: PostgresListingQueries,
+    policy: AlertPolicy,
+) -> Delivery | None:
+    if not reconcile:
+        reason = prepare_first(row, now, configuration, listings)
+        if reason in {
+            "publication_expired",
+            "condition_excluded",
+            "scope_excluded",
+            "listing_unavailable",
+        }:
+            row.state, row.reason = "cancelled", reason
+            row.save()
+            log_state(row)
+            return None
+        if reason != "eligible":
+            postpone(row, reason, now, policy)
+            return None
+    if reconcile and not row.body:
+        row.state, row.reason = "review", "authorized_body_missing"
+        row.save()
+        return None
+    row.generation += 1
+    row.lease_until = now + timedelta(seconds=policy.lease)
+    if reconcile:
+        attempt = row.attempts.latest("ordinal")
+    else:
+        if not row.body:
+            row.body = first_body(row)
+            row.session, row.recipient, row.account = (
+                binding.session,
+                binding.recipient,
+                binding.account,
+            )
+        attempt = AlertAttempt.objects.create(
+            intent=row,
+            ordinal=row.attempts.count() + 1,
+            generation=row.generation,
+            authorized_at=now,
+        )
+    row.state, row.reason = "uncertain" if reconcile else "authorized", "transmission_possible"
+    row.save()
+    log_state(row)
+    return Delivery(
+        row.id,
+        row.generation,
+        binding,
+        row.body,
+        attempt.authorized_at,
+        attempt.message_id,
+        reconcile,
+        attempt.id,
     )

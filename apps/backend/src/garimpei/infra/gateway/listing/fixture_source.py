@@ -56,6 +56,13 @@ def _candidate(
     if identity is None:
         raise SourceFailure("unverified_identity")
     delivery_cep = _cep(row.get("delivery_cep"))
+    raw_publication = row.get("published_at")
+    published_at = _timestamp(raw_publication)
+    publication_source = None
+    if raw_publication is not None:
+        publication_source = (
+            "fixture.published_at" if published_at is not None else "fixture.published_at.invalid"
+        )
     return Candidate(
         identity,
         Evidence(
@@ -63,7 +70,8 @@ def _candidate(
             title=evidence_text(row.get("title")),
             description=evidence_text(row.get("description")),
             condition=evidence_text(row.get("condition")),
-            published_at=_timestamp(row.get("published_at")),
+            published_at=published_at,
+            published_at_source=publication_source,
             price=money(_text(row.get("price"))),
             freight=money(_text(row.get("freight"))),
             freight_cep=_cep(row.get("freight_cep")),

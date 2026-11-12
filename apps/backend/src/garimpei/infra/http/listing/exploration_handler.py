@@ -5,9 +5,16 @@ from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllow
 from django.shortcuts import render
 
 from garimpei.domain.listing.exploration import Criteria, InvalidExplorationInput
+from garimpei.infra.http.listing.alert_presentation import alert_context
 from garimpei.infra.http.listing.condition_handler import ConditionHandler
-from garimpei.infra.http.listing.exploration_presentation import detail_context, list_context, url
+from garimpei.infra.http.listing.exploration_presentation import (
+    card,
+    detail_context,
+    list_context,
+    url,
+)
 from garimpei.infra.http.monitoring.monitoring_handler import redirect
+from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
 from garimpei.usecase.listing.classify_condition_usecase import ClassifyConditionUseCase
 from garimpei.usecase.listing.read_collection_status_usecase import ReadCollectionStatusUseCase
 from garimpei.usecase.listing.read_condition_usecase import ReadConditionUseCase
@@ -31,8 +38,9 @@ class ExplorationHandler:
         configuration: ReadMonitoringConfigurationUseCase,
         labels: dict[str, str],
         worker: Callable[[], bool],
+        diagnostic: ReadAlertDiagnosticUseCase | None = None,
     ) -> None:
-        self._worker = worker
+        self._worker, self._diagnostic = worker, diagnostic
         self._read, self._detail, self._updates = read, detail, updates
         self._condition, self._classify = condition, classify
         self._status, self._configuration, self._labels = status, configuration, labels
@@ -60,6 +68,13 @@ class ExplorationHandler:
             return self._offer(request, identity, criteria, action)
         page = self._read.execute(criteria)
         context = list_context(page, self._labels)
+        context["cards"] = tuple(
+            dict(
+                card(offer, page.criteria),
+                **alert_context(self._diagnostic, offer.id, offer.observation_id),
+            )
+            for offer in page.offers
+        )
         context.update(
             collection=self._status.execute(),
             configured=self._configuration.execute().configured,
@@ -87,6 +102,7 @@ class ExplorationHandler:
         if offer is None:
             raise Http404()
         context = detail_context(offer, criteria.at(version))
+        context.update(alert_context(self._diagnostic, identity, offer.observation_id))
         context.update(
             live=current,
             selected_choice=current.state.manual if current else None,

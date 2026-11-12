@@ -19,6 +19,8 @@ class WahaServer:
     mode: str = "confirmed"
     ack: int = 1
     account: str = "200@c.us"
+    recipient: str = "100@c.us"
+    hold_check: bool = False
     calls: list[tuple[str, str]] = field(default_factory=list)
     messages: list[dict[str, object]] = field(default_factory=list)
     held: Event = field(default_factory=Event)
@@ -33,6 +35,9 @@ def serve_waha(state: WahaServer) -> Iterator[str]:
             state.calls.append(("GET", self.path))
             url = urlsplit(self.path)
             if "/api/sessions/" in url.path:
+                if state.hold_check:
+                    state.held.set()
+                    state.release.wait(15)
                 self.respond(
                     200 if state.authenticated else 401,
                     {
@@ -55,7 +60,7 @@ def serve_waha(state: WahaServer) -> Iterator[str]:
             body = cast(
                 dict[str, object], json.loads(self.rfile.read(int(self.headers["Content-Length"])))
             )
-            assert body["session"] == "synthetic" and body["chatId"] == "100@c.us"
+            assert body["session"] == "synthetic" and body["chatId"] == state.recipient
             assert body["linkPreview"] is False
             message = {
                 "id": f"message-{len(state.messages) + 1}",

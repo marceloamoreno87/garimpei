@@ -1,0 +1,6 @@
+### Result
+{"status":200,"url":"http://127.0.0.1:16972/ofertas/e3fe255e-2650-4a81-9fec-40eb4f433d32/?aba=funcionam&q=PlayStation&pagina=1","title":"PlayStation 5 Slim disco 1TB","diagnostic":"Alerta desta oferta\n\nNão foi possível consultar o estado do alerta. Os dados da oferta continuam disponíveis.\n\nTentar consultar novamente","retryURL":"http://127.0.0.1:16972/ofertas/e3fe255e-2650-4a81-9fec-40eb4f433d32/?aba=funcionam&q=PlayStation&pagina=1"}
+### Ran Playwright code
+```js
+await (async page => { const response=await page.reload(); return {status:response.status(),url:page.url(),title:await page.locator("h1").innerText(),diagnostic:await page.locator("[aria-labelledby=alert-heading]").innerText(),retryURL:await page.getByRole("link",{name:"Tentar consultar novamente"}).evaluate(a=>a.href)}; })(page);
+```

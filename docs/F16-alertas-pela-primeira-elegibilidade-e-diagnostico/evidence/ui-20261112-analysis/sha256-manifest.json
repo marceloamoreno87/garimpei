@@ -1,0 +1,13 @@
+{
+  "03-browser-observation.txt": "99f7bb2f21d1e01c824b76966b5b3a4b7c3665c08f5c74271c8892b55854dd79",
+  "ui-analysis-supplement.md": "a3ea5b94a92d14c72c6396c57059ea16fe4f610c0b1e7f9293a564c06ee6023d",
+  "02-analysis-mobile360.png": "40f4d3c9dfc924c54421c08d64c92b6576d4f0108f41e2ec0697a3190c8602b9",
+  "01-analysis-desktop.snapshot.md": "c8c61779d95fec574f6a9a94c292fcead4e601cc6e337c396d64da7af0682547",
+  "01-analysis-desktop.png": "e1693ac718f23196951b650588c7d1f096a248f22aeda10159dcad01d314752f",
+  "result-after-get.json": "dac92fd3fa398c02c9b6d5490c342ad6a50946c14bd617af799afa20f81c67e1",
+  "result-baseline.json": "dac92fd3fa398c02c9b6d5490c342ad6a50946c14bd617af799afa20f81c67e1",
+  "cleanup-guard.json": "6ae6ab589f3e1212bbdef00b76f5781deca6b508f6d463cc2e05877c82d82c2d",
+  "result-analysis-seed.json": "26af8fb0fb8ce5691a533fb55addddf0d240068402bea5b4c56ecb6c6cea2ded",
+  "cleanup.json": "a0a376f0024267a43b2d634af82043956b1407cfdc2e1972561ef219192cffe2",
+  "lab.json": "be9ddf9be2724c30954afae67e59ee2259d421fdbabf69767c93fac87f09daf7"
+}

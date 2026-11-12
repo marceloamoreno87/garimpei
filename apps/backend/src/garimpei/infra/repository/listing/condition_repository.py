@@ -12,6 +12,7 @@ from garimpei.domain.listing.condition_ports import (
 from garimpei.infra.persistence.alert_models import ManualConditionHistory
 from garimpei.infra.persistence.listing_models import Listing, ManualCondition
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+from garimpei.infra.repository.alert.first_inputs import consume_manual_input
 from garimpei.infra.repository.listing.condition_mapper import condition_state
 
 
@@ -43,6 +44,7 @@ class PostgresConditionRepository:
                 "updated_at": timezone.now(),
             },
         )
+        consume_manual_input(row, timezone.now())
         row.publication_order += 1
         row.save(update_fields=["publication_order"])
         ManualConditionHistory.objects.create(

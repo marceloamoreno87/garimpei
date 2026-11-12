@@ -1,0 +1,15 @@
+{
+  "environment": "eval_wave11b_f16_4b870bf9",
+  "database": "garimpei_eval_wave11b_f16_4b870bf9",
+  "web_port": 16972,
+  "web_stopped": true,
+  "postgres_stopped": true,
+  "original_owned_pids_alive": [],
+  "owned_container_count": 0,
+  "owned_network_count": 0,
+  "owned_volume_count": 0,
+  "owned_manifest_removed": true,
+  "database_storage_removed": true,
+  "browser_session": "f16-ui-owned closed",
+  "unrelated_instances_touched": false
+}

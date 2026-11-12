@@ -1,0 +1,71 @@
+{
+  "changes": "ANSI and trailing whitespace only; no source changes",
+  "original_runtime_logs_retained": true,
+  "files": [
+    {
+      "path": "f16-reduction-window-red.log",
+      "original_sha256": "82b5a778434bb84c34ad94af0505507d31c499f42174b7fbaca59f907194a38a",
+      "public_sha256": "b3c33f85026b41bcac4f8bb6d5aed86b5bfe3777829c3f649770fb94046bd16f"
+    },
+    {
+      "path": "f16-audit-closure-gates.log",
+      "original_sha256": "f6ac0c602296822ed19990c90431041a566e96c5700a3effb60b154f848b341f",
+      "public_sha256": "538cf9c84f8d6ce68f016355ffb3fb1de8ea0cdb82455b520bb85b2305348f94"
+    },
+    {
+      "path": "cycle-1-full-suite.log",
+      "original_sha256": "8f52bfb7ad49e382d4461ed1eeb1498e4a2090cdf5af70b131cd5cb835bc93fe",
+      "public_sha256": "0da18426c9c845b12a5531827e8a22bdff1d53c560158b7dcbe15b0edca370a3"
+    },
+    {
+      "path": "evaluation-0-gates.log",
+      "original_sha256": "9ec232552645c87511774da76b53cf344d4178f84f6215e5c4171b2b2340562a",
+      "public_sha256": "412f5dfae6f4fda2d80c1945a8a72186bdc3262f38292ed23c1b43af02fac669"
+    },
+    {
+      "path": "f16-unknown-identity-red.log",
+      "original_sha256": "b499d5081584895954eba8e01f333f82d96261a304442f66dee9cc82c2854e9a",
+      "public_sha256": "6a34edad82fdf9bc67ea738ff235099a7c98c2fcc6b7a5009645c91297c3bf73"
+    },
+    {
+      "path": "jid-device-red.txt",
+      "original_sha256": "9e8efc1a4349ce484a2434fa31e79529f12fbb4e391ce7e3c55189a78d49af8b",
+      "public_sha256": "c38c934d01408e54e512c4fb1b6c2422c769ba4b2a1a462d136fdaab387f4128"
+    },
+    {
+      "path": "f16-cycle3-snapshot-red.log",
+      "original_sha256": "cb84111d46c9a230a48306a14d5a154849d04a8cfa789ef72a425465ee3c5e79",
+      "public_sha256": "ab481e01cf1e82a90062e30c451d03d0af6a604de21b516f228ac2123e194630"
+    },
+    {
+      "path": "f16-cycle2-gates.log",
+      "original_sha256": "f6ac0c602296822ed19990c90431041a566e96c5700a3effb60b154f848b341f",
+      "public_sha256": "538cf9c84f8d6ce68f016355ffb3fb1de8ea0cdb82455b520bb85b2305348f94"
+    },
+    {
+      "path": "evaluation-0-full-interrupted.log",
+      "original_sha256": "28687202b43541d9928326df2ce6b4330742f3915242dca22670ab530fe40460",
+      "public_sha256": "ef9a12937f85caed12a074c4d67689514a730d1c0a165b06dd3b676a536e7284"
+    },
+    {
+      "path": "cycle-2-full-suite.log",
+      "original_sha256": "c54c3f35482334e3a50d0db9fe4d880ce667d625583f78aebef8962d85932ba7",
+      "public_sha256": "102efaad99a61d0c9b56dbc60c108fe80b5dff635f4d67b1f5a00d86380e4bfd"
+    },
+    {
+      "path": "f16-audit-closure-matrix.log",
+      "original_sha256": "7a89b1ac46d921c4fe4dc34e61213ebfa6c3a3a955938254506595ec7addc545",
+      "public_sha256": "b1f01fa8db3aa38acceb19e411c9ee18d37302a547c6581c37dc1bc33ad1fda3"
+    },
+    {
+      "path": "f16-financial-order-red.log",
+      "original_sha256": "3b129d5afa389a59c777e1b7e58c823913afbf847c386b65f84267a7819c2c6f",
+      "public_sha256": "18bac6c026e058dcd0b64c24b4b646c2a82e466656815f986f8fc7c5954a09af"
+    },
+    {
+      "path": "f16-cycle3-gates.log",
+      "original_sha256": "f6ac0c602296822ed19990c90431041a566e96c5700a3effb60b154f848b341f",
+      "public_sha256": "538cf9c84f8d6ce68f016355ffb3fb1de8ea0cdb82455b520bb85b2305348f94"
+    }
+  ]
+}

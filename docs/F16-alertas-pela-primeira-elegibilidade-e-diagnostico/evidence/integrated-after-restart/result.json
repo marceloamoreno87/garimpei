@@ -1,0 +1,13 @@
+{
+  "same_listing_id": "41151f1e-6e17-4e65-9bfd-aacf9b65dccc",
+  "same_intent_reference": "4f6a690c-4fe6-45b0-918f-3700f143687b",
+  "same_fake_receipt": "message-1",
+  "same_group": "100@g.us",
+  "confirmed_at": "2026-11-12T12:01:07+00:00",
+  "reference_body_receipt_group_unchanged_after_restart": true,
+  "first_posts": 1,
+  "target_messages": 1,
+  "browser_reads_changed_channel_calls": false,
+  "desktop_mobile_no_overflow": true,
+  "transport": "loopback fake; no real WhatsApp"
+}

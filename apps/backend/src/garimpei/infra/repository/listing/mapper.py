@@ -16,6 +16,7 @@ class PointRecord(TypedDict):
 
 
 class EvidenceRecord(TypedDict):
+    published_at_source: NotRequired[str | None]
     image_url: NotRequired[str | None]
     title: str | None
     description: str | None
@@ -51,6 +52,7 @@ def encode_evidence(evidence: Evidence) -> EvidenceRecord:
     point = evidence.location
     return {
         "image_url": evidence.image_url,
+        "published_at_source": evidence.published_at_source,
         "title": evidence.title,
         "description": evidence.description,
         "condition": evidence.condition,
@@ -82,6 +84,7 @@ def encode_evidence(evidence: Evidence) -> EvidenceRecord:
 def decode_evidence(raw: EvidenceRecord) -> Evidence:
     return Evidence(
         image_url=raw.get("image_url"),
+        published_at_source=raw.get("published_at_source"),
         title=raw["title"],
         description=raw["description"],
         condition=raw["condition"],

@@ -169,3 +169,13 @@ _.seconds_limit
 _.interval_seconds
 _.capacity_reason
 _.budget
+
+# F16 diagnostic template/public query fields; exact consumers in entrypoints.json.
+_.current_reason
+_.current_label
+_.matches_displayed_observation
+_.first_alert_deadline
+_.first_alert_state
+_.next_action_at
+_.valuation_revision
+_.intent_reference

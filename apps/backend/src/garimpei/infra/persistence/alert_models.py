@@ -42,7 +42,10 @@ class AlertEventDecision(models.Model):
 
 class AlertIntent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
-    decision = models.OneToOneField(AlertEventDecision, on_delete=models.PROTECT)
+    decision = models.OneToOneField(AlertEventDecision, null=True, on_delete=models.PROTECT)
+    first_decision = models.OneToOneField(
+        "FirstEligibilityDecision", null=True, on_delete=models.PROTECT
+    )
     session = models.CharField(max_length=200, blank=True)
     recipient = models.CharField(max_length=200, blank=True)
     account = models.CharField(max_length=200, blank=True)
@@ -98,4 +101,60 @@ class AlertAttempt(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=["intent", "ordinal"], name="alert_attempt_order")
+        ]
+
+
+class FirstAlertInventory(models.Model):
+    installation = models.CharField(primary_key=True, max_length=40, default="local")
+    cursor = models.UUIDField(null=True)
+    completed = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(null=True)
+
+
+class FirstAlertIdentity(models.Model):
+    installation = models.CharField(max_length=40, default="local")
+    listing = models.ForeignKey("Listing", on_delete=models.PROTECT)
+    signature = models.CharField(max_length=64, blank=True)
+    manual_signature = models.CharField(max_length=64, blank=True)
+    generation = models.PositiveBigIntegerField(default=0)
+    next_action = models.DateTimeField()
+    state = models.CharField(max_length=24, default="waiting")
+    reason = models.CharField(max_length=64, default="pending_evaluation")
+    intent = models.ForeignKey(
+        "AlertIntent", null=True, on_delete=models.PROTECT, related_name="first_identities"
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["installation", "listing"], name="first_alert_installation_listing"
+            )
+        ]
+        indexes = [models.Index(fields=["next_action", "listing"])]
+
+
+class FirstEligibilityDecision(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    identity = models.ForeignKey(
+        FirstAlertIdentity, on_delete=models.PROTECT, related_name="decisions"
+    )
+    generation = models.PositiveBigIntegerField()
+    signature = models.CharField(max_length=64)
+    cause = models.CharField(max_length=40, default="automatic_input")
+    observation = models.ForeignKey("ListingObservation", on_delete=models.PROTECT)
+    condition_revision = models.PositiveBigIntegerField(default=0)
+    state = models.CharField(max_length=24)
+    reason = models.CharField(max_length=64)
+    financial = models.JSONField(default=dict)
+    reasons = models.JSONField(default=list)
+    publication_status = models.CharField(max_length=16)
+    published_at = models.DateTimeField(null=True)
+    publication_source = models.CharField(max_length=64, blank=True)
+    evaluated_at = models.DateTimeField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["identity", "generation"], name="first_alert_decision_generation"
+            )
         ]

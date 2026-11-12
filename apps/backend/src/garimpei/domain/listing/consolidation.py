@@ -40,12 +40,21 @@ def consolidate(candidates: list[Candidate], scope: Scope) -> Consolidated:
     delivery, delivery_cep = select(
         "delivery", lambda e: (e.delivery, e.delivery_cep) if e.delivery is not None else None
     ) or (None, None)
+    publication = select(
+        "publication",
+        lambda e: (
+            (e.published_at, e.published_at_source)
+            if e.published_at is not None or e.published_at_source is not None
+            else None
+        ),
+    )
     evidence = Evidence(
         image_url=select("image_url", lambda e: e.image_url),
         title=select("title", lambda e: e.title),
         description=select("description", lambda e: e.description),
         condition=select("condition", lambda e: e.condition),
-        published_at=select("published_at", lambda e: e.published_at),
+        published_at=publication[0] if publication else None,
+        published_at_source=publication[1] if publication else None,
         price=select("price", lambda e: e.price) if available is not False else None,
         freight=freight if available is not False else None,
         freight_cep=freight_cep if available is not False else None,

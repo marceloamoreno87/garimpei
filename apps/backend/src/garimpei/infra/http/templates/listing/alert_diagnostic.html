@@ -1,0 +1,36 @@
+<section class="source-evidence" aria-labelledby="alert-heading">
+    <h2 id="alert-heading">Alerta desta oferta</h2>
+    {% if alert_failed %}
+        <p role="status">Não foi possível consultar o estado do alerta. Os dados da oferta continuam disponíveis.</p>
+        <a class="button secondary" href="{{ request.get_full_path }}">Tentar consultar novamente</a>
+    {% elif alert %}
+        <p><strong>{{ alert.label }}</strong></p>
+        {% if alert.current_reason != alert.reason %}<p>Avaliação atual: {{ alert.current_label }}.</p>{% endif %}
+        <p class="fine">{% if alert.evaluated_at %}Última avaliação: {{ alert.evaluated_at|date:"d/m/Y H:i:s" }} UTC.{% else %}Esta oferta ainda não foi avaliada para o primeiro alerta.{% endif %}</p>
+        {% if not alert.matches_displayed_observation %}
+            <p class="notice">O diagnóstico usa uma observação mais recente que a oferta exibida. Esta leitura preserva a revisão e os valores da oferta.</p>
+        {% endif %}
+        {% if alert.first_alert_deadline %}
+            <p class="fine">Publicação: {{ alert.published_at|date:"d/m/Y H:i:s" }} UTC. Limite do primeiro alerta: {{ alert.first_alert_deadline|date:"d/m/Y H:i:s" }} UTC.</p>
+        {% endif %}
+        {% if alert.confirmed_at %}
+            <p>Confirmação histórica no servidor: {{ alert.confirmed_at|date:"d/m/Y H:i:s" }} UTC. Isso não comprova entrega ou leitura no grupo.</p>
+        {% endif %}
+        {% if alert.history %}
+            <details>
+                <summary>Histórico de alertas</summary>
+                <ul>
+                    {% for entry in alert.history %}
+                        <li>
+                            {% if entry.kind == "price_decreased" %}Redução de preço{% else %}Primeiro alerta{% endif %} ·
+                            {% if entry.state == "confirmed" %}Confirmada no servidor{% elif entry.state == "uncertain" or entry.state == "authorized" %}Envio incerto{% elif entry.state == "cancelled" %}Não enviada · encerrada{% elif entry.state == "review" %}Revisão necessária{% elif entry.state == "safe_retry" %}Falha sem transmissão{% elif entry.state == "blocked" %}Aguardando retomada{% else %}Na fila{% endif %}
+                            {% if entry.confirmed_at %} · {{ entry.confirmed_at|date:"d/m/Y H:i:s" }} UTC{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </details>
+        {% endif %}
+    {% else %}
+        <p>Esta oferta ainda não tem avaliação de alerta.</p>
+    {% endif %}
+</section>

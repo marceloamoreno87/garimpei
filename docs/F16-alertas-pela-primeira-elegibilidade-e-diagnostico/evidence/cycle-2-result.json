@@ -1,0 +1,17 @@
+{
+  "exit_code": 1,
+  "passed": 448,
+  "elapsed_seconds": 1683.38,
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "apps/backend/tests",
+    "-vv"
+  ],
+  "completed_at": "2026-11-12T15:38:02.839866+00:00"
+}

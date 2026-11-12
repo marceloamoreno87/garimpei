@@ -46,6 +46,7 @@ class Delivery:
     authorized_at: datetime
     message_id: str | None
     reconcile: bool
+    attempt_id: UUID | None = None
 
 
 @dataclass(frozen=True)

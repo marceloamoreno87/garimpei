@@ -388,5 +388,53 @@
     "path": "src/garimpei/domain/navigation/read_models.py",
     "consumer": "src/garimpei/infra/http/templates/navigation/suggestions.html",
     "reason": "F13 Django suggestions template renders persistent evidence limits and read-only idle exploration budget/wait status"
+  },
+  {
+    "symbol": "AlertDiagnostic.current_reason",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/alert_diagnostic.html",
+    "reason": "F16 diagnostic projection consumed by Django template"
+  },
+  {
+    "symbol": "AlertDiagnostic.current_label",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/alert_diagnostic.html",
+    "reason": "F16 diagnostic projection consumed by Django template"
+  },
+  {
+    "symbol": "AlertDiagnostic.matches_displayed_observation",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/alert_diagnostic.html",
+    "reason": "F16 diagnostic projection consumed by Django template"
+  },
+  {
+    "symbol": "AlertDiagnostic.first_alert_deadline",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/alert_diagnostic.html",
+    "reason": "F16 diagnostic projection consumed by Django template"
+  },
+  {
+    "symbol": "AlertDiagnostic.first_alert_state",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "tests/http/test_alert_diagnostic.py",
+    "reason": "F16 public diagnostic field asserted against persisted identity, intent and financial revision through Django shell in test_public_diagnostic_fields_history_and_partial_http_failure"
+  },
+  {
+    "symbol": "AlertDiagnostic.next_action_at",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "tests/http/test_alert_diagnostic.py",
+    "reason": "F16 public diagnostic field asserted against persisted identity, intent and financial revision through Django shell in test_public_diagnostic_fields_history_and_partial_http_failure"
+  },
+  {
+    "symbol": "AlertDiagnostic.valuation_revision",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "tests/http/test_alert_diagnostic.py",
+    "reason": "F16 public diagnostic field asserted against persisted identity, intent and financial revision through Django shell in test_public_diagnostic_fields_history_and_partial_http_failure"
+  },
+  {
+    "symbol": "AlertDiagnostic.intent_reference",
+    "path": "src/garimpei/domain/alert/diagnostic.py",
+    "consumer": "tests/http/test_alert_diagnostic.py",
+    "reason": "F16 public diagnostic field asserted against persisted identity, intent and financial revision through Django shell in test_public_diagnostic_fields_history_and_partial_http_failure"
   }
 ]

@@ -36,6 +36,7 @@ from garimpei.infra.persistence.listing_models import (
     ListingObservation,
 )
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
+from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
 from garimpei.infra.repository.listing.mapper import (
     CandidateRecord,
     decode_candidate,
@@ -346,6 +347,7 @@ class PostgresCollectionRepository:
             return
         silent = state.initial_completed_at is None and not (is_new or listing.discovery_emitted)
         self._append_observation(listing, cycle, scope, result, created, silent, is_new)
+        invalidate_first_alert(listing.id, now)
 
     def _append_observation(
         self,

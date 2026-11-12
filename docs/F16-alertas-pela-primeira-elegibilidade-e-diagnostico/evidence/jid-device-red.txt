@@ -1,0 +1,43 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_group_receipt_matches_canonical_device_jid_without_weakening_identity __
+
+    def test_group_receipt_matches_canonical_device_jid_without_weakening_identity() -> None:
+        from copy import deepcopy
+
+        value = delivery()
+        value = replace(value, binding=replace(value.binding, recipient="100@g.us"))
+        state = WahaServer(recipient="100@g.us")
+        message = {
+            "id": "group-known-message",
+            "fromMe": True,
+            "from": "100@g.us",
+            "to": "999@lid",
+            "participant": "999@lid",
+            "body": value.body,
+            "ack": 2,
+            "_data": {
+                "Info": {
+                    "Chat": "100@g.us",
+                    "IsFromMe": True,
+                    "Sender": "999:5@lid",
+                    "SenderAlt": "200:7@s.whatsapp.net",
+                }
+            },
+        }
+        state.messages = [message]
+        with serve_waha(state) as url:
+            gateway = WahaGateway(
+                url, "private-test-key", AlertPolicy(history_pages=3, history_limit=1)
+            )
+            recovered = gateway.reconcile(value, datetime.now(UTC))
+>           assert recovered.state == "confirmed" and recovered.receipt is not None
+E           AssertionError: assert ('uncertain' == 'confirmed'
+E
+E             - confirmed
+E             + uncertain)
+
+apps/backend/tests/integration/test_alert_gateway.py:137: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/integration/test_alert_gateway.py::test_group_receipt_matches_canonical_device_jid_without_weakening_identity
+1 failed in 0.56s

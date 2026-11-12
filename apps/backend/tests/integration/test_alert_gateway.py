@@ -103,3 +103,72 @@ def test_refused_connection_is_proven_not_transmitted() -> None:
     gateway = WahaGateway(f"http://127.0.0.1:{port}", "private", AlertPolicy())
     result = gateway.send(delivery())
     assert result.state == "safe_retry" and result.reason == "not_transmitted"
+
+
+def test_group_receipt_matches_canonical_device_jid_without_weakening_identity() -> None:
+    from copy import deepcopy
+
+    value = delivery()
+    value = replace(value, binding=replace(value.binding, recipient="100@g.us"))
+    state = WahaServer(recipient="100@g.us")
+    message: dict[str, object] = {
+        "id": "group-known-message",
+        "fromMe": True,
+        "from": "100@g.us",
+        "to": "999@lid",
+        "participant": "999@lid",
+        "body": value.body,
+        "ack": 2,
+        "_data": {
+            "Info": {
+                "Chat": "100@g.us",
+                "IsFromMe": True,
+                "Sender": "999:5@lid",
+                "SenderAlt": "200:7@s.whatsapp.net",
+            }
+        },
+    }
+    state.messages = [message]
+    with serve_waha(state) as url:
+        gateway = WahaGateway(
+            url, "private-test-key", AlertPolicy(history_pages=3, history_limit=1)
+        )
+        recovered = gateway.reconcile(value, datetime.now(UTC))
+        assert recovered.state == "confirmed" and recovered.receipt is not None
+        known = replace(value, message_id="group-known-message")
+        assert gateway.reconcile(known, datetime.now(UTC)).state == "confirmed"
+        mutations = [
+            ("participant", "777@lid"),
+            ("from", "other@g.us"),
+            ("fromMe", False),
+            ("body", "Other content\nRef. " + str(value.reference)),
+            ("body", "Nova oferta\nRef. " + str(uuid4())),
+            ("ack", 0),
+            ("ack", -1),
+            ("ack", 5),
+            ("ack", True),
+        ]
+        for field, wrong in mutations:
+            state.messages = [deepcopy(message)]
+            state.messages[0][field] = wrong
+            assert gateway.reconcile(value, datetime.now(UTC)).state == "uncertain", field
+            assert gateway.reconcile(known, datetime.now(UTC)).state == "uncertain", field
+        for field, wrong in [
+            ("Chat", "other@g.us"),
+            ("IsFromMe", False),
+            ("Sender", "777:5@lid"),
+            ("SenderAlt", "300@s.whatsapp.net"),
+        ]:
+            changed = deepcopy(message)
+            changed["_data"] = {
+                "Info": {
+                    "Chat": "100@g.us",
+                    "IsFromMe": True,
+                    "Sender": "999:5@lid",
+                    "SenderAlt": "200:7@s.whatsapp.net",
+                    field: wrong,
+                }
+            }
+            state.messages = [changed]
+            assert gateway.reconcile(value, datetime.now(UTC)).state == "uncertain", field
+        assert all(method == "GET" for method, _ in state.calls)

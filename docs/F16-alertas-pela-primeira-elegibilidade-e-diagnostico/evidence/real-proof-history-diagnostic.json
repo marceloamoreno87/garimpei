@@ -1,0 +1,91 @@
+[
+  {
+    "offset": 0,
+    "status": 200,
+    "body_type": "list",
+    "count": 1,
+    "ids_sha256": "1a7b399200ac683d66a39e9789f95f87ed16bd0f4399ded24c95506dddb1bf40",
+    "matches": [
+      {
+        "keys": [
+          "_data",
+          "ack",
+          "ackName",
+          "body",
+          "from",
+          "fromMe",
+          "hasMedia",
+          "id",
+          "location",
+          "media",
+          "participant",
+          "replyTo",
+          "source",
+          "timestamp",
+          "to",
+          "vCards"
+        ],
+        "id_type": "str",
+        "id_sha256": "54f548360e24c91bb541c03cd0971267c363dc753e13a19fa9cbe3081871b987",
+        "fromMe": true,
+        "body_match": true,
+        "ack": 2,
+        "to_group": false,
+        "from_group": true,
+        "from_account": false,
+        "participant_account": false,
+        "info_keys": [
+          "AddressingMode",
+          "BroadcastListOwner",
+          "BroadcastRecipients",
+          "Category",
+          "Chat",
+          "DeviceSentMeta",
+          "Edit",
+          "ID",
+          "IsFromMe",
+          "IsGroup",
+          "IsNewsletterStatus",
+          "MediaType",
+          "MsgBotInfo",
+          "MsgMetaInfo",
+          "Multicast",
+          "PushName",
+          "RecipientAlt",
+          "Sender",
+          "SenderAlt",
+          "ServerID",
+          "Timestamp",
+          "Type",
+          "VerifiedName"
+        ],
+        "info_chat": true,
+        "info_own": true,
+        "sender_own": false,
+        "sender_alt_own": true,
+        "selected_equals_info_sender": false,
+        "selected_canonical_info_sender": true,
+        "selected_canonical_info_alt": false,
+        "to_account": false,
+        "receipt_parsed": false,
+        "receipt_ack": null
+      }
+    ]
+  },
+  {
+    "offset": 100,
+    "status": 200,
+    "body_type": "list",
+    "count": 0,
+    "ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "matches": []
+  },
+  {
+    "offset": 900,
+    "status": 200,
+    "body_type": "list",
+    "count": 0,
+    "ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "matches": []
+  }
+]

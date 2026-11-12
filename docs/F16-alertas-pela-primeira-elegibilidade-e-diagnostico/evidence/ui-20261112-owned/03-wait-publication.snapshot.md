@@ -1,0 +1,117 @@
+- generic [active] [ref=f2e1]:
+  - link "Pular para o conteúdo" [ref=f2e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=f2e3]:
+    - link "Garimpei." [ref=f2e4] [cursor=pointer]:
+      - /url: /
+    - paragraph [ref=f2e5]: Monitoramento de eletrônicos usados
+    - navigation "Navegação principal" [ref=f2e6]:
+      - link "Ofertas" [ref=f2e7] [cursor=pointer]:
+        - /url: /ofertas/
+      - link "Acompanhamento" [ref=f2e8] [cursor=pointer]:
+        - /url: /acompanhamento/
+      - link "Configurações" [ref=f2e9] [cursor=pointer]:
+        - /url: /configuracoes/
+      - link "Integrações" [ref=f2e10] [cursor=pointer]:
+        - /url: /integracoes/
+    - paragraph [ref=f2e11]: Execução local
+  - generic [ref=f2e12]:
+    - banner [ref=f2e13]:
+      - generic [ref=f2e14]: Facebook Marketplace
+      - generic [ref=f2e15]: São Paulo · SP
+    - status "Acesso ao Facebook" [ref=f2e17]:
+      - strong [ref=f2e18]: Conecte o Facebook
+      - paragraph [ref=f2e19]: Abra o navegador do Garimpei e entre na sua conta para permitir a coleta.
+      - link "Conectar Facebook" [ref=f2e20] [cursor=pointer]:
+        - /url: /integracoes/#facebook
+    - main [ref=f2e21]:
+      - link "Voltar aos resultados" [ref=f2e22] [cursor=pointer]:
+        - /url: /ofertas/?aba=incerta&q=PlayStation&categoria=&pagina=1&versao=69981176-a0f0-4f65-ad95-5dc44e42f5b3
+      - generic [ref=f2e23]:
+        - heading "PlayStation 5 Slim disco 1TB" [level=1] [ref=f2e24]
+        - paragraph [ref=f2e25]: Facebook Marketplace · Anúncio 16001 · Observação 12/11/2026 12:00:00 UTC
+      - status
+      - generic [ref=f2e26]:
+        - region [ref=f2e27]:
+          - img "Imagem não disponível para PlayStation 5 Slim disco 1TB" [ref=f2e29]: Imagem não disponível
+          - heading "Entenda a estimativa" [level=2] [ref=f2e30]
+          - generic "Valores da oferta" [ref=f2e31]:
+            - generic [ref=f2e32]:
+              - term [ref=f2e33]: Preço de compra
+              - definition [ref=f2e34]: R$ 1.000,00
+            - generic [ref=f2e35]:
+              - term [ref=f2e36]: Preço de venda estimado
+              - definition [ref=f2e37]: R$ 1.500,00
+            - generic [ref=f2e38]:
+              - term [ref=f2e39]: Lucro estimado
+              - definition [ref=f2e40]: R$ 350,00
+          - generic [ref=f2e41]:
+            - term [ref=f2e42]: Taxa provisória · 10,00%
+            - definition [ref=f2e43]: R$ 150,00
+          - paragraph [ref=f2e44]: Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace.
+        - region [ref=f2e45]:
+          - heading "Referências para comparar" [level=2] [ref=f2e46]
+          - paragraph [ref=f2e47]: Preços anunciados de usados. Não representam vendas realizadas.
+          - list [ref=f2e48]:
+            - listitem [ref=f2e49]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=f2e50]
+              - paragraph [ref=f2e51]: Facebook Marketplace · 16004 · 12/11/2026 12:00:00 UTC
+              - strong [ref=f2e52]: R$ 1.500,00
+              - link "Abrir referência" [ref=f2e53] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16004/
+            - listitem [ref=f2e54]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=f2e55]
+              - paragraph [ref=f2e56]: Facebook Marketplace · 16006 · 12/11/2026 12:00:00 UTC
+              - strong [ref=f2e57]: R$ 1.550,00
+              - link "Abrir referência" [ref=f2e58] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16006/
+            - listitem [ref=f2e59]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=f2e60]
+              - paragraph [ref=f2e61]: Facebook Marketplace · 16002 · 12/11/2026 12:00:00 UTC
+              - strong [ref=f2e62]: R$ 1.450,00
+              - link "Abrir referência" [ref=f2e63] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16002/
+            - listitem [ref=f2e64]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=f2e65]
+              - paragraph [ref=f2e66]: Facebook Marketplace · 16003 · 12/11/2026 12:00:00 UTC
+              - strong [ref=f2e67]: R$ 1.475,00
+              - link "Abrir referência" [ref=f2e68] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16003/
+            - listitem [ref=f2e69]:
+              - heading "PlayStation 5 Slim disco 1TB" [level=3] [ref=f2e70]
+              - paragraph [ref=f2e71]: Facebook Marketplace · 16005 · 12/11/2026 12:00:00 UTC
+              - strong [ref=f2e72]: R$ 1.525,00
+              - link "Abrir referência" [ref=f2e73] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/16005/
+          - generic [ref=f2e74]:
+            - heading "Referência de novo" [level=3] [ref=f2e75]
+            - paragraph [ref=f2e76]: Referência de novo indisponível.
+          - link "Abrir anúncio original" [ref=f2e77] [cursor=pointer]:
+            - /url: https://www.facebook.com/marketplace/item/16001/
+      - region [ref=f2e78]:
+        - heading "Alerta desta oferta" [level=2] [ref=f2e79]
+        - paragraph [ref=f2e80]:
+          - strong [ref=f2e81]: Aguardando data de publicação na origem
+        - paragraph [ref=f2e82]: "Última avaliação: 12/11/2026 12:00:00 UTC."
+      - region "Condição da oferta" [ref=f2e83]:
+        - generic [ref=f2e84]:
+          - heading "Condição não confirmada" [level=2] [ref=f2e85]
+          - paragraph [ref=f2e86]: Classificação a partir do anúncio
+          - generic [ref=f2e87]:
+            - group "Sua avaliação de funcionamento" [ref=f2e88]:
+              - generic [ref=f2e90] [cursor=pointer]:
+                - radio "Funciona bem" [ref=f2e91]
+                - generic [ref=f2e92]: Funciona bem
+              - generic [ref=f2e93] [cursor=pointer]:
+                - radio "Não funciona bem" [ref=f2e94]
+                - generic [ref=f2e95]: Não funciona bem
+            - button "Salvar classificação" [ref=f2e96] [cursor=pointer]
+          - link "Ver em Condição não confirmada" [ref=f2e97] [cursor=pointer]:
+            - /url: /ofertas/?aba=incerta&q=PlayStation&categoria=&pagina=1&versao=69981176-a0f0-4f65-ad95-5dc44e42f5b3
+        - generic [ref=f2e98]:
+          - heading "O que o anúncio informa" [level=2] [ref=f2e99]
+          - generic [ref=f2e100]:
+            - term [ref=f2e101]: Condição informada
+            - definition [ref=f2e102]: Usado — seminovo
+            - term [ref=f2e103]: Descrição
+            - definition [ref=f2e104]: Usado. Não foi testado.

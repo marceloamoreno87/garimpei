@@ -21,6 +21,7 @@ from garimpei.infra.persistence.valuation_models import (
     ValuationProgress,
     ValuationWork,
 )
+from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
 from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
 from garimpei.infra.repository.valuation.mapper import (
     decode_comparable,
@@ -187,6 +188,7 @@ class PostgresValuationRepository:
             progress.current = evaluation
             progress.due_at = due
             progress.save(update_fields=["current", "due_at"])
+            invalidate_first_alert(work.listing_id, value.evaluated_at)
             row.completed, row.diagnostic = True, ""
             row.save(update_fields=["completed", "diagnostic"])
 

@@ -11,15 +11,12 @@ class ReconcileAlertUseCase:
 
     def execute(self) -> None:
         binding = self._binding
-        if binding is None:
-            return
-        channel_ready = self._gateway.check(binding)
         for identity in self._store.ready(self._clock(), reconcile=True):
             delivery = self._store.claim(identity, binding, self._clock(), reconcile=True)
             if delivery is not None:
                 result = (
                     self._gateway.reconcile(delivery, self._clock())
-                    if channel_ready
+                    if self._gateway.check(delivery.binding)
                     else (Outcome("uncertain", "session_unavailable"))
                 )
                 self._store.finish(delivery, result, self._clock())

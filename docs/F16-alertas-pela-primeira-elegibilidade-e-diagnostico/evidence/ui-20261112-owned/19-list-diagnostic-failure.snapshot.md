@@ -1,0 +1,93 @@
+- generic [active] [ref=f13e1]:
+  - link "Pular para o conteúdo" [ref=f13e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=f13e3]:
+    - link "Garimpei." [ref=f13e4] [cursor=pointer]:
+      - /url: /
+    - paragraph [ref=f13e5]: Monitoramento de eletrônicos usados
+    - navigation "Navegação principal" [ref=f13e6]:
+      - link "Ofertas" [ref=f13e7] [cursor=pointer]:
+        - /url: /ofertas/
+      - link "Acompanhamento" [ref=f13e8] [cursor=pointer]:
+        - /url: /acompanhamento/
+      - link "Configurações" [ref=f13e9] [cursor=pointer]:
+        - /url: /configuracoes/
+      - link "Integrações" [ref=f13e10] [cursor=pointer]:
+        - /url: /integracoes/
+    - paragraph [ref=f13e11]: Execução local
+  - generic [ref=f13e12]:
+    - banner [ref=f13e13]:
+      - generic [ref=f13e14]: Facebook Marketplace
+      - generic [ref=f13e15]: São Paulo · SP
+    - status "Acesso ao Facebook" [ref=f13e17]:
+      - strong [ref=f13e18]: Conecte o Facebook
+      - paragraph [ref=f13e19]: Abra o navegador do Garimpei e entre na sua conta para permitir a coleta.
+      - link "Conectar Facebook" [ref=f13e20] [cursor=pointer]:
+        - /url: /integracoes/#facebook
+    - main [ref=f13e21]:
+      - generic [ref=f13e22]:
+        - heading "Seu próximo garimpo" [level=1] [ref=f13e23]
+        - paragraph [ref=f13e24]: Compare anúncios, confira os custos e encontre o que faz sentido para você.
+      - status
+      - generic [ref=f13e25]:
+        - tablist "Condição das ofertas" [ref=f13e26]:
+          - tab "Funcionam bem 5" [ref=f13e27] [cursor=pointer]:
+            - text: Funcionam bem
+            - generic [ref=f13e28]: "5"
+          - tab "Com defeito 0" [ref=f13e29] [cursor=pointer]:
+            - text: Com defeito
+            - generic [ref=f13e30]: "0"
+          - tab "Condição não confirmada 1" [selected] [ref=f13e31] [cursor=pointer]:
+            - text: Condição não confirmada
+            - generic [ref=f13e32]: "1"
+        - generic [ref=f13e33]:
+          - generic [ref=f13e34]:
+            - text: Buscar por título ou categoria
+            - searchbox "Buscar por título ou categoria" [ref=f13e35]: PlayStation
+          - generic [ref=f13e36]:
+            - text: Categoria
+            - combobox "Categoria" [ref=f13e37]:
+              - option "Todas" [selected]
+              - option "Eletrônicos"
+              - option "Câmeras"
+              - option "Celulares (rota indisponível)"
+              - option "Computadores"
+              - option "Videogames e consoles"
+              - option "Fones de ouvido"
+              - option "TVs"
+          - button "Filtrar ofertas" [ref=f13e38] [cursor=pointer]
+        - status [ref=f13e39]:
+          - strong [ref=f13e40]: Acompanhamento interrompido
+          - paragraph [ref=f13e41]: "O worker não está ativo. Os últimos dados disponíveis continuam legíveis: 12/11/2026 12:00:00 UTC."
+          - link "Conferir acompanhamento" [ref=f13e42] [cursor=pointer]:
+            - /url: /acompanhamento/
+        - generic [ref=f13e43]:
+          - heading "1–1 de 1" [level=2] [ref=f13e44]
+          - paragraph [ref=f13e45]: Lucro estimado, do maior para o menor
+        - article [ref=f13e47]:
+          - img "Imagem não disponível para PlayStation 5 Slim disco 1TB" [ref=f13e49]: Imagem não disponível
+          - generic [ref=f13e50]:
+            - paragraph [ref=f13e51]: Condição não confirmada
+            - heading [level=3] [ref=f13e52]:
+              - link "PlayStation 5 Slim disco 1TB" [ref=f13e53] [cursor=pointer]:
+                - /url: /ofertas/796e0fa4-7ef2-4185-859c-5f9382d39394/?aba=incerta&q=PlayStation&categoria=&pagina=1&versao=69981176-a0f0-4f65-ad95-5dc44e42f5b3
+            - generic "Valores da oferta" [ref=f13e54]:
+              - generic [ref=f13e55]:
+                - term [ref=f13e56]: Preço de compra
+                - definition [ref=f13e57]: R$ 1.000,00
+              - generic [ref=f13e58]:
+                - term [ref=f13e59]: Preço de venda estimado
+                - definition [ref=f13e60]: R$ 1.500,00
+              - generic [ref=f13e61]:
+                - term [ref=f13e62]: Lucro estimado
+                - definition [ref=f13e63]: R$ 350,00
+            - paragraph [ref=f13e64]: Estado do alerta indisponível
+            - link "Conferir detalhes de PlayStation 5 Slim disco 1TB" [ref=f13e65] [cursor=pointer]:
+              - /url: /ofertas/796e0fa4-7ef2-4185-859c-5f9382d39394/?aba=incerta&q=PlayStation&categoria=&pagina=1&versao=69981176-a0f0-4f65-ad95-5dc44e42f5b3
+              - text: Conferir detalhes
+              - generic [ref=f13e66]: de PlayStation 5 Slim disco 1TB
+        - navigation "Paginação de ofertas" [ref=f13e67]:
+          - generic [ref=f13e68]: Anterior
+          - generic [ref=f13e69]: Página 1 de 1
+          - generic [ref=f13e70]: Próxima
+        - paragraph [ref=f13e71]: Dados publicados em 12/11/2026 12:00:00 UTC. A negociação acontece na plataforma de origem.

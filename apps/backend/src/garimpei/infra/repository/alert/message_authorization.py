@@ -16,6 +16,7 @@ def prepare_financial(row: AlertIntent, now: datetime) -> str | None:
         row.state, row.reason, row.lease_until = "review", "authorized_body_missing", None
         row.save()
         return row.reason
+    assert row.decision is not None
     raw = row.decision.financial
     value = decode_snapshot(raw)
     event = row.decision.event

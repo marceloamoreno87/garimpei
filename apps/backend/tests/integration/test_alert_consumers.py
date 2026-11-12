@@ -1,6 +1,12 @@
 from pathlib import Path
 
-from tests.factories.alert_scenario import add_cases, alert_scenario, alert_shell, wait_alerts
+from tests.factories.alert_scenario import (
+    add_cases,
+    alert_scenario,
+    alert_shell,
+    wait_alerts,
+    wait_listing_alerts,
+)
 from tests.factories.valuation import listing
 from tests.integration.test_collection import command, completed, sql, wait_for
 
@@ -18,13 +24,13 @@ def test_integrated_worker_matrix_reductions_classification_and_restart(tmp_path
 for key,sign in [('901',1),('902',0),('903',-1)]:
     row=intent(key)
     assert row.state=='confirmed' and row.confirmed_ack>=1
-    value=Decimal(row.decision.financial['profit'])
+    value=Decimal(row.financial['profit'])
     assert (value>0)-(value<0)==sign,(key,value)
-    assert row.decision.financial['observation_id']==str(row.decision.event.observation_id)
-    assert 'R$' in row.body and row.decision.event.listing.canonical_url in row.body
+    assert row.financial['observation_id']==str(row.first_decision.observation_id)
+    assert 'R$' in row.body and target(key).canonical_url in row.body
 for key in ['904','905','906']:
-    assert decision(key).state=='excluded'
-    assert not AlertIntent.objects.filter(decision=decision(key)).exists()
+    assert first_state(key).state in {'excluded','waiting'}
+    assert first_state(key).intent_id is None
 assert not AlertIntent.objects.filter(decision__event__silent=True).exists()
 # Public F05 manual correction cannot reopen an old excluded discovery.
 view=build_read_condition().execute(target('905').id)
@@ -38,17 +44,20 @@ print('WRK-ELEGIBILIDADE-01/02; E2E-CLASSIFICACAO-01 PASS')
             source.rows["903"]["price"] = "R$ " + price
             clock.advance(61)
             completed(instance, count)
-            expected = 3 + {3: 1, 4: 2, 5: 2, 6: 3}[count]
-            wait_alerts(instance, expected, clock)
+            expected = 1 + {3: 1, 4: 2, 5: 2, 6: 3}[count]
+            # The independent price/sample change may also alert manually classified905.
+            # Count this listing, so another valid first alert cannot hide a missing reduction.
+            wait_listing_alerts(instance, "903", expected, clock)
         alert_shell(
             instance,
             """
-rows=list(AlertIntent.objects.filter(decision__event__listing=target()).order_by('decision__event__sequence'))
+from django.db.models import Q
+rows=list(AlertIntent.objects.filter(Q(first_decision__identity__listing=target())|Q(decision__event__listing=target())).order_by('created_at'))
 assert len(rows)==4 and len({row.id for row in rows})==4
 assert 'Preço anterior: R$ 2.300,00' in rows[1].body
 assert 'Preço de compra: R$ 2.299,99' in rows[1].body
-assert Decimal(rows[1].decision.financial['profit'])-Decimal(rows[0].decision.financial['profit'])==Decimal('.01')
-assert len({row.decision.financial['observation_id'] for row in rows})==4
+assert Decimal(rows[1].financial['profit'])-Decimal(rows[0].financial['profit'])==Decimal('.01')
+assert len({row.financial['observation_id'] for row in rows})==4
 print('WRK-ELEGIBILIDADE-04/05 PASS')
 """,
         )
@@ -69,7 +78,7 @@ print('WRK-ELEGIBILIDADE-04/05 PASS')
         clock.advance(61)
         command(instance, "./scripts/init.sh", "--disposable")
         completed(instance, 8)
-        wait_alerts(instance, 7, clock)
+        wait_alerts(instance, before + 1, clock)
         assert len(channel.messages) == before + 1
         wait_for(
             lambda: (
@@ -118,7 +127,7 @@ view=build_read_condition().execute(view.id)
 assert view.state.tab=='funcionam'
 page=build_read_listing_changes().execute()
 store.ingest(page,clock())
-assert decision('905').state=='excluded' and decision('905').reason=='condition_excluded'
+assert decision('905').state=='excluded' and decision('905').reason=='first_eligibility_managed'
 assert not AlertIntent.objects.filter(decision=decision('905')).exists()
 assert ManualConditionHistory.objects.filter(listing=view.id).count()==2
 # A legacy event whose manual order cannot be established is explicitly excluded.
@@ -138,6 +147,11 @@ print('WRK-ELEGIBILIDADE-06 condition PASS')
 from django.db import connection
 from django.db.migrations.executor import MigrationExecutor
 counts=(Listing.objects.count(),ListingEvent.objects.count())
+assert not AlertAttempt.objects.exists()
+FirstAlertIdentity.objects.update(intent=None)
+AlertIntent.objects.all().delete()
+FirstEligibilityDecision.objects.all().delete()
+FirstAlertIdentity.objects.all().delete()
 MigrationExecutor(connection).migrate([('runtime','0007_exploration')])
 MigrationExecutor(connection).migrate([('runtime','0008_alert_delivery')])
 executor=MigrationExecutor(connection);executor.migrate(executor.loader.graph.leaf_nodes())
@@ -222,10 +236,9 @@ def test_incremental_comparables_complete_the_same_waiting_discovery(tmp_path: P
                 sql(
                     instance,
                     """
-            SELECT d.state,d.reason FROM runtime_alerteventdecision d
-            JOIN runtime_listingevent e ON e.id=d.event_id
-            JOIN runtime_listing l ON l.id=e.listing_id
-            WHERE l.external_id='951' AND e.kind='discovered'
+            SELECT d.state,d.reason FROM runtime_firstalertidentity d
+            JOIN runtime_listing l ON l.id=d.listing_id
+            WHERE l.external_id='951'
         """,
                 )
                 == [("waiting", "amostra_insuficiente")]

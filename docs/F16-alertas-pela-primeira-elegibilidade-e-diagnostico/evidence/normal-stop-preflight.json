@@ -1,0 +1,14 @@
+{
+  "environment": "eval_wave11b_f16",
+  "alerts_enabled": false,
+  "confirmed_ack": 2,
+  "attempts": 1,
+  "financial_v2_without_event": true,
+  "body_hash_matches_authorized_preview": true,
+  "binding_unchanged": true,
+  "uncertain_intents": 0,
+  "worker_ownership_verified": true,
+  "worker_resumed_only_for_normal_shutdown": true,
+  "no_gateway_call_performed": true,
+  "pairing_database_volumes_will_be_preserved": true
+}
