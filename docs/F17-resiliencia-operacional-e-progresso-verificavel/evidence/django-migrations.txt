@@ -1,0 +1,8 @@
+0 System check identified no issues (0 silenced).
+{"timestamp": "2026-11-12T20:29:09.720107+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_ui_0d94", "run_id": "96387eb3-564b-43aa-b4f1-70513b1f68c0"}
+
+0 No changes detected
+{"timestamp": "2026-11-12T20:29:10.076258+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_ui_0d94", "run_id": "96387eb3-564b-43aa-b4f1-70513b1f68c0"}
+
+0 Schema up to date
+

@@ -1,0 +1,13 @@
+### Result
+{"status":503,"url":"http://127.0.0.1:23264/acompanhamento/","title":"Não foi possível concluir esta leitura","retry":"Tentar novamente","configurationWizard":0}
+### Ran Playwright code
+```js
+await (async page => { const r=await page.goto("http://127.0.0.1:23264/acompanhamento/"); return {status:r.status(),url:page.url(),title:await page.locator("h1").innerText(),retry:await page.locator("main a").innerText(),configurationWizard:await page.locator("text=Prepare seu garimpo").count()}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:23264/acompanhamento/
+- Page Title: Configuração · Garimpei
+- HTTP status: 503 Service Unavailable
+- Console: 1 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T20-07-09-779Z.log#L4-L5

@@ -1,0 +1,88 @@
+.......................F................................................ [ 25%]
+........................................................................ [ 50%]
+........................................................................ [ 76%]
+....................................................................     [100%]
+=================================== FAILURES ===================================
+____ test_resume_http_persists_intent_and_every_rejection_preserves_history ____
+
+navigation_instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/0d94/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-412/navigation-db0/f13_49b6b03cf9.env'))
+
+    def test_resume_http_persists_intent_and_every_rejection_preserves_history(
+        navigation_instance: FoundationInstance,
+    ) -> None:
+>       shell(
+            navigation_instance,
+            BOOTSTRAP
+            + """
+    from django.test import Client
+    from django.db import DatabaseError
+    unit=nav.claim(attempt,scope,pages=2,details=False)
+    nav.failed(attempt,unit,SourceFailure('source_transport'))
+    client=Client(enforce_csrf_checks=True,HTTP_HOST='127.0.0.1')
+    client.get('/acompanhamento/navegacao/')
+    body={'work_id':str(unit.turn.id),'revision':str(scope.revision),'csrfmiddlewaretoken':client.cookies['csrftoken'].value}
+    def snapshot():
+        return (list(NavigationWork.objects.order_by('id').values()),list(NavigationCheckpoint.objects.order_by('work_id').values()),list(NavigationUnitReceipt.objects.order_by('id').values()),list(CollectionState.objects.values()),list(ListingObservation.objects.values()))
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name='garimpei.collect_listings'");before_jobs=cursor.fetchone()[0]
+    response=client.post('/acompanhamento/navegacao/retomar/',body)
+    assert response.status_code==303 and response['Location']=='/acompanhamento/'
+    row=NavigationWork.objects.get(id=unit.turn.id)
+    assert row.phase=='pending' and row.reason=='resume_requested' and row.next_attempt_at<=now()
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name='garimpei.collect_listings'");assert cursor.fetchone()[0]==before_jobs+1
+    for data,expected in [(body|{'work_id':'bad'},400),(body|{'revision':scope.revision-1},409),({'work_id':str(unit.turn.id),'revision':scope.revision},403)]:
+        before=snapshot();assert client.post('/acompanhamento/navegacao/retomar/',data).status_code==expected;assert snapshot()==before
+    CollectionState.objects.update(access_suspended=True)
+    before=snapshot();assert client.post('/acompanhamento/navegacao/retomar/',body).status_code==409;assert snapshot()==before
+    CollectionState.objects.update(access_suspended=False)
+    before=snapshot()
+    with patch('garimpei.infra.repository.navigation.postgres_repository.PostgresNavigationRepository.resume',side_effect=DatabaseError()):
+        response=client.post('/acompanhamento/navegacao/retomar/',body)
+        assert response.status_code==503 and b'Tente novamente' in response.content
+    assert snapshot()==before
+    """,
+        )
+
+tests/integration/test_navigation.py:836: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/0d94/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-412/navigation-db0/f13_49b6b03cf9.env'))
+code = "\nfrom datetime import timedelta\nfrom dataclasses import replace\nfrom uuid import uuid4\nfrom django.db import conn.../',body)\n    assert response.status_code==503 and b'Tente novamente' in response.content\nassert snapshot()==before\n"
+
+    def shell(instance: FoundationInstance, code: str) -> str:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 49 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-12T20:37:29.520335+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_49b6b03cf9", "run_id": "1811431f-3126-4c69-91fd-1254ec3a06d7"}
+E         {"timestamp": "2026-11-12T20:37:29.630213+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_49b6b03cf9", "run_id": "1811431f-3126-4c69-91fd-1254ec3a06d7"}
+E         {"timestamp": "2026-11-12T20:37:29.631855+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f13_49b6b03cf9", "run_id": "1811431f-3126-4c69-91fd-1254ec3a06d7"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 55, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 55, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_navigation.py:80: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_navigation.py::test_resume_http_persists_intent_and_every_rejection_preserves_history
+1 failed, 283 passed in 922.05s (0:15:22)

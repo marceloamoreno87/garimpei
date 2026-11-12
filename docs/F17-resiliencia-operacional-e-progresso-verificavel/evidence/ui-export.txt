@@ -1,0 +1,12 @@
+### Result
+{"samePage":true,"filename":"garimpei-dados-126afb1c-73b9-44c2-a874-61caae3b3fad.tar.gz","failure":null,"traffic":[{"method":"POST","host":"127.0.0.1","path":"/acompanhamento/backups/ab6484c8-8a04-4c37-b074-017317004ce0/exportar/"},{"method":"GET","host":"127.0.0.1","path":"/acompanhamento/backups/"},{"method":"GET","host":"127.0.0.1","path":"/static/vendor/htmx.min.js"},{"method":"GET","host":"127.0.0.1","path":"/static/monitoring/tokens.css"},{"method":"GET","host":"127.0.0.1","path":"/static/monitoring/style.css"},{"method":"GET","host":"127.0.0.1","path":"/static/monitoring/forms.js"},{"method":"GET","host":"127.0.0.1","path":"/static/integration/settings.css"},{"method":"GET","host":"127.0.0.1","path":"/static/operations/status.css"},{"method":"GET","host":"127.0.0.1","path":"/static/monitoring/manrope.woff2"},{"method":"GET","host":"127.0.0.1","path":"/static/monitoring/bricolage-600.ttf"},{"method":"GET","host":"127.0.0.1","path":"/acompanhamento/exportacoes/126afb1c-73b9-44c2-a874-61caae3b3fad/arquivo/"}],"restorationNotTested":true}
+### Ran Playwright code
+```js
+await (async page => { const traffic=[]; const collect=request=>{const u=new URL(request.url());traffic.push({method:request.method(),host:u.hostname,path:u.pathname});}; page.on("request",collect); await page.getByRole("button",{name:"Exportar esta cópia"}).first().click(); await page.waitForTimeout(300); const before=page.url(); const event=page.waitForEvent("download"); await page.getByRole("link",{name:"Baixar exportação"}).first().click(); const download=await event; const failure=await download.failure(); page.off("request",collect); return {samePage:page.url()===before,filename:download.suggestedFilename(),failure,traffic,restorationNotTested:(await page.locator("main").innerText()).includes("Restauração: não testada")}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:23264/acompanhamento/backups/?operacao=126afb1c-73b9-44c2-a874-61caae3b3fad
+- Page Title: Cópias dos dados · Garimpei
+### Events
+- Downloading file garimpei-dados-126afb1c-73b9-44c2-a874-61caae3b3fad.tar.gz ...
+- Downloaded file garimpei-dados-126afb1c-73b9-44c2-a874-61caae3b3fad.tar.gz to ".playwright-cli/garimpei-dados-126afb1c-73b9-44c2-a874-61caae3b3fad-tar.gz"

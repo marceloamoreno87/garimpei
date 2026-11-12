@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import os,sys,django; os.environ["DJANGO_SETTINGS_MODULE"]="garimpei.config.test_settings"; django.setup(); from tests.factories.operations_lab import main; sys.argv=["operations_lab","calibrate","--directory","/tmp/garimpei-f17-calibration-final"]; main()
+                                                                                                                                                                                                                                                              ~~~~^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab.py", line 292, in main
+    calibrate(directory)
+    ~~~~~~~~~^^^^^^^^^^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab.py", line 255, in calibrate
+    measurements, new_stages = adapters.result(), stages.result()
+                                                  ~~~~~~~~~~~~~^^
+  File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/_base.py", line 453, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/_base.py", line 402, in __get_result
+    raise self._exception
+  File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab_calibration.py", line 39, in measure_new_stages
+    rows.append(_repetition(directory, source, target, proof, repetition))
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/tests/factories/operations_lab_calibration.py", line 67, in _repetition
+    raise RuntimeError(stopped.stdout + stopped.stderr)
+RuntimeError: warning: `VIRTUAL_ENV=/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/.venv` does not match the project environment path `apps/backend/.venv` and will be ignored; use `--active` to target the active environment instead
+--clean: expected owned disposable eval with synthetic session marker
+

@@ -1,0 +1,9 @@
+### Result
+{"url":"http://127.0.0.1:23264/acompanhamento/#operational-status","suspended":0,"counts":"Armazenados\n0\n\nIdentidades distintas; inclui histórico fora dos interesses atuais.\n\nRevalidados\n0\n\nObservação confirmada no escopo e revisão atuais.\n\nCom detalhe\n0\n\nDetalhe confirmado para a observação atual; um card não basta.\n\nCom foto\n0\n\nCópia de mídia utilizável da observação atual.\n\nReconhecidos\n0\n\nIdentidade suficiente na avaliação aplicável persistida.\n\nCom amostra\n0\n\nAmostra equivalente e válida da mesma revisão.\n\nEstimados\n0\n\nComposição calculável e aplicável publicada.\n\nElegíveis\n0\n\nDecisão atual de primeira elegibilidade ou redução autoriza alerta.\n\nEnvio confirmado\n0\n\nIdentidades do recorte com recibo aceito pelo servidor no histórico; não comprova entrega ou leitura."}
+### Ran Playwright code
+```js
+await (async page => { await page.locator("button",{hasText:"Retomar esta etapa"}).click(); await page.waitForTimeout(400); return {url:page.url(),suspended:await page.locator(".operations-state",{hasText:"Recuperação suspensa"}).count(),counts:await page.locator(".operations-counts").innerText()}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:23264/acompanhamento/#operational-status
+- Page Title: Acompanhamento · Garimpei

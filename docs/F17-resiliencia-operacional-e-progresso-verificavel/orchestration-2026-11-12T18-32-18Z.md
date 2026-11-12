@@ -5,7 +5,7 @@
 **Branch:** `feat/F17-resiliencia-operacional`
 **Started at:** `2026-11-12T18:32:18.093465+00:00`
 **Retry budget:** 3
-**Status:** running
+**Status:** aborted
 
 ## Overrides applied
 
@@ -16,7 +16,7 @@
 
 | # | Kind | Status | Counts / Notes | Artifact |
 |---|---|---|---|---|
-| 0 | implement-feature | running | Fase 1: laboratório e calibração obrigatória | — |
+| 0 | implement-feature/evaluator | aborted | Pré-requisitos incompletos; perfil/contrato preliminares; fontes congeladas | eval-report-2026-11-12T22-04-00Z.md |
 
 ## Cycle Detail
 
@@ -42,3 +42,13 @@ A CLI de recuperação exige inventário completo do intervalo da origem pausada
 Regressões dirigidas reproduziram SQL incompatível com a coluna real queue_name, troca indevida de PK na repetição da contrapressão e duplicação de tarefa idêntica; foram corrigidas e o percurso PostgreSQL passou. O orçamento A→2falhas→A→terceira falha continua suspenso sem renovar progresso.
 
 Lote alvo:18 PASS em81,17s. Seis gates Python: PASS em359 fontes. Evidências: evidence/media-recovery-tests.txt e evidence/media-recovery-gates.txt. A feature permanece implementing; laboratório final, UI e avaliação integral estão pendentes.
+
+## Fechamento coordenado — 2026-11-12
+
+A implementação inicial recebeu checkpoints08b79b8/6c73dad/840e98e/e4052ff com regressões dirigidas e seis gates aprovados. Não houve avaliação integral limpa; não foram iniciados ciclos formais fix-runner após um aceite canônico. A avaliação final desta branch é `eval-report-2026-11-12T22-04-00Z.md`, pending por pré-requisitos incompletos. O orçamento máximo permanece três ciclos e nenhuma pendência foi tratada como sucesso.
+
+O coordenador congelou as fontes da união em6144193 para675 testes. A partir de e4052ff, esta worktree alterou somente documentação/evidências/progresso F17. O CLI fault/matriz permanecem ausentes e o calibrate direto falha sem Django setup; o wrapper foi registrado como override de execução, sem correção silenciosa de fonte. Perfil não confirmado mantém habilitação real falsa.
+
+Estado final do ciclo: `aborted` por pré-requisitos de avaliação incompletos sob freeze de fontes coordenado; não equivale a falha terminal da feature. A limpeza e liberação exclusiva do lock constam de evidence/cleanup.json. O full final pertence ao coordenador, sem presumir resultado.
+
+Calibração final terminou bloqueada: CLI direto sem setup Django; wrapper falhou na limpeza repetida do destino já encerrado. Sem calibration.json e sem confirmação do perfil. Cleanup final usa inspeção da instância e chama stop --clean somente para manifest próprio presente; não recria marcadores para burlar proteção.

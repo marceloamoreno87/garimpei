@@ -1,0 +1,92 @@
+........................................................................ [ 25%]
+..................................F..................................... [ 50%]
+........................................................................ [ 76%]
+....................................................................     [100%]
+=================================== FAILURES ===================================
+__ test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries __
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-413/test_killed_worker_reconciles_0')
+
+    def test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries(
+        tmp_path: Path,
+    ) -> None:
+        import os
+        import signal
+    
+        from garimpei.infra.runtime.processes import verify_process
+        from tests.factories.alert_scenario import wait_alerts
+        from tests.factories.valuation import listing
+        from tests.integration.test_collection import command
+    
+        with alert_scenario(tmp_path) as (instance, source, clock, channel):
+            channel.mode = "lost"
+            channel.hold_post = True
+            clock.advance(1)
+            source.rows["931"] = listing(
+                "931",
+                "1000,00",
+                published_at=clock.value.isoformat(),
+                delivery=True,
+                delivery_cep="01001000",
+                pickup=False,
+            )
+            clock.advance(61)
+            completed(instance, 2)
+            assert channel.held.wait(35), "worker did not reach held POST"
+            original = sql(
+                instance, "SELECT id::text FROM runtime_alertintent WHERE state='authorized'"
+            )
+            assert len(original) == 1 and len(channel.messages) == 1
+            owner = next(
+                record for record in instance.manifest["processes"] if "runworker" in record["command"]
+            )
+            verify_process(owner, instance.config.root)
+            os.killpg(owner["pgid"], signal.SIGKILL)
+            channel.release.set()
+            command(instance, "./scripts/stop.sh")
+            clock.advance(61)
+            command(instance, "./scripts/init.sh", "--disposable")
+            wait_alerts(instance, 1, clock)
+            assert (
+                sql(instance, "SELECT id::text FROM runtime_alertintent WHERE state='confirmed'")
+                == original
+            )
+            assert sql(instance, "SELECT count(*) FROM runtime_alertattempt") == [(1,)]
+            assert len([call for call in channel.calls if call[0] == "POST"]) == 1
+            # A technical send job may remain doing; a later business tick still progresses.
+            channel.mode, channel.hold_post = "confirmed", False
+            clock.advance(1)
+            source.rows["932"] = listing(
+                "932",
+                "1000,00",
+                published_at=clock.value.isoformat(),
+                delivery=True,
+                delivery_cep="01001000",
+                pickup=False,
+            )
+            clock.advance(61)
+>           wait_alerts(instance, 2, clock)
+
+tests/integration/test_alert_delivery.py:259: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/alert_scenario.py:174: in wait_alerts
+    wait_for(confirmed, f"{count} confirmed alerts", seconds=35)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = <function wait_alerts.<locals>.confirmed at 0x76001b403ba0>
+description = '2 confirmed alerts', seconds = 35
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for 2 confirmed alerts
+
+tests/integration/test_collection.py:54: Failed
+----------------------------- Captured stdout call -----------------------------
+F09 diagnostic decisions [('excluded', 'first_eligibility_managed', 2)]
+F09 diagnostic intents [('queued', 'pending_channel', 1), ('confirmed', 'history_ack', 1)]
+=========================== short test summary info ============================
+FAILED tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries
+1 failed, 283 passed in 1329.87s (0:22:09)
