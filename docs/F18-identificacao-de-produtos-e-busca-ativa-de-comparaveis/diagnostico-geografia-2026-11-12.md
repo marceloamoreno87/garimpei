@@ -1,0 +1,13 @@
+# Diagnóstico — contexto geográfico da pesquisa F18
+
+A discrepância de 6 km não demonstra qual raio o Facebook aplicou aos resultados da pesquisa. Os relatórios anteriores que descrevem os 6 km como resposta da pesquisa devem ser lidos com esta distinção: o valor é extraído do JSON da navegação HTML inicial, anterior ao POST GraphQL que obtém os anúncios. O adaptador altera a requisição subsequente para 500 km, mas não dispõe de confirmação da fonte de que o filtro foi aplicado.
+
+A reprodução local `test_browser_search_applies_effective_filters_and_uses_server_cursor` passou em 13,45 s: sua fonte controlada fornece metadados iniciais de 6 km enquanto a requisição posterior contém 20 km. Isso demonstra a separação dos dois estágios; não prova como a fonte real interpreta a requisição.
+
+Em uma janela exclusiva, uma consulta real com o caso RTX 4060 8GB do corpus aprovado retornou 24 cartões. A resposta do POST continha 258 objetos; nenhum forneceu `browse_request_params` ou rota reconhecidos pelos parsers existentes. Os campos de raio e coordenadas nesses parâmetros estavam ausentes. O resultado sanitizado está em `evidence/live-response-context-2026-11-12T23-25-37Z.json`; não inclui corpo da resposta, coordenadas, cookies ou tokens. O navegador foi fechado e nenhum dado de negócio foi publicado.
+
+A causa do **valor apresentado na evidência** é o uso dos metadados da navegação inicial, não uma demonstração de que o POST pesquisou em 6 km. A causa de eventual aplicação de raio incorreto continua desconhecida. Tratar os 500 km enviados como contexto confirmado não é seguro; a pesquisa automática permanece desabilitada. A próxima prova deve obter confirmação independente e vinculada à resposta efetiva, ou demonstrar via experimento controlado e evidência da fonte como a região é aplicada. Não foi implementada correção especulativa, nem executada nova avaliação completa.
+
+## Inspeção da interface da fonte
+
+Duas navegações exclusivas somente leitura identificaram um botão de localização com indicação em quilômetros. Abrir esse botão sem salvar produziu um diálogo no DOM que, após um segundo, expunha apenas um botão e nenhum valor em quilômetros ou controle de raio identificável pela inspeção usada. O navegador foi fechado após cada visita; nenhuma configuração foi salva. Esta inspeção limitada não demonstra que a interface careça de um seletor: não identifica, porém, opções, valor anterior, procedimento de restauração ou associação verificável entre eventual mudança e os resultados do POST. Portanto não sustenta uma mudança segura no perfil nem a aceitação dos resultados como geograficamente confirmados.
