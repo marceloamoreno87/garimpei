@@ -1,4 +1,5 @@
 import json
+import time
 from dataclasses import asdict, replace
 from pathlib import Path
 from uuid import uuid4
@@ -18,11 +19,32 @@ def test_worker_consumes_research_and_publishes_reproducible_profit(tmp_path: Pa
     clock.advance(0)
     with serve(source) as url:
         instance = prepare_instance(root, tmp_path, "f18_worker_" + uuid4().hex[:8])
-        # These are explicit controlled-test inputs, never presented as a real measurement.
+        from garimpei.domain.listing.listing import Match
+        from garimpei.domain.listing.scope import Search
+        from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+        from tests.factories.comparable_research import KEY, TITLE
+        from tests.factories.comparable_research import scope as controlled_scope
+
+        probe = FixtureSource(url, 2)
+        probe_scope = controlled_scope()
+        probe_query = Search(Match("product", KEY), TITLE, "marketplace", purpose="research")
+        probes = []
+        started = time.perf_counter()
+        page = probe.search(probe_scope, probe_query, None)
+        probes.append(
+            dict(
+                operation="query",
+                seconds=time.perf_counter() - started,
+                candidates=len(page.candidates),
+            )
+        )
+        started = time.perf_counter()
+        probe.detail(probe_scope, "18810")
+        probes.append(dict(operation="detail", seconds=time.perf_counter() - started))
         evidence = []
-        for index in range(2):
+        for index, measurement in enumerate(probes):
             path = tmp_path / f"controlled-{index}.json"
-            path.write_text(json.dumps(dict(source_kind="controlled", measurements=[0.01])))
+            path.write_text(json.dumps(dict(source_kind="controlled", measurements=[measurement])))
             evidence.append(str(path))
         policy = asdict(
             replace(
@@ -33,7 +55,7 @@ def test_worker_consumes_research_and_publishes_reproducible_profit(tmp_path: Pa
         limits.write_text(json.dumps(policy))
         with instance.private_file.open("a") as file:
             file.write(
-                f"GARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_LISTING_FIXTURE_URL={url}\nGARIMPEI_VALUATION_FIXTURE_URL={url}\nGARIMPEI_LISTING_FIXTURE_CLOCK={clock.path}\nGARIMPEI_RESEARCH_LIMITS={limits}\n"
+                f"GARIMPEI_LISTING_INTERVAL=60\nGARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_LISTING_FIXTURE_URL={url}\nGARIMPEI_VALUATION_FIXTURE_URL={url}\nGARIMPEI_LISTING_FIXTURE_CLOCK={clock.path}\nGARIMPEI_RESEARCH_LIMITS={limits}\n"
             )
         command(instance, "./scripts/init.sh", "--disposable")
         try:
@@ -89,6 +111,79 @@ assert MonitoringConfiguration.objects.get(slot='active').monitoringinterest_set
                 "SELECT queue_name FROM procrastinate_jobs WHERE task_name='garimpei.comparable_research' AND status='succeeded'",
             )
             assert all(float(str(row["seconds"])) >= 0 for row in source.timings)
+            slices = sql(
+                instance,
+                "SELECT extract(epoch FROM(max(e.at) FILTER(WHERE e.type='succeeded')-min(e.at) FILTER(WHERE e.type='started'))) FROM procrastinate_jobs j JOIN procrastinate_events e ON e.job_id=j.id WHERE j.task_name='garimpei.comparable_research' AND j.status='succeeded' GROUP BY j.id ORDER BY j.id",
+            )
+            measured = dict(
+                source_kind="controlled",
+                environment="owned_eval_loopback",
+                measured_at=__import__("datetime")
+                .datetime.now(__import__("datetime").timezone.utc)
+                .isoformat(),
+                source_is_real=False,
+                fixtures="tests/fixtures/valuation/research_cases.json",
+                policy_test_inputs=policy,
+                measurements=dict(
+                    client_probes=probes,
+                    worker_slice_seconds=[float(str(row[0])) for row in slices],
+                    server_operations=source.timings,
+                ),
+                confirmed=dict(
+                    pages=1,
+                    details=5,
+                    slices=3,
+                    retained=5,
+                    profit="1012.50",
+                    reference_events=0,
+                    reference_matches=0,
+                ),
+            )
+            (tmp_path / "controlled-measurements.json").write_text(
+                json.dumps(measured, indent=2) + "\n"
+            )
+            print("F18_CONTROLLED_MEASUREMENTS=" + str(tmp_path / "controlled-measurements.json"))
+            # A new identifiable variant lacks a sample while the reference source fails.
+            # Normal collection must still confirm its following price observation.
+            source.research_failure = True
+            source.rows["18801"]["title"] = "iPhone 14 128GB"
+            clock.advance(61)
+            wait_for(
+                lambda: bool(
+                    sql(
+                        instance,
+                        "SELECT 1 FROM runtime_comparableinvestigation WHERE product_key='apple:iphone14:standard:128gb' AND state='waiting_retry'",
+                    )
+                ),
+                "research failure remains distinct",
+                seconds=35,
+            )
+            source.rows["18801"]["price"] = "R$ 900,00"
+            clock.advance(61)
+            wait_for(
+                lambda: bool(
+                    sql(
+                        instance,
+                        "SELECT 1 FROM runtime_listing l JOIN runtime_listingobservation o ON o.id=l.latest_id WHERE l.external_id='18801' AND o.price=900 AND o.ordinal>=3",
+                    )
+                ),
+                "collection advances while research is waiting",
+                seconds=35,
+            )
+            assert sql(
+                instance,
+                "SELECT count(*) FROM runtime_listingevent e JOIN runtime_listing l ON l.id=e.listing_id WHERE l.external_id='18801' AND e.kind='price_decreased'",
+            ) == [(1,)]
+            measured["non_interference"] = dict(
+                collection_advanced=True,
+                research_failure="source_http_503",
+                decrease_events=1,
+                real_whatsapp_posts=0,
+            )
+            (tmp_path / "controlled-measurements.json").write_text(
+                json.dumps(measured, indent=2) + "\n"
+            )
+
         except BaseException:
             print(
                 "F18 investigations",

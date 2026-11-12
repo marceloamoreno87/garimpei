@@ -136,3 +136,62 @@ def test_controlled_worker_policy_requires_explicit_eval_loopback_admission(tmp_
     assert load_research_limits(path, tmp_path, allow_controlled=True) is not None
     path.write_text(json.dumps(manifest()))
     assert load_research_limits(path, tmp_path, allow_controlled=True) is None
+
+
+def test_cold_browser_rebuild_reserves_all_calls_before_source_io() -> None:
+    from dataclasses import replace
+    from uuid import uuid4
+
+    from garimpei.domain.listing.listing import Match
+    from garimpei.domain.listing.scope import Search
+    from garimpei.domain.valuation.research import ResearchUnit
+    from garimpei.usecase.valuation.run_research_usecase import RunComparableResearchUseCase
+    from tests.factories.comparable_research import (
+        KEY,
+        ControlledResearchSource,
+        ForbiddenResearchStore,
+        scope,
+    )
+
+    limits = replace(
+        controlled_limits(), request_timeout_seconds=20, max_slice_seconds=180, lease_seconds=240
+    )
+    unit = ResearchUnit(
+        uuid4(),
+        1,
+        scope(),
+        Search(Match("product", KEY), "PlayStation 5", "marketplace"),
+        KEY,
+        limits,
+        "source:opaque",
+        1,
+        (),
+    )
+    clock = [60.0]
+    # No store/source operation may run in this boundary test.
+    runner = RunComparableResearchUseCase(
+        ForbiddenResearchStore(), ControlledResearchSource(), lambda: clock[0]
+    )
+    assert runner._can_start(unit, 0, 0, 0)
+    clock[0] = 61
+    assert not runner._can_start(unit, 0, 0, 0)
+    clock[0] = 120
+    pending = replace(unit, pending=("200",))
+    assert runner._can_start(pending, 0, 0, 0)
+    assert not runner._can_start(pending, 0, 0, limits.max_details_per_slice)
+
+
+def test_measured_policy_does_not_bypass_explicit_geography_block(tmp_path: Path) -> None:
+    import json
+
+    from garimpei.infra.gateway.valuation.research_manifest import research_activation_reason
+
+    path = tmp_path / "limits.json"
+    path.write_text(
+        json.dumps(
+            manifest()
+            | {"automatic_activation": False, "activation_block_reason": "real_geography_unproved"}
+        )
+    )
+    assert load_research_limits(path, tmp_path) is None
+    assert research_activation_reason(path) == "real_geography_unproved"

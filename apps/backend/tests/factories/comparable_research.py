@@ -161,6 +161,7 @@ from tests.factories.valuation import listing as fixture_listing  # noqa: E402
 
 @dataclass
 class ResearchLoopbackSource(ValuationSource):
+    research_failure: bool = False
     rows: dict[str, dict[str, object]] = field(
         default_factory=lambda: {"18801": fixture_listing("18801", "1000,00")}
     )
@@ -171,7 +172,7 @@ class ResearchLoopbackSource(ValuationSource):
 
         start = time.perf_counter()
         if path == "/search" and parameters.get("kind") == "product":
-            result = self._research_page(parameters)
+            result = (503, {}) if self.research_failure else self._research_page(parameters)
         elif path.startswith("/detail/1881"):
             identity = path.removeprefix("/detail/")
             result = (
@@ -211,3 +212,25 @@ class ResearchLoopbackSource(ValuationSource):
                 query=parameters["term"],
             ),
         )
+
+
+class ForbiddenResearchStore:
+    """The timing boundary must not perform repository or source work."""
+
+    def claim(self) -> "ResearchUnit | None":
+        raise AssertionError("Unexpected repository claim")
+
+    def page(self, unit: "ResearchUnit", page: Page) -> "ResearchUnit | None":
+        raise AssertionError("Unexpected page publication")
+
+    def detail(self, unit: "ResearchUnit", candidate: Candidate) -> "ResearchUnit | None":
+        raise AssertionError("Unexpected detail publication")
+
+    def failed(self, unit: "ResearchUnit", failure: SourceFailure) -> None:
+        raise AssertionError("Unexpected failure publication")
+
+    def yield_slice(self, unit: "ResearchUnit") -> None:
+        raise AssertionError("Unexpected scheduling")
+
+
+from garimpei.domain.valuation.research import ResearchUnit  # noqa: E402

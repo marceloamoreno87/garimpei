@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from dataclasses import asdict
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from django.db import transaction
 from django.db.models import Max, Q
@@ -130,14 +130,13 @@ class PostgresComparableResearchRepository:
         signature = digest([product, context, VALUATION_POLICY, self._limits.policy_version])
         existing = ComparableInvestigation.objects.filter(signature=signature).first()
         interest = ":".join(matches[0])
-        if (
+        pending_limited = (
             existing is None
             and ComparableInvestigation.objects.filter(
                 origin_interest=interest, state__in=ACTIVE
             ).count()
             >= self._limits.max_pending_per_interest
-        ):
-            return
+        )
         pending_interests = set(
             ComparableInvestigation.objects.filter(state__in=ACTIVE).values_list(
                 "origin_interest", flat=True
@@ -161,11 +160,19 @@ class PostgresComparableResearchRepository:
                 policy=VALUATION_POLICY,
                 requested_at=self._clock(),
                 next_attempt_at=self._clock(),
+                last_turn=ComparableInvestigation.objects.order_by("-last_turn")
+                .values_list("last_turn", flat=True)
+                .first()
+                or 0,
             ),
         )
-        if wait_limited and existing is None:
+        if pending_limited:
+            row.state, row.reason = "limited", "interest_pending_budget_exceeded"
+            row.save(update_fields=["state", "reason"])
+        if wait_limited and existing is None and not pending_limited:
             row.state, row.reason = "limited", "interest_wait_budget_exceeded"
             row.save(update_fields=["state", "reason"])
+        self._recent_priority(row, listing)
         InvestigationTarget.objects.filter(listing=listing, active=True).exclude(
             investigation=row, observation=listing.latest, manual_revision=current.manual_revision
         ).update(active=False)
@@ -204,6 +211,7 @@ class PostgresComparableResearchRepository:
             key=lambda r: (
                 interest_turns.get(r.origin_interest) or 0,
                 r.last_turn,
+                not self._recent(r),
                 r.requested_at,
                 str(r.id),
             ),
@@ -250,6 +258,14 @@ class PostgresComparableResearchRepository:
                 or not refresh_targets(row)
             ):
                 self._terminal(row, "superseded", "input_revision_changed")
+                continue
+            resume_cost = 2 if row.cursor else 1
+            if (
+                not row.buffer
+                and row.pages
+                and row.pages + resume_cost > self._limits.max_pages_per_query
+            ):
+                self._terminal(row, "limited", "page_budget_reached")
                 continue
             if row.attempts >= self._limits.max_attempts_per_input:
                 self._terminal(row, "limited", "attempt_budget_reached")
@@ -372,6 +388,8 @@ class PostgresComparableResearchRepository:
     def failed(self, work: ResearchUnit, failure: SourceFailure) -> None:
         row = self._owned(work)
         row.failures += 1
+        if failure.access:
+            row.context["access_failed_at"] = self._clock().isoformat()
         if work.pending and not failure.access and not failure.retry_after:
             self._detail_failure(row, failure)
         row.state = (
@@ -382,6 +400,8 @@ class PostgresComparableResearchRepository:
             else "waiting_retry"
         )
         row.reason = failure.reason
+        if work.pending and not row.buffer and row.cursor is None:
+            row.state, row.reason = "limited", "detail_confirmation_failed"
         delay = work.limits.retry_delays_seconds[
             min(row.failures - 1, len(work.limits.retry_delays_seconds) - 1)
         ]
@@ -426,3 +446,38 @@ class PostgresComparableResearchRepository:
         )
         query.save(update_fields=["observed"])
         row.buffer = row.buffer[1:]
+
+    def _recent(self, row: ComparableInvestigation) -> bool:
+        value = row.context.get("recent_until")
+        return isinstance(value, str) and datetime.fromisoformat(value) >= self._clock()
+
+    @staticmethod
+    def _recent_priority(row: ComparableInvestigation, listing: Listing) -> None:
+        from garimpei.infra.repository.listing.mapper import decode_evidence
+
+        assert listing.latest is not None
+        evidence = decode_evidence(listing.latest.evidence)
+        if evidence.published_at is None or evidence.published_at_source not in {
+            "facebook.creation_time",
+            "fixture.published_at",
+        }:
+            return
+        until = (evidence.published_at + timedelta(hours=48)).isoformat()
+        previous = row.context.get("recent_until")
+        if not isinstance(previous, str) or until > previous:
+            row.context["recent_until"] = until
+            row.save(update_fields=["context"])
+
+    @transaction.atomic
+    def resume_verified_access(self, verified_at: datetime | None) -> None:
+        if verified_at is None or self._limits is None:
+            return
+        lock_monitoring_publication()
+        for row in ComparableInvestigation.objects.filter(state="suspended_access"):
+            failed_at = row.context.get("access_failed_at")
+            if not isinstance(failed_at, str) or verified_at <= datetime.fromisoformat(failed_at):
+                continue
+            # F11's explicit user verification unlocks the checkpoint, never its consumed budget.
+            row.state, row.reason = "waiting_evidence", "access_manually_verified"
+            row.next_attempt_at = max(self._clock(), row.next_attempt_at or self._clock())
+            row.save(update_fields=["state", "reason", "next_attempt_at"])

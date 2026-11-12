@@ -1,7 +1,7 @@
 <section class="identity-review" aria-labelledby="research-heading">
     <h2 id="research-heading">Busca de comparáveis</h2>
     {% if not comparable_research.enabled %}
-        <p role="status">A pesquisa automática aguarda a calibração dos limites com a fonte. As referências já confirmadas continuam sujeitas à validade e às regras de comparação.</p>
+        <p role="status">{% if comparable_research.reason == "real_geography_unproved" %}A pesquisa automática aguarda a confirmação da localização e do raio na fonte.{% elif comparable_research.reason == "final_union_validation_pending" %}A pesquisa automática aguarda a verificação final da integração.{% else %}A pesquisa automática aguarda a calibração dos limites com a fonte.{% endif %} As referências já confirmadas continuam sujeitas à validade e às regras de comparação.</p>
     {% else %}
         <p>Pesquisa em etapas, com limite de tempo e revisão de contexto. Cinco anúncios retidos sustentam a estimativa; preço anunciado não confirma venda.</p>
     {% endif %}

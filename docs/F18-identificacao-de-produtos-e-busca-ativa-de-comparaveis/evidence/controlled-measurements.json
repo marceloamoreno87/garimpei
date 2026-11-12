@@ -1,0 +1,241 @@
+{
+  "source_kind": "controlled",
+  "environment": "owned_eval_loopback",
+  "measured_at": "2026-11-12T21:24:57.404478+00:00",
+  "source_is_real": false,
+  "fixtures": "tests/fixtures/valuation/research_cases.json",
+  "policy_test_inputs": {
+    "policy_version": "controlled-only-v1",
+    "measured_at": "2026-11-12T12:00:00+00:00",
+    "environment": "eval-controlled",
+    "corpus_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "evidence_paths": [
+      "owned-loopback-query-measurement",
+      "owned-loopback-detail-measurement"
+    ],
+    "max_queries_per_slice": 2,
+    "max_pages_per_query": 3,
+    "max_details_per_slice": 2,
+    "max_slice_seconds": 30,
+    "request_timeout_seconds": 2,
+    "max_attempts_per_input": 10,
+    "retry_delays_seconds": [
+      5,
+      10,
+      20
+    ],
+    "lease_seconds": 40,
+    "max_wait_slices_per_interest": 3,
+    "max_pending_per_interest": 4
+  },
+  "measurements": {
+    "client_probes": [
+      {
+        "operation": "query",
+        "seconds": 0.0015725289995316416,
+        "candidates": 5
+      },
+      {
+        "operation": "detail",
+        "seconds": 0.0022285979939624667
+      }
+    ],
+    "worker_slice_seconds": [
+      0.123134,
+      0.116473,
+      0.075997
+    ],
+    "server_operations": [
+      {
+        "operation": "query",
+        "seconds": 1.1452008038759232e-05
+      },
+      {
+        "operation": "detail",
+        "seconds": 6.151996785774827e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 8.495990186929703e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 9.308001608587801e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 6.200993084348738e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 6.56300107948482e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 6.582995411008596e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 1.6811987734399736e-05
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.770998541265726e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.540001438930631e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.149995558895171e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.3679901864379644e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.368004738353193e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.509995389729738e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.220004823058844e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.2000104915350676e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 3.4660042729228735e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.3379986891523e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.1470048017799854e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.658999387174845e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.349997081793845e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.008004907518625e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.488989361561835e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.838992026634514e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.008004907518625e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 3.726992872543633e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 3.4669938031584024e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 1.1301002814434469e-05
+      },
+      {
+        "operation": "query",
+        "seconds": 5.680994945578277e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 6.432004738599062e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 6.3019979279488325e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.84999327454716e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 3.926994395442307e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.027999239042401e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 2.9850052669644356e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 3.145993105135858e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 3.5470002330839634e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 2.1239975467324257e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.720008630305529e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 5.5109994718804955e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 2.2140011424198747e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.120004061609507e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 5.851004971191287e-06
+      }
+    ]
+  },
+  "confirmed": {
+    "pages": 1,
+    "details": 5,
+    "slices": 3,
+    "retained": 5,
+    "profit": "1012.50",
+    "reference_events": 0,
+    "reference_matches": 0
+  },
+  "non_interference": {
+    "collection_advanced": true,
+    "research_failure": "source_http_503",
+    "decrease_events": 1,
+    "real_whatsapp_posts": 0
+  },
+  "corpus_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+  "policy_scope": "Synthetic control corpus; does not add human labels or real Facebook candidates.",
+  "fixture_sha256": "d59ec1e02c9a59e210c44a7b8d67d08972ff49cebfafae963100d6c77c73d678"
+}

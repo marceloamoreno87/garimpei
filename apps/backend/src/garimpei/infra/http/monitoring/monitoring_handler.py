@@ -45,7 +45,7 @@ class MonitoringHandler:
         preview: PreviewProductsUseCase,
         read_collection_status: ReadCollectionStatusUseCase,
         read_operations: Callable[[], ReadOperationalStatusUseCase] | None = None,
-        research: ReadComparableResearchDiagnosticUseCase | None = None,
+        research: Callable[[], ReadComparableResearchDiagnosticUseCase] | None = None,
     ) -> None:
         self._read_form = read_form
         self._read_catalog = read_catalog
@@ -99,7 +99,7 @@ class MonitoringHandler:
                     "operations": status_context(self._read_operations().execute())
                     if self._read_operations
                     else None,
-                    "comparable_research": self._research.execute() if self._research else None,
+                    "comparable_research": self._research().execute() if self._research else None,
                 },
             )
         context = form_context(request, state, screen, catalog)
