@@ -37,7 +37,9 @@ class ExplorationSource:
         config = self._configuration.execute()
         scope = Scope.from_snapshot(config)
         rows = tuple(
-            Listing.objects.select_related("latest__cycle__state")
+            Listing.objects.select_related(
+                "latest__cycle__state", "identity_progress__manual__observation"
+            )
             .defer(
                 "latest__cycle__results",
                 "latest__cycle__planned",
@@ -55,7 +57,11 @@ class ExplorationSource:
             .values("listing_id")
             .annotate(at=Max("observed_at"))
         }
-        values = self._valuations.current_many(rows, now)
+        values = self._valuations.current_many(
+            rows,
+            now,
+            identities={row.id: getattr(row, "identity_progress", None) for row in rows},
+        )
         galleries = PostgresMediaQueries().galleries(
             tuple((row.id, row.latest_id) for row in rows if row.latest_id is not None)
         )
