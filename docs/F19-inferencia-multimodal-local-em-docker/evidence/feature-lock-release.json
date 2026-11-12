@@ -1,0 +1,10 @@
+{
+  "branch": "feat/F19-inferencia-multimodal-local",
+  "host": "moreno",
+  "pid": 1005400,
+  "started_at": "2026-11-12T02:10:14.418513+00:00",
+  "released_at": "2026-11-12T04:35:56.791748+00:00",
+  "owner_verified": true,
+  "owner_terminated": true,
+  "lock_removed": true
+}

@@ -1,0 +1,38 @@
+{
+  "stable": true,
+  "source_and_test_files": 333,
+  "tracked_diff_sha256": "620de463a84373ca9fb4cfe9ad107647e91634c47cc97e5e3ffd32d96f4f088d",
+  "untracked_application_files": 10,
+  "start": {
+    "captured_at": "2026-11-12T03:01:26.817424+00:00",
+    "tracked_diff_sha256": "620de463a84373ca9fb4cfe9ad107647e91634c47cc97e5e3ffd32d96f4f088d",
+    "new_files": {
+      "apps/backend/src/garimpei/domain/alert/financial_snapshot.py": "00951e3372e93dbfdfcf0cd260b22ea5287ec4f9b2783863bf58372d4421161c",
+      "apps/backend/src/garimpei/infra/http/templates/listing/financial_values.html": "9465808a7eafe2bc5bb3649476b83bbfb87b00e4cbcfa72124f4e37cccf65cb2",
+      "apps/backend/src/garimpei/infra/persistence/migrations/0013_alert_message_snapshot.py": "57c814b34cd1d11e38e43681351d0572073f56d39a64dda89a42c5f65e8108bd",
+      "apps/backend/src/garimpei/infra/repository/alert/financial_references.py": "70bd7e2b4458cbe1f8e039eed88607a3aa557701fe8b405db90ba62c4c456052",
+      "apps/backend/src/garimpei/infra/repository/alert/message_authorization.py": "2541cfa073d3ed4342716b41ddd9ba9a76d7bbda82ba3ca9146974bd3a466b2f",
+      "apps/backend/tests/factories/financial_presentation_lab.py": "f6f4479b6c3502682ff2751b741bf5723c06521e95075ccb7e4d8de134f1fe16",
+      "apps/backend/tests/fixtures/valuation/financial_presentation.json": "570fb531ec87b091eab8cdba8570e64e2dc6c0654626d72332199b7e5c5e3891",
+      "apps/backend/tests/http/test_financial_presentation.py": "6d5fb757a582610418126a9ff2ca06d39a4cc7151f0974449bc75ff6b7a28eae",
+      "apps/backend/tests/integration/test_financial_messages.py": "22d448a4e34ecf9c8ddeea7889731931e4bed21b1b9483ad3ae4ecf022bc2b6d",
+      "apps/backend/tests/unit/test_financial_presentation.py": "a6b1ecd6798a522d5fd6dc9203649a480db47ad3b1d5cfde66f392b67cc14788"
+    }
+  },
+  "end": {
+    "captured_at": "2026-11-12T03:21:13.645075+00:00",
+    "tracked_diff_sha256": "620de463a84373ca9fb4cfe9ad107647e91634c47cc97e5e3ffd32d96f4f088d",
+    "new_files": {
+      "apps/backend/src/garimpei/domain/alert/financial_snapshot.py": "00951e3372e93dbfdfcf0cd260b22ea5287ec4f9b2783863bf58372d4421161c",
+      "apps/backend/src/garimpei/infra/http/templates/listing/financial_values.html": "9465808a7eafe2bc5bb3649476b83bbfb87b00e4cbcfa72124f4e37cccf65cb2",
+      "apps/backend/src/garimpei/infra/persistence/migrations/0013_alert_message_snapshot.py": "57c814b34cd1d11e38e43681351d0572073f56d39a64dda89a42c5f65e8108bd",
+      "apps/backend/src/garimpei/infra/repository/alert/financial_references.py": "70bd7e2b4458cbe1f8e039eed88607a3aa557701fe8b405db90ba62c4c456052",
+      "apps/backend/src/garimpei/infra/repository/alert/message_authorization.py": "2541cfa073d3ed4342716b41ddd9ba9a76d7bbda82ba3ca9146974bd3a466b2f",
+      "apps/backend/tests/factories/financial_presentation_lab.py": "f6f4479b6c3502682ff2751b741bf5723c06521e95075ccb7e4d8de134f1fe16",
+      "apps/backend/tests/fixtures/valuation/financial_presentation.json": "570fb531ec87b091eab8cdba8570e64e2dc6c0654626d72332199b7e5c5e3891",
+      "apps/backend/tests/http/test_financial_presentation.py": "6d5fb757a582610418126a9ff2ca06d39a4cc7151f0974449bc75ff6b7a28eae",
+      "apps/backend/tests/integration/test_financial_messages.py": "22d448a4e34ecf9c8ddeea7889731931e4bed21b1b9483ad3ae4ecf022bc2b6d",
+      "apps/backend/tests/unit/test_financial_presentation.py": "a6b1ecd6798a522d5fd6dc9203649a480db47ad3b1d5cfde66f392b67cc14788"
+    }
+  }
+}

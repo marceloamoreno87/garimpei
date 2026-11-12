@@ -1,0 +1,201 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 5.573811353002384,
+  "pull_api_count_before": 4,
+  "pull_api_count_after": 4,
+  "business_before": {
+    "runtime_manualcondition": 0,
+    "runtime_manualconditionhistory": 0,
+    "runtime_alertintent": 0,
+    "runtime_alertattempt": 0,
+    "runtime_listingevent": 0
+  },
+  "business_after": {
+    "runtime_manualcondition": 0,
+    "runtime_manualconditionhistory": 0,
+    "runtime_alertintent": 0,
+    "runtime_alertattempt": 0,
+    "runtime_listingevent": 0
+  },
+  "samples": [
+    {
+      "elapsed": 1.365386652003508,
+      "docker_stats": "{\"BlockIO\":\"0B / 0B\",\"CPUPerc\":\"74.63%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"1.37%\",\"MemUsage\":\"440.2MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"59\"}",
+      "app_rss_bytes": 213127168,
+      "host_ram_used_bytes": 16592830464,
+      "base_ready_http": 200
+    },
+    {
+      "elapsed": 3.375416472001234,
+      "docker_stats": "{\"BlockIO\":\"0B / 0B\",\"CPUPerc\":\"574.64%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"2.75%\",\"MemUsage\":\"881.4MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"75\"}",
+      "app_rss_bytes": 213164032,
+      "host_ram_used_bytes": 16961646592,
+      "base_ready_http": 200
+    },
+    {
+      "elapsed": 5.3733946650027065,
+      "docker_stats": "{\"BlockIO\":\"0B / 0B\",\"CPUPerc\":\"269.95%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"2.74%\",\"MemUsage\":\"880.8MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"74\"}",
+      "app_rss_bytes": 213164032,
+      "host_ram_used_bytes": 16970485760,
+      "base_ready_http": 200
+    }
+  ],
+  "analysis": {
+    "request_id": "9cdb43b4-e084-48e9-af64-1654e7212ad4",
+    "observation_id": "ac869403-b631-56b2-badb-5ad373e54392",
+    "revision": 1,
+    "state": "succeeded",
+    "model": "qwen3.5:4b-q4_K_M",
+    "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+    "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "prompt_version": "local-evidence-v1",
+    "schema_version": "local-evidence-v1",
+    "coverage": [
+      {
+        "id": "image-a",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "c3cfe8e9789ed976ae760c18d48457221f651fe201841cdf339b80e8e5ab3f2f",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "c3cfe8e9789ed976ae760c18d48457221f651fe201841cdf339b80e8e5ab3f2f",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "state": "succeeded",
+        "result": {
+          "findings": [
+            {
+              "references": [
+                {
+                  "kind": "image",
+                  "image_id": "image-a"
+                }
+              ],
+              "description": "A imagem \u00e9 composta por um quadrado de cor verde-\u00e1gua claro com uma borda preta."
+            },
+            {
+              "references": [
+                {
+                  "kind": "image",
+                  "image_id": "image-a"
+                }
+              ],
+              "description": "No centro do quadrado, h\u00e1 o texto 'image-a' em fonte preta e pequena."
+            }
+          ],
+          "unknowns": [],
+          "limitations": []
+        },
+        "metrics": {
+          "sent": true,
+          "size_vram": 3140495604,
+          "eval_count": 141,
+          "gpu_samples": [
+            {
+              "scope": "host",
+              "monotonic": 56509.847607055,
+              "memory_mib": 2328,
+              "utilization_percent": 0
+            },
+            {
+              "scope": "host",
+              "monotonic": 56510.142201957,
+              "memory_mib": 2353,
+              "utilization_percent": 0
+            },
+            {
+              "scope": "host",
+              "monotonic": 56510.42169568,
+              "memory_mib": 2489,
+              "utilization_percent": 1
+            },
+            {
+              "scope": "host",
+              "monotonic": 56510.707959611,
+              "memory_mib": 3135,
+              "utilization_percent": 1
+            },
+            {
+              "scope": "host",
+              "monotonic": 56510.990516509,
+              "memory_mib": 2489,
+              "utilization_percent": 4
+            },
+            {
+              "scope": "host",
+              "monotonic": 56511.273470781,
+              "memory_mib": 3577,
+              "utilization_percent": 0
+            },
+            {
+              "scope": "host",
+              "monotonic": 56511.555117279,
+              "memory_mib": 5005,
+              "utilization_percent": 33
+            },
+            {
+              "scope": "host",
+              "monotonic": 56511.837648788,
+              "memory_mib": 5931,
+              "utilization_percent": 10
+            },
+            {
+              "scope": "host",
+              "monotonic": 56512.118670679,
+              "memory_mib": 6159,
+              "utilization_percent": 8
+            },
+            {
+              "scope": "host",
+              "monotonic": 56512.404723641,
+              "memory_mib": 6215,
+              "utilization_percent": 12
+            },
+            {
+              "scope": "host",
+              "monotonic": 56512.690864874,
+              "memory_mib": 6215,
+              "utilization_percent": 34
+            },
+            {
+              "scope": "host",
+              "monotonic": 56512.974855048,
+              "memory_mib": 6215,
+              "utilization_percent": 68
+            },
+            {
+              "scope": "host",
+              "monotonic": 56513.260834928,
+              "memory_mib": 6215,
+              "utilization_percent": 37
+            },
+            {
+              "scope": "host",
+              "monotonic": 56513.54979136,
+              "memory_mib": 6215,
+              "utilization_percent": 74
+            },
+            {
+              "scope": "host",
+              "monotonic": 56513.835318245,
+              "memory_mib": 6215,
+              "utilization_percent": 65
+            }
+          ],
+          "load_duration": 2228891876,
+          "context_length": 4096,
+          "total_duration": 4061037950,
+          "prompt_eval_count": 428
+        },
+        "reason": ""
+      }
+    ],
+    "created_at": "2026-11-12T03:28:54.546198+00:00",
+    "completed_at": "2026-11-12T03:28:58.654283+00:00"
+  }
+}

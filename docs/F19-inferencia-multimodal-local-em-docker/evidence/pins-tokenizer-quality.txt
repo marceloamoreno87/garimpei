@@ -1,0 +1,4 @@
+All checks passed!
+ruff_exit=0
+Success: no issues found in 1 source file
+mypy_exit=0

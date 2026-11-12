@@ -1,0 +1,5 @@
+27 objects imported automatically (use -v 2 for details).
+
+E2E-MENSAGEM-02 old schema -> additive migration preserves body, intent, event, recipient and attempt PASS
+.
+1 passed in 14.57s

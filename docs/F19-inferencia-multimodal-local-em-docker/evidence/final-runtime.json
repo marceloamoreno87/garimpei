@@ -1,0 +1,36 @@
+{
+  "environment": "eval_wave11_f19",
+  "run_id": "2639e2ca-9f66-4559-970b-1f6f81b2363c",
+  "manifest_status": "stopped",
+  "processes_live": [
+    false,
+    false
+  ],
+  "containers": [
+    {
+      "id": "500c40658677",
+      "running": false,
+      "status": "exited"
+    },
+    {
+      "id": "b991aa5605ab",
+      "running": false,
+      "status": "exited"
+    },
+    {
+      "id": "7b2966830e7d",
+      "running": false,
+      "status": "exited"
+    }
+  ],
+  "preserved_volumes": [
+    "garimpei-eval_wave11_f19_ollama_models",
+    "garimpei-eval_wave11_f19_postgres_data",
+    "garimpei-eval_wave11_f19_waha_sessions"
+  ],
+  "database_preserved_by_normal_stop": true,
+  "no_cleanup_of_A_data": true,
+  "browsers": "garimpei-f19 closed",
+  "other_auxiliary_environments": "B/C/C2/D/D2 cleaned; historical own eval fixtures cleaned with evidence",
+  "own_gpu_reservation_released": true
+}

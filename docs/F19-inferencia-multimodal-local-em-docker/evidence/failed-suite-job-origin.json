@@ -1,0 +1,36 @@
+{
+  "environment": "eval_test_69e3be10_a",
+  "jobs": [
+    [
+      "garimpei.collect_listings",
+      1
+    ],
+    [
+      "garimpei.evaluate_valuation",
+      2
+    ],
+    [
+      "garimpei.local_analysis",
+      98
+    ],
+    [
+      "garimpei.runtime_probe",
+      91
+    ]
+  ],
+  "requests": [
+    [
+      "succeeded",
+      "",
+      1
+    ]
+  ],
+  "control": [
+    [
+      false,
+      "gpu_unavailable",
+      null
+    ]
+  ],
+  "postgres_was_running": false
+}

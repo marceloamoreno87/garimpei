@@ -1,0 +1,11 @@
+{
+  "given": "GPU guard absent; no model service was prepared and HTTP endpoint is unused loopback port9",
+  "expected_service_confirmed": false,
+  "observed": {
+    "service": true,
+    "resident": false,
+    "reason": "gpu_unavailable",
+    "artifact": ""
+  },
+  "verdict": "FAIL"
+}

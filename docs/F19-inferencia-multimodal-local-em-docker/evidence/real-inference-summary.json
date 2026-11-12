@@ -1,0 +1,363 @@
+{
+  "scenarios": [
+    {
+      "scenario": "cold-text",
+      "request_id": "be1a49ed-3d59-445d-bab2-d2bd1c7f0953",
+      "observation_id": "3de2678d-3d17-5bb2-9c4d-73cb558a8bf9",
+      "revision": 1,
+      "state": "succeeded",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+      "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+      "prompt_version": "local-evidence-v1",
+      "schema_version": "local-evidence-v1",
+      "coverage": [
+        {
+          "hash": "fdf9e3c3bbd386fef5523688e07f30bb895eecebeafbc788225460a2f422ae79",
+          "kind": "text",
+          "sent": true,
+          "reason": "examined",
+          "examined": true,
+          "provided": true,
+          "revision": 1
+        }
+      ],
+      "parts": [
+        {
+          "state": "succeeded",
+          "reason": "service_unavailable",
+          "result_counts": {
+            "findings": 1,
+            "unknowns": 0,
+            "limitations": 0
+          },
+          "metrics": {
+            "size_vram": 3140495604,
+            "eval_count": 97,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 54924.656849301,
+                "memory_mib": 2436,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 54924.953200936,
+                "memory_mib": 2436,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 54925.243655125,
+                "memory_mib": 2436,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 54925.52412854,
+                "memory_mib": 3340,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 54925.80463937,
+                "memory_mib": 2598,
+                "utilization_percent": 4
+              },
+              {
+                "scope": "host",
+                "monotonic": 54926.086350553,
+                "memory_mib": 5114,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 54926.364895939,
+                "memory_mib": 5114,
+                "utilization_percent": 26
+              },
+              {
+                "scope": "host",
+                "monotonic": 54926.648976982,
+                "memory_mib": 6040,
+                "utilization_percent": 8
+              },
+              {
+                "scope": "host",
+                "monotonic": 54926.931173566,
+                "memory_mib": 6266,
+                "utilization_percent": 8
+              },
+              {
+                "scope": "host",
+                "monotonic": 54927.225675261,
+                "memory_mib": 6274,
+                "utilization_percent": 21
+              },
+              {
+                "scope": "host",
+                "monotonic": 54927.509001713,
+                "memory_mib": 6274,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 54927.793811369,
+                "memory_mib": 6274,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 54928.078433521,
+                "memory_mib": 6274,
+                "utilization_percent": 65
+              }
+            ],
+            "load_duration": 2414453696,
+            "context_length": 4096,
+            "total_duration": 3530654682,
+            "prompt_eval_count": 173
+          },
+          "gpu_peak_mib": 6274,
+          "gpu_peak_utilization_percent": 67
+        }
+      ],
+      "scope": "Actual worker/Ollama/RTX5070. VRAM/utilization sampled on host during container inference; residency/offload separately verified."
+    },
+    {
+      "scenario": "warm-authorized-photo",
+      "request_id": "03e752ac-546a-48ad-b0a2-7c000797bce8",
+      "observation_id": "7865d695-018d-50c2-8146-ea02f39230a1",
+      "revision": 1,
+      "state": "succeeded",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+      "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+      "prompt_version": "local-evidence-v1",
+      "schema_version": "local-evidence-v1",
+      "coverage": [
+        {
+          "id": "public-ps5-dualsense",
+          "kind": "image",
+          "sent": true,
+          "reason": "examined",
+          "sha256": "08905d5f2bbb73fd08c4f1e21463052d9c2f7d260d083eb2114a47247a2943db",
+          "examined": true,
+          "provided": true,
+          "revision": 1,
+          "derived_hash": "2a7f38a5129e7b44e975057e53842e929771683b828b55f61a1fe6dfb3ce2a5e",
+          "transformation": "512-v1"
+        }
+      ],
+      "parts": [
+        {
+          "state": "succeeded",
+          "reason": "",
+          "result_counts": {
+            "findings": 2,
+            "unknowns": 0,
+            "limitations": 0
+          },
+          "metrics": {
+            "size_vram": 3140495604,
+            "eval_count": 149,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 54944.966527676,
+                "memory_mib": 6274,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 54945.255330323,
+                "memory_mib": 6324,
+                "utilization_percent": 6
+              },
+              {
+                "scope": "host",
+                "monotonic": 54945.538642905,
+                "memory_mib": 6324,
+                "utilization_percent": 40
+              },
+              {
+                "scope": "host",
+                "monotonic": 54945.825104746,
+                "memory_mib": 6324,
+                "utilization_percent": 58
+              },
+              {
+                "scope": "host",
+                "monotonic": 54946.111079343,
+                "memory_mib": 6324,
+                "utilization_percent": 45
+              },
+              {
+                "scope": "host",
+                "monotonic": 54946.399996677,
+                "memory_mib": 6324,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 54946.684169624,
+                "memory_mib": 6324,
+                "utilization_percent": 69
+              }
+            ],
+            "load_duration": 4465019,
+            "context_length": 4096,
+            "total_duration": 1801582317,
+            "prompt_eval_count": 385
+          },
+          "gpu_peak_mib": 6324,
+          "gpu_peak_utilization_percent": 72
+        }
+      ],
+      "scope": "Actual worker/Ollama/RTX5070. VRAM/utilization sampled on host during container inference; residency/offload separately verified."
+    },
+    {
+      "scenario": "cold-synthetic-image-b",
+      "request_id": "9a6ddb3d-69ac-41ad-9782-79d6b0157810",
+      "observation_id": "b404e0bd-04ac-5302-984c-5d0bb46d2173",
+      "revision": 1,
+      "state": "succeeded",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+      "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+      "prompt_version": "local-evidence-v1",
+      "schema_version": "local-evidence-v1",
+      "coverage": [
+        {
+          "id": "image-b",
+          "kind": "image",
+          "sent": false,
+          "reason": "examined",
+          "sha256": "ed22b0aadd53f7b0cb6529282cd02dfb76ae31a18530f6b6520343ec52d0823d",
+          "examined": true,
+          "provided": true,
+          "revision": 1,
+          "derived_hash": "ed22b0aadd53f7b0cb6529282cd02dfb76ae31a18530f6b6520343ec52d0823d",
+          "transformation": "512-v1"
+        }
+      ],
+      "parts": [
+        {
+          "state": "succeeded",
+          "reason": "",
+          "result_counts": {
+            "findings": 2,
+            "unknowns": 0,
+            "limitations": 0
+          },
+          "metrics": {
+            "sent": true,
+            "size_vram": 3140495604,
+            "eval_count": 123,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 55638.989975792,
+                "memory_mib": 2439,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 55639.295352694,
+                "memory_mib": 2439,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 55639.57661715,
+                "memory_mib": 2439,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 55639.862493623,
+                "memory_mib": 2600,
+                "utilization_percent": 4
+              },
+              {
+                "scope": "host",
+                "monotonic": 55640.149930527,
+                "memory_mib": 2600,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 55640.432495911,
+                "memory_mib": 5116,
+                "utilization_percent": 14
+              },
+              {
+                "scope": "host",
+                "monotonic": 55640.723930843,
+                "memory_mib": 5116,
+                "utilization_percent": 12
+              },
+              {
+                "scope": "host",
+                "monotonic": 55641.004551087,
+                "memory_mib": 5380,
+                "utilization_percent": 13
+              },
+              {
+                "scope": "host",
+                "monotonic": 55641.2877872,
+                "memory_mib": 6042,
+                "utilization_percent": 11
+              },
+              {
+                "scope": "host",
+                "monotonic": 55641.571206888,
+                "memory_mib": 6322,
+                "utilization_percent": 7
+              },
+              {
+                "scope": "host",
+                "monotonic": 55641.862420675,
+                "memory_mib": 6326,
+                "utilization_percent": 32
+              },
+              {
+                "scope": "host",
+                "monotonic": 55642.146315705,
+                "memory_mib": 6326,
+                "utilization_percent": 52
+              },
+              {
+                "scope": "host",
+                "monotonic": 55642.43076619,
+                "memory_mib": 6326,
+                "utilization_percent": 37
+              },
+              {
+                "scope": "host",
+                "monotonic": 55642.714356845,
+                "memory_mib": 6326,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 55642.997522071,
+                "memory_mib": 6326,
+                "utilization_percent": 63
+              }
+            ],
+            "load_duration": 2433418506,
+            "context_length": 4096,
+            "total_duration": 4062217296,
+            "prompt_eval_count": 428
+          },
+          "gpu_peak_mib": 6326,
+          "gpu_peak_utilization_percent": 76
+        }
+      ],
+      "scope": "Actual worker/Ollama/RTX5070. VRAM/utilization sampled on host during container inference; residency/offload separately verified."
+    }
+  ],
+  "privacy": "Only public/synthetic input identity, hashes, coverage, counts and measurements; no findings text or image payload"
+}

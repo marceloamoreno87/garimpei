@@ -1,0 +1,20 @@
+{
+  "viewport_width": 360,
+  "document_scroll_width": 360,
+  "button_height_px": 44.390625,
+  "keyboard_path": [
+    "Tab→Pular para conteúdo",
+    "Enter→main",
+    "Tab→Voltar às integrações",
+    "Tab→Pausar IA, outline solid",
+    "Enter→persisted pause303"
+  ],
+  "button_contrast_ratio": 7.892687952386644,
+  "body_contrast_ratio": 13.865731087234046,
+  "console_errors": 0,
+  "console_warnings": 0,
+  "fonts": "loaded",
+  "causes_probe": "14PASS/0FAIL, see ui-causes-correction.json",
+  "actual_pause_residency": "resident remained visible before unload; non-resident only after confirmation",
+  "actual_resume": "button changed to Pausar IA and state IA disponível after confirmed POST"
+}

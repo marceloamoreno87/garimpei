@@ -1,0 +1,5 @@
+{
+  "apps/backend/src/garimpei/infra/gateway/inference/artifact_policy.py": "820d6d6210e97a94a9767fd71664bb1b949255254ee655040a47c764aeabd9fd",
+  "apps/backend/tests/unit/test_inference_artifacts.py": "b8dffe13c2189df61035a499fd3a8aa88234bf7d571b8dac1dbb1e1513838014",
+  "docs/F19-inferencia-multimodal-local-em-docker/model-lock.json": "20dc912d31503a748f30b4101dcdf352cd10ec7c01f978ec7b560c5f7950aa4a"
+}

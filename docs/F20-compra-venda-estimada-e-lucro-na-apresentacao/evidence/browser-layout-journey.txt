@@ -1,0 +1,40 @@
+### Ran Playwright code
+```js
+await (async page => {
+ const evidence='/home/marce/.codex/worktrees/a9af/garimpei/docs/F20-compra-venda-estimada-e-lucro-na-apresentacao/evidence';
+ const root='http://127.0.0.1:24311';
+ const id='66b25a5f-5e5f-45c4-91a2-c0fe22849c73';
+ const results=[];
+ for(const width of [360,768,1440]){
+  for(const kind of ['list','detail']){
+   await page.setViewportSize({width,height:1000});
+   await page.goto(root+(kind==='list'?'/ofertas/?q=Oferta&versao=213da10f-d0c5-4e5a-84e3-2055a7003626':`/ofertas/${id}/?q=Oferta&versao=213da10f-d0c5-4e5a-84e3-2055a7003626`));
+   await page.evaluate(()=>document.fonts.ready);
+   const state=await page.locator('.financial-values').first().evaluate(el=>{
+    const rows=[...el.querySelectorAll('dt')].map(n=>n.textContent.trim());
+    const amounts=[...el.querySelectorAll('dd')].map(n=>n.textContent.trim());
+    const normal=Number.parseFloat(getComputedStyle(el.querySelector('.financial-purchase dd')).fontSize);
+    const profit=Number.parseFloat(getComputedStyle(el.querySelector('.financial-profit dd')).fontSize);
+    return {rows,amounts,normal,profit,overflow:document.documentElement.scrollWidth>innerWidth};
+   });
+   if(state.rows.join('|')!=='Preço de compra|Preço de venda estimado|Lucro estimado')throw Error('wrong reading order');
+   if(state.amounts.join('|')!=='R$ 1.000,00|R$ 1.500,00|R$ 350,00')throw Error('wrong composition');
+   if(state.profit<=state.normal||state.overflow)throw Error('hierarchy or clipping');
+   await page.screenshot({path:`${evidence}/${kind}-${width}.png`,fullPage:true});
+   results.push({width,kind,...state});
+   await page.setViewportSize({width:Math.floor(width/2),height:500});
+   await page.evaluate(()=>document.documentElement.style.zoom='1');
+   const zoom=await page.locator('.financial-values').first().evaluate(el=>({overflow:document.documentElement.scrollWidth>innerWidth,visible:[...el.querySelectorAll('dd')].every(n=>n.getBoundingClientRect().width>=n.scrollWidth)}));
+   if(zoom.overflow||!zoom.visible)throw Error(`zoom clipping ${width} ${kind}`);
+   await page.screenshot({path:`${evidence}/${kind}-${width}-zoom200.png`,fullPage:true});
+   results.push({width,kind,zoom});
+  }
+ }
+ await page.evaluate(results=>window.__f20Layout=results, results);
+ console.log(JSON.stringify({zoomMethod:'200% effective CSS viewport (half viewport width, avoiding CSS zoom media-query mismatch)',results}));
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:24311/ofertas/66b25a5f-5e5f-45c4-91a2-c0fe22849c73/?q=Oferta&versao=213da10f-d0c5-4e5a-84e3-2055a7003626
+- Page Title: Ofertas · Garimpei

@@ -1,0 +1,24 @@
+{
+  "intent": "7b78504f-aa1b-4fef-8667-ff24d0999043",
+  "listing": "16b3504b-3085-40e4-b2b6-a66ef4333a78",
+  "body": "Nova oferta · PlayStation 5 Slim Digital 825GB\nFacebook Marketplace\nPreço de compra: R$ 1.000,00\nPreço de venda estimado: R$ 1.500,00\n*Lucro estimado: R$ 350,00*\nObservado em 10/11/2026 às 15:02 (São Paulo)\nhttps://www.facebook.com/marketplace/item/10952/\nRef. 7b78504f-aa1b-4fef-8667-ff24d0999043",
+  "financial": {
+    "fee": "150.00",
+    "policy": "potential-before-freight-v2",
+    "profit": "350.00",
+    "resale": "1500.00",
+    "currency": "BRL",
+    "event_id": "d04838b5-2fba-4f11-801e-52ed20086a8e",
+    "purchase": "1000.00",
+    "listing_id": "16b3504b-3085-40e4-b2b6-a66ef4333a78",
+    "fee_percent": "10.00",
+    "calculated_at": "2026-11-10T18:03:05+00:00",
+    "evaluation_id": "750f14da-0670-4b2c-8509-80c1ef1be329",
+    "observation_id": "8aa85810-c3c4-495b-b170-74e521854b9f",
+    "schema_version": 1,
+    "configuration_id": "b31b4311-f685-4cd9-ba37-31e7671c49a8",
+    "evaluation_revision": 1,
+    "configuration_revision": 1
+  },
+  "receipt": "message-2"
+}

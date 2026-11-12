@@ -1,0 +1,107 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 5.276573276001727,
+  "pull_api_count_before": 4,
+  "pull_api_count_after": 4,
+  "business_before": {
+    "runtime_manualcondition": 0,
+    "runtime_manualconditionhistory": 0,
+    "runtime_alertintent": 0,
+    "runtime_alertattempt": 0,
+    "runtime_listingevent": 0
+  },
+  "business_after": {
+    "runtime_manualcondition": 0,
+    "runtime_manualconditionhistory": 0,
+    "runtime_alertintent": 0,
+    "runtime_alertattempt": 0,
+    "runtime_listingevent": 0
+  },
+  "samples": [
+    {
+      "elapsed": 1.0692433939984767,
+      "docker_stats": "{\"BlockIO\":\"705kB / 0B\",\"CPUPerc\":\"229.18%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"1.98%\",\"MemUsage\":\"635.8MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"75\"}",
+      "app_rss_bytes": 213618688,
+      "host_ram_used_bytes": 17226567680,
+      "base_ready_http": 200
+    },
+    {
+      "elapsed": 3.07503416200052,
+      "docker_stats": "{\"BlockIO\":\"705kB / 0B\",\"CPUPerc\":\"0.05%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"2.25%\",\"MemUsage\":\"720.7MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"74\"}",
+      "app_rss_bytes": 213610496,
+      "host_ram_used_bytes": 17121292288,
+      "base_ready_http": 200
+    },
+    {
+      "elapsed": 5.076140751996718,
+      "docker_stats": "{\"BlockIO\":\"705kB / 0B\",\"CPUPerc\":\"168.11%\",\"Container\":\"garimpei-eval_wave11_f19-ollama-1\",\"ID\":\"500c40658677\",\"MemPerc\":\"2.25%\",\"MemUsage\":\"721.7MiB / 31.34GiB\",\"Name\":\"garimpei-eval_wave11_f19-ollama-1\",\"NetIO\":\"1.17kB / 126B\",\"PIDs\":\"74\"}",
+      "app_rss_bytes": 213622784,
+      "host_ram_used_bytes": 16941203456,
+      "base_ready_http": 200
+    }
+  ],
+  "analysis": {
+    "request_id": "fb3197b9-b31d-40e9-b0c8-213e2571b935",
+    "observation_id": "73594b79-bc3b-578d-b7a2-2d2025d23233",
+    "revision": 1,
+    "state": "succeeded",
+    "model": "qwen3.5:4b-q4_K_M",
+    "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+    "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "prompt_version": "local-evidence-v1",
+    "schema_version": "local-evidence-v1",
+    "coverage": [
+      {
+        "hash": "14f78606b7351bb0e3099e69890a402c0cf4adca42ff44570b1deef9034da31e",
+        "kind": "text",
+        "sent": true,
+        "reason": "examined",
+        "examined": true,
+        "provided": true,
+        "revision": 1
+      }
+    ],
+    "parts": [
+      {
+        "state": "succeeded",
+        "result": {
+          "findings": [],
+          "unknowns": [
+            "instru\u00e7\u00f5es ignoradas",
+            "envio de cookies",
+            "lucro inventado"
+          ],
+          "limitations": [
+            "aus\u00eancia de evid\u00eancias no material fornecido para confirmar a\u00e7\u00f5es ou valores"
+          ]
+        },
+        "metrics": {
+          "sent": true,
+          "size_vram": 3140495604,
+          "eval_count": 55,
+          "gpu_samples": [
+            {
+              "scope": "host",
+              "monotonic": 56895.06059199,
+              "memory_mib": 6165,
+              "utilization_percent": 0
+            },
+            {
+              "scope": "host",
+              "monotonic": 56895.345355961,
+              "memory_mib": 6165,
+              "utilization_percent": 41
+            }
+          ],
+          "load_duration": 742013,
+          "context_length": 4096,
+          "total_duration": 513838105,
+          "prompt_eval_count": 183
+        },
+        "reason": ""
+      }
+    ],
+    "created_at": "2026-11-12T03:35:17.055205+00:00",
+    "completed_at": "2026-11-12T03:35:20.317274+00:00"
+  }
+}

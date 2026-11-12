@@ -1,0 +1,37 @@
+### Ran Playwright code
+```js
+await (async page => {
+ const root='http://127.0.0.1:24311';
+ const evidence='/home/marce/.codex/worktrees/a9af/garimpei/docs/F20-compra-venda-estimada-e-lucro-na-apresentacao/evidence';
+ await page.setViewportSize({width:360,height:900});
+ const pages=[];
+ for(const p of [1,2,3]){
+  const response=await page.goto(`${root}/ofertas/?q=Oferta&pagina=${p}`);
+  if(response.status()!==200)throw Error('page status');
+  const state=await page.locator('.offer-card').evaluateAll(nodes=>nodes.map(n=>({id:n.dataset.offerId,text:n.querySelector('.financial-values').textContent.replace(/\s+/g,' ').trim()})));
+  pages.push(state);
+  if(p===3)await page.screenshot({path:`${evidence}/zero-negative-unavailable-360.png`,fullPage:true});
+ }
+ if(pages.map(p=>p.length).join('/')!=='20/20/2'||new Set(pages.flat().map(n=>n.id)).size!==42)throw Error('pagination');
+ if(!pages[1].some(n=>n.text.includes('R$ 0,00'))||!pages[2].some(n=>n.text.includes('−R$ 50,00')))throw Error('zero or negative hidden');
+ await page.goto(`${root}/ofertas/7c80cfc3-619b-4354-aec1-baa2ce130df4/`);
+ const missing=await page.locator('.financial-values').innerText();
+ if(!missing.includes('Estimativa indisponível')||!missing.includes('R$ 1.500,00'))throw Error('missing purchase replaced');
+ await page.screenshot({path:`${evidence}/missing-purchase-360.png`,fullPage:true});
+ await page.goto(`${root}/ofertas/64fb997c-f721-4a2c-9c8e-2d57f278150d/`);
+ const newOnly=await page.locator('.financial-values').innerText();
+ if(!newOnly.includes('Estimativa indisponível')||!(await page.locator('.new-reference').innerText()).includes('R$ 2.400,00'))throw Error('new reference mixed');
+ await page.goto(`${root}/configuracoes/`);
+ if(await page.locator('[name=shipping_estimate]').count())throw Error('logistics field');
+ if(/frete|transporte/i.test(await page.locator('main').innerText()))throw Error('logistics generated copy');
+ if((await page.locator('[name=resale_fee_percent]').inputValue()).replace(',','.')!=='10.00')throw Error('fee not preserved');
+ await page.screenshot({path:`${evidence}/configuration-360.png`,fullPage:true});
+ await page.goto(`${root}/ofertas/?q=Oferta&pagina=2`);
+ await page.locator('#exploration-search').focus();
+ console.log(JSON.stringify({pages:pages.map(p=>p.length),distinct:42,missing,newOnly,version:await page.locator('#exploration').getAttribute('data-version'),values:await page.locator('.financial-values').first().innerText()}));
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:24311/ofertas/?aba=funcionam&q=Oferta&categoria=&pagina=2&versao=213da10f-d0c5-4e5a-84e3-2055a7003626
+- Page Title: Ofertas · Garimpei

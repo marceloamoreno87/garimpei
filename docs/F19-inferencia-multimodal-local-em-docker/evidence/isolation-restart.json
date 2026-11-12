@@ -1,0 +1,175 @@
+{
+  "scope": "Owned A real GPU; owned B stopped Ollama with copied public weights, fake result, no concurrent inference",
+  "stages": [
+    {
+      "name": "baselines",
+      "A": {
+        "business_sha256": "dc71e56e2d758f97208c75a4e02b439a71d019e15e992c7e09ec707e5027992f",
+        "counts": {
+          "conditions": 1,
+          "financial": 1,
+          "intents": 1,
+          "receipts": 1
+        },
+        "confirmed_parts": {
+          "4": "6f19b87ac265742dbfbb058685b2801703d700ce4b857ffcf05bb2f8a448bc98",
+          "5": "758b2039db32e8ccf8b92cecdcd877dc74455f66a7fb08ee106b3c248374e616",
+          "6": "89650c45074fb60a259f2301d73238dc11dd822bfef3f4769b118a3cf9475e42",
+          "7": "b815db7c3bd650692f3b67a6be3840121445c369ae4ace6cf1a0a7d01230d29f",
+          "8": "6ee4deb5c6f58bb7fca1ed2c6fb1f2b65872f5b2905d7f837aea31260c1469a4",
+          "10": "c8f41b90e6cb27063cbddc784fbc5c3d22dac9c33839de867cfaec509ea49ab5",
+          "11": "7c2efbb11b65544d17f1fa0d2d86778b8d53b443af30582717feb198ac758968",
+          "12": "d1d2e246c200b0856a74bcf91220d9707383aeb234fa1175700462889e9b8c83"
+        }
+      },
+      "B": {
+        "business_sha256": "45f7e6c6c0f6e96d31ea063fb8867e2a1738f701c967a601e3d76d2196db5c32",
+        "counts": {
+          "conditions": 1,
+          "financial": 1,
+          "intents": 1,
+          "receipts": 1
+        },
+        "confirmed_parts": {
+          "1": "be8faf36e0747fb08a1b2e93cb22558a429147c831e3417e005b92fdd98b46ba"
+        }
+      },
+      "A_weights": {
+        "sha256": "6c6637c6003fe642d1af4b75ed7444eaacae23c71f18e31a5262d96e1e62ca54",
+        "archive_bytes": 3324203008
+      },
+      "B_weights": {
+        "sha256": "6c6637c6003fe642d1af4b75ed7444eaacae23c71f18e31a5262d96e1e62ca54",
+        "archive_bytes": 3324203008
+      },
+      "B_environment": "eval_wave11_f19_isolation_b",
+      "B_model_state": "created-never-started",
+      "B_gpu_dispatches": 0
+    },
+    {
+      "name": "partial_before_stop",
+      "partial": {
+        "request_id": "fddfe1b8-e8ac-4c7e-a7a1-4a012cd768aa",
+        "confirmed_part": 13,
+        "running_part": 14,
+        "generation": 19,
+        "running_scope": "persisted claim with no HTTP dispatch; interruption/recovery controlled",
+        "states": [
+          "succeeded",
+          "running"
+        ]
+      },
+      "A": {
+        "business_sha256": "dc71e56e2d758f97208c75a4e02b439a71d019e15e992c7e09ec707e5027992f",
+        "counts": {
+          "conditions": 1,
+          "financial": 1,
+          "intents": 1,
+          "receipts": 1
+        },
+        "confirmed_parts": {
+          "4": "6f19b87ac265742dbfbb058685b2801703d700ce4b857ffcf05bb2f8a448bc98",
+          "5": "758b2039db32e8ccf8b92cecdcd877dc74455f66a7fb08ee106b3c248374e616",
+          "6": "89650c45074fb60a259f2301d73238dc11dd822bfef3f4769b118a3cf9475e42",
+          "7": "b815db7c3bd650692f3b67a6be3840121445c369ae4ace6cf1a0a7d01230d29f",
+          "8": "6ee4deb5c6f58bb7fca1ed2c6fb1f2b65872f5b2905d7f837aea31260c1469a4",
+          "10": "c8f41b90e6cb27063cbddc784fbc5c3d22dac9c33839de867cfaec509ea49ab5",
+          "11": "7c2efbb11b65544d17f1fa0d2d86778b8d53b443af30582717feb198ac758968",
+          "12": "d1d2e246c200b0856a74bcf91220d9707383aeb234fa1175700462889e9b8c83",
+          "13": "8a0354b4a64361e2f1b85ed5ae3e06735ed552b41a89e018646c5b3eddd43a74"
+        }
+      }
+    },
+    {
+      "name": "normal_stop_preserves_B",
+      "B": {
+        "business_sha256": "45f7e6c6c0f6e96d31ea063fb8867e2a1738f701c967a601e3d76d2196db5c32",
+        "counts": {
+          "conditions": 1,
+          "financial": 1,
+          "intents": 1,
+          "receipts": 1
+        },
+        "confirmed_parts": {
+          "1": "be8faf36e0747fb08a1b2e93cb22558a429147c831e3417e005b92fdd98b46ba"
+        }
+      },
+      "B_weights": {
+        "sha256": "6c6637c6003fe642d1af4b75ed7444eaacae23c71f18e31a5262d96e1e62ca54",
+        "archive_bytes": 3324203008
+      },
+      "B_health": 200,
+      "B_run_unchanged": true
+    },
+    {
+      "name": "restarted_and_recovered",
+      "A": {
+        "business_sha256": "dc71e56e2d758f97208c75a4e02b439a71d019e15e992c7e09ec707e5027992f",
+        "counts": {
+          "conditions": 1,
+          "financial": 1,
+          "intents": 1,
+          "receipts": 1
+        },
+        "confirmed_parts": {
+          "4": "6f19b87ac265742dbfbb058685b2801703d700ce4b857ffcf05bb2f8a448bc98",
+          "5": "758b2039db32e8ccf8b92cecdcd877dc74455f66a7fb08ee106b3c248374e616",
+          "6": "89650c45074fb60a259f2301d73238dc11dd822bfef3f4769b118a3cf9475e42",
+          "7": "b815db7c3bd650692f3b67a6be3840121445c369ae4ace6cf1a0a7d01230d29f",
+          "8": "6ee4deb5c6f58bb7fca1ed2c6fb1f2b65872f5b2905d7f837aea31260c1469a4",
+          "10": "c8f41b90e6cb27063cbddc784fbc5c3d22dac9c33839de867cfaec509ea49ab5",
+          "11": "7c2efbb11b65544d17f1fa0d2d86778b8d53b443af30582717feb198ac758968",
+          "12": "d1d2e246c200b0856a74bcf91220d9707383aeb234fa1175700462889e9b8c83",
+          "13": "8a0354b4a64361e2f1b85ed5ae3e06735ed552b41a89e018646c5b3eddd43a74",
+          "14": "5ac365c669e527ed5aaa12314289d591cd6685f62307b07299ffc51ed37e0412"
+        }
+      },
+      "A_weights": {
+        "sha256": "6c6637c6003fe642d1af4b75ed7444eaacae23c71f18e31a5262d96e1e62ca54",
+        "archive_bytes": 3324203008
+      },
+      "B_unchanged": true,
+      "recovered": {
+        "state": "succeeded",
+        "part_states": [
+          "succeeded",
+          "succeeded"
+        ],
+        "part_reasons": [
+          "",
+          ""
+        ],
+        "coverage": [
+          {
+            "hash": "3150b06514805254dc8ecd67ab13fdb197a81a6cd0b0b109c104571e62398b01",
+            "kind": "text",
+            "sent": true,
+            "reason": "examined",
+            "examined": true,
+            "provided": true,
+            "revision": 2
+          },
+          {
+            "id": "image-a",
+            "kind": "image",
+            "sent": true,
+            "reason": "examined",
+            "sha256": "c3cfe8e9789ed976ae760c18d48457221f651fe201841cdf339b80e8e5ab3f2f",
+            "examined": true,
+            "provided": true,
+            "revision": 1,
+            "derived_hash": "c3cfe8e9789ed976ae760c18d48457221f651fe201841cdf339b80e8e5ab3f2f",
+            "transformation": "512-v1"
+          }
+        ]
+      },
+      "confirmed_part_unchanged": true,
+      "cache_smoke_exit": 0
+    },
+    {
+      "name": "B-cleanup",
+      "exit_code": 0
+    }
+  ],
+  "result": "PASS"
+}

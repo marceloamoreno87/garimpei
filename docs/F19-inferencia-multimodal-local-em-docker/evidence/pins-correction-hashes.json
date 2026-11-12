@@ -1,0 +1,12 @@
+{
+  "scope": "CLI-PREPARO-01 correction only",
+  "run": "2026-11-12T03-58-49Z",
+  "unchanged_during_probe": true,
+  "sha256": {
+    "apps/backend/src/garimpei/infra/gateway/inference/artifact_policy.py": "f9c2f0426f8f9c484faf97dab3772cb50302458095237a2183c580f4c1d5d889",
+    "apps/backend/src/garimpei/infra/persistence/management/commands/local_ai.py": "8b165e25d889a18bf7fd8d5cdb9bfdb14ba1fc46823c892d29d7f3dc7c4d1d46",
+    "apps/backend/tests/factories/inference.py": "47e5c6c954f3db90b824447baa8b2025f0983529ec2859b9d56c2b4d9bf073b2",
+    "apps/backend/tests/unit/test_inference_artifacts.py": "090543dde25222727e448e0e045db90a60cc382f5d4ef74534a70443796b49a5",
+    "docs/F19-inferencia-multimodal-local-em-docker/model-lock.json": "20dc912d31503a748f30b4101dcdf352cd10ec7c01f978ec7b560c5f7950aa4a"
+  }
+}

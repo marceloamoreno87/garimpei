@@ -1,0 +1,18 @@
+{
+  "scope": "Owned eval B with controlled Marketplace and WAHA; AI unavailable, no real message or GPU use",
+  "environment": "eval_f04_eef75457f0",
+  "source_calls_before": 27,
+  "source_calls_after": 64,
+  "controlled_waha_messages": 3,
+  "ai_states": [
+    [
+      "superseded",
+      "gpu_unavailable"
+    ]
+  ],
+  "/health/ready": 200,
+  "/integracoes/ia/": 200,
+  "/ofertas/": 200,
+  "result": "PASS",
+  "elapsed_seconds": 27.855885750002926
+}

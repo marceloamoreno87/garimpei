@@ -1,0 +1,14 @@
+{
+  "intent": "7b78504f-aa1b-4fef-8667-ff24d0999043",
+  "listing": "16b3504b-3085-40e4-b2b6-a66ef4333a78",
+  "body_unchanged": true,
+  "snapshot_unchanged": true,
+  "receipt_unchanged": true,
+  "attempts": 1,
+  "body_format": "financial-trio-v1",
+  "schema_version": 1,
+  "frozen_purchase": "1000.00",
+  "frozen_resale": "1500.00",
+  "frozen_profit": "350.00",
+  "frozen_fee": "150.00"
+}

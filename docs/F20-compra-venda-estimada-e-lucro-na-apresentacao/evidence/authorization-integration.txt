@@ -1,0 +1,5 @@
+27 objects imported automatically (use -v 2 for details).
+
+F20 rollback/concurrent authorization/frozen snapshot/WAHA reconciliation/legacy/incomplete/incompatible/missing-body PASS
+.
+1 passed in 14.67s

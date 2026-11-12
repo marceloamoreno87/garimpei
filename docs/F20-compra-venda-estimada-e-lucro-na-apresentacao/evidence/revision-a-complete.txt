@@ -1,0 +1,12 @@
+### Result
+{
+  "revision": "13e9e4f1-f9d1-49c9-821e-e9cdf39407bb",
+  "values": "Preço de compra\nR$ 1.000,00\nPreço de venda estimado\nR$ 1.500,00\nLucro estimado\nR$ 350,00",
+  "fee": "Taxa provisória · 10,00%\nR$ 150,00"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({revision:document.querySelector(\'#exploration\').dataset.version,values:document.querySelector(\'.financial-values\').innerText,fee:document.querySelector(\'.finance\').innerText})');
+```
+### Events
+- New console entries: .playwright-cli/console-2026-11-12T02-47-28-325Z.log#L1

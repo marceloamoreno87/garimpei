@@ -1,0 +1,11 @@
+27 objects imported automatically (use -v 2 for details).
+
+WRK-MENSAGEM-01/08 exact positive, zero and negative confirmed by synthetic WAHA PASS
+27 objects imported automatically (use -v 2 for details).
+
+WRK-MENSAGEM-02 event 1000 remains frozen after observation 900 PASS
+27 objects imported automatically (use -v 2 for details).
+
+WRK-MENSAGEM-08 actual F07 fraction -> snapshot -> synthetic WAHA PASS
+.
+1 passed in 29.49s

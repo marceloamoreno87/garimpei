@@ -317,13 +317,13 @@
         "F02",
         "F12"
       ],
-      "status": "pending",
-      "cycles": 0,
+      "status": "done",
+      "cycles": 3,
       "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T02:02:53.185325Z",
-      "completed_at": null
+      "report_path": "docs/F19-inferencia-multimodal-local-em-docker/eval-report-2026-11-12T04-34-29Z.md",
+      "started_at": "2026-11-12T02:10:15.593964+00:00",
+      "updated_at": "2026-11-12T04:35:31.563965+00:00",
+      "completed_at": "2026-11-12T04:35:31.563965+00:00"
     },
     "F20": {
       "name": "Compra, venda estimada e lucro na apresentação",
@@ -335,13 +335,13 @@
         "F09",
         "F12"
       ],
-      "status": "pending",
+      "status": "done",
       "cycles": 0,
       "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T01:45:01.179584Z",
-      "completed_at": null
+      "report_path": "docs/F20-compra-venda-estimada-e-lucro-na-apresentacao/eval-report-2026-11-12T03-22-50Z.md",
+      "started_at": "2026-11-12T02:10:44.020008+00:00",
+      "updated_at": "2026-11-12T03:22:50.153023+00:00",
+      "completed_at": "2026-11-12T03:22:50.153023+00:00"
     }
   }
 }

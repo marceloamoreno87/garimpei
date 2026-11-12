@@ -1,0 +1,11 @@
+### Result
+{
+  "after": "Preço de compra\nR$ 900,00\nPreço de venda estimado\nEstimativa indisponível\nLucro estimado\nEstimativa indisponível",
+  "revision": "77362f63-ba4a-49b2-92ae-20613a10acec",
+  "fee": "Taxa provisória · 12,50%\nIndisponível",
+  "url": "http://127.0.0.1:24311/ofertas/66b25a5f-5e5f-45c4-91a2-c0fe22849c73/?aba=funcionam&q=Oferta&categoria=&pagina=1&versao=77362f63-ba4a-49b2-92ae-20613a10acec"
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({after:document.querySelector(\'.financial-values\').innerText,revision:document.querySelector(\'#exploration\').dataset.version,fee:document.querySelector(\'.finance\').innerText,url:location.href})');
+```

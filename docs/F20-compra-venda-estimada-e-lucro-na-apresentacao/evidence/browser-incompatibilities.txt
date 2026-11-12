@@ -1,0 +1,4 @@
+identity HTML/browser preserves purchase and refuses incompatible resale/profit PASS
+evaluation HTML/browser preserves purchase and refuses incompatible resale/profit PASS
+variant HTML/browser preserves purchase and refuses incompatible resale/profit PASS
+absent HTML/browser preserves purchase and refuses incompatible resale/profit PASS

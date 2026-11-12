@@ -1,0 +1,30 @@
+[
+  {
+    "environment": "eval_test_69e3be10_a",
+    "verified_checkout": "/home/marce/.codex/worktrees/6c3f/garimpei",
+    "disposable": true,
+    "synthetic": true,
+    "exit_code": 0
+  },
+  {
+    "environment": "eval_test_69e3be10_b",
+    "verified_checkout": "/home/marce/.codex/worktrees/6c3f/garimpei",
+    "disposable": true,
+    "synthetic": true,
+    "exit_code": 0
+  },
+  {
+    "environment": "eval_test_3f2d14d5_b",
+    "verified_checkout": "/home/marce/.codex/worktrees/6c3f/garimpei",
+    "disposable": true,
+    "synthetic": true,
+    "exit_code": 0
+  },
+  {
+    "environment": "eval_partial_a5cc6094b6",
+    "verified_checkout": "/home/marce/.codex/worktrees/6c3f/garimpei",
+    "disposable": true,
+    "synthetic": true,
+    "exit_code": 0
+  }
+]

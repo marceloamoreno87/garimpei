@@ -1,0 +1,846 @@
+FFFFFFFFFFF.FFFFFFFFFFF..FF                                              [100%]
+=================================== FAILURES ===================================
+_ test_invalid_pins_are_rejected_before_runtime[image-ollama/ollama:latest-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected0')
+field = 'image', value = 'ollama/ollama:latest', reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[image-ollama/ollama:0.0.0@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected1')
+field = 'image'
+value = 'ollama/ollama:0.0.0@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[image-ollama/ollama:0.40.16@sha256:short-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected2')
+field = 'image', value = 'ollama/ollama:0.40.16@sha256:short'
+reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[image-None-artifact_incomplete] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected3')
+field = 'image', value = None, reason = 'artifact_incomplete'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[manifest-value4-artifact_incomplete] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected4')
+field = 'manifest', value = {'schemaVersion': 2, 'layers': []}
+reason = 'artifact_incomplete'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[model-different-model:latest-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected5')
+field = 'model', value = 'different-model:latest', reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[server_version-0.0.0-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected6')
+field = 'server_version', value = '0.0.0', reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[model_digest-sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected7')
+field = 'model_digest'
+value = 'sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[required_capabilities-value8-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected8')
+field = 'required_capabilities', value = ['completion']
+reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[quantization-Q8_0-artifact_mismatch] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected9')
+field = 'quantization', value = 'Q8_0', reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+_ test_invalid_pins_are_rejected_before_runtime[tokenizer-value10-artifact_incomplete] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_invalid_pins_are_rejected10')
+field = 'tokenizer'
+value = {'sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
+reason = 'artifact_incomplete'
+
+    @pytest.mark.parametrize(
+        "field,value,reason",
+        [
+            ("image", "ollama/ollama:latest", "artifact_mismatch"),
+            ("image", "ollama/ollama:0.0.0@sha256:" + "f" * 64, "artifact_mismatch"),
+            ("image", "ollama/ollama:0.40.16@sha256:short", "artifact_mismatch"),
+            ("image", None, "artifact_incomplete"),
+            ("manifest", {"schemaVersion": 2, "layers": []}, "artifact_incomplete"),
+            ("model", "different-model:latest", "artifact_mismatch"),
+            ("server_version", "0.0.0", "artifact_mismatch"),
+            ("model_digest", "sha256:" + "f" * 64, "artifact_mismatch"),
+            ("required_capabilities", ["completion"], "artifact_mismatch"),
+            ("quantization", "Q8_0", "artifact_mismatch"),
+            ("tokenizer", {"sha256": "a" * 64}, "artifact_incomplete"),
+        ],
+    )
+    def test_invalid_pins_are_rejected_before_runtime(
+        tmp_path: Path, field: str, value: object, reason: str
+    ) -> None:
+        lock = approved_lock()
+        if value is None:
+            lock.pop(field)
+        else:
+            lock[field] = value
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:48: Failed
+________ test_internally_divergent_artifacts_are_rejected[blob_digest] _________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_internally_divergent_arti0')
+area = 'blob_digest'
+
+    @pytest.mark.parametrize("area", ["blob_digest", "blob_size", "tokenizer_url", "tokenizer_hash"])
+    def test_internally_divergent_artifacts_are_rejected(tmp_path: Path, area: str) -> None:
+        lock = approved_lock()
+        if area.startswith("blob"):
+            layer = lock["manifest"]["layers"][0]
+            layer["digest" if area == "blob_digest" else "size"] = (
+                "sha256:" + "f" * 64 if area == "blob_digest" else 123
+            )
+        else:
+            lock["tokenizer"]["url" if area == "tokenizer_url" else "sha256"] = (
+                "https://example.invalid/other/tokenizer.json" if area == "tokenizer_url" else "short"
+            )
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match="artifact_mismatch"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:73: Failed
+_________ test_internally_divergent_artifacts_are_rejected[blob_size] __________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_internally_divergent_arti1')
+area = 'blob_size'
+
+    @pytest.mark.parametrize("area", ["blob_digest", "blob_size", "tokenizer_url", "tokenizer_hash"])
+    def test_internally_divergent_artifacts_are_rejected(tmp_path: Path, area: str) -> None:
+        lock = approved_lock()
+        if area.startswith("blob"):
+            layer = lock["manifest"]["layers"][0]
+            layer["digest" if area == "blob_digest" else "size"] = (
+                "sha256:" + "f" * 64 if area == "blob_digest" else 123
+            )
+        else:
+            lock["tokenizer"]["url" if area == "tokenizer_url" else "sha256"] = (
+                "https://example.invalid/other/tokenizer.json" if area == "tokenizer_url" else "short"
+            )
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match="artifact_mismatch"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:73: Failed
+_______ test_internally_divergent_artifacts_are_rejected[tokenizer_url] ________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_internally_divergent_arti2')
+area = 'tokenizer_url'
+
+    @pytest.mark.parametrize("area", ["blob_digest", "blob_size", "tokenizer_url", "tokenizer_hash"])
+    def test_internally_divergent_artifacts_are_rejected(tmp_path: Path, area: str) -> None:
+        lock = approved_lock()
+        if area.startswith("blob"):
+            layer = lock["manifest"]["layers"][0]
+            layer["digest" if area == "blob_digest" else "size"] = (
+                "sha256:" + "f" * 64 if area == "blob_digest" else 123
+            )
+        else:
+            lock["tokenizer"]["url" if area == "tokenizer_url" else "sha256"] = (
+                "https://example.invalid/other/tokenizer.json" if area == "tokenizer_url" else "short"
+            )
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match="artifact_mismatch"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:73: Failed
+_______ test_internally_divergent_artifacts_are_rejected[tokenizer_hash] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-178/test_internally_divergent_arti3')
+area = 'tokenizer_hash'
+
+    @pytest.mark.parametrize("area", ["blob_digest", "blob_size", "tokenizer_url", "tokenizer_hash"])
+    def test_internally_divergent_artifacts_are_rejected(tmp_path: Path, area: str) -> None:
+        lock = approved_lock()
+        if area.startswith("blob"):
+            layer = lock["manifest"]["layers"][0]
+            layer["digest" if area == "blob_digest" else "size"] = (
+                "sha256:" + "f" * 64 if area == "blob_digest" else 123
+            )
+        else:
+            lock["tokenizer"]["url" if area == "tokenizer_url" else "sha256"] = (
+                "https://example.invalid/other/tokenizer.json" if area == "tokenizer_url" else "short"
+            )
+        path = tmp_path / "private-model-lock.json"
+        path.write_text(json.dumps(lock))
+>       with pytest.raises(InferenceError, match="artifact_mismatch"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE InferenceError
+
+apps/backend/tests/unit/test_inference_artifacts.py:73: Failed
+_ test_real_cli_maps_prerequisites_separately_from_failures[artifact_missing-2] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e793ae90>
+reason = 'artifact_missing', expected = 2
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 1 == 2
+E        +  where 1 = CommandError('Local AI: artifact_missing').returncode
+E        +    where CommandError('Local AI: artifact_missing') = <ExceptionInfo CommandError('Local AI: artifact_missing') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+_ test_real_cli_maps_prerequisites_separately_from_failures[artifact_incomplete-2] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e792b4a0>
+reason = 'artifact_incomplete', expected = 2
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 1 == 2
+E        +  where 1 = CommandError('Local AI: artifact_incomplete').returncode
+E        +    where CommandError('Local AI: artifact_incomplete') = <ExceptionInfo CommandError('Local AI: artifact_incomplete') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+__ test_real_cli_maps_prerequisites_separately_from_failures[model_missing-2] __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e7998ed0>
+reason = 'model_missing', expected = 2
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 64 == 2
+E        +  where 64 = CommandError('Local AI: model_missing').returncode
+E        +    where CommandError('Local AI: model_missing') = <ExceptionInfo CommandError('Local AI: model_missing') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+_ test_real_cli_maps_prerequisites_separately_from_failures[context_unverified-2] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e7998fd0>
+reason = 'context_unverified', expected = 2
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 64 == 2
+E        +  where 64 = CommandError('Local AI: context_unverified').returncode
+E        +    where CommandError('Local AI: context_unverified') = <ExceptionInfo CommandError('Local AI: context_unverified') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+_ test_real_cli_maps_prerequisites_separately_from_failures[gpu_unavailable-2] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e79862e0>
+reason = 'gpu_unavailable', expected = 2
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 1 == 2
+E        +  where 1 = CommandError('Local AI: gpu_unavailable').returncode
+E        +    where CommandError('Local AI: gpu_unavailable') = <ExceptionInfo CommandError('Local AI: gpu_unavailable') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+_ test_real_cli_maps_prerequisites_separately_from_failures[service_unavailable-2] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e99f0830>
+reason = 'service_unavailable', expected = 2
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 1 == 2
+E        +  where 1 = CommandError('Local AI: service_unavailable').returncode
+E        +    where CommandError('Local AI: service_unavailable') = <ExceptionInfo CommandError('Local AI: service_unavailable') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+_ test_real_cli_maps_prerequisites_separately_from_failures[artifact_mismatch-1] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e7de3690>
+reason = 'artifact_mismatch', expected = 1
+
+    @pytest.mark.parametrize(
+        "reason,expected",
+        [
+            ("artifact_missing", 2),
+            ("artifact_incomplete", 2),
+            ("model_missing", 2),
+            ("context_unverified", 2),
+            ("gpu_unavailable", 2),
+            ("service_unavailable", 2),
+            ("artifact_mismatch", 1),
+            ("model_corrupt", 1),
+            ("invalid_output", 1),
+        ],
+    )
+    def test_real_cli_maps_prerequisites_separately_from_failures(
+        monkeypatch: pytest.MonkeyPatch, reason: str, expected: int
+    ) -> None:
+        def diagnostic_failure(self: local_ai.Command, options: local_ai.Options) -> None:
+            raise InferenceError(reason, 503)
+    
+        monkeypatch.setattr(local_ai.Command, "_dispatch", diagnostic_failure)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="status", download=False, fixture=None)
+>       assert error.value.returncode == expected
+E       AssertionError: assert 64 == 1
+E        +  where 64 = CommandError('Local AI: artifact_mismatch').returncode
+E        +    where CommandError('Local AI: artifact_mismatch') = <ExceptionInfo CommandError('Local AI: artifact_mismatch') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:100: AssertionError
+_______ test_prepare_requires_explicit_download_before_starting_service ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e7de3e70>
+
+    def test_prepare_requires_explicit_download_before_starting_service(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.setattr(local_ai, "load_config", lambda: SimpleNamespace())
+        monkeypatch.setattr(
+            local_ai, "load_inference_settings", lambda: SimpleNamespace(service_enabled=False)
+        )
+        monkeypatch.setattr(local_ai, "build_inference_gateway", object)
+    
+        def forbidden_start() -> None:
+            pytest.fail("prepare without --download must not start a service")
+    
+        monkeypatch.setattr(local_ai, "start_configured_inference", forbidden_start)
+        with pytest.raises(CommandError) as error:
+            local_ai.Command().handle(action="prepare", download=False, fixture=None)
+>       assert error.value.returncode == 2
+E       AssertionError: assert 64 == 2
+E        +  where 64 = CommandError('Local AI: artifact_mismatch').returncode
+E        +    where CommandError('Local AI: artifact_mismatch') = <ExceptionInfo CommandError('Local AI: artifact_mismatch') tblen=2>.value
+
+apps/backend/tests/unit/test_inference_artifacts.py:119: AssertionError
+_______ test_smoke_cli_emits_counts_without_private_result_or_reasoning ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b8e7de3d90>
+
+    def test_smoke_cli_emits_counts_without_private_result_or_reasoning(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        identity = uuid4()
+        private = "PRIVATE-SMOKE-CANARY"
+        result = {
+            "request_id": str(identity),
+            "observation_id": str(uuid4()),
+            "state": "succeeded",
+            "revision": 1,
+            "coverage": [{"kind": "text", "examined": True, "text": private, "path": private}],
+            "parts": [
+                {
+                    "state": "succeeded",
+                    "result": {"findings": [{"quote": private}], "thinking": private},
+                    "metrics": {"eval_count": 7, "thinking": private},
+                }
+            ],
+            "thinking": private,
+        }
+    
+        class RequestAnalysisFake:
+            def execute(self, value: object) -> SimpleNamespace:
+                return SimpleNamespace(reused=False, request_id=identity)
+    
+        class ReadAnalysisFake:
+            def execute(self, request: object) -> dict[str, object]:
+                return result
+    
+        monkeypatch.setattr(
+            local_ai, "load_config", lambda: SimpleNamespace(environment="eval", environment_id="pins")
+        )
+        monkeypatch.setattr(local_ai, "load_inference_settings", lambda: SimpleNamespace())
+        monkeypatch.setattr(local_ai, "build_inference_gateway", object)
+        monkeypatch.setattr(local_ai, "_smoke_observation", lambda *args: (identity, private))
+        monkeypatch.setattr(local_ai, "build_request_analysis", RequestAnalysisFake)
+        monkeypatch.setattr(local_ai, "build_read_analysis", ReadAnalysisFake)
+        output = StringIO()
+        local_ai.Command(stdout=output).handle(action="smoke", download=False, fixture="text")
+        emitted = json.loads(output.getvalue())
+>       assert private not in output.getvalue()
+E       assert 'PRIVATE-SMOKE-CANARY' not in '{"request_i...E-CANARY"}\n'
+E         
+E         'PRIVATE-SMOKE-CANARY' is contained here:
+E         ?           ^^
+E            "text": "PRIVATE-SMOKE-CANARY", "path": "PRIVATE-SMOKE-CANARY"}], "parts": [{"state": "succeeded", "result": {"findings": [{"quote": "PRIVATE-SMOKE-CANARY"}], "thinking": "PRIVATE-SMOKE-CANARY"}, "metrics": {"eval_count": 7, "thinking": "PRIVATE-SMOKE-CANARY"}}], "thinking": "PRIVATE-SMOKE-CANARY"}
+E         ?           ^^^^^^^^^^^^^^^^^^^^^^
+
+apps/backend/tests/unit/test_inference_artifacts.py:162: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[image-ollama/ollama:latest-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[image-ollama/ollama:0.0.0@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[image-ollama/ollama:0.40.16@sha256:short-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[image-None-artifact_incomplete]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[manifest-value4-artifact_incomplete]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[model-different-model:latest-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[server_version-0.0.0-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[model_digest-sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[required_capabilities-value8-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[quantization-Q8_0-artifact_mismatch]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_invalid_pins_are_rejected_before_runtime[tokenizer-value10-artifact_incomplete]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_internally_divergent_artifacts_are_rejected[blob_digest]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_internally_divergent_artifacts_are_rejected[blob_size]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_internally_divergent_artifacts_are_rejected[tokenizer_url]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_internally_divergent_artifacts_are_rejected[tokenizer_hash]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[artifact_missing-2]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[artifact_incomplete-2]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[model_missing-2]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[context_unverified-2]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[gpu_unavailable-2]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[service_unavailable-2]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_real_cli_maps_prerequisites_separately_from_failures[artifact_mismatch-1]
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_prepare_requires_explicit_download_before_starting_service
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_smoke_cli_emits_counts_without_private_result_or_reasoning
+24 failed, 3 passed in 0.14s
+pytest_exit=1

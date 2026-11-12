@@ -1,0 +1,30 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_well_formed_but_divergent_tokenizer_pin_never_reports_ready _______
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-183/test_well_formed_but_divergent0')
+
+    def test_well_formed_but_divergent_tokenizer_pin_never_reports_ready(tmp_path: Path) -> None:
+        fake = OllamaGatewayFake()
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            try:
+                gateway = OllamaGateway(settings, guard, lambda: False)
+                assert gateway.diagnose()["reason"] == "ready"
+                lock = json.loads(settings.model_lock.read_text())
+                lock["tokenizer"]["sha256"] = "0" * 64
+                settings.model_lock.write_text(json.dumps(lock))
+                fake.calls.clear()
+>               assert gateway.diagnose()["reason"] == "artifact_mismatch"
+E               AssertionError: assert 'ready' == 'artifact_mismatch'
+E                 
+E                 - artifact_mismatch
+E                 + ready
+
+apps/backend/tests/unit/test_inference_artifacts.py:75: AssertionError
+=========================== short test summary info ============================
+FAILED apps/backend/tests/unit/test_inference_artifacts.py::test_well_formed_but_divergent_tokenizer_pin_never_reports_ready
+1 failed, 29 deselected in 0.59s
+pytest_exit=1

@@ -1,0 +1,12 @@
+### Result
+{
+  "values": "Preço de compra\nR$ 900,00\nPreço de venda estimado\nIndisponível\nLucro estimado\nIndisponível",
+  "reason": [
+    "Motivo da indisponibilidade: Composição indisponível para esta revisão.",
+    "Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace."
+  ]
+}
+### Ran Playwright code
+```js
+await page.evaluate('() => ({values:document.querySelector(\'.financial-values\').innerText,reason:[...document.querySelectorAll(\'.detail-finance p\')].map(n=>n.textContent.trim())})');
+```
