@@ -12,6 +12,7 @@ from garimpei.domain.listing.listing import Candidate, Evidence, Match, money
 from garimpei.domain.listing.ports import ListingUnavailable, Page, SourceFailure
 from garimpei.domain.listing.scope import Scope, Search
 from garimpei.infra.gateway.listing.cep_geocoding import verified_point
+from garimpei.infra.gateway.listing.external_text import evidence_text
 from garimpei.infra.gateway.listing.identity import marketplace_id
 from garimpei.infra.gateway.listing.media import https_media
 
@@ -59,9 +60,9 @@ def _candidate(
         identity,
         Evidence(
             image_url=https_media(row.get("image_url")),
-            title=_text(row.get("title")),
-            description=_text(row.get("description")),
-            condition=_text(row.get("condition")),
+            title=evidence_text(row.get("title")),
+            description=evidence_text(row.get("description")),
+            condition=evidence_text(row.get("condition")),
             published_at=_timestamp(row.get("published_at")),
             price=money(_text(row.get("price"))),
             freight=money(_text(row.get("freight"))),
@@ -71,7 +72,7 @@ def _candidate(
             delivery=_flag(row.get("delivery")) if delivery_cep else None,
             delivery_cep=delivery_cep,
             shipping_offered=_flag(row.get("shipping_offered")),
-            shipping_evidence=_text(row.get("shipping_evidence")),
+            shipping_evidence=evidence_text(row.get("shipping_evidence")),
             pickup_scope_verified=_flag(row.get("pickup_scope_verified")),
             source_available=True if origin == "detail" else None,
         ),
