@@ -62,12 +62,16 @@ def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
         else "",
         complete_profit_label="Lucro estimado",
         resale=money_label(composition.resale.value),
+        finance_reason=reason_label(composition.resale.reason),
         detail_url=url(criteria, f"/ofertas/{offer.id}/"),
         url=safe_url(offer.url),
     )
     if not compatible_composition(offer):
         result.update(
-            price=money_label(offer.evidence.price), resale="Indisponível", profit="Indisponível"
+            price=money_label(offer.evidence.price),
+            resale="Indisponível",
+            profit="Indisponível",
+            finance_reason="A composição não corresponde à revisão desta oferta",
         )
     from garimpei.infra.http.listing.assessment_presentation import assessment_context
     from garimpei.infra.http.media.presentation import media_context

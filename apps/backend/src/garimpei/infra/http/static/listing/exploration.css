@@ -26,3 +26,4 @@
 .media-gallery a:focus-visible { outline: 3px solid var(--color-accent, #9a451c); outline-offset: 3px; }
 .detail-finance .financial-values dd { overflow-wrap: anywhere; white-space: normal; min-width: 0; }
 .media-gallery { overflow-wrap: anywhere; }
+.offer-summary .financial-values dd { white-space: normal; overflow-wrap: anywhere; }
