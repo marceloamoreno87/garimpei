@@ -1,0 +1,3178 @@
+{
+  "stable": true,
+  "tested_commit": "939c1d2849cb72692d2d0fa175a17b65e7c1b572",
+  "files": 396,
+  "before": [
+    {
+      "path": "apps/backend/.importlinter",
+      "sha256": "654aa7a9ed78b0abf82cbacb32178f113b0b92388d9f1e774bf3269c66151219"
+    },
+    {
+      "path": "apps/backend/.python-version",
+      "sha256": "f8faecf2505680716c6279bf2cdec3d5a5ba2ba852f0d7df45d51ac1ce8d9ade"
+    },
+    {
+      "path": "apps/backend/manage.py",
+      "sha256": "dc316f634868a8e9be5bb767bae37f499b461abe2266d17f301be4a67903541c"
+    },
+    {
+      "path": "apps/backend/pyproject.toml",
+      "sha256": "11f6a1a4807ec91f95d7d86d5520ed9beeacd50abe196d9c3802513ac4d41299"
+    },
+    {
+      "path": "apps/backend/quality/entrypoints.json",
+      "sha256": "c177f37721295fd05e220b46e1dc2a83ed053b0408e00c3f6e3138d4bf341cc0"
+    },
+    {
+      "path": "apps/backend/quality/vulture_whitelist.py",
+      "sha256": "65250977383908b556dfc8eefe367796e85cb58932cd70c3c6a8f6b5990a106d"
+    },
+    {
+      "path": "apps/backend/scripts/quality/check_architecture.py",
+      "sha256": "f67ace6defb5df86848b42139e4ac65c7dfbccf8b796b9886abf713a91f5a15e"
+    },
+    {
+      "path": "apps/backend/scripts/quality/check_cycles.py",
+      "sha256": "f21b7490a79f2e34b2bdce5b6eaa05e0527b06b9aa71565f2732f5ef332a8a0e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/env.py",
+      "sha256": "a32b1f6e395f280d789c080a7e2f8d3a66aaac97da654d67981fe90c49a48fb1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/settings.py",
+      "sha256": "97639955adf8c0bb8aa4ed05bf31899e29908e712c3fb063031bec83b9c389a9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/test_settings.py",
+      "sha256": "a9255bcdc8b667b70edf43c4f6611b7191111cc12d1e43becb9cd4dd3fa8c548"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/wsgi.py",
+      "sha256": "de8344ab8976659cf5c4648e0ea8923abbca68c96274388369722ffb29bbe45e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/alert.py",
+      "sha256": "3e148410ab8ff24fd6224cfba841afe24a8dbbfe797a50ba7895caea76d02d40"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/eligibility.py",
+      "sha256": "ceef4d8c88cd861e80bb72814444fb27bcb45cc027043e033b9d96e96d463d0a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/financial_snapshot.py",
+      "sha256": "00951e3372e93dbfdfcf0cd260b22ea5287ec4f9b2783863bf58372d4421161c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/ports.py",
+      "sha256": "fdcb4ce566b1f9f141b4da45bf24763f52439a83ed8054e4a16dbc4014cd4598"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/errors.py",
+      "sha256": "44c7b760bf6e22c522ffea36d49c5d292683a5ecd0d2523914357b7529026ccf"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/ports.py",
+      "sha256": "fe06f1c1772fe737a53d86cec9d5dcda432baf4f10d8a9691fc12ecec63954c5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/request.py",
+      "sha256": "461c132556c153f35b94b12daed24c0f0a4bb37795a10a6ffe6d9e1a40da1a55"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/result.py",
+      "sha256": "79b4ff819f79439a2bad711f8b1f6d99b16093886cf5a5d2c2115a1ebfc0869f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/facebook_login.py",
+      "sha256": "8e8045f65a6c82afe6bf6d345bfaaf3590068bb876a1cd47a1debd8982b0ec94"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/ports.py",
+      "sha256": "ffea5511fa36d0c59ea4bb5e864c27ec2a8ee6478410b9d03ff457c0ee52466e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/values.py",
+      "sha256": "3ff14ccbe78d3de7018e0fadc6ec7c01392fdf56c274bd36531558a946557d16"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/condition.py",
+      "sha256": "4450eb0c44a0dbeb4cd1503ffecd41de407660c74be6b3028371cce5011e57eb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/condition_ports.py",
+      "sha256": "a6c631a250b77c59e37a82429f4a3986e62a3ed99ba21fc6eb88bd3e3328c84d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/consolidation.py",
+      "sha256": "a1a5d45a6a06103892e9c2cd9442b94c6502267c2caa3ed70795b3d7370e3cdc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/coverage.py",
+      "sha256": "55942637779fe8ce6988e43ba573da8e65e2dc211bdab7a025c7b141b4c6a7a8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/discovery.py",
+      "sha256": "c2fdeb7fba49c5e6594956b1130d1355667373c623d2138baaf1790347789f7d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/exploration.py",
+      "sha256": "abae0127cce77cd5e4f748e534e86a562aaba8f990597adca4369a6df586b4a1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/geography.py",
+      "sha256": "9e7a6a921f64529d0afa7b1eb669c8f60a9e2604849669456b0fa7f2fdc50532"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/interest_match.py",
+      "sha256": "77adab134cb10eada8ca0e69c9f94d5e9ee126b8654cb3e40de8af96c36c3e8c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/listing.py",
+      "sha256": "9bd876efe0efbf82064dae3a1258077ae98d7400f3c0a2757f52305050e33749"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/ports.py",
+      "sha256": "ab58f870e583dbce41988c4c086cf8485ab8c8fb74aec21ce8f8da92befe9927"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/read_models.py",
+      "sha256": "95e5417cf0baeed4e0bb48a77f3f0fe0fa7e4b7adfbca297fbeb1afdb0e9de06"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/scheduling.py",
+      "sha256": "fcbc8599e153d6666430190e2e1b566327fc1f7a28d59a16fc51d0cb81ffd4a0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/scope.py",
+      "sha256": "c1ecf35df74ac8d82fa65665904c85888da149cd6872f00b2a84107f8a7f6f9e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/window.py",
+      "sha256": "d40c9d53f8baabc30a3c0c864e7ebc0782b6d2c1ad12c09da2ac20f1149e5a09"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/configuration.py",
+      "sha256": "7f9c653d8b8e4d6c22ad64eeb619fb1cfe6057fae1060e2b8912de71bfe276d2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/errors.py",
+      "sha256": "9854a28ff8b9785dc070f9d750681c5dba0dd74c6cf8c5872cedb69a4417ab26"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/ports.py",
+      "sha256": "f0ebdb6ed783e279dfa5eb570f6209fe5a9716dbbef47be02c9acb76ba2a0b74"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/snapshot.py",
+      "sha256": "2beee24eafd13dc6ac687f6659775807e06be641d0da9acf750da2002c88c409"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/values.py",
+      "sha256": "6e770ba499ee7373bf76b16fcb6e27cd97b44f5f329d17ae8f208d12432aecf0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/runtime/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/runtime/readiness_gateway.py",
+      "sha256": "53599282fcf8575cb07d84e50bf1bb0874327c680b1e17d6e8cdfd5754dbc796"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/runtime/readiness_result.py",
+      "sha256": "e8734919e9d7afaabc3ea23edbda1dcec7643e3f1ced638c102150e406c8d7df"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/component_identity.py",
+      "sha256": "af6e428f6adfbd0f0cc98a8fe08d50b1e201da997c7dc5ca50a6943407e65c7d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/consumer_identity.py",
+      "sha256": "32cb3cd37ba1c56bff9dccaf3f18b541cb8449085de257263cf432639fad699e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/electronics_identity.py",
+      "sha256": "8cfbf1d1bb8ece8d9783cc3688f9dbac342d6395319332eb9b1b37dffb43918d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/identity.py",
+      "sha256": "ca6e0e8d5a6fbe0601c975891f666fa7e2d8f1fdbcad577fa975081cfdffd593"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/offer_quality.py",
+      "sha256": "71b2b359147e5e3f0ee4bc70f666f70167ec954d318fe0ac712885b5bf0e0e53"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/policy.py",
+      "sha256": "c1da989cab925d7b3ef1beef396c4f348dc68b5f034b9dff1ff4c4bf80d1706b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/ports.py",
+      "sha256": "58a7022392baed11178e06bcc6d46363fe45119e524353ee6adcca298d582f44"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/profit.py",
+      "sha256": "1b351c7556dee29897d7e032bb9f86e0081ab1ed5597b01040bcfd4eecb4d707"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/profit_queries.py",
+      "sha256": "c327ece95f7943b5c2118a4c2b4f16cc9657cd213ff59fcd2501ce3506bde1b7"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/values.py",
+      "sha256": "a2bf8f29d770077b0928eb5b315a2a43ad72553e12bb45824c3fdac4b6666f7e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/alert/waha_gateway.py",
+      "sha256": "87aa182f07c931de041651d89d0696647387273fdf3a3427476d874b2d793662"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/artifact_policy.py",
+      "sha256": "820d6d6210e97a94a9767fd71664bb1b949255254ee655040a47c764aeabd9fd"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/docker_transport.py",
+      "sha256": "833ad0f7d4fffacf84b941696b0f0a96549d191d4918b16a36fae71be0e37e9e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/gpu_guard.py",
+      "sha256": "9050a092a694b06f03939e70edfca9f763913edf7f3efa40e39a1aae0bc60424"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/gpu_probe.py",
+      "sha256": "a40a6fe32c4b81a089e8c883c0ecd20c1cece9c6b26d9f3ec084d6cac688ccfe"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/input_preparer.py",
+      "sha256": "9998bf328988c184083a481e32d5bbbcff54db46af5f2dafb0ea84c02402480c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/ollama_gateway.py",
+      "sha256": "c4f38f486ec1fcb1e523872d5afa656639ef3e656701cf5724bad3f0c1a292ae"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/preparation.py",
+      "sha256": "5fa06bf4544e8c6710bbce3799c37ba95fc644b2436f8af34c9ae947ad69e3d6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/quota.py",
+      "sha256": "b3cc1d1a2eff29577d4ca70b76f05c2250487d674e3c5777910884ea2f879a96"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/registry.py",
+      "sha256": "360767492763119db7ebe5844308663942b7a019f8cff7ae105141c0065e1f1a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/integration/waha_session.py",
+      "sha256": "d327d10f329fc55e5d0c46bb2e1e50d342d628db082dbb9cea3b7ba5026288fa"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/cep_geocoding.py",
+      "sha256": "db8c12ffd2b723db20de3221f11b8733064c33eed72231a500d90c64d1fe21b4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/facebook_marketplace.py",
+      "sha256": "1149e3c566fb4ffb0227cde8079da3f1694922c370c64195528b1956417da8d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/fixture_source.py",
+      "sha256": "d97a61c2e9cf03fd467b2dd904afdb08069d444df3833c1eef9c4f409779f424"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/identity.py",
+      "sha256": "87807bdcbb01c1f11f807bffecd6ab9a9f9ad8b0b3035844a36c4d2b82bc7d00"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/marketplace_browser.py",
+      "sha256": "7eda9a7e6553c7d4c53a4a648a252879790d728c8b8e392c2753e6c666571479"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/media.py",
+      "sha256": "5a55c15c50ccaac89e669e0298247f771a3eb33614845ac131208089edfaec0e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/relay_parser.py",
+      "sha256": "00cd22eeb0a9c50c9dab8cefedd1273b19998849707736a6dcc0317336231737"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/monitoring/facebook_catalog.py",
+      "sha256": "5cb777bfe7a7698081293660fdb9f6838c8800336e716c753774e993cc5ee256"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/monitoring/facebook_categories.json",
+      "sha256": "ff84a609d50a16ddd449a902bdec6aa952f60fbdb18c018a19ffac68124522d7"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/new_source.py",
+      "sha256": "42d57a36117072df3e60f39c65046b15ae4728e2a9df421179471891bd78e6a5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/retail_catalog.json",
+      "sha256": "1c598eb8fa6d40ef8626a1b2eedbfacdec0b96c5f4949534827bb2ff63907f38"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/error_handler.py",
+      "sha256": "cebd2c0b152e8ae785eab6c1c2fdb9e1246c30bae516c53ecc520033a28b5f08"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/health_handler.py",
+      "sha256": "1d05e30845442a79998b2f127a606b65ad915d331ca6b2006b9a961399916872"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/inference/inference_handler.py",
+      "sha256": "37f5fa3a3b2f1d7f83c8d9124f24f61c34b2cb6240cb3a56b3e124df9ded3dce"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/inference/routes.py",
+      "sha256": "16d5001f286b54b8dc92fa818391a7457815a0f2b7c5d2ab2e1e7be01717274e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/context.py",
+      "sha256": "2d544aed78bb438812fe00ff135f39105189c586f55c3ecd978e1d8f8e5d568d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/integration_handler.py",
+      "sha256": "725c0a7218cff9cd078a0019771e58932e7c4419f6902971d03753c30f07824b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/presentation.py",
+      "sha256": "a362c4207d8d6faeada9c250ebac737d76ea6fdc0ab7b63d651dcfc823b32fd2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/routes.py",
+      "sha256": "5871d82cd9a935a074b9456f9da60782a7a845aef50570619a99c27a76e98b14"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/condition_handler.py",
+      "sha256": "3edff80664c36c326791b7efb26e3c9eb1a7fd7681ff767c64cbacfa31425bc6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/condition_presentation.py",
+      "sha256": "028a03b490ead582fb8c5b587514a418210504f4f50d55ffc52f20befd738f81"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/exploration_handler.py",
+      "sha256": "c49142c4eea11f4633959eb76b0b07a21a645bcf015f2342db14e3961e3615ea"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/exploration_presentation.py",
+      "sha256": "6e90f996b121071480ce67b379b9a5ca3d52a24fe81ce32601815d2d0c14db0e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/routes.py",
+      "sha256": "4754e6fc2cb8b14f77326186bbbced1027922476405925a9b320324a357ff44d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/forms.py",
+      "sha256": "84b44125312ea6b22bf1c52b23062e92a74b74f4793f89fa719f509a689b82d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/monitoring_handler.py",
+      "sha256": "de2c0e91760840899e9207f227a0a89e939592a25fa1d27250f31f075fbbf8a6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/presentation.py",
+      "sha256": "2ab0f884b0f34e2a5e7c88a997e454955759b228782f51077b408e1ac91fd437"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/routes.py",
+      "sha256": "3afbe868cf94b8b0155a09d5e9876211e0ff5b24afa8a10ca6e8222fb6193d29"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/inference/status.css",
+      "sha256": "bc2ad528bf99a3355bc51adffda7cb16f9a5d3c87ea2c362d9cf206dcfa9a04e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/integration/settings.css",
+      "sha256": "496760b57c46359e4bb291896f2379d289ceb0f30c3faa903efe60d69c18f5db"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/condition.css",
+      "sha256": "69737f5f0a0eed4068bb117e711545b098049a1628e2b8ab3a012e06cdab7e90"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/condition.js",
+      "sha256": "efe1374be2376f5744b5381434eac7c6ff693aa3e6d26f84ce319ba0e57471af"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/exploration.css",
+      "sha256": "90d9e7cc8e60e5bb7087adcf50a289e3496273aef6585d27948834ba094fa454"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/exploration.js",
+      "sha256": "c7acaf509006bcdc04dd72c608d211c1d912a41e3e6707bb4617e203a8d87dfe"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/bricolage-600.ttf",
+      "sha256": "284891c74c258cff7233962e048d9470bfb9fc326b53dd0bca408789297c3409"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/bricolagegrotesque-OFL.txt",
+      "sha256": "4b5a7d8f37f5602621c8a8d7358a6a2e71317e6c231c661e15aef0275d3e07ba"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/forms.js",
+      "sha256": "45e363c411dd54e2b9b1603a891a5ef20ce2e867faa34bcd1cd1e952ca442c46"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/manrope-OFL.txt",
+      "sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/manrope.woff2",
+      "sha256": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/style.css",
+      "sha256": "dfd799ea2d27958c9534af0a322ceacb92b822e8ebc2db21160a9f01ef9cf513"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/tokens.css",
+      "sha256": "fad91de2f8d5e2faa6ec207d9fae277e3a5f5fe7e1ca3bb9d6fa9139f9a8461c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/vendor/HTMX-LICENSE",
+      "sha256": "d3d2456f76414f2456104660ebd65aff1c04cd7966b942bdabd63f3cdb316a38"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/vendor/htmx.min.js",
+      "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/base.html",
+      "sha256": "dbb05c9778c572515c34434014d4931f0b37bf4c46915f74cb5462bd253c087b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/inference/error.html",
+      "sha256": "527425b89a1a36f7e54d6fd96b11cf4d2e75766219ba92fc698ee083d59ddddb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/inference/status.html",
+      "sha256": "93b7e72b53ccf36da5d80a916150aaebaa9567c53143967e029819a77b7415da"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/error.html",
+      "sha256": "be7db89039481ffacd0d6da09c598fe1515dc833bb10ce0404a66d3ad8f660ca"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/facebook_notice.html",
+      "sha256": "c284050fbcde6a4ba530b3526de10fcec4ad09abe6dd14e347c7d6e2d6fccc25"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/settings.html",
+      "sha256": "ec89dea2a6c2578be1c5de96323b3f4dd6faf6d375f06be3877fc8f21daacaec"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/whatsapp_status.html",
+      "sha256": "1e8f33d910034bce3148863bf2828a42d679ed4d2b9b788656790748913c75f4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/detail.html",
+      "sha256": "54c5a248653af974109841383e4dd9db1d3dc2781bc391614a3fee4a3969c830"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/exploration.html",
+      "sha256": "b323323d799e43541aa51886d46a1a3abf73e8f0a1df23476c3f83daafca669e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/exploration_error.html",
+      "sha256": "14e87c0ba1acaa5c891710d28f9d230602da18cd9d789a078f4e81849551f356"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/financial_values.html",
+      "sha256": "9465808a7eafe2bc5bb3649476b83bbfb87b00e4cbcfa72124f4e37cccf65cb2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/layout.html",
+      "sha256": "1b87a2320cabfadfa4608b1b2d7a1761006ba3bec5dae0dc953ebbea72db6a20"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/list.html",
+      "sha256": "0eb2fe4c956a94c66856a35ee18baf07f145bf51efd23dbe7fc2dcfd6a04e045"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/offer_detail.html",
+      "sha256": "d35bcdf1a162b8d2e800d4c02e7d84786f09f043ed08d9269c7139b564c35557"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/results.html",
+      "sha256": "b8187196075af22f8b297feb31ebfe0d52060d4291a0aebdf89ac2e0d62ae95a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/updates.html",
+      "sha256": "71c51898dc003a5b353d76e05306f546c94fcbcc68498cff21e2826f4bc4b753"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/cost_fields.html",
+      "sha256": "e67a9b00686f701cada77b5f0b86d954f672f599ea5c5e3334207d0f174e25d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/csrf_error.html",
+      "sha256": "75ae8d1045e8208abc2f52d8ca588f5225275edaff9a2b2375bb5baa706cfe75"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/error.html",
+      "sha256": "62a0be4e29527a5a86d82dcdd150f10a249efd69f843199529641db50296e44f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/form.html",
+      "sha256": "8119af46da2a3a100bd74e4771058ca38e17808588860bcf026f3b11586de2b5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/interest_fields.html",
+      "sha256": "2379d8f4078fccfc7d3b2e42e7ae47633d4524057a0d1031fad41464bb21f9fc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/layout.html",
+      "sha256": "fe93a328be1bbb0780424c2cafe44b58084012128c676e9054972ce0145de16f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/region_fields.html",
+      "sha256": "a8f195099f33563a01406e3b66a4d5b8d921d220c0eba39f30073a93bb859a8f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/tracking.html",
+      "sha256": "e056cdfd16a4585224a605929bd92114c6f8c02e1b82093f8a130aea6d7b9f69"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/urls.py",
+      "sha256": "1d2613a7c2427a78d65f904f756adc8149c17fe08ccbfc6081751b65b2ff6ade"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/alert_models.py",
+      "sha256": "d67f7a42a47df1ec8d670de046c0f48b917c4538c30ba294bac41f4c1b2b2617"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/apps.py",
+      "sha256": "73ee3e8670cfefe792d109e7de29e5370417fe37197cf97b18e8693dfe43fb84"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/exploration_models.py",
+      "sha256": "31fd3c8a127a4a7db81277b7f5c01235f0e4cab4c81f1632ebb3ad74558de39c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/inference_models.py",
+      "sha256": "2eb5b52edaac38122adaaa7328a127f61f5ab4edf0ae60ab4ede81d190ce704d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/integration_models.py",
+      "sha256": "a4dfa1bff0d039a2e5b58b22ebcb80478ffe16052883fd895d4ae071065c5852"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/listing_models.py",
+      "sha256": "c4e9bb6d9cb87f9b9e93faf6178a644173eed33f0f5a452d0003f718bb48cc5f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/local_ai.py",
+      "sha256": "8b165e25d889a18bf7fd8d5cdb9bfdb14ba1fc46823c892d29d7f3dc7c4d1d46"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/runtime_probe.py",
+      "sha256": "9047d2ab9c1cd0f74dad0665b171e32d2be3c2e9828ee5dde21f37cf53a70def"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/runworker.py",
+      "sha256": "1fe93f3fc5e1de0785fb802cd02fc362a15f934521b4bcb7963519030a5eec88"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0001_initial.py",
+      "sha256": "f29d364398c0c172e5270ff529548bf74d3dd125be6aa5edfc9e8bb0d6e1a9d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0002_monitoring_configuration.py",
+      "sha256": "45089da16dd2f237d1deb33bb14b03a94d0ca8addc17675f53950cc908a55f64"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0003_listing_collection.py",
+      "sha256": "c3c951e8c38663ea82235ff6bb8748875dcf8d0d9e8b0747956af0fe281120b9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0004_listing_publication_window.py",
+      "sha256": "962788e012825992a4a99101c6c93fb38a78de002b561216b34c7620c71dd7cf"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0005_listing_manual_condition.py",
+      "sha256": "959e7e35d5f3283dad9af8e47d78d8e26de5c306f4fc0a17047b3ba5c683d83a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0006_valuation.py",
+      "sha256": "6cc5f3b4282f63b0daeb621ba99aa2388def58ccdeba9dd01134c7328a2873dc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0007_exploration.py",
+      "sha256": "0678f16a0d54aafa923771da4b2879ac261d8a7c4754e22cbf9409c0646c75fb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0008_alert_delivery.py",
+      "sha256": "48fc332063265f5e99c8e41ae823d0cb013137532d1ef55d466fc98d0a6881e1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0009_integration_settings.py",
+      "sha256": "3a20d4ba76d53a0d3f89607b513c844be13ed029d9783351b9e0c14969eaafe3"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0010_facebook_session_baseline.py",
+      "sha256": "fcc84c6f66c1dd4a145f67a45359af9c23877d2ee815c7b144da20460467a62a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0011_facebook_browser_profile.py",
+      "sha256": "cffdcff8fd61cbf622a3d76278585eca6f20614f843579fe0e7f5da77283a95f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0012_opportunity_collection.py",
+      "sha256": "70a46589ae9e1c67a45288c18d629dd7a898be0c395e9763786936e6ffe8ac66"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0013_alert_message_snapshot.py",
+      "sha256": "57c814b34cd1d11e38e43681351d0572073f56d39a64dda89a42c5f65e8108bd"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0013_local_inference.py",
+      "sha256": "ff15dbbffa4c79253339a8405184c78c334ef87a345eb1a33ae1b6e43ce58d42"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0014_merge_inference_and_financial_snapshot.py",
+      "sha256": "80e8400cbb3ee42755752db4f9fef94d5d80d64c1fcd7e31ccce47e302356c6b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/models.py",
+      "sha256": "3db6d6ba7475b2dfc516361f69bb9fba15217845678bb6194246d56284123ae2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/monitoring_models.py",
+      "sha256": "5d3c7f17c5e40fb8235d457f4bf0a229c0b3a5dff37bb1da2b45c66009b26d0b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/monitoring_unit_of_work.py",
+      "sha256": "c070c68463c18bf560635752ffff35425e130f9aefbfae1d42b1d208dba4578f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/valuation_models.py",
+      "sha256": "e84d380bb32768b43c2714315a39af63c57e43aa1f2425b8bcba4c5611c8f489"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/alert/event_source.py",
+      "sha256": "df83bd8e047f7eb656a5a6469372edc815e6a6d19407200e7c448e65a9bba2ee"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/inference/postgres_queries.py",
+      "sha256": "36ceca40707b76892fbec4c9482be59b82d937a0e0b3deae58b8275459c1401b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/condition_queries.py",
+      "sha256": "505e076ded4048ba979ed4f52494d5080442c1049a80f1633fb5f629139cc74c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/exploration_mapper.py",
+      "sha256": "03023823cfc6db7e6ab98ed02fe7bc8acc545c74918bee639ae320ffcac67789"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/exploration_queries.py",
+      "sha256": "6ab87c7b03b5478b79b34a2c87e4316171335743855fb497397047120760abd8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/exploration_source.py",
+      "sha256": "370e86ea647a8b1111cee04097f697e89daf45381b8c917556d3e2edd476d678"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/postgres_queries.py",
+      "sha256": "e2041c55efc6f9fcf628e9c1f6ac2f51e8e9f3cb0bfa907e151ad5b86af0fbb5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/monitoring/postgres_queries.py",
+      "sha256": "7eaedeadaa35108957a911487fdd6b35e077365ece0ee64cdfe26fa919ab0e88"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/postgres_queries.py",
+      "sha256": "d22cb4d818e8ebf0f6f2397b5b3a50663c7a2b4213676440a6e0be8ff4483907"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/profit_queries.py",
+      "sha256": "edfd4bc5d043804b50f59c5c74975c2f9f8420cff50e99cfef6fbcc1bab89530"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/delivery_state.py",
+      "sha256": "1822a46251c82779f751c1533cb0f851fd1fdd54a4a2bd6d9bb4d2cb8b9ec60a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/financial.py",
+      "sha256": "f051e3ee03909bfdf47fcc27c91ccbcf1353f19f116eb154cccd8237c4042568"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/financial_references.py",
+      "sha256": "70bd7e2b4458cbe1f8e039eed88607a3aa557701fe8b405db90ba62c4c456052"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/message_authorization.py",
+      "sha256": "2541cfa073d3ed4342716b41ddd9ba9a76d7bbda82ba3ca9146974bd3a466b2f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py",
+      "sha256": "d7dbbfe88c2d0124aa8f0cd46cba5a712caf3f13dd607a0729b4e64144f18dcd"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/inference/postgres_repository.py",
+      "sha256": "53fe74452a432c9176220b26afc1d23362e6258923b3f973be9324d51369fce0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/facebook_profile_repository.py",
+      "sha256": "7c8211031e5bc6bce0e13edfcc45c1b04f45900e652ca7f3ee8f8605b1cbb735"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/postgres_repository.py",
+      "sha256": "26edb3925e54b03c89fb9c52a79adeae2ff3a3e9eca25e94e43f8a4e2b7af54f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/private_session.py",
+      "sha256": "35b68532fcc41e5970b47da1ac09830a1bce21c3b23986944b501779986a6ab6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/condition_mapper.py",
+      "sha256": "05a3eea4fcd6a51abdd163ff9462b64db5956048d2dad9de3c3c380b6af8f617"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/condition_repository.py",
+      "sha256": "e5472077868a84f92dbe45ea98c661a17c5601236f8e1ecfc8b4dc64c6efec18"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/exploration_repository.py",
+      "sha256": "edd7d3174d0394aec0762204188ed59b83b30caea8d8ccf390dce7c414f94bb9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/mapper.py",
+      "sha256": "52599f25f7b38ed56b14202c125cc47a5b214567ecf39c0fa36bb8cbc6b83806"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/postgres_repository.py",
+      "sha256": "3a0c58a8aea8a90d183ac29508427166670e2df088937971e10ee6da1ce61753"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/monitoring/mapper.py",
+      "sha256": "4dfddc204afab53b4c47e69b6f0c025319bb4ccf7722e9971dbf2d0c610c5104"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/monitoring/postgres_repository.py",
+      "sha256": "31717a9453fee0957ea4989e40daa3c57d28c06378a37cc33996b86f68b945f6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/mapper.py",
+      "sha256": "ad238f069171185420d4e76ba986044033d639442b6a234ca018806239cf3108"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/postgres_repository.py",
+      "sha256": "134564dc11f67d0979a0910d7d6dc0d2166640f5ef9e8be12d948537cd77d8b4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/cli.py",
+      "sha256": "a50f8289734cc9b98e4e59b2889678a8907de55fe7e1f4215ac542bdca4da837"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/containers.py",
+      "sha256": "608f37e35c0e24e4b9952a6dfe40da538222461c8b07ca923e0367fe5a38e991"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/inference_runtime.py",
+      "sha256": "02f8c503b216439853e74173b3ee21d539e9dd753b22657e3926b42825514ae8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/lifecycle.py",
+      "sha256": "b91395e7a589c1be2caea388294bcae4bdde710d145efc806dd24f011c392cff"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/logging.py",
+      "sha256": "97a134feac68df482858cd66c5d55567a815fa9ad85a5a4685cadc346f5b1dfc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/manifest.py",
+      "sha256": "b5aa0bb04d7cfff5bf0076fda9cb666817a85672b9982fed4c9c1b60997e88ac"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/probes.py",
+      "sha256": "ce1291af523a004be16f56031e90bc31bbcbd648a89a1b1ae56fa09f38b2f87f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/processes.py",
+      "sha256": "4e8c996212f046e76e08e101fb68d04d98f057518cb83ccdc0097cb3ccf7b9d5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/alert_handler.py",
+      "sha256": "8459f62920c7df210e9ff3b6d7987053dd48efd6058ecbe4b5f3b393cecfdf41"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/facebook_login_handler.py",
+      "sha256": "935aa6cb50d3a7c150441547e348c3d43a6a18958911a1c3c36023f157200740"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/listing_handler.py",
+      "sha256": "c935016242a78b6109ea86084210b021e0c6f50371052a156ce30f82aa033ddb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/probe_service.py",
+      "sha256": "b048a3d4511f34f426c674f9486f796f015e8fc075bf3421e11404c99143bd92"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/runtime_handler.py",
+      "sha256": "e6e48850646fddcf9bfca2118b268b071d98ab5d5143a80a74fd93948353dd86"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/valuation_handler.py",
+      "sha256": "f79bbf392c8e0c80bc6d445a3e64466604a3e2c476281cd2c735cb325991dfdc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/main.py",
+      "sha256": "bfd3fb405c1bbc6530d63a5e06147d81b9ce64fa118f0d990ae4b3b60f09bbed"
+    },
+    {
+      "path": "apps/backend/src/garimpei/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/consume_listing_events_usecase.py",
+      "sha256": "da803d6dbd695e5003290ce785aea89c625502bae45e9f4cdded3900a4886fbc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/evaluate_alert_usecase.py",
+      "sha256": "0a0889083898f9e6adb942e3acfd22e26f2ce83cc4c5d1dadc8fc2edf0b2368f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/reconcile_alert_usecase.py",
+      "sha256": "ed0e271a185e7a1927989f0910ea29be9ec06d7de1be5b881f0b1f9788d5d08d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/send_alert_usecase.py",
+      "sha256": "5732506ac755ce781f9c1e5f15cc48635b009bafd70bf91a73c032c2d872a06c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/pause_inference_usecase.py",
+      "sha256": "abc3bfbf10a7107e48f0b1852f0cda26f40d2ae1c9ea30746049a7c9e5d5c2f4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/read_analysis_usecase.py",
+      "sha256": "4e188422edb7be161a844419263b61693cf03df80655ca9820993c90e555db54"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/read_status_usecase.py",
+      "sha256": "17d5bf36b9fad6eea3718f718a1e0df03f9445a01def6d962abc42dd9e49a1b1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/request_analysis_usecase.py",
+      "sha256": "74c35968c4ad9f45bcadf58ea008ea18a648110d97fa6101dff19c462a61e9d6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/resume_inference_usecase.py",
+      "sha256": "736f5fc0115a3ecc2a83f21a5a514e419ebaedd9d9e949f7358778ccfaefae3a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/run_analysis_usecase.py",
+      "sha256": "1356c32d148d634b0e3def122927443f72386c4b12161baed0b3789847ef2135"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/configure_whatsapp_usecase.py",
+      "sha256": "016c8b68960562518b1bb4f90bbc121ca48e99d9fe3e9150a3e1c6297db671e9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/confirm_facebook_login_usecase.py",
+      "sha256": "3a835fb66736365bb2caf9368901bbf5f3de06cc9213c6d9aa3375a81cf2648c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/connect_whatsapp_usecase.py",
+      "sha256": "de2a643d128198c39cc52b999fe3dbde6bb1a93d1c52226b8ff521667f4a6df5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/read_facebook_status_usecase.py",
+      "sha256": "69dca8bcca7ebc26ffd661eea243436e5014a7f163e30ea827c4c9f8b74eeb7d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/read_integrations_usecase.py",
+      "sha256": "3ff152252d9d5fd64315f8033df1897e497a5fed4a314e7e725eb0b1f41cead0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/read_qr_usecase.py",
+      "sha256": "b067353fa226944332f8c7012837e47d6ae12f2e88b181b8756608acd73e0a28"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/request_facebook_login_usecase.py",
+      "sha256": "d012bb4406d6c5b66cc4bf203bf72e150893d2f363a8a59bbb200cd2e4f439d5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/save_facebook_usecase.py",
+      "sha256": "11b8dee9fd2178b07d7c93469a7b1474d02f55ddad8546c29f361a28eefafc4a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/classify_condition_usecase.py",
+      "sha256": "39b003f89a9f077dc4d4e6857786220e08d01b42de85a9c3620cc923711cb0a8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/collect_listings_usecase.py",
+      "sha256": "bb4e17e0356e93b55b3ea64cbef0ee63aaa609d8df9238503759fa81c8c7cfac"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/list_conditions_usecase.py",
+      "sha256": "f8312e7f113d1cb8515b3f357815cbeebd830d360e82476712fd2e996f60cb4a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/publish_exploration_usecase.py",
+      "sha256": "d33df5f42a93a98e0c7a98ce5e7e77952bae56009e85d76c7c3ccdbd8f964b75"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_collection_status_usecase.py",
+      "sha256": "80f6d89a08612c5d89f48cfc5ad0bc9b9786b716b2a86bac63462e36d44f4bbb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_condition_usecase.py",
+      "sha256": "8ac7b004ff3b5c25110c890eddd739d24726b3ebb52127ec71dedded9934582e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_exploration_updates_usecase.py",
+      "sha256": "ae2233ad8873a14144a76b84d35b11aeb8494f608c1d5ee2eb25012e93441c8d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_listing_changes_usecase.py",
+      "sha256": "06d5e7dc8c6f0ffdce9e00d53540e868ea1cf8e44465fb5cc783f613b05f4b42"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_listing_usecase.py",
+      "sha256": "65860244b09714f2bccb9467830c5d29732acf5594b704c6700954b6525e993c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_offer_detail_usecase.py",
+      "sha256": "053d91f90c053bdd28991345392c99a1bc12f06191a42981731ceb037cb63b5f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_offers_usecase.py",
+      "sha256": "28cd556e50d6f481140e08028f896ed7002cc08a9008cd397e4b6e7309ad7c75"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/schedule_collection_usecase.py",
+      "sha256": "e50f872c05d461e2e5ed75e506051ba19f99aa5c17e1345ad77ab9e320a5c161"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/complete_configuration_usecase.py",
+      "sha256": "dea9affe93f6db338adcb6a7a6ddff88bf03b973d83ab00bc01354c74d46b1d8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/interests.py",
+      "sha256": "48c21b2698eb4842fa3e6f33f23cedc3ed7dc8d9ae78cd87405cbfb84760a6d6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/preview_products_usecase.py",
+      "sha256": "c96164ac0b6fb527565dc684604e2ca7e20f84c9fc7847b102fbd2d46a61c870"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/read_catalog_usecase.py",
+      "sha256": "753950bd600ff485dafd6ef9c018cf1922c8bf09b29aca80a089633b1d22a58a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/read_configuration_usecase.py",
+      "sha256": "76d75a56676338ac3ab014e4eb1ca43940d43f5bc797f33be31fdffa3a030c91"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/read_form_usecase.py",
+      "sha256": "46fa40c0e8fe62d4f99a8a0e709a744733ee5a8ad5cf90001020cae155435ca5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/save_step_usecase.py",
+      "sha256": "ab79b82be66661460ecc3907a3bc96b37dac1a9d782a9d8f09542d017c11866d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/update_configuration_usecase.py",
+      "sha256": "3d41a21ec9899a88d39585200a5a91a23a8f9c1c4e5d50266b62479888fd1198"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/runtime/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/runtime/check_readiness_usecase.py",
+      "sha256": "e21e2081c304e3dd6755541e82b366b520ecc97872c73fddec606e0902288ef3"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/evaluate_usecase.py",
+      "sha256": "82d1ac2194f6e3b335154c4eb6df6a5a2a654f36dfcf74a7b2a53b905c82bfd8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/read_profit_usecase.py",
+      "sha256": "a0dac623d48698e3e6166804e960fa9c3c6c7ee681ec3469c3a95494f2a2a95b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/read_valuation_usecase.py",
+      "sha256": "3dc6807cdd841bef691380922a0b2386a72d524b8d4f890500dee2f3e21e39a3"
+    },
+    {
+      "path": "apps/backend/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/conftest.py",
+      "sha256": "7d24aa62248110b3039a2a28b91e394948524299270fccb908b1160aff6c41c9"
+    },
+    {
+      "path": "apps/backend/tests/factories/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/factories/alert.py",
+      "sha256": "95cbbe33b464625a5b2a147036c2ea1288355b06e98d177cc8857f92c43933e1"
+    },
+    {
+      "path": "apps/backend/tests/factories/alert_scenario.py",
+      "sha256": "e7e697d21c1b1d10effd7533f7cf42e308d4c080bf286a169782baef32df1e0c"
+    },
+    {
+      "path": "apps/backend/tests/factories/condition_http.py",
+      "sha256": "448badcc6a3c1881e633be2dae7c22a1bbfe78ed267c886452eddb68a537f917"
+    },
+    {
+      "path": "apps/backend/tests/factories/condition_lab.py",
+      "sha256": "9bef2803f43029a3908822e6ae666380942e83dbe5fc6c004caa4f68ce3ce738"
+    },
+    {
+      "path": "apps/backend/tests/factories/exploration.py",
+      "sha256": "7a6610c28c360637230c405ea7fa40f8c2c195c5e6721b0e7039f8ed5ee5e86c"
+    },
+    {
+      "path": "apps/backend/tests/factories/exploration_states.py",
+      "sha256": "5d8a49430e7852b2c9504e508ac2171b91ec65979b6a9621abb736196384d93f"
+    },
+    {
+      "path": "apps/backend/tests/factories/facebook_login.py",
+      "sha256": "249369a368ca44b651640cdfb38e8aa40f53ac866afeb61afe382a1d427aa711"
+    },
+    {
+      "path": "apps/backend/tests/factories/facebook_login_lab.py",
+      "sha256": "11c37fc94f69c4e5d99a6c52c4c190183a90f0532ff1ed1402500031b380cbf7"
+    },
+    {
+      "path": "apps/backend/tests/factories/financial_presentation_lab.py",
+      "sha256": "f6f4479b6c3502682ff2751b741bf5723c06521e95075ccb7e4d8de134f1fe16"
+    },
+    {
+      "path": "apps/backend/tests/factories/inference.py",
+      "sha256": "47e5c6c954f3db90b824447baa8b2025f0983529ec2859b9d56c2b4d9bf073b2"
+    },
+    {
+      "path": "apps/backend/tests/factories/integration.py",
+      "sha256": "be72a32e897693c35b77f73d45cdfee75cd6d41e415247fd32a1de3a9044d1f3"
+    },
+    {
+      "path": "apps/backend/tests/factories/integration_lab.py",
+      "sha256": "62075168c75b7b5396b40f92a726639c73dd1d7da0c5b1df3717ba2dbbe6f8aa"
+    },
+    {
+      "path": "apps/backend/tests/factories/listing.py",
+      "sha256": "3be9aca7c65125d86c06ceb307275c4fd5086e887cbdebb6e64e2c0ed1e5f131"
+    },
+    {
+      "path": "apps/backend/tests/factories/monitoring.py",
+      "sha256": "d712334684fc37b2cd7d91f232f481b799c6f4228340fbbf1c15b6347e3fafb5"
+    },
+    {
+      "path": "apps/backend/tests/factories/runtime.py",
+      "sha256": "30e5364ef7ec96b9ea3a1d774efff4c3ee31d91f513bbb041097b28b9190fd21"
+    },
+    {
+      "path": "apps/backend/tests/factories/valuation.py",
+      "sha256": "f41cfbe54959303beaf84410c6cc2307dfc0b9275cfb878de004d61ed2d64390"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/alert/cases.json",
+      "sha256": "12e31dc1de7ba1f54457052d73f213ba07e54f4461985d5336f8b2c3171b974f"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/foundation/cases.json",
+      "sha256": "f73b087f52bd650a30ad465717ead054f49573a677c5157d68bbab42b8f2cc59"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/inference/cases.json",
+      "sha256": "91d795915e885fd3d7a90452f64dc0367837c01fa72ab1b1dd032352c036eaac"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/inference/image-a.png",
+      "sha256": "c3cfe8e9789ed976ae760c18d48457221f651fe201841cdf339b80e8e5ab3f2f"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/inference/image-b.png",
+      "sha256": "ed22b0aadd53f7b0cb6529282cd02dfb76ae31a18530f6b6520343ec52d0823d"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/listing/condition_cases.json",
+      "sha256": "0089847f34e5ac18843f314a63fa083fffaa78423aa13df86322bdcb2e467ae0"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/listing/exploration_cases.json",
+      "sha256": "d02f8bd59371a130decb893aa25f6ea1fa959709593589e519e553f3f75e5dbe"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/listing/marketplace.json",
+      "sha256": "ea4996dbb4be5d738bbaa75f4481228030463281c17923fd4498208ebe0cf743"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/monitoring/cases.json",
+      "sha256": "c751b9ede604810242df921d7b580660b6f3ed5ad2e2cf0492f06e38ef39e283"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/valuation/cases.json",
+      "sha256": "5d42abdc97057e569ef1a0cb63069fedccc1dbfe8a9f0097396a7d6af19b404a"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/valuation/financial_presentation.json",
+      "sha256": "570fb531ec87b091eab8cdba8570e64e2dc6c0654626d72332199b7e5c5e3891"
+    },
+    {
+      "path": "apps/backend/tests/http/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/http/test_condition_recovery.py",
+      "sha256": "5263f456221b824ed54b0ae3a3ea7a16e7b62cb5955276085b7013dee1ae85e5"
+    },
+    {
+      "path": "apps/backend/tests/http/test_financial_presentation.py",
+      "sha256": "6d5fb757a582610418126a9ff2ca06d39a4cc7151f0974449bc75ff6b7a28eae"
+    },
+    {
+      "path": "apps/backend/tests/http/test_health.py",
+      "sha256": "45ac340b78f89fc464d1a9680ebae94c4e247975cf55f6b5c886386e2df76cdd"
+    },
+    {
+      "path": "apps/backend/tests/http/test_listing_condition.py",
+      "sha256": "7a0629c74ed264e8d4e65e9c7173cc07101fe58e208d5ee00acef7ff1273b16e"
+    },
+    {
+      "path": "apps/backend/tests/http/test_monitoring.py",
+      "sha256": "47e8028eb646371af1a6250f809318618ace0ba607b686ded315cd164d466119"
+    },
+    {
+      "path": "apps/backend/tests/http/test_tracking.py",
+      "sha256": "3028f4ca1e0f5e6278c781a71fc6184f53c2f723afa26f97cd776c572e7943ce"
+    },
+    {
+      "path": "apps/backend/tests/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_alert_consumers.py",
+      "sha256": "cd136329c5e6e74ba0d6a9a7be3afecd0775594f378d98699acf0cc04c49263a"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_alert_delivery.py",
+      "sha256": "15d0cbbac46664d846d10d0361faf081ed67cc0b4a16406d50c7781d300da38d"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_alert_gateway.py",
+      "sha256": "ab66998f5ee745635ad1c0bd176f30a729c37b6b4605d6a15e06586a5334e588"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_collection.py",
+      "sha256": "53accd0ecaae4a6cd63acbe8367c61862bce9690467dedcc89e056ccb5407922"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_concurrency.py",
+      "sha256": "4c057d843458353dd9600b83c86825393b4214c5c7c563f6d49a0b28f034acf8"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_exploration.py",
+      "sha256": "25fcf45cb82482892da976f61d3a04974c5b3ec028d99d87831da81995fe98c3"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_facebook_gateway.py",
+      "sha256": "ecbf2f133927107de9520e15c3fe52ce72346aadbb78a79c1b89202a6782de0d"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_facebook_profile.py",
+      "sha256": "91012696e6e0af204b945088d908159b9bb644e248fc8a5b7b929ff7038d9b7b"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_financial_messages.py",
+      "sha256": "22d448a4e34ecf9c8ddeea7889731931e4bed21b1b9483ad3ae4ecf022bc2b6d"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_foundation.py",
+      "sha256": "4d1139c295839c7333b97452330249044441f9df80fe5eba541bfdf84c23757b"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_inference.py",
+      "sha256": "ee43840a876a3b26920930084fe98ebe6d21cfb1db1c4d4f96dc85a3d5924367"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_integrations.py",
+      "sha256": "19eb2feeadb762e8f730acb1e8ced4c372ce8ca856ea6550df57d802cbc6452c"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_listing_condition.py",
+      "sha256": "ca2d1c3fb3821d80c277bfc72a49904c2ecf97883a7683f9a24f7dea3a6184fc"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_marketplace_browser.py",
+      "sha256": "13e9b95ff21af92e3cd5a3084fe287a55f192c6e27b800d3884e2877afbe23db"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_monitoring_persistence.py",
+      "sha256": "af2836f794838f46c6c43ed6affbdf19205ae09fe45625918c160c72b3b9c514"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_profit.py",
+      "sha256": "38f3311cafd63398386e9c685a7c601627a00b6430933f6435161283b262acac"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_valuation.py",
+      "sha256": "aef473bd773116f8299ff9efcd6f166765900e31e2f5853e4f710d03f5afabbf"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_copy.py",
+      "sha256": "ba29a57e1ab04e9050723fc7cde789984531a2336fb24f88128483a207aabc8c"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_network_cleanup.py",
+      "sha256": "acee6ee96e44f3aff5b25597c3104fa621233c87dd666cad6e6234678a8ae05b"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_operations.py",
+      "sha256": "0dca0c240e981098da6ded6c92c36a139d8aed05d063291d730949d0f78381c1"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_rollback.py",
+      "sha256": "467d6e37a87bfcf27bccc2a563e33044649a9ffb37e331f607ee4be4658cc0a2"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_startup_failures.py",
+      "sha256": "23ab2a72b74157b792bbaa5a7e63add5bbbbdbb239cc4ea432a8f24579e7a9f0"
+    },
+    {
+      "path": "apps/backend/tests/quality/test_gate_failures.py",
+      "sha256": "2877d7175c383757ce78738112d4a8194144efcfb57e0f90663d3239f3ab64c5"
+    },
+    {
+      "path": "apps/backend/tests/unit/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_alert_policy.py",
+      "sha256": "da8bb35ba2d5180ea4c226c0229770c184e88be0566b657ae173af22846798b0"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_config.py",
+      "sha256": "52fab23f78f2797051e03fd1b17dbdf6b0531996dd0b6ed95ab2149b84ae2447"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_error_handler.py",
+      "sha256": "8316a265b7fee84bc00148b955b37dfd64e5924be215bcfa37964dee4d2719a4"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_exploration.py",
+      "sha256": "27eadafe80611c682ee13cb17c352a7795ec0acb5feaae2f01d4830a2393288b"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_facebook_browser.py",
+      "sha256": "bfcd541d2e17ff104d96c9710bd5fa016f8e9e31e3d6b91c2760028bc6602970"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_financial_presentation.py",
+      "sha256": "a6b1ecd6798a522d5fd6dc9203649a480db47ad3b1d5cfde66f392b67cc14788"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_artifacts.py",
+      "sha256": "b8dffe13c2189df61035a499fd3a8aa88234bf7d571b8dac1dbb1e1513838014"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_docker_transport.py",
+      "sha256": "e95b32c5cf873f69eb6a49aed0714e4ee2aa6d0c9b858d2277bc95d62990621b"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_gateway.py",
+      "sha256": "0fd17c25aa6ae52963a5eca9a80687b4de62c986ce2fde631eb16437a07341b7"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_inputs.py",
+      "sha256": "6f0cdd6c7af0aff33ef0772a6283cd63c0b0874fc057c515fcef5dbfe65169f6"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_policy.py",
+      "sha256": "8a31a52fd61106d857bfc9c0db2af514f143be2686cf51a28bcde566f4bf81be"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_integration_policy.py",
+      "sha256": "9a7e0225133788801e973b3dfd1f12bef025d5b73f94f859bc1c58c99700001d"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_listing_condition.py",
+      "sha256": "9f2e372acaf81752e3d19602f358c4dd56ea5ee9dbb654f691ca8dbf73fc294f"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_listing_policy.py",
+      "sha256": "c51f0a5d1949ef0729250fc9d7d6db194319ba489c532a6c511b2e27e0bb7e8e"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_listing_window.py",
+      "sha256": "075d960c1c9182e715ea08f2ea0df4d9267ab8c2a4e13baa31dadca237e94f2d"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_logging.py",
+      "sha256": "b28ec38391180fbd460571efeb820c30436212c7d51808d02acd9fbc125ae088"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_marketplace_parser.py",
+      "sha256": "8a0807c72f9ea6e8db8a8cb8e7b7f431320bfa9d193ade00409cf183666dba4b"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_marketplace_source.py",
+      "sha256": "35fb9ca06e73ed24a5394f027601dcb34c4aebedb02dbaa05ff9db8f226e425a"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_monitoring_catalog.py",
+      "sha256": "01a191e34e1f47d3a1ac1a9efe5745284a61087de89cd6e7303fbf3bf5e2037a"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_monitoring_configuration.py",
+      "sha256": "46a0bd0c0d331b7c972c8a85c8ab4b2b1ab1a31b6d195849067d7f021889ae28"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_opportunity_improvements.py",
+      "sha256": "0d5a64f5414a677c822ee6d82ede8dcb64ecfddcc2f09a28aa36ed313381d9b6"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_profit.py",
+      "sha256": "731aa32787b099368fda00f2cfa9b7cf776788e7f3ded5efa47742fdefe07cfb"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_readiness.py",
+      "sha256": "3c33cc92536cddbfd803419b19072e739aca74298ac2879f41948dc9d7ec46d8"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_valuation.py",
+      "sha256": "a816dffc235dde7e1d65b58adacf6561d90d059b20e4d0c366aef276c33eafbc"
+    },
+    {
+      "path": "apps/backend/typings/playwright_stealth/__init__.pyi",
+      "sha256": "04cfc522f2be7c08ff52cf19bba80d914a242fb4dd4400ef5dba168272bab66d"
+    },
+    {
+      "path": "apps/backend/uv.lock",
+      "sha256": "2094ee2181d99c850c5f8748ca4807f12c0ca2e2964edd1a4d7d37d8c04a2b3b"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "1c24429bcd215244cfa7a300c1c9a40685133bff85406252657e6d25657d731f"
+    },
+    {
+      "path": "scripts/check-harness.mjs",
+      "sha256": "4bedc53624f5f280386705d85f091e87b8932c7b6725f33b17ca001ad16f92d2"
+    },
+    {
+      "path": "scripts/init.sh",
+      "sha256": "0e6785ad14e50559eab05d931b5992c7499887e8f5cb5688ce5b5e136a0883e0"
+    },
+    {
+      "path": "scripts/migrate-dev.sh",
+      "sha256": "46f3342fdd50c8df3bda03ff4fe5848c2e40384970c65838adf4c06dcbea3f9e"
+    },
+    {
+      "path": "scripts/resolve-env.sh",
+      "sha256": "f6c609297482c602bf13c8b109de1e90b1a083a743ee2b8dc66964a9cc466622"
+    },
+    {
+      "path": "scripts/run-gates.mjs",
+      "sha256": "d933ba30653b0c69366d415c90b41d7de923c912a999fac16261d060379bf957"
+    },
+    {
+      "path": "scripts/setup-codex.sh",
+      "sha256": "7a6b7555fe23830d62613a661bf35c7e869b6f29bea236868ac708cc11ac9117"
+    },
+    {
+      "path": "scripts/spawn-detached.mjs",
+      "sha256": "0e4de742956cee7ea006b39e8784de36ab9e8f7cc9b46ce2ece57181aa1bf4d0"
+    },
+    {
+      "path": "scripts/stop.sh",
+      "sha256": "d3b4a1b042b2787f61b1de98769ad9479e2d3b8372ebde3355705e388a7a8f69"
+    },
+    {
+      "path": "scripts/test/harness.test.mjs",
+      "sha256": "d3b9a0b889f3691564a7dab0a98eb47a2c513d453a01bf0be2d937957e96d6d5"
+    }
+  ],
+  "after": [
+    {
+      "path": "apps/backend/.importlinter",
+      "sha256": "654aa7a9ed78b0abf82cbacb32178f113b0b92388d9f1e774bf3269c66151219"
+    },
+    {
+      "path": "apps/backend/.python-version",
+      "sha256": "f8faecf2505680716c6279bf2cdec3d5a5ba2ba852f0d7df45d51ac1ce8d9ade"
+    },
+    {
+      "path": "apps/backend/manage.py",
+      "sha256": "dc316f634868a8e9be5bb767bae37f499b461abe2266d17f301be4a67903541c"
+    },
+    {
+      "path": "apps/backend/pyproject.toml",
+      "sha256": "11f6a1a4807ec91f95d7d86d5520ed9beeacd50abe196d9c3802513ac4d41299"
+    },
+    {
+      "path": "apps/backend/quality/entrypoints.json",
+      "sha256": "c177f37721295fd05e220b46e1dc2a83ed053b0408e00c3f6e3138d4bf341cc0"
+    },
+    {
+      "path": "apps/backend/quality/vulture_whitelist.py",
+      "sha256": "65250977383908b556dfc8eefe367796e85cb58932cd70c3c6a8f6b5990a106d"
+    },
+    {
+      "path": "apps/backend/scripts/quality/check_architecture.py",
+      "sha256": "f67ace6defb5df86848b42139e4ac65c7dfbccf8b796b9886abf713a91f5a15e"
+    },
+    {
+      "path": "apps/backend/scripts/quality/check_cycles.py",
+      "sha256": "f21b7490a79f2e34b2bdce5b6eaa05e0527b06b9aa71565f2732f5ef332a8a0e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/env.py",
+      "sha256": "a32b1f6e395f280d789c080a7e2f8d3a66aaac97da654d67981fe90c49a48fb1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/settings.py",
+      "sha256": "97639955adf8c0bb8aa4ed05bf31899e29908e712c3fb063031bec83b9c389a9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/test_settings.py",
+      "sha256": "a9255bcdc8b667b70edf43c4f6611b7191111cc12d1e43becb9cd4dd3fa8c548"
+    },
+    {
+      "path": "apps/backend/src/garimpei/config/wsgi.py",
+      "sha256": "de8344ab8976659cf5c4648e0ea8923abbca68c96274388369722ffb29bbe45e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/alert.py",
+      "sha256": "3e148410ab8ff24fd6224cfba841afe24a8dbbfe797a50ba7895caea76d02d40"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/eligibility.py",
+      "sha256": "ceef4d8c88cd861e80bb72814444fb27bcb45cc027043e033b9d96e96d463d0a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/financial_snapshot.py",
+      "sha256": "00951e3372e93dbfdfcf0cd260b22ea5287ec4f9b2783863bf58372d4421161c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/alert/ports.py",
+      "sha256": "fdcb4ce566b1f9f141b4da45bf24763f52439a83ed8054e4a16dbc4014cd4598"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/errors.py",
+      "sha256": "44c7b760bf6e22c522ffea36d49c5d292683a5ecd0d2523914357b7529026ccf"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/ports.py",
+      "sha256": "fe06f1c1772fe737a53d86cec9d5dcda432baf4f10d8a9691fc12ecec63954c5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/request.py",
+      "sha256": "461c132556c153f35b94b12daed24c0f0a4bb37795a10a6ffe6d9e1a40da1a55"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/inference/result.py",
+      "sha256": "79b4ff819f79439a2bad711f8b1f6d99b16093886cf5a5d2c2115a1ebfc0869f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/facebook_login.py",
+      "sha256": "8e8045f65a6c82afe6bf6d345bfaaf3590068bb876a1cd47a1debd8982b0ec94"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/ports.py",
+      "sha256": "ffea5511fa36d0c59ea4bb5e864c27ec2a8ee6478410b9d03ff457c0ee52466e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/integration/values.py",
+      "sha256": "3ff14ccbe78d3de7018e0fadc6ec7c01392fdf56c274bd36531558a946557d16"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/condition.py",
+      "sha256": "4450eb0c44a0dbeb4cd1503ffecd41de407660c74be6b3028371cce5011e57eb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/condition_ports.py",
+      "sha256": "a6c631a250b77c59e37a82429f4a3986e62a3ed99ba21fc6eb88bd3e3328c84d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/consolidation.py",
+      "sha256": "a1a5d45a6a06103892e9c2cd9442b94c6502267c2caa3ed70795b3d7370e3cdc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/coverage.py",
+      "sha256": "55942637779fe8ce6988e43ba573da8e65e2dc211bdab7a025c7b141b4c6a7a8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/discovery.py",
+      "sha256": "c2fdeb7fba49c5e6594956b1130d1355667373c623d2138baaf1790347789f7d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/exploration.py",
+      "sha256": "abae0127cce77cd5e4f748e534e86a562aaba8f990597adca4369a6df586b4a1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/geography.py",
+      "sha256": "9e7a6a921f64529d0afa7b1eb669c8f60a9e2604849669456b0fa7f2fdc50532"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/interest_match.py",
+      "sha256": "77adab134cb10eada8ca0e69c9f94d5e9ee126b8654cb3e40de8af96c36c3e8c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/listing.py",
+      "sha256": "9bd876efe0efbf82064dae3a1258077ae98d7400f3c0a2757f52305050e33749"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/ports.py",
+      "sha256": "ab58f870e583dbce41988c4c086cf8485ab8c8fb74aec21ce8f8da92befe9927"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/read_models.py",
+      "sha256": "95e5417cf0baeed4e0bb48a77f3f0fe0fa7e4b7adfbca297fbeb1afdb0e9de06"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/scheduling.py",
+      "sha256": "fcbc8599e153d6666430190e2e1b566327fc1f7a28d59a16fc51d0cb81ffd4a0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/scope.py",
+      "sha256": "c1ecf35df74ac8d82fa65665904c85888da149cd6872f00b2a84107f8a7f6f9e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/listing/window.py",
+      "sha256": "d40c9d53f8baabc30a3c0c864e7ebc0782b6d2c1ad12c09da2ac20f1149e5a09"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/configuration.py",
+      "sha256": "7f9c653d8b8e4d6c22ad64eeb619fb1cfe6057fae1060e2b8912de71bfe276d2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/errors.py",
+      "sha256": "9854a28ff8b9785dc070f9d750681c5dba0dd74c6cf8c5872cedb69a4417ab26"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/ports.py",
+      "sha256": "f0ebdb6ed783e279dfa5eb570f6209fe5a9716dbbef47be02c9acb76ba2a0b74"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/snapshot.py",
+      "sha256": "2beee24eafd13dc6ac687f6659775807e06be641d0da9acf750da2002c88c409"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/monitoring/values.py",
+      "sha256": "6e770ba499ee7373bf76b16fcb6e27cd97b44f5f329d17ae8f208d12432aecf0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/runtime/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/runtime/readiness_gateway.py",
+      "sha256": "53599282fcf8575cb07d84e50bf1bb0874327c680b1e17d6e8cdfd5754dbc796"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/runtime/readiness_result.py",
+      "sha256": "e8734919e9d7afaabc3ea23edbda1dcec7643e3f1ced638c102150e406c8d7df"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/component_identity.py",
+      "sha256": "af6e428f6adfbd0f0cc98a8fe08d50b1e201da997c7dc5ca50a6943407e65c7d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/consumer_identity.py",
+      "sha256": "32cb3cd37ba1c56bff9dccaf3f18b541cb8449085de257263cf432639fad699e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/electronics_identity.py",
+      "sha256": "8cfbf1d1bb8ece8d9783cc3688f9dbac342d6395319332eb9b1b37dffb43918d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/identity.py",
+      "sha256": "ca6e0e8d5a6fbe0601c975891f666fa7e2d8f1fdbcad577fa975081cfdffd593"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/offer_quality.py",
+      "sha256": "71b2b359147e5e3f0ee4bc70f666f70167ec954d318fe0ac712885b5bf0e0e53"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/policy.py",
+      "sha256": "c1da989cab925d7b3ef1beef396c4f348dc68b5f034b9dff1ff4c4bf80d1706b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/ports.py",
+      "sha256": "58a7022392baed11178e06bcc6d46363fe45119e524353ee6adcca298d582f44"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/profit.py",
+      "sha256": "1b351c7556dee29897d7e032bb9f86e0081ab1ed5597b01040bcfd4eecb4d707"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/profit_queries.py",
+      "sha256": "c327ece95f7943b5c2118a4c2b4f16cc9657cd213ff59fcd2501ce3506bde1b7"
+    },
+    {
+      "path": "apps/backend/src/garimpei/domain/valuation/values.py",
+      "sha256": "a2bf8f29d770077b0928eb5b315a2a43ad72553e12bb45824c3fdac4b6666f7e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/alert/waha_gateway.py",
+      "sha256": "87aa182f07c931de041651d89d0696647387273fdf3a3427476d874b2d793662"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/artifact_policy.py",
+      "sha256": "820d6d6210e97a94a9767fd71664bb1b949255254ee655040a47c764aeabd9fd"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/docker_transport.py",
+      "sha256": "833ad0f7d4fffacf84b941696b0f0a96549d191d4918b16a36fae71be0e37e9e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/gpu_guard.py",
+      "sha256": "9050a092a694b06f03939e70edfca9f763913edf7f3efa40e39a1aae0bc60424"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/gpu_probe.py",
+      "sha256": "a40a6fe32c4b81a089e8c883c0ecd20c1cece9c6b26d9f3ec084d6cac688ccfe"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/input_preparer.py",
+      "sha256": "9998bf328988c184083a481e32d5bbbcff54db46af5f2dafb0ea84c02402480c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/ollama_gateway.py",
+      "sha256": "c4f38f486ec1fcb1e523872d5afa656639ef3e656701cf5724bad3f0c1a292ae"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/preparation.py",
+      "sha256": "5fa06bf4544e8c6710bbce3799c37ba95fc644b2436f8af34c9ae947ad69e3d6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/quota.py",
+      "sha256": "b3cc1d1a2eff29577d4ca70b76f05c2250487d674e3c5777910884ea2f879a96"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/inference/registry.py",
+      "sha256": "360767492763119db7ebe5844308663942b7a019f8cff7ae105141c0065e1f1a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/integration/waha_session.py",
+      "sha256": "d327d10f329fc55e5d0c46bb2e1e50d342d628db082dbb9cea3b7ba5026288fa"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/cep_geocoding.py",
+      "sha256": "db8c12ffd2b723db20de3221f11b8733064c33eed72231a500d90c64d1fe21b4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/facebook_marketplace.py",
+      "sha256": "1149e3c566fb4ffb0227cde8079da3f1694922c370c64195528b1956417da8d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/fixture_source.py",
+      "sha256": "d97a61c2e9cf03fd467b2dd904afdb08069d444df3833c1eef9c4f409779f424"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/identity.py",
+      "sha256": "87807bdcbb01c1f11f807bffecd6ab9a9f9ad8b0b3035844a36c4d2b82bc7d00"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/marketplace_browser.py",
+      "sha256": "7eda9a7e6553c7d4c53a4a648a252879790d728c8b8e392c2753e6c666571479"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/media.py",
+      "sha256": "5a55c15c50ccaac89e669e0298247f771a3eb33614845ac131208089edfaec0e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/listing/relay_parser.py",
+      "sha256": "00cd22eeb0a9c50c9dab8cefedd1273b19998849707736a6dcc0317336231737"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/monitoring/facebook_catalog.py",
+      "sha256": "5cb777bfe7a7698081293660fdb9f6838c8800336e716c753774e993cc5ee256"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/monitoring/facebook_categories.json",
+      "sha256": "ff84a609d50a16ddd449a902bdec6aa952f60fbdb18c018a19ffac68124522d7"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/new_source.py",
+      "sha256": "42d57a36117072df3e60f39c65046b15ae4728e2a9df421179471891bd78e6a5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/gateway/valuation/retail_catalog.json",
+      "sha256": "1c598eb8fa6d40ef8626a1b2eedbfacdec0b96c5f4949534827bb2ff63907f38"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/error_handler.py",
+      "sha256": "cebd2c0b152e8ae785eab6c1c2fdb9e1246c30bae516c53ecc520033a28b5f08"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/health_handler.py",
+      "sha256": "1d05e30845442a79998b2f127a606b65ad915d331ca6b2006b9a961399916872"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/inference/inference_handler.py",
+      "sha256": "37f5fa3a3b2f1d7f83c8d9124f24f61c34b2cb6240cb3a56b3e124df9ded3dce"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/inference/routes.py",
+      "sha256": "16d5001f286b54b8dc92fa818391a7457815a0f2b7c5d2ab2e1e7be01717274e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/context.py",
+      "sha256": "2d544aed78bb438812fe00ff135f39105189c586f55c3ecd978e1d8f8e5d568d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/integration_handler.py",
+      "sha256": "725c0a7218cff9cd078a0019771e58932e7c4419f6902971d03753c30f07824b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/presentation.py",
+      "sha256": "a362c4207d8d6faeada9c250ebac737d76ea6fdc0ab7b63d651dcfc823b32fd2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/integration/routes.py",
+      "sha256": "5871d82cd9a935a074b9456f9da60782a7a845aef50570619a99c27a76e98b14"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/condition_handler.py",
+      "sha256": "3edff80664c36c326791b7efb26e3c9eb1a7fd7681ff767c64cbacfa31425bc6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/condition_presentation.py",
+      "sha256": "028a03b490ead582fb8c5b587514a418210504f4f50d55ffc52f20befd738f81"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/exploration_handler.py",
+      "sha256": "c49142c4eea11f4633959eb76b0b07a21a645bcf015f2342db14e3961e3615ea"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/exploration_presentation.py",
+      "sha256": "6e90f996b121071480ce67b379b9a5ca3d52a24fe81ce32601815d2d0c14db0e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/listing/routes.py",
+      "sha256": "4754e6fc2cb8b14f77326186bbbced1027922476405925a9b320324a357ff44d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/forms.py",
+      "sha256": "84b44125312ea6b22bf1c52b23062e92a74b74f4793f89fa719f509a689b82d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/monitoring_handler.py",
+      "sha256": "de2c0e91760840899e9207f227a0a89e939592a25fa1d27250f31f075fbbf8a6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/presentation.py",
+      "sha256": "2ab0f884b0f34e2a5e7c88a997e454955759b228782f51077b408e1ac91fd437"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/monitoring/routes.py",
+      "sha256": "3afbe868cf94b8b0155a09d5e9876211e0ff5b24afa8a10ca6e8222fb6193d29"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/inference/status.css",
+      "sha256": "bc2ad528bf99a3355bc51adffda7cb16f9a5d3c87ea2c362d9cf206dcfa9a04e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/integration/settings.css",
+      "sha256": "496760b57c46359e4bb291896f2379d289ceb0f30c3faa903efe60d69c18f5db"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/condition.css",
+      "sha256": "69737f5f0a0eed4068bb117e711545b098049a1628e2b8ab3a012e06cdab7e90"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/condition.js",
+      "sha256": "efe1374be2376f5744b5381434eac7c6ff693aa3e6d26f84ce319ba0e57471af"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/exploration.css",
+      "sha256": "90d9e7cc8e60e5bb7087adcf50a289e3496273aef6585d27948834ba094fa454"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/listing/exploration.js",
+      "sha256": "c7acaf509006bcdc04dd72c608d211c1d912a41e3e6707bb4617e203a8d87dfe"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/bricolage-600.ttf",
+      "sha256": "284891c74c258cff7233962e048d9470bfb9fc326b53dd0bca408789297c3409"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/bricolagegrotesque-OFL.txt",
+      "sha256": "4b5a7d8f37f5602621c8a8d7358a6a2e71317e6c231c661e15aef0275d3e07ba"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/forms.js",
+      "sha256": "45e363c411dd54e2b9b1603a891a5ef20ce2e867faa34bcd1cd1e952ca442c46"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/manrope-OFL.txt",
+      "sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/manrope.woff2",
+      "sha256": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/style.css",
+      "sha256": "dfd799ea2d27958c9534af0a322ceacb92b822e8ebc2db21160a9f01ef9cf513"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/monitoring/tokens.css",
+      "sha256": "fad91de2f8d5e2faa6ec207d9fae277e3a5f5fe7e1ca3bb9d6fa9139f9a8461c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/vendor/HTMX-LICENSE",
+      "sha256": "d3d2456f76414f2456104660ebd65aff1c04cd7966b942bdabd63f3cdb316a38"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/static/vendor/htmx.min.js",
+      "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/base.html",
+      "sha256": "dbb05c9778c572515c34434014d4931f0b37bf4c46915f74cb5462bd253c087b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/inference/error.html",
+      "sha256": "527425b89a1a36f7e54d6fd96b11cf4d2e75766219ba92fc698ee083d59ddddb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/inference/status.html",
+      "sha256": "93b7e72b53ccf36da5d80a916150aaebaa9567c53143967e029819a77b7415da"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/error.html",
+      "sha256": "be7db89039481ffacd0d6da09c598fe1515dc833bb10ce0404a66d3ad8f660ca"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/facebook_notice.html",
+      "sha256": "c284050fbcde6a4ba530b3526de10fcec4ad09abe6dd14e347c7d6e2d6fccc25"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/settings.html",
+      "sha256": "ec89dea2a6c2578be1c5de96323b3f4dd6faf6d375f06be3877fc8f21daacaec"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/integration/whatsapp_status.html",
+      "sha256": "1e8f33d910034bce3148863bf2828a42d679ed4d2b9b788656790748913c75f4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/detail.html",
+      "sha256": "54c5a248653af974109841383e4dd9db1d3dc2781bc391614a3fee4a3969c830"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/exploration.html",
+      "sha256": "b323323d799e43541aa51886d46a1a3abf73e8f0a1df23476c3f83daafca669e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/exploration_error.html",
+      "sha256": "14e87c0ba1acaa5c891710d28f9d230602da18cd9d789a078f4e81849551f356"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/financial_values.html",
+      "sha256": "9465808a7eafe2bc5bb3649476b83bbfb87b00e4cbcfa72124f4e37cccf65cb2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/layout.html",
+      "sha256": "1b87a2320cabfadfa4608b1b2d7a1761006ba3bec5dae0dc953ebbea72db6a20"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/list.html",
+      "sha256": "0eb2fe4c956a94c66856a35ee18baf07f145bf51efd23dbe7fc2dcfd6a04e045"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/offer_detail.html",
+      "sha256": "d35bcdf1a162b8d2e800d4c02e7d84786f09f043ed08d9269c7139b564c35557"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/results.html",
+      "sha256": "b8187196075af22f8b297feb31ebfe0d52060d4291a0aebdf89ac2e0d62ae95a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/listing/updates.html",
+      "sha256": "71c51898dc003a5b353d76e05306f546c94fcbcc68498cff21e2826f4bc4b753"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/cost_fields.html",
+      "sha256": "e67a9b00686f701cada77b5f0b86d954f672f599ea5c5e3334207d0f174e25d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/csrf_error.html",
+      "sha256": "75ae8d1045e8208abc2f52d8ca588f5225275edaff9a2b2375bb5baa706cfe75"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/error.html",
+      "sha256": "62a0be4e29527a5a86d82dcdd150f10a249efd69f843199529641db50296e44f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/form.html",
+      "sha256": "8119af46da2a3a100bd74e4771058ca38e17808588860bcf026f3b11586de2b5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/interest_fields.html",
+      "sha256": "2379d8f4078fccfc7d3b2e42e7ae47633d4524057a0d1031fad41464bb21f9fc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/layout.html",
+      "sha256": "fe93a328be1bbb0780424c2cafe44b58084012128c676e9054972ce0145de16f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/region_fields.html",
+      "sha256": "a8f195099f33563a01406e3b66a4d5b8d921d220c0eba39f30073a93bb859a8f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/templates/monitoring/tracking.html",
+      "sha256": "e056cdfd16a4585224a605929bd92114c6f8c02e1b82093f8a130aea6d7b9f69"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/http/urls.py",
+      "sha256": "1d2613a7c2427a78d65f904f756adc8149c17fe08ccbfc6081751b65b2ff6ade"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/alert_models.py",
+      "sha256": "d67f7a42a47df1ec8d670de046c0f48b917c4538c30ba294bac41f4c1b2b2617"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/apps.py",
+      "sha256": "73ee3e8670cfefe792d109e7de29e5370417fe37197cf97b18e8693dfe43fb84"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/exploration_models.py",
+      "sha256": "31fd3c8a127a4a7db81277b7f5c01235f0e4cab4c81f1632ebb3ad74558de39c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/inference_models.py",
+      "sha256": "2eb5b52edaac38122adaaa7328a127f61f5ab4edf0ae60ab4ede81d190ce704d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/integration_models.py",
+      "sha256": "a4dfa1bff0d039a2e5b58b22ebcb80478ffe16052883fd895d4ae071065c5852"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/listing_models.py",
+      "sha256": "c4e9bb6d9cb87f9b9e93faf6178a644173eed33f0f5a452d0003f718bb48cc5f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/local_ai.py",
+      "sha256": "8b165e25d889a18bf7fd8d5cdb9bfdb14ba1fc46823c892d29d7f3dc7c4d1d46"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/runtime_probe.py",
+      "sha256": "9047d2ab9c1cd0f74dad0665b171e32d2be3c2e9828ee5dde21f37cf53a70def"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/runworker.py",
+      "sha256": "1fe93f3fc5e1de0785fb802cd02fc362a15f934521b4bcb7963519030a5eec88"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0001_initial.py",
+      "sha256": "f29d364398c0c172e5270ff529548bf74d3dd125be6aa5edfc9e8bb0d6e1a9d0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0002_monitoring_configuration.py",
+      "sha256": "45089da16dd2f237d1deb33bb14b03a94d0ca8addc17675f53950cc908a55f64"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0003_listing_collection.py",
+      "sha256": "c3c951e8c38663ea82235ff6bb8748875dcf8d0d9e8b0747956af0fe281120b9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0004_listing_publication_window.py",
+      "sha256": "962788e012825992a4a99101c6c93fb38a78de002b561216b34c7620c71dd7cf"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0005_listing_manual_condition.py",
+      "sha256": "959e7e35d5f3283dad9af8e47d78d8e26de5c306f4fc0a17047b3ba5c683d83a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0006_valuation.py",
+      "sha256": "6cc5f3b4282f63b0daeb621ba99aa2388def58ccdeba9dd01134c7328a2873dc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0007_exploration.py",
+      "sha256": "0678f16a0d54aafa923771da4b2879ac261d8a7c4754e22cbf9409c0646c75fb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0008_alert_delivery.py",
+      "sha256": "48fc332063265f5e99c8e41ae823d0cb013137532d1ef55d466fc98d0a6881e1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0009_integration_settings.py",
+      "sha256": "3a20d4ba76d53a0d3f89607b513c844be13ed029d9783351b9e0c14969eaafe3"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0010_facebook_session_baseline.py",
+      "sha256": "fcc84c6f66c1dd4a145f67a45359af9c23877d2ee815c7b144da20460467a62a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0011_facebook_browser_profile.py",
+      "sha256": "cffdcff8fd61cbf622a3d76278585eca6f20614f843579fe0e7f5da77283a95f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0012_opportunity_collection.py",
+      "sha256": "70a46589ae9e1c67a45288c18d629dd7a898be0c395e9763786936e6ffe8ac66"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0013_alert_message_snapshot.py",
+      "sha256": "57c814b34cd1d11e38e43681351d0572073f56d39a64dda89a42c5f65e8108bd"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0013_local_inference.py",
+      "sha256": "ff15dbbffa4c79253339a8405184c78c334ef87a345eb1a33ae1b6e43ce58d42"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0014_merge_inference_and_financial_snapshot.py",
+      "sha256": "80e8400cbb3ee42755752db4f9fef94d5d80d64c1fcd7e31ccce47e302356c6b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/models.py",
+      "sha256": "3db6d6ba7475b2dfc516361f69bb9fba15217845678bb6194246d56284123ae2"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/monitoring_models.py",
+      "sha256": "5d3c7f17c5e40fb8235d457f4bf0a229c0b3a5dff37bb1da2b45c66009b26d0b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/monitoring_unit_of_work.py",
+      "sha256": "c070c68463c18bf560635752ffff35425e130f9aefbfae1d42b1d208dba4578f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/valuation_models.py",
+      "sha256": "e84d380bb32768b43c2714315a39af63c57e43aa1f2425b8bcba4c5611c8f489"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/alert/event_source.py",
+      "sha256": "df83bd8e047f7eb656a5a6469372edc815e6a6d19407200e7c448e65a9bba2ee"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/inference/postgres_queries.py",
+      "sha256": "36ceca40707b76892fbec4c9482be59b82d937a0e0b3deae58b8275459c1401b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/condition_queries.py",
+      "sha256": "505e076ded4048ba979ed4f52494d5080442c1049a80f1633fb5f629139cc74c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/exploration_mapper.py",
+      "sha256": "03023823cfc6db7e6ab98ed02fe7bc8acc545c74918bee639ae320ffcac67789"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/exploration_queries.py",
+      "sha256": "6ab87c7b03b5478b79b34a2c87e4316171335743855fb497397047120760abd8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/exploration_source.py",
+      "sha256": "370e86ea647a8b1111cee04097f697e89daf45381b8c917556d3e2edd476d678"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/listing/postgres_queries.py",
+      "sha256": "e2041c55efc6f9fcf628e9c1f6ac2f51e8e9f3cb0bfa907e151ad5b86af0fbb5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/monitoring/postgres_queries.py",
+      "sha256": "7eaedeadaa35108957a911487fdd6b35e077365ece0ee64cdfe26fa919ab0e88"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/postgres_queries.py",
+      "sha256": "d22cb4d818e8ebf0f6f2397b5b3a50663c7a2b4213676440a6e0be8ff4483907"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/queries/valuation/profit_queries.py",
+      "sha256": "edfd4bc5d043804b50f59c5c74975c2f9f8420cff50e99cfef6fbcc1bab89530"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/delivery_state.py",
+      "sha256": "1822a46251c82779f751c1533cb0f851fd1fdd54a4a2bd6d9bb4d2cb8b9ec60a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/financial.py",
+      "sha256": "f051e3ee03909bfdf47fcc27c91ccbcf1353f19f116eb154cccd8237c4042568"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/financial_references.py",
+      "sha256": "70bd7e2b4458cbe1f8e039eed88607a3aa557701fe8b405db90ba62c4c456052"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/message_authorization.py",
+      "sha256": "2541cfa073d3ed4342716b41ddd9ba9a76d7bbda82ba3ca9146974bd3a466b2f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py",
+      "sha256": "d7dbbfe88c2d0124aa8f0cd46cba5a712caf3f13dd607a0729b4e64144f18dcd"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/inference/postgres_repository.py",
+      "sha256": "53fe74452a432c9176220b26afc1d23362e6258923b3f973be9324d51369fce0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/facebook_profile_repository.py",
+      "sha256": "7c8211031e5bc6bce0e13edfcc45c1b04f45900e652ca7f3ee8f8605b1cbb735"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/postgres_repository.py",
+      "sha256": "26edb3925e54b03c89fb9c52a79adeae2ff3a3e9eca25e94e43f8a4e2b7af54f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/integration/private_session.py",
+      "sha256": "35b68532fcc41e5970b47da1ac09830a1bce21c3b23986944b501779986a6ab6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/condition_mapper.py",
+      "sha256": "05a3eea4fcd6a51abdd163ff9462b64db5956048d2dad9de3c3c380b6af8f617"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/condition_repository.py",
+      "sha256": "e5472077868a84f92dbe45ea98c661a17c5601236f8e1ecfc8b4dc64c6efec18"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/exploration_repository.py",
+      "sha256": "edd7d3174d0394aec0762204188ed59b83b30caea8d8ccf390dce7c414f94bb9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/mapper.py",
+      "sha256": "52599f25f7b38ed56b14202c125cc47a5b214567ecf39c0fa36bb8cbc6b83806"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/listing/postgres_repository.py",
+      "sha256": "3a0c58a8aea8a90d183ac29508427166670e2df088937971e10ee6da1ce61753"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/monitoring/mapper.py",
+      "sha256": "4dfddc204afab53b4c47e69b6f0c025319bb4ccf7722e9971dbf2d0c610c5104"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/monitoring/postgres_repository.py",
+      "sha256": "31717a9453fee0957ea4989e40daa3c57d28c06378a37cc33996b86f68b945f6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/mapper.py",
+      "sha256": "ad238f069171185420d4e76ba986044033d639442b6a234ca018806239cf3108"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/repository/valuation/postgres_repository.py",
+      "sha256": "134564dc11f67d0979a0910d7d6dc0d2166640f5ef9e8be12d948537cd77d8b4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/cli.py",
+      "sha256": "a50f8289734cc9b98e4e59b2889678a8907de55fe7e1f4215ac542bdca4da837"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/containers.py",
+      "sha256": "608f37e35c0e24e4b9952a6dfe40da538222461c8b07ca923e0367fe5a38e991"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/inference_runtime.py",
+      "sha256": "02f8c503b216439853e74173b3ee21d539e9dd753b22657e3926b42825514ae8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/lifecycle.py",
+      "sha256": "b91395e7a589c1be2caea388294bcae4bdde710d145efc806dd24f011c392cff"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/logging.py",
+      "sha256": "97a134feac68df482858cd66c5d55567a815fa9ad85a5a4685cadc346f5b1dfc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/manifest.py",
+      "sha256": "b5aa0bb04d7cfff5bf0076fda9cb666817a85672b9982fed4c9c1b60997e88ac"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/probes.py",
+      "sha256": "ce1291af523a004be16f56031e90bc31bbcbd648a89a1b1ae56fa09f38b2f87f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/runtime/processes.py",
+      "sha256": "4e8c996212f046e76e08e101fb68d04d98f057518cb83ccdc0097cb3ccf7b9d5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/alert_handler.py",
+      "sha256": "8459f62920c7df210e9ff3b6d7987053dd48efd6058ecbe4b5f3b393cecfdf41"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/facebook_login_handler.py",
+      "sha256": "935aa6cb50d3a7c150441547e348c3d43a6a18958911a1c3c36023f157200740"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/listing_handler.py",
+      "sha256": "c935016242a78b6109ea86084210b021e0c6f50371052a156ce30f82aa033ddb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/probe_service.py",
+      "sha256": "b048a3d4511f34f426c674f9486f796f015e8fc075bf3421e11404c99143bd92"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/runtime_handler.py",
+      "sha256": "e6e48850646fddcf9bfca2118b268b071d98ab5d5143a80a74fd93948353dd86"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/worker/valuation_handler.py",
+      "sha256": "f79bbf392c8e0c80bc6d445a3e64466604a3e2c476281cd2c735cb325991dfdc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/main.py",
+      "sha256": "bfd3fb405c1bbc6530d63a5e06147d81b9ce64fa118f0d990ae4b3b60f09bbed"
+    },
+    {
+      "path": "apps/backend/src/garimpei/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/consume_listing_events_usecase.py",
+      "sha256": "da803d6dbd695e5003290ce785aea89c625502bae45e9f4cdded3900a4886fbc"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/evaluate_alert_usecase.py",
+      "sha256": "0a0889083898f9e6adb942e3acfd22e26f2ce83cc4c5d1dadc8fc2edf0b2368f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/reconcile_alert_usecase.py",
+      "sha256": "ed0e271a185e7a1927989f0910ea29be9ec06d7de1be5b881f0b1f9788d5d08d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/alert/send_alert_usecase.py",
+      "sha256": "5732506ac755ce781f9c1e5f15cc48635b009bafd70bf91a73c032c2d872a06c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/pause_inference_usecase.py",
+      "sha256": "abc3bfbf10a7107e48f0b1852f0cda26f40d2ae1c9ea30746049a7c9e5d5c2f4"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/read_analysis_usecase.py",
+      "sha256": "4e188422edb7be161a844419263b61693cf03df80655ca9820993c90e555db54"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/read_status_usecase.py",
+      "sha256": "17d5bf36b9fad6eea3718f718a1e0df03f9445a01def6d962abc42dd9e49a1b1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/request_analysis_usecase.py",
+      "sha256": "74c35968c4ad9f45bcadf58ea008ea18a648110d97fa6101dff19c462a61e9d6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/resume_inference_usecase.py",
+      "sha256": "736f5fc0115a3ecc2a83f21a5a514e419ebaedd9d9e949f7358778ccfaefae3a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/inference/run_analysis_usecase.py",
+      "sha256": "1356c32d148d634b0e3def122927443f72386c4b12161baed0b3789847ef2135"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/configure_whatsapp_usecase.py",
+      "sha256": "016c8b68960562518b1bb4f90bbc121ca48e99d9fe3e9150a3e1c6297db671e9"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/confirm_facebook_login_usecase.py",
+      "sha256": "3a835fb66736365bb2caf9368901bbf5f3de06cc9213c6d9aa3375a81cf2648c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/connect_whatsapp_usecase.py",
+      "sha256": "de2a643d128198c39cc52b999fe3dbde6bb1a93d1c52226b8ff521667f4a6df5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/read_facebook_status_usecase.py",
+      "sha256": "69dca8bcca7ebc26ffd661eea243436e5014a7f163e30ea827c4c9f8b74eeb7d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/read_integrations_usecase.py",
+      "sha256": "3ff152252d9d5fd64315f8033df1897e497a5fed4a314e7e725eb0b1f41cead0"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/read_qr_usecase.py",
+      "sha256": "b067353fa226944332f8c7012837e47d6ae12f2e88b181b8756608acd73e0a28"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/request_facebook_login_usecase.py",
+      "sha256": "d012bb4406d6c5b66cc4bf203bf72e150893d2f363a8a59bbb200cd2e4f439d5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/integration/save_facebook_usecase.py",
+      "sha256": "11b8dee9fd2178b07d7c93469a7b1474d02f55ddad8546c29f361a28eefafc4a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/classify_condition_usecase.py",
+      "sha256": "39b003f89a9f077dc4d4e6857786220e08d01b42de85a9c3620cc923711cb0a8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/collect_listings_usecase.py",
+      "sha256": "bb4e17e0356e93b55b3ea64cbef0ee63aaa609d8df9238503759fa81c8c7cfac"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/list_conditions_usecase.py",
+      "sha256": "f8312e7f113d1cb8515b3f357815cbeebd830d360e82476712fd2e996f60cb4a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/publish_exploration_usecase.py",
+      "sha256": "d33df5f42a93a98e0c7a98ce5e7e77952bae56009e85d76c7c3ccdbd8f964b75"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_collection_status_usecase.py",
+      "sha256": "80f6d89a08612c5d89f48cfc5ad0bc9b9786b716b2a86bac63462e36d44f4bbb"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_condition_usecase.py",
+      "sha256": "8ac7b004ff3b5c25110c890eddd739d24726b3ebb52127ec71dedded9934582e"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_exploration_updates_usecase.py",
+      "sha256": "ae2233ad8873a14144a76b84d35b11aeb8494f608c1d5ee2eb25012e93441c8d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_listing_changes_usecase.py",
+      "sha256": "06d5e7dc8c6f0ffdce9e00d53540e868ea1cf8e44465fb5cc783f613b05f4b42"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_listing_usecase.py",
+      "sha256": "65860244b09714f2bccb9467830c5d29732acf5594b704c6700954b6525e993c"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_offer_detail_usecase.py",
+      "sha256": "053d91f90c053bdd28991345392c99a1bc12f06191a42981731ceb037cb63b5f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/read_offers_usecase.py",
+      "sha256": "28cd556e50d6f481140e08028f896ed7002cc08a9008cd397e4b6e7309ad7c75"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/listing/schedule_collection_usecase.py",
+      "sha256": "e50f872c05d461e2e5ed75e506051ba19f99aa5c17e1345ad77ab9e320a5c161"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/complete_configuration_usecase.py",
+      "sha256": "dea9affe93f6db338adcb6a7a6ddff88bf03b973d83ab00bc01354c74d46b1d8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/interests.py",
+      "sha256": "48c21b2698eb4842fa3e6f33f23cedc3ed7dc8d9ae78cd87405cbfb84760a6d6"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/preview_products_usecase.py",
+      "sha256": "c96164ac0b6fb527565dc684604e2ca7e20f84c9fc7847b102fbd2d46a61c870"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/read_catalog_usecase.py",
+      "sha256": "753950bd600ff485dafd6ef9c018cf1922c8bf09b29aca80a089633b1d22a58a"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/read_configuration_usecase.py",
+      "sha256": "76d75a56676338ac3ab014e4eb1ca43940d43f5bc797f33be31fdffa3a030c91"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/read_form_usecase.py",
+      "sha256": "46fa40c0e8fe62d4f99a8a0e709a744733ee5a8ad5cf90001020cae155435ca5"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/save_step_usecase.py",
+      "sha256": "ab79b82be66661460ecc3907a3bc96b37dac1a9d782a9d8f09542d017c11866d"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/monitoring/update_configuration_usecase.py",
+      "sha256": "3d41a21ec9899a88d39585200a5a91a23a8f9c1c4e5d50266b62479888fd1198"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/runtime/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/runtime/check_readiness_usecase.py",
+      "sha256": "e21e2081c304e3dd6755541e82b366b520ecc97872c73fddec606e0902288ef3"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/evaluate_usecase.py",
+      "sha256": "82d1ac2194f6e3b335154c4eb6df6a5a2a654f36dfcf74a7b2a53b905c82bfd8"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/read_profit_usecase.py",
+      "sha256": "a0dac623d48698e3e6166804e960fa9c3c6c7ee681ec3469c3a95494f2a2a95b"
+    },
+    {
+      "path": "apps/backend/src/garimpei/usecase/valuation/read_valuation_usecase.py",
+      "sha256": "3dc6807cdd841bef691380922a0b2386a72d524b8d4f890500dee2f3e21e39a3"
+    },
+    {
+      "path": "apps/backend/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/conftest.py",
+      "sha256": "7d24aa62248110b3039a2a28b91e394948524299270fccb908b1160aff6c41c9"
+    },
+    {
+      "path": "apps/backend/tests/factories/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/factories/alert.py",
+      "sha256": "95cbbe33b464625a5b2a147036c2ea1288355b06e98d177cc8857f92c43933e1"
+    },
+    {
+      "path": "apps/backend/tests/factories/alert_scenario.py",
+      "sha256": "e7e697d21c1b1d10effd7533f7cf42e308d4c080bf286a169782baef32df1e0c"
+    },
+    {
+      "path": "apps/backend/tests/factories/condition_http.py",
+      "sha256": "448badcc6a3c1881e633be2dae7c22a1bbfe78ed267c886452eddb68a537f917"
+    },
+    {
+      "path": "apps/backend/tests/factories/condition_lab.py",
+      "sha256": "9bef2803f43029a3908822e6ae666380942e83dbe5fc6c004caa4f68ce3ce738"
+    },
+    {
+      "path": "apps/backend/tests/factories/exploration.py",
+      "sha256": "7a6610c28c360637230c405ea7fa40f8c2c195c5e6721b0e7039f8ed5ee5e86c"
+    },
+    {
+      "path": "apps/backend/tests/factories/exploration_states.py",
+      "sha256": "5d8a49430e7852b2c9504e508ac2171b91ec65979b6a9621abb736196384d93f"
+    },
+    {
+      "path": "apps/backend/tests/factories/facebook_login.py",
+      "sha256": "249369a368ca44b651640cdfb38e8aa40f53ac866afeb61afe382a1d427aa711"
+    },
+    {
+      "path": "apps/backend/tests/factories/facebook_login_lab.py",
+      "sha256": "11c37fc94f69c4e5d99a6c52c4c190183a90f0532ff1ed1402500031b380cbf7"
+    },
+    {
+      "path": "apps/backend/tests/factories/financial_presentation_lab.py",
+      "sha256": "f6f4479b6c3502682ff2751b741bf5723c06521e95075ccb7e4d8de134f1fe16"
+    },
+    {
+      "path": "apps/backend/tests/factories/inference.py",
+      "sha256": "47e5c6c954f3db90b824447baa8b2025f0983529ec2859b9d56c2b4d9bf073b2"
+    },
+    {
+      "path": "apps/backend/tests/factories/integration.py",
+      "sha256": "be72a32e897693c35b77f73d45cdfee75cd6d41e415247fd32a1de3a9044d1f3"
+    },
+    {
+      "path": "apps/backend/tests/factories/integration_lab.py",
+      "sha256": "62075168c75b7b5396b40f92a726639c73dd1d7da0c5b1df3717ba2dbbe6f8aa"
+    },
+    {
+      "path": "apps/backend/tests/factories/listing.py",
+      "sha256": "3be9aca7c65125d86c06ceb307275c4fd5086e887cbdebb6e64e2c0ed1e5f131"
+    },
+    {
+      "path": "apps/backend/tests/factories/monitoring.py",
+      "sha256": "d712334684fc37b2cd7d91f232f481b799c6f4228340fbbf1c15b6347e3fafb5"
+    },
+    {
+      "path": "apps/backend/tests/factories/runtime.py",
+      "sha256": "30e5364ef7ec96b9ea3a1d774efff4c3ee31d91f513bbb041097b28b9190fd21"
+    },
+    {
+      "path": "apps/backend/tests/factories/valuation.py",
+      "sha256": "f41cfbe54959303beaf84410c6cc2307dfc0b9275cfb878de004d61ed2d64390"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/alert/cases.json",
+      "sha256": "12e31dc1de7ba1f54457052d73f213ba07e54f4461985d5336f8b2c3171b974f"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/foundation/cases.json",
+      "sha256": "f73b087f52bd650a30ad465717ead054f49573a677c5157d68bbab42b8f2cc59"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/inference/cases.json",
+      "sha256": "91d795915e885fd3d7a90452f64dc0367837c01fa72ab1b1dd032352c036eaac"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/inference/image-a.png",
+      "sha256": "c3cfe8e9789ed976ae760c18d48457221f651fe201841cdf339b80e8e5ab3f2f"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/inference/image-b.png",
+      "sha256": "ed22b0aadd53f7b0cb6529282cd02dfb76ae31a18530f6b6520343ec52d0823d"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/listing/condition_cases.json",
+      "sha256": "0089847f34e5ac18843f314a63fa083fffaa78423aa13df86322bdcb2e467ae0"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/listing/exploration_cases.json",
+      "sha256": "d02f8bd59371a130decb893aa25f6ea1fa959709593589e519e553f3f75e5dbe"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/listing/marketplace.json",
+      "sha256": "ea4996dbb4be5d738bbaa75f4481228030463281c17923fd4498208ebe0cf743"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/monitoring/cases.json",
+      "sha256": "c751b9ede604810242df921d7b580660b6f3ed5ad2e2cf0492f06e38ef39e283"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/valuation/cases.json",
+      "sha256": "5d42abdc97057e569ef1a0cb63069fedccc1dbfe8a9f0097396a7d6af19b404a"
+    },
+    {
+      "path": "apps/backend/tests/fixtures/valuation/financial_presentation.json",
+      "sha256": "570fb531ec87b091eab8cdba8570e64e2dc6c0654626d72332199b7e5c5e3891"
+    },
+    {
+      "path": "apps/backend/tests/http/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/http/test_condition_recovery.py",
+      "sha256": "5263f456221b824ed54b0ae3a3ea7a16e7b62cb5955276085b7013dee1ae85e5"
+    },
+    {
+      "path": "apps/backend/tests/http/test_financial_presentation.py",
+      "sha256": "6d5fb757a582610418126a9ff2ca06d39a4cc7151f0974449bc75ff6b7a28eae"
+    },
+    {
+      "path": "apps/backend/tests/http/test_health.py",
+      "sha256": "45ac340b78f89fc464d1a9680ebae94c4e247975cf55f6b5c886386e2df76cdd"
+    },
+    {
+      "path": "apps/backend/tests/http/test_listing_condition.py",
+      "sha256": "7a0629c74ed264e8d4e65e9c7173cc07101fe58e208d5ee00acef7ff1273b16e"
+    },
+    {
+      "path": "apps/backend/tests/http/test_monitoring.py",
+      "sha256": "47e8028eb646371af1a6250f809318618ace0ba607b686ded315cd164d466119"
+    },
+    {
+      "path": "apps/backend/tests/http/test_tracking.py",
+      "sha256": "3028f4ca1e0f5e6278c781a71fc6184f53c2f723afa26f97cd776c572e7943ce"
+    },
+    {
+      "path": "apps/backend/tests/integration/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_alert_consumers.py",
+      "sha256": "cd136329c5e6e74ba0d6a9a7be3afecd0775594f378d98699acf0cc04c49263a"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_alert_delivery.py",
+      "sha256": "15d0cbbac46664d846d10d0361faf081ed67cc0b4a16406d50c7781d300da38d"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_alert_gateway.py",
+      "sha256": "ab66998f5ee745635ad1c0bd176f30a729c37b6b4605d6a15e06586a5334e588"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_collection.py",
+      "sha256": "53accd0ecaae4a6cd63acbe8367c61862bce9690467dedcc89e056ccb5407922"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_concurrency.py",
+      "sha256": "4c057d843458353dd9600b83c86825393b4214c5c7c563f6d49a0b28f034acf8"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_exploration.py",
+      "sha256": "25fcf45cb82482892da976f61d3a04974c5b3ec028d99d87831da81995fe98c3"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_facebook_gateway.py",
+      "sha256": "ecbf2f133927107de9520e15c3fe52ce72346aadbb78a79c1b89202a6782de0d"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_facebook_profile.py",
+      "sha256": "91012696e6e0af204b945088d908159b9bb644e248fc8a5b7b929ff7038d9b7b"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_financial_messages.py",
+      "sha256": "22d448a4e34ecf9c8ddeea7889731931e4bed21b1b9483ad3ae4ecf022bc2b6d"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_foundation.py",
+      "sha256": "4d1139c295839c7333b97452330249044441f9df80fe5eba541bfdf84c23757b"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_inference.py",
+      "sha256": "ee43840a876a3b26920930084fe98ebe6d21cfb1db1c4d4f96dc85a3d5924367"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_integrations.py",
+      "sha256": "19eb2feeadb762e8f730acb1e8ced4c372ce8ca856ea6550df57d802cbc6452c"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_listing_condition.py",
+      "sha256": "ca2d1c3fb3821d80c277bfc72a49904c2ecf97883a7683f9a24f7dea3a6184fc"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_marketplace_browser.py",
+      "sha256": "13e9b95ff21af92e3cd5a3084fe287a55f192c6e27b800d3884e2877afbe23db"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_monitoring_persistence.py",
+      "sha256": "af2836f794838f46c6c43ed6affbdf19205ae09fe45625918c160c72b3b9c514"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_profit.py",
+      "sha256": "38f3311cafd63398386e9c685a7c601627a00b6430933f6435161283b262acac"
+    },
+    {
+      "path": "apps/backend/tests/integration/test_valuation.py",
+      "sha256": "aef473bd773116f8299ff9efcd6f166765900e31e2f5853e4f710d03f5afabbf"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_copy.py",
+      "sha256": "ba29a57e1ab04e9050723fc7cde789984531a2336fb24f88128483a207aabc8c"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_network_cleanup.py",
+      "sha256": "acee6ee96e44f3aff5b25597c3104fa621233c87dd666cad6e6234678a8ae05b"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_operations.py",
+      "sha256": "0dca0c240e981098da6ded6c92c36a139d8aed05d063291d730949d0f78381c1"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_rollback.py",
+      "sha256": "467d6e37a87bfcf27bccc2a563e33044649a9ffb37e331f607ee4be4658cc0a2"
+    },
+    {
+      "path": "apps/backend/tests/lifecycle/test_startup_failures.py",
+      "sha256": "23ab2a72b74157b792bbaa5a7e63add5bbbbdbb239cc4ea432a8f24579e7a9f0"
+    },
+    {
+      "path": "apps/backend/tests/quality/test_gate_failures.py",
+      "sha256": "2877d7175c383757ce78738112d4a8194144efcfb57e0f90663d3239f3ab64c5"
+    },
+    {
+      "path": "apps/backend/tests/unit/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_alert_policy.py",
+      "sha256": "da8bb35ba2d5180ea4c226c0229770c184e88be0566b657ae173af22846798b0"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_config.py",
+      "sha256": "52fab23f78f2797051e03fd1b17dbdf6b0531996dd0b6ed95ab2149b84ae2447"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_error_handler.py",
+      "sha256": "8316a265b7fee84bc00148b955b37dfd64e5924be215bcfa37964dee4d2719a4"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_exploration.py",
+      "sha256": "27eadafe80611c682ee13cb17c352a7795ec0acb5feaae2f01d4830a2393288b"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_facebook_browser.py",
+      "sha256": "bfcd541d2e17ff104d96c9710bd5fa016f8e9e31e3d6b91c2760028bc6602970"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_financial_presentation.py",
+      "sha256": "a6b1ecd6798a522d5fd6dc9203649a480db47ad3b1d5cfde66f392b67cc14788"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_artifacts.py",
+      "sha256": "b8dffe13c2189df61035a499fd3a8aa88234bf7d571b8dac1dbb1e1513838014"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_docker_transport.py",
+      "sha256": "e95b32c5cf873f69eb6a49aed0714e4ee2aa6d0c9b858d2277bc95d62990621b"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_gateway.py",
+      "sha256": "0fd17c25aa6ae52963a5eca9a80687b4de62c986ce2fde631eb16437a07341b7"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_inputs.py",
+      "sha256": "6f0cdd6c7af0aff33ef0772a6283cd63c0b0874fc057c515fcef5dbfe65169f6"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_inference_policy.py",
+      "sha256": "8a31a52fd61106d857bfc9c0db2af514f143be2686cf51a28bcde566f4bf81be"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_integration_policy.py",
+      "sha256": "9a7e0225133788801e973b3dfd1f12bef025d5b73f94f859bc1c58c99700001d"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_listing_condition.py",
+      "sha256": "9f2e372acaf81752e3d19602f358c4dd56ea5ee9dbb654f691ca8dbf73fc294f"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_listing_policy.py",
+      "sha256": "c51f0a5d1949ef0729250fc9d7d6db194319ba489c532a6c511b2e27e0bb7e8e"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_listing_window.py",
+      "sha256": "075d960c1c9182e715ea08f2ea0df4d9267ab8c2a4e13baa31dadca237e94f2d"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_logging.py",
+      "sha256": "b28ec38391180fbd460571efeb820c30436212c7d51808d02acd9fbc125ae088"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_marketplace_parser.py",
+      "sha256": "8a0807c72f9ea6e8db8a8cb8e7b7f431320bfa9d193ade00409cf183666dba4b"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_marketplace_source.py",
+      "sha256": "35fb9ca06e73ed24a5394f027601dcb34c4aebedb02dbaa05ff9db8f226e425a"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_monitoring_catalog.py",
+      "sha256": "01a191e34e1f47d3a1ac1a9efe5745284a61087de89cd6e7303fbf3bf5e2037a"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_monitoring_configuration.py",
+      "sha256": "46a0bd0c0d331b7c972c8a85c8ab4b2b1ab1a31b6d195849067d7f021889ae28"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_opportunity_improvements.py",
+      "sha256": "0d5a64f5414a677c822ee6d82ede8dcb64ecfddcc2f09a28aa36ed313381d9b6"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_profit.py",
+      "sha256": "731aa32787b099368fda00f2cfa9b7cf776788e7f3ded5efa47742fdefe07cfb"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_readiness.py",
+      "sha256": "3c33cc92536cddbfd803419b19072e739aca74298ac2879f41948dc9d7ec46d8"
+    },
+    {
+      "path": "apps/backend/tests/unit/test_valuation.py",
+      "sha256": "a816dffc235dde7e1d65b58adacf6561d90d059b20e4d0c366aef276c33eafbc"
+    },
+    {
+      "path": "apps/backend/typings/playwright_stealth/__init__.pyi",
+      "sha256": "04cfc522f2be7c08ff52cf19bba80d914a242fb4dd4400ef5dba168272bab66d"
+    },
+    {
+      "path": "apps/backend/uv.lock",
+      "sha256": "2094ee2181d99c850c5f8748ca4807f12c0ca2e2964edd1a4d7d37d8c04a2b3b"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "1c24429bcd215244cfa7a300c1c9a40685133bff85406252657e6d25657d731f"
+    },
+    {
+      "path": "scripts/check-harness.mjs",
+      "sha256": "4bedc53624f5f280386705d85f091e87b8932c7b6725f33b17ca001ad16f92d2"
+    },
+    {
+      "path": "scripts/init.sh",
+      "sha256": "0e6785ad14e50559eab05d931b5992c7499887e8f5cb5688ce5b5e136a0883e0"
+    },
+    {
+      "path": "scripts/migrate-dev.sh",
+      "sha256": "46f3342fdd50c8df3bda03ff4fe5848c2e40384970c65838adf4c06dcbea3f9e"
+    },
+    {
+      "path": "scripts/resolve-env.sh",
+      "sha256": "f6c609297482c602bf13c8b109de1e90b1a083a743ee2b8dc66964a9cc466622"
+    },
+    {
+      "path": "scripts/run-gates.mjs",
+      "sha256": "d933ba30653b0c69366d415c90b41d7de923c912a999fac16261d060379bf957"
+    },
+    {
+      "path": "scripts/setup-codex.sh",
+      "sha256": "7a6b7555fe23830d62613a661bf35c7e869b6f29bea236868ac708cc11ac9117"
+    },
+    {
+      "path": "scripts/spawn-detached.mjs",
+      "sha256": "0e4de742956cee7ea006b39e8784de36ab9e8f7cc9b46ce2ece57181aa1bf4d0"
+    },
+    {
+      "path": "scripts/stop.sh",
+      "sha256": "d3b4a1b042b2787f61b1de98769ad9479e2d3b8372ebde3355705e388a7a8f69"
+    },
+    {
+      "path": "scripts/test/harness.test.mjs",
+      "sha256": "d3b9a0b889f3691564a7dab0a98eb47a2c513d453a01bf0be2d937957e96d6d5"
+    }
+  ],
+  "verified_at": "2026-11-12T12:07:08.253285+00:00"
+}
