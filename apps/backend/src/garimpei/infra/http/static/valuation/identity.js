@@ -6,20 +6,26 @@
     brand: ["camera", "television", "headphone"],
     memory_type: ["graphics_card"],
   };
-  for (const form of document.querySelectorAll(".identity-form")) {
-    const select = form.elements.namedItem("family");
-    if (!select) continue;
-    const update = () => {
-      for (const [name, supported] of Object.entries(families)) {
-        const field = form.elements.namedItem(name);
-        const container = field?.closest("[data-identity-field]");
-        if (!field || !container) continue;
-        const visible = !select.value || supported.includes(select.value);
-        container.hidden = !visible;
-        field.disabled = !visible;
-      }
-    };
-    select.addEventListener("change", update);
-    update();
-  }
+  const initialize = () => {
+    for (const form of document.querySelectorAll(".identity-form")) {
+      if (form.dataset.identityReady) continue;
+      const select = form.elements.namedItem("family");
+      if (!select) continue;
+      form.dataset.identityReady = "true";
+      const update = () => {
+        for (const [name, supported] of Object.entries(families)) {
+          const field = form.elements.namedItem(name);
+          const container = field?.closest("[data-identity-field]");
+          if (!field || !container) continue;
+          const visible = !select.value || supported.includes(select.value);
+          container.hidden = !visible;
+          field.disabled = !visible;
+        }
+      };
+      select.addEventListener("change", update);
+      update();
+    }
+  };
+  initialize();
+  document.addEventListener("htmx:afterSwap", initialize);
 })();
