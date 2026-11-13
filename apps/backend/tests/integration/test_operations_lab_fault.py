@@ -84,6 +84,24 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
         assert report["fault"]["unavailable"] is True
         assert report["control"]["source_available"] is True
         assert report["recovered"] is True
+        measured = invoke("calibrate-faults")
+        assert measured.returncode == 0, measured.stdout + measured.stderr
+        report = json.loads((directory / "fault-calibration.json").read_text())
+        assert report["profile_confirmed"] is False
+        assert report["operational_enablement"] is False
+        for case in (
+            "network_timeout",
+            "slow_valuation",
+            "slow_channel",
+            "disk_full",
+            "archive_interrupted",
+            "export_interrupted",
+            "queue_full",
+        ):
+            rows = [row for row in report["measurements"] if row["case"] == case]
+            assert {row["repetition"] for row in rows} == {1, 2, 3, 4, 5}
+            assert all(row["control"] and row["fault"] for row in rows)
+            assert all(row["disk_free_bytes"] > 0 for row in rows)
     finally:
         closed = invoke("close")
         assert closed.returncode == 0, closed.stdout + closed.stderr
