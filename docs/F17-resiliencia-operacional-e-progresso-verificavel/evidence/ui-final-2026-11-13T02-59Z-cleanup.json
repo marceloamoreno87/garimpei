@@ -1,0 +1,20 @@
+{
+  "cleanup_exit": 0,
+  "inspect_exit": 0,
+  "instances": [
+    {
+      "state": "closed",
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0,
+      "live_process_count": 0
+    },
+    {
+      "state": "closed",
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0,
+      "live_process_count": 0
+    }
+  ]
+}

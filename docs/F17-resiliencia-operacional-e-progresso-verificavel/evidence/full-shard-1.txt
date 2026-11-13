@@ -12,12 +12,12 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-413/test_killed_worker_reconci
     ) -> None:
         import os
         import signal
-
+    
         from garimpei.infra.runtime.processes import verify_process
         from tests.factories.alert_scenario import wait_alerts
         from tests.factories.valuation import listing
         from tests.integration.test_collection import command
-
+    
         with alert_scenario(tmp_path) as (instance, source, clock, channel):
             channel.mode = "lost"
             channel.hold_post = True
@@ -67,11 +67,11 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-413/test_killed_worker_reconci
             clock.advance(61)
 >           wait_alerts(instance, 2, clock)
 
-tests/integration/test_alert_delivery.py:259:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/integration/test_alert_delivery.py:259: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 tests/factories/alert_scenario.py:174: in wait_alerts
     wait_for(confirmed, f"{count} confirmed alerts", seconds=35)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 predicate = <function wait_alerts.<locals>.confirmed at 0x76001b403ba0>
 description = '2 confirmed alerts', seconds = 35

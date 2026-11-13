@@ -44,8 +44,8 @@ navigation_instance = FoundationInstance(root=PosixPath('/home/marce/.codex/work
     """,
         )
 
-tests/integration/test_navigation.py:836:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/integration/test_navigation.py:836: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/0d94/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-412/navigation-db0/f13_49b6b03cf9.env'))
 code = "\nfrom datetime import timedelta\nfrom dataclasses import replace\nfrom uuid import uuid4\nfrom django.db import conn.../',body)\n    assert response.status_code==503 and b'Tente novamente' in response.content\nassert snapshot()==before\n"
@@ -54,7 +54,7 @@ code = "\nfrom datetime import timedelta\nfrom dataclasses import replace\nfrom 
         result = instance.shell(code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 49 objects imported automatically (use -v 2 for details).
-E
+E         
 E         {"timestamp": "2026-11-12T20:37:29.520335+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_49b6b03cf9", "run_id": "1811431f-3126-4c69-91fd-1254ec3a06d7"}
 E         {"timestamp": "2026-11-12T20:37:29.630213+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_49b6b03cf9", "run_id": "1811431f-3126-4c69-91fd-1254ec3a06d7"}
 E         {"timestamp": "2026-11-12T20:37:29.631855+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f13_49b6b03cf9", "run_id": "1811431f-3126-4c69-91fd-1254ec3a06d7"}
@@ -78,7 +78,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 55, in <module>
 E         AssertionError
-E
+E         
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 55, in <module>\nAssertionError\n').returncode
 

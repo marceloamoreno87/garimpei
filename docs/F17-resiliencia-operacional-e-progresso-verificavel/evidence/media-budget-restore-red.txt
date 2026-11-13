@@ -143,8 +143,8 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-464/test_restore_requeues_infl
     """,
                 )
 
-tests/integration/test_operational_inflight_restore.py:79:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/integration/test_operational_inflight_restore.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/0d94/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-464/test_restore_requeues_inflight0/f17_inflight_d4dade72.env'))
 code = "DATA={'archive': '/tmp/pytest-of-marce/pytest-464/test_restore_requeues_inflight0/backups/completed/9964123b-e79d-427...'\ncontrol=InferenceControl.objects.get(pk=1);repo.control(False,control.revision)\nassert repo.claim(now()) is None\n"
@@ -153,7 +153,7 @@ code = "DATA={'archive': '/tmp/pytest-of-marce/pytest-464/test_restore_requeues_
         result = instance.shell(code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 49 objects imported automatically (use -v 2 for details).
-E
+E         
 E         {"timestamp": "2026-11-12T21:26:55.878497+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_inflight_d4dade72", "run_id": "f2712bc6-d455-4796-887f-932730126f38"}
 E         Traceback (most recent call last):
 E           File "/home/marce/.codex/worktrees/0d94/garimpei/apps/backend/manage.py", line 8, in <module>
@@ -175,7 +175,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 19, in <module>
 E         AssertionError
-E
+E         
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 19, in <module>\nAssertionError\n').returncode
 
