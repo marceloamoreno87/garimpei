@@ -21,7 +21,7 @@ Estas condições descrevem o ambiente de exercício do contrato. Sua preparaç�
 
 ### Static inputs
 
-- `apps/backend/tests/fixtures/listing/assessment_cases.json` — casos com ID, categoria/atributos, texto original, fotos/hashes, proveniência, autorização, rótulo humano, sinais esperados, limites e divisão ajuste/avaliação reservada. É entrega futura; revisão humana precede execução do modelo. Used by: SVC-AVALIACAO-01 a 05, SVC-TEXTO-01 a 03, UI-AVALIACAO-01, WRK-IMAGENS-01 a 02, E2E-QUALIDADE-01.
+- `apps/backend/tests/fixtures/listing/assessment_cases.json` — casos com ID, categoria/atributos, texto original, fotos/hashes, proveniência, autorização, rótulo de referência com autoria explícita, sinais esperados, limites e divisão ajuste/avaliação reservada. É entrega futura; revisão de referência precede execução do modelo local. Used by: SVC-AVALIACAO-01 a 05, SVC-TEXTO-01 a 03, UI-AVALIACAO-01, WRK-IMAGENS-01 a 02, E2E-QUALIDADE-01.
 - `apps/backend/tests/fixtures/listing/assessment_images/` — imagens sintéticas identificadas e fotos reais autorizadas do manifesto, com integridade verificável. Imagens reais indisponíveis impedem a prova real, sem promover imagens sintéticas a evidência de qualidade. Used by: WRK-IMAGENS-01 a 02, E2E-QUALIDADE-01.
 
 ### Configuration
@@ -32,7 +32,7 @@ Estas condições descrevem o ambiente de exercício do contrato. Sua preparaç�
 ### External dependencies
 
 - Fakes nomeados de fotos, inferência e WAHA do lab fornecem resultados completos, atraso, timeout, JSON inválido, referência inexistente e contador de transmissão; esses cenários não usam serviços reais do usuário. Used by: WRK-FALHA-01 a 03, WRK-VERSAO-01 a 04, E2E-OPERACAO-01, E2E-ALERTA-01 a 04.
-- E2E-QUALIDADE-01 usa F19 real e fotos autorizadas já disponíveis, sem inferência externa. Downloads de preparação pertencem a F19. Nenhum item exige novo envio ao grupo real ou acesso ao perfil pessoal.
+- E2E-QUALIDADE-01 usa F19 real e fotos autorizadas já disponíveis, sem inferência externa no motor F19 avaliado. A origem de IA da referência é identificada separadamente. Downloads de preparação pertencem a F19. Nenhum item exige novo envio ao grupo real ou acesso ao perfil pessoal.
 
 ## Quality gates
 
@@ -42,7 +42,7 @@ Cada gate deve passar para considerar a implementação pronta. Comandos são ex
 - **Regras e HTTP** — `uv run --directory apps/backend --frozen --no-sync pytest tests/unit tests/http` — regras novas e regressões existentes.
 - **Persistência e integração** — `uv run --directory apps/backend --frozen --no-sync pytest tests/integration` — migrations, concorrência, falhas, alertas e regressões com recursos próprios; separar partições se houver disputa de recursos, sem omitir casos.
 - **Navegador** — `playwright-cli` — jornadas UI/E2E documentadas com screenshots e snapshots; avaliação visual conforme skill `frontend-ui-design`.
-- **Corpus real** — lab e procedimento de `spec.md`, seção 7 — executar E2E-QUALIDADE-01 com GPU real, rótulos humanos e relatório de erros/abstenções/recursos. Prova ausente permanece pendente.
+- **Corpus real** — lab e procedimento de `spec.md`, seção 7 — executar E2E-QUALIDADE-01 com GPU real, rótulos de referência assistida por IA aprovados e relatório de concordâncias/divergências/abstenções/recursos. Prova ausente permanece pendente.
 
 ## Coverage Manifest
 
@@ -52,7 +52,7 @@ Cada gate deve passar para considerar a implementação pronta. Comandos são ex
 | **F15-AC02**: ausência de dano visível, foto genérica ou falta de resposta do modelo não comprova funcionamento nem promove automaticamente condição boa; conflito relevante segue regra conservadora e revisão definida no contrato. | SVC-AVALIACAO-03, SVC-AVALIACAO-04, SVC-AVALIACAO-05, WRK-FALHA-01, WRK-FALHA-02 |
 | **F15-AC03**: decisão manual salva sobrevive a reanálise e reinício; conflito com nova evidência permanece visível, sem sobrescrever a escolha ou enviar alerta pela ação manual. | SVC-MANUAL-01, API-MANUAL-01, UI-MANUAL-01, WRK-FALHA-03, E2E-ALERTA-03 |
 | **F15-AC04**: texto/fotos/política novos permitem reanálise versionada e entrada idêntica reutiliza resultado aplicável; falha técnica conserva histórico e não bloqueia coleta. | WRK-VERSAO-01, WRK-VERSAO-02, WRK-VERSAO-03, WRK-VERSAO-04, WRK-FALHA-02, WRK-FALHA-03, E2E-OPERACAO-01 |
-| **F15-AC05**: usar Qwen3.5 4B Q4_K_M em inferência local F19; comparar com revisão humana no corpus de texto/fotos e publicar erros, abstenções, consumo de GPU e latência. Não inventar meta de precisão ou percentual de certeza. | E2E-QUALIDADE-01, UI-AVALIACAO-01 |
+| **F15-AC05**: usar Qwen3.5 4B Q4_K_M em inferência local F19; comparar com uma referência de revisão assistida por IA, identificada e congelada antes de consultar as saídas do modelo local, no corpus de texto/fotos. Publicar concordâncias, divergências, abstenções, consumo de GPU e latência; declarar que a validação humana independente não foi executada. Não inventar meta de precisão ou percentual de certeza nem apresentar concordância entre IAs como precisão contra verdade humana. | E2E-QUALIDADE-01, UI-AVALIACAO-01 |
 | **F15-AC06**: as três sondagens textuais contraditórias registradas no relatório deixam de ser promovidas automaticamente a boa condição; controles positivo/negativo continuam corretos e a proteção funciona sem depender de resposta da IA. Ressalvas preservam seu trecho e motivo. | SVC-TEXTO-01, SVC-TEXTO-02, SVC-TEXTO-03 |
 | **F15-AC07**: desgaste cosmético leve é mostrado como ressalva e não exclui sozinho uma oferta com evidências suficientes; falha funcional ou dano relevante claramente identificado produz condição automática com defeito. Suspeita visual sem conclusão e conflito relevante não resolvido mantêm condição não confirmada, com critérios e exemplos por categoria documentados. | SVC-AVALIACAO-01, SVC-AVALIACAO-02, SVC-AVALIACAO-03, SVC-AVALIACAO-05, UI-AVALIACAO-01, E2E-QUALIDADE-01 |
 | **F15-AC08**: com F15 ativa, declaração positiva sem fotos ou enquanto a análise está pendente, falhou ou é inconclusiva não autoriza alerta automático; análise visual aplicável concluída e evidência textual suficiente permitem reavaliar o requisito de condição. Uma escolha manual não fabrica análise concluída nem cria envio por si só; demais requisitos e recibos continuam sendo verificados pelo fluxo de alertas. | SVC-AVALIACAO-04, SVC-MANUAL-01, WRK-IMAGENS-02, E2E-ALERTA-01, E2E-ALERTA-02, E2E-ALERTA-03, E2E-ALERTA-04 |
@@ -350,12 +350,16 @@ Cada gate deve passar para considerar a implementação pronta. Comandos são ex
 
 ### Avaliar qualidade real
 
-#### `E2E-QUALIDADE-01` — Corpus humano e modelo local
-- given: ofertas-corpus com `assessment_cases.json` e fotos autorizadas reservadas, rótulos humanos prévios, rubrica por categoria e F19 real na RTX 5070.
+#### `E2E-QUALIDADE-01` — Corpus de referência e modelo local
+- given: ofertas-corpus com `assessment_cases.json` e fotos autorizadas reservadas, rótulos de referência prévios com `reference_method=ai_assisted`, rubrica por categoria e F19 real na RTX 5070.
 - when: executar a análise local do conjunto reservado.
 - then:
   - O relatório identifica modelo Qwen3.5 4B Q4_K_M, revisões e IDs/hashes efetivamente avaliados.
-  - A comparação humana publica matriz de condição, falsos bons, falsos defeitos e abstenções.
+  - A comparação publica matriz referência de IA × condição automática, concordâncias, divergências e abstenções, identificando a ausência de validação humana independente.
   - Erros de evidência e limitações por categoria são publicados.
   - Consumo de GPU/RAM e latência fria/quente são registrados com as condições da medição.
-  - Não há inferência remota nem alegação de precisão aprovada sem meta definida.
+  - O motor F19 avaliado não usa inferência remota; a origem de IA da referência e a ausência de validação humana independente ficam explícitas, sem alegação de precisão aprovada sem meta definida.
+
+## Revisão de método aprovada — 2026-11-13
+
+A aprovação explícita do usuário substitui a revisão humana prévia pela referência assistida por IA em E2E-QUALIDADE-01/F15-AC05. O item conserva seu ID e continua exigindo execução física do Qwen fixado na GPU local, hashes/proveniência, comparação por caso e medidas reais. `independent_human_review=false` e `legacy_human_acceptance_satisfied=false` são esperados para esse método e não devem ser falsificados. O aceite atual decorre desta aprovação documentada e da avaliação observável, não de mudar esses campos históricos. A referência deve estar congelada antes das predições locais; origem sintética versus real das fotos permanece explícita. Sem meta de precisão aprovada, divergências e limitações não podem ser ocultadas. Relatórios anteriores e o requisito humano então vigente ficam preservados como histórico.

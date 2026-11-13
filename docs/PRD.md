@@ -964,7 +964,7 @@ Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F
 - **F15-AC02**: ausência de dano visível, foto genérica ou falta de resposta do modelo não comprova funcionamento nem promove automaticamente condição boa; conflito relevante segue regra conservadora e revisão definida no contrato.
 - **F15-AC03**: decisão manual salva sobrevive a reanálise e reinício; conflito com nova evidência permanece visível, sem sobrescrever a escolha ou enviar alerta pela ação manual.
 - **F15-AC04**: texto/fotos/política novos permitem reanálise versionada e entrada idêntica reutiliza resultado aplicável; falha técnica conserva histórico e não bloqueia coleta.
-- **F15-AC05**: usar Qwen3.5 4B Q4_K_M em inferência local F19; comparar com revisão humana no corpus de texto/fotos e publicar erros, abstenções, consumo de GPU e latência. Não inventar meta de precisão ou percentual de certeza.
+- **F15-AC05**: usar Qwen3.5 4B Q4_K_M em inferência local F19; comparar com uma referência de revisão assistida por IA, identificada e congelada antes de consultar as saídas do modelo local, no corpus de texto/fotos. Publicar concordâncias, divergências, abstenções, consumo de GPU e latência; declarar que a validação humana independente não foi executada. Não inventar meta de precisão ou percentual de certeza nem apresentar concordância entre IAs como precisão contra verdade humana.
 
 - **F15-AC06**: as três sondagens textuais contraditórias registradas no relatório deixam de ser promovidas automaticamente a boa condição; controles positivo/negativo continuam corretos e a proteção funciona sem depender de resposta da IA. Ressalvas preservam seu trecho e motivo.
 - **F15-AC07**: desgaste cosmético leve é mostrado como ressalva e não exclui sozinho uma oferta com evidências suficientes; falha funcional ou dano relevante claramente identificado produz condição automática com defeito. Suspeita visual sem conclusão e conflito relevante não resolvido mantêm condição não confirmada, com critérios e exemplos por categoria documentados.
@@ -1132,3 +1132,7 @@ A documentação registra decisões confirmadas e lacunas. Resolver pendência m
 ### Esclarecimento aprovado — localização nativa, 2026-11-13
 
 O usuário confirmou que o filtro de20km funciona e determinou São Paulo como localização na fonte, que dispõe de campo de cidade. Isso substitui apenas o centro de busca pelo CEP definido em12nov; não remove o CEP do cadastro nem dispensa comprovar contexto efetivo, proveniência, limites e critérios F06. IDs/dependências permanecem iguais.
+
+## Aprovação de método — F15, 2026-11-13
+
+O usuário solicitou que Codex revisasse visualmente o pacote com auxílio de IA e confirmou “Sim, adotar referência de IA explícita” para substituir a comparação humana em F15-AC05. A referência deve identificar autoria/metodologia de IA, preservar os rótulos antes da inferência local e manter explícita a ausência de validação humana independente. A execução avaliada continua usando o modelo local F19 fixado e fotos reais autorizadas separadas dos controles sintéticos. A concordância entre IAs não constitui comprovação independente de precisão. IDs, dependências e demais requisitos conservadores da condição permanecem os mesmos.

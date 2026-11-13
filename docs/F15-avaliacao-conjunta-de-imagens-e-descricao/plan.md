@@ -10,7 +10,7 @@ Os caminhos e formatos estão em [spec.md](spec.md); os observáveis em [contrac
 
 **2. Condição e evidências** — Consolidar proteção textual, rubrica por categoria e resolução da condição com precedência manual. Definir abstenção e suficiência como regras de domínio compartilhadas pelos consumidores.
 
-**Verificação da fase:** contratos de entrada comprovados; três regressões protegidas sem IA; tabela de casos de desgaste/dano/suspeita/foto ausente com resultados esperados e rubrica humana revisada.
+**Verificação da fase:** contratos de entrada comprovados; três regressões protegidas sem IA; tabela de casos de desgaste/dano/suspeita/foto ausente com resultados esperados e rubrica revisada com autoria/método explícitos.
 
 ## Fase 2 — Avaliações persistentes
 
@@ -30,8 +30,12 @@ Os caminhos e formatos estão em [spec.md](spec.md); os observáveis em [contrac
 
 ## Fase 4 — Qualidade e entrega
 
-**7. Corpus e medição real** — Executar o conjunto reservado com F19 real e publicar resultados contra a revisão humana, erros, abstenções e consumo/latência. Distinguir prova sintética de integração e qualidade observada em fotos reais autorizadas.
+**7. Corpus e medição real** — Executar o conjunto reservado com F19 real e publicar resultados contra a referência assistida por IA aprovada, concordâncias/divergências, abstenções e consumo/latência. Distinguir prova sintética de integração e qualidade observada em fotos reais autorizadas.
 
 **8. Consolidação** — Preparar relatório de implementação, operação do lab e mapa dos itens do contrato para suas evidências. Registrar pendências reais de dependência/qualidade e manter o ciclo de avaliação sem declarar conclusão antecipada.
 
 **Verificação da fase:** `node scripts/run-gates.mjs`, suites aplicáveis da spec, migrations, navegador e corpus real. Conferir Coverage Manifest completo; gate ausente/falho ou dependência não comprovada mantém entrega pendente.
+
+## Atualização aprovada — 2026-11-13
+
+Preservar IDs, DAG e verificações determinísticas. A fase 7 usa referência assistida por IA aprovada, congelada antes das predições; registrar ausência de validação humana independente. Exercitar pré-condições reais de prontidão do transporte e GPU com prazo finito, além dos controles. A falha inicial de aquecimento não deve ser escondida nem resolvida com bypass de pins/GPU. Somente resultados físicos vinculados ao corpus e gates aprovados permitem concluir o aceite revisado.
