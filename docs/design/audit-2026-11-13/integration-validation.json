@@ -1,0 +1,76 @@
+{
+  "state": "passed",
+  "base_master": "d8c53ae960715a90512d260c75e15bd574c396f5",
+  "ui_commit": "9d3990fbb09ef46497bdef4269d4e7b0f20db750",
+  "integration_commit": "40e831611caf158304e583b74dbb78265aedd878",
+  "validated_source_commit": "d245b643a9034f66d0dc4ca9437d0a2ca3448712",
+  "validated_backend_tree": "3275fd962d9c5f133c5fe4cefc738d1785b77f36",
+  "full_suite": {
+    "collected": 899,
+    "unique_executed": 899,
+    "passed": 899,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "missing_nodes": [],
+    "duplicate_nodes": [],
+    "changed_source_inputs": [],
+    "groups": [
+      {
+        "index": 0,
+        "passed": 126,
+        "failed": 0,
+        "skipped": 0,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "passed": 178,
+        "failed": 0,
+        "skipped": 0,
+        "exit_code": 0
+      },
+      {
+        "index": 2,
+        "passed": 595,
+        "failed": 0,
+        "skipped": 0,
+        "exit_code": 0
+      }
+    ],
+    "evidence": "integration-tests/manifest.json"
+  },
+  "attribution": "The run manifest references 40e8316 with the route-context fix present in its frozen working inputs; those exact inputs were committed as d245b64 and stayed unchanged throughout the runs. The earlier sequential invocation was interrupted to partition execution and is not counted as suite completion.",
+  "browser": {
+    "cases": 20,
+    "flow_checks": 8,
+    "violations": 0,
+    "incomplete": 0,
+    "horizontal_overflow": 0,
+    "page_errors": 0,
+    "evidence": "post-merge-results.json"
+  },
+  "gates": {
+    "groups_passed": 6,
+    "exit_code": 0,
+    "command": "node scripts/run-gates.mjs"
+  },
+  "harness": {
+    "check_exit_code": 0,
+    "tests_exit_code": 0,
+    "tests_passed": 4
+  },
+  "documentation": {
+    "artifact": "documentation-sync.json",
+    "feature_status_headers": 66,
+    "contracts_preserved": 22,
+    "plans_preserved": 22,
+    "progress_preserved": true,
+    "broken_local_links": 0
+  },
+  "feature_acceptance": {
+    "F21": "implemented; real positive proof remains blocked",
+    "F22": "done; preserved"
+  },
+  "publishing": "All source changes and current documentation are authorized for normal fast-forward integration and push to master; remote publication is verified separately after execution."
+}

@@ -1,5 +1,10 @@
 # Plano de implementação — F14
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T12-24-34Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 Especificação: [spec.md](spec.md). Aceite: [contract.md](contract.md). Dependências: F04, F08 e F12 avaliadas; F14 continua `pending`, prioridade 1 e onda 11. Este plano não autoriza implementação de outras features, execução paralela, commit, push, deploy ou envio ao WhatsApp.
 
 ## Pré-requisitos

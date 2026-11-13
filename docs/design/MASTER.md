@@ -1,6 +1,6 @@
 # Garimpei — Mineral
 
-Status: direção visual clara/editorial e composição editorial escolhidas pelo usuário. Componentes e telas são artefatos navegáveis de design, versão 0.2; a aplicação ainda não foi implementada. Os fluxos e estados estão na [referência de interação](flows-reference.md), com [verificação própria](verification-v02.md).
+Status: direção visual clara/editorial e composição editorial escolhidas pelo usuário. O laboratório histórico é a versão 0.2; a aplicação Django foi implementada e refinada seguindo esta direção. Consulte [implementation.md](implementation.md) e a [auditoria](audit-2026-11-13/README.md) para o estado aplicado. Os fluxos e estados estão na [referência de interação](flows-reference.md), com [verificação própria](verification-v02.md).
 
 ## Intenção
 

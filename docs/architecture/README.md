@@ -1,6 +1,6 @@
-# Garimpei — arquitetura proposta
+# Garimpei — arquitetura
 
-Data: 2026-11-10. Estado: **proposta de arquitetura, sem aplicação implementada**.
+Desenho inicial: 2026-11-10. Atualização: 2026-11-13. A aplicação Django está implementada; leia o [mapa da implementação](implementation.md) e o [estado de execução](../status-atual.md). Os desenhos abaixo preservam a proposta original e suas fontes.
 
 Esta documentação detalha como implementar o [PRD](../PRD.md) com a [stack aprovada](../stack.md). Não substitui as especificações e contratos das features nem resolve automaticamente as pendências do discovery.
 
@@ -13,9 +13,10 @@ Esta documentação detalha como implementar o [PRD](../PRD.md) com a [stack apr
 | [Operação, validação e pendências](operacao-validacao-e-pendencias.md) | Processos locais, isolamento, readiness, gates e decisões que bloqueiam implementação |
 | [Índice dos ADRs](../adrs/README.md) | Decisões já tomadas, alternativas e consequências |
 | [Vocabulário](../../CONTEXT.md) | Termos do produto extraídos do PRD |
-| [Design system e protótipos](../design/README.md) | Proposta visual navegável e biblioteca HTML isolada; não é interface Django implementada |
+| [Interface e design](../design/implementation.md) | Convenções da aplicação, auditoria visual e limites; o laboratório histórico permanece separado |
+| [Implementação atual](implementation.md) | Processos, módulos, fontes operacionais e integração de F21/F22 |
 
-## Estado observado e limites da evidência
+## Estado observado na elaboração original — histórico de 2026-11-10
 
 No início deste trabalho, `apps/` não existia; os diretórios `docs/architecture/` e `docs/adrs/` também não existiam. O repositório continha instruções, PRD, decisões de stack e o harness, com F01–F09 em `pending`. Não havia código Django, migrations do produto, worker ou avaliação de integração a apresentar como arquitetura implementada.
 
@@ -41,7 +42,7 @@ Um ADR com status **Aceito** registra uma decisão de direção. Não significa 
 - Sem Redis inicialmente; sem stack de microserviços ou infraestrutura em nuvem exigida pelo MVP.
 - Dependências voltadas às regras de negócio, DI por construtor, composição explícita e configuração central, conforme [AGENTS.md](../../AGENTS.md).
 
-## Visão de execução proposta
+## Visão de execução da proposta original
 
 ```mermaid
 flowchart LR
@@ -101,4 +102,4 @@ As fontes locais prevalecem para requisitos e autorização. Documentação de b
 
 Foram consultados também os recursos locais de geração ADR da skill `adrs-management` e as referências de composição, configuração, eventos e anti-patterns de `clean-arch`. Não foram inferidos commits, métricas ou decisões a partir de código inexistente.
 
-Fontes oficiais para os pontos de integração: [registro de aplicações Django](https://docs.djangoproject.com/en/5.2/ref/applications/), [transações Django](https://docs.djangoproject.com/en/5.2/topics/db/transactions/), [suporte assíncrono Django](https://docs.djangoproject.com/en/5.2/topics/async/), [conexão externa no Procrastinate](https://procrastinate.readthedocs.io/en/stable/howto/production/external_connection.html), [integração Django/Procrastinate](https://procrastinate.readthedocs.io/en/stable/howto/django/configuration.html), [HTMX](https://htmx.org/docs/). A referência à documentação Django 5.2 não fixa a versão do projeto; versões compatíveis continuam pendentes para F02.
+Fontes oficiais para os pontos de integração: [registro de aplicações Django](https://docs.djangoproject.com/en/5.2/ref/applications/), [transações Django](https://docs.djangoproject.com/en/5.2/topics/db/transactions/), [suporte assíncrono Django](https://docs.djangoproject.com/en/5.2/topics/async/), [conexão externa no Procrastinate](https://procrastinate.readthedocs.io/en/stable/howto/production/external_connection.html), [integração Django/Procrastinate](https://procrastinate.readthedocs.io/en/stable/howto/django/configuration.html), [HTMX](https://htmx.org/docs/). As referências documentam a proposta original; as versões efetivas estão no lockfile e em F02/versions.md. A implementação atual está no mapa indicado no início.

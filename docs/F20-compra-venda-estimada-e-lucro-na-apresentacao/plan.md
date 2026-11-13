@@ -1,5 +1,10 @@
 # Plano de implementação — F20
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T03-22-50Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 Pré-requisitos: [spec](spec.md), [contrato](contract.md), F07/F08/F09/F12 avaliadas e Python/Django, uv, Docker/PostgreSQL, worker e ferramentas do harness atuais. Confirmar arquivos/lock no início; não atualizar dependências para uma alteração de apresentação. Preparar instância `eval` própria com credenciais privadas e fonte/canal sintéticos pelas factories existentes. Executar `./scripts/init.sh --disposable` antes do trabalho que precise da aplicação; encerrar somente os processos próprios ao finalizar.
 
 A F20 permanece `pending` até o início explícito da implementação. Este plano não inicia outras features, deploy, commit ou envio real. Coordenar arquivos compartilhados de exploração/alerta com F14/F16/F17/F18; a onda 11 não autoriza alteração simultânea desses arquivos.

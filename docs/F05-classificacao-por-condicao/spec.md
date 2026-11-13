@@ -1,5 +1,10 @@
 # F05 — Classificação por condição
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T17-03-39Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade** média · **Onda** 5 · **Dependência direta** F04
@@ -99,3 +104,7 @@ Serializar gravações manuais e substituições da observação relevante pela 
 | Integração F04/F05/F09 | Injetar observações sintéticas no ponto de entrada da coleta F04. Comparar condição publicada, identidade, eventos e intenções antes e depois da ação manual. Exercitar F09 por seu contrato de consumo quando disponível. |
 
 Usar os gates e pré-requisitos de [contract.md](contract.md), com as instruções de ambiente de [F02](../F02-fundacao-tecnica-e-ambiente-local/operations.md).
+
+## Apresentação atual — 2026-11-13
+
+Trocar condição conserva foco na aba selecionada; classificação manual e correção continuam com suas regras originais. Página de oferta inexistente apresenta título e recuperação para a lista. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

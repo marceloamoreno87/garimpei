@@ -1,5 +1,10 @@
 # F04 — Plano de implementação de coleta e acompanhamento de anúncios
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T14-50-42Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 **Pré-requisitos**
 
 - F03 avaliada e integrada, com leitura da configuração confirmada e catálogo local. F02 operacional com os componentes e versões registrados em [versions.md](../F02-fundacao-tecnica-e-ambiente-local/versions.md). Subir o ambiente descartável conforme [operations.md](../F02-fundacao-tecnica-e-ambiente-local/operations.md).

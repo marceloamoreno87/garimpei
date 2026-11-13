@@ -1,6 +1,11 @@
 # F02 — Fundação técnica e ambiente local
 
-Data: 2026-11-10. Complexidade: **alta**, pela integração do lifecycle, persistência/fila, dois processos e validadores. Onda: 2. Dependência: **F01**. Estado: **especificada; implementação não iniciada**.
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-10T21-15-47Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
+Data: 2026-11-10. Complexidade: **alta**, pela integração do lifecycle, persistência/fila, dois processos e validadores. Onda: 2. Dependência: **F01**. Estado na elaboração original: **especificada; implementação não iniciada**.
 
 Fontes canônicas: [PRD, F02 e seus quatro ACs](../PRD.md), [stack](../stack.md), [AGENTS.md](../../AGENTS.md), [harness](../harness.md), [arquitetura](../architecture/README.md) e [diretrizes](../development-guidelines.md). Estas últimas distinguem regras vigentes de propostas; esta especificação seleciona detalhes técnicos para F02 sem transformar recomendações de produto em decisões aprovadas. [Plano](plan.md) e [contrato](contract.md) são complementares.
 

@@ -1,5 +1,7 @@
 # Operação, validação e pendências
 
+> Documento de desenho elaborado em 2026-11-10. As menções a implementação ou ferramentas pendentes descrevem aquela etapa. A aplicação já existe; consulte a [arquitetura implementada](implementation.md), a [operação atual](../harness.md) e o [estado das features](../status-atual.md) antes de aplicar o planejamento histórico.
+
 Estado: **operação proposta, ainda sem suporte executável Python**. A escolha local está aprovada; comandos, versões e ferramentas precisam ser especificados em F02.
 
 ## Processos e dependências

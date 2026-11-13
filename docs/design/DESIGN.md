@@ -58,3 +58,5 @@ Levar o CSS de tokens e componentes para os estáticos do produto; traduzir a ma
 ## Aplicação Django — harmonização de 2026-11-13
 
 A direção visual acima foi preservada no refinamento da aplicação. As [convenções de implementação](implementation.md) documentam menu por rota, navegação adaptável, foco após HTMX, estados financeiros e recuperação. O [relatório de auditoria](audit-2026-11-13/README.md) registra inventário, correções, capturas e limites da validação. Esses resultados dizem respeito à aplicação atual; as seções do protótipo continuam como histórico do laboratório.
+
+A [verificação após integrar a master](audit-2026-11-13/integration-master.md) complementa essa rodada com o controle global do robô e a apresentação ouro, preservando os aceites e a pendência real de F21.

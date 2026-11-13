@@ -1,5 +1,10 @@
 # F17 — Resiliência operacional e progresso verificável
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T03-39-54Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade: alta**, por atravessar coleta, avaliações, projeções, mensageria, filesystem e recuperação de dados. Fontes: [PRD](../PRD.md), [stack](../stack.md), contratos/evidências de F02/F04/F06/F08/F09/F10/F12 e arquivos atuais em `apps/backend/`. F017 resolve para o ID canônico **F17**, prioridade 1, onda 11. Dependências: F02, F04, F06, F08, F09, F10 e F12; todas constam como `done` no progresso consultado. Esta especificação não inicia implementação.
@@ -238,3 +243,7 @@ O gate documental da fase 1 foi satisfeito no recorte controlado descrito em [ca
 Os picos são máximos **amostrados a cada 0,1 s**, não ocupação física contínua. A origem teve 2.908 amostras e zero erro; o destino é fechado intencionalmente entre restaurações e os períodos sem conexão estão contados, sem preencher zeros. As consultas por restauração corroboram os tamanhos disponíveis. A idade máxima de 342 s inclui a unidade de recuperação deliberadamente pausada, não latência de trabalho saudável. Os limiares de 180 s/5 s/três falhas/1.000 unidades continuam escolhas de engenharia, exercitadas nos testes de fronteira, sem promessa de throughput ou RPO/RTO. Faltas de espaço são injetadas em eval; não foi necessário preencher o disco do operador.
 
 A confirmação é limitada à carga sintética rastreável, com PostgreSQL/web/workers reais, fonte/canal loopback e arquivos próprios. Os recursos da calibração e dos pares foram encerrados conforme os inventários. A evidência anterior acima permanece histórica. A avaliação integral e as correções de CLI/HTTP identificadas continuam obrigatórias para `done`; `operational_enablement=false` foi conservado.
+
+## Apresentação atual — 2026-11-13
+
+Acompanhamento oferece atalhos entre coleta, etapas, percurso e pesquisa; backups compartilham controles, foco e reflow. Os números continuam representando recortes distintos. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

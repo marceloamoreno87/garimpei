@@ -22,3 +22,7 @@ A implementação usa a direção [Mineral](MASTER.md) e os [tokens existentes](
 As regras compartilhadas ficam em `static/monitoring/style.css`; estilos específicos permanecem nos módulos. Limite seletores de navegação ao componente responsável: um seletor global de `nav a` não deve definir simultaneamente menu, abas e paginação.
 
 A evidência automatizada não substitui leitor de tela, teste com pessoas nem verificação de cada estado de uma integração real. Novas telas devem reutilizar as convenções e repetir as jornadas afetadas no navegador.
+
+## Composição com F21/F22
+
+Após integrar a master publicada, a orientação por rota coexiste com os context processors de integração e do robô. As ações do robô pertencem a Acompanhamento, inclusive em erros. Controle global, resumo nas ofertas e diagnóstico ouro são preservados. A [verificação integrada](audit-2026-11-13/integration-master.md) complementa a auditoria original; F21 conserva sua pendência real e F22 seu aceite registrado.

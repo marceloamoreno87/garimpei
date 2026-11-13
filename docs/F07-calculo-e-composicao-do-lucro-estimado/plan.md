@@ -1,5 +1,10 @@
 # Plano de implementação — F07
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T17-53-22Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 **Pré-requisitos.** F03, F04 e F06 integradas e avaliadas. Preparar PostgreSQL e aplicação descartável seguindo [operações F02](../F02-fundacao-tecnica-e-ambiente-local/operations.md). Confirmar a leitura de configuração ativa, observações e eventos imutáveis de F04 e validade/referência da avaliação F06.
 
 ## Fase 1 — Política e componentes do cálculo

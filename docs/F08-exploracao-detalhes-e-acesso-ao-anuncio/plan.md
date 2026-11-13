@@ -1,5 +1,10 @@
 # Plano de implementação da F08 — Exploração, detalhes e acesso ao anúncio
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T19-05-22Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## Pré-requisitos
 
 - F04, F05, F06 e F07 disponíveis conforme o [PRD](../PRD.md#f08-exploração-detalhes-e-acesso-ao-anúncio). Confirmar dados e revisões de origem, incluindo a composição de F07 e o sinal de indisponibilidade de F04.

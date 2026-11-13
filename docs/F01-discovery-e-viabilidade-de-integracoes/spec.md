@@ -1,6 +1,11 @@
 # F01 — Discovery e viabilidade de integrações
 
-Data: 2026-11-10. Complexidade: **média**, pela diversidade de integrações e de evidências. Dependências: nenhuma. Onda: 1. Estado: **especificação documental; discovery não executado**.
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-10T19-53-58Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
+Data: 2026-11-10. Complexidade: **média**, pela diversidade de integrações e de evidências. Dependências: nenhuma. Onda: 1. Estado na elaboração original: **especificação documental; discovery não executado**.
 
 Fontes: [PRD §§2, 6, 8 e 9](../PRD.md), [stack aprovada](../stack.md), [arquitetura proposta](../architecture/README.md), [harness](../harness.md) e [AGENTS.md](../../AGENTS.md). O [contrato](contract.md) cobre F01-AC01–AC04; o [plano](plan.md) ordena o trabalho futuro. Criar estes três documentos não implementa F01 nem altera `docs/prd_progress.json`.
 

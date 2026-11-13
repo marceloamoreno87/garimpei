@@ -17,7 +17,7 @@ As três primeiras escolhas foram registradas nas respostas “1” do brainstor
 
 O coletor atual já percorre páginas, obtém detalhes e publica lotes durante a exploração. No código consultado, `_scan` percorre interesses em sequência e `_pages` chama enriquecimento entre páginas; `_enrich` percorre seus alvos antes de devolver o controle. Há limites e tratamento de falhas existentes, mas esse encadeamento não comprova distribuição equilibrada entre os interesses e as duas frentes.
 
-Referências da leitura: [coleta](../../apps/backend/src/garimpei/usecase/listing/collect_listings_usecase.py), [escopo](../../apps/backend/src/garimpei/domain/listing/scope.py) e [acesso ao Marketplace](../../apps/backend/src/garimpei/infra/gateway/listing/facebook_marketplace.py). Trata-se de inspeção de código, sem nova execução na fonte real.
+Referências da leitura: [coleta](../../apps/backend/src/garimpei/usecase/navigation/run_slice_usecase.py), [escopo](../../apps/backend/src/garimpei/domain/listing/scope.py) e [acesso ao Marketplace](../../apps/backend/src/garimpei/infra/gateway/listing/facebook_marketplace.py). Trata-se de inspeção de código, sem nova execução na fonte real.
 
 F13 organiza o esforço, amplia termos equivalentes de forma controlada e torna propósito, evidência e interrupções consultáveis. Não precisa aguardar a IA para navegar; fotos, análise multimodal e inferência local são extensões de F14/F15/F19. F18 usará a navegação complementar para investigar atributos e comparáveis; a política de equivalência e preço continua em F06, e o cálculo em F07.
 
@@ -107,3 +107,5 @@ Sugestões aparecem separadas, com relação, anúncios de suporte e limitaçõe
 Fixar limites medidos de duração, páginas, detalhes, consultas equivalentes, tentativas, recuo, orçamento de sugestões e distribuição entre interesses. Materializar catálogo de aliases, critérios verificáveis de relação entre nichos, estados de retomada e apresentação das sugestões. Não há metas aprovadas de precisão, cobertura, latência comercial ou retorno financeiro.
 
 Dependências permanecem F03/F04/F11/F12, prioridade 1 e onda 11. A execução deve coordenar alterações no coletor e nas projeções com as outras features; a onda não autoriza trabalho paralelo. Nenhuma implementação, execução de navegador ou envio de mensagem foi iniciado por este brainstorming.
+
+Referência de código atualizada em 2026-11-13: a navegação/coleta atual usa `RunSliceUseCase`, após substituir o caso de uso histórico de coleta. As observações datadas acima continuam limitadas à execução de sua época.

@@ -1,0 +1,255 @@
+{
+  "cases": [
+    {
+      "name": "tracking",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "offers",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/ofertas/"
+      ]
+    },
+    {
+      "name": "detail",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/ofertas/"
+      ]
+    },
+    {
+      "name": "settings",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/configuracoes/"
+      ]
+    },
+    {
+      "name": "ai",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/integracoes/ia/"
+      ]
+    },
+    {
+      "name": "backups",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "suggestions",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/sugestoes/"
+      ]
+    },
+    {
+      "name": "robot-paused",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "offers-paused",
+      "width": 1440,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/ofertas/"
+      ]
+    },
+    {
+      "name": "robot-save-error",
+      "width": 1440,
+      "status": 400,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "tracking",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "offers",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/ofertas/"
+      ]
+    },
+    {
+      "name": "detail",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/ofertas/"
+      ]
+    },
+    {
+      "name": "settings",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/configuracoes/"
+      ]
+    },
+    {
+      "name": "ai",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/integracoes/ia/"
+      ]
+    },
+    {
+      "name": "backups",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "suggestions",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/sugestoes/"
+      ]
+    },
+    {
+      "name": "robot-paused",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    },
+    {
+      "name": "offers-paused",
+      "width": 375,
+      "status": 200,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/ofertas/"
+      ]
+    },
+    {
+      "name": "robot-save-error",
+      "width": 375,
+      "status": 400,
+      "violations": [],
+      "incomplete": [],
+      "overflow": false,
+      "h1": 1,
+      "current": [
+        "/acompanhamento/"
+      ]
+    }
+  ],
+  "flow": [
+    "Pause persisted through reload at 1440px",
+    "Paused robot preserves offer consultation at 1440px",
+    "Robot command error retains Acompanhamento orientation at 1440px",
+    "Explicit resume restores confirmed intent at 1440px",
+    "Pause persisted through reload at 375px",
+    "Paused robot preserves offer consultation at 375px",
+    "Robot command error retains Acompanhamento orientation at 375px",
+    "Explicit resume restores confirmed intent at 375px"
+  ],
+  "page_errors": []
+}

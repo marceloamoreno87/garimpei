@@ -1,6 +1,6 @@
 # Garimpei — design system e protótipos
 
-Direção e composição escolhidas: **clara e editorial, com verde mineral e foco nos produtos**. Versão visual 0.2, preparada em 2026-11-10. Fluxos e estados estão detalhados e demonstrados em memória; a aplicação Django não foi implementada. Veja a [referência de interação](flows-reference.md) e a [verificação atual](verification-v02.md).
+Direção e composição escolhidas: **clara e editorial, com verde mineral e foco nos produtos**. Versão visual 0.2, preparada em 2026-11-10. Os protótipos desta versão demonstram fluxos em memória. A aplicação Django já existe; suas [convenções atuais](implementation.md), [auditoria de UI](audit-2026-11-13/README.md) e [verificação integrada](audit-2026-11-13/integration-master.md) documentam o produto. A [referência de interação](flows-reference.md) e a [verificação 0.2](verification-v02.md) permanecem históricas do laboratório.
 
 ## Abrir os protótipos
 
@@ -55,4 +55,4 @@ O Storybook HTML/Vite abre em `http://127.0.0.1:6006`, com componentes e estados
 
 ![Protótipo editorial em desktop](evidence/editorial-desktop.png)
 
-Esta entrega implementa **artefatos de design**. Não conclui F02–F09, não substitui os contratos futuros e não altera o progresso das features. A [arquitetura proposta](../architecture/README.md) e o [PRD](../PRD.md) continuam as referências de implementação e comportamento.
+O laboratório original implementou **artefatos de design**, sem concluir features por si só. A implementação posterior e os aceites F01–F22 são registrados no [estado atual](../status-atual.md); a auditoria visual não substitui contratos ou avaliações de negócio. A [arquitetura proposta](../architecture/README.md) e o [PRD](../PRD.md) continuam as referências de implementação e comportamento.

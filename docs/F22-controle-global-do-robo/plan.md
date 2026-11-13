@@ -1,5 +1,10 @@
 # Plano — F22 Controle global de ligar e desligar o robô
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T18-33-50Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## Pré-requisitos
 
 - Dependências F02/F03/F08/F13/F14/F15/F16/F19 avaliadas e disponíveis na versão integrada; verificar o progresso antes de iniciar, pois F14/F15 ainda não estavam `done` durante esta especificação.

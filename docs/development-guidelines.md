@@ -4,7 +4,7 @@ Consulta das fontes: **10 de novembro de 2026**. Stack do produto: **Python/Djan
 
 ## 1. Status, autoridade e regras existentes
 
-Este guia reúne regras vigentes e recomendações para a futura aplicação. Não aprova ferramentas, versões ou detalhes pendentes de arquitetura. A aplicação Python ainda não existe; F01–F09 continuam `pending`. Os protótipos e o Storybook de `docs/design/` são laboratório visual, não implementação Django.
+Este guia reúne regras vigentes e recomendações elaboradas em 2026-11-10. A aplicação Python/Django já existe; versões, comandos e módulos efetivos estão no lockfile, em [harness.md](harness.md) e na [arquitetura implementada](architecture/implementation.md). O [estado atual](status-atual.md) distingue aceites e pendências. As propostas históricas deste guia não substituem decisões posteriores das specs/contratos; protótipos e Storybook continuam um laboratório separado.
 
 As marcações abaixo valem também para exemplos e comandos da seção correspondente:
 
@@ -394,44 +394,24 @@ Versões abaixo são metadados observados no **PyPI em 10/11/2026**, não um con
 
 **Proposta nova:** versionar o lock e revisá-lo junto do manifesto; manter ambiente de execução enxuto. Atualizações precisam de changelog, nova resolução e verificações relevantes. Auditoria de vulnerabilidades conhecidas não comprova ausência de falhas; erro de consulta da auditoria deve aparecer como verificação pendente/falha, nunca aprovação. [pip-audit oficial](https://github.com/pypa/pip-audit).
 
-## 14. Gates e comandos de referência
+## 14. Gates e comandos efetivos
 
-**Vigente:** F02-AC03 exige tipos, lint, limites de dependências, arquitetura, ciclos, código/dependências não utilizados e testes aplicáveis. Os gates TypeScript preservados não validam Python. O contrato de F02 precisa definir comandos executáveis, cobertura e evidência antes de concluir a fundação.
+**Vigente:** F02-AC03 foi implementado. A entrada canônica na raiz é `node scripts/run-gates.mjs`: mypy estrito; Ruff check/format e djlint; import-linter; verificadores autorais de arquitetura/ciclos; Vulture e deptry. O [harness](harness.md) registra escopo e pré-requisitos. O helper TypeScript preservado não valida Python.
 
-**Proposta nova:** o conjunto abaixo é uma base a especificar, não um runner instalado. Comandos Python assumem `apps/backend/` como diretório atual, pacote `garimpei` instalado, `src/` e `tests/` criados e ferramentas configuradas. `uv` assume manifesto, lock e grupo dev contendo as ferramentas. Não executar esses comandos agora como se houvesse aplicação.
+De `apps/backend/`, a suíte atual é `uv run --frozen --no-sync pytest`. Testes unitários, HTTP, integração, lifecycle e qualidade constam da coleção. Fixtures de I/O são nomeadas; os testes aplicáveis usam recursos próprios e temporários privados fora do checkout. A proteção de reserva de armazenamento não deve ser removida para permitir backup.
 
-| Cobertura | Comando candidato | Limite/condição |
-|---|---|---|
-| Lock/ambiente | `uv sync --locked --group dev` | Falhar se lock exigir atualização; não resolver silenciosamente em validação |
-| Formatação | `uv run --locked ruff format --check .` | Escopo/exclusões definidos no manifesto |
-| Lint | `uv run --locked ruff check .` | Lint não substitui tipos/arquitetura |
-| Tipos | `uv run --locked mypy src tests` | Configurar Django/stubs e proibir ignores amplos |
-| Limites de imports | `uv run --locked lint-imports` | Exige contratos: camadas e I/O proibido no núcleo |
-| Ciclos | Mesmo analisador, com contratos específicos | Camadas sozinhas não rejeitam ciclos entre irmãos; cobrir todos os pacotes autorais |
-| Arquitetura/configuração/DI | Verificador Python autoral a implementar em F02 | Ainda sem comando aprovado; inclui leituras de ambiente, composição e convenções |
-| Código não utilizado | `uv run --locked vulture src tests` | Ajustar registros Django e whitelist pontual revisada; não excluir toda a infraestrutura |
-| Dependências não utilizadas | `uv run --locked deptry .` | Declarar imports dinâmicos/entradas Django e dependências de desenvolvimento corretamente |
-| Testes unitários | `uv run --locked python -m unittest discover -s tests/unit -v` | Sem bootstrap Django; runner deve rejeitar zero testes |
-| Testes Django | `uv run --locked python manage.py test --verbosity 2` | Descoberta de testes e banco de testes PostgreSQL isolado configurados |
-| Cobertura | `uv run --locked coverage run --branch manage.py test` | Complementar unitários se o runner Django não os descobrir; não mede worker externo automaticamente |
-| Relatório de cobertura | `uv run --locked coverage report -m` | Limiar depende do contrato; não importar os 70% do template como regra aprovada |
-| Verificações Django | `uv run --locked python manage.py check` | Não substitui regras de arquitetura nem prontidão real |
-| Drift de migrations | `uv run --locked python manage.py makemigrations --check --dry-run` | Exige configuração Django funcional |
-| Plano de migrations | `uv run --locked python manage.py migrate --plan` | Rever plano antes de aplicar ao banco identificado |
-| Auditoria de dependências | `uv run --locked pip-audit` | Audita o ambiente sincronizado; falhas precisam de tratamento explícito |
+`uv sync --locked --all-groups` sincroniza o ambiente da aplicação sem atualizar o lock. Com configuração privada de runtime, `./scripts/migrate-dev.sh --check` verifica migrations pelos scripts da raiz. Checks Django e migrations complementam, sem substituir, os gates e a prontidão dos processos.
 
-Sintaxes consultadas: [uv lock/sync](https://docs.astral.sh/uv/concepts/projects/sync/), [Ruff](https://docs.astral.sh/ruff/), [mypy](https://mypy.readthedocs.io/en/stable/running_mypy.html), [Import Linter e contratos](https://import-linter.readthedocs.io/en/stable/), [Vulture](https://github.com/jendrikseipp/vulture), [deptry](https://deptry.com/usage/), [coverage run](https://coverage.readthedocs.io/en/latest/commands/cmd_run.html), [comandos Django](https://docs.djangoproject.com/en/5.2/ref/django-admin/).
+A avaliação de qualidade contém violações representativas para os validadores. Registros dinâmicos do framework usam consumidores documentados em `quality/entrypoints.json` e whitelist pontual. Ferramentas adicionais como cobertura ou auditoria de vulnerabilidades só podem ser declaradas aprovadas após execução; sua presença como recomendação histórica não as torna um gate existente.
 
-**Proposta nova:** validar os validadores com violações representativas: import de Django no domínio, leitura de ambiente em caso de uso, ciclo entre módulos, símbolo não usado, dependência direta ausente e zero testes. Contratos de imports precisam incluir módulos externos quando necessários. Análise estática não prova ausência de I/O indireto nem imports dinâmicos; complementar com inspeção e testes de bootstrap. Falha não vira warning para permitir conclusão.
-
-**Vigente:** comandos que já existem na raiz para verificar apenas o harness:
+A verificação separada do harness continua:
 
 ```bash
 node --test scripts/test/harness.test.mjs
 node scripts/check-harness.mjs
 ```
 
-Esses comandos não aprovam F02, o backend, a fila ou jornadas da aplicação.
+Esses comandos validam o harness e não aprovam, sozinhos, banco, fila, backend ou jornadas.
 
 ## 15. Ambiente, recursos e desempenho
 

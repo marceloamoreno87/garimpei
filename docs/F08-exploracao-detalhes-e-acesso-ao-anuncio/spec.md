@@ -1,5 +1,10 @@
 # F08 — Exploração, detalhes e acesso ao anúncio
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T19-05-22Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade** alta · **Onda** 7 · **Dependências diretas** F04, F05, F06 e F07
@@ -107,3 +112,7 @@ Uma implementação inicial pode compartilhar entre revisões as projeções cuj
 | Jornadas do [contrato](contract.md) | `playwright-cli` sobre Django, com teclado, foco, responsividade e confirmação textual. Aplicar a direção e os tokens aprovados, sem usar o laboratório como evidência de integração. |
 
 Usar o ambiente de [F02](../F02-fundacao-tecnica-e-ambiente-local/operations.md) e os gates declarados no contrato.
+
+## Apresentação atual — 2026-11-13
+
+Filtros têm proporções coerentes e limpeza direta; paginação só aparece quando necessária. Busca conserva foco/cursor, resultados anunciam mudanças e detalhes preservam o contexto de retorno e oferecem navegação de seções. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

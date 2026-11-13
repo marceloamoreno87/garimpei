@@ -1,6 +1,8 @@
 # Organização e dependências propostas
 
-Estado: **desenho proposto, sem arquivos de aplicação criados**. A direção de stack e os princípios canônicos já estão aceitos; esta tradução para Django precisa ser especificada e verificada em F02.
+> Documento de desenho elaborado em 2026-11-10. As menções a implementação ou ferramentas pendentes descrevem aquela etapa. A aplicação já existe; consulte a [arquitetura implementada](implementation.md), a [operação atual](../harness.md) e o [estado das features](../status-atual.md) antes de aplicar o planejamento histórico.
+
+Estado na elaboração original: **desenho proposto, sem arquivos de aplicação criados**. A direção de stack e os princípios canônicos já estão aceitos; esta tradução para Django precisa ser especificada e verificada em F02.
 
 ## Regra de dependências
 

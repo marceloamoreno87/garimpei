@@ -1,5 +1,10 @@
 # F19 — Inferência multimodal local em Docker
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T04-34-29Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica e escopo
 
 **Estado:** especificação documental; nenhum modelo/contêiner foi instalado por esta entrega. Fontes: [PRD](../PRD.md), [stack](../stack.md), [pesquisa de IA local](../ia-local-rtx5070.md), código F02/F12 e documentação oficial consultada em 2026-11-12 UTC. Dependências F02/F12; prioridade 1, onda 11. Complexidade complexa por GPU, lifecycle, fila, versionamento e serviço externo local.
@@ -198,3 +203,7 @@ Executar na implementação `node scripts/run-gates.mjs`, `uv run --project apps
 Após sondagens v1 e v2 terminarem em `done_reason=length` no teto de 512 tokens, o usuário aprovou até 1024 somente no perfil de condição F15. O legado F19 mantém 512 e todos os perfis mantêm contexto total 4096, artefato/digests, schema estrito e limites de serviço vigentes. A configuração e as guardas usam a reserva específica do perfil; recusar a entrada que não caiba, incluindo texto, instruções/schema e orçamento visual comprovado. Não ampliar o contexto nem truncar evidência para caber.
 
 A mudança deve ter perfil/chave versionados, preservar histórico sem tratar versões antigas como legado e demonstrar limites legados inalterados em regressões. A avaliação F15 atual publica medições reais com o novo teto e declara a exposição anterior do corpus. Aprovação de configuração não aprova qualidade nem substitui gates ou prova física. Relatórios F19 anteriores permanecem históricos sob os limites então medidos.
+
+## Apresentação atual — 2026-11-13
+
+IA local é destino direto de navegação; usa tokens semânticos e estados legíveis. Pausa da IA continua independente do controle global F22. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

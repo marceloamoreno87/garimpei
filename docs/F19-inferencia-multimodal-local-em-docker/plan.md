@@ -1,5 +1,10 @@
 # Plano de implementação — F19
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T04-34-29Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 Pré-requisitos: [spec](spec.md), [contrato](contract.md), F02/F12 disponíveis, Python/uv/lock existentes, Docker/NVIDIA no WSL e ambiente descartável próprio. A prova real precisa da RTX 5070 livre de outro ambiente Garimpei, artefatos oficiais fixados e foto autorizada em manifesto privado. Não exige F14/F15/F17 implementadas. Esta entrega é documental.
 
 ## Fase 1 — Preparação e limites

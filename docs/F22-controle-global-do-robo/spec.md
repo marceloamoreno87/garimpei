@@ -1,12 +1,17 @@
 # F22 — Controle global de ligar e desligar o robô
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T18-33-50Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade alta**, pela coordenação de filas, operações em curso e efeitos externos. Acrescentar um controle persistente por instalação para pausar conjuntamente coleta/pesquisa, mídia, avaliações/inferência e novas autorizações de alertas. Web, consulta de ofertas, edição de configurações e gravação de resultados/recibos já em curso permanecem disponíveis.
 
 **Included:** ações globais explícitas, persistência, comandos idempotentes, estado solicitado versus efetivo, barreira nas fronteiras de trabalho, conclusão das unidades já autorizadas, migração compatível, retomada condicionada e verificação concorrente. **Fora do escopo:** encerrar Docker/web/worker, apagar filas, cancelar à força uma chamada externa, modificar elegibilidade/estimativa, remover bloqueios de acesso/restauração, implantar F17/F18 ou garantir liberação imediata de toda VRAM.
 
-Dependências diretas: F02, F03, F08, F13, F14, F15, F16 e F19; onda 13. No progresso consultado, F14 está `implemented` e F15 `implementing`: a especificação pode ser produzida agora, mas a execução completa do contrato exige suas avaliações concluídas. A nova F22 começa `pending`. As demais features conservam seus estados e histórico.
+Dependências diretas: F02, F03, F08, F13, F14, F15, F16 e F19; onda 13. Na elaboração original, F14 estava `implemented` e F15 `implementing`, e F22 começava `pending`. Essas dependências e F22 foram posteriormente avaliadas como `done`, conforme os relatórios registrados no progresso. As demais features conservam seus estados e histórico.
 
 Fontes: [PRD](../PRD.md), [stack](../stack.md), [F16](../F16-alertas-pela-primeira-elegibilidade-e-diagnostico/spec.md), [F19](../F19-inferencia-multimodal-local-em-docker/spec.md), código atual e clean-arch. O controle de alertas F10 e a pausa da IA F19 continuam independentes; a nova barreira acrescenta uma condição global, sem sobrescrever esses valores.
 
@@ -167,3 +172,7 @@ Executar os seis gates por `node scripts/run-gates.mjs`, testes, checks Django/m
 **Pressupostos técnicos:** preservar início automático após configuração na ausência de escolha global; a fronteira da pausa é o commit e permite terminar unidade previamente autorizada; timeouts e limites de cada estágio permanecem os aprovados por suas features. Nenhum tempo comercial de desligamento foi prometido. A interface pode usar o polling existente, com leitura independente da oferta versionada, sem tratar sua latência como autorização para iniciar trabalho.
 
 **Pendências de execução:** F14/F15 precisam de avaliação completa e as factories/integrações precisam ser materializadas; coordenação com futuras mudanças F17/F18 não é autorização para implementá-las. Não há decisão de produto em aberto sobre o alcance: o usuário escolheu pausa conjunta de coleta, análises e novos alertas.
+
+## Apresentação atual — 2026-11-13
+
+Controle persistente de ligar/desligar permanece no acompanhamento após a integração do novo shell. Navegação, consulta e configuração continuam disponíveis; pausas individuais e operações em curso mantêm sua semântica. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

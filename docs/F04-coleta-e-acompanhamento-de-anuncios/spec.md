@@ -1,5 +1,10 @@
 # F04 — Especificação técnica de coleta e acompanhamento de anúncios
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T14-50-42Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade alta.** A F04 transforma interesses e CEP confirmados em buscas recorrentes no Facebook Marketplace e entrega um histórico de anúncios, observações e eventos duráveis. A coleta roda no worker local e usa PostgreSQL. O web lê seu estado em `/acompanhamento/`, reaproveitando a rota da F03.

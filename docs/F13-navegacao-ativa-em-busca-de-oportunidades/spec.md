@@ -1,5 +1,10 @@
 # F13 — Navegação ativa em busca de oportunidades
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T19-32-55Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica e escopo
 
 **Estado:** especificação documental, sem implementação ou avaliação. Fontes: [PRD](../PRD.md), [desenho da F13](design.md), [stack](../stack.md) e código existente de F03/F04/F11/F12. Dependências: F03, F04, F11 e F12; prioridade 1, onda 11. Complexidade: complexa pela retomada, persistência e integração externa, mesmo com poucas rotas.
@@ -148,3 +153,7 @@ Convenções existentes: `tests/factories/` para estado/fakes nomeados, `tests/f
 Na implementação: `node scripts/run-gates.mjs` para seis grupos Python; `uv run --project apps/backend --frozen --no-sync pytest` para suíte; `uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py check --settings=garimpei.config.test_settings`; build `uv build --project apps/backend`. Exercitar migrations no ambiente isolado e jornadas com `playwright-cli`; testes unitários sozinhos não comprovam retomada, UI ou fonte real.
 
 Prova real somente de leitura, com perfil dedicado exclusivo e acesso confirmado: termo original/alias, continuação e detalhe, pausa/retomada e sugestão relacionada. Medir percurso, páginas úteis, tempos e limites em manifesto sanitizado; fonte sem resultados/desafio não passa como sucesso. Falta de acesso mantém o item real pendente, sem rebaixar critério. Sem envio real ao WhatsApp necessário. Cobertura dos sete ACs e da integração INT-15 consta do contrato; F18 é apenas consumidor futuro da fronteira.
+
+## Apresentação atual — 2026-11-13
+
+Sugestões é destino direto do menu; limites detalhados da exploração ficam em disclosure. Carregamento do percurso apresenta recuperação e erro de página mantém shell e orientação. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

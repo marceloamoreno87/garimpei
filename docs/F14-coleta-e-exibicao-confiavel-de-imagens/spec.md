@@ -1,5 +1,10 @@
 # F14 — Coleta e exibição confiável de imagens
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T12-24-34Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica e escopo
 
 Especificação de complexidade **complexa**, por integrar fonte autenticada, arquivos, PostgreSQL, tarefas, projeções e navegador. Fontes: [PRD](../PRD.md), [stack](../stack.md), [design Mineral](../design/MASTER.md) e contratos/relatórios de F04, F08 e F12. Dependências diretas: **F04, F08, F12**, todas `done` no progresso consultado; prioridade 1, onda 11. Este documento não inicia implementação nem altera seu estado `pending`.
@@ -189,3 +194,7 @@ Prova real obrigatória: amostra datada de ao menos dois anúncios acessíveis d
 Manter evidências junto da feature, sem credenciais/URLs assinadas, retratos/contatos identificáveis ou cópias privadas de payload completas. Bytes reais preservados ficam na raiz privada; relatório pode guardar hashes/dimensões e screenshots recortados/sanitizados. Operação entrega `operations.md` com configuração do orçamento, caminhos, interrupção/retomada e preparo reproduzível do laboratório. Backup automático é responsabilidade de F17; documentar os arquivos que ele deverá incluir.
 
 Referências técnicas consultadas para a proposta: [Django 5.2 — FileResponse](https://docs.djangoproject.com/en/5.2/ref/request-response/#fileresponse-objects), [Pillow — abertura, integridade e limite de pixels](https://pillow.readthedocs.io/en/stable/reference/Image.html), [Pillow — orientação EXIF](https://pillow.readthedocs.io/en/stable/reference/ImageOps.html#PIL.ImageOps.exif_transpose). O uso de FileResponse não implementa sozinho regras de versão, retenção ou validação de origem.
+
+## Apresentação atual — 2026-11-13
+
+Galeria reutiliza foco global e largura responsiva. A auditoria não acrescenta comprovação real para todas as combinações de imagens removidas/indisponíveis. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

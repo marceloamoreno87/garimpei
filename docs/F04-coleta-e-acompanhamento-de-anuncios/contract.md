@@ -1,5 +1,10 @@
 # Contract — F04 Coleta e acompanhamento de anúncios
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T14-50-42Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 *Gerado por spec-writer. Revisado em 2026-11-11 conforme as decisões de retirada aproximada, envio informado e janela de 48 horas aprovadas pelo usuário.*
 
 ## Prerequisites

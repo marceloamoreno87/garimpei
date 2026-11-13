@@ -1,5 +1,10 @@
 # Plano de execução — F02 Fundação técnica e ambiente local
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-10T21-15-47Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 Data: 2026-11-10. Complexidade alta. Dependência: **F01**, ainda com decisão manual pendente. Onda 2, execução **sequencial**, por alterar arquivos compartilhados. Fontes: [spec](spec.md), [contrato](contract.md), [PRD](../PRD.md), [stack](../stack.md) e [passagem F01](../F01-discovery-e-viabilidade-de-integracoes/environment.md).
 
 Este plano descreve implementação futura. O pedido atual produz somente spec/plano/contrato, sem instalar, gerar scaffold, iniciar serviços, alterar progresso ou realizar commit/push/PR. A especificação não libera a dependência F01.

@@ -1,8 +1,13 @@
 # F03 — Configurações e interesses de monitoramento
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-10T22-12-38Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
-Especificação de 2026-11-10. Complexidade **média**: fluxo guiado, edição posterior, persistência transacional e interfaces para F04/F07. Dependência: **F02**, `done` em [prd_progress.json](../prd_progress.json), com [avaliação completa](../F02-fundacao-tecnica-e-ambiente-local/eval-report-2026-11-10T21-15-47Z.md). F03 permanece `pending`; este documento não inicia implementação ou serviços.
+Especificação de 2026-11-10. Complexidade **média**: fluxo guiado, edição posterior, persistência transacional e interfaces para F04/F07. Dependência: **F02**, `done` em [prd_progress.json](../prd_progress.json), com [avaliação completa](../F02-fundacao-tecnica-e-ambiente-local/eval-report-2026-11-10T21-15-47Z.md). Na elaboração original, F03 estava `pending`; este documento não inicia implementação ou serviços.
 
 Fontes: [PRD §6/§9 F03](../PRD.md), [stack](../stack.md), [decisão F01](../F01-discovery-e-viabilidade-de-integracoes/decisions.md), [arquitetura](../architecture/organizacao-e-dependencias.md), [design](../design/MASTER.md) e [fluxos](../design/flows-reference.md). As descrições anteriores à implementação em stack/arquitetura/design são históricas: o código e a avaliação F02 comprovam a fundação atual. Python/Django, templates/HTMX, PostgreSQL e Procrastinate já existem; os módulos de monitoramento ainda não.
 
@@ -196,3 +201,7 @@ Pendências que permanecem explícitas:
 - **F07/P08**: arredondamento da multiplicação de taxa e demais custos; limites/formatos das entradas F03 ficam definidos neste documento.
 
 Nenhuma decisão de preferência pessoal ou valor inicial foi presumida. As escolhas técnicas acima são parte da proposta de F03; não alteram IDs, dependências, ondas nem o estado de implementação no PRD.
+
+## Apresentação atual — 2026-11-13
+
+Configuração e primeiro uso compartilham orientação por rota, campos obrigatórios identificáveis, estados de seleção, foco nos erros e preservação de entrada em falhas de transporte. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

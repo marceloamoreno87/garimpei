@@ -1,5 +1,10 @@
 # F20 — Compra, venda estimada e lucro na apresentação
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T03-22-50Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade média.** Atualizar configuração, cards, detalhes e novas mensagens com os três valores da mesma composição: **Preço de compra → Preço de venda estimado → Lucro estimado**. O lucro recebe maior destaque tipográfico; os demais valores permanecem próximos e legíveis. Remover os textos financeiros gerados de frete/transporte e preservar a taxa percentual. Fontes: [PRD, F20 e INT-23–26](../PRD.md), [stack](../stack.md), [design](../design/DESIGN.md) e [direção Mineral](../design/MASTER.md).
@@ -170,3 +175,7 @@ Criar fixture/lab como entregáveis da implementação, com instrução de execu
 Cenários base: venda R$ 1.500,00, taxa 10%; compras R$ 1.000,00/1.350,00/1.400,00 → lucros R$ 350,00/0,00/−50,00. Fração: venda R$ 101,00, compra R$ 70,00, taxa 12,50% → taxa arredondada R$ 12,63 e lucro R$ 18,37. Valores são entradas de teste, não defaults. Conjunto paginado tem 42 ofertas filtradas, incluindo zero/negativo/indisponível, para provar páginas 20/20/2 e ausência de ocultação/reordenação indevida. Casos de novo, incompatibilidade e ausência mantêm componentes conhecidos sem fabricar venda/lucro.
 
 Executar todos os [gates e itens do contrato](contract.md) na implementação. Navegar com `playwright-cli` e avaliar com `frontend-ui-design`, capturando lista/detalhes/configuração em desktop, largura estreita e zoom; usar token check atual. Verificar conteúdo do corpo pelo snapshot financeiro e fake WAHA. Prova em canal real exige autorização explícita de envio, destino e mensagem; ausência dessa autorização não impede comprovar a fronteira sintética, e não pode ser apresentada como prova de renderização/entrega real. Esta rodada produz documentos, sem executar gates de implementação ou declarar a feature pronta.
+
+## Apresentação atual — 2026-11-13
+
+Compra, venda estimada e lucro mantêm ordem e valores. Tipografia estável não reduz dinheiro a texto minúsculo; perda conserva sinal e usa estado de perda, ausência usa texto neutro e zero permanece visível. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

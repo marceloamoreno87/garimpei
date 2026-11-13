@@ -1,6 +1,8 @@
 # Dados, fluxos e confiabilidade propostos
 
-Estado: **modelo conceitual e fluxos propostos, sem schema ou execução implementados**. Regras confirmadas vêm do [PRD](../PRD.md); políticas pendentes permanecem abertas.
+> Documento de desenho elaborado em 2026-11-10. As menções a implementação ou ferramentas pendentes descrevem aquela etapa. A aplicação já existe; consulte a [arquitetura implementada](implementation.md), a [operação atual](../harness.md) e o [estado das features](../status-atual.md) antes de aplicar o planejamento histórico.
+
+Estado na elaboração original: **modelo conceitual e fluxos propostos, sem schema ou execução implementados**. Regras confirmadas vêm do [PRD](../PRD.md); políticas pendentes permanecem abertas.
 
 ## Informações que precisam sobreviver ao reinício
 

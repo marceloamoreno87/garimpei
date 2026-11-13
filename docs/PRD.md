@@ -1,10 +1,10 @@
 # Garimpei — PRD
 
-Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** é a evolução especificada nesta revisão de 2026-11-12, ainda `pending`. IDs, contratos avaliados, ciclos e datas anteriores são preservados.
+Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** está `implemented`, com prova real positiva ainda bloqueada na avaliação de 2026-11-13. **F22 — Controle global** está `done`. O [estado consolidado](status-atual.md) reúne as avaliações atuais. IDs, contratos avaliados, ciclos e datas anteriores são preservados.
 
-A base F12 consolidou uma busca por interesse, publicação incremental, cálculo por compra/venda/taxa e descoberta de publicações novas com histórico parcial. F16 acrescentou a primeira elegibilidade e F20 padronizou compra, venda estimada e lucro, conforme seus contratos e avaliações históricos. A F21 exige qualificação conjunta de condição por título/descrição/fotos, produto normalizado, histórico comparável e lucro estimado estritamente positivo para novas autorizações após sua adoção. Este adendo não altera o aplicativo nem reaprova contratos anteriores.
+A base F12 consolidou uma busca por interesse, publicação incremental, cálculo por compra/venda/taxa e descoberta de publicações novas com histórico parcial. F16 acrescentou a primeira elegibilidade e F20 padronizou compra, venda estimada e lucro, conforme seus contratos e avaliações históricos. A F21 exige qualificação conjunta de condição por título/descrição/fotos, produto normalizado, histórico comparável e lucro estimado estritamente positivo para novas autorizações após sua adoção. A implementação de F21 foi integrada, mas o aceite completo continua pendente; esta sincronização documental não reaprova contratos anteriores.
 
-Adendo de controle operacional: **F22 — Controle global de ligar e desligar o robô**, requisito confirmado em 2026-11-12. A etapa começa `pending`; o estado das demais entregas permanece no progresso e em suas avaliações.
+Adendo de controle operacional: **F22 — Controle global de ligar e desligar o robô**, requisito confirmado em 2026-11-12. A etapa foi implementada, avaliada e integrada como `done`; o estado das demais entregas permanece no progresso e em suas avaliações.
 
 ## 1. Resumo executivo
 
@@ -17,15 +17,15 @@ A evolução solicitada acrescenta navegação ativa em busca de oportunidades e
 ## 2. Problema e oportunidade
 
 - **Descoberta demorada:** buscas e detalhes precisam produzir resultados úteis durante o ciclo, evitando esperar a conclusão de todo o catálogo. A F12 melhorou esse fluxo; duração da navegação ainda se soma ao intervalo entre ciclos.
-- **Qualidade pouco conhecida:** a classificação atual depende de declarações textuais. Fotos ausentes, defeitos não mencionados e contradições entre imagem e descrição impedem avaliar bem a oferta.
+- **Qualidade da avaliação:** a classificação inicial dependia de declarações textuais; F14/F15 acrescentaram imagens e análise conjunta, com limites explicitados nas avaliações. Fotos ausentes, defeitos não mencionados e contradições entre imagem e descrição impedem avaliar bem a oferta.
 - **Estimativa restrita:** somente modelos/variantes reconhecidos com comparáveis suficientes recebem estimativa. Preço baixo, parcela, entrada e acessório não podem ser confundidos com um produto completo barato.
 - **Alertas pouco compreensíveis:** aparecer na lista não significa estar elegível. O usuário precisa saber se a oferta aguarda dados, foi excluída, está na fila, foi confirmada ou teve envio incerto.
 
 A oportunidade é transformar coleta em investigação rastreável: encontrar anúncio, abrir detalhes, obter fotos, identificar o produto, avaliar sinais de condição, reunir comparáveis e avisar quando houver dados suficientes para agir. A rapidez deve ser medida em cada etapa, com falhas e cobertura parcial explícitas.
 
-### Base desenvolvida e evidências
+### Base desenvolvida e evidências atuais
 
-Os relatórios abaixo estão `clean` no progresso consultado. Isso comprova seus contratos e condições avaliadas, sem garantir cobertura universal do Marketplace, funcionamento real do produto ou estabilidade futura da fonte.
+As features indicadas como `done` têm avaliações registradas; F21 permanece `implemented` com pendência explícita. Isso comprova seus contratos e condições avaliadas, sem garantir cobertura universal do Marketplace, funcionamento real do produto ou estabilidade futura da fonte.
 
 | Feature | Entrega desenvolvida | Evidência canônica |
 |---|---|---|
@@ -41,8 +41,18 @@ Os relatórios abaixo estão `clean` no progresso consultado. Isso comprova seus
 | F10 | Integrações pela interface: cookies como alternativa, pareamento WhatsApp, escolha de grupo e ativação. | [Avaliação](F10-configuracoes-de-integracoes/eval-report-2026-11-11T21-54-20Z.md) |
 | F11 | Login manual em navegador dedicado e perfil privado persistente, com suspensão/retomada de acesso. | [Avaliação](F11-sessao-facebook-por-navegador/eval-report-2026-11-11T21-54-20Z.md) |
 | F12 | Busca única por interesse, detalhes publicados incrementalmente, seis categorias verificadas, mais modelos e cadência corrigida. | [Avaliação](F12-coleta-e-oportunidades/eval-report-2026-11-12T00-44-24Z.md) |
+| F13 | Navegação ativa em busca de oportunidades — `done`. | [Avaliação](F13-navegacao-ativa-em-busca-de-oportunidades/eval-report-2026-11-12T19-32-55Z.md) |
+| F14 | Coleta e exibição confiável de imagens — `done`. | [Avaliação](F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-13T12-24-34Z.md) |
+| F15 | Avaliação conjunta de imagens e descrição — `done`. | [Avaliação](F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T16-58-43Z.md) |
+| F16 | Alertas pela primeira elegibilidade e diagnóstico — `done`. | [Avaliação](F16-alertas-pela-primeira-elegibilidade-e-diagnostico/eval-report-2026-11-12T16-16-18Z.md) |
+| F17 | Resiliência operacional e progresso verificável — `done`. | [Avaliação](F17-resiliencia-operacional-e-progresso-verificavel/eval-report-2026-11-13T03-39-54Z.md) |
+| F18 | Identificação de produtos e busca ativa de comparáveis — `done`. | [Avaliação](F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T13-37-52Z.md) |
+| F19 | Inferência multimodal local em Docker — `done`. | [Avaliação](F19-inferencia-multimodal-local-em-docker/eval-report-2026-11-12T04-34-29Z.md) |
+| F20 | Compra, venda estimada e lucro na apresentação — `done`. | [Avaliação](F20-compra-venda-estimada-e-lucro-na-apresentacao/eval-report-2026-11-12T03-22-50Z.md) |
+| F21 | Alertas ouro por condição e histórico comparável; prova real positiva pendente — `implemented`. | [Avaliação](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T18-20-00Z.md) |
+| F22 | Controle global de ligar e desligar o robô — `done`. | [Avaliação](F22-controle-global-do-robo/eval-report-2026-11-13T18-33-50Z.md) |
 
-### Diagnóstico observado nesta revisão
+### Diagnóstico histórico de 2026-11-12
 
 Leitura agregada do banco local em 2026-11-12, aproximadamente 00:58 UTC, com consultas somente de leitura:
 
@@ -111,6 +121,14 @@ A F12 usa 60 segundos de espera entre ciclos com progresso, inclusive parcial; f
 O destino é um grupo escolhido na conta WhatsApp pareada, com ativação explícita. Uma mensagem por evento, sem resumo periódico. A implementação F12 exige descoberta comprovadamente posterior ao marco persistente de monitoramento, condição boa e estimativa disponível; estoque histórico continua silencioso. Redução de preço exige alerta anterior confirmado e não se repete para o mesmo evento. Envio incerto aguarda reconciliação, sem repetir automaticamente o POST.
 
 **Decisão nova para F16:** o primeiro alerta passa a depender da primeira elegibilidade da oferta, mesmo que coletada anteriormente ou inicialmente sem dados suficientes. Deve ocorrer até 48 horas da publicação na fonte; sem data confiável, aguardar confirmação, sem usar primeira coleta como substituto. A recuperação inicial não impõe silêncio global para essas ofertas. Recibos anteriores impedem duplicação. Confirmado no brainstorming de F16: classificar manualmente não gera alerta por essa ação nem pendência para envio posterior; reavaliações automáticas por entradas independentes continuam abrangidas pela mudança aprovada.
+
+### Coerência da interface — revisão de 2026-11-13
+
+A [auditoria e o refinamento implementados](design/audit-2026-11-13/README.md) preservam a identidade Mineral e os critérios das features. A navegação deve indicar o destino atual, expor Ofertas/Acompanhamento/Sugestões e Configurações/Integrações/IA, e adaptar o menu sem perder acesso por teclado. Páginas longas oferecem orientação por seções.
+
+Busca mantém texto e foco; abas e paginação mantêm continuidade após atualização HTMX. Primeiro uso e filtros vazios oferecem próximo passo ou limpeza. Erros preservam dados e identificam a operação responsável. Compra/venda/lucro mantêm ordem, sinal e indisponibilidade; perda e ausência não usam o estado visual de sucesso. O controle global F22 continua disponível no acompanhamento.
+
+A verificação automatizada e as pendências de acessibilidade/integrações reais são registradas junto às capturas. Esse refinamento transversal não cria uma feature fictícia nem transforma a pendência real de F21 em aceite.
 
 ## 4. Objetivos
 

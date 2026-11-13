@@ -42,7 +42,7 @@ O harness não define sozinho o produto nem aprova decisões de negócio. També
 
 Destinos recomendados para documentos adicionais são `docs/development-guidelines.md`, `docs/adrs/`, `docs/design/` e `docs/architecture/`. `CONTEXT.md`, quando usado, é um glossário do domínio, não uma especificação técnica. Crie esses documentos quando houver conteúdo real para registrar.
 
-O repositório começa com o harness e o progresso vazio. Templates de tecnologias não significam que a aplicação já existe ou que a stack está decidida.
+Em um projeto novo, o harness pode começar com o progresso vazio. Neste repositório, a aplicação Django já existe e o [estado atual](status-atual.md) consolida as entregas. Templates de outras tecnologias não substituem a stack aprovada.
 
 ## 3. Skills do repositório e skills do ambiente
 

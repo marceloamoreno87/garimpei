@@ -35,10 +35,10 @@ Valor estimado a partir de uma amostra de usados semelhantes, sem equivaler a pr
 Ausência de dados suficientes para estimar a revenda com confiança; não significa preço ou lucro igual a zero.
 
 **Lucro estimado**:
-Preço estimado de revenda menos preço de compra e custos considerados, sem garantia de retorno.
+Preço estimado de revenda menos preço de compra e taxa provisória de revenda, sem descontar logística e sem garantia de retorno.
 
 **Lucro potencial antes de frete/transporte**:
-Preço estimado de revenda menos preço de compra e taxa provisória de revenda. Não desconta logística e não representa lucro líquido nem retorno garantido.
+Termo histórico para a estimativa sem desconto de logística; a apresentação atual usa “lucro estimado”. Não representa lucro líquido realizado ou retorno garantido.
 
 **Publicação comprovadamente nova**:
 Anúncio cuja data de publicação na fonte foi confirmada como posterior ao início do monitoramento. Pode gerar alerta elegível mesmo enquanto a recuperação do histórico continua parcial.
@@ -59,10 +59,22 @@ Oferta cuja publicação na fonte foi comprovada após o início do monitorament
 Queda do preço de compra de um anúncio acompanhado, distinguível do evento de sua descoberta.
 
 **Oferta elegível para alerta**:
-Oferta na lista principal, com estimativa disponível e associada a evento abrangido pelas regras de alerta; não exige lucro mínimo.
+Oferta que satisfaz a política vigente de condição, identidade, evidências, estimativa e prazo para um evento abrangido pelas regras de alerta. Estar na lista ou ter preço baixo não comprova elegibilidade; autorização e resultado do envio são estados distintos.
 
 **Retomada**:
 Atualização do acompanhamento após interrupção, limitada aos anúncios que a fonte ainda disponibilizar.
 
 **Primeira revenda lucrativa**:
 Resultado de validação observado fora do Garimpei, com receita e custos efetivamente realizados.
+
+**Alerta ouro**:
+Alerta de uma oferta com evidências suficientes de condição textual/visual, identidade e histórico comparável, com lucro estimado estritamente positivo após a taxa. Sua qualificação não comprova funcionamento interno, liquidez ou retorno realizado.
+
+**Primeira elegibilidade**:
+Primeiro momento em que uma oferta satisfaz os requisitos de alerta dentro do prazo aplicável de publicação; pode ocorrer depois da coleta, quando chegam evidências ou referências suficientes.
+
+**Controle global do robô**:
+Escolha persistente de permitir ou pausar novas unidades de trabalho automático, preservando ofertas, configurações e histórico e respeitando os demais bloqueios.
+
+**Desligando**:
+Estado em que a pausa já foi confirmada e operações previamente autorizadas ainda podem concluir; não significa cancelamento imediato do que estava em curso.

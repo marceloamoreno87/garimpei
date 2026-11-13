@@ -1,5 +1,10 @@
 # F09 — Especificação técnica de alertas individuais pelo WhatsApp
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T21-54-20Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade alta.** O worker transforma eventos elegíveis de coleta em mensagens individuais via WAHA. Decisão de elegibilidade, tentativa e confirmação sobrevivem a reinícios no PostgreSQL. A F09 consome eventos persistidos da [F04](../F04-coleta-e-acompanhamento-de-anuncios/spec.md), classificação da [F05](../F05-classificacao-por-condicao/spec.md) e a composição de lucro por evento da [F07](../F07-calculo-e-composicao-do-lucro-estimado/spec.md), conforme [PRD §6 e §9](../PRD.md).

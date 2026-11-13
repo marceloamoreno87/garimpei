@@ -1,5 +1,10 @@
 # F16 — Alertas pela primeira elegibilidade e diagnóstico
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T16-16-18Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade alta.** Evoluir a decisão de primeiro alerta, hoje vinculada a `discovered`, para uma identidade durável por instalação/anúncio. Coleta, identidade, condição e valoração podem concluir em momentos diferentes; o primeiro alerta usa uma composição consistente da observação vigente quando o anúncio se torna elegível. O limite é a publicação confiável na fonte, nunca a primeira coleta ou o início do monitoramento.
@@ -183,3 +188,7 @@ Executar os seis gates por `node scripts/run-gates.mjs`; suíte Python, Django c
 **Hipóteses técnicas explícitas:** instalação `local` e chave F04 existentes; fronteira inclusiva interpreta “até 48 horas”; perfil técnico F09 preservado e lotes limitados a 100 como valor inicial de operação a medir. Validar que cada lote permite progresso sem longa transação, sem converter o valor em meta comercial. Assinatura semântica e marco manual devem ser demonstrados também em dados legados; ausência de prova mantém bloqueio, sem inventar origem automática.
 
 **Pré-requisitos externos de execução:** grupo de teste explicitamente autorizado, conta/sessão WAHA verificadas, evidência sanitizada e ambiente isolado para a prova real. A criação dos documentos não autoriza enviar mensagem ao grupo do usuário. Sem esse acesso, o item real permanece pendente e F16 não recebe conclusão de avaliação completa. Nenhuma decisão de produto material permanece aberta; os detalhes de schema/fixtures e o preparo desses pré-requisitos fazem parte da implementação.
+
+## Apresentação atual — 2026-11-13
+
+Diagnóstico de alerta pode ser localizado pelos atalhos do detalhe, mantendo histórico e semântica de envio incerto. O refinamento visual não gera novos alertas. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

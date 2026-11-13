@@ -1,5 +1,10 @@
 # Plano de implementação — F15 Avaliação conjunta de imagens e descrição
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T16-58-43Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 **Pré-requisitos:** F05/F06 avaliadas; F14 com manifesto e cópias locais versionadas; F19 com inferência assíncrona, revisões fixadas, limites técnicos e prova da GPU. Aplicação Python 3.13/Django 5.2, PostgreSQL e worker da stack existente. Nenhum novo runtime ou broker.
 
 Os caminhos e formatos estão em [spec.md](spec.md); os observáveis em [contract.md](contract.md). Esta especificação não inicia a implementação nem altera `pending`.

@@ -1,5 +1,10 @@
 # Plano de implementação da F05 — Classificação por condição
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T17-03-39Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## Pré-requisitos
 
 - F04 disponível conforme a dependência do [PRD](../PRD.md#f05-classificação-por-condição), com identidade estável, observações de anúncio persistidas, visibilidade e caminho de coleta exercitável com uma fonte sintética. Conferir o mapeamento com a [especificação](spec.md#2-arquitetura-e-integração) antes de integrar.

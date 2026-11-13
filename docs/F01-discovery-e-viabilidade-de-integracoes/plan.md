@@ -1,5 +1,10 @@
 # Plano de execução: F01 — Discovery e viabilidade de integrações
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-10T19-53-58Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 Data: 2026-11-10. Dependências: nenhuma. Onda: 1. Execução sequencial. Referências: [especificação](spec.md), [contrato](contract.md), [PRD](../PRD.md) e [stack](../stack.md).
 
 Este plano descreve trabalho **futuro**. A solicitação atual entrega somente os três documentos da feature; não executa fases, provas, instalações ou mudanças na aplicação/progresso.

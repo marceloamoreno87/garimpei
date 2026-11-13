@@ -1,5 +1,10 @@
 # Plano — F17 Resiliência operacional e progresso verificável
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T03-39-54Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 **Pré-requisitos:** dependências F02/F04/F06/F08/F09/F10/F12 avaliadas; Python 3.13 e dependências de `uv.lock`, PostgreSQL 17/Docker e scripts do projeto; leitura de `spec.md` e `contract.md`. Trabalho de aplicação começa com `./scripts/init.sh` em instância `eval` própria. Não reutilizar banco, perfil ou canal reais. A especificação não autoriza commit, push, merge ou deploy.
 
 ## Fase 1 — Baseline e ambiente controlado

@@ -1,5 +1,10 @@
 # Plano de implementação — F06
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T17-41-40Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 **Pré-requisitos.** F02 operacional com dependências do lock e instância descartável conforme [operações](../F02-fundacao-tecnica-e-ambiente-local/operations.md). F04 integrada e avaliada, com evidência da identidade dos anúncios, da identificação de produto e das observações confirmadas. A decisão sobre método e fonte de novo será registrada conforme a [spec §3](spec.md#3-decisões-técnicas-propostas).
 
 ## Fase 1 — Validar dados e política

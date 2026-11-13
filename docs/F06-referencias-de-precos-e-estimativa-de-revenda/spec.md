@@ -1,5 +1,10 @@
 # F06 — Referências de preços e estimativa de revenda
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T17-41-40Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade média.** A F06 avalia automaticamente a revenda de um eletrônico a partir de anúncios comparáveis e acrescenta, quando disponível, uma referência de produto novo. Cada avaliação identifica a oferta, o recorte de dados e os preços que sustentam o resultado. A F07 consome a revenda estimada e a F08 consome o resultado e as referências para os detalhes.

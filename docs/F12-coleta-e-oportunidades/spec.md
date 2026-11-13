@@ -1,5 +1,10 @@
 # F12 — Coleta e descoberta de oportunidades
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T00-44-24Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Objetivo e escopo
 
 Extensão autorizada na conversa de 2026-11-11: analisar o Marketplace autenticado, ampliar categorias dentro de eletrônicos e melhorar coleta e oportunidades. Decisões aceitas: lucro antes de frete/transporte; categorias somente de eletrônicos; alertar publicação comprovadamente nova desde o início do monitoramento mesmo com histórico parcial.

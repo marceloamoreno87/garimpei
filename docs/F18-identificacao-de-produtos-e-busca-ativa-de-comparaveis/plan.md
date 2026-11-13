@@ -1,5 +1,10 @@
 # Plano — F18 Identificação de produtos e busca ativa de comparáveis
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T13-37-52Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 **Pré-requisitos:** F06/F12 avaliadas; F13 implementada/avaliada com pesquisa complementar, contexto e exclusividade de perfil. Base Python 3.13/Django 5.2/PostgreSQL/Procrastinate do lock atual, ambiente eval isolado, configuração privada e acesso Facebook autorizado. Base textual independente de F15/F19; integração F16 condicional.
 
 Este plano descreve trabalho futuro. A especificação não executa outra feature nem autoriza envio real ao WhatsApp. Detalhes em [spec.md](spec.md), comportamentos em [contract.md](contract.md), decisões de produto em [design.md](design.md).

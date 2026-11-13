@@ -1,8 +1,8 @@
 # Harness do Garimpei
 
-O harness do Garimpei organiza o desenvolvimento no Codex: requisitos → especificação/plano/contrato → implementação → avaliação → correção. Skills, scripts, templates e validadores estão contidos no projeto. O PRD define F01–F09. A base Python/Django e o lifecycle real são entregáveis da F02; os comandos atuais estão no guia de operação da feature.
+O harness organiza requisitos → especificação/plano/contrato → implementação → avaliação → correção. O PRD contém F01–F22; o [estado atual](status-atual.md) identifica o que foi avaliado e a pendência real de F21.
 
-A [stack aprovada](stack.md) é Python/Django, templates/HTMX, PostgreSQL e worker separado com tarefas persistentes, sem Redis inicialmente. O suporte executável descrito abaixo ainda é o harness TypeScript/npm/Prisma preservado. F02 deve adaptá-lo e verificar o suporte a Python antes de concluir a fundação; a decisão documental não torna esses scripts compatíveis.
+A aplicação usa Python/Django, templates/HTMX, PostgreSQL e worker separado com Procrastinate, sem Redis. O lifecycle e os seis grupos de gates foram implementados em F02. Os templates/helpers TypeScript preservados nas skills são referências históricas, não o runtime do produto.
 
 Para o passo a passo de planejamento e desenvolvimento em projetos novos ou existentes, consulte o [guia de desenvolvimento](guia-desenvolvimento.md).
 
@@ -31,34 +31,50 @@ O Codex descobre skills de projeto em `.agents/skills/`. Os pacotes Full Cycle s
 4. Use `$implement-feature F01` para apenas implementar ou `$implement-and-evaluate F01` para o ciclo completo. Use `$evaluator F01` e `$fix-runner` separadamente quando necessário.
 5. Peça `$implement-and-evaluate-tmux wave N` somente quando quiser executar uma onda em paralelo. Fundações com arquivos comuns permanecem sequenciais.
 
-O PRD e a direção de stack estão definidos. F01 deve esclarecer a viabilidade das integrações antes da execução de F02; o escopo da investigação prática ainda precisa ser definido.
+O PRD, a stack e os artefatos de F01/F02 já existem. Para evolução, consulte o estado atual e a feature alvo antes de reutilizar um exemplo de início do zero.
 
 ## Ambiente e gates atuais
 
-A F02 adapta `init.sh`, `stop.sh`, `resolve-env.sh`, `migrate-dev.sh` e a entrada `node scripts/run-gates.mjs` à base Python. Preparação, segredos privados, imagens fixadas, instâncias, prontidão, retenção e comandos executáveis: [operação F02](F02-fundacao-tecnica-e-ambiente-local/operations.md). Sem scaffold/lock ou ferramenta, as entradas atuais retornam 64; não anunciam ambiente pronto. Os parágrafos abaixo sobre npm/Prisma e o runner da skill descrevem o suporte TypeScript preservado, que não é executado pelo lifecycle/gates Python.
-
-## Referência histórica do ambiente e gates TypeScript
+Pré-requisitos, versões/imagens, segredos e procedimentos completos estão em [operação F02](F02-fundacao-tecnica-e-ambiente-local/operations.md). A configuração autoral é centralizada em `apps/backend/src/garimpei/config/env.py`; o arquivo privado indicado por `GARIMPEI_ENV_FILE` não deve ser versionado. Use caminho absoluto, pois os processos são iniciados de `apps/backend/`.
 
 ```bash
-./scripts/init.sh
-./scripts/stop.sh
-node scripts/run-gates.mjs
-./scripts/migrate-dev.sh -- --name <mudanca>
+uv sync --project apps/backend --locked --all-groups
+GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/resolve-env.sh
+GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/init.sh
+GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/migrate-dev.sh --check
+GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/stop.sh
 ```
 
-Antes do scaffold, `init.sh` informa que apenas o harness está pronto, sem gerar estado de aplicação. O runner de gates retorna erro de pré-requisito (código 64) enquanto o backend/dependências não existirem. Isso não representa uma avaliação da aplicação.
+`init.sh` prepara dependências, migrations e processos próprios, valida prontidão e anuncia a URL resolvida. `stop.sh` conserva dados/volumes/sessões. `--clean` só é permitido para uma instância de avaliação criada como descartável e autorizada; não é uma limpeza genérica de banco de desenvolvimento. Portas, nomes `garimpei_`, manifestos e ownership separam os ambientes. O controle global F22 pausa o trabalho de negócio pela interface; não substitui a parada dos processos.
 
-Na implementação atual, os scripts esperam workspaces npm em `apps/backend` e, opcionalmente, `apps/web`. A presença de `apps/backend/prisma/schema.prisma` habilita o ciclo de banco; a presença do package da web habilita o frontend. Esse suporte precisa ser substituído/adaptado em F02 para web/worker Python e migrations Django/fila. As exigências atuais de `dev`, `/health`, `prisma:generate` e workspaces descrevem o harness preservado, não um scaffold Python pronto.
+A entrada na raiz é `node scripts/run-gates.mjs`. Ela chama as ferramentas Python em `apps/backend/`, sem instalar ferramentas silenciosamente:
 
-O ambiente usa banco `garimpei_<branch-normalizada>` e procura portas livres a partir de 4000/3000 com offset por branch. Portas, logs e PIDs ficam sob controle dos scripts; variáveis adicionais existentes são preservadas. PostgreSQL já ativo ou Docker Compose podem ser usados pelos scripts de ambiente. Os scripts de banco usam credenciais locais de desenvolvimento e pressupõem ambiente descartável.
+| Grupo | Ferramentas efetivas |
+|---|---|
+| Tipos | mypy estrito em `src`, `tests`, verificadores e `manage.py` |
+| Lint e templates | Ruff check/format e djlint para templates Django |
+| Limites | import-linter com `.importlinter` |
+| Arquitetura | `scripts/quality/check_architecture.py` |
+| Ciclos | `scripts/quality/check_cycles.py` |
+| Não utilizados | Vulture com whitelist pontual registrada e deptry |
 
-`stop.sh` encerra processos identificados deste checkout. `stop.sh --clean` também apaga o banco de desenvolvimento da branch quando habilitado; não o use em bancos compartilhados ou fora do escopo autorizado.
+Entradas dinâmicas legítimas de Django ficam documentadas em `quality/entrypoints.json`; a whitelist não autoriza excluir módulos inteiros. Falha, ferramenta ausente ou teste não executado não vira aprovação.
 
-O runner TypeScript preservado em `clean-arch/scripts/run-gates.mjs` executa TypeScript, ESLint, Dependency Cruiser, Architecture, Madge e Knip. O wrapper da raiz valida pré-requisitos e direciona para o backend. F02 deve definir e implementar cobertura equivalente adequada a Python, conforme [stack.md](stack.md), incluindo testes e inicialização real. Até essa adaptação e execução, os gates da aplicação Python permanecem pendentes.
+Execute a suíte de `apps/backend/` para preservar a resolução dos módulos usados pelos subprocessos:
+
+```bash
+uv run --frozen --no-sync pytest
+```
+
+Testes de integração usam PostgreSQL/serviços próprios em Docker. Temporários privados devem ficar fora do checkout e ter espaço disponível; os backups exigem reserva mínima de 1 GiB. `TMPDIR` ou `--basetemp` podem selecionar outro disco privado, preservando essa proteção. Navegador usa `playwright-cli` com sessão própria; não crie outro projeto E2E para substituir esse fluxo.
+
+## Referências históricas TypeScript
+
+O helper `.agents/skills/clean-arch/scripts/run-gates.mjs` e o gerador abaixo preservam exemplos TypeScript/Fastify/Prisma. Eles não são a entrada canônica de validação ou inicialização do Garimpei Python. Não executar comandos antigos de workspace npm/Prisma como se operassem o banco Django.
 
 ## Scaffold sem substituir o harness
 
-O gerador TypeScript preservado está em `.agents/skills/clean-arch/scripts/scaffold.mjs`. Ele protege arquivos existentes; `--force` não é um mecanismo de integração do harness. O comando abaixo demonstra a prévia desse gerador, não a criação da base Django aprovada. Para o produto, gerar a base apropriada em temporário e integrá-la seletivamente é trabalho de F02:
+O gerador TypeScript preservado está em `.agents/skills/clean-arch/scripts/scaffold.mjs`. Ele protege arquivos existentes; `--force` não é um mecanismo de integração do harness. O comando abaixo demonstra a prévia desse gerador, não a criação da base Django aprovada. A fundação Django já foi integrada pela F02; o comando a seguir apenas demonstra o gerador histórico:
 
 ```bash
 node .agents/skills/clean-arch/scripts/scaffold.mjs Garimpei --yes --shape backend --no-db --no-install --no-gates --no-git --dry-run
@@ -96,7 +112,7 @@ Os quatro plugins e exemplos de uso estão em [plugins.md](../plugins.md). Para 
 
 O script registra o marketplace na revisão de referência e instala os pacotes no perfil local do Codex. Em marketplace previamente registrado, o CLI pode reutilizar o registro existente; confira a origem/revisão antes de atualizar. A instalação não altera MCPs nem conexões externas.
 
-Navegação usa `playwright-cli` e Chromium headless isolado, configurado em `.playwright/cli.config.json`. Em nova máquina, instale o CLI e execute `playwright-cli install-browser chromium`. Consulte a skill local para snapshots e screenshots. Node, npm e Git atendem o harness; `lsof`/`curl` atendem o lifecycle. tmux é opcional. PostgreSQL/Docker e renderizadores de diagramas serão necessários apenas nas etapas que os utilizarem.
+Navegação usa `playwright-cli` e Chromium headless isolado, configurado em `.playwright/cli.config.json`. Em nova máquina, instale o CLI e execute `playwright-cli install-browser chromium`. Consulte a skill local para snapshots e screenshots. Node/npm e Git atendem as ferramentas; uv/Python e Docker/Compose atendem a aplicação e os testes que os exigem. tmux é opcional; PostgreSQL e WAHA são dependências operacionais, e Ollama/GPU pertence ao perfil local de inferência.
 
 Skills e plugins locais ficam disponíveis na próxima atualização de descoberta do Codex; se a sessão atual mantiver o catálogo antigo, abra uma nova sessão em `~/dev/garimpei`.
 
@@ -109,6 +125,6 @@ node --test .agents/skills/clean-arch/scripts/scaffold/test/*.test.mjs
 codex plugin list --marketplace fullcycle-claude-marketplace --json
 ```
 
-Essas verificações cobrem recursos, scripts e instalação local. Para validar a configuração pelo CLI sem iniciar uma sessão, use `codex --strict-config app-server --print-startup-config` e mantenha a saída privada, pois pode conter detalhes locais. Testes/gates/jornadas da aplicação serão executados após sua criação. O fluxo paralelo completo precisa de features especificadas, um commit base e ambientes reais; não há execução de produto nesta preparação.
+Essas verificações cobrem recursos, scripts e instalação local. Para validar a configuração pelo CLI sem iniciar uma sessão, use `codex --strict-config app-server --print-startup-config` e mantenha a saída privada, pois pode conter detalhes locais. Os testes, gates e jornadas da aplicação existem e devem ser executados conforme o contrato e a mudança atual. Execução paralela continua exigindo autorização, especificações e ambientes próprios; os checks do harness não substituem a suíte do produto.
 
 Fontes: [Full Cycle Claude Marketplace](https://github.com/devfullcycle/claude-mkt-place), revisão registrada em `.codex/harness-sources.json`; documentação oficial de [configuração do Codex](https://learn.chatgpt.com/docs/config-file/config-basic), [skills](https://learn.chatgpt.com/docs/extend/skills) e [plugins](https://developers.openai.com/plugins/build).

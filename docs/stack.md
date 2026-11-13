@@ -1,6 +1,6 @@
 # Garimpei — stack aprovada para o MVP
 
-Data da decisão inicial: 2026-11-10. Adendo de IA local: 2026-11-12 UTC. A base Python/Django foi implementada e avaliada em F02; o [progresso](prd_progress.json) registra a situação atual de cada etapa. Esta página preserva também o planejamento histórico da fundação. Fontes canônicas: [PRD](PRD.md) e [AGENTS.md](../AGENTS.md). A inferência local descrita no adendo é direção escolhida, pendente de implementação em F19.
+Data da decisão inicial: 2026-11-10. Adendo de IA local: 2026-11-12 UTC. A base Python/Django foi implementada e avaliada em F02; o [progresso](prd_progress.json) registra a situação atual de cada etapa. Esta página preserva também o planejamento histórico da fundação. Fontes canônicas: [PRD](PRD.md) e [AGENTS.md](../AGENTS.md). F19 e F20 estão implementadas e avaliadas; F22 acrescenta controle global. F21 está implementada com prova real positiva pendente. Consulte o [estado atual](status-atual.md) para evidências e limites.
 
 ## Escolha final
 
@@ -13,14 +13,14 @@ Data da decisão inicial: 2026-11-10. Adendo de IA local: 2026-11-12 UTC. A base
 | Tarefas | Fila persistente no PostgreSQL com Procrastinate, validada em F02 |
 | Coleta | Facebook Marketplace por Playwright, perfil dedicado e publicação incremental em F11/F12 |
 | Alertas | WAHA em Docker, acessado pela aplicação/worker |
-| IA multimodal local | Qwen3.5 4B Q4_K_M via Ollama em Docker com GPU NVIDIA; implementação pendente em F19 |
+| IA multimodal local | Qwen3.5 4B Q4_K_M via Ollama em Docker com GPU NVIDIA; implementação e avaliação em F19 |
 | Cache ou broker adicional | Sem Redis inicialmente |
-| Ambiente | Aplicação e worker no Linux/WSL2; PostgreSQL e WAHA em contêineres; Ollama/GPU será acrescentado em F19 |
+| Ambiente | Aplicação e worker no Linux/WSL2; PostgreSQL e WAHA em contêineres; Ollama/GPU integrado pela F19 |
 | Acesso | Navegador deste computador, via localhost, sem login no Garimpei |
 
 Esta decisão substitui React/Vite, a execução da aplicação em Node e a recomendação anterior de Fastify/Prisma. Node continua necessário às ferramentas atuais do harness enquanto elas forem utilizadas; isso não o torna runtime da aplicação.
 
-O usuário aprovou a direção de stack e a separação do worker. Procrastinate, Playwright, gerenciador uv e seis gates Python foram preparados e avaliados nas etapas existentes; versões e operação constam dos artefatos de F02 e integrações. A nova escolha de IA local acrescenta um serviço de inferência, preservando Django, templates/HTMX e PostgreSQL.
+O usuário aprovou a direção de stack e a separação do worker. Procrastinate, Playwright, gerenciador uv e seis gates Python foram preparados e avaliados nas etapas existentes; versões e operação constam dos artefatos de F02 e integrações. O serviço de inferência foi integrado pela F19, preservando Django, templates/HTMX e PostgreSQL.
 
 ## Motivos e trade-offs
 
@@ -41,16 +41,16 @@ flowchart LR
   J["Worker Python"] <--> D
   J <--> F["Primeira fonte e referências"]
   J --> A["WAHA"]
-  J --> L["Ollama + GPU · F19 pendente"]
+  J --> L["Ollama + GPU · F19"]
 ```
 
-Um projeto modular terá dois processos de aplicação: web e worker. A interface será servida pelo Django. Fechar a aba não interromperá o monitoramento enquanto worker, banco e serviços necessários estiverem ativos. Computador, WSL2 e Docker precisam permanecer em execução; não há exigência de operação 24 horas.
+O projeto modular tem dois processos de aplicação: web e worker. A interface é servida pelo Django. Fechar a aba não interromperá o monitoramento enquanto worker, banco e serviços necessários estiverem ativos. Computador, WSL2 e Docker precisam permanecer em execução; não há exigência de operação 24 horas.
 
-Coleta, processamento e envio terão estado persistente para retomada. Agendamento, controle de concorrência, tentativas, timeouts, prontidão e parada serão especificados. Procrastinate é um candidato para tarefas no PostgreSQL; sua adoção não garante entrega exatamente uma vez nem resolve por si só uma resposta incerta do WAHA. [Procrastinate](https://procrastinate.readthedocs.io/en/stable/).
+Coleta, processamento e envio têm estado persistente para retomada. Agendamento, concorrência, tentativas, timeouts, prontidão e parada foram especificados e implementados nas features correspondentes; as avaliações e os limites estão no estado atual. Procrastinate é a biblioteca adotada em F02 para tarefas no PostgreSQL; sua adoção não garante entrega exatamente uma vez nem resolve por si só uma resposta incerta do WAHA. [Procrastinate](https://procrastinate.readthedocs.io/en/stable/).
 
-O acesso da aplicação e a publicação de portas dos serviços serão locais. Preservar o prefixo de banco `garimpei_` e o isolamento dos ambientes de desenvolvimento/avaliação. Parada normal conserva dados e sessão WAHA. Identificar recursos próprios antes de reutilizar ou encerrar processos, contêineres e sessões.
+O acesso da aplicação e a publicação de portas dos serviços são locais. Preservar o prefixo de banco `garimpei_` e o isolamento dos ambientes de desenvolvimento/avaliação. Parada normal conserva dados e sessão WAHA. Identificar recursos próprios antes de reutilizar ou encerrar processos, contêineres e sessões.
 
-A leitura desta revisão identificou RTX 5070 com 12.227 MiB de VRAM, compute capability 12.0, driver 621.01 e aproximadamente 31 GiB de RAM visíveis ao WSL2. A memória livre oscilou em torno de 9 GiB. O runtime NVIDIA aparece registrado no Docker; isso não prova passagem da GPU ou inferência no contêiner. A convivência do modelo com navegador, web/worker e WAHA será medida em F19. A escolha e fontes oficiais estão na [nota de IA local](ia-local-rtx5070.md).
+A leitura desta revisão identificou RTX 5070 com 12.227 MiB de VRAM, compute capability 12.0, driver 621.01 e aproximadamente 31 GiB de RAM visíveis ao WSL2. A memória livre oscilou em torno de 9 GiB. O runtime NVIDIA aparece registrado no Docker; isso não prova passagem da GPU ou inferência no contêiner. A convivência do modelo com os demais processos foi avaliada no escopo de F19; os resultados não garantem capacidade livre em outra execução. A escolha e fontes oficiais estão na [nota de IA local](ia-local-rtx5070.md).
 
 ## Histórico de adaptações da fundação
 
@@ -72,9 +72,9 @@ A tabela abaixo registra o trabalho definido no planejamento inicial e tratado n
 
 ## Qualidade e critérios de validação
 
-As finalidades dos gates serão preservadas; as ferramentas de Python serão definidas e verificadas na especificação e implementação de F02. A migração não aprova verificações por serem incompatíveis com a stack antiga.
+As finalidades dos gates foram preservadas na implementação Python de F02. A tabela compara as ferramentas de origem com a finalidade da validação atual. A migração não aprova verificações por serem incompatíveis com a stack antiga.
 
-| Gate atual do harness TypeScript | Cobertura requerida para a base Python |
+| Gate do harness TypeScript de origem | Cobertura requerida para a base Python |
 |---|---|
 | TypeScript | Verificação de tipos Python e dos módulos efetivamente usados |
 | ESLint | Lint e análise estática Python; verificações de templates e JavaScript autoral quando aplicáveis |
@@ -85,7 +85,7 @@ As finalidades dos gates serão preservadas; as ferramentas de Python serão def
 
 Complementar com testes de regras, integração PostgreSQL/fila, inicialização real de web/worker e jornadas via `playwright-cli`. Testar retomada e eventos de alerta nas features responsáveis. Validar que os controles rejeitam violações representativas, em vez de apenas passar o scaffold.
 
-O contrato de F02 precisa definir comandos executáveis e evidências para essa cobertura antes de implementar. Enquanto os validadores Python não existirem e não forem executados, permanecem pendentes. O runner TypeScript preservado não comprova aprovação de Python.
+F02 definiu e implementou essa cobertura; `node scripts/run-gates.mjs` executa mypy, Ruff/djlint, import-linter, os verificadores de arquitetura/ciclos, Vulture e deptry. Os comandos e os pré-requisitos estão em [harness.md](harness.md). O helper TypeScript preservado nas skills não valida o produto Python.
 
 ## Pendências do planejamento inicial e estado atual
 
@@ -94,7 +94,7 @@ O contrato de F02 precisa definir comandos executáveis e evidências para essa 
 - F04/F09: identidades e eventos, políticas de retomada, agendamento, tentativas e reconciliação de envios incertos.
 - Demais decisões de classificação, amostragem, custos e interface listadas no PRD.
 
-A lista anterior preserva as perguntas originais do planejamento. Seus resultados e as pendências atuais estão no PRD e no progresso: F01–F12 foram avaliadas; a evolução F13–F20 permanece pendente. Aprovação de direção técnica não comprova inferência, envio de mensagens ou implementação de uma etapa nova.
+A lista anterior preserva as perguntas originais do planejamento. Seus resultados e as pendências atuais estão no PRD e no progresso: F01–F20 e F22 foram avaliadas como `done`; F21 permanece `implemented` com a dimensão positiva real bloqueada. Aprovação de direção técnica não comprova inferência, envio de mensagens ou implementação de uma etapa nova.
 
 ## Arquitetura e decisões registradas
 
@@ -105,10 +105,10 @@ O detalhamento está na [arquitetura proposta](architecture/README.md), com orga
 
 Direção solicitada pelo usuário: análise de texto e imagens localmente em Docker. Seleção: **Qwen3.5 4B Q4_K_M**, tag explícita `qwen3.5:4b-q4_K_M`, por Ollama na imagem oficial `ollama/ollama`. Escolher 4B conserva mais margem de memória que os candidatos maiores; essa é inferência de engenharia, sem benchmark local concluído. A [nota técnica](ia-local-rtx5070.md) compara alternativas, registra versões candidatas e aponta as fontes oficiais.
 
-F19 deverá fixar versão/digest da imagem e revisão completa dos pesos, comprovar uso da GPU no contêiner e testar consumo real. Perfil inicial de validação: um modelo e uma inferência simultânea, contexto de 4.096 tokens e imagens limitadas por chamada, sem truncamento silencioso de evidência. Esses valores são parâmetros de partida, não metas de desempenho nem garantia de capacidade.
+O contrato de F19 exigiu fixar versão/digest e revisão dos pesos, comprovar a GPU e testar consumo. A implementação e a evidência estão em [F19](F19-inferencia-multimodal-local-em-docker/spec.md) e sua avaliação registrada no progresso. Perfil inicial de validação: um modelo e uma inferência simultânea, contexto de 4.096 tokens e imagens limitadas por chamada, sem truncamento silencioso de evidência. Esses valores são parâmetros de partida, não metas de desempenho nem garantia de capacidade.
 
-Modo de uso aprovado para F19: **equilibrado**, com análise automática, descarregamento do modelo da memória após inatividade e pausa/retomada manual da IA para compartilhar a GPU. Pesos em disco, fila e resultados confirmados são preservados. O intervalo de inatividade e o tratamento da inferência em execução ao pausar serão definidos no contrato e validados na máquina; não há garantia de impacto nulo nos demais programas. Os critérios observáveis constam de F19-AC09/F19-AC10 no PRD.
+Modo de uso aprovado para F19: **equilibrado**, com análise automática, descarregamento do modelo da memória após inatividade e pausa/retomada manual da IA para compartilhar a GPU. Pesos em disco, fila e resultados confirmados são preservados. O intervalo de cinco minutos sem uso e o tratamento da inferência em execução ao pausar constam da implementação e do contrato F19; não há garantia de impacto nulo nos demais programas. Os critérios observáveis constam de F19-AC09/F19-AC10 no PRD.
 
-A API fica restrita ao ambiente local; `OLLAMA_NO_CLOUD=1` e ausência de fallback remoto mantêm a inferência no computador. Preparação pode baixar pesos/imagem de fontes oficiais. Fila, timeouts, cache por conteúdo/modelo, resposta estruturada validada e resultados versionados serão integrados ao worker existente. Falta de GPU/VRAM ou modelo indisponível é estado explícito e não deve bloquear coleta ou apagar avaliação anterior.
+A API fica restrita ao ambiente local; `OLLAMA_NO_CLOUD=1` e ausência de fallback remoto mantêm a inferência no computador. Preparação pode baixar pesos/imagem de fontes oficiais. Fila, timeouts, cache por conteúdo/modelo, resposta estruturada validada e resultados versionados foram integrados ao worker em F19/F15. Falta de GPU/VRAM ou modelo indisponível é estado explícito e não deve bloquear coleta ou apagar avaliação anterior.
 
-A IA apoia identificação, análise de texto/fotos e contradições. Comparáveis rastreáveis sustentam o preço de venda estimado e o domínio calcula o lucro; o modelo não inventa preço ou retorno. A nova apresentação de compra, venda estimada e lucro, sem frete/transporte, será implementada em F20. Nenhum serviço GPU foi instalado ou iniciado por esta revisão documental.
+A IA apoia identificação, análise de texto/fotos e contradições. Comparáveis rastreáveis sustentam o preço de venda estimado e o domínio calcula o lucro; o modelo não inventa preço ou retorno. A apresentação de compra, venda estimada e lucro, sem frete/transporte, foi implementada em F20. A revisão documental original não iniciou GPU; instalação, inferência e validação posteriores estão nos relatórios F19/F15. A pendência real de F21 não é substituída por esses aceites anteriores.

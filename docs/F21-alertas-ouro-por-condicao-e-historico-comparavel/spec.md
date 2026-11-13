@@ -1,10 +1,15 @@
 # F21 — Alertas ouro por condição e histórico comparável
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `implemented` — [avaliação registrada](eval-report-2026-11-13T18-20-00Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade alta pela integração e pelo efeito externo.** Acrescentar qualificação obrigatória `gold-alert-v1` à avaliação e à autorização final dos alertas existentes. “Ouro” representa uma oferta com evidências suficientes de condição, identidade e revenda com lucro estimado positivo. A feature não cria outro coletor, estimador, canal ou cálculo monetário.
 
-Fontes: [PRD](../PRD.md), [stack](../stack.md), [F15](../F15-avaliacao-conjunta-de-imagens-e-descricao/spec.md), [F16](../F16-alertas-pela-primeira-elegibilidade-e-diagnostico/spec.md), [F18](../F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/spec.md) e [F20](../F20-compra-venda-estimada-e-lucro-na-apresentacao/spec.md). F16 já foi avaliada; seus documentos e relatórios permanecem históricos. F21 é nova, prioridade 1, onda 13, dependências F06/F07/F15/F16/F18/F20 e status `pending`.
+Fontes: [PRD](../PRD.md), [stack](../stack.md), [F15](../F15-avaliacao-conjunta-de-imagens-e-descricao/spec.md), [F16](../F16-alertas-pela-primeira-elegibilidade-e-diagnostico/spec.md), [F18](../F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/spec.md) e [F20](../F20-compra-venda-estimada-e-lucro-na-apresentacao/spec.md). F16 já foi avaliada; seus documentos e relatórios permanecem históricos. F21 é nova, prioridade 1, onda 13, dependências F06/F07/F15/F16/F18/F20 e estado inicial `pending`.
 
 Inclui primeiro alerta e novas reduções de preço, evidências rastreáveis, adoção de filas e diagnóstico nas superfícies existentes. Mantém a janela inclusiva de 48 horas da publicação confiável somente para o primeiro alerta, o requisito de confirmação anterior nas reduções, a exceção de classificação manual isolada e a reconciliação de transmissão incerta. Zero/negativo continuam na lista; a restrição nova é para alertar.
 
@@ -213,3 +218,7 @@ Prova real separada: produzir `evidence/real-corpus.json` e relatório sanitizad
 ### Referência de avaliação aprovada em 2026-11-13
 
 Por autorização explícita do usuário, a comparação da F21 usa uma referência assistida por IA com autoria, método, sinais, cobertura e hashes, congelada antes da inferência local. Registrar `reference_method=ai_assisted` e `independent_human_review=false`; nunca apresentar concordância entre IAs como precisão contra verdade humana. O rótulo de referência não substitui a análise aplicável do produto nem autoriza resultado positivo artificial. Políticas de condição/identidade/amostra/lucro e exigência de caso real qualificado permanecem inalteradas.
+
+## Apresentação atual — 2026-11-13
+
+Sinalização e diagnóstico ouro recebidos da master são preservados junto da apresentação refinada. A dimensão real positiva segue bloqueada e esta revisão não altera a qualificação nem seu status. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

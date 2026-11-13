@@ -1,5 +1,10 @@
 # F18 — Identificação de produtos e busca ativa de comparáveis
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T13-37-52Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade: complexa**, pela navegação externa, persistência, correção manual concorrente e integração financeira. Fontes: [PRD](../PRD.md), F18-AC01–AC14, e [design aprovado](design.md). Dependências diretas: F06, F12 e F13; F13 está pendente no progresso consultado. Este documento especifica trabalho futuro, sem iniciar serviços, coletar dados ou alterar status de implementação.
@@ -220,3 +225,7 @@ A localização nativa da coleta/pesquisa é a cidade São Paulo/SP, com raio20k
 Uma primeira página nativa pode ser utilizada se o mesmo documento recebido fornecer resultados e contexto compatível de cidade/raio/consulta, sem uma segunda requisição reescrita. Datas e ordenação não confirmadas permanecem explícitas; pesquisa de comparáveis solicita todas as datas e mantém a política F06 de observações14dias. Quando os filtros nativos não coincidirem, metadados de bootstrap não validam o POST alterado. Continuação conserva as variáveis nativas e cursor emitido pela fonte, vinculados à mesma pesquisa.
 
 A mudança do centro entra na assinatura do escopo/pesquisa para superar trabalhos anteriores antes de retomar ou publicar, preservando histórico. A ativação automática continua condicionada à prova real, limites medidos e avaliação integral; esta alteração documental não conclui F18 nem liga o robô.
+
+## Apresentação atual — 2026-11-13
+
+Identidade e pesquisa permanecem vinculadas às evidências; seus disclosures, formulários e seções usam os padrões compartilhados de foco, seleção e espaçamento. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

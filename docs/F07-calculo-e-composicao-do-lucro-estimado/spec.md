@@ -1,5 +1,10 @@
 # F07 — Cálculo e composição do lucro estimado
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-11T17-53-22Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade média.** A F07 combina os custos configurados na F03, a observação de compra, modalidade e frete da F04 e a estimativa de revenda de usado da F06. A saída identifica cada componente e sua origem. A F08 consome o lucro vigente e a composição. A F09 consome a composição vinculada à observação de um evento da F04.

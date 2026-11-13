@@ -1,5 +1,10 @@
 # F15 — Avaliação conjunta de imagens e descrição
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-13T16-58-43Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 ## 1. Visão técnica
 
 **Complexidade:** complexa · **Onda:** 12 · **Dependências:** F05, F06, F14 e F19.
@@ -228,3 +233,7 @@ O pacote atual conserva 23 IDs e hash do manifesto; a referência foi congelada 
 A proposta da onda15-51-31 foi aprovada explicitamente: até 1024 tokens de saída somente no perfil de condição F15. O perfil legado F19 continua até 512; contexto total 4096, modelo/pins, política e schema estrito permanecem. Reservar a saída correta junto da entrada e da capacidade visual demonstrada; recusar excesso sem truncamento silencioso. O perfil novo e sua chave de reaproveitamento distinguem a alteração de versão dos resultados anteriores.
 
 As sondagens v1/v2 que truncaram em 512 ficam preservadas como diagnóstico. Repetir o par físico frio/quente e o corpus na versão final, publicando rejeições/abstenções e recursos, sem meta de precisão inventada. O corpus reservado já foi exposto em rodadas anteriores; a nova execução é uma repetição técnica identificada, com referência/splits congelados e sem alegação de holdout novo. Nenhuma validação humana independente é fabricada.
+
+## Apresentação atual — 2026-11-13
+
+Seções de avaliação textual/visual recebem ritmo e hierarquia compartilhados. As limitações e sinais existentes permanecem explícitos; esta revisão visual não reexecuta a avaliação do modelo. Veja as [convenções da interface](../design/implementation.md), a [auditoria original](../design/audit-2026-11-13/README.md) e a [verificação integrada](../design/audit-2026-11-13/integration-master.md). Este complemento preserva IDs e critérios do contrato original.

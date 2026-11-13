@@ -1,5 +1,7 @@
 # Briefing do produto para design
 
+Atualização de 2026-11-13: o briefing e os cenários abaixo explicam o laboratório original. A aplicação implementada e os limites de cada feature estão no [estado atual](../status-atual.md); as convenções atuais estão em [implementation.md](implementation.md).
+
 Fonte: [PRD](../PRD.md), [stack aprovada](../stack.md) e direção visual escolhida na conversa. O usuário autorizou a criação destes artefatos visuais após a etapa de documentação da arquitetura.
 
 O Garimpei atende inicialmente o próprio idealizador, começando na compra de usados para revenda. Ele seleciona categorias e produtos por nome/modelo, explora anúncios, avalia funcionamento e compara referências e custos antes de abrir a oferta na plataforma de origem. A negociação acontece fora do sistema.

@@ -1,5 +1,10 @@
 # Plano de implementação — F13
 
+<!-- current-execution:start -->
+> **Situação em 2026-11-13:** `done` — [avaliação registrada](eval-report-2026-11-12T19-32-55Z.md); o [progresso canônico](../prd_progress.json) conserva ciclos e datas.
+> Menções à feature ainda não iniciada ou à ausência do scaffold refletem a elaboração original. Consulte o [estado consolidado](../status-atual.md) para implementação e limites atuais. Evoluções explícitas do PRD e contratos posteriores prevalecem nos pontos alterados; IDs e evidências históricas são preservados.
+<!-- current-execution:end -->
+
 Pré-requisitos: [spec](spec.md), [contrato](contract.md), F03/F04/F11/F12 disponíveis, stack Python/Django aprovada, uv e dependências congeladas, PostgreSQL/worker pelos scripts existentes, catálogo de navegação e ambiente de avaliação próprios a produzir conforme contrato. A fase real depende de acesso verificado e exclusivo ao Marketplace. Esta entrega é documental; implementação não começou.
 
 ## Fase 1 — Baseline e regras
