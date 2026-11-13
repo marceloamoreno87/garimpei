@@ -1,0 +1,74 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/e16d/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 31 items
+
+tests/integration/test_assessment_boundaries.py::test_legacy_version_is_retired_and_current_input_gets_new_persisted_work[policy_version] 58 objects imported automatically (use -v 2 for details).
+
+legacy fixture policy_version -> approved current profile: immediate abstention, own generation/request, no incompatible reuse, immutable history PASS
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_legacy_version_is_retired_and_current_input_gets_new_persisted_work[prompt_version] 58 objects imported automatically (use -v 2 for details).
+
+legacy fixture prompt_version -> approved current profile: immediate abstention, own generation/request, no incompatible reuse, immutable history PASS
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_legacy_version_is_retired_and_current_input_gets_new_persisted_work[schema_version] 58 objects imported automatically (use -v 2 for details).
+
+legacy fixture schema_version -> approved current profile: immediate abstention, own generation/request, no incompatible reuse, immutable history PASS
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_legacy_version_is_retired_and_current_input_gets_new_persisted_work[model_revision] 58 objects imported automatically (use -v 2 for details).
+
+legacy fixture model_revision -> approved current profile: immediate abstention, own generation/request, no incompatible reuse, immutable history PASS
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_hostile_photo_passes_real_media_and_gateway_boundaries_without_tools_or_secrets[tool_calls] 58 objects imported automatically (use -v 2 for details).
+
+hostile text+image -> real F14/F15 prepare, real F19 image/dispatch/schema, controlled transport tool_calls rejected; no secrets/config changes/transmission PASS; real_tokenizer=True
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_hostile_photo_passes_real_media_and_gateway_boundaries_without_tools_or_secrets[fabricated_quote] 58 objects imported automatically (use -v 2 for details).
+
+hostile text+image -> real F14/F15 prepare, real F19 image/dispatch/schema, controlled transport fabricated_quote rejected; no secrets/config changes/transmission PASS; real_tokenizer=True
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_hostile_photo_passes_real_media_and_gateway_boundaries_without_tools_or_secrets[unknown_photo] 58 objects imported automatically (use -v 2 for details).
+
+hostile text+image -> real F14/F15 prepare, real F19 image/dispatch/schema, controlled transport unknown_photo rejected; no secrets/config changes/transmission PASS; real_tokenizer=True
+
+PASSED
+tests/integration/test_assessment_boundaries.py::test_hostile_photo_passes_real_media_and_gateway_boundaries_without_tools_or_secrets[invalid_json] 58 objects imported automatically (use -v 2 for details).
+
+hostile text+image -> real F14/F15 prepare, real F19 image/dispatch/schema, controlled transport invalid_json rejected; no secrets/config changes/transmission PASS; real_tokenizer=True
+
+PASSED
+tests/integration/test_multimodal_condition.py::test_pending_then_sufficient_evidence_is_shared_and_pinned PASSED
+tests/integration/test_multimodal_condition.py::test_late_result_and_manual_choice_survive_new_input PASSED
+tests/integration/test_multimodal_condition.py::test_stale_input_is_blocked_before_next_worker_reconcile PASSED
+tests/integration/test_multimodal_condition.py::test_concurrent_preparation_converges_and_reobservation_reuses_result PASSED
+tests/integration/test_multimodal_condition.py::test_failed_inference_keeps_history_and_http_read_does_not_wait PASSED
+tests/integration/test_multimodal_condition.py::test_manual_csrf_revision_and_conflict_still_use_existing_form PASSED
+tests/integration/test_multimodal_condition.py::test_distinct_photo_batches_share_one_current_cohort[5] PASSED
+tests/integration/test_multimodal_condition.py::test_distinct_photo_batches_share_one_current_cohort[12] PASSED
+tests/integration/test_multimodal_condition.py::test_condition_cohort_does_not_supersede_legacy_profile_and_new_generation_fences_late_batches PASSED
+tests/integration/test_multimodal_condition.py::test_static_webp_original_is_preserved_and_analyzed_through_a_png_derivative PASSED
+tests/integration/test_multimodal_condition.py::test_slow_inference_holds_no_collection_or_http_publication_lock PASSED
+tests/integration/test_multimodal_condition.py::test_public_condition_matrix_separates_visual_claims_and_insufficiency PASSED
+tests/integration/test_multimodal_condition.py::test_completed_inference_is_reused_after_worker_process_boundary_before_publication PASSED
+tests/integration/test_multimodal_condition.py::test_absent_photos_do_not_fabricate_a_model_analysis_timestamp PASSED
+tests/integration/test_multimodal_condition.py::test_result_from_a_different_model_revision_cannot_be_published_as_requested_model PASSED
+tests/integration/test_multimodal_alert_condition.py::test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[light_wear] PASSED
+tests/integration/test_multimodal_alert_condition.py::test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[clear_defect] PASSED
+tests/integration/test_multimodal_alert_condition.py::test_activation_preserves_preexisting_confirmed_uncertain_and_terminal_history PASSED
+tests/integration/test_multimodal_alert_condition.py::test_alert_note_keeps_damage_suspicion_and_manual_divergence PASSED
+tests/integration/test_identity_assessment.py::test_manual_identity_completion_invalidates_and_rebuilds_visual_assessment PASSED
+tests/integration/test_identity_assessment.py::test_recognized_family_without_category_word_and_equivalent_manual_input_keep_semantics PASSED
+tests/integration/test_identity_assessment.py::test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history[prompt_version] PASSED
+tests/integration/test_identity_assessment.py::test_prompt_or_schema_change_immediately_retires_current_assessment_without_erasing_history[schema_version] PASSED
+
+======================== 31 passed in 200.69s (0:03:20) ========================

@@ -1,0 +1,27 @@
+{
+  "baseline": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/city-full-inputs-2026-11-13T13-37-52Z.json",
+  "baseline_passed": 724,
+  "compared": 653,
+  "changed": [
+    "src/garimpei/infra/gateway/listing/assessment_inference.py",
+    "tests/factories/assessment_lab_actions.py"
+  ],
+  "missing": [],
+  "added": [
+    "tests/integration/test_assessment_boundaries.py",
+    "tests/unit/test_assessment_quality_review.py",
+    "tests/factories/assessment_quality.py",
+    "tests/factories/assessment_quality_review.py",
+    "tests/factories/assessment_quality_runtime.py"
+  ],
+  "scope": "Baseline reusable for unchanged inputs only; affected source exercised in focal regressions. Full after change belongs to coordinator and is pending at report creation.",
+  "current": {
+    "src/garimpei/infra/gateway/listing/assessment_inference.py": "f33e29f37600722ede721d4bfda2cfcc696262814419ddf1c1a4546b0f9ef754",
+    "tests/factories/assessment_lab_actions.py": "709f0c4e893508ee1f97bd60a966876a0a24ba0ad262ca39737c2859f9e609ed",
+    "tests/integration/test_assessment_boundaries.py": "4bb09d8efe3b8ca9be8c08113f3d193aa4a797b37cc24f9902320594439e5f27",
+    "tests/unit/test_assessment_quality_review.py": "412635644f80bf7f369829fdeb858d182da254f02286b5f5da534c1031c0fbef",
+    "tests/factories/assessment_quality.py": "017d60ff13f8a61a8f9776f3981d68c146ff3f7c55c4325aaea49ae535ad056a",
+    "tests/factories/assessment_quality_review.py": "857f88eb551f087c6827b3ec4c1de5c32d4e467d582891b519e7bd7decee52b9",
+    "tests/factories/assessment_quality_runtime.py": "ef67dfbf0e99547a42515466b2ba0339115d2f7a772724dad7f249f3e7087756"
+  }
+}

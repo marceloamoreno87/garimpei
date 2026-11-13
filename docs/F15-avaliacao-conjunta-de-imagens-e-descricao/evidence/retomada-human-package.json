@@ -1,0 +1,10 @@
+{
+  "directory": "/home/marce/.cache/garimpei-evaluations/f15-human-review",
+  "cases": 23,
+  "real_originals": 9,
+  "synthetic_images": 18,
+  "all_links_exist": true,
+  "checked_links": 38,
+  "all_human_labels_null": true,
+  "model_executed": false
+}

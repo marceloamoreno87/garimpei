@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "rubric": "condition-policy-v1",
+  "cases": [
+    {
+      "case_id": "source-1633686958401669",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": null,
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": null
+    },
+    {
+      "case_id": "source-1502910511735697",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "console",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": null
+    },
+    {
+      "case_id": "electronics-light_wear",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "electronics",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "electronics-clear_defect",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "electronics",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "electronics-suspected",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "electronics",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "camera-light_wear",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "camera",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "camera-clear_defect",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "camera",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "camera-suspected",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "camera",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "computer-light_wear",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "computer",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "computer-clear_defect",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "computer",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "computer-suspected",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "computer",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "console-light_wear",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "console",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "console-clear_defect",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "console",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "console-suspected",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "console",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "headphone-light_wear",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "headphone",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "headphone-clear_defect",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "headphone",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "headphone-suspected",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "headphone",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "television-light_wear",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "television",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "television-clear_defect",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "television",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "television-suspected",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "television",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "intermittent",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "console",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "battery",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "computer",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "untested",
+      "reviewer": null,
+      "reviewed_at": null,
+      "category": "camera",
+      "label": null,
+      "findings": [],
+      "limitations": [],
+      "text_corrections": null,
+      "split": "reserved"
+    }
+  ],
+  "finding_format": {
+    "dimension": "appearance|function_claim|completeness|identity|consistency",
+    "severity": "light_wear|clear_defect|suspected|unknown",
+    "component": "main|accessory|unknown",
+    "evidence": {
+      "photo_id": null,
+      "text_field": null,
+      "quote": null
+    },
+    "description": null
+  },
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b"
+}
