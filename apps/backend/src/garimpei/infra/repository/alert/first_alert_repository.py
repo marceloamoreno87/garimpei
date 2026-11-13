@@ -14,12 +14,16 @@ from garimpei.infra.persistence.alert_models import (
     FirstAlertInventory,
     FirstEligibilityDecision,
 )
+from garimpei.infra.persistence.gold_models import GoldQualification
 from garimpei.infra.persistence.listing_models import Listing, ManualCondition
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.queries.alert.event_source import current_eligibility
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.alert.first_financial import first_snapshot
 from garimpei.infra.repository.alert.first_inputs import automatic_signature
+from garimpei.infra.repository.alert.gold_adoption import gold_active
+from garimpei.infra.repository.alert.gold_evidence_repository import PostgresGoldEvidenceRepository
+from garimpei.infra.repository.alert.gold_snapshot import automatic_gold_signature
 from garimpei.infra.repository.listing.condition_mapper import condition_state
 from garimpei.infra.repository.listing.mapper import decode_evidence
 
@@ -121,12 +125,23 @@ class PostgresFirstAlertRepository:
         current = current_eligibility(listing, self._configuration, self._listings)
         financial_reason, financial = first_snapshot(listing, profit)
         reasons = tuple(reason for reason in (current, financial_reason) if reason != "eligible")
+        manual_consumed = row.manual_signature == signature
+        if gold_active():
+            gold = PostgresGoldEvidenceRepository.qualify_locked(listing, "first", financial, now)
+            if gold.state != "qualified":
+                reasons = (*gold.reasons, *reasons)
+            assert gold.id is not None
+            stored = GoldQualification.objects.get(id=gold.id)
+            manual_consumed = manual_consumed and (
+                not row.manual_gold_signature
+                or row.manual_gold_signature == automatic_gold_signature(stored.evidence)
+            )
         reason = first_eligibility(
             evidence.published_at,
             evidence.published_at_source,
             now,
             reasons,
-            row.manual_signature == signature,
+            manual_consumed,
         )
         state = (
             "eligible"

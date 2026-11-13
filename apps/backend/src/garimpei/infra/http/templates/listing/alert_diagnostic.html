@@ -4,6 +4,7 @@
         <p role="status">Não foi possível consultar o estado do alerta. Os dados da oferta continuam disponíveis.</p>
         <a class="button secondary" href="{{ request.get_full_path }}">Tentar consultar novamente</a>
     {% elif alert %}
+        {% include "listing/gold_diagnostic.html" %}
         <p><strong>{{ alert.label }}</strong></p>
         {% if alert.current_reason != alert.reason %}<p>Avaliação atual: {{ alert.current_label }}.</p>{% endif %}
         <p class="fine">{% if alert.evaluated_at %}Última avaliação: {{ alert.evaluated_at|date:"d/m/Y H:i:s" }} UTC.{% else %}Esta oferta ainda não foi avaliada para o primeiro alerta.{% endif %}</p>

@@ -19,6 +19,7 @@ from django.utils import timezone
 
 from garimpei.domain.media.media import AnalysisMedia
 from garimpei.infra.gateway.operations.archive_gateway import ArchiveInvalid
+from garimpei.infra.gateway.operations.gold_restore import prepare_gold_restore
 from garimpei.infra.gateway.operations.inference_archive_gateway import InferenceArchiveGateway
 from garimpei.infra.gateway.operations.media_archive_gateway import MediaArchiveGateway
 from garimpei.infra.gateway.operations.private_fields import (
@@ -135,6 +136,7 @@ class BusinessSnapshotGateway:
             self._inference.validate(metadata, files)
 
     def restore(self, files: dict[str, bytes], metadata: dict[str, object]) -> None:
+        prepare_gold_restore(files)
         for name in SCHEMA:
             _restore_table(name, files[name + ".jsonl"])
         if self._media is not None:
@@ -157,7 +159,12 @@ class BusinessSnapshotGateway:
                 cursor.execute(statement)
 
     def is_empty(self) -> bool:
-        return not any(model._default_manager.exists() for model, _ in SCHEMA.values())
+        return not any(
+            model._default_manager.exclude(state="pending").exists()
+            if name == "runtime.goldpolicyadoption"
+            else model._default_manager.exists()
+            for name, (model, _) in SCHEMA.items()
+        )
 
 
 def _capture_table(model: type[Model], fields: tuple[str, ...]) -> tuple[bytes, int]:

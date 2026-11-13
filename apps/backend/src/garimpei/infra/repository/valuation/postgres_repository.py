@@ -1,10 +1,7 @@
-import hashlib
-import json
 from collections import defaultdict
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import cast
 from uuid import UUID
 
 from django.db import transaction
@@ -12,7 +9,6 @@ from django.db.models import Q
 
 from garimpei.domain.operations.ports import ProgressRecorder
 from garimpei.domain.valuation.identification_values import IdentificationResult
-from garimpei.domain.valuation.policy import VALUATION_POLICY
 from garimpei.domain.valuation.ports import WorkInput
 from garimpei.domain.valuation.values import Comparable, Valuation
 from garimpei.infra.persistence.identity_models import ManualIdentityRevision
@@ -24,15 +20,16 @@ from garimpei.infra.persistence.valuation_models import (
     ValuationWork,
 )
 from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
-from garimpei.infra.repository.listing.mapper import EvidenceRecord, decode_evidence
 from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.mapper import (
     decode_comparable,
     decode_valuation,
     encode_comparable,
     encode_valuation,
+    listing_comparable,
     mapping,
     records,
+    valuation_signature,
 )
 
 
@@ -116,13 +113,7 @@ class PostgresValuationRepository:
             target=encode_comparable(target),
             candidates=[encode_comparable(row) for row in candidates],
         )
-        signature_input = dict(
-            policy=VALUATION_POLICY,
-            product=product,
-            target=snapshot["target"],
-            candidates=snapshot["candidates"],
-        )
-        signature = hashlib.sha256(json.dumps(signature_input, sort_keys=True).encode()).hexdigest()
+        signature = valuation_signature(snapshot, product)
         return PendingRequest(target.listing_id, snapshot, signature)
 
     def _request_batch(
@@ -260,18 +251,4 @@ class PostgresValuationRepository:
 
 
 def _listing(row: Listing, identification: IdentificationResult | None = None) -> Comparable:
-    observation = row.latest
-    assert observation is not None
-    evidence = decode_evidence(cast(EvidenceRecord, observation.evidence))
-    return Comparable(
-        row.id,
-        row.source,
-        row.external_id,
-        evidence.title or "",
-        row.canonical_url,
-        observation.price,
-        observation.observed_at,
-        observation.ordinal,
-        evidence,
-        identification=identification,
-    )
+    return listing_comparable(row, identification)

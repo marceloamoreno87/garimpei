@@ -4,6 +4,7 @@ from typing import Protocol
 from uuid import UUID
 
 from garimpei.domain.alert.first_eligibility import POLICY
+from garimpei.domain.alert.gold_diagnostic import GoldDiagnostic
 
 
 class AlertDiagnosticReadFailed(Exception):
@@ -43,6 +44,8 @@ class AlertDiagnostic:
     confirmed_at: datetime | None = None
     intent_reference: UUID | None = None
     policy: str = POLICY
+    gold: GoldDiagnostic | None = None
+    gold_failed: bool = False
 
 
 class AlertDiagnosticQueries(Protocol):

@@ -80,8 +80,21 @@ def consume_manual_input(listing: Listing, now: datetime) -> None:
         listing=listing, defaults={"next_action": now}
     )
     row.manual_signature = signature
+    from garimpei.infra.persistence.alert_models import FirstEligibilityDecision
+    from garimpei.infra.repository.alert.gold_adoption import gold_active
+    from garimpei.infra.repository.alert.gold_snapshot import (
+        automatic_gold_signature,
+        gold_snapshot,
+    )
+
+    if gold_active():
+        previous = (
+            FirstEligibilityDecision.objects.filter(identity=row).order_by("-evaluated_at").first()
+        )
+        _, record = gold_snapshot(listing, previous.financial if previous else {}, now)
+        row.manual_gold_signature = automatic_gold_signature(record)
     row.next_action = min(row.next_action, listing.latest.observed_at if listing.latest else now)
-    row.save(update_fields=["manual_signature", "next_action"])
+    row.save(update_fields=["manual_signature", "manual_gold_signature", "next_action"])
 
 
 def semantic_candidates(raw: object) -> list[dict[str, object]]:
