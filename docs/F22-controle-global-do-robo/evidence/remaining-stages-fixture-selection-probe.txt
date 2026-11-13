@@ -1,0 +1,118 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_old_valuation_assessment_identity_and_research_work_obey_pause_without_spending_attempts _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-61/test_old_valuation_assessment_0')
+
+    def test_old_valuation_assessment_identity_and_research_work_obey_pause_without_spending_attempts(
+        tmp_path: Path,
+    ) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, source, _, channel):
+            group = pause_worker(instance)
+            before_new_calls = source.new_calls
+            before_posts = len([call for call in channel.calls if call[0] == "POST"])
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + """
+    from uuid import uuid4
+    from django.utils.timezone import now as wall_clock
+    from garimpei.main import build_robot_repository,build_read_robot_status,build_valuation_handler,build_assessment_handler,build_identity_repository,build_read_monitoring_configuration
+    from garimpei.domain.robot.control import RobotCommand
+    from garimpei.infra.persistence.valuation_models import ValuationWork,ValuationProgress,ValuationEvaluation
+    from garimpei.infra.persistence.assessment_models import ConditionAssessment
+    from garimpei.infra.persistence.inference_models import InferenceRequest
+    from garimpei.infra.persistence.identity_models import IdentityProgress,ProductIdentification
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.research_models import ComparableInvestigation
+    from garimpei.infra.repository.valuation.research_repository import PostgresComparableResearchRepository
+    from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
+    from garimpei.usecase.valuation.run_research_usecase import RunComparableResearchUseCase
+    from tests.factories.comparable_research import NOW,KEY,controlled_limits,seed_case,ControlledResearchSource
+    robot=build_robot_repository();status=build_read_robot_status()
+    progress=ValuationProgress.objects.select_related('current__work').get(listing=l)
+    old=progress.current.work
+    progress.requested+=1;progress.save(update_fields=['requested'])
+    pending=ValuationWork.objects.create(listing=l,revision=progress.requested,snapshot=old.snapshot,requested_at=now,next_attempt_at=now,lease_until=now+timedelta(seconds=60),attempts=1)
+    # This target has no persisted automatic identification, so the identity reconciler really has pending input.
+    target=seed_case('22801')
+    assert not IdentityProgress.objects.filter(listing=target,current__isnull=False).exists()
+    publication=PostgresCollectionRepository(build_read_monitoring_configuration(),lambda:NOW,lambda *_:0,40)
+    research=PostgresComparableResearchRepository(build_read_monitoring_configuration(),lambda:NOW,controlled_limits(),publication)
+    research.reconcile()
+    row=ComparableInvestigation.objects.get(product_key=KEY,state='pending')
+    assert row.attempts==0 and row.pages==0
+    counts=(ValuationEvaluation.objects.count(),ConditionAssessment.objects.count(),InferenceRequest.objects.count(),ProductIdentification.objects.count())
+    robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+    build_valuation_handler().execute(pending.id)
+    build_assessment_handler().execute()
+    build_identity_repository().reconcile()
+    blocked_source=ControlledResearchSource()
+    RunComparableResearchUseCase(research,blocked_source,lambda:0.0,robot=robot,on_pause=research.pause_claim).execute()
+    row.refresh_from_db();pending.refresh_from_db()
+    assert row.attempts==0 and row.pages==0 and row.state=='pending' and row.lease_until is None
+    assert not blocked_source.calls
+    assert pending.attempts==0 and pending.lease_until is None and not pending.completed
+    assert counts==(ValuationEvaluation.objects.count(),ConditionAssessment.objects.count(),InferenceRequest.objects.count(),ProductIdentification.objects.count())
+    # A real persisted research page may finish after pause; the next detail cannot start.
+    class PausingResearchSource(ControlledResearchSource):
+     def search(self, scope, query, continuation):
+      value=super().search(scope,query,continuation)
+      robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+      return value
+    robot.command(RobotCommand(uuid4(),True,status.execute().revision))
+    page_source=PausingResearchSource()
+    RunComparableResearchUseCase(research,page_source,lambda:0.0,robot=robot,on_pause=research.pause_claim).execute()
+    row.refresh_from_db()
+    assert page_source.calls==[('search',None)]
+    assert row.pages==1 and row.failures==0 and row.buffer and row.lease_until is None
+    assert row.state=='waiting_evidence' and row.reason=='robot_paused'
+    print('ROBOT_REMAINING_STAGES_PASS')
+    """,
+                )
+
+tests/integration/test_robot_remaining_stages.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/c4f1/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-61/test_old_valuation_assessment_0/wave11b_f16_2d07e1be.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...l is None\nassert row.state=='waiting_evidence' and row.reason=='robot_paused'\nprint('ROBOT_REMAINING_STAGES_PASS')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 61 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T17:44:40.117965+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_2d07e1be", "run_id": "f24ccac2-74ef-414c-a6dd-7ca1d5546670"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 66, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 66, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'excluded', 'condition_excluded', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_robot_remaining_stages.py::test_old_valuation_assessment_identity_and_research_work_obey_pause_without_spending_attempts
+1 failed in 12.85s
