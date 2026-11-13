@@ -1,0 +1,28 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Evidências locais da oferta · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" class="integrations" tabindex="-1">
+        <header class="page-heading">
+            <a href="{% url 'condition-detail' listing_id %}">Voltar à oferta</a>
+            <h1>Evidências de {{ title }}</h1>
+            <p>As revisões confrontam o que foi observado. Aparência não comprova funcionamento interno e a correção manual é preservada.</p>
+        </header>
+        <section class="integration-section" aria-labelledby="review-request-title">
+            <h2 id="review-request-title">Pedir uma revisão local</h2>
+            <form method="post" action="{% url 'assistance-request' listing_id %}">
+                {% csrf_token %}
+                <input type="hidden" name="expected_revision" value="{{ revision }}">
+                <input type="hidden" name="command_id" value="{{ command_id }}">
+                <label for="review-purpose">O que revisar</label>
+                <select id="review-purpose" name="purpose">
+                    <option value="identity">Identidade</option>
+                    <option value="comparables">Comparáveis</option>
+                    <option value="condition">Condição e fotos</option>
+                </select>
+                <button type="submit" class="primary">Solicitar análise</button>
+                <p>A execução é assíncrona e respeita as pausas do robô e da IA.</p>
+            </form>
+        </section>
+        {% include "assistance/reviews.html" %}
+    </main>
+{% endblock %}

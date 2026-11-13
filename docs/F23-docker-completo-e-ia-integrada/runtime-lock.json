@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "resolved_at": "2026-11-13T21:48:00Z",
+  "platform": "linux/amd64",
+  "bases": {
+    "python": "python:3.13.14-slim-bookworm@sha256:67a1e1f215ccda113cfc024e8639049257e88f273898f595b61476d128d387e8",
+    "uv": "ghcr.io/astral-sh/uv:0.11.24@sha256:99ea34acedc870ba4ad11a1f540a1c04267c9f30aadc465a94406f52dfda2c36",
+    "node": "node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94",
+    "docker_tools_only": "docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1"
+  },
+  "services": {
+    "postgres": "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+    "waha": "devlikeapro/waha:gows-2026.10.1@sha256:1f7faeb0227ad5edb5711f7058bfce807ea65e5f92234af0778e4db140f6eb46",
+    "ollama": "ollama/ollama:0.40.16@sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592"
+  },
+  "tools": {
+    "python": "3.13.14",
+    "uv": "0.11.24",
+    "node": "22.22.0",
+    "playwright_python": "1.65.0 (uv.lock)",
+    "playwright_cli": "0.1.23",
+    "playwright_cli_npm_integrity": "sha512-+TuHfVgpK1SIlwyV7bcZ9SRRhnVOAIwJwxZCgEh5LWkZuyGfSYnHNx8J7H78dhCwMyLkJtGb/j5XICjzEKzrfg==",
+    "docker_cli": "29.9.3",
+    "compose_tools": "5.7.1"
+  },
+  "model_lock": "../F19-inferencia-multimodal-local-em-docker/model-lock.json",
+  "tokenizer_sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+  "seccomp": {
+    "source": "https://raw.githubusercontent.com/microsoft/playwright/v1.64.1/utils/docker/seccomp_profile.json",
+    "sha256": "cc3e61cabda6bbc1e53e54d27ba4d55a9d3be829b6dd1a596f4a7b31b1cc7849"
+  },
+  "provenance": "Base digests resolved with docker buildx imagetools inspect; tool versions executed inside built quality image; Python dependencies frozen by apps/backend/uv.lock. Runtime image IDs belong to evaluation evidence because source revisions change the build."
+}

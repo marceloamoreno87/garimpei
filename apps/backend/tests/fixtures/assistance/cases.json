@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "origin": "Synthetic engineering cases; not an independent human corpus",
+  "http": ["same-command-reused", "different-command-body-conflict", "stale-observation", "csrf-required", "snapshot-changed"],
+  "cache": ["same-context-reused", "candidate-pair-separated", "manual-revision-invalidates", "late-generation-superseded"],
+  "failures": ["unsupported-price", "unknown-reference", "unexamined-photo", "prompt-injection", "tool-call", "gpu-unavailable", "execution-unknown"],
+  "responses": ["supported", "conflict", "insufficient"]
+}

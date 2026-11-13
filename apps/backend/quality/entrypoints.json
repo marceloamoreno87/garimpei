@@ -610,5 +610,17 @@
     "path": "src/garimpei/infra/persistence/alert_models.py",
     "consumer": "src/garimpei/infra/persistence/migrations/0027_gold_qualification.py",
     "reason": "PostgreSQL authorization trigger rejects incompatible consumers after adoption; restore schema preserves the original marker"
+  },
+  {
+    "symbol": "Command.handle",
+    "path": "src/garimpei/infra/persistence/management/commands/assistance_policy.py",
+    "consumer": "manage.py",
+    "reason": "Django assistance_policy command discovery"
+  },
+  {
+    "symbol": "assistance_context",
+    "path": "src/garimpei/infra/http/assistance/context.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django template context processor registry for persisted operational assistance"
   }
 ]

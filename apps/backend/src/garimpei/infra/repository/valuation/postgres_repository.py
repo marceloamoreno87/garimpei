@@ -20,6 +20,7 @@ from garimpei.infra.persistence.valuation_models import (
     ValuationWork,
 )
 from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
+from garimpei.infra.repository.assistance.retention import reviewed_candidates
 from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.mapper import (
@@ -199,12 +200,19 @@ class PostgresValuationRepository:
         previous = (
             decode_valuation(mapping(progress.current.result)).new if progress.current else None
         )
+        target = decode_comparable(mapping(raw["target"]))
+        candidates, assistance = reviewed_candidates(
+            target, tuple(decode_comparable(row) for row in records(raw["candidates"])), work.id
+        )
+        if assistance or "assistance_reviews" in work.snapshot:
+            work.snapshot = dict(work.snapshot, assistance_reviews=assistance)
+            work.save(update_fields=["snapshot"])
         return WorkInput(
             work.id,
             work.listing_id,
             work.revision,
-            decode_comparable(mapping(raw["target"])),
-            tuple(decode_comparable(row) for row in records(raw["candidates"])),
+            target,
+            candidates,
             previous,
         )
 
@@ -229,7 +237,19 @@ class PostgresValuationRepository:
                 current_identity.state,
                 current_identity.product_key,
             )
-            if progress.requested != work.revision or input_changed or identity_changed:
+            _, current_assistance = reviewed_candidates(work.target, work.candidates)
+            assistance_changed = set(row.snapshot.get("assistance_reviews", [])) != set(
+                current_assistance
+            )
+            if assistance_changed:
+                progress.signature, progress.due_at = "", value.evaluated_at
+                progress.save(update_fields=["signature", "due_at"])
+            if (
+                progress.requested != work.revision
+                or input_changed
+                or identity_changed
+                or assistance_changed
+            ):
                 row.completed = True
                 row.save(update_fields=["completed"])
                 return

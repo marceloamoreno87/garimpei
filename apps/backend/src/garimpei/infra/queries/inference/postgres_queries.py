@@ -31,7 +31,10 @@ class PostgresInferenceQueries:
         ]
         return {
             "request_id": str(row.id),
-            "observation_id": str(row.observation_id),
+            "observation_id": str(row.observation_id) if row.observation_id else None,
+            "target_kind": row.target_kind,
+            "target_id": str(row.target_id) if row.target_id else None,
+            "target_revision": row.target_revision,
             "revision": row.revision,
             "state": row.state if _current(row) else "superseded",
             "model": MODEL,

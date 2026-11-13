@@ -11,6 +11,11 @@ from typing import cast
 from urllib.parse import urlsplit
 
 from garimpei.config.env import InferenceSettings
+from garimpei.domain.assistance.review import (
+    ASSISTANCE_PROFILES,
+    assistance_prompt,
+    assistance_schema,
+)
 from garimpei.domain.inference.condition_evidence import (
     PROMPT as CONDITION_PROMPT,
 )
@@ -120,6 +125,12 @@ class OllamaGateway:
 
     def _body(self, part: PreparedPart) -> dict[str, object]:
         content = part.text if part.image_id is None else "Examine image_id=" + part.image_id
+        prompt = CONDITION_PROMPT if part.profile == CONDITION_VERSION else PROMPT
+        schema = bounded_schema(part.text, part.image_id)
+        if part.profile in ASSISTANCE_PROFILES:
+            content = part.text
+            prompt = assistance_prompt(part.profile)
+            schema = assistance_schema(part.profile, part.text)
         digest = None
         if part.profile == CONDITION_VERSION:
             digest = (
@@ -128,6 +139,7 @@ class OllamaGateway:
                 else None
             )
             content = condition_content(part.text, part.image_id, digest)
+            schema = condition_schema(part.text, part.image_id, digest)
         message: dict[str, object] = {"role": "user", "content": content}
         if part.image_hash:
             raw = (self._settings.directory / part.image_hash).read_bytes()
@@ -139,13 +151,11 @@ class OllamaGateway:
             "messages": [
                 {
                     "role": "system",
-                    "content": CONDITION_PROMPT if part.profile == CONDITION_VERSION else PROMPT,
+                    "content": prompt,
                 },
                 message,
             ],
-            "format": condition_schema(part.text, part.image_id, digest)
-            if part.profile == CONDITION_VERSION
-            else bounded_schema(part.text, part.image_id),
+            "format": schema,
             "stream": False,
             "think": False,
             "truncate": False,

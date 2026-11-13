@@ -401,12 +401,12 @@
         "F21",
         "F22"
       ],
-      "status": "pending",
+      "status": "implemented",
       "cycles": 0,
-      "failure_reason": null,
-      "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-13T19:55:38.224438Z",
+      "failure_reason": "Gate lint: 5 imports desordenados; correção ciclo 1 em andamento.",
+      "report_path": "docs/F23-docker-completo-e-ia-integrada/eval-report-2026-11-13T21-55-04Z.md",
+      "started_at": "2026-11-13T21:30:59.086665+00:00",
+      "updated_at": "2026-11-13T21:55:04.195600+00:00",
       "completed_at": null
     }
   }

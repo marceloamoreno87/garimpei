@@ -27,9 +27,20 @@ class FoundationInstance:
 
     @property
     def environment(self) -> dict[str, str]:
+        # The quality container also runs legacy lifecycle integration tests. Each
+        # fixture owns its configuration; inherited runtime ports, secrets and
+        # container DNS must never redirect it to the evaluator's live services.
+        inherited = {
+            key: value
+            for key, value in os.environ.items()
+            if not key.startswith("GARIMPEI_")
+            and key
+            not in {"DJANGO_SECRET_KEY", "POSTGRES_PASSWORD", "WAHA_API_KEY", "DATABASE_URL"}
+        }
         return dict(
-            os.environ,
+            inherited,
             GARIMPEI_ENV_FILE=str(self.private_file),
+            GARIMPEI_RUNTIME="host",
             DJANGO_SETTINGS_MODULE="garimpei.config.settings",
         )
 
@@ -130,6 +141,7 @@ def prepare_checkout_copy(root: Path, directory: Path) -> Path:
         raise RuntimeError("Failed to prepare isolated Python environment copy")
     shutil.copytree(root / "scripts", copy / "scripts")
     shutil.copyfile(root / "compose.yaml", copy / "compose.yaml")
+    shutil.copyfile(root / "compose.host.yaml", copy / "compose.host.yaml")
     return copy
 
 

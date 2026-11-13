@@ -118,3 +118,10 @@ from garimpei.infra.persistence.robot_models import (  # noqa: E402,F401
     RobotControlCommand,
     RobotOperation,
 )
+from garimpei.infra.persistence.assistance_models import (  # noqa: E402,F401
+    AssistanceCommand,
+    AssistanceOperationsSnapshot,
+    AssistancePolicy,
+    AssistanceReview,
+    AssistanceReviewRequest,
+)

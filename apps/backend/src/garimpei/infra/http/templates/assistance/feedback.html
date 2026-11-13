@@ -1,0 +1,7 @@
+{% if message %}
+    <p role="alert">{{ message }}</p>
+    <p>O diagnóstico determinístico e seus filtros continuam disponíveis. Confira o recorte e tente novamente.</p>
+{% else %}
+    <p role="status">{% if ticket.state == "paused" %}Aguardando retomada{% else %}Aguardando análise local{% endif %}. Referência {{ ticket.id }}.</p>
+    <p>A explicação é assíncrona. O diagnóstico determinístico continua disponível.</p>
+{% endif %}

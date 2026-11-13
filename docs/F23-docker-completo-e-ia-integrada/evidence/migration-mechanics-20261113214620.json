@@ -1,0 +1,10 @@
+{
+  "scope": "Mechanics-only synthetic persistence proof, not a real F23 app/F17/GPU or human-corpus acceptance.",
+  "started_at": "2026-11-13T21:46:20.869460+00:00",
+  "checks": {},
+  "image": "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+  "status": "FAIL",
+  "error": "['bash', '/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/scripts/docker-adoption.sh', 'snapshot', 'garimpei-eval_adopts_20261113214620']: Adoption refused: volume ownership mismatch\n",
+  "finished_at": "2026-11-13T21:46:23.980336+00:00",
+  "cleanup": "Only exact containers created by this proof removed; private copies retained in ignored run directory."
+}

@@ -1,0 +1,57 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Cobertura das análises locais · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" class="integrations" tabindex="-1">
+        <header class="page-heading">
+            <a href="{% url 'inference-status' %}">Voltar à IA local</a>
+            <h1>Cobertura das análises locais</h1>
+            <p>Leitura de {{ checked_at|date:"d/m/Y H:i:s T" }}. Os números usam os interesses ativos e as observações atuais.</p>
+        </header>
+        {% if not policy_active %}<p class="notice" role="status">A política assistida ainda aguarda adoção verificada. O histórico anterior mantém sua política.</p>{% endif %}
+        <p>O denominador conta ofertas atuais por interesse; investigação conta o interesse. Reutilização não é uma nova chamada. Conflitos e falhas não confirmam evidência.</p>
+        {% for row in rows %}
+            <section class="integration-section"
+                     aria-labelledby="coverage-{{ forloop.counter }}">
+                <div class="integration-heading">
+                    <h2 id="coverage-{{ forloop.counter }}">{{ row.interest }} · {{ row.purpose }}</h2>
+                </div>
+                <div class="integration-body">
+                    {% if row.no_data %}<p>Sem dados de ofertas neste interesse.</p>{% endif %}
+                    <dl>
+                        <dt>Alvos no recorte ({{ row.units }})</dt>
+                        <dd>
+                            {{ row.denominator }}
+                        </dd>
+                        <dt>Alvos com análise solicitada</dt>
+                        <dd>
+                            {{ row.requested }}
+                        </dd>
+                        <dt>Alvos com evidência sustentada</dt>
+                        <dd>
+                            {{ row.supported }}
+                        </dd>
+                        <dt>Conflitos</dt>
+                        <dd>
+                            {{ row.conflict }}
+                        </dd>
+                        <dt>Insuficientes</dt>
+                        <dd>
+                            {{ row.insufficient }}
+                        </dd>
+                        <dt>Falhas</dt>
+                        <dd>
+                            {{ row.failed }}
+                        </dd>
+                        <dt>Reutilizações compatíveis</dt>
+                        <dd>
+                            {{ row.cache }}
+                        </dd>
+                    </dl>
+                    <p>Consulte a oferta para conferir a revisão e a decisão que usou a análise. As categorias podem se sobrepor.</p>
+                </div>
+            </section>
+        {% empty %}
+            <p>Sem interesses ativos para medir cobertura. Confira seus interesses nas Configurações.</p>
+        {% endfor %}
+    </main>
+{% endblock %}

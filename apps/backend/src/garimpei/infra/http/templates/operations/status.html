@@ -51,8 +51,11 @@
         {% endfor %}
     </ul>
     <p id="operational-feedback" role="alert" aria-live="polite"></p>
-    <button class="button secondary" type="button"
+    <button class="button secondary"
+            type="button"
             hx-get="{% url 'operations-status' %}?formato=html"
-            hx-target="#operational-status" hx-swap="outerHTML"
+            hx-target="#operational-status"
+            hx-swap="outerHTML"
             hx-request='{"timeout":10000}'>Atualizar esta leitura</button>
+    {% include "assistance/operations.html" %}
 </section>

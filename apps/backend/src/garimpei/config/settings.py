@@ -26,8 +26,8 @@ DATABASES = {
         "NAME": CONFIG.database,
         "USER": "garimpei",
         "PASSWORD": CONFIG.postgres_password,
-        "HOST": "127.0.0.1",
-        "PORT": CONFIG.pg_port,
+        "HOST": "postgres" if CONFIG.containerized else "127.0.0.1",
+        "PORT": 5432 if CONFIG.containerized else CONFIG.pg_port,
         "OPTIONS": {"connect_timeout": 2, "options": "-c statement_timeout=2000"},
         "TEST": {"NAME": CONFIG.test_database},
     }
@@ -42,6 +42,7 @@ TEMPLATES = [
                 "garimpei.infra.http.integration.context.integration_context",
                 "garimpei.infra.http.shell_context.shell_context",
                 "garimpei.infra.http.robot.context.robot_summary",
+                "garimpei.infra.http.assistance.context.assistance_context",
             ]
         },
     }

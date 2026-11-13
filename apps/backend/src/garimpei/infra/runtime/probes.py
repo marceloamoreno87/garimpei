@@ -53,7 +53,11 @@ class WahaProbe:
 
     def check(self) -> bool:
         request = Request(
-            f"http://127.0.0.1:{self._config.waha_port}/health",
+            (
+                "http://waha:3000/health"
+                if self._config.containerized
+                else f"http://127.0.0.1:{self._config.waha_port}/health"
+            ),
             headers={"X-Api-Key": self._config.waha_key},
         )
         try:

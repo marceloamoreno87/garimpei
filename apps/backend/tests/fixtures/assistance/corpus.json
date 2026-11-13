@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "status": "awaiting_independent_human_review",
+  "human_reviewer": null,
+  "rights": "Only authorized F15 source material may be added after review.",
+  "baseline": "F21/F18/F15 integrated before F23",
+  "cases": [],
+  "limitations": ["No independent human labels have been supplied; this file is not a quality proof."]
+}

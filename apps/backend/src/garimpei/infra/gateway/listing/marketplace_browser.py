@@ -98,6 +98,7 @@ class MarketplaceBrowser:
         login_origin: str = "https://www.facebook.com",
         profile_headless: bool = False,
         robot: RobotAdmission | None = None,
+        sandbox: bool = False,
     ) -> None:
         self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="marketplace-browser")
         self._path = state_path
@@ -107,6 +108,7 @@ class MarketplaceBrowser:
             profile_headless,
         )
         self._robot = robot
+        self._sandbox = sandbox
         self._timeout = timeout * 1000
         self._cadence = cadence_ms
         self._engine: Playwright | None = None
@@ -204,6 +206,7 @@ class MarketplaceBrowser:
                     self._profile,
                     timeout=self._timeout,
                     headless=self._profile_headless,
+                    chromium_sandbox=self._sandbox,
                     locale="pt-BR",
                     timezone_id="America/Sao_Paulo",
                     no_viewport=True,
@@ -223,6 +226,7 @@ class MarketplaceBrowser:
             ).hook_playwright_context(self._engine)
             self._browser = self._engine.chromium.launch(
                 headless=True,
+                chromium_sandbox=self._sandbox,
                 timeout=self._timeout,
                 args=["--disable-blink-features=AutomationControlled"],
                 ignore_default_args=["--enable-automation"],

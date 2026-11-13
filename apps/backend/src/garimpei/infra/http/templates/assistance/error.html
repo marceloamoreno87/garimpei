@@ -1,0 +1,10 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Confira a análise · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Não foi possível confirmar a análise</h1>
+        <p role="alert">{{ message }}</p>
+        <a href="{% url 'monitoring-tracking' %}">Reabrir o acompanhamento</a>
+        <a href="{% url 'condition-list' %}">Consultar ofertas</a>
+    </main>
+{% endblock %}

@@ -1,5 +1,6 @@
 from typing import cast
 
+from garimpei.domain.assistance.review import ASSISTANCE_PROFILES, validate_assistance_output
 from garimpei.domain.inference.condition_evidence import (
     VERSION as CONDITION_VERSION,
 )
@@ -42,6 +43,11 @@ class RunAnalysisUseCase:
             if not isinstance(raw, str):
                 raise InferenceError("invalid_output")
             images = (work.part.image_id,) if work.part.image_id is not None else ()
+            if work.part.profile in ASSISTANCE_PROFILES:
+                assisted_payload = validate_assistance_output(
+                    work.part.profile, raw, work.part.text
+                )
+                return self._repository.publish(work, assisted_payload, metrics, self._clock())
             if work.part.profile == CONDITION_VERSION:
                 photos = (
                     {

@@ -5,6 +5,7 @@ from django.db import DatabaseError
 from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 
+from garimpei.domain.assistance.errors import AssistanceError
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.integration.values import IntegrationError
 from garimpei.domain.listing.condition_ports import ConditionError
@@ -43,6 +44,28 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        assistance_route = "/ia/" in _request.path and (
+            _request.path.startswith(("/ofertas/", "/acompanhamento/"))
+            or _request.path.endswith("/cobertura/")
+        )
+        if isinstance(_exception, AssistanceError) or (
+            assistance_route and isinstance(_exception, (DatabaseError, InferenceError))
+        ):
+            return render(
+                _request,
+                "assistance/feedback.html"
+                if _request.headers.get("HX-Request") == "true"
+                else "assistance/error.html",
+                {
+                    "message": _exception.message
+                    if isinstance(_exception, AssistanceError)
+                    else "Não foi possível ler ou gravar a análise. Os dados confirmados foram preservados.",
+                    "retry_url": _request.path,
+                },
+                status=_exception.status
+                if isinstance(_exception, (AssistanceError, InferenceError))
+                else 503,
+            )
         if _request.path.startswith("/acompanhamento/robo/") and isinstance(
             _exception, (RobotError, DatabaseError, ValueError)
         ):
@@ -203,6 +226,18 @@ class ErrorMiddleware:
 
 def csrf_failure(request: HttpRequest, reason: str = "") -> HttpResponse:
     del reason  # Django passes an internal explanation; do not disclose it in the response or logs.
+    if (
+        request.path == "/acompanhamento/ia/explicar/"
+        and request.headers.get("HX-Request") == "true"
+    ):
+        return render(
+            request,
+            "assistance/feedback.html",
+            {
+                "message": "A sessão do formulário expirou. Reabra o acompanhamento antes de tentar novamente."
+            },
+            status=403,
+        )
     return render(request, "monitoring/csrf_error.html", status=403)
 
 
