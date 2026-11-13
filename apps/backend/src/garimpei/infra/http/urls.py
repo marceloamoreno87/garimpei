@@ -10,9 +10,13 @@ from garimpei.infra.http.media.routes import media_view
 from garimpei.infra.http.monitoring.routes import monitoring_view
 from garimpei.infra.http.navigation.routes import navigation_view
 from garimpei.infra.http.operations.routes import operations_view
+from garimpei.infra.http.robot.routes import robot_view
 from garimpei.infra.http.valuation.routes import identity_view
 
 urlpatterns = [
+    path("acompanhamento/robo/", robot_view, name="robot-status"),
+    path("acompanhamento/robo/ligar/", robot_view, {"action": "enable"}, name="robot-enable"),
+    path("acompanhamento/robo/desligar/", robot_view, {"action": "disable"}, name="robot-disable"),
     path("ofertas/<uuid:identity>/identidade/", identity_view, name="identity-edit"),
     path("acompanhamento/estado/", operations_view, name="operations-status"),
     path(

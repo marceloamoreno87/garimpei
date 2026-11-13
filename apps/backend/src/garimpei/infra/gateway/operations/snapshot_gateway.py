@@ -263,6 +263,11 @@ def _validate_schema_coverage() -> None:
         "runtimestate",
         "runtimeprobe",
         "inferencecontrol",
+        # Destination intent and live ownership cannot travel in a business copy.
+        # Same-database restarts preserve them; restoring another installation must not.
+        "robotcontrol",
+        "robotcontrolcommand",
+        "robotoperation",
         "backuprecord",
         "backupschedule",
         "recoverybarrier",

@@ -377,12 +377,12 @@
         "F16",
         "F19"
       ],
-      "status": "pending",
+      "status": "implementing",
       "cycles": 0,
       "failure_reason": null,
       "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T22:54:21.020099Z",
+      "started_at": "2026-11-13T17:07:32.233392+00:00",
+      "updated_at": "2026-11-13T17:07:32.233392+00:00",
       "completed_at": null
     }
   }

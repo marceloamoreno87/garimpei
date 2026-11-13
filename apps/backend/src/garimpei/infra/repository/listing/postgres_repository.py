@@ -35,6 +35,7 @@ from garimpei.domain.listing.scheduling import retry_schedule
 from garimpei.domain.listing.scope import Scope
 from garimpei.domain.listing.window import PublicationWindow
 from garimpei.domain.operations.ports import ProgressRecorder
+from garimpei.domain.robot.errors import RobotPaused
 from garimpei.infra.persistence.listing_models import (
     CollectionCandidate,
     CollectionCycle,
@@ -52,6 +53,7 @@ from garimpei.infra.repository.listing.mapper import (
     encode_candidate,
     encode_evidence,
 )
+from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -76,6 +78,8 @@ class PostgresCollectionRepository:
     def reconcile(self, policy: CollectionPolicy, *, recover_access: bool = False) -> None:
         with transaction.atomic():
             lock_monitoring_publication()
+            if not robot_enabled():
+                return
             scope = Scope.from_snapshot(self._configuration.execute())
             if scope is None:
                 return
@@ -149,10 +153,14 @@ class PostgresCollectionRepository:
         )
 
     @contextmanager
-    def _owned(self, attempt: Attempt) -> Iterator[tuple[CollectionState, CollectionCycle, Scope]]:
+    def _owned(
+        self, attempt: Attempt, *, admission: bool = False
+    ) -> Iterator[tuple[CollectionState, CollectionCycle, Scope]]:
         with transaction.atomic():
             # Use the publication lock before reading F03. It also serializes event commits.
             lock_monitoring_publication()
+            if admission and not robot_enabled():
+                raise RobotPaused()
             scope = Scope.from_snapshot(self._configuration.execute())
             cycle = CollectionCycle.objects.filter(id=attempt.cycle_id).first()
             if scope is None or cycle is None:
@@ -182,7 +190,7 @@ class PostgresCollectionRepository:
             yield state, cycle, replace(scope, window=window)
 
     def begin(self, attempt: Attempt) -> Work:
-        with self._owned(attempt) as (_, cycle, scope):
+        with self._owned(attempt, admission=True) as (_, cycle, scope):
             cycle.phase = "running"
             if cycle.started_at is None:
                 cycle.started_at = self._clock()

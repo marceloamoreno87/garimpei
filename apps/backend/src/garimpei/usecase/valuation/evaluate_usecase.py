@@ -1,16 +1,29 @@
 from datetime import datetime, timedelta
 from uuid import UUID, uuid4
 
+from garimpei.domain.robot.admission import admitted_unit
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.domain.valuation.policy import NEW_WINDOW, USED_WINDOW, estimate, new_reference
 from garimpei.domain.valuation.ports import Clock, NewPriceSource, NewSourceFailure, ValuationStore
 from garimpei.domain.valuation.values import NewQuote, NewReference, Valuation
 
 
 class EvaluateValuationUseCase:
-    def __init__(self, store: ValuationStore, source: NewPriceSource, clock: Clock) -> None:
+    def __init__(
+        self,
+        store: ValuationStore,
+        source: NewPriceSource,
+        clock: Clock,
+        robot: RobotAdmission | None = None,
+    ) -> None:
+        self._robot = robot
         self._store, self._source, self._clock = store, source, clock
 
     def execute(self, identity: UUID) -> None:
+        with admitted_unit(self._robot, "valuation", str(identity)):
+            self._evaluate(identity)
+
+    def _evaluate(self, identity: UUID) -> None:
         work = self._store.work(identity)
         if work is None:
             return

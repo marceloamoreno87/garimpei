@@ -206,3 +206,12 @@ _.not_evaluated
 _.corpus_version
 
 _.attempt_limit
+
+# F22 exact template, Django Form/context registry and persisted audit consumers.
+_.worker_available
+_.robot_summary
+_.command_id
+_.last_command
+_.result_revision
+_.control_epoch
+_.worker_reference

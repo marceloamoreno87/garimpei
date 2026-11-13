@@ -1,0 +1,10 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Controle do robô · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Não foi possível confirmar a ação</h1>
+        <p role="alert">{{ message }}</p>
+        <p>A última decisão confirmada permanece salva.</p>
+        <a class="button secondary" href="{% url 'monitoring-tracking' %}">Reabrir acompanhamento</a>
+    </main>
+{% endblock %}

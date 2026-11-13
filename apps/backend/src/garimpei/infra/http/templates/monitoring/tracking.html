@@ -2,6 +2,7 @@
 {% load static %}
 {% block head %}
     {{ block.super }}
+    <script src="{% static 'robot/control.js' %}" defer></script>
     <script src="{% static 'navigation/progress.js' %}" defer></script>
     <script src="{% static 'operations/status.js' %}" defer></script>
     <link rel="stylesheet" href="{% static 'operations/status.css' %}">
@@ -11,6 +12,7 @@
 {% block main %}
     <main id="main" tabindex="-1" class="tracking-view">
         <h1>Seu acompanhamento</h1>
+        {% include "robot/control.html" %}
         <section class="tracking-state">
             <p class="notice">Configuração concluída</p>
             <div role="status">

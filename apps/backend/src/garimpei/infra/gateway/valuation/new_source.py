@@ -12,15 +12,25 @@ from playwright.sync_api import Error as BrowserError
 from playwright.sync_api import Page, sync_playwright
 
 from garimpei.domain.listing.listing import Evidence
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.domain.valuation.identity import identify
 from garimpei.domain.valuation.ports import NewSourceFailure
 from garimpei.domain.valuation.values import NewQuote
+from garimpei.infra.gateway.robot.admission import robot_operation
 from garimpei.infra.repository.valuation.mapper import decode_quote, mapping, records
 
 
 class RetailNewSource:
-    def __init__(self, catalog: Path, fixture_url: str | None, timeout: int = 30) -> None:
+    def __init__(
+        self,
+        catalog: Path,
+        fixture_url: str | None,
+        timeout: int = 30,
+        *,
+        robot: RobotAdmission | None = None,
+    ) -> None:
         self._catalog, self._fixture, self._timeout = catalog, fixture_url, timeout
+        self._robot = robot
 
     def offers(self, product: str, now: datetime) -> tuple[NewQuote, ...]:
         if self._fixture is not None:
@@ -34,10 +44,13 @@ class RetailNewSource:
 
     def _fixture_offers(self, product: str) -> tuple[NewQuote, ...]:
         try:
-            with urlopen(
-                str(self._fixture) + "/new?" + urlencode({"product": product}),
-                timeout=self._timeout,
-            ) as response:
+            with (
+                robot_operation(self._robot, "retail_new", "fixture:" + product),
+                urlopen(
+                    str(self._fixture) + "/new?" + urlencode({"product": product}),
+                    timeout=self._timeout,
+                ) as response,
+            ):
                 payload = mapping(json.load(response))
             return tuple(decode_quote(row) for row in records(payload["offers"]))
         except (HTTPError, URLError, TimeoutError, ValueError, KeyError, InvalidOperation):
@@ -59,6 +72,14 @@ class RetailNewSource:
     ) -> tuple[NewQuote, ...]:
         quotes: list[NewQuote] = []
         for url in urls:
+            quote = self._read_quote(page, url, now)
+            if quote is not None:
+                quotes.append(quote)
+            page.wait_for_timeout(2000)
+        return tuple(quotes)
+
+    def _read_quote(self, page: Page, url: str, now: datetime) -> NewQuote | None:
+        with robot_operation(self._robot, "retail_new", "navigate:" + url):
             response = page.goto(url, timeout=self._timeout * 1000, wait_until="domcontentloaded")
             if response is None or not response.ok:
                 raise NewSourceFailure("new_source_unavailable")
@@ -74,10 +95,7 @@ class RetailNewSource:
             }""")
             row = mapping(raw)
             quote = self._quote(row, url, now)
-            if quote is not None:
-                quotes.append(quote)
-            page.wait_for_timeout(2000)
-        return tuple(quotes)
+            return quote
 
     @staticmethod
     def _quote(row: dict[str, object], url: str, now: datetime) -> NewQuote | None:
