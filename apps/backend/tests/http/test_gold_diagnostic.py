@@ -64,3 +64,30 @@ assert 'Lucro estimado zero ou negativo impede alerta' in body
 assert 'Pronta para envio; aguardando o canal' not in body
 assert GoldQualification.objects.filter(listing=listing,state='qualified').exists()
 """)
+
+
+def test_gold_diagnostic_preserves_history_suspension_over_queued_intent(
+    gold_driver: GoldDriver,
+) -> None:
+    gold_driver.action("prepare", case="BASE")
+    gold_driver.action("prepare", case="PROFIT_ZERO")
+    gold_driver.shell("""
+from unittest.mock import patch
+from garimpei.main import build_read_alert_diagnostic
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.persistence.alert_models import AlertFeedCursor,FirstAlertInventory
+from garimpei.infra.queries.alert.gold_queries import PostgresGoldDiagnosticQueries
+from garimpei.domain.alert.gold_diagnostic import GoldDiagnosticReadFailed
+listing=Listing.objects.get(external_id='21001')
+for suspension in ('dispatch','inventory'):
+ AlertFeedCursor.objects.update(dispatch_suspended=suspension=='dispatch')
+ FirstAlertInventory.objects.update(completed=suspension!='inventory')
+ diagnostic=build_read_alert_diagnostic().execute(listing.id,listing.latest_id)
+ assert diagnostic.state=='suspended' and diagnostic.reason=='history_unavailable'
+ assert diagnostic.gold and diagnostic.gold.reason=='gold_profit_non_positive'
+ assert diagnostic.current_reason=='gold_profit_non_positive'
+ with patch.object(PostgresGoldDiagnosticQueries,'read',side_effect=GoldDiagnosticReadFailed()):
+  diagnostic=build_read_alert_diagnostic().execute(listing.id,listing.latest_id)
+  assert diagnostic.state=='suspended' and diagnostic.reason=='history_unavailable'
+  assert diagnostic.gold_failed
+""")

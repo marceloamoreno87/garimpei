@@ -149,15 +149,19 @@ class PostgresAlertDiagnosticQueries:
             and gold is not None
             and active
             and active.state in {"queued", "blocked", "safe_retry"}
+            and state != "suspended"
         ):
             state, reason = gold.state, gold.reason
             reasons = tuple(dict.fromkeys((gold.reason, *reasons)))
-        if gold_failed and active and active.state in {"queued", "blocked", "safe_retry"}:
-            state, reason, current_reason = (
-                "waiting",
-                "gold_dependency_unavailable",
-                "gold_dependency_unavailable",
-            )
+        if gold_failed:
+            current_reason = "gold_dependency_unavailable"
+        if (
+            gold_failed
+            and active
+            and active.state in {"queued", "blocked", "safe_retry"}
+            and state != "suspended"
+        ):
+            state, reason = "waiting", "gold_dependency_unavailable"
         label = reason_label(reason)
         if gold_blocks and gold is not None and state in {"waiting", "blocked"}:
             label = gold.label
