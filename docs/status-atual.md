@@ -38,12 +38,8 @@ A interface inclui configuração guiada/edição, ofertas em três condições,
 
 ## Limites efetivos
 
-<<<<<<< HEAD
-- **F21:** a avaliação anterior preserva 25 itens aprovados como histórico. A avaliação atual focal de `E2E-REAL-01` registra 1 BLOCKED e 25 SKIPPED; as 58 chamadas locais reais não produziram um caso Ouro suficiente e lucrativo. Os checks de engenharia têm evidências próprias, sem substituir o gate real bloqueado. F21 permanece `implemented`, com taxa de 10% e zero envio WhatsApp real nesta prova.
-=======
 - **F23:** Docker completo é o alvo especificado; web/worker ainda executam no host e o Compose atual contém PostgreSQL, WAHA e Ollama. IA já atua na condição F15/F19; novos consumidores de identidade/comparáveis e apoio à investigação/diagnóstico estão especificados, sem prova de implementação. O contrato exige corpus humano, GPU real, rastro de consumo e preservação da política financeira; conclusão integrada depende também do aceite F21.
-- **F21:** a avaliação registra 25 itens aprovados e uma dimensão bloqueada; não foi obtido um caso real positivo de alerta ouro na coorte autorizada. F21 não é `done`, ainda que seu código e testes controlados estejam integrados.
->>>>>>> ui/audit-20261113-concurrent
+- **F21:** a avaliação anterior preserva 25 itens aprovados como histórico. A avaliação atual focal de `E2E-REAL-01` registra 1 BLOCKED e 25 SKIPPED; as 58 chamadas locais reais não produziram um caso Ouro suficiente e lucrativo. Os checks de engenharia têm evidências próprias, sem substituir o gate real bloqueado. F21 permanece `implemented`, com taxa de 10% e zero envio WhatsApp real nesta prova.
 - **Fonte externa:** acesso autenticado e respostas podem mudar. Geografia/raio, cobertura e disponibilidade devem ser comprovados em cada execução; uma avaliação anterior não garante cobertura universal ou operação ininterrupta.
 - **IA e finanças:** aparência não comprova funcionamento interno; preços anunciados não comprovam venda. Os comparáveis sustentam a revenda, o domínio calcula o lucro e a interface conserva ausência, zero e sinal.
 - **UI:** automação Chromium/axe, toque sintetizado e texto a 200% não substituem leitor de tela, outros motores, dispositivo físico ou teste com usuários. Os relatórios distinguem a auditoria original da verificação após integrar F21/F22.
