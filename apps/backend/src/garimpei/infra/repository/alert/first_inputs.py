@@ -89,7 +89,7 @@ def consume_manual_input(listing: Listing, now: datetime) -> None:
 
     if gold_active():
         previous = (
-            FirstEligibilityDecision.objects.filter(identity=row).order_by("-evaluated_at").first()
+            FirstEligibilityDecision.objects.filter(identity=row).order_by("-generation").first()
         )
         _, record = gold_snapshot(listing, previous.financial if previous else {}, now)
         row.manual_gold_signature = automatic_gold_signature(record)

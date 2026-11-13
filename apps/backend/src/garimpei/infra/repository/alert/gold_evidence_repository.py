@@ -25,7 +25,7 @@ class PostgresGoldEvidenceRepository:
             if purpose_key == "first":
                 first = (
                     FirstEligibilityDecision.objects.filter(identity__listing=listing)
-                    .order_by("-evaluated_at")
+                    .order_by("-generation")
                     .first()
                 )
                 financial = first.financial if first else {}

@@ -30,3 +30,37 @@ with patch.object(PostgresGoldDiagnosticQueries,'read',side_effect=GoldDiagnosti
  assert 'PlayStation 5' in body and 'pagina=1' in body
 assert build_read_alert_diagnostic().execute(uuid4()) is None
 """)
+
+
+def test_same_clock_new_profit_revision_replaces_current_gold_diagnostic(
+    gold_driver: GoldDriver,
+) -> None:
+    gold_driver.action("prepare", case="BASE")
+    gold_driver.action("prepare", case="PROFIT_ZERO")
+    gold_driver.shell("""
+from django.test import RequestFactory
+from garimpei.main import build_read_alert_diagnostic,build_exploration_handler,build_qualify_gold_alert
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.persistence.alert_models import FirstAlertIdentity
+from garimpei.infra.persistence.gold_models import GoldQualification
+listing=Listing.objects.get(external_id='21001')
+identity=FirstAlertIdentity.objects.get(listing=listing)
+decisions=list(identity.decisions.order_by('generation'))
+assert len(decisions)>=2 and decisions[0].evaluated_at==decisions[-1].evaluated_at
+assert decisions[-1].financial['profit']=='0.00'
+current=build_qualify_gold_alert().execute(listing.id)
+assert current.state=='blocked' and current.reason=='gold_profit_non_positive'
+diagnostic=build_read_alert_diagnostic().execute(listing.id,listing.latest_id)
+assert diagnostic.gold and diagnostic.gold.current
+assert diagnostic.gold.reason=='gold_profit_non_positive'
+assert 'zero ou negativo' in diagnostic.label
+assert 'Pronta para envio' not in diagnostic.label
+assert diagnostic.current_reason=='gold_profit_non_positive'
+path='/ofertas/?aba=funcionam&q=PlayStation&pagina=1'
+response=build_exploration_handler().handle(RequestFactory().get(path))
+assert response.status_code==200
+body=response.content.decode()
+assert 'Lucro estimado zero ou negativo impede alerta' in body
+assert 'Pronta para envio; aguardando o canal' not in body
+assert GoldQualification.objects.filter(listing=listing,state='qualified').exists()
+""")

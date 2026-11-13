@@ -11,6 +11,7 @@ from typing import BinaryIO, cast
 
 from garimpei.config.env import RuntimeConfig
 from garimpei.domain.inference.errors import InferenceError
+from garimpei.infra.gateway.inference.json_encoding import compact_json
 from garimpei.infra.runtime.inference_runtime import owned_model_container
 from garimpei.infra.runtime.manifest import OperationError, read_manifest
 
@@ -32,7 +33,7 @@ class DockerOllamaTransport:
             raise InferenceError("service_unavailable", 503) from None
         if identifier is None:
             raise InferenceError("service_unavailable", 503)
-        payload = json.dumps(body).encode() if body is not None else b""
+        payload = compact_json(body).encode() if body is not None else b""
         header = (
             ("GET" if body is None else "POST") + " " + path + " HTTP/1.1\r\n"
             "Host: 127.0.0.1\r\nConnection: close\r\nContent-Type: application/json\r\n"
