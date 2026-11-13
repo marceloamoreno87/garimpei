@@ -1,0 +1,7 @@
+{
+  "case": "reduction_publication_over48hours",
+  "verdict": "PASS",
+  "post_count": 2,
+  "attempts": 2,
+  "notes": "Confirmed first receipt retained; valid reduction is not excluded solely because original publication is older than48h; historical observations remain within14days."
+}

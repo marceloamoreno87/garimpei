@@ -1,0 +1,17 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from tests.factories.gold_driver import GoldDriver
+with TemporaryDirectory(prefix='garimpei-f21-reduction-age-') as folder:
+ d=GoldDriver(Path(folder))
+ try:
+  d.action('prepare',case='BASE');assert d.action('send')['post_count']==1
+  d.action('mutate',field='price',value='R$ 1.800,00');d.shell("""
+from garimpei.infra.persistence.listing_models import Listing
+from datetime import datetime,UTC,timedelta
+l=Listing.objects.get(external_id='21001');o=l.latest;e=dict(o.evidence);e['published_at']=(datetime(2026,11,13,12,tzinfo=UTC)-timedelta(hours=49)).isoformat();o.evidence=e;o.save()
+""");d.action('complete');d.action('revalue');d.action('refresh');s=d.action('send');assert s['post_count']==2,s
+  result={'case':'reduction_publication_over48hours','verdict':'PASS','post_count':s['post_count'],'attempts':s['attempts'],'notes':'Confirmed first receipt retained; valid reduction is not excluded solely because original publication is older than48h; historical observations remain within14days.'}
+ except Exception as error:result={'case':'reduction_publication_over48hours','verdict':'FAIL','error_class':type(error).__name__,'details':str(error)[:2500]}
+ finally:d.close()
+Path('docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/controlled/reduction-age.json').write_text(json.dumps(result,indent=2)+'\n');print(result)

@@ -1,0 +1,38 @@
+{
+  "method": "controlled synthetic I/O with active F21 persistent fence and real PostgreSQL",
+  "completed_at": "2026-11-13T18:16:33.904687+00:00",
+  "results": [
+    {
+      "case": "age_exact48",
+      "verdict": "PASS",
+      "post_count": 1,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 1
+    },
+    {
+      "case": "age_after48",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "excluded",
+      "first_reason": "publication_expired",
+      "attempts": 0
+    },
+    {
+      "case": "age_future",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "waiting",
+      "first_reason": "publication_future",
+      "attempts": 0
+    },
+    {
+      "case": "age_untrusted",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "waiting",
+      "first_reason": "publication_untrusted",
+      "attempts": 0
+    }
+  ]
+}
