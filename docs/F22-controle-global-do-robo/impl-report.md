@@ -29,3 +29,7 @@ Atualização exige parar/substituir os consumidores antigos desta instalação 
 Toda execução usou origem/canal sintéticos locais. Não houve Facebook, WhatsApp real ou GPU. Segredos permanecem em env privados; laboratórios e instâncias próprios foram encerrados e limpos. As capturas de probes inválidos são históricas e não são PASS: um preço fake sem marcador monetário e um timeout incompatível com lease foram corrigidos somente no probe, sem modificar produto ou expectativas do contrato.
 
 Estado preliminar: implementação pronta para avaliação consolidada. `done` requer relatório completo por item, regressão integrada e resolução de pendências de cobertura; nenhuma aprovação genérica de serviço ou observação visual é usada como prova de toda a cadeia de jobs.
+
+## Complemento de validação local
+
+As combinações faltantes foram executadas:4 barreiras individuais,2 disputas simultâneas,1 revisão ultrapassada/GPU ocupada e3 variantes de tempo/edição/reinício passaram. A jornada mista preenfileirou quatro jobs reais antes da pausa pelo navegador; consumidores não iniciaram novas operações nem consumiram attempts. A mensagem incerta conservou ref/body após stop/init; ligar após49h conservou o envio anterior incerto, recusou primeira intenção vencida e confirmou somente oferta recente. Os29 itens observáveis estão PASS; done/clean aguarda a regressão integrada do coordenador.
