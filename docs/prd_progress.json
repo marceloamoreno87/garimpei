@@ -378,11 +378,11 @@
         "F19"
       ],
       "status": "implemented",
-      "cycles": 0,
+      "cycles": 1,
       "failure_reason": null,
-      "report_path": null,
+      "report_path": "docs/F22-controle-global-do-robo/eval-report-2026-11-13T17-49-21Z.md",
       "started_at": "2026-11-13T17:07:32.233392+00:00",
-      "updated_at": "2026-11-13T17:46:22.074907+00:00",
+      "updated_at": "2026-11-13T17:49:21.365842+00:00",
       "completed_at": null
     }
   }
