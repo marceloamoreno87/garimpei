@@ -17,6 +17,7 @@ from garimpei.domain.inference.errors import InferenceError
 
 VERSION = "local-evidence-v1"
 MODEL = "qwen3.5:4b-q4_K_M"
+SUPPORTED_PROFILES = frozenset({VERSION, CONDITION_VERSION})
 
 
 @dataclass(frozen=True)
@@ -51,7 +52,7 @@ class AnalysisInput:
         if not self.text.strip() and not self.images:
             raise InferenceError("insufficient_input")
         if (
-            self.prompt_version not in {VERSION, CONDITION_VERSION}
+            self.prompt_version not in SUPPORTED_PROFILES
             or self.schema_version != self.prompt_version
         ):
             raise InferenceError("unsupported_prompt_or_schema")

@@ -8,6 +8,7 @@ from garimpei.domain.inference.condition_evidence import (
 )
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import Clock, InferenceGateway, InferenceRepository
+from garimpei.domain.inference.request import SUPPORTED_PROFILES
 from garimpei.domain.inference.result import validate_result
 
 
@@ -23,10 +24,20 @@ class RunAnalysisUseCase:
             return False
         if not self._repository.authorize(work):
             return False
+        if work.part.profile not in SUPPORTED_PROFILES:
+            self._repository.failed(
+                work,
+                "unsupported_prompt_or_schema",
+                self._clock(),
+                diagnostic="unsupported_profile",
+            )
+            return False
         received = False
+        metrics: dict[str, object] = {}
         try:
             envelope = self._gateway.infer(work.part, work.artifact)
             received = True
+            metrics = cast(dict[str, object], envelope.get("metrics", {}))
             raw = envelope.get("content")
             if not isinstance(raw, str):
                 raise InferenceError("invalid_output")
@@ -44,7 +55,6 @@ class RunAnalysisUseCase:
                     else {}
                 )
                 condition_payload = validate_condition_result(raw, work.part.text, photos)
-                metrics = cast(dict[str, object], envelope.get("metrics", {}))
                 return self._repository.publish(work, condition_payload, metrics, self._clock())
             result = validate_result(raw, work.part.text, images)
             payload: dict[str, object] = {
@@ -52,8 +62,14 @@ class RunAnalysisUseCase:
                 "unknowns": list(result.unknowns),
                 "limitations": list(result.limitations),
             }
-            metrics = cast(dict[str, object], envelope.get("metrics", {}))
             return self._repository.publish(work, payload, metrics, self._clock())
         except InferenceError as error:
-            self._repository.failed(work, error.code, self._clock(), sent=received or error.sent)
+            self._repository.failed(
+                work,
+                error.code,
+                self._clock(),
+                sent=received or error.sent,
+                diagnostic=error.diagnostic or ("result_validation_failed" if received else ""),
+                metrics=metrics | error.metrics,
+            )
             return False

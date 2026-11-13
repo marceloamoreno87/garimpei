@@ -78,7 +78,14 @@ class InferenceRepository(Protocol):
         now: datetime,
     ) -> bool: ...
     def failed(
-        self, work: AnalysisWork, code: str, now: datetime, *, sent: bool = False
+        self,
+        work: AnalysisWork,
+        code: str,
+        now: datetime,
+        *,
+        sent: bool = False,
+        diagnostic: str = "",
+        metrics: dict[str, object] | None = None,
     ) -> None: ...
     def control(self, paused: bool, revision: int) -> None: ...
     def reconcile(self, now: datetime) -> None: ...

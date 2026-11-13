@@ -1,0 +1,89 @@
+{
+  "diagnostic_only": true,
+  "not_quality_benchmark": true,
+  "request_id": "e0506aac-ef67-4403-b9ce-8c61173aac01",
+  "part_position": 0,
+  "prepared_part_sha256": "ee845f8d061a0729e88a253d8542013010fa8e7fa308ca04bd0b35d812953403",
+  "part_text_sha256": "aa5fc0d56711af6d8b1355047c51affe45a1c1632e2560d22117a6a70a96fdf6",
+  "derivative_sha256": "903cc2e2c8690a208fe3ca50438b4de62a4c24f3a02132acfd5f556d04e7b8de",
+  "source_photo_sha256": "d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b",
+  "prompt_sha256": "170f78400e6dc45278fc20dfd131b1ff0b946a3d00da199b9cbd3d0200dfca48",
+  "schema_sha256": "c4d7474051623b75285ed0e6f5899eabb6d7e1b96f44c815a71072750e9c00c0",
+  "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+  "profile": "condition-evidence-v1",
+  "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "context_tokens": 4096,
+  "output_tokens": 512,
+  "timeout": 180,
+  "source_photo_count_this_call": 1,
+  "preflight": {
+    "reason": "ready",
+    "attempts": 17,
+    "elapsed_seconds": 3.2264700590021675,
+    "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+  },
+  "gateway_result": "rejected",
+  "gateway_error": {
+    "code": "invalid_output",
+    "status": 400,
+    "sent": true
+  },
+  "elapsed_seconds": 11.339472213003319,
+  "generation_calls": [
+    {
+      "sent_at": 1794585214.2244618,
+      "body_sha256": "0c77d0a2c5613b76d763dba6f478267224d6561543696a1b22cba318217567c9",
+      "timeout": 179.99094839500322
+    }
+  ],
+  "envelope": {
+    "model": "qwen3.5:4b-q4_K_M",
+    "done": true,
+    "done_reason": "length",
+    "total_duration": 11326027202,
+    "load_duration": 6299901347,
+    "prompt_eval_count": 572,
+    "prompt_eval_duration": 637721000,
+    "eval_count": 512,
+    "eval_duration": 4373905000
+  },
+  "message": {
+    "role": "assistant",
+    "tool_calls_present": false,
+    "content_type": "str",
+    "content_utf8_bytes": 1682,
+    "content_sha256": "6aa9f9832fb5a192266f35e903077a03dde2a5a633c9112411c8478de9a0d13d"
+  },
+  "content_valid_json": false,
+  "condition_schema_and_references_valid": false,
+  "condition_validation_error": "invalid_output",
+  "resident_after_response": {
+    "models": [
+      {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3140495604,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-11-13T15:58:45.553534924Z",
+        "size_vram": 3140495604,
+        "context_length": 4096,
+        "runner": "llamacpp"
+      }
+    ]
+  },
+  "gpu_sample_count": 40,
+  "gpu_memory_mib_max": 6414,
+  "gpu_utilization_percent_max": 80,
+  "persisted_part_unchanged": true,
+  "persisted_part_state": "failed"
+}

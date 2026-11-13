@@ -1,0 +1,107 @@
+{
+  "profile": "condition-evidence-v2",
+  "policy_version": "condition-policy-v1",
+  "output_limit": 512,
+  "context_limit": 4096,
+  "input_text_limit": 2048,
+  "tokenizer_sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+  "prompt_sha256": "6c3d763bf2f70a137f4902f27b8ea8c8c74500a5f0fc8fd4c0a7ca4cc44b1761",
+  "schema_sha256": "9e7c4e227699d5b700f5198a2ae1a49e533dbd8191f4e4fd21629cd4dcf992e5",
+  "structural_schema_unchanged_except_requested_version_const": true,
+  "max_fixture_context_tokens": 1505,
+  "scope": "Offline tokenizer audit of23frozen fixture texts with category and empty identity; not model inference and not a claim of physical output fitting512. Production preparer still checks actual full context.",
+  "cases": [
+    {
+      "case_id": "source-1633686958401669",
+      "prepared_text_tokens_with_safety_margin": 1489
+    },
+    {
+      "case_id": "source-1502910511735697",
+      "prepared_text_tokens_with_safety_margin": 1492
+    },
+    {
+      "case_id": "electronics-light_wear",
+      "prepared_text_tokens_with_safety_margin": 1494
+    },
+    {
+      "case_id": "electronics-clear_defect",
+      "prepared_text_tokens_with_safety_margin": 1494
+    },
+    {
+      "case_id": "electronics-suspected",
+      "prepared_text_tokens_with_safety_margin": 1494
+    },
+    {
+      "case_id": "camera-light_wear",
+      "prepared_text_tokens_with_safety_margin": 1497
+    },
+    {
+      "case_id": "camera-clear_defect",
+      "prepared_text_tokens_with_safety_margin": 1497
+    },
+    {
+      "case_id": "camera-suspected",
+      "prepared_text_tokens_with_safety_margin": 1497
+    },
+    {
+      "case_id": "computer-light_wear",
+      "prepared_text_tokens_with_safety_margin": 1493
+    },
+    {
+      "case_id": "computer-clear_defect",
+      "prepared_text_tokens_with_safety_margin": 1493
+    },
+    {
+      "case_id": "computer-suspected",
+      "prepared_text_tokens_with_safety_margin": 1493
+    },
+    {
+      "case_id": "console-light_wear",
+      "prepared_text_tokens_with_safety_margin": 1499
+    },
+    {
+      "case_id": "console-clear_defect",
+      "prepared_text_tokens_with_safety_margin": 1499
+    },
+    {
+      "case_id": "console-suspected",
+      "prepared_text_tokens_with_safety_margin": 1499
+    },
+    {
+      "case_id": "headphone-light_wear",
+      "prepared_text_tokens_with_safety_margin": 1500
+    },
+    {
+      "case_id": "headphone-clear_defect",
+      "prepared_text_tokens_with_safety_margin": 1500
+    },
+    {
+      "case_id": "headphone-suspected",
+      "prepared_text_tokens_with_safety_margin": 1500
+    },
+    {
+      "case_id": "television-light_wear",
+      "prepared_text_tokens_with_safety_margin": 1498
+    },
+    {
+      "case_id": "television-clear_defect",
+      "prepared_text_tokens_with_safety_margin": 1498
+    },
+    {
+      "case_id": "television-suspected",
+      "prepared_text_tokens_with_safety_margin": 1498
+    },
+    {
+      "case_id": "intermittent",
+      "prepared_text_tokens_with_safety_margin": 1505
+    },
+    {
+      "case_id": "battery",
+      "prepared_text_tokens_with_safety_margin": 1499
+    },
+    {
+      "case_id": "untested",
+      "prepared_text_tokens_with_safety_margin": 1499
+    }
+  ]
+}

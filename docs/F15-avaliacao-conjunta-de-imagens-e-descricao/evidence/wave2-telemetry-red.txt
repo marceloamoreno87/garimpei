@@ -1,0 +1,25 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_rejected_length_envelope_keeps_reason_timing_and_gpu_without_private_content _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-30/test_rejected_length_envelope_0')
+
+    def test_rejected_length_envelope_keeps_reason_timing_and_gpu_without_private_content(tmp_path: Path) -> None:
+        fake = LengthLimitedResponseFake()
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings,guard,lambda:False,monitor=controlled_gpu_samples)
+            with pytest.raises(InferenceError,match="invalid_output") as captured:
+                gateway.infer(PreparedPart("text","Controlled input"),LocalInputPreparer(settings).artifact())
+            failure = captured.value
+            assert failure.sent is True
+>           assert failure.diagnostic == "generation_length_limit"
+                   ^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'InferenceError' object has no attribute 'diagnostic'
+
+tests/unit/test_inference_failure_observability.py:44: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_inference_failure_observability.py::test_rejected_length_envelope_keeps_reason_timing_and_gpu_without_private_content
+1 failed in 0.59s

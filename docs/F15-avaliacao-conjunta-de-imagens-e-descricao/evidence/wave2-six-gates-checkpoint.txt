@@ -1,0 +1,18 @@
+[gates] Tipos: 425 Python source files
+[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py
+Success: no issues found in 600 source files
+[gates] Tipos: PASS
+[gates] Lint: 425 Python source files
+[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py
+All checks passed!
+[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py
+unformatted: File would be reformatted
+ --> tests/integration/test_inference_failure_observability.py:3:1
+  |
+2 |
+  -
+3 | import pytest
+  |
+
+1 file would be reformatted, 600 files already formatted
+[gates] Lint: FAILED

@@ -191,14 +191,26 @@ class PostgresInferenceRepository:
             control.save()
             return current
 
-    def failed(self, work: AnalysisWork, code: str, now: datetime, *, sent: bool = False) -> None:
+    def failed(
+        self,
+        work: AnalysisWork,
+        code: str,
+        now: datetime,
+        *,
+        sent: bool = False,
+        diagnostic: str = "",
+        metrics: dict[str, object] | None = None,
+    ) -> None:
         with transaction.atomic():
             control = _control()
             if not _owns(control, work):
                 return
             row = InferenceRequest.objects.select_for_update().get(pk=work.request_id)
             part = InferencePart.objects.select_for_update().get(pk=work.part_id)
-            part.metrics = dict(part.metrics, sent=sent or part.metrics.get("sent", False))
+            part.metrics = dict(part.metrics, **(metrics or {}))
+            part.metrics["sent"] = sent or part.metrics.get("sent", False)
+            if diagnostic:
+                part.metrics["diagnostic_code"] = diagnostic
             recoverable = code in RECOVERABLE and part.attempts < 3
             row.state, row.reason = ("awaiting_resource" if recoverable else "failed"), code
             row.next_attempt_at = (

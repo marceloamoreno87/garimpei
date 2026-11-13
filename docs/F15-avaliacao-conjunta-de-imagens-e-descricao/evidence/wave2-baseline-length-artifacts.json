@@ -1,0 +1,28 @@
+{
+  "source_commit": "4216a13c47159f0cf9813e2ba79736a53dd25983",
+  "source_files_checked": 707,
+  "source_changed": [],
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "artifacts": [
+    {
+      "name": "envelope-before-validation.private.json",
+      "bytes": 2264,
+      "sha256": "2a3d2cc2c8e4693f96e8fefb7b18e5d8454490f7d50ef778134f643b655186a8",
+      "mode": "0o600"
+    },
+    {
+      "name": "gpu-samples.json",
+      "bytes": 4696,
+      "sha256": "10c2b65386d026e107a89f07df2977e885ebcfb25b89d7e154a84c3a6b2978d6",
+      "mode": "0o600"
+    },
+    {
+      "name": "sanitized-summary.json",
+      "bytes": 3061,
+      "sha256": "3d7d26cdf84cd3b77f6b892366ccffcff50ae1334c58947ae7ad935a14a14807",
+      "mode": "0o600"
+    }
+  ],
+  "no_secret_values_found": true,
+  "no_image_payload_keys": true
+}

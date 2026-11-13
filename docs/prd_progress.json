@@ -243,11 +243,11 @@
         "F19"
       ],
       "status": "implemented",
-      "cycles": 5,
-      "failure_reason": "E2E bloqueado: 13 invalid_output/0 aceitos/3 pendentes; latência fria/quente sem prova nas falhas. Full 780 e seis gates PASS. Orçamento 3/3 consumido; novo escopo necessário.",
+      "cycles": 6,
+      "failure_reason": "Nova onda: causa length/512 confirmada; perfil v2 e telemetria corrigidos, 28 unitários/13 integração/seis gates PASS. Prova física v2 e full pendentes; 1/3 correções consumida nesta onda.",
       "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T15-39-09Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-13T15:40:26.025579+00:00",
+      "updated_at": "2026-11-13T16:15:28.936914+00:00",
       "completed_at": null
     },
     "F16": {

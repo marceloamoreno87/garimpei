@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/e16d/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 13 items
+
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[json-invalid_json_or_context] 58 objects imported automatically (use -v 2 for details).
+
+public failed query retains numeric telemetry and invalid_json_or_context without raw content or automatic promotion PASS
+
+PASSED
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[schema-schema_mismatch] 58 objects imported automatically (use -v 2 for details).
+
+public failed query retains numeric telemetry and schema_mismatch without raw content or automatic promotion PASS
+
+PASSED
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[text-text_reference_mismatch] 58 objects imported automatically (use -v 2 for details).
+
+public failed query retains numeric telemetry and text_reference_mismatch without raw content or automatic promotion PASS
+
+PASSED
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[photo-image_reference_mismatch] 58 objects imported automatically (use -v 2 for details).
+
+public failed query retains numeric telemetry and image_reference_mismatch without raw content or automatic promotion PASS
+
+PASSED
+tests/integration/test_inference_failure_observability.py::test_persisted_condition_v1_is_never_executed_or_accepted_as_legacy_f19 58 objects imported automatically (use -v 2 for details).
+
+persisted condition-evidence-v1 is rejected before gateway and never treated as legacy F19 PASS
+
+PASSED
+tests/integration/test_inference_failure_observability.py::test_current_v2_reanalysis_preserves_identified_v1_history_and_uses_new_request 58 objects imported automatically (use -v 2 for details).
+
+historical prompt/schema=condition-evidence-v1 remains identified; current condition-evidence-v2 gets new fingerprint/generation/request without legacy/cache reuse PASS
+
+PASSED
+tests/integration/test_inference.py::test_recovery_waits_for_proof_respects_due_and_three_attempts PASSED
+tests/integration/test_inference.py::test_concurrent_admission_and_publication_are_idempotent PASSED
+tests/integration/test_inference.py::test_control_http_validates_csrf_conflict_and_unconfirmed_write PASSED
+tests/integration/test_inference.py::test_retry_success_clears_obsolete_diagnostic PASSED
+tests/integration/test_inference.py::test_pause_during_call_finishes_one_part_and_requires_explicit_resume PASSED
+tests/integration/test_inference.py::test_empty_queue_reconciliation_does_not_enqueue_work PASSED
+tests/integration/test_inference.py::test_uncertain_execution_renders_cause_before_active_claim PASSED
+
+======================== 13 passed in 68.94s (0:01:08) =========================

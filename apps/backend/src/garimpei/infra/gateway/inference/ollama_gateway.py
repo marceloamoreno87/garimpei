@@ -22,7 +22,7 @@ from garimpei.domain.inference.condition_evidence import (
 )
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import PreparedPart
-from garimpei.domain.inference.request import MODEL
+from garimpei.domain.inference.request import MODEL, SUPPORTED_PROFILES
 from garimpei.domain.inference.result import bounded_schema
 from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
 from garimpei.infra.gateway.inference.input_preparer import PROMPT, artifact_signature, read_lock
@@ -48,23 +48,56 @@ class OllamaGateway:
             return self._run_part(part, artifact)
 
     def _run_part(self, part: PreparedPart, artifact: str) -> dict[str, object]:
+        if part.profile not in SUPPORTED_PROFILES:
+            raise InferenceError("unsupported_prompt_or_schema", diagnostic="unsupported_profile")
         lock = read_lock(self._settings.model_lock)
         current = artifact_signature(lock)
         if current != artifact:
             raise InferenceError("artifact_mismatch", 503)
         self._verify(lock)
         with self._guard.call(), self._monitor() if self._monitor else nullcontext([]) as samples:
-            envelope = self._request("/api/chat", self._body(part), timeout=self._settings.timeout)
-            result = self._validate_received(envelope)
-            metrics = cast(dict[str, object], result["metrics"])
-            metrics["gpu_samples"] = samples
-            return result
+            started = time.monotonic_ns()
+            before = self._resident()
+            metrics = _residency_before(before, str(lock["model_digest"]))
+            received = False
+            try:
+                envelope = self._request(
+                    "/api/chat", self._body(part), timeout=self._settings.timeout
+                )
+                received = True
+                metrics.update(_response_metrics(envelope))
+                result = self._validate_received(envelope)
+                metrics.update(cast(dict[str, object], result["metrics"]))
+                result["metrics"] = metrics | {
+                    "gpu_samples": samples,
+                    "wall_duration_ns": time.monotonic_ns() - started,
+                }
+                return result
+            except InferenceError as error:
+                # Numeric metadata and host samples remain useful even when generated JSON is rejected.
+                # Never retain message/content/tool arguments in public failure telemetry.
+                metrics.update(self._failure_residency() if received else {})
+                raise InferenceError(
+                    error.code,
+                    error.status,
+                    sent=received or error.sent,
+                    diagnostic=error.diagnostic,
+                    metrics=metrics
+                    | error.metrics
+                    | {"gpu_samples": samples, "wall_duration_ns": time.monotonic_ns() - started},
+                ) from None
 
     def _validate_received(self, envelope: dict[str, object]) -> dict[str, object]:
         try:
             return self._validated_envelope(envelope)
         except InferenceError as error:
-            raise InferenceError(error.code, error.status, sent=True) from None
+            raise InferenceError(
+                error.code,
+                error.status,
+                sent=True,
+                diagnostic=error.diagnostic,
+                metrics=error.metrics,
+            ) from None
 
     def _body(self, part: PreparedPart) -> dict[str, object]:
         content = part.text if part.image_id is None else "Examine image_id=" + part.image_id
@@ -114,21 +147,28 @@ class OllamaGateway:
 
     def _validated_envelope(self, envelope: dict[str, object]) -> dict[str, object]:
         message = envelope.get("message")
-        if envelope.get("done") is not True or envelope.get("done_reason") != "stop":
-            raise InferenceError("invalid_output")
+        if envelope.get("done") is not True:
+            raise InferenceError("invalid_output", diagnostic="generation_incomplete")
+        if envelope.get("done_reason") != "stop":
+            raise InferenceError(
+                "invalid_output",
+                diagnostic="generation_length_limit"
+                if envelope.get("done_reason") == "length"
+                else "generation_stop_reason",
+            )
         if (
             not isinstance(message, dict)
             or message.get("tool_calls")
             or message.get("role") != "assistant"
         ):
-            raise InferenceError("invalid_output")
+            raise InferenceError("invalid_output", diagnostic="assistant_message_or_tool_calls")
         if (
             _metric(envelope, "prompt_eval_count") + self._settings.output_tokens
             > self._settings.context_tokens
         ):
-            raise InferenceError("context_unverified")
+            raise InferenceError("context_unverified", diagnostic="response_context_budget")
         if _metric(envelope, "eval_count") >= self._settings.output_tokens:
-            raise InferenceError("invalid_output")
+            raise InferenceError("invalid_output", diagnostic="generation_token_limit")
         resident = self._resident()
         if resident is None or _metric(resident, "size_vram") < _metric(resident, "size"):
             raise InferenceError("gpu_degraded", 503)
@@ -143,6 +183,15 @@ class OllamaGateway:
                 "context_length": resident.get("context_length"),
             },
         }
+
+    def _failure_residency(self) -> dict[str, object]:
+        try:
+            resident = self._resident()
+        except InferenceError as error:
+            return {"residency_after_error": error.code}
+        if resident is None:
+            return {"residency_after": "absent"}
+        return _resident_metrics(resident)
 
     def diagnose(self) -> dict[str, object]:
         self._budget_state.service_confirmed = False
@@ -305,8 +354,46 @@ def _abort_connection(connection: http.client.HTTPConnection, sock: socket.socke
 def _metric(value: dict[str, object], key: str) -> int:
     raw = value.get(key)
     if type(raw) is not int or raw < 0 or raw > 2**63 - 1:
-        raise InferenceError("invalid_output")
+        raise InferenceError("invalid_output", diagnostic="invalid_metric_" + key)
     return raw
+
+
+def _response_metrics(envelope: dict[str, object]) -> dict[str, object]:
+    # Duration/count fields are server metadata; generated strings and tool calls are untrusted content.
+    return {
+        key: value
+        for key in [
+            "total_duration",
+            "load_duration",
+            "prompt_eval_duration",
+            "eval_duration",
+            "prompt_eval_count",
+            "eval_count",
+        ]
+        if type(value := envelope.get(key)) is int and 0 <= value < 2**63
+    }
+
+
+def _resident_metrics(resident: dict[str, object]) -> dict[str, object]:
+    return {
+        key: value
+        for key in ["size", "size_vram", "context_length"]
+        if type(value := resident.get(key)) is int and 0 <= value < 2**63
+    }
+
+
+def _residency_before(resident: dict[str, object] | None, expected: str) -> dict[str, object]:
+    if resident is None:
+        return {"residency_before": "absent"}
+    digest = str(resident.get("digest", ""))
+    matches = digest.removeprefix("sha256:") == expected.removeprefix("sha256:")
+    value: dict[str, object] = {
+        "residency_before": "matching_model" if matches else "unverified",
+        "resident_before": _resident_metrics(resident),
+    }
+    if matches:
+        value["resident_before_digest"] = expected
+    return value
 
 
 class _CallBudget(local):
