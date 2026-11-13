@@ -265,6 +265,11 @@ def fault(directory: Path, case: str) -> None:
         observed.update({"case": case, "seconds": time.monotonic() - started})
         report.write_text(json.dumps(observed, indent=2) + "\n")
         return
+    if case in {"crash_after_post", "crash_after_commit"}:
+        observed = process_crash_fault(directory, source, case)
+        observed.update({"case": case, "seconds": time.monotonic() - started})
+        report.write_text(json.dumps(observed, indent=2) + "\n")
+        return
     if case == "unit_persistent":
         code = _PERSISTENT_FAULT
     elif case == "queue_full":
@@ -295,6 +300,45 @@ def fault(directory: Path, case: str) -> None:
     observed = json.loads(result.stdout.strip().splitlines()[-1])
     observed.update({"case": case, "seconds": time.monotonic() - started})
     report.write_text(json.dumps(observed, indent=2) + "\n")
+
+
+def process_crash_fault(
+    directory: Path, source: FoundationInstance, case: str
+) -> dict[str, object]:
+    """Run the existing real SIGKILL scenarios in a separately owned eval instance."""
+    tests = {
+        "crash_after_post": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+        "crash_after_commit": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+    }
+    private = directory / "crash-tests" / case
+    private.parent.mkdir(mode=0o700, exist_ok=True)
+    if private.parent.is_symlink():
+        raise ValueError("Crash-test directory must not be a symlink")
+    if private.exists():
+        raise ValueError("Crash-test directory already exists; use a fresh laboratory")
+    result = source.command(
+        "uv",
+        "run",
+        "--project",
+        "apps/backend",
+        "--frozen",
+        "--no-sync",
+        "pytest",
+        "-q",
+        tests[case],
+        "--basetemp",
+        str(private),
+        timeout=150,
+    )
+    if result.returncode:
+        raise RuntimeError("Owned process-crash scenario failed: " + result.stdout + result.stderr)
+    return {
+        "fault_detected": True,
+        "recovered": True,
+        "real_sigkill": True,
+        "scenario": tests[case],
+        "scope": "separate owned eval instance with fake source and channel",
+    }
 
 
 def database_fault(directory: Path) -> dict[str, object]:
@@ -394,6 +438,8 @@ def calibrate(directory: Path) -> None:
             "Calibration requires the owned backup scenario and retained fake provider history"
         )
     inspect(directory)
+    calibrate_faults(directory)
+    fault_calibration = json.loads((directory / "fault-calibration.json").read_text())
     with ThreadPoolExecutor(max_workers=2) as pool:
         adapters = pool.submit(_measure_adapter_controls, directory, source)
         stages = pool.submit(measure_new_stages, directory, source, target)
@@ -407,6 +453,7 @@ def calibrate(directory: Path) -> None:
         "python": platform.python_version(),
         "measurements": measurements,
         "new_stage_measurements": new_stages,
+        "fault_measurements": fault_calibration["measurements"],
         "free_bytes": shutil.disk_usage(directory).free,
         "scope": "operational adapter timeouts and five controls of owned backup/export/restore/verified reconciliation",
         "pending": [
@@ -505,6 +552,8 @@ def main() -> None:
             "late_result",
             "crash_before_commit",
             "db_unavailable",
+            "crash_after_post",
+            "crash_after_commit",
         ],
     )
     options = parser.parse_args()

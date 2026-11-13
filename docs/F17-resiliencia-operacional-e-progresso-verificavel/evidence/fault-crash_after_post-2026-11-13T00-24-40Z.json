@@ -1,0 +1,9 @@
+{
+  "fault_detected": true,
+  "recovered": true,
+  "real_sigkill": true,
+  "scenario": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+  "scope": "separate owned eval instance with fake source and channel",
+  "case": "crash_after_post",
+  "seconds": 39.613683789997594
+}

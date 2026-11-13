@@ -53,3 +53,10 @@ Verificações adicionais em instâncias próprias: `test_collection.py::test_le
 ## Medição adversa parcial — 2026-11-13
 
 `calibrate-faults` executa cinco repetições dos sete cenários de rede, arquivo e fila, com as respectivas operações de controle, duração e amostras de bytes livres, banco, arquivos e filas. O teste integrado passou em 57,14 s; os seis gates também passaram. [Medições sanitizadas](evidence/fault-calibration-2026-11-13T00-24-40Z.json) contêm 35 observações. Rede usa prazo de um segundo apenas no eval; a fila controle tem 999 entradas e a saturada 1.000; bytes de arquivos são amostrados após os testes e não correspondem ao pico. A matriz e o perfil operacional continuam incompletos e a ativação desabilitada.
+
+
+## Cortes de processo e calibração canônica — 2026-11-13
+
+O laboratório oferece `crash_after_post` e `crash_after_commit`: cada caso executa, em nova instância eval própria e com canal/fonte fake, a regressão existente com SIGKILL real e recuperação. Os testes individuais pela CLI passaram em 39,83 s e 16,41 s; a regressão combinada de todos os casos passou em 114,82 s e os seis gates passaram. As evidências sanitizadas estão em `evidence/fault-crash_after_post-2026-11-13T00-24-40Z.json` e `evidence/fault-crash_after_commit-2026-11-13T00-24-40Z.json`. O corte após commit ocorre depois de lote confirmado e antes do commit do lote seguinte.
+
+O comando `calibrate` canônico agora inclui as 35 medições adversas e ainda mantém o perfil não confirmado; sua regressão integral está em execução. A ampliação não equivale aos outros cortes de autorização, publicação e confirmação, nem a cinco repetições dos dois SIGKILL.
