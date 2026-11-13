@@ -146,6 +146,7 @@ class GoldLab:
                     "id", "state", "reason", "gold_qualification_id", "body", "confirmed_message"
                 )
             ),
+            post_count=sum(method == "POST" for method, _ in self.channel.calls),
             attempts=AlertAttempt.objects.count(),
             messages=self.channel.messages.copy(),
         )
@@ -163,11 +164,46 @@ class GoldLab:
         for work in ValuationWork.objects.filter(completed=False):
             build_valuation_handler().execute(work.id)
 
+    def concurrent_send(self, *, mutate: bool = False) -> None:
+        from threading import Thread
+
+        from django.db import connections
+
+        errors: list[Exception] = []
+
+        def send() -> None:
+            try:
+                # Exercise the use case/store race, independently of the worker's stage mutex.
+                build_alert_handler("send")._execute()
+            except Exception as error:
+                errors.append(error)
+            finally:
+                connections.close_all()
+
+        self.channel.hold_check = mutate
+        self.channel.release.clear()
+        workers = [Thread(target=send) for _ in range(1 if mutate else 2)]
+        for worker in workers:
+            worker.start()
+        if mutate:
+            assert self.channel.held.wait(10), "channel check barrier was not reached"
+            self.mutate(dict(field="description", value="O aparelho não liga. Com defeito."))
+            self.channel.release.set()
+        for worker in workers:
+            worker.join(25)
+            assert not worker.is_alive(), "gold authorization worker did not finish"
+        self.channel.hold_check = False
+        assert not errors, [type(error).__name__ for error in errors]
+
     def action(self, payload: dict[str, object]) -> dict[str, object]:
         action = str(payload.get("action", "status"))
         if action == "prepare":
             return self.prepare(str(payload.get("case", "BASE")))
-        if action == "mutate":
+        if action == "concurrent_send":
+            self.concurrent_send()
+        elif action == "slow_check_changed":
+            self.concurrent_send(mutate=True)
+        elif action == "mutate":
             self.mutate(payload)
         elif action == "revalue":
             self.revalue()

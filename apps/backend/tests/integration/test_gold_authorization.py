@@ -108,3 +108,54 @@ else:
 row.refresh_from_db();assert (row.body,row.confirmed_message,row.confirmed_ack,row.confirmed_at)==before
 assert AlertAttempt.objects.count()==1
 """)
+
+
+def test_gold_reduction_reuses_policy_and_keeps_first_receipt(gold_driver: GoldDriver) -> None:
+    gold_driver.action("prepare", case="BASE")
+    first = gold_driver.action("send")
+    assert len(cast(list[object], first["messages"])) == 1
+    gold_driver.action("mutate", field="price", value="R$ 1.800,00")
+    gold_driver.action("complete")
+    gold_driver.action("revalue")
+    gold_driver.action("refresh")
+    sent = gold_driver.action("send")
+    messages = cast(list[dict[str, object]], sent["messages"])
+    assert len(messages) == 2 and "Preço reduzido" in str(messages[-1]["body"])
+    assert "Lucro estimado: R$ 900,00" in str(messages[-1]["body"])
+    assert gold_driver.action("send")["messages"] == messages
+
+
+def test_first_alert_expiry_is_checked_after_queue_wait(gold_driver: GoldDriver) -> None:
+    gold_driver.action("prepare", case="BASE")
+    gold_driver.action("advance", seconds=48 * 3600 + 1)
+    sent = gold_driver.action("send")
+    assert sent["messages"] == [] and sent["attempts"] == 0
+
+
+def test_concurrent_gold_authorizations_produce_one_post(gold_driver: GoldDriver) -> None:
+    gold_driver.action("prepare", case="BASE")
+    sent = gold_driver.action("concurrent_send")
+    assert len(cast(list[object], sent["messages"])) == 1
+    assert sent["post_count"] == 1 and sent["attempts"] == 1
+
+
+def test_change_during_slow_channel_check_is_seen_at_final_boundary(
+    gold_driver: GoldDriver,
+) -> None:
+    gold_driver.action("prepare", case="BASE")
+    sent = gold_driver.action("slow_check_changed")
+    assert sent["messages"] == [] and sent["post_count"] == 0 and sent["attempts"] == 0
+
+
+def test_manual_good_does_not_supply_missing_photo_evidence(gold_driver: GoldDriver) -> None:
+    gold_driver.action("prepare", case="NO_PHOTOS")
+    gold_driver.shell("""
+from garimpei.main import build_read_condition,build_classify_condition
+from garimpei.infra.persistence.listing_models import Listing,ManualCondition
+listing=Listing.objects.get(external_id='21001');state=build_read_condition().execute(listing.id).state
+build_classify_condition().execute(listing.id,'good',state.revision)
+assert ManualCondition.objects.get(listing=listing).choice=='good'
+""")
+    gold_driver.action("refresh")
+    sent = gold_driver.action("send")
+    assert sent["messages"] == [] and sent["attempts"] == 0
