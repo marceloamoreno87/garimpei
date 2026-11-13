@@ -27,3 +27,7 @@ UI1440/390, correção422/303, atualização explícita/foco/contexto, conflito/
 ## Avaliação final
 
 Suíte reiniciada integralmente apósENOSPC:724 PASS,zero entrada alterada; seis gates e jornadas aprovados. Relatórioeval-report-2026-11-13T13-37-52Z.md:29 PASS/14ACs,done. Manifesto medido liberado após validação; principal continua parado. Falhas e limpeza preservadas nas evidências. Commit/merge/push autorizados seguem como integração.
+
+## Integração autorizada
+
+Master merge `34b9b853701a8a56a0b97b5ec04d99b9326c83dd`; seis gates Python aprovados novamente (exit 0). Os 653 arquivos de entrada do backend coincidem com a suíte final de 724 PASS. Todas as 24 worktrees estavam limpas e seus HEADs contidos na master após o merge. Logs completos preservados em TXT, além de JUnit/manifesto/hashes. Runtime principal comprovadamente parado, sem PID vivo correspondente. O merge já foi enviado; estes registros seguem em commit complementar.
