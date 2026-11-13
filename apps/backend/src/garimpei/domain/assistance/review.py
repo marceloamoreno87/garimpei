@@ -43,6 +43,20 @@ class ReviewTicket:
     reused: bool
 
 
+def has_usable_input(snapshot: dict[str, object], purpose: str) -> bool:
+    if purpose in {"operations", "investigation"}:
+        return bool(snapshot.get("facts"))
+    texts = cast(dict[str, object], snapshot.get("texts", {}))
+    if any(str(text or "").strip() for text in texts.values()):
+        return True
+    if purpose != "condition":
+        return False
+    return any(
+        photo.get("state") == "available" and photo.get("sha256")
+        for photo in cast(list[dict[str, object]], snapshot.get("media", []))
+    )
+
+
 def assistance_prompt(profile: str) -> str:
     if profile not in ASSISTANCE_PROFILES:
         raise InferenceError("unsupported_prompt_or_schema")

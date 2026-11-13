@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="5" failures="4" skipped="0" tests="88" time="1801.733" timestamp="2026-11-13T16:12:51.849180-06:00" hostname="docker-desktop"><testcase classname="tests.http.test_alert_diagnostic" name="test_public_diagnostic_fields_history_and_partial_http_failure" time="22.587" /><testcase classname="tests.http.test_gold_diagnostic" name="test_gold_html_is_read_only_and_projection_failure_preserves_offer" time="19.349" /><testcase classname="tests.http.test_gold_diagnostic" name="test_same_clock_new_profit_revision_replaces_current_gold_diagnostic" time="21.349" /><testcase classname="tests.http.test_gold_diagnostic" name="test_gold_diagnostic_preserves_history_suspension_over_queued_intent" time="23.422" /><testcase classname="tests.integration.test_alert_consumers" name="test_integrated_worker_matrix_reductions_classification_and_restart" time="80.676" /><testcase classname="tests.integration.test_alert_consumers" name="test_manual_history_at_publication_and_revalidation" time="60.434"><failure message="Failed: Timed out waiting for eligible intents waiting for configuration">tmp_path = PosixPath('/tmp/f23-pytest-A/test_manual_history_at_publica0')
+
+    def test_manual_history_at_publication_and_revalidation(tmp_path: Path) -&gt; None:
+        from tests.factories.alert_scenario import pause_worker, resume_worker
+    
+        with alert_scenario(tmp_path, enabled=False) as (instance, source, clock, channel):
+            add_cases(source, clock)
+            clock.advance(61)
+            completed(instance, 2)
+            clock.advance(6)
+&gt;           wait_for(
+                lambda: sql(instance, "SELECT count(*) FROM runtime_alertintent") == [(3,)],
+                "eligible intents waiting for configuration",
+                seconds=35,
+            )
+
+tests/integration/test_alert_consumers.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = &lt;function test_manual_history_at_publication_and_revalidation.&lt;locals&gt;.&lt;lambda&gt; at 0x7d9be24cbb00&gt;
+description = 'eligible intents waiting for configuration', seconds = 35
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -&gt; None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() &gt;= deadline:
+&gt;               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for eligible intents waiting for configuration
+
+tests/integration/test_collection.py:55: Failed</failure></testcase><testcase classname="tests.integration.test_alert_consumers" name="test_interest_edit_republication_allows_unknown_logistics" time="34.105" /><testcase classname="tests.integration.test_alert_consumers" name="test_incremental_comparables_complete_the_same_waiting_discovery" time="33.596" /><testcase classname="tests.integration.test_alert_delivery" name="test_durable_attempts_rollback_history_and_generations" time="35.277" /><testcase classname="tests.integration.test_alert_delivery" name="test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control]" time="38.802" /><testcase classname="tests.integration.test_alert_delivery" name="test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[fault]" time="56.382" /><testcase classname="tests.integration.test_alert_delivery" name="test_killed_worker_reconciles_lost_post_response" time="47.900" /><testcase classname="tests.integration.test_alert_gateway" name="test_real_http_loss_reconciles_exact_original_message_without_post[confirmed]" time="0.506" /><testcase classname="tests.integration.test_alert_gateway" name="test_real_http_loss_reconciles_exact_original_message_without_post[lost]" time="0.505" /><testcase classname="tests.integration.test_alert_gateway" name="test_real_http_loss_reconciles_exact_original_message_without_post[incomplete]" time="0.505" /><testcase classname="tests.integration.test_alert_gateway" name="test_real_http_loss_reconciles_exact_original_message_without_post[lost_empty]" time="0.506" /><testcase classname="tests.integration.test_alert_gateway" name="test_pending_known_id_and_negative_history_controls" time="0.512" /><testcase classname="tests.integration.test_alert_gateway" name="test_session_identity_and_authentication_are_required" time="0.504" /><testcase classname="tests.integration.test_alert_gateway" name="test_same_provider_id_with_conflicting_body_does_not_confirm" time="0.505" /><testcase classname="tests.integration.test_alert_gateway" name="test_refused_connection_is_proven_not_transmitted" time="0.001" /><testcase classname="tests.integration.test_alert_gateway" name="test_group_receipt_matches_canonical_device_jid_without_weakening_identity" time="0.542" /><testcase classname="tests.integration.test_financial_messages" name="test_financial_authorization_freezes_same_event_and_preserves_legacy" time="34.212"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;&#10;{&quot;timestamp&quot;: &quot;2026-11-13T22:21:19.719718+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_f04_7162fdc5ae&quot;, &quot;run_id&quot;: &quot;e87c41b8-a335-4ba8-a248-1b0a3cad4bd1&quot;}&#10;[+30 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-pytest-A/test_financial_authorization_f0')
+
+    def test_financial_authorization_freezes_same_event_and_preserves_legacy(tmp_path: Path) -&gt; None:
+        with alert_scenario(tmp_path, enabled=False) as (instance, source, clock, channel):
+            clock.advance(1)
+            for n in range(951, 957):
+                source.rows[str(n)] = listing(
+                    str(n),
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    condition="Funciona bem",
+                    pickup=False,
+                    delivery=True,
+                    delivery_cep="01001000",
+                )
+            clock.advance(61)
+            completed(instance, 2)
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT count(*) FROM runtime_valuationprogress p JOIN runtime_listing l ON p.listing_id=l.id WHERE l.external_id IN ('951','952','953','954','955','956') AND p.current_id IS NOT NULL",
+                    )
+                    == [(6,)]
+                ),
+                "six financial evaluations",
+                seconds=45,
+            )
+            group = pause_worker(instance)
+            try:
+&gt;               alert_shell(
+                    instance,
+                    """
+    from dataclasses import replace
+    from concurrent.futures import ThreadPoolExecutor
+    from django.db import connections
+    from garimpei.main import build_read_listing_changes
+    from garimpei.domain.alert.financial_snapshot import FORMAT
+    from garimpei.infra.repository.alert.financial import decode_snapshot
+    store.ingest(build_read_listing_changes().execute(),clock())
+    for key in ('951','952','953','954','955','956'):
+        prepare_first(key)
+    # A failure before transaction commit leaves no partial body/snapshot/attempt.
+    from unittest.mock import patch
+    row=intent('951')
+    with patch.object(AlertAttempt.objects,'create',side_effect=RuntimeError('controlled authorization rollback')):
+        try: store.claim(row.id,binding,clock(),reconcile=False)
+        except RuntimeError: pass
+        else: raise AssertionError('rollback fault not exercised')
+    row.refresh_from_db()
+    assert row.body=='' and row.financial=={} and row.body_format=='' and not row.attempts.exists()
+    # Independent connections race for one authorization.
+    def claim(_):
+        try:return build_alert_store().claim(row.id,binding,clock(),reconcile=False)
+        finally:connections.close_all()
+    with ThreadPoolExecutor(max_workers=2) as pool: deliveries=list(pool.map(claim,range(2)))
+    assert sum(d is not None for d in deliveries)==1
+    first=next(d for d in deliveries if d)
+    row.refresh_from_db()
+    frozen=dict(row.financial);body=row.body
+    assert row.body_format==FORMAT and decode_snapshot(frozen) is not None
+    assert frozen['event_id'] is None and frozen['schema_version']==2
+    assert frozen['observation_id']==str(row.first_decision.observation_id)
+    assert body.index('Preço de compra:')&lt;body.index('Preço de venda estimado:')&lt;body.index('*Lucro estimado:')
+    assert 'frete' not in body.lower() and 'transporte' not in body.lower()
+    # Use the actual synthetic WAHA gateway to transmit once, then reconcile a lost response.
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    assert gateway.check(binding)
+    outcome=gateway.send(first)
+    store.finish(first,Outcome('uncertain','controlled lost response'),clock())
+    # A subsequent calculation/configuration cannot change the authorized record.
+    d=row.first_decision;d.financial={};d.save(update_fields=['financial'])
+    later=clock()+timedelta(seconds=61)
+    recovery=store.claim(row.id,binding,later,reconcile=True)
+    assert recovery and recovery.body==body
+    store.finish(recovery,gateway.reconcile(recovery,later),later)
+    row.refresh_from_db()
+    assert row.financial==frozen and row.body==body and row.state=='confirmed'
+    assert row.attempts.count()==1
+    # A genuine previously authorized legacy body keeps its original attempt and binding.
+    legacy=intent('952')
+    legacy.first_decision=None;legacy.decision=decision('952')
+    legacy.body='CORPO LEGADO EXATO sem venda';legacy.session=binding.session;legacy.recipient=binding.recipient;legacy.account=binding.account
+    legacy.state='uncertain';legacy.save()
+    legacy.decision.financial={};legacy.decision.save(update_fields=['financial'])
+    AlertAttempt.objects.create(intent=legacy,ordinal=1,generation=1,authorized_at=clock())
+    old=store.claim(legacy.id,binding,later,reconcile=True)
+    assert old and old.body=='CORPO LEGADO EXATO sem venda'
+    legacy.refresh_from_db();assert legacy.financial=={} and legacy.body_format==''
+    store.finish(old,Outcome('uncertain','original transmission unknown'),later)
+    again=store.claim(legacy.id,binding,later+timedelta(seconds=61),reconcile=True)
+    assert again and again.body==old.body and again.reference==old.reference
+    assert legacy.attempts.count()==1
+    # Unauthorised legacy intent is re-evaluated by the same normal event-composition query.
+    legacy=intent('953');identity=legacy.id
+    legacy.first_decision.financial={'purchase':'1000','profit':'100'};legacy.first_decision.save(update_fields=['financial'])
+    assert store.claim(identity,binding,clock(),reconcile=False) is None
+    assert intent('953').state=='blocked' and intent('953').reason=='profit_pending'
+    prepare_first('953',later)
+    new=store.claim(identity,binding,later,reconcile=False)
+    assert new and intent('953').id==identity and intent('953').body_format==FORMAT
+    # Possibly transmitted intent without its body is kept for review, never reconstructed.
+    missing=intent('954')
+    AlertAttempt.objects.create(intent=missing,ordinal=1,generation=1,authorized_at=clock())
+    missing.state='uncertain';missing.save()
+    assert store.claim(missing.id,binding,later,reconcile=True) is None
+    assert intent('954').state=='review' and intent('954').reason=='authorized_body_missing'
+    assert intent('954').body=='' and intent('954').attempts.count()==1
+    # Complete but incompatible data cannot authorize a new message.
+    wrong=intent('955');raw=dict(wrong.first_decision.financial);raw['observation_id']=str(target('956').latest_id)
+    wrong.first_decision.financial=raw;wrong.first_decision.save(update_fields=['financial'])
+    assert store.claim(wrong.id,binding,clock(),reconcile=False) is None
+    assert intent('955').reason=='profit_observation_mismatch' and not intent('955').attempts.exists()
+    # An evaluation reference/revision from another snapshot cannot authorize coherent-looking money.
+    wrong=intent('956');raw=dict(wrong.first_decision.financial);raw['evaluation_revision']=999
+    wrong.first_decision.financial=raw;wrong.first_decision.save(update_fields=['financial'])
+    assert store.claim(wrong.id,binding,clock(),reconcile=False) is None
+    assert intent('956').reason=='profit_incompatible' and not intent('956').attempts.exists()
+    
+    print('F20 rollback/concurrent authorization/frozen snapshot/WAHA reconciliation/legacy/incomplete/incompatible/missing-body PASS')
+    """,
+                )
+
+tests/integration/test_financial_messages.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-A/test_financial_authorization_f0/f04_7162fdc5ae.env'))
+code = "\nfrom dataclasses import replace\nfrom concurrent.futures import ThreadPoolExecutor\nfrom django.db import connectio...back/concurrent authorization/frozen snapshot/WAHA reconciliation/legacy/incomplete/incompatible/missing-body PASS')\n"
+
+    def alert_shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(
+            """
+    from datetime import timedelta
+    from decimal import Decimal
+    from uuid import UUID
+    from django.db import transaction
+    from django.utils import timezone
+    from garimpei.main import build_alert_store,build_first_alert_store,build_alert_handler,build_read_profit,build_read_condition,build_classify_condition
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor,AlertEventDecision,AlertIntent,AlertAttempt,ManualConditionHistory,FirstAlertIdentity,FirstEligibilityDecision,FirstAlertInventory
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.domain.alert.alert import Binding,Outcome,Receipt
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    clock=_listing_clock(load_listing_settings())
+    store=build_alert_store()
+    binding=Binding('synthetic','100@c.us','200@c.us')
+    def target(key='903'): return Listing.objects.get(external_id=key)
+    def decision(key='903'): return AlertEventDecision.objects.get(event__listing=target(key),event__kind='discovered')
+    def first_state(key='903'): return FirstAlertIdentity.objects.get(listing=target(key))
+    def first_decision(key='903'): return first_state(key).decisions.latest('generation')
+    def prepare_first(key='903', at=None):
+        listing=target(key);now=at or clock();repository=build_first_alert_store();repository.adopt(now)
+        repository.publish(listing.id,repository.prepare(listing.id),build_read_profit().execute(listing.id,event=False),now)
+    def intent(key='903'):
+        row=first_state(key)
+        return row.intent if row.intent_id else AlertIntent.objects.get(decision=decision(key))
+    def financial_decision(row): return row.first_decision if row.first_decision_id else row.decision
+    """
+            + code
+        )
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+               ^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E       
+E       {"timestamp": "2026-11-13T22:21:19.719718+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1"}
+E       {"timestamp": "2026-11-13T22:21:20.198824+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "eb000d1a-d2ae-48ac-9e7e-6cf242dbb794", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-13T22:21:20.231532+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "eb000d1a-d2ae-48ac-9e7e-6cf242dbb794", "alert_state": "uncertain", "alert_reason": "controlled lost response"}
+E       {"timestamp": "2026-11-13T22:21:20.244084+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "eb000d1a-d2ae-48ac-9e7e-6cf242dbb794", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-13T22:21:20.257515+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "eb000d1a-d2ae-48ac-9e7e-6cf242dbb794", "alert_state": "confirmed", "alert_reason": "history_ack"}
+E       {"timestamp": "2026-11-13T22:21:20.277760+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "075dd416-b3a9-48cf-8f92-3360941d04af", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-13T22:21:20.283176+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "075dd416-b3a9-48cf-8f92-3360941d04af", "alert_state": "uncertain", "alert_reason": "original transmission unknown"}
+E       {"timestamp": "2026-11-13T22:21:20.291785+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "075dd416-b3a9-48cf-8f92-3360941d04af", "alert_state": "uncertain", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-13T22:21:20.321261+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "e0ce5eb4-8528-4912-967e-3130fbcdca0c", "alert_state": "blocked", "alert_reason": "profit_pending"}
+E       {"timestamp": "2026-11-13T22:21:20.390124+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "e0ce5eb4-8528-4912-967e-3130fbcdca0c", "alert_state": "authorized", "alert_reason": "transmission_possible"}
+E       {"timestamp": "2026-11-13T22:21:20.407349+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_f04_7162fdc5ae", "run_id": "e87c41b8-a335-4ba8-a248-1b0a3cad4bd1", "alert_reference": "0ac43213-3c05-4501-9916-1765602d8fa6", "alert_state": "review", "alert_reason": "authorized_body_missing"}
+E       Traceback (most recent call last):
+E         File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E           execute_from_command_line()
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E         File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E           utility.execute()
+E           ~~~~~~~~~~~~~~~^^
+E         File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E           self.fetch_command(subcommand).run_from_argv(self.argv)
+E           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E         File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E           self.execute(*args, **cmd_options)
+E           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E         File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E           output = self.handle(*args, **options)
+E         File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E           exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         File "&lt;string&gt;", line 109, in &lt;module&gt;
+E       AssertionError
+
+tests/factories/alert_scenario.py:158: AssertionError</failure></testcase><testcase classname="tests.integration.test_financial_messages" name="test_worker_trio_exact_brl_values_and_reduction_uses_event_before_later_price" time="73.096" /><testcase classname="tests.integration.test_financial_messages" name="test_additive_migration_keeps_authorized_legacy_and_event_history" time="31.279" /><testcase classname="tests.integration.test_first_alert_adoption" name="test_populated_schema_migration_and_inventory_resume_after_hundred" time="24.240" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[inventory_barrier]" time="16.774" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[concurrent]" time="21.572" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[zero]" time="17.450" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[negative]" time="16.728" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[manual_race]" time="25.994" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[manual_defect]" time="16.534" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[stale_observation]" time="17.117" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[history_unavailable]" time="22.188" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_first_alert_publication_boundaries[oscillation]" time="17.810" /><testcase classname="tests.integration.test_first_alert_boundaries" name="test_slow_channel_check_crossing_publication_deadline_never_posts" time="20.013" /><testcase classname="tests.integration.test_first_alert_reconciliation" name="test_reconciliation_keeps_original_effect_and_evidence[original_binding]" time="17.080" /><testcase classname="tests.integration.test_first_alert_reconciliation" name="test_reconciliation_keeps_original_effect_and_evidence[late_response]" time="16.773" /><testcase classname="tests.integration.test_first_alert_reconciliation" name="test_reconciliation_keeps_original_effect_and_evidence[late_reconciliation]" time="16.557" /><testcase classname="tests.integration.test_first_alert_reconciliation" name="test_reconciliation_keeps_original_effect_and_evidence[after_deadline]" time="16.468" /><testcase classname="tests.integration.test_first_alert_reconciliation" name="test_reconciliation_keeps_original_effect_and_evidence[after_deadline_empty]" time="16.725" /><testcase classname="tests.integration.test_first_alert_reconciliation" name="test_uncertain_reduction_without_current_binding_never_becomes_sendable" time="21.447" /><testcase classname="tests.integration.test_first_alert_recovery" name="test_inventory_and_independent_recovery[legacy_queued_partial]" time="16.552" /><testcase classname="tests.integration.test_first_alert_recovery" name="test_inventory_and_independent_recovery[legacy_conflict]" time="21.606" /><testcase classname="tests.integration.test_first_alert_recovery" name="test_inventory_and_independent_recovery[legacy_authorized]" time="21.887" /><testcase classname="tests.integration.test_first_alert_recovery" name="test_inventory_and_independent_recovery[legacy_review]" time="16.723" /><testcase classname="tests.integration.test_first_alert_recovery" name="test_inventory_and_independent_recovery[isolated_profit_failure]" time="18.824" /><testcase classname="tests.integration.test_first_alert_reduction_window" name="test_reduction_uses_prior_intent_window_and_never_reopens_after_late_confirmation[-1]" time="17.190" /><testcase classname="tests.integration.test_first_alert_reduction_window" name="test_reduction_uses_prior_intent_window_and_never_reopens_after_late_confirmation[0]" time="17.513" /><testcase classname="tests.integration.test_first_alert_reduction_window" name="test_reduction_uses_prior_intent_window_and_never_reopens_after_late_confirmation[1]" time="16.899" /><testcase classname="tests.integration.test_first_alert_review_regressions" name="test_prepare_adopts_before_publication_even_when_worker_has_not_adopted" time="16.395" /><testcase classname="tests.integration.test_first_alert_review_regressions" name="test_final_authorization_and_adoption_guards[legacy_queued_expired]" time="16.162" /><testcase classname="tests.integration.test_first_alert_review_regressions" name="test_final_authorization_and_adoption_guards[legacy_waiting]" time="16.572" /><testcase classname="tests.integration.test_first_alert_review_regressions" name="test_final_authorization_and_adoption_guards[financial_expired]" time="16.301" /><testcase classname="tests.integration.test_first_alert_review_regressions" name="test_final_authorization_and_adoption_guards[safe_retry_refresh]" time="16.498" /><testcase classname="tests.integration.test_first_eligibility" name="test_first_alert_enrichment_and_restart_keeps_one_receipt" time="32.437" /><testcase classname="tests.integration.test_first_eligibility" name="test_manual_choice_is_consumed_but_later_input_can_alert" time="35.849" /><testcase classname="tests.integration.test_first_eligibility" name="test_publication_waits_and_final_check_blocks_expired_post" time="17.056"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:33:40.117980+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_wave11b_f16_86933a95&quot;, &quot;run_id&quot;: &quot;ce1b3ffb-b0b2-43d8-adcd-ed6495ecfb3e&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/manage.py&quot;, line 8, in &lt;module&gt;&#10;      execute_from_command_line()&#10;      ~~~~~~~~~~~~~~~~~~~~~~~~~^^&#10;[+28 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-pytest-A/test_publication_waits_and_fin0')
+
+    def test_publication_waits_and_final_check_blocks_expired_post(tmp_path: Path) -&gt; None:
+        with first_eligibility_scenario(tmp_path) as (instance, source, clock, channel):
+            group = pause_worker(instance)
+            try:
+&gt;               shell(
+                    instance,
+                    """
+    from datetime import timedelta
+    from garimpei.main import build_first_alert_store,build_read_profit,build_alert_store
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.alert_models import AlertIntent
+    from garimpei.domain.alert.alert import Binding
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    now=_listing_clock(load_listing_settings())()
+    l=Listing.objects.select_related('latest').get(external_id='16001')
+    s=build_first_alert_store(); s.adopt(now)
+    for source,published,expected in ((None,None,'publication_missing'),(None,now,'publication_untrusted'),('fixture.published_at',now+timedelta(seconds=1),'publication_future'),('fixture.published_at',now-timedelta(hours=48,microseconds=1),'publication_expired')):
+     e=dict(l.latest.evidence);e['published_at']=published.isoformat() if published else None;e['published_at_source']=source;e['description']='Funciona perfeitamente.';l.latest.evidence=e;l.latest.save()
+     s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+     r=l.firstalertidentity_set.get();assert r.reason==expected,(r.reason,expected)
+     assert not AlertIntent.objects.filter(first_decision__identity=r).exists()
+    e['published_at']=(now-timedelta(hours=48)).isoformat();e['published_at_source']='fixture.published_at';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=l.firstalertidentity_set.get();assert r.intent_id is not None,r.reason
+    store=build_alert_store();delivery=store.claim(r.intent_id,Binding('synthetic','100@g.us','200@c.us'),now+timedelta(microseconds=1),reconcile=False)
+    assert delivery is None
+    r.intent.refresh_from_db();assert r.intent.reason=='publication_expired'
+    """,
+                )
+
+tests/integration/test_first_eligibility.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-A/test_publication_waits_and_fin0/wave11b_f16_86933a95.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...,reconcile=False)\nassert delivery is None\nr.intent.refresh_from_db();assert r.intent.reason=='publication_expired'\n"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:33:40.117980+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_86933a95", "run_id": "ce1b3ffb-b0b2-43d8-adcd-ed6495ecfb3e"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 20, in &lt;module&gt;
+E           File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 237, in claim
+E             cursor = AlertFeedCursor.objects.get(installation="local")
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...arimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_first_eligibility" name="test_missing_and_untrusted_dates_reach_diagnostic_then_valid_date_alerts" time="35.182" /><testcase classname="tests.integration.test_first_eligibility" name="test_channel_unavailable_queue_expires_with_wait_history" time="19.548" /><testcase classname="tests.integration.test_gold_adoption" name="test_gold_backup_restores_policy_qualification_and_original_receipt" time="19.457"><failure message="AssertionError: Resolved 73 packages in 1ms&#10;  Checked 71 packages in 0.73ms&#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:34:54.707575+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_gold_restore_es_poli0&quot;, &quot;run_id&quot;: &quot;a9146f89-af2b-48cc-acb6-43179fdaf064&quot;}&#10;  Docker: operation failed; check daemon, image digest and owned resources&#10;  &#10;assert 1 == 0&#10;[+1 more line; full report in element text]">gold_driver = &lt;tests.factories.gold_driver.GoldDriver object at 0x7d9be2536fd0&gt;
+tmp_path = PosixPath('/tmp/f23-pytest-A/test_gold_backup_restores_poli0')
+
+    def test_gold_backup_restores_policy_qualification_and_original_receipt(
+        gold_driver: GoldDriver,
+        tmp_path: Path,
+    ) -&gt; None:
+        gold_driver.action("prepare", case="BASE")
+        gold_driver.action("send")
+        backup = tmp_path / "backup"
+        with Path(str(gold_driver.ready["private_file"])).open("a") as output:
+            output.write(f"GARIMPEI_BACKUP_DIR={backup}\n")
+        gold_driver.shell("""
+    from garimpei.main import build_backup_repository
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.config.env import load_operations_settings
+    repository=build_backup_repository();identity=repository.create(only_due=False)
+    record=BackupRecord.objects.get(id=identity);settings=load_operations_settings()
+    (settings.backup_dir/'selected').write_text(str(ArchiveGateway(settings.backup_dir).resolve(record.file_key)))
+    """)
+        archive = (backup / "selected").read_text()
+        target = prepare_instance(gold_driver.root, tmp_path, "gold_restore_" + tmp_path.name[-8:])
+&gt;       command(target, "./scripts/init.sh", "--disposable")
+
+tests/integration/test_gold_adoption.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-A/test_gold_backup_restores_poli0/gold_restore_es_poli0.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -&gt; None:
+        result = instance.command(*arguments)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.73ms
+E         {"timestamp": "2026-11-13T22:34:54.707575+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_gold_restore_es_poli0", "run_id": "a9146f89-af2b-48cc-acb6-43179fdaf064"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "a9146f89-af2b-48cc-acb6-43179fdaf064"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError</failure></testcase><testcase classname="tests.integration.test_gold_adoption" name="test_restore_guard_rejects_policy_downgrade_before_writing" time="17.916" /><testcase classname="tests.integration.test_gold_authorization" name="test_gold_first_alert_is_qualified_once_and_body_explains_reference" time="3.278"><error message="failed on setup with &quot;AssertionError: F21 lab ended unexpectedly: 1&quot;">tmp_path = PosixPath('/tmp/f23-pytest-A/test_gold_first_alert_is_quali0')
+
+    @pytest.fixture
+    def gold_driver(tmp_path: Path) -&gt; Iterator[GoldDriver]:
+&gt;       driver = GoldDriver(tmp_path)
+                 ^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_gold_authorization.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:33: in __init__
+    self.ready = self._read()
+                 ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.factories.gold_driver.GoldDriver object at 0x7d9be263db50&gt;
+
+    def _read(self) -&gt; dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+                assert value.get("state") != "error", value
+                return cast(dict[str, object], value)
+&gt;       raise AssertionError(f"F21 lab ended unexpectedly: {self.process.poll()}")
+E       AssertionError: F21 lab ended unexpectedly: 1
+
+tests/factories/gold_driver.py:45: AssertionError</error></testcase><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[NO_PHOTOS-gold_photos_missing]" time="3.343"><error message="failed on setup with &quot;AssertionError: F21 lab ended unexpectedly: 1&quot;">tmp_path = PosixPath('/tmp/f23-pytest-A/test_insufficient_conjunction_0')
+
+    @pytest.fixture
+    def gold_driver(tmp_path: Path) -&gt; Iterator[GoldDriver]:
+&gt;       driver = GoldDriver(tmp_path)
+                 ^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_gold_authorization.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:33: in __init__
+    self.ready = self._read()
+                 ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.factories.gold_driver.GoldDriver object at 0x7d9be0b60490&gt;
+
+    def _read(self) -&gt; dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+                assert value.get("state") != "error", value
+                return cast(dict[str, object], value)
+&gt;       raise AssertionError(f"F21 lab ended unexpectedly: {self.process.poll()}")
+E       AssertionError: F21 lab ended unexpectedly: 1
+
+tests/factories/gold_driver.py:45: AssertionError</error></testcase><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[PROFIT_ZERO-gold_profit_non_positive]" time="3.274"><error message="failed on setup with &quot;AssertionError: F21 lab ended unexpectedly: 1&quot;">tmp_path = PosixPath('/tmp/f23-pytest-A/test_insufficient_conjunction_1')
+
+    @pytest.fixture
+    def gold_driver(tmp_path: Path) -&gt; Iterator[GoldDriver]:
+&gt;       driver = GoldDriver(tmp_path)
+                 ^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_gold_authorization.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:33: in __init__
+    self.ready = self._read()
+                 ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.factories.gold_driver.GoldDriver object at 0x7d9be0b607c0&gt;
+
+    def _read(self) -&gt; dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+                assert value.get("state") != "error", value
+                return cast(dict[str, object], value)
+&gt;       raise AssertionError(f"F21 lab ended unexpectedly: {self.process.poll()}")
+E       AssertionError: F21 lab ended unexpectedly: 1
+
+tests/factories/gold_driver.py:45: AssertionError</error></testcase><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[DEFECT-gold_condition_defect]" time="3.729"><error message="failed on setup with &quot;AssertionError: F21 lab ended unexpectedly: 1&quot;">tmp_path = PosixPath('/tmp/f23-pytest-A/test_insufficient_conjunction_2')
+
+    @pytest.fixture
+    def gold_driver(tmp_path: Path) -&gt; Iterator[GoldDriver]:
+&gt;       driver = GoldDriver(tmp_path)
+                 ^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_gold_authorization.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:33: in __init__
+    self.ready = self._read()
+                 ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.factories.gold_driver.GoldDriver object at 0x7d9be2585e50&gt;
+
+    def _read(self) -&gt; dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+                assert value.get("state") != "error", value
+                return cast(dict[str, object], value)
+&gt;       raise AssertionError(f"F21 lab ended unexpectedly: {self.process.poll()}")
+E       AssertionError: F21 lab ended unexpectedly: 1
+
+tests/factories/gold_driver.py:45: AssertionError</error></testcase><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[HISTORY_FOUR-gold_history_insufficient]" time="17.110" /><testcase classname="tests.integration.test_gold_authorization" name="test_queued_input_change_is_rechecked_at_final_authorization" time="3.304"><error message="failed on setup with &quot;AssertionError: F21 lab ended unexpectedly: 1&quot;">tmp_path = PosixPath('/tmp/f23-pytest-A/test_queued_input_change_is_re0')
+
+    @pytest.fixture
+    def gold_driver(tmp_path: Path) -&gt; Iterator[GoldDriver]:
+&gt;       driver = GoldDriver(tmp_path)
+                 ^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_gold_authorization.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:33: in __init__
+    self.ready = self._read()
+                 ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.factories.gold_driver.GoldDriver object at 0x7d9be24bfb60&gt;
+
+    def _read(self) -&gt; dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+                assert value.get("state") != "error", value
+                return cast(dict[str, object], value)
+&gt;       raise AssertionError(f"F21 lab ended unexpectedly: {self.process.poll()}")
+E       AssertionError: F21 lab ended unexpectedly: 1
+
+tests/factories/gold_driver.py:45: AssertionError</error></testcase><testcase classname="tests.integration.test_gold_authorization" name="test_policy_fence_rejects_incompatible_consumers_and_keeps_confirmed_history" time="18.915" /><testcase classname="tests.integration.test_gold_authorization" name="test_gold_reduction_reuses_policy_and_keeps_first_receipt" time="19.592" /><testcase classname="tests.integration.test_gold_authorization" name="test_first_alert_expiry_is_checked_after_queue_wait" time="16.901" /><testcase classname="tests.integration.test_gold_authorization" name="test_concurrent_gold_authorizations_produce_one_post" time="17.231" /><testcase classname="tests.integration.test_gold_authorization" name="test_change_during_slow_channel_check_is_seen_at_final_boundary" time="19.109" /><testcase classname="tests.integration.test_gold_authorization" name="test_manual_good_does_not_supply_missing_photo_evidence" time="17.814" /><testcase classname="tests.integration.test_identity_first_alert" name="test_identity_completion_authorizes_one_first_alert_and_preserves_receipt" time="31.051" /><testcase classname="tests.integration.test_identity_first_alert" name="test_identity_noop_does_not_bypass_manual_condition_exception" time="17.260" /><testcase classname="tests.integration.test_media_alert_silence" name="test_media_only_changes_preserve_consumed_manual_input_and_never_reopen_first_alert" time="16.189" /><testcase classname="tests.integration.test_multimodal_alert_condition" name="test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[light_wear]" time="37.481" /><testcase classname="tests.integration.test_multimodal_alert_condition" name="test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[clear_defect]" time="36.805" /><testcase classname="tests.integration.test_multimodal_alert_condition" name="test_activation_preserves_preexisting_confirmed_uncertain_and_terminal_history" time="30.908" /><testcase classname="tests.integration.test_multimodal_alert_condition" name="test_alert_note_keeps_damage_suspicion_and_manual_divergence" time="15.999" /><testcase classname="tests.integration.test_robot_alert_boundary" name="test_robot_pause_orders_real_alert_authorization_and_preserves_reconciliation[confirmed]" time="16.243" /><testcase classname="tests.integration.test_robot_alert_boundary" name="test_robot_pause_orders_real_alert_authorization_and_preserves_reconciliation[uncertain]" time="16.122" /><testcase classname="tests.integration.test_robot_alert_boundary" name="test_robot_pause_orders_real_alert_authorization_and_preserves_reconciliation[safe_retry]" time="16.717" /><testcase classname="tests.integration.test_robot_alert_boundary" name="test_robot_pause_orders_real_alert_authorization_and_preserves_reconciliation[expired]" time="15.561" /><testcase classname="tests.integration.test_robot_alert_concurrency" name="test_concurrent_workers_observe_one_pause_authorization_order[pause]" time="15.188" /><testcase classname="tests.integration.test_robot_alert_concurrency" name="test_concurrent_workers_observe_one_pause_authorization_order[authorization]" time="16.004" /><testcase classname="tests.integration.test_robot_alert_precheck" name="test_paused_alert_precheck_never_spends_failures_or_changes_schedule[missing_binding]" time="16.126" /><testcase classname="tests.integration.test_robot_alert_precheck" name="test_paused_alert_precheck_never_spends_failures_or_changes_schedule[pause_during_check]" time="15.607" /></testsuite></testsuites>

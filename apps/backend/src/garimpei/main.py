@@ -1744,10 +1744,14 @@ def build_assistance_handler() -> "AssistanceHandler":
 
 
 def reconcile_assistance() -> None:
+    from garimpei.infra.persistence.operations_models import OperationalUnit
     from garimpei.infra.repository.assistance.operations import capture_operations_snapshot
 
     build_assistance_repository().reconcile()
-    capture_operations_snapshot()
+    # A fresh restore target has no diagnostic input. Do not populate it with
+    # an unsolicited empty projection before its business backup can be restored.
+    if OperationalUnit.objects.exists():
+        capture_operations_snapshot()
 
 
 if TYPE_CHECKING:

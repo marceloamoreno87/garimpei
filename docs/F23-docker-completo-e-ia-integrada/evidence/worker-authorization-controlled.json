@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "kind": "controlled_worker_authorization_regression",
+  "scope": "WRK-ALERTA-01",
+  "environment": "garimpei-eval_f23_runtime-quality-journey tools; each GoldDriver owns disposable PostgreSQL/HTTP fixtures",
+  "cwd": "/app/apps/backend",
+  "command": "pytest -q -s tests/integration/test_assistance_authorization.py",
+  "test_file": "apps/backend/tests/integration/test_assistance_authorization.py",
+  "test_sha256": "0fd8c197f1621cbc583e89a8c8d3ab5f85b2e7ad813b788458488cdd45837288",
+  "red": {
+    "exit_code": 1,
+    "result": "2 failed, 1 passed in 53.75s",
+    "reason": "F23 attempt marker rejected by immutable migration0027 trigger (gold consumer incompatible)",
+    "logs": [
+      {
+        "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-red.log",
+        "sha256": "c6ac7e0b06819d29c7f7ff6d2df2ce420d626be4f809529947febaa28f5114c0"
+      },
+      {
+        "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-red-provider.log",
+        "sha256": "f8d2d5b50c492d7d226ed270a7e8fc782c83b70334afc60f2117ed04bfad8812"
+      }
+    ]
+  },
+  "controlled_io": {
+    "source": "ValuationSource/gold_rows",
+    "photos": "serve_assessment_images synthetic console-light_wear.png",
+    "condition": "GoldConditionPreparer + ControlledConditionGateway",
+    "assistance": "NamedFiniteAssistancePreparer + NamedProgrammedAssistanceProvider, validated by RunAnalysisUseCase",
+    "channel": "WahaServer/serve_waha, local captured HTTP only"
+  },
+  "pending_identity": {
+    "exit_code": 0,
+    "provider_calls": 5,
+    "identity_requests_pending": 1,
+    "posts": 0,
+    "attempts": 0
+  },
+  "gpu_calls": 0,
+  "real_whatsapp_posts": 0,
+  "independent_human_labels": false,
+  "limits": [
+    "Controlled engineering evidence only. E2E-FLUXO real GPU chain and F21 real-source/human quality acceptance remain blocked.",
+    "No production gate, qualifier threshold or test harness was disabled.",
+    "Source application original 8 requests and 11 reviews were not opened or altered by these isolated fixtures."
+  ]
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="26" time="828.255" timestamp="2026-11-13T16:52:21.109804-06:00" hostname="docker-desktop"><testcase classname="tests.integration.test_inference_failure_observability" name="test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v1]" time="18.159" /><testcase classname="tests.integration.test_inference_failure_observability" name="test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v2]" time="8.620" /><testcase classname="tests.integration.test_inference_failure_observability" name="test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v1]" time="6.788" /><testcase classname="tests.integration.test_inference_failure_observability" name="test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v2]" time="11.779" /><testcase classname="tests.integration.test_integrated_backup" name="test_backup_restores_assessment_identity_research_and_alert_provenance" time="30.832" /><testcase classname="tests.integration.test_operational_backup" name="test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier" time="36.669"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:54:06.822272+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_f17_restore_c73a6410&quot;, &quot;run_id&quot;: &quot;386522e6-b419-480f-ad0a-f6a704d8a4b8&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/manage.py&quot;, line 8, in &lt;module&gt;&#10;      execute_from_command_line()&#10;      ~~~~~~~~~~~~~~~~~~~~~~~~~^^&#10;[+26 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-cycle2-BCD/test_snapshot_export_and_isola0')
+
+    def test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier(
+        tmp_path: Path,
+    ) -&gt; None:
+        source_private = tmp_path / "source"
+        source_private.mkdir()
+        with first_eligibility_scenario(source_private) as (source, _, _, _):
+            with source.private_file.open("a") as output:
+                output.write(f"GARIMPEI_BACKUP_DIR={tmp_path / 'source-backups'}\n")
+            group = pause_worker(source)
+            target = prepare_instance(
+                source.root, tmp_path, "f17_restore_" + source.config.instance[-8:]
+            )
+            with target.private_file.open("a") as output:
+                output.write(
+                    f"GARIMPEI_BACKUP_DIR={tmp_path / 'target-backups'}\nGARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\n"
+                )
+            command(target, "./scripts/init.sh", "--disposable")
+            target_group = pause_worker(target)
+            try:
+                shell(
+                    source,
+                    """
+    from uuid import uuid4
+    from pathlib import Path
+    from garimpei.main import build_backup_repository
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.progress_repository import PostgresOperationalRepository
+    from django.utils.timezone import now
+    progress=PostgresOperationalRepository(load_operations_settings().environment_id,now)
+    progress.confirm('listing','restore-budget',1,'confirmed-checkpoint',now(),pending=1)
+    progress.failure('listing','restore-budget',1,'source_transport',now())
+    progress.failure('listing','restore-budget',1,'source_transport',now())
+    l=Listing.objects.select_related('latest').get(external_id='16001')
+    e=dict(l.latest.evidence); e['image_url']='https://scontent.example.test/photo.jpg?oh=synthetic-media-canary'
+    l.latest.evidence=e; l.latest.save()
+    r=build_backup_repository(); identity=r.create(only_due=True)
+    assert identity is not None and r.create(only_due=True) is None
+    record=BackupRecord.objects.get(id=identity); settings=load_operations_settings()
+    gateway=ArchiveGateway(settings.backup_dir)
+    metadata,files=gateway.read(gateway.resolve(record.file_key))
+    assert b'synthetic-media-canary' not in b''.join(files.values())
+    assert str(l.latest_id).encode() in files['runtime.listingobservation.jsonl']
+    assert metadata['schema_hash'] and metadata['migrations'] and metadata['code_sha256']
+    request=uuid4(); exported=r.export(identity,request)
+    assert r.export(identity,request)==exported
+    copy=BackupRecord.objects.get(id=exported)
+    assert copy.sha256==record.sha256 and gateway.resolve(copy.file_key).read_bytes()==gateway.resolve(record.file_key).read_bytes()
+    assert r.verify(identity)['restoration_state']=='not_tested'
+    (settings.backup_dir/'selected').write_text(str(gateway.resolve(record.file_key)))
+    (settings.backup_dir/'expected-id').write_text(str(l.id))
+    """,
+                )
+                selected = (tmp_path / "source-backups/selected").read_text()
+                expected = (tmp_path / "source-backups/expected-id").read_text()
+&gt;               shell(
+                    target,
+                    f"""
+    from garimpei.main import build_backup_repository,build_recovery_guard,build_operational_status,build_alert_store
+    from garimpei.domain.alert.alert import Binding
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor
+    from garimpei.infra.persistence.operations_models import RecoveryBarrier,OperationalUnit
+    from garimpei.domain.operations.errors import OperationsError
+    from garimpei.config.env import load_operations_settings
+    from django.utils import timezone
+    r=build_backup_repository(); r.restore({selected!r},isolated=True)
+    assert Listing.objects.get(external_id='16001').id==__import__('uuid').UUID({expected!r})
+    assert AlertFeedCursor.objects.get().dispatch_suspended
+    assert build_recovery_guard()() and RecoveryBarrier.objects.get().state=='blocked'
+    assert load_operations_settings().recovery_file.exists()
+    assert build_operational_status().execute()['dispatch_suspended']
+    unit=OperationalUnit.objects.get(installation=load_operations_settings().environment_id,scope='restore-budget')
+    assert unit.checkpoint=='confirmed-checkpoint' and unit.failures==2 and unit.suspended and unit.reason=='recovery_barrier'
+    assert unit.generation==1 and not OperationalUnit.objects.exclude(installation=load_operations_settings().environment_id).exists()
+    try:r.restore({selected!r},isolated=True)
+    except OperationsError as e:assert e.code=='restore_requires_empty_disposable_eval'
+    else:raise AssertionError('nonempty destination accepted')
+    """,
+                )
+
+tests/integration/test_operational_backup.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-cycle2-BCD/test_snapshot_export_and_isola0/f17_restore_c73a6410.env'))
+code = "\nfrom garimpei.main import build_backup_repository,build_recovery_guard,build_operational_status,build_alert_store\n...:assert e.code=='restore_requires_empty_disposable_eval'\nelse:raise AssertionError('nonempty destination accepted')\n"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:54:06.822272+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_restore_c73a6410", "run_id": "386522e6-b419-480f-ad0a-f6a704d8a4b8"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 12, in &lt;module&gt;
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...arimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_operations_calibration" name="test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination" time="365.681" /><testcase classname="tests.integration.test_profit" name="test_integrated_composition_matrix_and_cost_edits" time="27.568" /><testcase classname="tests.integration.test_profit" name="test_reduction_event_is_immutable_and_revalidates_cep_and_variant" time="43.990" /><testcase classname="tests.integration.test_profit" name="test_unavailable_read_failure_draft_and_expired_resale" time="53.972" /><testcase classname="tests.integration.test_profit" name="test_consistent_snapshot_during_two_head_publication" time="26.819" /><testcase classname="tests.integration.test_robot_individual_barriers" name="test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[ia]" time="16.143" /><testcase classname="tests.integration.test_robot_individual_barriers" name="test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[alerts]" time="16.055" /><testcase classname="tests.integration.test_robot_individual_barriers" name="test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[recovery]" time="15.583" /><testcase classname="tests.integration.test_robot_individual_barriers" name="test_global_enable_does_not_clear_access_suspension_or_start_browser" time="11.514" /><testcase classname="tests.integration.test_robot_migration" name="test_adoption_preserves_legacy_authorizations_and_individual_pause" time="11.161" /><testcase classname="tests.integration.test_robot_pause_time_and_edit" name="test_global_pause_does_not_extend_publication_or_reference_validity[publication]" time="17.810" /><testcase classname="tests.integration.test_robot_pause_time_and_edit" name="test_global_pause_does_not_extend_publication_or_reference_validity[reference]" time="17.327" /><testcase classname="tests.integration.test_operational_inflight_restore" name="test_restore_requeues_inflight_media_and_analysis_with_exact_prepared_png" time="30.001" /><testcase classname="tests.integration.test_operational_media_backup" name="test_protected_media_pins_exact_files_missing_bytes_and_restore" time="27.446" /><testcase classname="tests.integration.test_operational_reconciliation" name="test_old_copy_requires_complete_inventory_and_original_receipt_before_release" time="34.068" /><testcase classname="tests.lifecycle.test_startup_failures" name="test_missing_system_tool_is_not_installed[uv]" time="0.006" /><testcase classname="tests.lifecycle.test_startup_failures" name="test_missing_system_tool_is_not_installed[docker]" time="0.026" /><testcase classname="tests.lifecycle.test_startup_failures" name="test_missing_system_tool_is_not_installed[git]" time="0.006" /><testcase classname="tests.lifecycle.test_startup_failures" name="test_missing_system_tool_is_not_installed[node]" time="0.006" /><testcase classname="tests.lifecycle.test_startup_failures" name="test_missing_system_tool_is_not_installed[python]" time="0.007" /></testsuite></testsuites>

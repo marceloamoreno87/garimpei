@@ -50,11 +50,19 @@ class InferenceRequest(models.Model):
                 name="inference_profile_target",
                 condition=(
                     models.Q(
-                        prompt_version__in=["local-evidence-v1", "condition-evidence-v4"],
+                        prompt_version__in=[
+                            "local-evidence-v1",
+                            "condition-evidence-v1",
+                            "condition-evidence-v2",
+                            "condition-evidence-v3",
+                            "condition-evidence-v4",
+                        ],
                         observation__isnull=False,
                         target_kind="listing_observation",
-                        target_id__isnull=True,
-                        target_revision__isnull=True,
+                        target_id=models.F("observation_id"),
+                        target_id__isnull=False,
+                        target_revision=models.F("revision"),
+                        target_revision__isnull=False,
                         context={},
                     )
                     | models.Q(

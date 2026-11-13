@@ -15,6 +15,7 @@ from garimpei.domain.inference.ports import PreparedPart
 from garimpei.infra.persistence.assistance_models import AssistanceReview, AssistanceOperationsSnapshot
 from garimpei.infra.persistence.listing_models import ListingObservation
 from garimpei.infra.persistence.operations_models import OperationalUnit
+from garimpei.infra.persistence.inference_models import InferenceRequest
 from garimpei.infra.persistence.identity_models import IdentityProgress
 from tests.factories.assistance import seed_observation
 from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
@@ -92,6 +93,17 @@ assert ListingObservation.objects.count()>=1
 original=len(AssistanceOperationsSnapshot.objects.all())
 assert capture_operations_snapshot().id==snapshot.id
 assert AssistanceOperationsSnapshot.objects.count()==original
+# Profile metadata alone is not usable source evidence.
+observation.evidence=dict(observation.evidence,title=None,description=None,condition=None)
+observation.save(update_fields=['evidence'])
+with patch('garimpei.infra.http.assistance.routes.build_assistance_handler',return_value=handler):
+ form=dict(expected_revision=observation.ordinal,purpose='identity',command_id=str(uuid4()),csrfmiddlewaretoken=token)
+ before=InferenceRequest.objects.count()
+ response=client.post(f'/ofertas/{observation.listing_id}/ia/reavaliar/',form)
+ assert response.status_code==422,'metadata-only source was admitted as usable evidence'
+ assert InferenceRequest.objects.count()==before
+assert repository._ensure('identity',observation.listing,None)==0
+assert InferenceRequest.objects.count()==before
 """
 
 

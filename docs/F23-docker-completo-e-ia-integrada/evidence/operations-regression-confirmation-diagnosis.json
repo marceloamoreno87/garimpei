@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "source_file": "apps/backend/tests/integration/test_operations_crash_authorization.py",
+  "production_changed": false,
+  "original_failure_log": "operations-regression-confirmation-original.txt",
+  "before_state": "operations-regression-confirmation-before-state.json",
+  "confirmed_cause": "After restart the worker admits a collection with window_end earlier than the test's next synthetic publication. The new offer is correctly omitted from that already-open window; the following collection is not due during the alert wait. The test lacks a completed collection checkpoint before changing the source snapshot.",
+  "change": "Wait until the current collection is finalized and its next_attempt_at is later than the controlled clock before inserting the second offer.",
+  "assertions_preserved": [
+    "original intent ID and confirmed_message survive restart",
+    "exactly two confirmed receipts after second eligible source input",
+    "exactly two POSTs",
+    "matched control/fault workload and measurements"
+  ],
+  "before": {
+    "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey sh -c 'python -m pytest tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend\\[fault\\] -vv --tb=long --basetemp=/tmp/f23-operations-confirmation-before > /tmp/f23-operations-confirmation-before.txt 2>&1; result=$?; cat /tmp/f23-operations-confirmation-before.txt; exit \"$result\"'",
+    "nodeids": [
+      "tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[fault]"
+    ],
+    "results": [
+      {
+        "nodeid": "tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[fault]",
+        "outcome": "failed",
+        "failure": "Timed out waiting for 2 confirmed alerts"
+      }
+    ],
+    "exit_code": 1,
+    "duration_seconds": 75.52,
+    "stdout": "operations-regression-confirmation-before.txt"
+  },
+  "after": {
+    "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey sh -c 'python -m pytest tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend -vv --tb=long --basetemp=/tmp/f23-operations-confirmation-after > /tmp/f23-operations-confirmation-after.txt 2>&1; result=$?; cat /tmp/f23-operations-confirmation-after.txt; exit \"$result\"'",
+    "nodeids": [
+      "tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[control]",
+      "tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[fault]"
+    ],
+    "results": [
+      {
+        "nodeid": "tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[control]",
+        "outcome": "passed"
+      },
+      {
+        "nodeid": "tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[fault]",
+        "outcome": "passed"
+      }
+    ],
+    "exit_code": 0,
+    "duration_seconds": 84.04,
+    "duration_scope": "entire paired invocation; per-node timings were not emitted",
+    "stdout": "operations-regression-confirmation-after.txt",
+    "junit": null
+  },
+  "checks": [
+    {
+      "command": "apps/backend/.venv/bin/ruff check apps/backend/tests/integration/test_operations_crash_authorization.py apps/backend/tests/integration/test_operations_lab_fault.py",
+      "exit_code": 0
+    },
+    {
+      "command": "apps/backend/.venv/bin/ruff format --check apps/backend/tests/integration/test_operations_crash_authorization.py apps/backend/tests/integration/test_operations_lab_fault.py",
+      "exit_code": 0
+    }
+  ]
+}

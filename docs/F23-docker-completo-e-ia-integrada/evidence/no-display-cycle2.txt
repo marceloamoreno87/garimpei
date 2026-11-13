@@ -1,0 +1,2 @@
+Display unavailable: prepare WSLg/X11; login remains required
+Exit code: 64

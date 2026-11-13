@@ -1,0 +1,11 @@
+[
+  "tests/integration/test_alert_consumers.py::test_manual_history_at_publication_and_revalidation",
+  "tests/integration/test_financial_messages.py::test_financial_authorization_freezes_same_event_and_preserves_legacy",
+  "tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post",
+  "tests/integration/test_gold_adoption.py::test_gold_backup_restores_policy_qualification_and_original_receipt",
+  "tests/integration/test_gold_authorization.py::test_gold_first_alert_is_qualified_once_and_body_explains_reference",
+  "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[NO_PHOTOS-gold_photos_missing]",
+  "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[PROFIT_ZERO-gold_profit_non_positive]",
+  "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[DEFECT-gold_condition_defect]",
+  "tests/integration/test_gold_authorization.py::test_queued_input_change_is_rechecked_at_final_authorization"
+]

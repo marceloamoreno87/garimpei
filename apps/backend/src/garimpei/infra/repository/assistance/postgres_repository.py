@@ -9,7 +9,12 @@ from django.db.models import Max, Q
 from django.utils.timezone import now
 
 from garimpei.domain.assistance.errors import AssistanceError
-from garimpei.domain.assistance.review import PROFILES, ReviewCommand, ReviewTicket
+from garimpei.domain.assistance.review import (
+    PROFILES,
+    ReviewCommand,
+    ReviewTicket,
+    has_usable_input,
+)
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.request import AnalysisInput
 from garimpei.infra.gateway.assistance.snapshots import (
@@ -119,6 +124,8 @@ class PostgresAssistanceRepository:
         candidate: ListingObservation | None = None,
         operations: AssistanceOperationsSnapshot | None = None,
     ) -> AssistanceReview:
+        if not has_usable_input(snapshot, purpose):
+            raise AssistanceError("insufficient_input")
         signature = digest(snapshot)
         previous = AssistanceReview.objects.filter(
             purpose=purpose, target_kind=kind, target_id=identity, input_signature=signature
@@ -273,6 +280,8 @@ class PostgresAssistanceRepository:
     def _ensure(self, purpose: str, row: Listing, candidate: ListingObservation | None) -> int:
         assert row.latest is not None
         snapshot = observation_snapshot(row, purpose, candidate)
+        if not has_usable_input(snapshot, purpose):
+            return 0
         if AssistanceReview.objects.filter(
             purpose=purpose, target_id=row.latest.id, input_signature=digest(snapshot)
         ).exists():

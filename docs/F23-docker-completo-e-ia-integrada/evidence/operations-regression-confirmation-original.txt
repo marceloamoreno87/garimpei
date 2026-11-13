@@ -1,0 +1,77 @@
+_ test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[fault] _
+
+tmp_path = PosixPath('/tmp/f23-pytest-C/test_sigkill_after_confirmatio1')
+kill_worker = True
+
+    @pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+    def test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend(
+        tmp_path: Path, kill_worker: bool
+    ) -> None:
+        from garimpei.infra.runtime.processes import verify_process
+    
+        with alert_scenario(tmp_path) as (instance, source, clock, channel):
+            with InstanceMeasurements(
+                instance,
+                tmp_path / "confirmation-measurements.json",
+                mode="fault" if kill_worker else "control",
+            ) as measurements:
+                clock.advance(1)
+                source.rows["935"] = listing(
+                    "935",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+                completed(instance, 2)
+                wait_alerts(instance, 1, clock)
+                confirmed = sql(
+                    instance,
+                    "SELECT id::text,confirmed_message FROM runtime_alertintent WHERE state='confirmed'",
+                )
+                assert len(confirmed) == 1 and len(channel.messages) == 1
+                clock.advance(61)
+                if kill_worker:
+                    owner = next(
+                        record
+                        for record in instance.manifest["processes"]
+                        if "runworker" in record["command"]
+                    )
+                    verify_process(owner, instance.config.root)
+                    os.killpg(owner["pgid"], signal.SIGKILL)
+                    command(instance, "./scripts/stop.sh")
+                    command(instance, "./scripts/init.sh", "--disposable")
+                clock.advance(1)
+                source.rows["936"] = listing(
+                    "936",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+>               wait_alerts(instance, 2, clock)
+
+tests/integration/test_operations_crash_authorization.py:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/alert_scenario.py:174: in wait_alerts
+    wait_for(confirmed, f"{count} confirmed alerts", seconds=35)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = <function wait_alerts.<locals>.confirmed at 0x75107b77afc0>
+description = '2 confirmed alerts', seconds = 35
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for 2 confirmed alerts
+
+tests/integration/test_collection.py:55: Failed
+----------------------------- Captured stdout call -----------------------------
+F09 diagnostic decisions [('excluded', 'first_eligibility_managed', 1)]
+F09 diagnostic intents [('confirmed', 'send_response_ack', 1)]

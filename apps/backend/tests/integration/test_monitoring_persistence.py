@@ -28,6 +28,9 @@ def test_real_database_draft_publication_idempotence_and_whole_edit(
         foundations[0],
         """
 prepare_state('NOVO')
+with connection.cursor() as cursor:
+ cursor.execute('SELECT id FROM procrastinate_jobs')
+ earlier_jobs=[row[0] for row in cursor.fetchall()]
 assert not build_read_monitoring_configuration().execute().configured
 assert client.get('/').headers['Location']=='/configuracao/regiao/'
 assert client.get('/configuracao/interesses/').status_code==302
@@ -67,8 +70,8 @@ assert build_read_monitoring_configuration().execute()==updated
 assert client.get('/').headers['Location']=='/acompanhamento/'
 assert client.get('/configuracao/regiao/').status_code==302
 with connection.cursor() as cursor:
- cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name NOT IN ('garimpei.runtime_probe', 'garimpei.collect_listings')")
- assert cursor.fetchone()==(0,)
+ cursor.execute("SELECT task_name FROM procrastinate_jobs WHERE NOT (id = ANY(%s)) AND task_name NOT IN ('garimpei.runtime_probe', 'garimpei.collect_listings')",(earlier_jobs,))
+ assert cursor.fetchall()==[],'configuration publication enqueued an unrelated task'
 """,
     )
 

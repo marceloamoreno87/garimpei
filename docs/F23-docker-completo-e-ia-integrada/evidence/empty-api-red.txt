@@ -1,0 +1,55 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_assistance_idempotency_consumption_http_csrf_and_sanitized_operations __
+
+foundations = [FoundationInstance(root=PosixPath('/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada'), pr...grada'), private_file=PosixPath('/home/marce/.cache/g23tmp/pytest-of-marce/pytest-6/foundation0/test_80ad0b16_b.env'))]
+
+    def test_assistance_idempotency_consumption_http_csrf_and_sanitized_operations(
+        foundations: list[FoundationInstance],
+    ) -> None:
+>       run_assert(foundations[0], SCRIPT)
+
+tests/integration/test_assistance_flow.py:110: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada'), private_file=PosixPath('/home/marce/.cache/g23tmp/pytest-of-marce/pytest-6/foundation0/test_80ad0b16_a.env'))
+script = "\nimport json\nfrom uuid import uuid4\nfrom unittest.mock import patch\nfrom django.test import Client\nfrom django.u...s_code==422,'metadata-only source was admitted as usable evidence'\n assert InferenceRequest.objects.count()==before\n"
+
+    def run_assert(instance: FoundationInstance, script: str) -> None:
+        group = pause_worker(instance)
+        try:
+            result = instance.shell(script)
+>           assert result.returncode == 0, result.stdout + result.stderr
+E           AssertionError: 68 objects imported automatically (use -v 2 for details).
+E             
+E             {"timestamp": "2026-11-13T22:44:14.201049+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_test_80ad0b16_a", "run_id": "ad11d601-6837-4f8d-be31-4a642f956926"}
+E             {"timestamp": "2026-11-13T22:44:14.414293+00:00", "level": "WARNING", "logger": "django.security.csrf", "event": "runtime_event", "environment_id": "eval_test_80ad0b16_a", "run_id": "ad11d601-6837-4f8d-be31-4a642f956926"}
+E             {"timestamp": "2026-11-13T22:44:14.438291+00:00", "level": "WARNING", "logger": "django.request", "event": "runtime_event", "environment_id": "eval_test_80ad0b16_a", "run_id": "ad11d601-6837-4f8d-be31-4a642f956926"}
+E             Traceback (most recent call last):
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/manage.py", line 8, in <module>
+E                 execute_from_command_line()
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                 utility.execute()
+E                 ~~~~~~~~~~~~~~~^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                 self.fetch_command(subcommand).run_from_argv(self.argv)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                 self.execute(*args, **cmd_options)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                 output = self.handle(*args, **options)
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                 exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<string>", line 97, in <module>
+E             AssertionError: metadata-only source was admitted as usable evidence
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^\n  File "<string>", line 97, in <module>\nAssertionError: metadata-only source was admitted as usable evidence\n').returncode
+
+tests/integration/test_inference.py:29: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_assistance_flow.py::test_assistance_idempotency_consumption_http_csrf_and_sanitized_operations
+1 failed in 14.59s

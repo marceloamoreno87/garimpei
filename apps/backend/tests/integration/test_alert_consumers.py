@@ -101,11 +101,20 @@ def test_manual_history_at_publication_and_revalidation(tmp_path: Path) -> None:
         clock.advance(61)
         completed(instance, 2)
         clock.advance(6)
-        wait_for(
-            lambda: sql(instance, "SELECT count(*) FROM runtime_alertintent") == [(3,)],
-            "eligible intents waiting for configuration",
-            seconds=35,
-        )
+        from time import monotonic
+
+        next_tick = monotonic() + 1
+
+        def eligible_intents() -> bool:
+            nonlocal next_tick
+            # Valuation may finish after an initial eligibility retry was queued.
+            # Keep the controlled clock moving so that retry can become due.
+            if monotonic() >= next_tick:
+                clock.advance(1)
+                next_tick = monotonic() + 1
+            return sql(instance, "SELECT count(*) FROM runtime_alertintent") == [(3,)]
+
+        wait_for(eligible_intents, "eligible intents waiting for configuration", seconds=35)
         source.rows["903"]["description"] = "Com defeito. Não funciona."
         clock.advance(61)
         completed(instance, 3)

@@ -77,7 +77,7 @@ assert stage('media')['state']=='stalled'
 job.state='failed';job.save();capture.state='failed';capture.save()
 assert stage('media')['state']=='suspended' and stage('media')['reason']=='media_attention_required'
 InferenceControl.objects.update_or_create(pk=1,defaults={'service':True,'paused':False})
-request=InferenceRequest.objects.create(observation_id=listing.latest_id,revision=1,signature='e'*64,artifact='controlled-state-fixture',prompt_version='fixture',schema_version='fixture',created_at=stamp-timedelta(seconds=240),next_attempt_at=stamp+timedelta(seconds=600),state='awaiting_resource')
+request=InferenceRequest.objects.create(observation_id=listing.latest_id,revision=1,signature='e'*64,artifact='controlled-state-fixture',prompt_version='local-evidence-v1',schema_version='local-evidence-v1',created_at=stamp-timedelta(seconds=240),next_attempt_at=stamp+timedelta(seconds=600),state='awaiting_resource')
 assert stage('inference')['state']=='waiting' and stage('inference')['last_progress_at'] is None
 request.state='succeeded';request.completed_at=stamp;request.save()
 assert stage('inference')['state']=='idle' and stage('inference')['last_progress_at']==stamp

@@ -74,8 +74,8 @@ case "$operation" in
   ;;
  init)
   case "${1:-}" in
-   --prepare-ai) exec "$PROJECT_DIR/scripts/docker-ai.sh" prepare ;;
-   --recover-ai) exec "$PROJECT_DIR/scripts/docker-ai.sh" recover ;;
+   --prepare-ai) exec "$BASH" "$PROJECT_DIR/scripts/docker-ai.sh" prepare ;;
+   --recover-ai) exec "$BASH" "$PROJECT_DIR/scripts/docker-ai.sh" recover ;;
    ''|--disposable) ;;
    *) echo 'Expected init [--disposable|--prepare-ai|--recover-ai]' >&2; exit 64;;
   esac

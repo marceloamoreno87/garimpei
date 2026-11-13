@@ -79,6 +79,11 @@ from garimpei.infra.repository.alert.financial import decode_snapshot
 store.ingest(build_read_listing_changes().execute(),clock())
 for key in ('951','952','953','954','955','956'):
     prepare_first(key)
+# This test supplies a binding directly. Make authorization due independently
+# of channel-configuration backoff recorded before the worker was paused.
+AlertIntent.objects.filter(first_decision__identity__listing__external_id__in=(
+    '951','952','953','954','955','956'
+)).update(next_action=clock())
 # A failure before transaction commit leaves no partial body/snapshot/attempt.
 from unittest.mock import patch
 row=intent('951')

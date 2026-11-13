@@ -1,3 +1,4 @@
+from typing import cast
 from uuid import UUID, uuid4
 
 from django.db.models import F
@@ -30,6 +31,14 @@ PURPOSES = {
     "condition": "Condição",
     "investigation": "Investigação",
     "operations": "Diagnóstico",
+}
+ATTRIBUTE_LABELS = {
+    "family": "Família",
+    "brand": "Marca",
+    "model": "Modelo",
+    "generation": "Versão",
+    "edition": "Leitor",
+    "capacity": "Armazenamento",
 }
 ACTIONS = {
     "check_integrations": "Confira o estado nas Integrações.",
@@ -83,6 +92,8 @@ class PostgresAssistanceQueries:
 def _review(row: AssistanceReview) -> dict[str, object]:
     state = row.state if current_review(row) else "superseded"
     result = row.result or {}
+    identity = cast(dict[str, object], row.input_snapshot.get("identity", {}))
+    manual = cast(dict[str, str], identity.get("manual_values", {}))
     requests = list(row.requests.select_related("request").all())
     return dict(
         id=row.id,
@@ -98,6 +109,14 @@ def _review(row: AssistanceReview) -> dict[str, object]:
         findings=result.get("findings", []),
         evidence=row.input_snapshot.get("facts", []),
         source_texts=row.input_snapshot.get("texts", {}),
+        manual_revision=identity.get("manual_revision", 0),
+        manual_values=[
+            dict(
+                label=ATTRIBUTE_LABELS.get(field, field),
+                value=value.replace("gb", " GB").replace("tb", " TB"),
+            )
+            for field, value in manual.items()
+        ],
         media=row.input_snapshot.get("media", []),
         candidate_listing=row.candidate_observation.listing_id
         if row.candidate_observation

@@ -37,7 +37,16 @@ class Migration(migrations.Migration):
                     models.Q(
                         ("context", {}),
                         ("observation__isnull", False),
-                        ("prompt_version__in", ["local-evidence-v1", "condition-evidence-v4"]),
+                        (
+                            "prompt_version__in",
+                            [
+                                "local-evidence-v1",
+                                "condition-evidence-v1",
+                                "condition-evidence-v2",
+                                "condition-evidence-v3",
+                                "condition-evidence-v4",
+                            ],
+                        ),
                         ("target_id__isnull", True),
                         ("target_kind", "listing_observation"),
                         ("target_revision__isnull", True),

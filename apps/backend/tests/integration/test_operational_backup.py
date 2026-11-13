@@ -16,6 +16,15 @@ def test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier
         with source.private_file.open("a") as output:
             output.write(f"GARIMPEI_BACKUP_DIR={tmp_path / 'source-backups'}\n")
         group = pause_worker(source)
+        # This snapshot must include established alert history; valuation readiness
+        # alone does not guarantee the independently scheduled ingest has run.
+        shell(
+            source,
+            "from garimpei.main import build_alert_handler; "
+            "from garimpei.infra.persistence.alert_models import AlertFeedCursor; "
+            "build_alert_handler('ingest').execute(); "
+            "assert AlertFeedCursor.objects.get(installation='local').history_ready",
+        )
         target = prepare_instance(
             source.root, tmp_path, "f17_restore_" + source.config.instance[-8:]
         )

@@ -1,0 +1,33 @@
+{
+  "nodeid": "tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post",
+  "confirmed_cause": "The scenario waits for collection and valuation, then this test pauses the worker before alert-history ingestion. The direct claim assumes AlertFeedCursor exists. It failed with AlertFeedCursor.DoesNotExist instead of reaching the expiry check.",
+  "change": "Only the assigned test function now executes the real ingest handler and asserts history_ready before exercising publication/date guards.",
+  "assertions_preserved": [
+    "missing publication",
+    "untrusted publication",
+    "future publication",
+    "expired publication",
+    "exact 48-hour boundary creates intent",
+    "one microsecond after boundary prevents claim",
+    "intent reason is publication_expired",
+    "no target channel message"
+  ],
+  "before": {
+    "command": "python -m pytest tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post -vv --tb=long --basetemp=/tmp/f23-expired-repro",
+    "exit_code": 1,
+    "result": "1 failed in 17.72s",
+    "output": "collection-regression-expired-before.txt"
+  },
+  "after": {
+    "command": "python -m pytest tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post -vv --tb=long --basetemp=/tmp/f23-expired-after",
+    "exit_code": 0,
+    "result": "1 passed in 16.68s",
+    "output": "collection-regression-expired-after.txt"
+  },
+  "lint": {
+    "command": "python -m ruff check tests/integration/test_first_eligibility.py",
+    "exit_code": 0,
+    "result": "All checks passed!"
+  },
+  "production_changed": false
+}

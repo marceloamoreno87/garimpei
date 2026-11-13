@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "session": "f23-ui-cycle2",
+  "runtime": "eval_f23_runtime",
+  "screenshots_inspected_with": "view_image",
+  "viewport_desktop": [
+    1440,
+    1100
+  ],
+  "viewport_narrow": [
+    390,
+    844
+  ],
+  "presentation_controls_only": true,
+  "new_model_calls": 0,
+  "browser_post_requests": 0,
+  "original_requests_preserved": 8,
+  "original_reviews_preserved": 7,
+  "robot": {
+    "requested_enabled": false,
+    "revision": 1,
+    "epoch": 1
+  },
+  "states_observed": [
+    "supported and superseded from cycle1",
+    "conflict with manual 1 TB and source 825 GB",
+    "pending without claimed execution",
+    "failed without confirmed result",
+    "insufficient/partial from existing real F15 run on synthetic authorized image"
+  ],
+  "coverage": {
+    "active_interests": 2,
+    "ps5_observations": 5,
+    "ps5_identity_requested": 4,
+    "ps5_identity_supported": 1,
+    "ps5_identity_conflicts": 1,
+    "ps5_identity_failed": 1,
+    "ps5_comparable_pair_denominator": 25,
+    "iphone_observations": 0,
+    "iphone_explicit_no_data": true
+  },
+  "artifacts": [
+    {
+      "file": "coverage-no-data-desktop.png",
+      "sha256": "43a327618a675d67df6bda723ca594e95db0df752a82693917bdd96597768437",
+      "bytes": 129769,
+      "inspected": true
+    },
+    {
+      "file": "coverage-no-data-narrow.png",
+      "sha256": "e2332cfd17b457539016514d4e9707c50fd543becf0b4faecd948c4ffcc1a320",
+      "bytes": 68711,
+      "inspected": true
+    },
+    {
+      "file": "coverage-two-interests-desktop.png",
+      "sha256": "6cfe69578215ca48e2de4afd14687d6482ddf7d618f8cf377615b56e22f95f2f",
+      "bytes": 446161,
+      "inspected": true
+    },
+    {
+      "file": "coverage-two-interests-narrow.png",
+      "sha256": "3cff7a9686cc1f445e9e44fc0c7b22c2f2db4472b65fb327856b1bf94ed1a11b",
+      "bytes": 381180,
+      "inspected": true
+    },
+    {
+      "file": "failed-desktop.png",
+      "sha256": "38989351c435405edf72d528e7e797f2cfaa6ec76b41a79c839086b2410c26fd",
+      "bytes": 223884,
+      "inspected": true
+    },
+    {
+      "file": "failed-narrow.png",
+      "sha256": "22dfbba1cff4a8b779d126bc2e91bcb298ff8d06c3f6b1312de4d701b056ff98",
+      "bytes": 184886,
+      "inspected": true
+    },
+    {
+      "file": "manual-conflict-desktop.png",
+      "sha256": "6ca7c2dd3ae0085544f0d437b549a026c5ba50247dd10d94867aa6c0baf4c133",
+      "bytes": 250048,
+      "inspected": true
+    },
+    {
+      "file": "manual-conflict-narrow.png",
+      "sha256": "0d7aa3c0bd599c4596593d5ef2408a3f08a9a57d03c2f71c8ffe79e459e8cf17",
+      "bytes": 208686,
+      "inspected": true
+    },
+    {
+      "file": "partial-with-media-desktop.png",
+      "sha256": "9a4f86ef8b175c0169bae19a70f7a4b0ab0c1586e86b79ff92c81e5cbeabfafa",
+      "bytes": 252561,
+      "inspected": true
+    },
+    {
+      "file": "partial-with-media-narrow.png",
+      "sha256": "753c1136bb3e98eeb10ff7b63eedd9acb6ecaba0ac8edd5fdc71c5a4abdf873d",
+      "bytes": 212721,
+      "inspected": true
+    },
+    {
+      "file": "pending-desktop.png",
+      "sha256": "b90b77f7c29dfe7eec0f3763c4bdd37182384c9273b5f1b2872768b48571ead7",
+      "bytes": 211410,
+      "inspected": true
+    },
+    {
+      "file": "pending-narrow.png",
+      "sha256": "e35d7cb981d3252886ad77bf02bc00f6cfd715335d4c81f2a70e5e9e9d423d79",
+      "bytes": 171874,
+      "inspected": true
+    }
+  ]
+}

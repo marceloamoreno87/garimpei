@@ -383,10 +383,20 @@ def test_rollback_and_restart_after_first_batch(
                     if "runworker" in record["command"]
                 )
                 verify_process(worker, instance.root)
-                os.kill(worker["pid"], signal.SIGKILL)
+                # Reserved queue consumers share the supervisor's owned process group.
+                os.killpg(worker["pgid"], signal.SIGKILL)
                 sql(
                     instance,
                     "SELECT pg_cancel_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND wait_event='advisory'",
+                )
+                wait_for(
+                    lambda: (
+                        not sql(
+                            instance,
+                            "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND wait_event='advisory'",
+                        )
+                    ),
+                    "interrupted publication no longer waiting on the owned barrier",
                 )
                 assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
                 assert sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]

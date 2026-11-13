@@ -1,0 +1,490 @@
+{
+  "recorded_at": "2026-11-13T22:26:13.062893+00:00",
+  "base_revision": "7769efc1f072b29e8a9c14b7417235363cb1f234",
+  "implementation_overlay": "Runtime image built from working-tree patch overlay at 2026-11-13T22:19:03Z; immutable image ID and archived code SHA identify the exercised code. Later migration0030 is outside this historical run.",
+  "runtime_image_id": "sha256:70b1e22ff6e946d988d3b412a5d04482b6f352996879404cd0f28c33827715d7",
+  "archived_code_sha256": "b90f781aade2b9c67bee365000be90b0dab186f3861034693b040b2e6d58a606",
+  "archived_migrations": [
+    "procrastinate.0001_initial",
+    "procrastinate.0002_drop_started_at_column",
+    "procrastinate.0003_drop_started_at_column",
+    "procrastinate.0004_drop_procrastinate_version_table",
+    "procrastinate.0005_fix_procrastinate_fetch_job",
+    "procrastinate.0006_fix_trigger_status_events_insert",
+    "procrastinate.0007_add_queueing_lock_column",
+    "procrastinate.0008_close_fetch_job_race_condition",
+    "procrastinate.0009_add_defer_job_function",
+    "procrastinate.0010_add_procrastinate_periodic_defers",
+    "procrastinate.0011_add_foreign_key_index",
+    "procrastinate.0012_add_locks_to_periodic_defer",
+    "procrastinate.0013_fix_procrastinate_defer_periodic_job",
+    "procrastinate.0014_add_finish_job_and_retry_job_functions",
+    "procrastinate.0015_add_trigger_on_job_deletion",
+    "procrastinate.0016_delete_finished_jobs",
+    "procrastinate.0017_add_checks_to_finish_job",
+    "procrastinate.0018_add_checks_to_retry_job",
+    "procrastinate.0019_fix_finish_job_compat_issue",
+    "procrastinate.0020_add_index_on_procrastinate_jobs",
+    "procrastinate.0021_add_kwargs_to_defer_periodic_job",
+    "procrastinate.0022_null_locks_excluded",
+    "procrastinate.0023_remove_old_finish_job_function",
+    "procrastinate.0024_job_id_bigint",
+    "procrastinate.0025_add_models",
+    "procrastinate.0026_add_job_priority",
+    "procrastinate.0027_add_periodic_job_priority",
+    "procrastinate.0028_add_cancel_states",
+    "procrastinate.0029_add_additional_params_to_retry_job",
+    "procrastinate.0030_alter_procrastinateevent_options",
+    "procrastinate.0031_add_indexes_for_fetch_job",
+    "procrastinate.0032_pre_cancel_notification",
+    "procrastinate.0033_post_cancel_notification",
+    "procrastinate.0034_pre_add_heartbeat",
+    "procrastinate.0035_post_add_heartbeat",
+    "procrastinate.0036_add_worker_model",
+    "procrastinate.0037_pre_batch_defer_jobs",
+    "procrastinate.0038_post_batch_defer_jobs",
+    "procrastinate.0039_pre_priority_lock_fetch_job",
+    "procrastinate.0040_pre_retry_failed_job",
+    "procrastinate.0041_post_retry_failed_job",
+    "runtime.0001_initial",
+    "runtime.0002_monitoring_configuration",
+    "runtime.0003_listing_collection",
+    "runtime.0004_listing_publication_window",
+    "runtime.0005_listing_manual_condition",
+    "runtime.0006_valuation",
+    "runtime.0007_exploration",
+    "runtime.0008_alert_delivery",
+    "runtime.0009_integration_settings",
+    "runtime.0010_facebook_session_baseline",
+    "runtime.0011_facebook_browser_profile",
+    "runtime.0012_opportunity_collection",
+    "runtime.0013_alert_message_snapshot",
+    "runtime.0013_local_inference",
+    "runtime.0014_merge_inference_and_financial_snapshot",
+    "runtime.0015_first_eligibility",
+    "runtime.0015_navigation",
+    "runtime.0016_merge_navigation_and_first_eligibility",
+    "runtime.0017_listing_media",
+    "runtime.0017_navigation_cursor",
+    "runtime.0017_operations",
+    "runtime.0018_media_capture_source_completeness",
+    "runtime.0019_bounded_media_refresh",
+    "runtime.0020_merge_native_cursor_and_media",
+    "runtime.0021_condition_assessment",
+    "runtime.0021_identity_research",
+    "runtime.0021_merge_operations_and_media",
+    "runtime.0022_condition_inference_cohort",
+    "runtime.0022_operational_snapshots",
+    "runtime.0023_merge_assessment_and_operations",
+    "runtime.0024_merge_inference_cohort_and_operations",
+    "runtime.0025_merge_identity_research",
+    "runtime.0026_robot_control",
+    "runtime.0027_gold_qualification",
+    "runtime.0028_inference_targets",
+    "runtime.0029_assistance_reviews"
+  ],
+  "source": {
+    "backup_id": "8e46fb2e-b033-4da6-8ae8-7d12c7129ec8",
+    "archive_file_key": "completed/8e46fb2e-b033-4da6-8ae8-7d12c7129ec8.tar.gz",
+    "archive_sha256": "e04e3546240821e047ced6972cd721eeaea98ad9c7184ccdceaf4e1dfe7d7b34",
+    "archive_bytes": 35843,
+    "snapshot_at": "2026-11-13T22:20:58.072742+00:00",
+    "verification": {
+      "id": "8e46fb2e-b033-4da6-8ae8-7d12c7129ec8",
+      "archive_integrity": "verified",
+      "restoration_state": "not_tested",
+      "dispatch_reconciliation": "not_performed"
+    },
+    "counts": {
+      "runtime.alertattempt": 0,
+      "runtime.alerteventdecision": 0,
+      "runtime.alertfeedcursor": 1,
+      "runtime.alertintent": 0,
+      "runtime.assessmenthead": 1,
+      "runtime.assistancecommand": 6,
+      "runtime.assistanceoperationssnapshot": 1,
+      "runtime.assistancepolicy": 1,
+      "runtime.assistancereview": 7,
+      "runtime.assistancereviewrequest": 7,
+      "runtime.collectioncandidate": 0,
+      "runtime.collectioncycle": 4,
+      "runtime.collectionstate": 4,
+      "runtime.comparableinvestigation": 2,
+      "runtime.conditionassessment": 1,
+      "runtime.explorationoffer": 10,
+      "runtime.explorationrevision": 4,
+      "runtime.firstalertidentity": 3,
+      "runtime.firstalertinventory": 1,
+      "runtime.firsteligibilitydecision": 0,
+      "runtime.goldpolicyadoption": 1,
+      "runtime.goldqualification": 0,
+      "runtime.identityprogress": 3,
+      "runtime.inferencepart": 8,
+      "runtime.inferencerequest": 8,
+      "runtime.integrationsettings": 0,
+      "runtime.investigationtarget": 0,
+      "runtime.listing": 3,
+      "runtime.listingevent": 0,
+      "runtime.listinginterestmatch": 2,
+      "runtime.listingobservation": 3,
+      "runtime.manualcondition": 0,
+      "runtime.manualconditionhistory": 0,
+      "runtime.manualidentityrevision": 0,
+      "runtime.mediaasset": 1,
+      "runtime.mediacapture": 1,
+      "runtime.mediaentry": 1,
+      "runtime.mediajob": 0,
+      "runtime.mediareference": 1,
+      "runtime.monitoringconfiguration": 1,
+      "runtime.monitoringinterest": 1,
+      "runtime.navigationcheckpoint": 2,
+      "runtime.navigationunitreceipt": 1,
+      "runtime.navigationwork": 2,
+      "runtime.nichesuggestion": 0,
+      "runtime.operationaldiagnostic": 0,
+      "runtime.operationalunit": 0,
+      "runtime.productidentification": 3,
+      "runtime.researchcandidatedecision": 0,
+      "runtime.researchquery": 0,
+      "runtime.suggestionevidence": 0,
+      "runtime.valuationevaluation": 9,
+      "runtime.valuationprogress": 3,
+      "runtime.valuationwork": 9
+    },
+    "schema_hash": "e47e8e8bb92796c37ca74ad366aac579b2d73b62f5032e7574543a6edf787063",
+    "prepared_inference_images": [
+      "2e3700dfc7252131cf3f39bbcf7e3bbc6cee2553985dca6f49e2ec26b180984d"
+    ],
+    "media_info": {
+      "protected_media": [
+        {
+          "id": "5a5b4082-8c89-4a3d-bcbf-965fbe85afa9",
+          "key": "b2cf50b5-1a12-5983-bf92-53ab38c9a17b/28aa314a70ecc94262b8ba5695fb0410fd9deab240b4f9502f38a86aa43a8d98",
+          "original": "media/5a5b4082-8c89-4a3d-bcbf-965fbe85afa9/original"
+        }
+      ]
+    },
+    "archive_member_count": 56,
+    "current_schema_hash": "e47e8e8bb92796c37ca74ad366aac579b2d73b62f5032e7574543a6edf787063"
+  },
+  "restore": {
+    "backup_id": "8e46fb2e-b033-4da6-8ae8-7d12c7129ec8",
+    "archive_sha256": "e04e3546240821e047ced6972cd721eeaea98ad9c7184ccdceaf4e1dfe7d7b34",
+    "source_installation": "eval_f23_runtime",
+    "target_installation": "eval_f23_f17_restore",
+    "target_empty_before_restore": true,
+    "counts": {
+      "runtime.inferencerequest": 8,
+      "runtime.inferencepart": 8,
+      "runtime.collectionstate": 4,
+      "runtime.collectioncycle": 4,
+      "runtime.collectioncandidate": 0,
+      "runtime.listing": 3,
+      "runtime.listingobservation": 3,
+      "runtime.listinginterestmatch": 2,
+      "runtime.listingevent": 0,
+      "runtime.manualcondition": 0,
+      "runtime.monitoringconfiguration": 1,
+      "runtime.monitoringinterest": 1,
+      "runtime.navigationwork": 2,
+      "runtime.navigationcheckpoint": 2,
+      "runtime.navigationunitreceipt": 1,
+      "runtime.nichesuggestion": 0,
+      "runtime.suggestionevidence": 0,
+      "runtime.valuationprogress": 3,
+      "runtime.valuationwork": 9,
+      "runtime.valuationevaluation": 9,
+      "runtime.manualconditionhistory": 0,
+      "runtime.alertfeedcursor": 1,
+      "runtime.alerteventdecision": 0,
+      "runtime.goldpolicyadoption": 1,
+      "runtime.goldqualification": 0,
+      "runtime.alertintent": 0,
+      "runtime.alertattempt": 0,
+      "runtime.firstalertinventory": 1,
+      "runtime.firstalertidentity": 3,
+      "runtime.firsteligibilitydecision": 0,
+      "runtime.explorationrevision": 4,
+      "runtime.explorationoffer": 10,
+      "runtime.integrationsettings": 0,
+      "runtime.mediacapture": 1,
+      "runtime.mediaasset": 1,
+      "runtime.mediaentry": 1,
+      "runtime.mediajob": 0,
+      "runtime.mediareference": 1,
+      "runtime.operationalunit": 0,
+      "runtime.operationaldiagnostic": 0,
+      "runtime.conditionassessment": 1,
+      "runtime.assessmenthead": 1,
+      "runtime.manualidentityrevision": 0,
+      "runtime.productidentification": 3,
+      "runtime.identityprogress": 3,
+      "runtime.comparableinvestigation": 2,
+      "runtime.investigationtarget": 0,
+      "runtime.researchquery": 0,
+      "runtime.researchcandidatedecision": 0,
+      "runtime.assistanceoperationssnapshot": 1,
+      "runtime.assistancereview": 7,
+      "runtime.assistancereviewrequest": 7,
+      "runtime.assistancecommand": 6,
+      "runtime.assistancepolicy": 1
+    },
+    "count_differences": {},
+    "barrier": {
+      "state": "blocked",
+      "backup_id": "8e46fb2e-b033-4da6-8ae8-7d12c7129ec8",
+      "source_installation": "eval_f23_runtime",
+      "data_integrity": "verified"
+    },
+    "inference_control": {
+      "paused": true,
+      "reason": "restored_paused",
+      "active_request": null,
+      "resident": false
+    },
+    "destination_robot_explicitly_paused": true,
+    "source_robot_intent_imported": false,
+    "alert_dispatch_suspended": true,
+    "review_checks": [
+      {
+        "id": "23a47056-1cf8-488e-ba36-5bc22404711d",
+        "purpose": "investigation",
+        "state": "supported",
+        "consumer_count": 1,
+        "result_sha256": "549eb3a008818e47a2cbd0dca642dd9dd9693a32cc3d8814b03a6c3128a76b9f"
+      },
+      {
+        "id": "3c80c9d6-3495-4d09-ab21-af14f60eb1a7",
+        "purpose": "operations",
+        "state": "supported",
+        "consumer_count": 0,
+        "result_sha256": "089219db316443c8e063836a214cd4a5333d7c98c186f2ccc4c6011f89df76b9"
+      },
+      {
+        "id": "3d5fa9b9-81d0-4ac2-afd2-3466b40eacf9",
+        "purpose": "identity",
+        "state": "supported",
+        "consumer_count": 1,
+        "result_sha256": "48ba78b4ab08efdf3821b1dc1079b2a9602b59861bbf6f85fafb2b194eae9b83"
+      },
+      {
+        "id": "4c361f74-02db-4ead-b4fe-9750bb8397e2",
+        "purpose": "investigation",
+        "state": "supported",
+        "consumer_count": 1,
+        "result_sha256": "6225a6f3eb6da8250b018c5d61adae6f1f2d63e74555f74d18fa8f0a6c8dfad9"
+      },
+      {
+        "id": "70b6255b-62d9-4b5d-aa3c-86a1b6585cfe",
+        "purpose": "operations",
+        "state": "supported",
+        "consumer_count": 0,
+        "result_sha256": "089219db316443c8e063836a214cd4a5333d7c98c186f2ccc4c6011f89df76b9"
+      },
+      {
+        "id": "88f770f2-4108-49f9-a346-5355ab894bf6",
+        "purpose": "comparables",
+        "state": "supported",
+        "consumer_count": 1,
+        "result_sha256": "48f9e14fc0ce441c7b60ecd0c20e33aba1b45c5f5c90ece1ffaf0502c3f3037a"
+      },
+      {
+        "id": "951a1d2c-074e-4980-bb88-e843fd866d96",
+        "purpose": "identity",
+        "state": "supported",
+        "consumer_count": 1,
+        "result_sha256": "3a8b112a9a3794f54dbed05f651ce270ccdf3d25a8c70a07be816b3330b962ef"
+      }
+    ],
+    "request_checks": [
+      {
+        "id": "17eb7291-6839-40b7-9e0a-95489f716d57",
+        "target_kind": "listing_observation",
+        "prompt_version": "identity-review-v1",
+        "schema_version": "identity-review-v1",
+        "state": "succeeded",
+        "signature": "85a80b689b2833c831c6c5df65f41af8135bb6307875246d2f1c78c5303e72cf"
+      },
+      {
+        "id": "3ccec31b-7f34-42bd-a2b9-74bf0a779c4d",
+        "target_kind": "listing_observation",
+        "prompt_version": "condition-evidence-v4",
+        "schema_version": "condition-evidence-v4",
+        "state": "succeeded",
+        "signature": "c1dd9d412b0df508096447867e2975f35edd2ff773df55db00208b786eb9b127"
+      },
+      {
+        "id": "696a423c-fa13-4cd1-a8c0-545af46b384f",
+        "target_kind": "interest",
+        "prompt_version": "investigation-support-v1",
+        "schema_version": "investigation-support-v1",
+        "state": "succeeded",
+        "signature": "54364d9fd6f35dfa42c14907093f59cf2e9d502ce73fbe1605c87a150345196b"
+      },
+      {
+        "id": "82e555e4-c1dd-47d3-8a71-d516547e819a",
+        "target_kind": "operations_snapshot",
+        "prompt_version": "operations-support-v1",
+        "schema_version": "operations-support-v1",
+        "state": "succeeded",
+        "signature": "382a0802f2afa6e9b597b8cff7f49f86182b9c3ad5cbf79e9fe35da03e48bfc0"
+      },
+      {
+        "id": "89c4c885-6f37-422a-a85e-fefb7d674a35",
+        "target_kind": "interest",
+        "prompt_version": "investigation-support-v1",
+        "schema_version": "investigation-support-v1",
+        "state": "succeeded",
+        "signature": "e371d10450b9c1aa89149a096f10f92a4469deeda0c91cd953988b8eb1c2b72c"
+      },
+      {
+        "id": "98a201ee-3f92-4170-9bf5-a8d7803277c9",
+        "target_kind": "listing_observation",
+        "prompt_version": "comparable-review-v1",
+        "schema_version": "comparable-review-v1",
+        "state": "succeeded",
+        "signature": "a41f82c332d82fcd0b43452df1a1f1ade16bb0a7778a73301e0f1366f7896b9d"
+      },
+      {
+        "id": "eeef668f-2b4e-44b4-9aba-5c0057074327",
+        "target_kind": "operations_snapshot",
+        "prompt_version": "operations-support-v1",
+        "schema_version": "operations-support-v1",
+        "state": "succeeded",
+        "signature": "4382280cf355af7cccaa1be368c609c57385d8ed1727b05f9e45e32ac8b71547"
+      },
+      {
+        "id": "fd28c6dd-2980-4316-b5a8-034ebe6c7350",
+        "target_kind": "listing_observation",
+        "prompt_version": "identity-review-v1",
+        "schema_version": "identity-review-v1",
+        "state": "succeeded",
+        "signature": "827c12bed71474749207ed07be641a08423fd2587f955487cb1098dd79240cfb"
+      }
+    ],
+    "media_checks": [
+      {
+        "asset_id": "5a5b4082-8c89-4a3d-bcbf-965fbe85afa9",
+        "original_bytes": 4160,
+        "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86"
+      }
+    ],
+    "prepared_image_checks": [
+      {
+        "sha256": "2e3700dfc7252131cf3f39bbcf7e3bbc6cee2553985dca6f49e2ec26b180984d",
+        "bytes": 8234
+      }
+    ],
+    "repeat_restore_rejected_nonempty": true,
+    "restored_review_request_links": 7,
+    "messages_transmitted": 0,
+    "source_untouched_except_backup": true,
+    "full_init_claimed": false,
+    "verification_attempts": [
+      {
+        "attempt": 1,
+        "backend_restore": "completed",
+        "count_check": "54/54 matched",
+        "inference_paused": true,
+        "barrier": "blocked",
+        "probe_exit": 1,
+        "probe_issue": "get_or_create defaults did not override RobotControl initially seeded enabled by migration; target had no worker or transmission"
+      },
+      {
+        "attempt": 2,
+        "action": "explicitly pause destination only, verify existing restored data and reject repeated restore"
+      }
+    ],
+    "target_started_services": [
+      "postgres",
+      "one-off manage prepare/restore"
+    ]
+  },
+  "postgres_restart": {
+    "performed": true,
+    "restart_exit_code": 0,
+    "post_restart_verification_exit_code": 0,
+    "same_54_table_counts": true,
+    "same_review_request_media_hashes": true,
+    "barrier_still_blocked": true,
+    "inference_still_paused": true,
+    "destination_robot_still_paused": true
+  },
+  "target_ownership": {
+    "environment": "eval_f23_f17_restore",
+    "checkout_matches": true,
+    "container_id": "42652e876e24b07bf6579bdc35ea29da01793cb02de26628368ac135e0bb3a1b",
+    "database": "garimpei_eval_f23_f17_restore",
+    "status": "running",
+    "health": "healthy",
+    "remaining_services": [
+      "garimpei-eval_f23_f17_restore-postgres-1"
+    ]
+  },
+  "execution": {
+    "source_backup": "one-off manage from immutable runtime image, source owned bind mounts and private config, attached only to source data network",
+    "target_preparation": "canonical resolve wrapper; decomposed compose up --wait postgres and one-off manage prepare; full init/web/worker readiness NOT claimed",
+    "restore": "one-off manage invoked actual build_backup_repository().restore(archive, isolated=True), then verified persisted models and physical bytes",
+    "source_web_worker_gpu_tools_stopped": false,
+    "target_web_worker_waha_ollama_started": false,
+    "real_messages_sent": 0
+  },
+  "limitations": [
+    "Source snapshot has zero AlertIntent/AlertAttempt rows; this evidence does not establish preservation/reconciliation of a real uncertain send.",
+    "Global RobotControl is intentionally excluded from cross-installation F17 business archives; target default from migration was explicitly changed to paused after the first probe exposed its seeded true state. Inference pause and independent recovery barrier were asserted from restoration itself.",
+    "Authentication/profile/session recovery is outside the F17 business archive and remains separate from the cold-copy proof.",
+    "Source backup catalog still says restoration_state=not_tested because this run does not rewrite the source catalog after external target verification. Target integrity evidence above is independent.",
+    "No independent human corpus acceptance or real-positive F21 acceptance is inferred from this backup/restore."
+  ],
+  "cleanup": "Owned restore target PostgreSQL container and three empty networks removed by explicit coordinator authorization; named data volume, private directories, archive and proof retained.",
+  "post_evaluation_cleanup": {
+    "at": "2026-11-13T22:41:16.070376+00:00",
+    "authorization": "Coordinator requested cleanup of this owned disposable restore target only; preserve all volumes/data",
+    "environment": "eval_f23_f17_restore",
+    "checkout_verified": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada",
+    "removed_containers": [
+      {
+        "id": "42652e876e24b07bf6579bdc35ea29da01793cb02de26628368ac135e0bb3a1b",
+        "name": "garimpei-eval_f23_f17_restore-postgres-1",
+        "image_reference": "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+        "image_id": "sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      }
+    ],
+    "removed_networks": [
+      {
+        "id": "4704a88b54c916e3341f38b71a499090a0fd7108409376559006956c922f929c",
+        "name": "garimpei-eval_f23_f17_restore_data",
+        "environment": "eval_f23_f17_restore",
+        "checkout_verified": true,
+        "endpoints_before_removal": 0
+      },
+      {
+        "id": "69ad6d637ea990f9e02f3bed74167fc4a19d4cf884dd9720afd10107ddba7f86",
+        "name": "garimpei-eval_f23_f17_restore_inference",
+        "environment": "eval_f23_f17_restore",
+        "checkout_verified": true,
+        "endpoints_before_removal": 0
+      },
+      {
+        "id": "891ec1e38acf1cf84af4295a56f1bcef029fed1d26b4dc3606c2cd77b1a5f491",
+        "name": "garimpei-eval_f23_f17_restore_outbound",
+        "environment": "eval_f23_f17_restore",
+        "checkout_verified": true,
+        "endpoints_before_removal": 0
+      }
+    ],
+    "preserved_volumes": [
+      {
+        "name": "garimpei-eval_f23_f17_restore_postgres_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ],
+    "network_count_before": 28,
+    "network_count_after": 24,
+    "own_networks_freed": 3,
+    "volumes_deleted": false,
+    "private_directories_deleted": false,
+    "source_gpu_tools_touched": false,
+    "recreation": "Private target.env, run-id, canonical compose metadata and raw pre-cleanup container inspect retained in private proof directory; recreate PostgreSQL using canonical compose with same project/owned named volume."
+  }
+}

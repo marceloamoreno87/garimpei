@@ -20,6 +20,15 @@
                     {{ review.cache_reuses }} consultas compatíveis
                 </dd>
             </dl>
+            {% if review.manual_values %}
+                <p><strong>Correção manual preservada</strong> · revisão {{ review.manual_revision }}. Confira os valores informados junto da evidência original.</p>
+                <dl>
+                    {% for attribute in review.manual_values %}
+                        <dt>{{ attribute.label }}</dt>
+                        <dd>{{ attribute.value }}</dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
             {% if review.findings %}
                 <ul>
                     {% for finding in review.findings %}

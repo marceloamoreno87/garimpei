@@ -1,0 +1,343 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /app/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from env)
+rootdir: /app/apps/backend
+configfile: pyproject.toml
+plugins: anyio-4.16.0, django-4.14.0
+collecting ... collected 1 item
+
+tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target FAILED [100%]
+
+=================================== FAILURES ===================================
+_______________ test_persistent_unit_fault_suspends_only_target ________________
+
+tmp_path = PosixPath('/tmp/f23-operations-lab-before/test_persistent_unit_fault_sus0')
+
+    def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-fault"
+        environment = dict(os.environ)
+        for name in ("DJANGO_SETTINGS_MODULE", "GARIMPEI_ENV_FILE", "VIRTUAL_ENV"):
+            environment.pop(name, None)
+    
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                capture_output=True,
+                text=True,
+                timeout=300 if operation == "calibrate-crashes" else 180,
+            )
+    
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stderr
+        try:
+            for operation, arguments in (("start", ()), ("seed", ("--scenario", "recovery"))):
+                result = invoke(operation, *arguments)
+                assert result.returncode == 0, result.stdout + result.stderr
+            result = invoke("fault", "--case", "unit_persistent")
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / "fault-unit_persistent.json").read_text())
+            assert report["target"] == {"suspended": True, "failures": 3, "checkpoint": "confirmed-A"}
+            assert report["control"] == {"suspended": False, "failures": 0, "checkpoint": "confirmed-B"}
+            assert report["seconds"] >= 0
+            repeated = invoke("fault", "--case", "unit_persistent")
+            assert repeated.returncode != 0
+            for case in ("disk_full", "archive_interrupted", "export_interrupted"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["control"]["completed"] is True
+                assert report["fault"]["rejected"] is True
+                assert report["fault"]["previous_preserved"] is True
+                assert report["fault"]["no_partial"] is True
+                assert report["seconds"] >= 0
+            queued = invoke("fault", "--case", "queue_full")
+            assert queued.returncode == 0, queued.stdout + queued.stderr
+            report = json.loads((directory / "fault-queue_full.json").read_text())
+            assert report["control"]["admitted"] is True
+            assert report["fault"]["admitted"] is False
+            assert report["fault"]["pending"] == 1000
+            assert report["cleaned"] is True
+            for case in ("network_timeout", "slow_valuation", "slow_channel"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["control"]["outcome"] == "success"
+                assert report["fault"]["outcome"] == (
+                    "uncertain" if case == "slow_channel" else "timeout"
+                )
+                assert report["timeout_seconds"] == 1
+            for case in ("repeat_cursor", "lease_expired", "late_result", "crash_before_commit"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["fault_detected"] is True
+                assert report["control_confirmed"] is True
+                assert report["seed_preserved"] is True
+            unavailable = invoke("fault", "--case", "db_unavailable")
+            assert unavailable.returncode == 0, unavailable.stdout + unavailable.stderr
+            report = json.loads((directory / "fault-db_unavailable.json").read_text())
+            assert report["fault"]["unavailable"] is True
+            assert report["control"]["source_available"] is True
+            assert report["recovered"] is True
+            measured = invoke("calibrate-faults")
+            assert measured.returncode == 0, measured.stdout + measured.stderr
+            report = json.loads((directory / "fault-calibration.json").read_text())
+            assert report["profile_confirmed"] is False
+            assert report["operational_enablement"] is False
+            for case in (
+                "network_timeout",
+                "slow_valuation",
+                "slow_channel",
+                "disk_full",
+                "archive_interrupted",
+                "export_interrupted",
+                "queue_full",
+            ):
+                rows = [row for row in report["measurements"] if row["case"] == case]
+                assert {row["repetition"] for row in rows} == {1, 2, 3, 4, 5}
+                assert all(row["control"] and row["fault"] for row in rows)
+                assert all(row["disk_free_bytes"] > 0 for row in rows)
+            for case in ("crash_after_post", "crash_after_commit"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["fault_detected"] is True
+                assert report["recovered"] is True
+                assert report["real_sigkill"] is True
+>           repeated_crashes = invoke("calibrate-crashes", "--repetitions", "1")
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_operations_lab_fault.py:112: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = 'calibrate-crashes', arguments = ('--repetitions', '1')
+
+    def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+>       return subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "tests.factories.operations_lab",
+                operation,
+                "--directory",
+                str(directory),
+                *arguments,
+            ],
+            cwd=backend,
+            env=environment,
+            capture_output=True,
+            text=True,
+            timeout=300 if operation == "calibrate-crashes" else 180,
+        )
+
+tests/integration/test_operations_lab_fault.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = True, timeout = 300, check = False
+popenargs = (['/app/apps/backend/.venv/bin/python', '-m', 'tests.factories.operations_lab', 'calibrate-crashes', '--directory', '/tmp/f23-operations-lab-before/test_persistent_unit_fault_sus0/operational-fault', ...],)
+kwargs = {'cwd': PosixPath('/app/apps/backend'), 'env': {'UV_PYTHON_DOWNLOADS': 'never', 'HOSTNAME': 'docker-desktop', 'HOME': '/home/garimpei', 'PYTHONUNBUFFERED': '1', ...}, 'text': True, 'stdout': -1, ...}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+>               stdout, stderr = process.communicate(input, timeout=timeout)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/usr/local/lib/python3.13/subprocess.py:556: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['/app/apps/backend/.venv/bin/python', '-m', 't...>
+input = None, timeout = 300
+
+    def communicate(self, input=None, timeout=None):
+        """Interact with process: Send data to stdin and close it.
+        Read data from stdout and stderr, until end-of-file is
+        reached.  Wait for process to terminate.
+    
+        The optional "input" argument should be data to be sent to the
+        child process, or None, if no data should be sent to the child.
+        communicate() returns a tuple (stdout, stderr).
+    
+        By default, all communication is in bytes, and therefore any
+        "input" should be bytes, and the (stdout, stderr) will be bytes.
+        If in text mode (indicated by self.text_mode), any "input" should
+        be a string, and (stdout, stderr) will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode
+        is triggered by setting any of text, encoding, errors or
+        universal_newlines.
+        """
+    
+        if self._communication_started and input:
+            raise ValueError("Cannot send input after starting communication")
+    
+        # Optimization: If we are not worried about timeouts, we haven't
+        # started communicating, and we have one or zero pipes, using select()
+        # or threads is unnecessary.
+        if (timeout is None and not self._communication_started and
+            [self.stdin, self.stdout, self.stderr].count(None) >= 2):
+            stdout = None
+            stderr = None
+            if self.stdin:
+                self._stdin_write(input)
+            elif self.stdout:
+                stdout = self.stdout.read()
+                self.stdout.close()
+            elif self.stderr:
+                stderr = self.stderr.read()
+                self.stderr.close()
+            self.wait()
+        else:
+            if timeout is not None:
+                endtime = _time() + timeout
+            else:
+                endtime = None
+    
+            try:
+>               stdout, stderr = self._communicate(input, endtime, timeout)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/usr/local/lib/python3.13/subprocess.py:1222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['/app/apps/backend/.venv/bin/python', '-m', 't...>
+input = None, endtime = 77468.679848054, orig_timeout = 300
+
+    def _communicate(self, input, endtime, orig_timeout):
+        if self.stdin and not self._communication_started:
+            # Flush stdio buffer.  This might block, if the user has
+            # been writing to .stdin in an uncontrolled fashion.
+            try:
+                self.stdin.flush()
+            except BrokenPipeError:
+                pass  # communicate() must ignore BrokenPipeError.
+            except ValueError:
+                # ignore ValueError: I/O operation on closed file.
+                if not self.stdin.closed:
+                    raise
+            if not input:
+                try:
+                    self.stdin.close()
+                except BrokenPipeError:
+                    pass  # communicate() must ignore BrokenPipeError.
+    
+        stdout = None
+        stderr = None
+    
+        # Only create this mapping if we haven't already.
+        if not self._communication_started:
+            self._fileobj2output = {}
+            if self.stdout:
+                self._fileobj2output[self.stdout] = []
+            if self.stderr:
+                self._fileobj2output[self.stderr] = []
+    
+        if self.stdout:
+            stdout = self._fileobj2output[self.stdout]
+        if self.stderr:
+            stderr = self._fileobj2output[self.stderr]
+    
+        self._save_input(input)
+    
+        if self._input:
+            if not isinstance(self._input, memoryview):
+                input_view = memoryview(self._input)
+            else:
+                input_view = self._input.cast("b")  # byte input required
+    
+        with _PopenSelector() as selector:
+            if self.stdin and not self.stdin.closed and self._input:
+                selector.register(self.stdin, selectors.EVENT_WRITE)
+            if self.stdout and not self.stdout.closed:
+                selector.register(self.stdout, selectors.EVENT_READ)
+            if self.stderr and not self.stderr.closed:
+                selector.register(self.stderr, selectors.EVENT_READ)
+    
+            while selector.get_map():
+                timeout = self._remaining_time(endtime)
+                if timeout is not None and timeout <= 0:
+                    self._check_timeout(endtime, orig_timeout,
+                                        stdout, stderr,
+                                        skip_check_and_raise=True)
+                    raise RuntimeError(  # Impossible :)
+                        '_check_timeout(..., skip_check_and_raise=True) '
+                        'failed to raise TimeoutExpired.')
+    
+                ready = selector.select(timeout)
+>               self._check_timeout(endtime, orig_timeout, stdout, stderr)
+
+/usr/local/lib/python3.13/subprocess.py:2155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['/app/apps/backend/.venv/bin/python', '-m', 't...>
+endtime = 77468.679848054, orig_timeout = 300, stdout_seq = [], stderr_seq = []
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['/app/apps/backend/.venv/bin/python', '-m', 'tests.factories.operations_lab', 'calibrate-crashes', '--directory', '/tmp/f23-operations-lab-before/test_persistent_unit_fault_sus0/operational-fault', '--repetitions', '1']' timed out after 300 seconds
+
+/usr/local/lib/python3.13/subprocess.py:1269: TimeoutExpired
+=========================== short test summary info ============================
+FAILED tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target - subprocess.TimeoutExpired: Command '['/app/apps/backend/.venv/bin/python', '-m', 'tests.factories.operations_lab', 'calibrate-crashes', '--directory', '/tmp/f23-operations-lab-before/test_persistent_unit_fault_sus0/operational-fault', '--repetitions', '1']' timed out after 300 seconds
+======================== 1 failed in 531.15s (0:08:51) =========================

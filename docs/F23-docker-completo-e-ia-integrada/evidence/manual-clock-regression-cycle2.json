@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-13T22:58:45.455478+00:00",
+  "before": {
+    "nodeid": "tests/integration/test_alert_consumers.py::test_manual_history_at_publication_and_revalidation",
+    "source": "pytest-shard-A-cycle1.xml",
+    "observed": "Timed out after35s waiting for3 intents; stdout showed2 blocked intents with configuration_missing. Isolated unchanged retry passed, demonstrating scheduling dependence."
+  },
+  "change": "Only the test clock now follows walltime while waiting for the three intents. Finite eligibility/valuation retries can become due under scheduling load. Exact3 assertion and35s timeout unchanged; no production modifications.",
+  "after": {
+    "isolated_exit_code": 0,
+    "isolated_passed": 1,
+    "isolated_duration_seconds": 39.51,
+    "combined_source": "pytest-shard-A-cycle2.xml",
+    "combined_exit_code": 0,
+    "combined_passed": 9,
+    "combined_duration_seconds": 206.19
+  },
+  "limitations": [
+    "Does not erase the original failure or claim a single unfiltered run was clean."
+  ]
+}

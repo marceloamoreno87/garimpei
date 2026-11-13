@@ -1,0 +1,38 @@
+{
+  "phase": "During the unmodified isolated failure while waiting for two confirmed alerts",
+  "cycles": [
+    {
+      "phase": "complete",
+      "started_at": "2026-11-10 18:00:00+00:00",
+      "finished_at": "2026-11-10 18:00:00+00:00",
+      "window_end": "2026-11-10 18:00:00+00:00",
+      "published_count": 12
+    },
+    {
+      "phase": "complete",
+      "started_at": "2026-11-10 18:01:02+00:00",
+      "finished_at": "2026-11-10 18:01:02+00:00",
+      "window_end": "2026-11-10 18:01:02+00:00",
+      "published_count": 13
+    },
+    {
+      "phase": "complete",
+      "started_at": "2026-11-10 18:02:03+00:00",
+      "finished_at": "2026-11-10 18:03:05+00:00",
+      "window_end": "2026-11-10 18:02:03+00:00",
+      "published_count": 13
+    }
+  ],
+  "target_listings": [
+    {
+      "external_id": "935",
+      "published_at": "2026-11-10T18:00:01+00:00"
+    }
+  ],
+  "missing_listing": "936",
+  "next_source_published_at_derived_from_test": "2026-11-10T18:02:04+00:00",
+  "clock_at_observation": "2026-11-10T18:03:29+00:00",
+  "explanation": "The restarted worker admitted the third collection at 18:02:03 before the test inserted 936 with publication 18:02:04. The collection correctly omitted it as outside its closed window. The wait advanced the clock by less than the next collection interval.",
+  "collection_source": "Read-only SQL against the owned /tmp/f23-operations-confirmation-before fixture",
+  "production_changed": false
+}

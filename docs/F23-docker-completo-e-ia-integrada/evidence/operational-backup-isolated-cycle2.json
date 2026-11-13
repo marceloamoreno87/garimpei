@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-11-13T23:03:31.396981+00:00",
+  "nodeids": [
+    "tests/integration/test_operational_backup.py::test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier"
+  ],
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "tests/integration/test_operational_backup.py::test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier",
+    "-vv",
+    "--tb=short",
+    "--basetemp=/tmp/f23-backup-repro"
+  ],
+  "environment": "garimpei-eval_f23_runtime-quality-journey",
+  "exit_code": 0,
+  "passed": 1,
+  "duration_seconds": 28.95,
+  "code_changes_by_this_investigation": false,
+  "coverage": [
+    "Private business snapshot and export idempotency",
+    "Archive sanitization and integrity",
+    "Owned disposable restoration with dispatch recovery barrier",
+    "Original listing identity, operational checkpoint, failures and generations",
+    "Refusal of a second restoration into the nonempty target"
+  ],
+  "limitations": [
+    "Original group failure is preserved; this isolated pass does not establish the exact cause of that earlier failure.",
+    "No test or production change was made by this investigation."
+  ]
+}

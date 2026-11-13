@@ -1,0 +1,165 @@
+_______________ test_persistent_unit_fault_suspends_only_target ________________
+
+tmp_path = PosixPath('/tmp/f23-pytest-C/test_persistent_unit_fault_sus0')
+
+    def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-fault"
+        environment = dict(os.environ)
+        for name in ("DJANGO_SETTINGS_MODULE", "GARIMPEI_ENV_FILE", "VIRTUAL_ENV"):
+            environment.pop(name, None)
+    
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                capture_output=True,
+                text=True,
+                timeout=300 if operation == "calibrate-crashes" else 180,
+            )
+    
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stderr
+        try:
+            for operation, arguments in (("start", ()), ("seed", ("--scenario", "recovery"))):
+                result = invoke(operation, *arguments)
+                assert result.returncode == 0, result.stdout + result.stderr
+            result = invoke("fault", "--case", "unit_persistent")
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / "fault-unit_persistent.json").read_text())
+            assert report["target"] == {"suspended": True, "failures": 3, "checkpoint": "confirmed-A"}
+            assert report["control"] == {"suspended": False, "failures": 0, "checkpoint": "confirmed-B"}
+            assert report["seconds"] >= 0
+            repeated = invoke("fault", "--case", "unit_persistent")
+            assert repeated.returncode != 0
+            for case in ("disk_full", "archive_interrupted", "export_interrupted"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["control"]["completed"] is True
+                assert report["fault"]["rejected"] is True
+                assert report["fault"]["previous_preserved"] is True
+                assert report["fault"]["no_partial"] is True
+                assert report["seconds"] >= 0
+            queued = invoke("fault", "--case", "queue_full")
+            assert queued.returncode == 0, queued.stdout + queued.stderr
+            report = json.loads((directory / "fault-queue_full.json").read_text())
+            assert report["control"]["admitted"] is True
+            assert report["fault"]["admitted"] is False
+            assert report["fault"]["pending"] == 1000
+            assert report["cleaned"] is True
+            for case in ("network_timeout", "slow_valuation", "slow_channel"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["control"]["outcome"] == "success"
+                assert report["fault"]["outcome"] == (
+                    "uncertain" if case == "slow_channel" else "timeout"
+                )
+                assert report["timeout_seconds"] == 1
+            for case in ("repeat_cursor", "lease_expired", "late_result", "crash_before_commit"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["fault_detected"] is True
+                assert report["control_confirmed"] is True
+                assert report["seed_preserved"] is True
+            unavailable = invoke("fault", "--case", "db_unavailable")
+            assert unavailable.returncode == 0, unavailable.stdout + unavailable.stderr
+            report = json.loads((directory / "fault-db_unavailable.json").read_text())
+            assert report["fault"]["unavailable"] is True
+            assert report["control"]["source_available"] is True
+            assert report["recovered"] is True
+            measured = invoke("calibrate-faults")
+            assert measured.returncode == 0, measured.stdout + measured.stderr
+            report = json.loads((directory / "fault-calibration.json").read_text())
+            assert report["profile_confirmed"] is False
+            assert report["operational_enablement"] is False
+            for case in (
+                "network_timeout",
+                "slow_valuation",
+                "slow_channel",
+                "disk_full",
+                "archive_interrupted",
+                "export_interrupted",
+                "queue_full",
+            ):
+                rows = [row for row in report["measurements"] if row["case"] == case]
+                assert {row["repetition"] for row in rows} == {1, 2, 3, 4, 5}
+                assert all(row["control"] and row["fault"] for row in rows)
+                assert all(row["disk_free_bytes"] > 0 for row in rows)
+            for case in ("crash_after_post", "crash_after_commit"):
+                result = invoke("fault", "--case", case)
+>               assert result.returncode == 0, result.stdout + result.stderr
+E               AssertionError: Traceback (most recent call last):
+E                   File "<frozen runpy>", line 203, in _run_module_as_main
+E                   File "<frozen runpy>", line 88, in _run_code
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 692, in <module>
+E                     main()
+E                     ~~~~^^
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 683, in main
+E                     fault(directory, options.case)
+E                     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 275, in fault
+E                     observed = process_crash_fault(directory, source, case)
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 348, in process_crash_fault
+E                     raise RuntimeError("Owned process-crash scenario failed: " + result.stdout + result.stderr)
+E                 RuntimeError: Owned process-crash scenario failed: F.                                                                       [100%]
+E                 =================================== FAILURES ===================================
+E                 _ test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control] _
+E                 
+E                 tmp_path = PosixPath('/tmp/f23-pytest-C/test_persistent_unit_fault_sus0/operational-fault/crash-tests/crash_after_post/test_killed_worker_reconciles_0')
+E                 kill_worker = False
+E                 
+E                     @pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+E                     def test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries(
+E                         tmp_path: Path,
+E                         kill_worker: bool,
+E                     ) -> None:
+E                 >       _run_post_boundary(tmp_path, kill_worker, "confirmed")
+E                 
+E                 apps/backend/tests/integration/test_alert_delivery.py:209: 
+E                 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+E                 apps/backend/tests/integration/test_alert_delivery.py:225: in _run_post_boundary
+E                     with alert_scenario(tmp_path) as (instance, source, clock, channel):
+E                          ^^^^^^^^^^^^^^^^^^^^^^^^
+E                 /usr/local/lib/python3.13/contextlib.py:141: in __enter__
+E                     return next(self.gen)
+E                            ^^^^^^^^^^^^^^
+E                 apps/backend/tests/factories/alert_scenario.py:82: in alert_scenario
+E                     command(instance, "./scripts/init.sh", "--disposable")
+E                 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+E                 
+E                 instance = FoundationInstance(root=PosixPath('/tmp/f23-pytest-C/test_persistent_unit_fault_sus0/operational-fault/checkout'), pri...nt_unit_fault_sus0/operational-fault/crash-tests/crash_after_post/test_killed_worker_reconciles_0/f04_e92b6922f6.env'))
+E                 arguments = ('./scripts/init.sh', '--disposable')
+E                 
+E                     def command(instance: FoundationInstance, *arguments: str) -> None:
+E                         result = instance.command(*arguments)
+E                 >       assert result.returncode == 0, result.stdout + result.stderr
+E                 E       AssertionError: Resolved 73 packages in 1ms
+E                 E         Checked 71 packages in 0.91ms
+E                 E         {"timestamp": "2026-11-13T22:35:05.955605+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_e92b6922f6", "run_id": "3cc13ed0-80c7-40b5-afc1-4f46c97fa7fc"}
+E                 E         Docker: operation failed; check daemon, image digest and owned resources
+E                 E         
+E                 E       assert 1 == 0
+E                 E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "3cc13ed0-80c7-40b5-afc1-4f46c97fa7fc"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+E                 
+E                 apps/backend/tests/integration/test_collection.py:42: AssertionError
+E                 =========================== short test summary info ============================
+E                 FAILED apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control]
+E                 1 failed, 1 passed in 47.44s
+E                 
+E                 
+E               assert 1 == 0
+E                +  where 1 = CompletedProcess(args=['/app/apps/backend/.venv/bin/python3', '-m', 'tests.factories.operations_lab', 'fault', '--dire...test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control]\n1 failed, 1 passed in 47.44s\n\n').returncode
+
+tests/integration/test_operations_lab_fault.py:107: AssertionError

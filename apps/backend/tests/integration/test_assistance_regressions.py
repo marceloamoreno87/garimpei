@@ -90,6 +90,14 @@ row.refresh_from_db()
 conflict=observation_snapshot(row,'identity')
 assert conflict['conflict']
 assert dict((a.name,a.value) for a in current_identification(row).attributes)['capacity']=='825gb'
+from garimpei.infra.persistence.assistance_models import AssistanceReview
+from garimpei.infra.gateway.assistance.snapshots import digest
+from django.test import Client
+AssistanceReview.objects.create(purpose='identity',target_kind='listing_observation',target_id=observation.id,observation=observation,generation=1,input_signature=digest(conflict),input_snapshot=json.loads(json.dumps(conflict,default=str)),state='conflict',result=dict(outcome='conflict',findings=[],limitations=[]))
+response=Client(HTTP_HOST='localhost').get(f'/ofertas/{row.id}/ia/')
+assert response.status_code==200
+assert 'Correção manual preservada'.encode() in response.content,'manual value is hidden from the conflict review'
+assert b'825 GB' in response.content and b'1TB' in response.content,'manual and observed values must both remain visible'
 observation.evidence=dict(observation.evidence,title='PlayStation 5 Slim Digital');observation.save(update_fields=['evidence'])
 row.refresh_from_db()
 missing=observation_snapshot(row,'identity')
