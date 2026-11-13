@@ -1,0 +1,87 @@
+{
+  "observed_at": "2026-11-13T17:42:43.885669+00:00",
+  "source_commit": "5793861",
+  "scope": "Real Django/PostgreSQL/worker and Playwright CLI; synthetic loopback source and WAHA. No actual Facebook, WhatsApp group or GPU. Does not cover every queued stage variant.",
+  "final_run": {
+    "runtime_origin": "http://127.0.0.1:12425",
+    "channel_timeout_seconds": 40,
+    "channel_lease_seconds": 60,
+    "barrier": "WAHA server holds response AFTER POST authorization and reception",
+    "initial": {
+      "posts": 0,
+      "messages": 0,
+      "requested_enabled": true,
+      "revision": 0,
+      "source_and_valuation_requests": 17
+    },
+    "held": {
+      "posts": 1,
+      "messages": 1,
+      "intent_state": "authorized",
+      "reference": "c83976a0-8a78-4551-a61c-d9a17ba9a236",
+      "source_and_valuation_requests": 34
+    },
+    "pause_via_browser": {
+      "requested_enabled": false,
+      "revision": 1,
+      "heading": "Desligando",
+      "intent_state": "authorized",
+      "posts": 1
+    },
+    "release": {
+      "state": "confirmed",
+      "reason": "send_response_ack",
+      "reference": "c83976a0-8a78-4551-a61c-d9a17ba9a236",
+      "receipt": "message-1",
+      "posts": 1,
+      "source_and_valuation_requests": 34
+    },
+    "restart": {
+      "normal_stop_init": true,
+      "requested_enabled": false,
+      "revision": 1,
+      "posts": 1,
+      "receipt": "message-1",
+      "body_and_reference_preserved": true,
+      "source_and_valuation_requests": 34
+    },
+    "paused_lookup": {
+      "offers": 6,
+      "disabled_notice": true,
+      "http_success": true
+    },
+    "resume_via_browser": {
+      "requested_enabled": true,
+      "revision": 2,
+      "source_and_valuation_requests": 51,
+      "posts": 2,
+      "confirmed_intents": 2,
+      "first_reference": "c83976a0-8a78-4551-a61c-d9a17ba9a236",
+      "reduction_reference": "6b9c935c-bc2e-4a6e-88ad-a8c39256d515",
+      "reduction_purchase": "900.00",
+      "reduction_profit": "450.00",
+      "reduction_receipt": "message-2",
+      "first_not_duplicated": true
+    },
+    "cleanup": "lab context normal stop --clean, browser session closed"
+  },
+  "earlier_probes": [
+    {
+      "origin": "http://127.0.0.1:18101",
+      "outcome": "Partial valid proof; later probe assertion failed from malformed synthetic price",
+      "validated": "Held POST timed out locally after 10s; pause displayed unknown; GET history reconciliation while disabled confirmed message-1 without another POST; same frozen body/ref survived normal stop/init; source requests stayed34 during pause.",
+      "fixture_error": "Resume used raw price900,00 without currency marker. Collector correctly produced price=None/compra_indisponivel; probe expecting reduction timed out. No product code changed."
+    },
+    {
+      "origin": "http://127.0.0.1:16766",
+      "outcome": "Invalid lab configuration; no PASS derived",
+      "fixture_error": "Alert timeout60 requires lease>=62; defaultlease60 failed central validation. Corrected probe to timeout40/lease60. Early pause happened before held signal; no drain claim from this probe."
+    }
+  ],
+  "limitations": [
+    "No actual queued research, identification, assessment or inference pipeline is proven by the message/source journey alone.",
+    "No complete reserved corpus or GPU inference was used.",
+    "An expired first-alert/reference branch is separately checked by focused tests; not added to this same browser journey.",
+    "Live application traffic during normal stop/init can fail connection; successful post-restart lookup was separately observed."
+  ]
+}
