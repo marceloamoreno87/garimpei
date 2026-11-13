@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from garimpei.infra.http.monitoring.monitoring_handler import MonitoringHandler
     from garimpei.infra.http.navigation.navigation_handler import NavigationHandler
     from garimpei.infra.http.operations.status_handler import OperationsHandler
+    from garimpei.infra.http.robot.robot_handler import RobotHandler
     from garimpei.infra.http.valuation.identity_handler import IdentityHandler
     from garimpei.infra.queries.listing.condition_queries import PostgresConditionQueries
     from garimpei.infra.queries.monitoring.postgres_queries import PostgresMonitoringQueries
@@ -52,6 +53,7 @@ if TYPE_CHECKING:
         PostgresOperationalRepository,
     )
     from garimpei.infra.repository.operations.verify_recovery import VerifyRecoveryGateway
+    from garimpei.infra.repository.robot.postgres_repository import PostgresRobotRepository
     from garimpei.infra.repository.valuation.identity_repository import PostgresIdentityRepository
     from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
     from garimpei.infra.repository.valuation.research_repository import (
@@ -80,6 +82,7 @@ if TYPE_CHECKING:
     from garimpei.usecase.operations.create_backup_usecase import CreateBackupUseCase
     from garimpei.usecase.operations.read_status_usecase import ReadOperationalStatusUseCase
     from garimpei.usecase.operations.restore_backup_usecase import RestoreBackupUseCase
+    from garimpei.usecase.robot.read_robot_status_usecase import ReadRobotStatusUseCase
     from garimpei.usecase.valuation.read_identity_usecase import ReadIdentityUseCase
     from garimpei.usecase.valuation.read_profit_usecase import ReadProfitUseCase
     from garimpei.usecase.valuation.read_research_diagnostic_usecase import (
@@ -1585,3 +1588,23 @@ def _comparable_research_limits() -> "ResearchLimits | None":
         allow_controlled=config.environment == "eval"
         and _effective_listing_settings().fixture_url is not None,
     )
+
+
+def build_robot_repository() -> "PostgresRobotRepository":
+    from garimpei.infra.repository.robot.postgres_repository import PostgresRobotRepository
+
+    return PostgresRobotRepository()
+
+
+def build_read_robot_status() -> "ReadRobotStatusUseCase":
+    from garimpei.infra.queries.robot.postgres_queries import PostgresRobotQueries
+    from garimpei.usecase.robot.read_robot_status_usecase import ReadRobotStatusUseCase
+
+    return ReadRobotStatusUseCase(PostgresRobotQueries())
+
+
+def build_robot_handler() -> "RobotHandler":
+    from garimpei.infra.http.robot.robot_handler import RobotHandler
+    from garimpei.usecase.robot.set_robot_state_usecase import SetRobotStateUseCase
+
+    return RobotHandler(build_read_robot_status(), SetRobotStateUseCase(build_robot_repository()))

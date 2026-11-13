@@ -109,3 +109,8 @@ from garimpei.infra.persistence.research_models import (  # noqa: E402,F401
     ResearchCandidateDecision,
     ResearchQuery,
 )
+from garimpei.infra.persistence.robot_models import (  # noqa: E402,F401
+    RobotControl,
+    RobotControlCommand,
+    RobotOperation,
+)

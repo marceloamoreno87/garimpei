@@ -1,0 +1,26 @@
+<section id="robot-control"
+         aria-labelledby="robot-heading"
+         hx-get="/acompanhamento/robo/"
+         hx-trigger="every 3s"
+         hx-swap="outerHTML">
+    <h2 id="robot-heading">{{ robot_title }}</h2>
+    {% if robot_available %}
+        <p>Decisão confirmada: {% if robot.enabled %}ligado{% else %}desligado{% endif %}. Revisão {{ robot.revision }} · {{ robot.changed_at|date:"d/m/Y H:i:s T" }}</p>
+        {% if robot.state == "draining" %}<p role="status">A pausa está confirmada. As operações já autorizadas estão concluindo; novas operações aguardam.</p>{% endif %}
+        {% if robot.state == "unknown" %}<p role="status">Há operações cujo encerramento ainda precisa ser conferido. A pausa não cancela chamadas já autorizadas.</p>{% endif %}
+        {% if robot.state == "disabled" %}<p>O trabalho automático aguarda. Suas ofertas, configurações e histórico continuam disponíveis.</p>{% endif %}
+        {% if not robot.worker_available %}<p>Worker sem confirmação recente de disponibilidade. Estar ligado não comprova processamento ativo.</p>{% endif %}
+        <form method="post"
+              action="{% if robot.enabled %}/acompanhamento/robo/desligar/{% else %}/acompanhamento/robo/ligar/{% endif %}">
+            {% csrf_token %}
+            <input type="hidden" name="revision" value="{{ robot.revision }}">
+            <input type="hidden" name="command_id" value="{{ robot_command_id }}">
+            <button type="submit"
+                    class="button secondary">{% if robot.enabled %}Desligar robô{% else %}Ligar robô{% endif %}</button>
+        </form>
+        <p>Pausas específicas da IA, dos alertas e do acesso à fonte são preservadas.</p>
+    {% else %}
+        <p role="alert">Não foi possível consultar o controle. Nenhuma nova operação pode ser autorizada sem conferir o estado salvo.</p>
+        <a href="{% url 'monitoring-tracking' %}">Tentar novamente</a>
+    {% endif %}
+</section>
