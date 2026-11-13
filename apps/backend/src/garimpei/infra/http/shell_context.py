@@ -10,7 +10,7 @@ def shell_context(request: HttpRequest) -> dict[str, str]:
         return {"ui_page": "offers", "ui_label": "Ofertas"}
     if route == "navigation-suggestions":
         return {"ui_page": "suggestions", "ui_label": "Sugestões relacionadas"}
-    if route.startswith(("operations-", "navigation-")) or route == "monitoring-tracking":
+    if route.startswith(("operations-", "navigation-", "robot-")) or route == "monitoring-tracking":
         return {"ui_page": "tracking", "ui_label": "Acompanhamento"}
     if route.startswith("inference-"):
         return {"ui_page": "ai", "ui_label": "IA local"}

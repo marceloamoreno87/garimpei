@@ -16,6 +16,8 @@ from garimpei.domain.navigation.ports import InvalidNavigation
         ("/ofertas/00000000-0000-0000-0000-000000000001/", "/ofertas/"),
         ("/acompanhamento/", "/acompanhamento/"),
         ("/acompanhamento/backups/", "/acompanhamento/"),
+        ("/acompanhamento/robo/", "/acompanhamento/"),
+        ("/acompanhamento/robo/ligar/", "/acompanhamento/"),
         ("/sugestoes/", "/sugestoes/"),
         ("/configuracoes/", "/configuracoes/"),
         ("/configuracao/regiao/", "/configuracoes/"),
