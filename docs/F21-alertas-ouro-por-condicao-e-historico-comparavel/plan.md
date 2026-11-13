@@ -36,3 +36,8 @@
 **7. Evidência integrada e encerramento** — Consolidar o percurso saudável e os casos adversos do contrato, os gates e o corpus real com suas limitações. Entregar evidências sanitizadas na pasta F21 sem modificar relatórios ou declarações de conclusão das features anteriores.
 
 **Verificação da fase:** contrato inteiro e manifesto cobertos, seis gates Python, suíte completa e jornadas `playwright-cli`/avaliação visual das superfícies alteradas; prova real separada do canal fake. Ausência de pré-requisito ou de prova exigida continua pendente. A especificação por si só mantém F21 `pending`.
+
+
+## Referência de avaliação — alteração aprovada em 2026-11-13
+
+Produzir referência assistida por IA a partir de textos e fotos reais, com autoria/método, sinais, cobertura e hashes; congelá-la antes das saídas do modelo local. Comparar resultados sem alegar validação humana independente, publicando concordâncias/divergências/abstenções. O usuário autorizou essa substituição para a F21; ela não reduz nenhum requisito de qualificação nem substitui a dimensão positiva real.
