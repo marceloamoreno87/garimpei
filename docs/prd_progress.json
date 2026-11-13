@@ -303,10 +303,10 @@
       ],
       "status": "implemented",
       "cycles": 1,
-      "failure_reason": "Geografia nativa não comprovada (6km observados versus500km solicitados); pesquisa automática desativada e política medida combinada incompleta. União final:676 testes e seis gates aprovados.",
-      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-12T22-01-57Z.md",
+      "failure_reason": "Contexto geográfico da resposta real não comprovado; 6 km era metadado HTML inicial. Pesquisa automática desativada. Retomada parcial: 29 testes e seis gates aprovados.",
+      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T02-36-06Z.md",
       "started_at": "2026-11-12T19:40:37.616175Z",
-      "updated_at": "2026-11-12T22:46:37.683458+00:00",
+      "updated_at": "2026-11-13T02:38:46.832789+00:00",
       "completed_at": null
     },
     "F19": {
