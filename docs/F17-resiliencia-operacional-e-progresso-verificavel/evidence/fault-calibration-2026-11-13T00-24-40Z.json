@@ -1,0 +1,678 @@
+{
+  "measurements": [
+    {
+      "case": "network_timeout",
+      "repetition": 1,
+      "seconds": 1.5156973470002413,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0009216589969582856
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0014726919762325
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 13227699,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 2,
+      "seconds": 1.507492025004467,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007807350193616003
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0015221149951685
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 13227699,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 3,
+      "seconds": 1.5078344820067286,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007637980161234736
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001410995988408
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 13227699,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 4,
+      "seconds": 1.50734135901439,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008301229972857982
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0007639969990123
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 5,
+      "seconds": 2.007656801986741,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0006858469860162586
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0016053309955169
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 1,
+      "seconds": 1.5088495740201324,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.002008246985496953
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0005620819865726
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 2,
+      "seconds": 1.5073015719826799,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.000821777997771278
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0014178300043568
+      },
+      "disk_free_bytes": 14670311424,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 3,
+      "seconds": 1.5071958230109885,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008170240034814924
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.00144114298746
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 4,
+      "seconds": 1.5070964870101307,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008183710160665214
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001417624996975
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 5,
+      "seconds": 2.0082694279844873,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0010421119804959744
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0017629450012464
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 1,
+      "seconds": 1.5077262520208023,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.00098630299908109
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0014627590135206
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 2,
+      "seconds": 2.0077481110056397,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0013158580113667995
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0016004310164135
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 3,
+      "seconds": 1.5077002650068607,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007977230125106871
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0014419570215978
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 4,
+      "seconds": 1.5075283669866621,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008681050094310194
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.001495142991189
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 5,
+      "seconds": 1.507622603996424,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0010502380027901381
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0015318620135076
+      },
+      "disk_free_bytes": 14670307328,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 1,
+      "seconds": 0.004436074988916516,
+      "control": {
+        "completed": true,
+        "seconds": 0.0009474050020799041
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00019008800154551864
+      },
+      "disk_free_bytes": 14670299136,
+      "sampled_archive_bytes": 337,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 2,
+      "seconds": 0.004244353011017665,
+      "control": {
+        "completed": true,
+        "seconds": 0.000650756002869457
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001670449855737388
+      },
+      "disk_free_bytes": 14670290944,
+      "sampled_archive_bytes": 674,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 3,
+      "seconds": 0.003792873991187662,
+      "control": {
+        "completed": true,
+        "seconds": 0.0006983249913901091
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001663430011831224
+      },
+      "disk_free_bytes": 14670282752,
+      "sampled_archive_bytes": 1012,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 4,
+      "seconds": 0.0038558670203201473,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005060230032540858
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001516659976914525
+      },
+      "disk_free_bytes": 14670274560,
+      "sampled_archive_bytes": 1349,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 5,
+      "seconds": 0.0033376049832440913,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005159119900781661
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001514650066383183
+      },
+      "disk_free_bytes": 14670266368,
+      "sampled_archive_bytes": 1686,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 1,
+      "seconds": 0.004132884001592174,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005033279885537922
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004175160138402134
+      },
+      "disk_free_bytes": 14670258176,
+      "sampled_archive_bytes": 2023,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 2,
+      "seconds": 0.003956380998715758,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005180760053917766
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003634850145317614
+      },
+      "disk_free_bytes": 14670249984,
+      "sampled_archive_bytes": 2360,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 3,
+      "seconds": 0.003872108005452901,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005088680190965533
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003546579973772168
+      },
+      "disk_free_bytes": 14670241792,
+      "sampled_archive_bytes": 2697,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 4,
+      "seconds": 0.0042106239998247474,
+      "control": {
+        "completed": true,
+        "seconds": 0.0006552239938173443
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00036063999868929386
+      },
+      "disk_free_bytes": 14670233600,
+      "sampled_archive_bytes": 3034,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 5,
+      "seconds": 0.0040602670051157475,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005382530216593295
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004357510188128799
+      },
+      "disk_free_bytes": 14670225408,
+      "sampled_archive_bytes": 3371,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 1,
+      "seconds": 0.004803032003110275,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005804829997941852
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0006370389892254025
+      },
+      "disk_free_bytes": 14670213120,
+      "sampled_archive_bytes": 4029,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 2,
+      "seconds": 0.004996564006432891,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005122950242366642
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00048383098328486085
+      },
+      "disk_free_bytes": 14670200832,
+      "sampled_archive_bytes": 4687,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 3,
+      "seconds": 0.005229689006228,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005071049963589758
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0005093489889986813
+      },
+      "disk_free_bytes": 14670188544,
+      "sampled_archive_bytes": 5345,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 4,
+      "seconds": 0.005204451008467004,
+      "control": {
+        "completed": true,
+        "seconds": 0.00048737801262177527
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004552470054477453
+      },
+      "disk_free_bytes": 14670176256,
+      "sampled_archive_bytes": 6003,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 5,
+      "seconds": 0.005007051018765196,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005826819979120046
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004609180032275617
+      },
+      "disk_free_bytes": 14670163968,
+      "sampled_archive_bytes": 6661,
+      "database_bytes": 12722703,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 1,
+      "seconds": 0.04409147799015045,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.004109013010747731
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.006789450999349356
+      },
+      "disk_free_bytes": 14670163968,
+      "sampled_archive_bytes": 6661,
+      "database_bytes": 13394447,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 2,
+      "seconds": 0.04101877199718729,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.003726212977198884
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005035273992689326
+      },
+      "disk_free_bytes": 14670163968,
+      "sampled_archive_bytes": 6661,
+      "database_bytes": 14139919,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 3,
+      "seconds": 0.04085569499875419,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.004047783004352823
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005053558008512482
+      },
+      "disk_free_bytes": 14670163968,
+      "sampled_archive_bytes": 6661,
+      "database_bytes": 14869007,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 4,
+      "seconds": 0.04201033400022425,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.00369213501107879
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005457561986986548
+      },
+      "disk_free_bytes": 14670163968,
+      "sampled_archive_bytes": 6661,
+      "database_bytes": 15589903,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 5,
+      "seconds": 0.04119984799763188,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.00400146099855192
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005161656998097897
+      },
+      "disk_free_bytes": 14670163968,
+      "sampled_archive_bytes": 6661,
+      "database_bytes": 16318991,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:26:15+00:00"
+    }
+  ],
+  "profile_confirmed": false,
+  "operational_enablement": false,
+  "limits": "eval-only network deadlines; storage sampled after each repetition, not peak",
+  "pending": "remaining crash points, real-load isolation and full operational profile"
+}

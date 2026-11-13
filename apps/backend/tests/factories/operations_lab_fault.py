@@ -1,6 +1,7 @@
 """Bounded archive faults with an equivalent successful operation as control."""
 
 import json
+import shutil
 import time
 from datetime import UTC, datetime
 from pathlib import Path
@@ -9,6 +10,7 @@ from unittest.mock import patch
 from uuid import uuid4
 
 from django.db import connection, transaction
+from django.db.models import Min
 
 from garimpei.config.env import load_config
 from garimpei.infra.gateway.operations.archive_gateway import (
@@ -20,6 +22,67 @@ from garimpei.infra.persistence.operations_models import OperationalUnit
 from garimpei.infra.repository.operations.admission import admit_enqueue
 from tests.factories.monitoring import require_disposable
 from tests.factories.operations_probe import delayed_origin
+
+
+def measure_faults(directory: Path) -> dict[str, object]:
+    """Measure five repetitions of the implemented paired eval-only faults."""
+    require_disposable()
+    cases = (
+        "network_timeout",
+        "slow_valuation",
+        "slow_channel",
+        "disk_full",
+        "archive_interrupted",
+        "export_interrupted",
+        "queue_full",
+    )
+    rows: list[dict[str, object]] = []
+    archive_root = directory / "fault-calibration-data"
+    if archive_root.exists():
+        raise ValueError("Fault calibration already exists; use a fresh laboratory")
+    archive_root.mkdir(mode=0o700)
+    for case in cases:
+        for repetition in range(1, 6):
+            started = time.monotonic()
+            if case in {"network_timeout", "slow_valuation", "slow_channel"}:
+                observation = network_fault(case)
+            elif case == "queue_full":
+                observation = queue_fault()
+            else:
+                observation = archive_fault(archive_root / case / str(repetition), case)
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT count(*) FROM procrastinate_jobs WHERE status IN ('todo','doing')"
+                )
+                pending = int(cursor.fetchone()[0])
+                cursor.execute("SELECT pg_database_size(current_database())")
+                database_bytes = int(cursor.fetchone()[0])
+            oldest = OperationalUnit.objects.filter(pending__gt=0).aggregate(
+                oldest=Min("pending_since")
+            )["oldest"]
+            stored = sum(path.stat().st_size for path in archive_root.rglob("*") if path.is_file())
+            rows.append(
+                {
+                    "case": case,
+                    "repetition": repetition,
+                    "seconds": time.monotonic() - started,
+                    "control": observation["control"],
+                    "fault": observation["fault"],
+                    "disk_free_bytes": shutil.disk_usage(directory).free,
+                    "sampled_archive_bytes": stored,
+                    "database_bytes": database_bytes,
+                    "pending_jobs_after": pending,
+                    "oldest_pending_at": oldest.isoformat() if oldest else None,
+                }
+            )
+    return {
+        "measurements": rows,
+        "profile_confirmed": False,
+        "operational_enablement": False,
+        "limits": "eval-only network deadlines; storage sampled after each repetition, not peak",
+        "pending": "remaining crash points, real-load isolation and full operational profile",
+    }
+
 
 NAVIGATION_CASES = {
     "repeat_cursor": """

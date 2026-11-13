@@ -418,6 +418,27 @@ def calibrate(directory: Path) -> None:
     (directory / "calibration.json").write_text(json.dumps(result, indent=2) + "\n")
 
 
+def calibrate_faults(directory: Path) -> None:
+    data = json.loads((directory / "lab.json").read_text())
+    if data.get("scenario") not in {"recovery", "backup"} or not data.get("paused_source"):
+        raise ValueError("Fault calibration requires a paused recovery or backup scenario")
+    report = directory / "fault-calibration.json"
+    if report.exists():
+        raise ValueError("Fault calibration already exists; use a fresh laboratory")
+    inspect(directory)
+    source = instances(directory)[0]
+    code = (
+        "import json;from pathlib import Path;"
+        "from tests.factories.operations_lab_fault import measure_faults;"
+        f"print(json.dumps(measure_faults(Path({str(directory)!r}))))"
+    )
+    result = source.shell(code)
+    if result.returncode:
+        raise RuntimeError(result.stdout + result.stderr)
+    observed = json.loads(result.stdout.strip().splitlines()[-1])
+    report.write_text(json.dumps(observed, indent=2) + "\n")
+
+
 def _measure_adapter_controls(
     directory: Path, source: FoundationInstance
 ) -> list[dict[str, object]]:
@@ -452,7 +473,17 @@ def _measure_adapter_controls(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "operation", choices=["prepare", "start", "seed", "inspect", "fault", "calibrate", "close"]
+        "operation",
+        choices=[
+            "prepare",
+            "start",
+            "seed",
+            "inspect",
+            "fault",
+            "calibrate",
+            "calibrate-faults",
+            "close",
+        ],
     )
     parser.add_argument("--directory", required=True, type=Path)
     parser.add_argument(
@@ -485,6 +516,8 @@ def main() -> None:
         lifecycle(directory, operation == "start")
     elif operation == "calibrate":
         calibrate(directory)
+    elif operation == "calibrate-faults":
+        calibrate_faults(directory)
     elif operation == "fault":
         if options.case is None:
             parser.error("fault requires --case")
