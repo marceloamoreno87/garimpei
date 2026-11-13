@@ -52,3 +52,9 @@ A apresentação ouro consome qualificação registrada e proveniência de condi
 - [Harness](../harness.md): seis grupos Python, testes e comandos de diagnóstico.
 
 Os documentos de desenho de 2026-11-10 permanecem no índice como histórico de decisões e propostas. Este mapa e os arquivos atuais prevalecem para a localização de módulos e comandos; os contratos e seus relatórios prevalecem para o comportamento avaliado.
+
+## Evolução especificada em F23, ainda não implementada
+
+[F23 — Docker completo e IA integrada](../F23-docker-completo-e-ia-integrada/spec.md) define web/worker/Chromium também em contêineres, mesma imagem de monólito e processos separados, preparo/migrations/ferramentas pontuais e transporte HTTP interno para Ollama. O código atual ainda usa runtime da aplicação no host e transporte de inferência baseado em `docker exec`; esta seção não comprova migração.
+
+F23 estende os consumidores de IA para revisão de identidade/comparáveis e apoio limitado à investigação/diagnóstico, preservando a análise de condição existente. Schemas, referências, revisão de entrada e políticas determinísticas limitam a publicação; cada decisão registra a análise que consumiu. Cálculos e envio permanecem nas fronteiras atuais. O plano exige adoção com backup/rollback, corpus humano independente, GPU real e respeito às pausas F22. Progresso começa `pending`, sem alterar os aceites anteriores ou a pendência real F21.

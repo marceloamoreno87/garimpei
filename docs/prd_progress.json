@@ -384,6 +384,30 @@
       "started_at": "2026-11-13T17:07:32.233392+00:00",
       "updated_at": "2026-11-13T18:33:50.926264Z",
       "completed_at": "2026-11-13T18:33:50.926264Z"
+    },
+    "F23": {
+      "name": "Docker completo e IA integrada ao fluxo",
+      "priority": 1,
+      "wave": 14,
+      "dependencies": [
+        "F02",
+        "F13",
+        "F14",
+        "F15",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "status": "pending",
+      "cycles": 0,
+      "failure_reason": null,
+      "report_path": null,
+      "started_at": null,
+      "updated_at": "2026-11-13T19:55:38.224438Z",
+      "completed_at": null
     }
   }
 }

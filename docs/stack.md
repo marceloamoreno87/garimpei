@@ -15,10 +15,18 @@ Data da decisão inicial: 2026-11-10. Adendo de IA local: 2026-11-12 UTC. A base
 | Alertas | WAHA em Docker, acessado pela aplicação/worker |
 | IA multimodal local | Qwen3.5 4B Q4_K_M via Ollama em Docker com GPU NVIDIA; implementação e avaliação em F19 |
 | Cache ou broker adicional | Sem Redis inicialmente |
-| Ambiente | Aplicação e worker no Linux/WSL2; PostgreSQL e WAHA em contêineres; Ollama/GPU integrado pela F19 |
+| Ambiente | Atual: aplicação e worker no Linux/WSL2, PostgreSQL/WAHA/Ollama em contêineres. Alvo F23: monólito web/worker e navegador também em Docker, com comandos e ferramentas em contêineres |
 | Acesso | Navegador deste computador, via localhost, sem login no Garimpei |
 
 Esta decisão substitui React/Vite, a execução da aplicação em Node e a recomendação anterior de Fastify/Prisma. Node continua necessário às ferramentas atuais do harness enquanto elas forem utilizadas; isso não o torna runtime da aplicação.
+
+## Evolução aprovada — Docker completo e IA integrada (F23)
+
+Requisito confirmado em 2026-11-13: [F23](F23-docker-completo-e-ia-integrada/spec.md), prioridade 1, onda 14, estado `pending`. O alvo reúne PostgreSQL, WAHA, Ollama, Django/Gunicorn e worker/Playwright em Compose. Web e worker continuam processos separados do mesmo monólito modular; preparo, migrations e ferramentas usam contêineres pontuais. Operar o alvo exigirá Docker/Compose e shell no host, sem Python/uv/Node locais. Essa direção ainda não foi implementada: o Compose atual contém somente os três serviços externos.
+
+IA local passa a ter consumidores explícitos também em identidade e revisão de comparáveis, além da condição F15; apoia investigação e diagnóstico por dados sanitizados. Cada resultado precisa de evidências, versões e vínculo com a decisão que o utilizou. Preços, mediana, cálculos, autorização e corpo de alerta continuam sujeitos às regras determinísticas e aos snapshots. Inferência não garante veracidade: corpus humano independente e prova real de GPU/consumo fazem parte do contrato.
+
+Preservar Qwen3.5 4B Q4_K_M e locks F19. O transporte da aplicação migrará de `docker exec` no host para HTTP privado entre contêineres, sem socket Docker na aplicação. Manter rede de inferência sem saída externa após preparo, coordenação GPU entre ambientes, persistência e pausas F22. Migração exige inventário, backup restaurado e rollback verificado; recuperação de chamada incerta será explícita pelo wrapper de operação. O aceite integrado depende também da prova real positiva ainda pendente de F21. As seções históricas seguintes descrevem a base anterior e seus aceites, sem comprovar F23.
 
 O usuário aprovou a direção de stack e a separação do worker. Procrastinate, Playwright, gerenciador uv e seis gates Python foram preparados e avaliados nas etapas existentes; versões e operação constam dos artefatos de F02 e integrações. O serviço de inferência foi integrado pela F19, preservando Django, templates/HTMX e PostgreSQL.
 

@@ -1,6 +1,6 @@
 # Garimpei — PRD
 
-Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** está `implemented`, com prova real positiva ainda bloqueada na avaliação de 2026-11-13. **F22 — Controle global** está `done`. O [estado consolidado](status-atual.md) reúne as avaliações atuais. IDs, contratos avaliados, ciclos e datas anteriores são preservados.
+Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** está `implemented`, com prova real positiva ainda bloqueada na avaliação de 2026-11-13. **F22 — Controle global** está `done`. O [estado consolidado](status-atual.md) reúne as avaliações atuais. IDs, contratos avaliados, ciclos e datas anteriores são preservados. **F23 — Docker completo e IA integrada ao fluxo** foi especificada em 2026-11-13 e começa `pending`; não altera os aceites anteriores.
 
 A base F12 consolidou uma busca por interesse, publicação incremental, cálculo por compra/venda/taxa e descoberta de publicações novas com histórico parcial. F16 acrescentou a primeira elegibilidade e F20 padronizou compra, venda estimada e lucro, conforme seus contratos e avaliações históricos. A F21 exige qualificação conjunta de condição por título/descrição/fotos, produto normalizado, histórico comparável e lucro estimado estritamente positivo para novas autorizações após sua adoção. A implementação de F21 foi integrada, mas o aceite completo continua pendente; esta sincronização documental não reaprova contratos anteriores.
 
@@ -285,9 +285,15 @@ Esses requisitos são aceites transversais das etapas de evolução. Limites té
 - Como usuário, quero que a pausa sobreviva ao reinício e que a retomada conserve histórico e trabalho válido, sem duplicar mensagens.
 - Como usuário, quero distinguir robô ligado, desligando, desligado e estado não confirmado, sabendo se uma operação já iniciada ainda está concluindo.
 
+### F23. Docker completo e IA integrada ao fluxo
+
+- Como usuário, quero monólito, worker/navegador e PostgreSQL, WAHA e Ollama em Docker, com dados e sessões preservados.
+- Como usuário, quero IA local apoiando identificação, condição, investigação, comparáveis e explicações, com referências para conferir coerência e reconhecer incerteza.
+- Como operador, quero comprovar quais decisões consumiram IA real e validar a qualidade com casos humanos, sem tratar a resposta do modelo como garantia de verdade.
+
 ## 6. Funcionalidades
 
-F01–F12 descrevem a base e as substituições consolidadas da F12. F13–F20 registram as etapas de evolução, cujo estado efetivo consta do progresso e de suas avaliações. F21 acrescenta os requisitos de alertas ouro ainda pendentes de implementação. Sugestões adicionais do documento de evolução permanecem propostas.
+F01–F12 descrevem a base e as substituições consolidadas da F12. F13–F20 registram as etapas de evolução, cujo estado efetivo consta do progresso e de suas avaliações. F21 acrescenta alertas ouro implementados com prova real positiva pendente; F22 foi avaliada e F23 especifica Docker completo e IA integrada, ainda não implementada. Sugestões adicionais do documento de evolução permanecem propostas.
 
 ### F01. Discovery e viabilidade de integrações
 
@@ -682,6 +688,27 @@ No modo equilibrado, o acompanhamento distingue “IA pausada pelo usuário”, 
 
 **Tratamento de erros**: revisão divergente solicita recarregar o estado; falha ao gravar conserva a última decisão confirmada sem anunciar sucesso; worker indisponível ou operação de término incerto mostra pendência de confirmação. Desligar não encerra serviços Docker nem tenta cancelar silenciosamente efeito externo possivelmente iniciado.
 
+### F23. Docker completo e IA integrada ao fluxo
+
+**Consome**: F02 fornece aplicação/fila/lifecycle; F13, investigação limitada; F14, mídia versionada; F15/F19, condição e runtime local; F17, diagnóstico/backup/recuperação; F18, identidade e pesquisa; F20, snapshots financeiros; F21, qualificação; F22, controle de admissão. F06/F07/F16 permanecem responsáveis por estimativa, cálculo e envio.
+
+**Fornece**: runtime Compose completo, revisões locais de identidade/comparáveis, apoio controlado à investigação/diagnóstico, vínculos de consumo, cobertura por interesse/finalidade e prova integrada. [Spec, plano e contrato](F23-docker-completo-e-ia-integrada/spec.md) definem a matriz de contribuição de todas as frentes existentes.
+
+**Capacidades**
+
+- Executar Django/Gunicorn, worker com Playwright, PostgreSQL, WAHA e Ollama em contêineres próprios, incluindo preparo/migrations e ferramentas. Manter monólito modular, processos separados, persistência, portas locais e isolamento, sem exigir Python/uv/Node no host para operar.
+- Preservar Qwen3.5 4B Q4_K_M, pins F19 e GPU, sem cloud/fallback remoto. Usar rede interna privada em vez de transporte host/docker-exec, sem socket Docker na aplicação; recuperação incerta usa wrapper que verifica propriedade e término anterior.
+- Consumir IA em identidade e condição com referências verificáveis, correções manuais preservadas e lacunas/conflitos explícitos. Revisar comparáveis sem inventar preço/variante; F06/F07 continuam calculando mediana/lucro deterministicamente.
+- Apoiar termos/lacunas da investigação dentro dos interesses, aliases, região e limites atuais; explicar falhas por snapshot sanitizado e ações de catálogo, sem executar comandos ou alterar configuração pela saída do modelo.
+- Persistir entrada, versões, modelo, finalidade, resultado validado e consumidor; cache por contexto completo e rejeição de resultado atrasado. Novas autorizações F23 exigem revisões aplicáveis de condição/identidade/comparáveis além dos critérios F21; falha só narrativa não bloqueia dados suficientes.
+- Expor evidências, estados, cobertura/denominador/data e próxima ação nas páginas existentes. GET/polling não cria inferência; números/corpos congelados não são substituídos por texto livre gerado.
+- Migrar instalação com inventário, backup restaurado e rollback verificado; preservar sessões, perfis, mídia, pesos, filas e recibos em reinício/parada normal. Respeitar pausas e não repetir envio incerto.
+- Comparar com corpus autorizado rotulado por humano e provar cada perfil na GPU/fluxo completo controlado, publicando contagens/limites. Não prometer precisão universal nem usar um LLM como gabarito.
+
+**Experiência**: consultar material examinado, conclusão, evidência e decisão que consumiu a análise. Distinguir análise atual, cache compatível, parcialidade, conflito e indisponibilidade. Diagnóstico determinístico continua legível enquanto explicação assistida aguarda; reavaliação é assíncrona e idempotente.
+
+**Tratamento de erros**: schema/referência inválidos, omissão, modelo indisponível, GPU/VRAM insuficiente e timeout são estados explícitos. Não reduzir critérios para produzir oportunidade. Consulta/trabalho independente continuam; execução incerta bloqueia chamadas até confirmação. Migração falha não limpa recursos nem repete mensagem. A prova positiva real pendente de F21 bloqueia a conclusão integrada de F23.
+
 ## 7. Fora de escopo
 
 - Negociação, contato automático com vendedor, compra, pagamento, revenda e acompanhamento de transações dentro do Garimpei. A navegação autônoma cobre pesquisa e avaliação.
@@ -722,12 +749,13 @@ A exploração de novos nichos para sugestões foi aprovada; monitorá-los e ale
 | F20 | Compra, venda estimada e lucro na apresentação | 1 | F07, F08, F09, F12 |
 | F21 | Alertas ouro por condição e histórico comparável | 1 | F06, F07, F15, F16, F18, F20 |
 | F22 | Controle global de ligar e desligar o robô | 1 | F02, F03, F08, F13, F14, F15, F16, F19 |
+| F23 | Docker completo e IA integrada ao fluxo | 1 | F02, F13, F14, F15, F17, F18, F19, F20, F21, F22 |
 
 Dependências têm semântica AND e ordem topológica. F13/F14/F16 podem usar a classificação textual existente sem aguardar F15; a análise multimodal entra na mesma fronteira de condição quando estiver disponível. As entregas incrementais compartilham partes do coletor, projeções e alertas; isso exige sequenciar alterações concorrentes nesses arquivos, mesmo quando as ondas coincidem. A ordem prática prioriza as falhas textuais identificadas, imagens e transparência, junto da recuperação operacional; a ampliação da identificação/amostra precisa acompanhar a nova regra de alertas para produzir oportunidades avaliáveis.
 
 ### Parte 2 — Fundação compartilhada
 
-F02 prepara a infraestrutura comum e é sequencial. F19 acrescenta a infraestrutura de inferência local em Docker/GPU ao ambiente existente; suas alterações de Compose, configuração e lifecycle devem ser coordenadas com qualquer outra etapa que toque esses arquivos. Não reexecutar scaffold nem substituir a stack Django.
+F02 prepara a infraestrutura comum e é sequencial. F23 migra runtime e consumidores de IA sequencialmente por compartilhar Compose, lifecycle e composição; depende do aceite das entregas listadas, inclusive da pendência real F21. F19 acrescenta a infraestrutura de inferência local em Docker/GPU ao ambiente existente; suas alterações de Compose, configuração e lifecycle devem ser coordenadas com qualquer outra etapa que toque esses arquivos. Não reexecutar scaffold nem substituir a stack Django.
 
 ### Parte 3 — Ondas de execução
 
@@ -744,6 +772,7 @@ F02 prepara a infraestrutura comum e é sequencial. F19 acrescenta a infraestrut
 - **Onda 11**: F13, F14, F16, F17, F19, F20.
 - **Onda 12**: F15, F18.
 - **Onda 13**: F21, F22.
+- **Onda 14**: F23.
 
 Cálculo: 1 sem dependências; caso contrário, 1 + maior onda das dependências. Ondas são relações de pré-requisito; não autorizam execução paralela ou início de implementação.
 
@@ -779,6 +808,7 @@ graph TD
   F20["F20 Valores financeiros"]
   F22["F22 Controle global"]
   F21["F21 Alertas ouro"]
+  F23["F23 Docker e IA"]
   F01 --> F02
   F02 --> F03
   F03 --> F04
@@ -854,11 +884,21 @@ graph TD
   F15 --> F22
   F16 --> F22
   F19 --> F22
+  F02 --> F23
+  F13 --> F23
+  F14 --> F23
+  F15 --> F23
+  F17 --> F23
+  F18 --> F23
+  F19 --> F23
+  F20 --> F23
+  F21 --> F23
+  F22 --> F23
 ```
 
 ## 9. Critérios de aceite
 
-Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F09 refletem substituições já aprovadas e avaliadas na F12; seus contratos antigos continuam históricos. A primeira elegibilidade possui critérios próprios em F16; a nova qualificação ouro possui critérios em F21 e permanece pendente de implementação. `done` exige avaliação completa do contrato e gates aplicáveis; revisão documental não altera esse estado.
+Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F09 refletem substituições já aprovadas e avaliadas na F12; seus contratos antigos continuam históricos. A primeira elegibilidade possui critérios próprios em F16; a nova qualificação ouro possui critérios em F21, cuja implementação conserva prova real positiva pendente; F23 tem novos critérios e permanece não implementada. `done` exige avaliação completa do contrato e gates aplicáveis; revisão documental não altera esse estado.
 
 ### F01. Discovery e viabilidade de integrações
 
@@ -1074,6 +1114,23 @@ Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F
 - **F22-AC07**: Falha ao ler ou gravar o controle mostra erro recuperável sem confirmação falsa nem mudança silenciosa da decisão persistida; novas operações ficam bloqueadas quando o estado não puder ser verificado. Worker ausente ou conclusão incerta aparece distinto de desligado confirmado.
 - **F22-AC08**: Jornada em ambiente isolado comprova desligar durante atividade, preservar consulta de ofertas, bloquear novos trabalhos/envios, reiniciar mantendo a pausa e ligar retomando trabalho válido sem mensagens duplicadas; testes não alteram recursos reais do usuário.
 
+### F23. Docker completo e IA integrada ao fluxo
+
+- **F23-AC01**: Web, worker, navegador dedicado, PostgreSQL, WAHA e Ollama executam em Docker por ambiente, com preparo/migrations em contêiner, imagens fixadas, prontidão efetiva, portas locais e dados isolados; operar não exige Python/uv/Node no host.
+- **F23-AC02**: Identificação usa revisão de IA local consumida pelo normalizador, com modelo/atributos sustentados por evidências da mesma observação; atributo ausente ou conflito permanece explícito e correção manual válida é preservada.
+- **F23-AC03**: Condição consome análise local de título/descrição/fotos de F15/F19, com cobertura e limitações; foto ausente, evidência insuficiente ou análise incompatível não confirma funcionamento nem libera nova qualificação.
+- **F23-AC04**: Comparáveis retidos na nova política têm revisão local aplicável de equivalência e de indícios de preço parcial/acessório/defeito; F06 mantém seus critérios de amostra, validade, dispersão e mediana, sem completar preço ou variante pela IA.
+- **F23-AC05**: Investigação recebe apoio de IA para lacunas e termos derivados dos interesses/aliases validados, respeitando orçamento, geografia e suspensão; nenhuma sugestão adiciona interesse, fonte ou ação autônoma não autorizada.
+- **F23-AC06**: Diagnóstico assistido explica snapshot sanitizado por códigos e fatos verificáveis, com origem, data e próxima ação; ausência/falha de IA conserva diagnóstico determinístico e nenhuma sugestão executa comando ou altera configuração.
+- **F23-AC07**: Inferência usa somente o modelo local fixado, GPU e schemas/referências validados, sem fallback remoto; saída inválida, fato sem suporte, prompt injection ou tool call não é aplicado como confirmação e não expõe segredos.
+- **F23-AC08**: Toda decisão assistida liga entrada, revisões/hashes, finalidade, modelo/prompt/schema/política, resultado e consumidor; cache é compatível com o contexto completo e resultado atrasado não substitui decisão atual.
+- **F23-AC09**: Corpus autorizado com rótulos humanos independentes compara base atual e F23 por frente, incluindo casos insuficientes/contraditórios; nenhum caso crítico autoriza incorretamente oferta nem caso antes correto vira confirmação incorreta, com contagens e limites publicados.
+- **F23-AC10**: IA pausada, indisponível, sem GPU/VRAM ou com timeout tem estado e recuperação explícitos, limites finitos e filas independentes; preserva consulta, coleta independente e resultados ainda aplicáveis, sem CPU ou redução de critérios silenciosas.
+- **F23-AC11**: Pausa global F22 e pausa específica impedem novas chamadas nos pontos de admissão; retomada conserva escolhas, revalida revisões/prazos e não duplica eventos, mensagens ou pesquisa idêntica.
+- **F23-AC12**: Adoção do runtime Docker e reinícios preservam banco, perfis/sessões, mídia, pesos, fila, configurações, análises e recibos, com inventário, backup restaurado e rollback verificado; parada normal não limpa dados e envio incerto não é repetido.
+- **F23-AC13**: Detalhes, integração IA e acompanhamento exibem evidências, estado, cobertura por interesse/finalidade com denominador/data e próxima ação pelo mesmo recorte; valores financeiros e corpos autorizados continuam congelados e calculados pelo domínio.
+- **F23-AC14**: Prova integrada em ambiente isolado demonstra cada perfil com modelo real na GPU e cadeia observação–análises–comparáveis–cálculo–qualificação–mensagem capturada em WAHA controlado, com repetição sem duplicação e falhas cobertas; simulação não substitui GPU, revisão humana ou pendência real de F21.
+
 ### Integração entre features
 
 - **INT-01 — F03 → F04**: categorias, produtos e CEP salvos alimentam a coleta; as duas formas de interesse coexistem.
@@ -1114,6 +1171,10 @@ Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F
 - **INT-29 — F02/F03/F08/F13/F14/F15/F16/F19 → F22**: controles e tarefas existentes compõem uma decisão global persistente, sem sobrescrever configuração, checkpoints ou preferências específicas. A pausa alcança cada fronteira de execução já disponível.
 - **INT-30 — F22 → coleta/mídia/avaliação/inferência/alertas**: comando de desligar confirmado impede nova unidade mesmo com job antigo reclamado; unidade já autorizada pode terminar e conservar checkpoint/recibo, sem encadear outra. Reconciliação não produz novo envio.
 - **INT-31 — F22 → F08/F16/F19**: estado visível distingue intenção e execução efetiva; ligar preserva controles de IA/alertas e revalida prazo/versões antes do próximo efeito, sem duplicar primeiro alerta ou liberar publicação ultrapassada.
+
+- **INT-32 — F02/F14/F17/F19 → F23**: Compose completo preserva prontidão, dados/mídia, pesos, fila, backup e recuperação por ambiente; transporte privado mantém localidade e exclusão GPU sem socket Docker na aplicação.
+- **INT-33 — F13/F15/F18/F19 → F23**: interesses, observações, fotos e identidade alimentam perfis locais versionados; resultados validados são consumidos por investigação, condição, identidade e comparáveis, com rastro até a mesma entrada.
+- **INT-34 — F20/F21/F22 ↔ F23**: revisões assistidas sustentam novas qualificações, respeitam pausas e preservam números, corpos, prazo e reconciliação; contêiner/fake não substitui GPU ou aceite real positivo pendente de F21.
 
 A primeira revenda lucrativa é validação de valor fora do sistema; não substitui estes critérios técnicos.
 
