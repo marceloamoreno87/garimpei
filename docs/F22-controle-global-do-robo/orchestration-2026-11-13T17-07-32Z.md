@@ -13,3 +13,15 @@ Implementação e avaliação completas autorizadas; commits locais; integraçã
 | # | Kind | Status | Notes | Artifact |
 |---|---|---|---|---|
 | 0 | implement-feature | running | Inventário e fundação | — |
+
+## Implementação e checkpoints
+
+Fundações e integração entregues em eacd946/5793861. Gates seis grupos, Django, migrations, build e harness passaram. Avaliação visual do coordenador identificou perda de foco e fragmento de erro incorreto; corrigidos e rechecados. Revisão da integração encontrou gasto de retry no pré-check antes da autorização final: RED 2 falhas, correção8f10673, GREEN10 testes e seis gates aprovados. É uma correção local dirigida a esse finding; a avaliação canônica de toda a feature continua com o coordenador.
+
+A suíte preliminar unit/http/quality rodou com cwd raiz e fonte em alteração:524 PASS/5 FAIL. Um caso de importação CLI passou com cwd backend; quatro casos HTTP passaram na repetição estável. A falha real backup507 decorreu de schema novo sem classificação explícita; correção do estado local + regressão original/nova passaram. Não substituir o resultado preliminar por uma declaração de execução limpa.
+
+Jornada adicional pelo playwright-cli e worker real, origem/WAHA loopback: mensagem já autorizada retida → Desligando → resposta confirmada durante pausa → stop/init conserva pausa e corpo → Ligar → redução única confirmada, total2POST e2recibos, sem repetir o primeiro. Probes prévios inválidos foram preservados com suas limitações. Nenhuma fonte/canal/GPU real.
+
+## Coordenação da avaliação final
+
+Relatório de implementação preparado. Progresso F22 `implemented`; `done` ainda depende da suíte integrada e evidência de todos os itens. O coordenador possui a integração e a consolidação de progresso; esta sessão não faz merge/push. Banco/labs/browser próprios encerrados normalmente; worktree preservada.
