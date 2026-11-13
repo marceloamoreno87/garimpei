@@ -1,0 +1,37 @@
+{
+  "labs": [
+    {
+      "lab": "garimpei-f14-source-e2e-dmammzcd",
+      "stop_exit": 0
+    },
+    {
+      "lab": "garimpei-f14-controlled-ui-8m_8ly83",
+      "stop_exit": 0
+    }
+  ],
+  "browsers_closed": [
+    "f14-user-sample",
+    "f18-city-radius",
+    "f14-local-proof",
+    "f14-controlled"
+  ],
+  "signed_urls_excluded": true,
+  "inventories": [
+    {
+      "lab": "garimpei-f14-source-e2e-dmammzcd",
+      "stop_exit": 0,
+      "live_processes": 0,
+      "containers": 0,
+      "networks": 0,
+      "volumes": 0
+    },
+    {
+      "lab": "garimpei-f14-controlled-ui-8m_8ly83",
+      "stop_exit": 0,
+      "live_processes": 0,
+      "containers": 0,
+      "networks": 0,
+      "volumes": 0
+    }
+  ]
+}

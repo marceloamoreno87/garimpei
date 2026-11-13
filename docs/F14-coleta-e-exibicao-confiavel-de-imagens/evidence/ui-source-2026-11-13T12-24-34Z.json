@@ -1,0 +1,171 @@
+{
+  "gallery": [
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "focus": {
+        "focused": true,
+        "outline": "rgb(154, 69, 28) solid 3px"
+      },
+      "natural": [
+        720,
+        960
+      ],
+      "original": [
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/47a2bf3c-a637-4204-bea8-2ebc1bb9937b/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/5d34a333-21cf-4a46-97e7-2d5327366086/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/b0f9f437-37a6-4ff6-beb4-641fda7fe582/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/34132f04-f9d5-4bd7-9748-eb62b8e1dac1/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/7ebab965-5b29-4d85-b758-d3299e850dd9/original/",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "focus": {
+        "focused": true,
+        "outline": "rgb(154, 69, 28) solid 3px"
+      },
+      "natural": [
+        720,
+        960
+      ],
+      "original": [
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/47a2bf3c-a637-4204-bea8-2ebc1bb9937b/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/5d34a333-21cf-4a46-97e7-2d5327366086/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/b0f9f437-37a6-4ff6-beb4-641fda7fe582/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/34132f04-f9d5-4bd7-9748-eb62b8e1dac1/original/",
+          "target": "_blank"
+        },
+        {
+          "path": "/ofertas/de4ab8ae-c392-46e3-ad33-6c775412b561/imagens/7ebab965-5b29-4d85-b758-d3299e850dd9/original/",
+          "target": "_blank"
+        }
+      ]
+    }
+  ],
+  "amplification": {
+    "local": true,
+    "width": 540,
+    "height": 960,
+    "sha256": "b48b8914a5dfcf740823c589d0707a649332fbad5a45122b3183f83dd46d955a"
+  },
+  "second_gallery": {
+    "images": [
+      {
+        "width": 720,
+        "height": 960,
+        "local": true
+      },
+      {
+        "width": 756,
+        "height": 960,
+        "local": true
+      },
+      {
+        "width": 720,
+        "height": 960,
+        "local": true
+      },
+      {
+        "width": 720,
+        "height": 960,
+        "local": true
+      }
+    ],
+    "horizontalOverflow": false
+  },
+  "state_matrix": [
+    {
+      "name": "SEM",
+      "message": "Anúncio sem fotos na fonte",
+      "imageCount": 0,
+      "sourceLinks": 1,
+      "hasDescription": true
+    },
+    {
+      "name": "DESCONHECIDA",
+      "message": "Fotos ainda não verificadas",
+      "imageCount": 0,
+      "sourceLinks": 1,
+      "hasDescription": true
+    },
+    {
+      "name": "PENDENTE",
+      "message": "Obtenção de fotos pendente",
+      "imageCount": 0,
+      "sourceLinks": 1,
+      "hasDescription": true
+    },
+    {
+      "name": "FALHA",
+      "message": "Falha na obtenção de fotos",
+      "imageCount": 0,
+      "sourceLinks": 1,
+      "hasDescription": true
+    },
+    {
+      "name": "BROWSER_FAILURE",
+      "message": "Não foi possível carregar esta cópia. Solicite recuperação abaixo.",
+      "recovery": 1,
+      "sourceLink": 1,
+      "path": "/ofertas/a673c761-9939-45d0-8e13-dd6f0a8aa88d/"
+    }
+  ],
+  "before_apply": {
+    "sameURL": true,
+    "sameOrder": true,
+    "sameImages": true,
+    "focus": "q",
+    "updates": "Há atualizações\n\nSeus resultados continuam como estavam até você atualizar.\n\nAtualizar lista"
+  },
+  "after_apply": {
+    "context": {
+      "q": "Oferta",
+      "page": "2",
+      "cards": 16
+    },
+    "detailVersion": "62412369-7595-4de4-8f1f-45a72e19c2cb",
+    "photoCount": 3,
+    "sourceLink": 1
+  },
+  "retention_and_refresh": [
+    {
+      "name": "A",
+      "gallery": "Coleta de fotos parcial; cópias anteriores conservadas quando disponíveis\n\nFoto 1 · 1280 × 960 px · Obtida em 13/11/2026 12:12:09 UTC · Renovação não confirmada\nFoto 2 · 1000 × 800 px · Obtida em 13/11/2026 12:12:09 UTC\nFoto 3 · 900 × 900 px · Obtida em 13/11/2026 12:16:21 UTC\nFoto 1\nFoto 2\nFoto 3\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+      "sourceLink": 1,
+      "images": 3
+    },
+    {
+      "name": "C",
+      "gallery": "Fotos removidas após encerramento da retenção\n\nFoto removida após encerramento da retenção.\n\nFoto 1 · 1280 × 960 px · Obtida em 13/11/2026 12:12:09 UTC · Renovação não confirmada\n\nFoto removida após encerramento da retenção.\n\nFoto 2 · 1000 × 800 px · Obtida em 13/11/2026 12:12:09 UTC · Renovação não confirmada\nFoto 1\nFoto 2\nSolicitar recuperação das fotos\n\nO pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.",
+      "sourceLink": 1,
+      "images": 0
+    }
+  ]
+}

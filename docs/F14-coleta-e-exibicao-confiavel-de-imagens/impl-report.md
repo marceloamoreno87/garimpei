@@ -16,3 +16,7 @@ Avaliação final em eval-report-2026-11-12T20-12-37Z.md:34PASS/1BLOCKED;6ACveri
 ## Retomada — 2026-11-13T02-35-56Z
 
 Implementação existente preservada; não se reproduziu defeito de código nem se executou nova implementação. A avaliação parcial atual está em `eval-report-2026-11-13T02-35-56Z.md`: E2E-FONTE-01 BLOCKED, 34 itens SKIPPED. Auditoria do registro sanitizado mais recente encontrou 44 fotos de oito anúncios, nenhuma com duas dimensões distintas comprovadas. Gates/testes e jornada real não reexecutados; resultados históricos acima não constituem aprovação desta rodada. Para resolver o bloqueio, é necessária amostra real nova com variantes comprovadas, comparação entre bytes recebidos/conservados e carregamento local na lista/detalhe/ampliação.
+
+## Avaliação real — 2026-11-13T12-24-34Z
+
+Amostra do usuário destravou variantes261×261/540×960 da mesma foto.9originais/9miniaturas locais verificados, entrada para análise e ampliação preservamSHA.35regressões e6gatesPASS;8jornadasUI e35itens contratuaisPASS. Implementação sem mudanças. Relatório `eval-report-2026-11-13T12-24-34Z.md`.
