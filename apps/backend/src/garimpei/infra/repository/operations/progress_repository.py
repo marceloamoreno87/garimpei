@@ -99,7 +99,12 @@ class PostgresOperationalRepository:
             try:
                 state.resume(expected_revision=revision, now=self._clock())
             except ProgressConflict:
-                raise OperationsError("operational_revision_or_access_conflict") from None
+                code = (
+                    "operational_revision_conflict"
+                    if row.revision != revision
+                    else "operational_access_suspended"
+                )
+                raise OperationsError(code) from None
             _save(row, state)
             OperationalDiagnostic.objects.create(
                 id=uuid4(), unit=row, reason="explicit_resume", created_at=self._clock()

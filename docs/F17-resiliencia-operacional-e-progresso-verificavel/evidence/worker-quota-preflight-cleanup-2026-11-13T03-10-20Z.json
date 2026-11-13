@@ -1,0 +1,11 @@
+{
+  "scope": "Follow-up cleanup verification for abandoned first quota fixture; no private paths or secrets published",
+  "owned_resource_counts": [
+    {
+      "processes": 0,
+      "container": 0,
+      "network": 0,
+      "volume": 0
+    }
+  ]
+}

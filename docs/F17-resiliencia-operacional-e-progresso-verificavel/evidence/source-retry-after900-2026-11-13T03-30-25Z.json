@@ -1,0 +1,372 @@
+{
+  "feature": "F17",
+  "item": "WRK-RECOVERY-02",
+  "expected": "A real Retry-After900 source response is persisted; real reconcile_listings does not call the source before that deadline or report the waiting unit as stalled; the delay is not capped at300 and normal work resumes at the deadline",
+  "commands": [
+    {
+      "operation": "prepare",
+      "exit_code": 0,
+      "seconds": 0.721
+    },
+    {
+      "operation": "init-source",
+      "exit_code": 0,
+      "seconds": 4.718
+    },
+    {
+      "operation": "initial900state",
+      "exit_code": 0,
+      "seconds": 0.347
+    },
+    {
+      "operation": "reconcile-before-deadline-0",
+      "exit_code": 0,
+      "seconds": 0.409
+    },
+    {
+      "operation": "reconcile-before-deadline-179",
+      "exit_code": 0,
+      "seconds": 0.339
+    },
+    {
+      "operation": "reconcile-before-deadline-180",
+      "exit_code": 0,
+      "seconds": 0.346
+    },
+    {
+      "operation": "reconcile-before-deadline-301",
+      "exit_code": 0,
+      "seconds": 0.354
+    },
+    {
+      "operation": "reconcile-before-deadline-600",
+      "exit_code": 0,
+      "seconds": 0.349
+    },
+    {
+      "operation": "reconcile-before-deadline-899",
+      "exit_code": 0,
+      "seconds": 0.368
+    },
+    {
+      "operation": "background-before-deadline",
+      "exit_code": 0,
+      "seconds": 0.392
+    },
+    {
+      "operation": "reconcile-at-deadline",
+      "exit_code": 0,
+      "seconds": 0.402
+    },
+    {
+      "operation": "close",
+      "exit_code": 0,
+      "seconds": 2.779
+    }
+  ],
+  "samples": [
+    {
+      "clock": "2026-11-13T03:31:02+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:46:02+00:00",
+      "generation": 2,
+      "source_wait_seconds": 900.0,
+      "snapshot_id": "539d45c7-6a13-4fab-be2f-869c04b54a00",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "waiting",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 61.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ],
+      "elapsed_since_limit_seconds": 0,
+      "source_calls_since_limit": 0,
+      "deadline_preserved": true,
+      "generation_preserved": true,
+      "waiting_not_stalled": true
+    },
+    {
+      "clock": "2026-11-13T03:34:01+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:46:02+00:00",
+      "generation": 2,
+      "source_wait_seconds": 721.0,
+      "snapshot_id": "26e07088-dbac-430c-9729-8b824e7ef140",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "waiting",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 240.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ],
+      "elapsed_since_limit_seconds": 179,
+      "source_calls_since_limit": 0,
+      "deadline_preserved": true,
+      "generation_preserved": true,
+      "waiting_not_stalled": true
+    },
+    {
+      "clock": "2026-11-13T03:34:02+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:46:02+00:00",
+      "generation": 2,
+      "source_wait_seconds": 720.0,
+      "snapshot_id": "dd3a57b9-c3b5-484e-87a4-9ee66d1895a8",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "waiting",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 241.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ],
+      "elapsed_since_limit_seconds": 180,
+      "source_calls_since_limit": 0,
+      "deadline_preserved": true,
+      "generation_preserved": true,
+      "waiting_not_stalled": true
+    },
+    {
+      "clock": "2026-11-13T03:36:03+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:46:02+00:00",
+      "generation": 2,
+      "source_wait_seconds": 599.0,
+      "snapshot_id": "e97c67dc-2ec3-4a38-ac64-4ecb20d5cbc0",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "waiting",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 362.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ],
+      "elapsed_since_limit_seconds": 301,
+      "source_calls_since_limit": 0,
+      "deadline_preserved": true,
+      "generation_preserved": true,
+      "waiting_not_stalled": true
+    },
+    {
+      "clock": "2026-11-13T03:41:02+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:46:02+00:00",
+      "generation": 2,
+      "source_wait_seconds": 300.0,
+      "snapshot_id": "efaa7794-8c35-42e3-801b-616a33ce704b",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "waiting",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 661.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ],
+      "elapsed_since_limit_seconds": 600,
+      "source_calls_since_limit": 0,
+      "deadline_preserved": true,
+      "generation_preserved": true,
+      "waiting_not_stalled": true
+    },
+    {
+      "clock": "2026-11-13T03:46:01+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:46:02+00:00",
+      "generation": 2,
+      "source_wait_seconds": 1.0,
+      "snapshot_id": "fb501052-54f5-4337-83a6-82075135f593",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "waiting",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 960.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ],
+      "elapsed_since_limit_seconds": 899,
+      "source_calls_since_limit": 0,
+      "deadline_preserved": true,
+      "generation_preserved": true,
+      "waiting_not_stalled": true
+    }
+  ],
+  "verdict": "PASS",
+  "cleanup_succeeded": true,
+  "native_source_headers": [
+    {
+      "route": "/search",
+      "status": 429,
+      "retry_after": 900
+    }
+  ],
+  "profile": {
+    "source_timeout_seconds": 20,
+    "lease_seconds": 60,
+    "retry_base_seconds": 15,
+    "retry_max_seconds": 300,
+    "source_retry_after_seconds": 900
+  },
+  "initial": {
+    "clock": "2026-11-13T03:31:02+00:00",
+    "source_not_before": "2026-11-13T03:46:02+00:00",
+    "next_attempt_at": "2026-11-13T03:46:02+00:00",
+    "generation": 2,
+    "source_wait_seconds": 900.0,
+    "snapshot_id": "886c9e1d-e14f-4f06-90cc-27c8422fa578",
+    "rate_limited_units": [
+      {
+        "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+        "stage": "listing",
+        "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+        "scope": "playstation 5",
+        "revision": 1,
+        "state": "waiting",
+        "reason": "source_rate_limit",
+        "last_progress_at": "2026-11-13 03:30:01+00:00",
+        "last_attempt_at": "2026-11-13 03:31:02+00:00",
+        "pending": 1,
+        "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+        "pending_age_seconds": 61.0,
+        "next_attempt_at": "2026-11-13 03:46:02+00:00",
+        "failures": 1,
+        "action": null
+      }
+    ]
+  },
+  "background_check": {
+    "source_calls_since_limit": 0,
+    "deadline_preserved": true,
+    "all_rate_limited_units_waiting": true
+  },
+  "at_deadline": {
+    "elapsed_seconds": 900,
+    "source_calls_since_limit": 2,
+    "reconciler_state": {
+      "clock": "2026-11-13T03:46:02+00:00",
+      "source_not_before": "2026-11-13T03:46:02+00:00",
+      "next_attempt_at": "2026-11-13T03:47:02+00:00",
+      "generation": 3,
+      "source_wait_seconds": 0.0,
+      "snapshot_id": "c9a9649a-2c62-4501-a40b-ef9e0f6e3edf",
+      "rate_limited_units": [
+        {
+          "id": "a9dace02-bb4c-4feb-8fd8-d756c120e3aa",
+          "stage": "listing",
+          "key": "ba4287fa9139e7b558bdd6ece6193893297b61a7ce60aa3ae57363817b36f965",
+          "scope": "playstation 5",
+          "revision": 1,
+          "state": "stalled",
+          "reason": "source_rate_limit",
+          "last_progress_at": "2026-11-13 03:30:01+00:00",
+          "last_attempt_at": "2026-11-13 03:31:02+00:00",
+          "pending": 1,
+          "oldest_pending_at": "2026-11-13 03:30:01+00:00",
+          "pending_age_seconds": 961.0,
+          "next_attempt_at": "2026-11-13 03:46:02+00:00",
+          "failures": 1,
+          "action": null
+        }
+      ]
+    }
+  },
+  "checks": {
+    "native_retry_after900_received": true,
+    "no_calls_before_deadline": true,
+    "deadline_never_shortened": true,
+    "no_restart_or_generation_change_before_deadline": true,
+    "wait_not_stalled_even_after180and300": true,
+    "resumed_at900": true
+  },
+  "cleanup": [
+    {
+      "state": "closed",
+      "processes": 0,
+      "containers": 0,
+      "networks": 0,
+      "volumes": 0
+    },
+    {
+      "state": "closed",
+      "processes": 0,
+      "containers": 0,
+      "networks": 0,
+      "volumes": 0
+    }
+  ],
+  "runtime_code_sha256": "202da6f7e2bf226bd3ac02d000a3370d7477ee2372ac47ba3fc7d31071a14dfd",
+  "measurement_code_sha256": "7aea5178cadfd9bed3224f479f44b639dc663f163e8d4d1412e19aaa551c23b0",
+  "seconds": 24.151,
+  "at": "2026-11-13T03-30-25Z",
+  "driver": "source-retry900-probe.py",
+  "driver_sha256": "f506fd82b1db690c7fd863849a37208c1d6bae6f144d94ac72db85648823ddeb",
+  "driver_exit_code": 0,
+  "verification_mode": "Controlled clock advances900logical seconds; native HTTP429 Retry-After900, actual PostgreSQL, actual web/worker and reconcile_listings. Total wall time24.151s is not a900s elapsed-time performance measurement."
+}

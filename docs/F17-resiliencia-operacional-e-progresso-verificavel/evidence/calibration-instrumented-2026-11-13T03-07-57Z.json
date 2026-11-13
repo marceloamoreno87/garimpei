@@ -1,0 +1,1148 @@
+{
+  "format_version": 1,
+  "at": "2026-11-13T03:06:48.396355+00:00",
+  "profile": {
+    "version": 1,
+    "stalled_seconds": 180,
+    "tick_seconds": 5,
+    "failures": 3,
+    "queue_limit": 1000,
+    "unit_seconds": 60,
+    "archive_seconds": 300,
+    "data_bytes": 10737418240,
+    "backup_bytes": 10737418240,
+    "reserve_bytes": 1073741824,
+    "backup_interval": 86400,
+    "retention": 7
+  },
+  "profile_sha256": "071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423",
+  "hardware": {
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "python": "3.13.14",
+  "measurements": [
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0011670420008158544,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.000852695000503445,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0008152330001394148,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0009540159999232856,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0007656100005988264,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 20.020015283000248,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 20.02030308400026,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 20.02029989699986,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 20.017103495999436,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 20.020344821000435,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.001978616999622318,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0006720130004396196,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0006139090000942815,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0006845600000815466,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0006823559997428674,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 30.030753170000025,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 30.030553137000425,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 30.030340429000717,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 30.030330333000165,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 30.029040657999758,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0015897989997029072,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.000990897000519908,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.001225268999405671,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0008831140003167093,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.001075430000128108,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 10.0086562890001,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 10.01050054999996,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 10.009699126000669,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 10.00883271299972,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 10.010185330999775,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    }
+  ],
+  "new_stage_measurements": [
+    {
+      "repetition": 1,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5304291249995003,
+      "export_seconds_including_cli": 0.3827834170006099,
+      "restore_seconds_including_cli": 0.6037394529994344,
+      "verify_seconds_including_cli": 0.3766033530000641,
+      "destination_startup_seconds": 4.193730308999875,
+      "archive_bytes": 20126,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12367539,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 2,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5458426080003846,
+      "export_seconds_including_cli": 0.3894732369999474,
+      "restore_seconds_including_cli": 0.5938225820000298,
+      "verify_seconds_including_cli": 0.35081147799974133,
+      "destination_startup_seconds": 4.1502525400001105,
+      "archive_bytes": 20288,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 3,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5369077029999971,
+      "export_seconds_including_cli": 0.386822948000372,
+      "restore_seconds_including_cli": 0.6155500129998472,
+      "verify_seconds_including_cli": 0.35448512400034815,
+      "destination_startup_seconds": 4.2749425100000735,
+      "archive_bytes": 20361,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 4,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5191239140003745,
+      "export_seconds_including_cli": 0.4110628059997907,
+      "restore_seconds_including_cli": 0.6201096590002635,
+      "verify_seconds_including_cli": 0.3824831179999819,
+      "destination_startup_seconds": 4.294182132999595,
+      "archive_bytes": 20427,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 5,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5157932639995124,
+      "export_seconds_including_cli": 0.3757598450001751,
+      "restore_seconds_including_cli": 0.6742782339997575,
+      "verify_seconds_including_cli": 0.4077191260003019,
+      "destination_startup_seconds": 4.310963924000134,
+      "archive_bytes": 20496,
+      "protected_originals": 1,
+      "source_database_bytes": 16316083,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    }
+  ],
+  "fault_measurements": [
+    {
+      "case": "network_timeout",
+      "repetition": 1,
+      "seconds": 1.5132726029996775,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0012654590000238386
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013276310000947
+      },
+      "disk_free_bytes": 10234646528,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 2,
+      "seconds": 2.0068633720002254,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007595440001750831
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001435625999875
+      },
+      "disk_free_bytes": 10234646528,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 3,
+      "seconds": 2.007258837000336,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0009694880000097328
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001789844999621
+      },
+      "disk_free_bytes": 10234646528,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 4,
+      "seconds": 1.50664140400022,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008540669996364159
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0015625579999323
+      },
+      "disk_free_bytes": 10234646528,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 5,
+      "seconds": 1.506575858999895,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008361449999938486
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001306606000071
+      },
+      "disk_free_bytes": 10234634240,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 1,
+      "seconds": 2.0080768770003488,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0021719870001106756
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013072419997116
+      },
+      "disk_free_bytes": 10234630144,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 2,
+      "seconds": 1.506458095999733,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008497140006511472
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013931220000813
+      },
+      "disk_free_bytes": 10234630144,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 3,
+      "seconds": 1.5067365140002948,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007864019999033189
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013956650000182
+      },
+      "disk_free_bytes": 10234626048,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 4,
+      "seconds": 1.5064001109994933,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008972510004241485
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0007947310004965
+      },
+      "disk_free_bytes": 10234626048,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 5,
+      "seconds": 1.506506509999781,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008052100001805229
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013644159998876
+      },
+      "disk_free_bytes": 10234617856,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 1,
+      "seconds": 1.506970942999942,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0010017110007538577
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0011327619995427
+      },
+      "disk_free_bytes": 10234617856,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 2,
+      "seconds": 1.506324260000838,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0009734169998409925
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0008088100003079
+      },
+      "disk_free_bytes": 10234601472,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 3,
+      "seconds": 2.007346205000431,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.000899749000382144
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0018493180004953
+      },
+      "disk_free_bytes": 10234601472,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 4,
+      "seconds": 2.0072473829995943,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008660180001243134
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0014519110000037
+      },
+      "disk_free_bytes": 10234601472,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 5,
+      "seconds": 1.5064735299993117,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0010000089996538009
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0016198149996853
+      },
+      "disk_free_bytes": 10234601472,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 1,
+      "seconds": 0.0034346319998803665,
+      "control": {
+        "completed": true,
+        "seconds": 0.0007754829994155443
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00016413299999840092
+      },
+      "disk_free_bytes": 10234593280,
+      "sampled_archive_bytes": 336,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 2,
+      "seconds": 0.00297999600024923,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005441900002551847
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001489750002292567
+      },
+      "disk_free_bytes": 10234585088,
+      "sampled_archive_bytes": 673,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 3,
+      "seconds": 0.0031255410003723227,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004741849998026737
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001993060004679137
+      },
+      "disk_free_bytes": 10234576896,
+      "sampled_archive_bytes": 1010,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 4,
+      "seconds": 0.0031297699997594464,
+      "control": {
+        "completed": true,
+        "seconds": 0.00047177099986583926
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001480330001868424
+      },
+      "disk_free_bytes": 10234568704,
+      "sampled_archive_bytes": 1347,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 5,
+      "seconds": 0.0035526279998521204,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004553320004561101
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00013744500029133633
+      },
+      "disk_free_bytes": 10234560512,
+      "sampled_archive_bytes": 1684,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 1,
+      "seconds": 0.00396769700000732,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005269690000204719
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004295959997762111
+      },
+      "disk_free_bytes": 10234552320,
+      "sampled_archive_bytes": 2021,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 2,
+      "seconds": 0.0035764109998126514,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004806770002687699
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00033502699989185203
+      },
+      "disk_free_bytes": 10234544128,
+      "sampled_archive_bytes": 2358,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 3,
+      "seconds": 0.0034401410002828925,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004614319996107952
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003088710000156425
+      },
+      "disk_free_bytes": 10234535936,
+      "sampled_archive_bytes": 2694,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 4,
+      "seconds": 0.003691838000122516,
+      "control": {
+        "completed": true,
+        "seconds": 0.00044753800011676503
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0002944649995697546
+      },
+      "disk_free_bytes": 10234527744,
+      "sampled_archive_bytes": 3030,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 5,
+      "seconds": 0.0037763759992230916,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005828690000271308
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004493449996516574
+      },
+      "disk_free_bytes": 10234519552,
+      "sampled_archive_bytes": 3367,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 1,
+      "seconds": 0.004466811999918718,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004965549996995833
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0006055399999240763
+      },
+      "disk_free_bytes": 10234507264,
+      "sampled_archive_bytes": 4025,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 2,
+      "seconds": 0.004734219000056328,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005034969999542227
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00046931699944252614
+      },
+      "disk_free_bytes": 10234494976,
+      "sampled_archive_bytes": 4683,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 3,
+      "seconds": 0.0046790949991191155,
+      "control": {
+        "completed": true,
+        "seconds": 0.00047290300062741153
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0006602899993595202
+      },
+      "disk_free_bytes": 10234482688,
+      "sampled_archive_bytes": 5341,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 4,
+      "seconds": 0.004826178999792319,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005381880000641104
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0007233500000438653
+      },
+      "disk_free_bytes": 10234470400,
+      "sampled_archive_bytes": 5999,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 5,
+      "seconds": 0.004567986000438395,
+      "control": {
+        "completed": true,
+        "seconds": 0.00047563099997205427
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004758180002681911
+      },
+      "disk_free_bytes": 10234458112,
+      "sampled_archive_bytes": 6657,
+      "database_bytes": 12449459,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 1,
+      "seconds": 0.040185850999478134,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.0037232069998935913
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.0054039790002207155
+      },
+      "disk_free_bytes": 10234458112,
+      "sampled_archive_bytes": 6657,
+      "database_bytes": 13244083,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 2,
+      "seconds": 0.0392377630005285,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.0033229789996767067
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005318385999999009
+      },
+      "disk_free_bytes": 10234454016,
+      "sampled_archive_bytes": 6657,
+      "database_bytes": 13989555,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 3,
+      "seconds": 0.040023157999712566,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.0036481229999481
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005342060999282694
+      },
+      "disk_free_bytes": 10234454016,
+      "sampled_archive_bytes": 6657,
+      "database_bytes": 14718643,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 4,
+      "seconds": 0.03939476899995498,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.003516816000228573
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005167634999452275
+      },
+      "disk_free_bytes": 10234454016,
+      "sampled_archive_bytes": 6657,
+      "database_bytes": 15447731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 5,
+      "seconds": 0.04028295300031459,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.0037331379999159253
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.004889277000074799
+      },
+      "disk_free_bytes": 10234454016,
+      "sampled_archive_bytes": 6657,
+      "database_bytes": 16185011,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T03:01:06+00:00"
+    }
+  ],
+  "free_bytes": 8512139264,
+  "scope": "operational adapter timeouts and five controls of owned backup/export/restore/verified reconciliation",
+  "pending": [
+    "Consolidate paired cuts and mixed-load isolation before confirming the unchanged profile"
+  ],
+  "operational_enablement": false,
+  "profile_confirmed": false,
+  "resource_measurements": {
+    "source": {
+      "mode": "fault",
+      "seconds": 330.0940280089999,
+      "sample_count": 2908,
+      "sample_errors": 0,
+      "sampled_peak_database_bytes": 16316083,
+      "sampled_peak_runtime_bytes": 11599,
+      "minimum_free_bytes": 8512139264,
+      "max_pending_jobs": 1,
+      "sampled_peak_media_bytes": 27514,
+      "sampled_peak_backup_bytes": 203420,
+      "max_oldest_pending_age_seconds": 342,
+      "sampled_peak_data_bytes": 16355196,
+      "postgres_version": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+      "versions": {
+        "Django": "5.2.19",
+        "psycopg": "3.3.8",
+        "procrastinate": "3.10.0",
+        "playwright": "1.65.0",
+        "pillow": "12.3.0"
+      },
+      "python_version": "3.13.14",
+      "runtime_code_sha256": "4d77d63d25ec1b692471ce39f4e15c849006e65c930d515adb1bf05eb944f977",
+      "measurement_code_sha256": "0ae3cd4cc53dc0b7908974fbbec59ca7c7c33af40b846e2ac12686eaa0418131",
+      "lock_sha256": "2094ee2181d99c850c5f8748ca4807f12c0ca2e2964edd1a4d7d37d8c04a2b3b",
+      "sampling_seconds": 0.1,
+      "scope": "nested eval database and runtime; sampled logical-byte peaks include configured media/backups/export/temporary files and runtime; exclude container filesystem allocation"
+    },
+    "destination": {
+      "mode": "fault",
+      "seconds": 330.0728478360006,
+      "sample_count": 372,
+      "sample_errors": 2735,
+      "sampled_peak_database_bytes": 12400307,
+      "sampled_peak_runtime_bytes": 97657,
+      "minimum_free_bytes": 10233782272,
+      "max_pending_jobs": 7,
+      "sampled_peak_media_bytes": 27519,
+      "sampled_peak_backup_bytes": 0,
+      "max_oldest_pending_age_seconds": 81,
+      "sampled_peak_data_bytes": 12525483,
+      "postgres_version": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+      "versions": {
+        "Django": "5.2.19",
+        "psycopg": "3.3.8",
+        "procrastinate": "3.10.0",
+        "playwright": "1.65.0",
+        "pillow": "12.3.0"
+      },
+      "python_version": "3.13.14",
+      "runtime_code_sha256": "4d77d63d25ec1b692471ce39f4e15c849006e65c930d515adb1bf05eb944f977",
+      "measurement_code_sha256": "0ae3cd4cc53dc0b7908974fbbec59ca7c7c33af40b846e2ac12686eaa0418131",
+      "lock_sha256": "2094ee2181d99c850c5f8748ca4807f12c0ca2e2964edd1a4d7d37d8c04a2b3b",
+      "sampling_seconds": 0.1,
+      "scope": "nested eval database and runtime; sampled logical-byte peaks include configured media/backups/export/temporary files and runtime; exclude container filesystem allocation"
+    }
+  },
+  "resource_scope": "Full canonical adapter/fault/backup/export/restore/reconciliation run; logical-byte peaks sampled at 0.1s; unavailable samples counted explicitly",
+  "cleanup": [
+    {
+      "environment_id": "eval_f17_source_15581a92",
+      "state": "closed",
+      "database": "garimpei_eval_f17_source_15581a92",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    },
+    {
+      "environment_id": "eval_f17_destination_1043fc62",
+      "state": "closed",
+      "database": "garimpei_eval_f17_destination_1043fc62",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    }
+  ],
+  "sampling_limitations": [
+    "Source has complete 0.1s sampling without query errors. Destination is intentionally closed between five restore exercises; unavailable samples are counted, not zero-filled.",
+    "Logical-byte maxima are sampled, not continuous filesystem allocation high-water marks. Per-restore SQL database sizes independently corroborate available destination samples.",
+    "Oldest pending age includes the deliberately paused recovery seed; it is not healthy-unit processing latency."
+  ]
+}

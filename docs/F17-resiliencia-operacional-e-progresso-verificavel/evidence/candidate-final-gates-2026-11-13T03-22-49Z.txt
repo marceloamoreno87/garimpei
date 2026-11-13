@@ -1,0 +1,58 @@
+[gates] Tipos: 425 Python source files
+[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py
+Success: no issues found in 589 source files
+[gates] Tipos: PASS
+[gates] Lint: 425 Python source files
+[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py
+All checks passed!
+[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py
+590 files already formatted
+[gates] uv run --frozen --no-sync djlint src/garimpei/infra/http/templates --lint --profile=django
+
+
+
+Linted 37 files, found 0 errors.
+
+[gates] Lint: PASS
+[gates] Limites: 425 Python source files
+[gates] uv run --frozen --no-sync lint-imports --config .importlinter
+
+╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐
+╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │
+ ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗
+ ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝
+╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║
+╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝
+  └──▶║║                    ▲
+      ╚╝────────────────────┘
+
+
+---------
+Contracts
+---------
+
+Analyzed 457 files, 2089 dependencies.
+--------------------------------------
+
+Domain has no application or I/O dependencies KEPT
+Usecases depend only on pure contracts KEPT
+
+Contracts: 2 kept, 0 broken.
+[gates] Limites: PASS
+[gates] Arquitetura: 425 Python source files
+[gates] uv run --frozen --no-sync python scripts/quality/check_architecture.py
+Architecture: 425 source files; 0 violations
+[gates] Arquitetura: PASS
+[gates] Ciclos: 425 Python source files
+[gates] uv run --frozen --no-sync python scripts/quality/check_cycles.py
+Cycles: 406 modules, 0 cyclic edges
+[gates] Ciclos: PASS
+[gates] Não utilizados: 425 Python source files
+[gates] uv run --frozen --no-sync vulture src scripts/quality quality/vulture_whitelist.py --min-confidence 60
+[gates] uv run --frozen --no-sync deptry .
+[gates] Não utilizados: PASS
+[gates] Six Python groups approved
+Linting 37/37 files
+Scanning 429 files...
+
+Success! No dependency issues found.

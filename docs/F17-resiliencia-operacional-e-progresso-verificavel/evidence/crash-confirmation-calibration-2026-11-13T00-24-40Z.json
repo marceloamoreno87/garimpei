@@ -1,0 +1,68 @@
+{
+  "status": "complete",
+  "measurements": [
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_confirmation",
+      "repetition": 1,
+      "seconds": 39.258416007010965,
+      "disk_free_bytes": 10365546496,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_confirmation",
+      "repetition": 2,
+      "seconds": 39.22136113999295,
+      "disk_free_bytes": 9935839232,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_confirmation",
+      "repetition": 3,
+      "seconds": 33.57703611199395,
+      "disk_free_bytes": 9935122432,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_confirmation",
+      "repetition": 4,
+      "seconds": 39.65955563398893,
+      "disk_free_bytes": 9504997376,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_confirmation",
+      "repetition": 5,
+      "seconds": 40.133000597998034,
+      "disk_free_bytes": 9504509952,
+      "source_pending_jobs_after": 1
+    }
+  ],
+  "profile_confirmed": false,
+  "operational_enablement": false,
+  "limitation": "separate eval instances; paired same-load timing and remaining cut points pending"
+}

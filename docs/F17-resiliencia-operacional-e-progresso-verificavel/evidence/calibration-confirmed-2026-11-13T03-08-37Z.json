@@ -1,0 +1,215 @@
+{
+  "format_version": 1,
+  "at": "2026-11-13T03:08:37.352678+00:00",
+  "profile": {
+    "version": 1,
+    "stalled_seconds": 180,
+    "tick_seconds": 5,
+    "failures": 3,
+    "queue_limit": 1000,
+    "unit_seconds": 60,
+    "archive_seconds": 300,
+    "data_bytes": 10737418240,
+    "backup_bytes": 10737418240,
+    "reserve_bytes": 1073741824,
+    "backup_interval": 86400,
+    "retention": 7
+  },
+  "profile_sha256": "071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423",
+  "profile_confirmed": true,
+  "operational_enablement": false,
+  "scope": "Controlled local eval workload only; confirmation of unchanged engineering limits does not approve the complete feature contract or authorize real-source enablement.",
+  "runtime_code_sha256": "4d77d63d25ec1b692471ce39f4e15c849006e65c930d515adb1bf05eb944f977",
+  "measurement_code_sha256": "0ae3cd4cc53dc0b7908974fbbec59ca7c7c33af40b846e2ac12686eaa0418131",
+  "lock_sha256": "2094ee2181d99c850c5f8748ca4807f12c0ca2e2964edd1a4d7d37d8c04a2b3b",
+  "versions": {
+    "Django": "5.2.19",
+    "psycopg": "3.3.8",
+    "procrastinate": "3.10.0",
+    "playwright": "1.65.0",
+    "pillow": "12.3.0"
+  },
+  "python_version": "3.13.14",
+  "postgres_version": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+  "source_reports": [
+    "calibration-instrumented-2026-11-13T03-07-57Z.json",
+    "paired-crash_after_authorization-2026-11-13T02-52-21Z.json",
+    "paired-crash_after_commit-2026-11-13T02-51-42Z.json",
+    "paired-crash_after_confirmation-2026-11-13T02-56-31Z.json",
+    "paired-crash_after_post-2026-11-13T02-56-31Z.json",
+    "paired-crash_before_authorization-2026-11-13T02-52-21Z.json",
+    "mixed-load-isolation-2026-11-13T03-01-30Z.json"
+  ],
+  "adapter_observations": 30,
+  "paired_fault_observations": 35,
+  "backup_export_restore_controls": 5,
+  "crash_pairs": [
+    {
+      "case": "crash_after_authorization",
+      "repetition": 1,
+      "control_seconds": 6.462790858000517,
+      "fault_seconds": 6.859293550000075
+    },
+    {
+      "case": "crash_after_authorization",
+      "repetition": 2,
+      "control_seconds": 6.07091686900003,
+      "fault_seconds": 7.053021661999992
+    },
+    {
+      "case": "crash_after_authorization",
+      "repetition": 3,
+      "control_seconds": 6.339910145999966,
+      "fault_seconds": 6.7745323489998555
+    },
+    {
+      "case": "crash_after_authorization",
+      "repetition": 4,
+      "control_seconds": 6.433643432000281,
+      "fault_seconds": 6.407635644000038
+    },
+    {
+      "case": "crash_after_authorization",
+      "repetition": 5,
+      "control_seconds": 6.513382340999669,
+      "fault_seconds": 6.898709178999525
+    },
+    {
+      "case": "crash_after_commit",
+      "repetition": 1,
+      "control_seconds": 6.480667001000256,
+      "fault_seconds": 10.295152429999689
+    },
+    {
+      "case": "crash_after_commit",
+      "repetition": 2,
+      "control_seconds": 4.360610349000126,
+      "fault_seconds": 9.050329480999608
+    },
+    {
+      "case": "crash_after_commit",
+      "repetition": 3,
+      "control_seconds": 4.568639615999928,
+      "fault_seconds": 9.488390282999717
+    },
+    {
+      "case": "crash_after_commit",
+      "repetition": 4,
+      "control_seconds": 4.586874094999985,
+      "fault_seconds": 9.31329506200018
+    },
+    {
+      "case": "crash_after_commit",
+      "repetition": 5,
+      "control_seconds": 6.364709558999493,
+      "fault_seconds": 9.269336674000442
+    },
+    {
+      "case": "crash_after_confirmation",
+      "repetition": 1,
+      "control_seconds": 21.58010566200028,
+      "fault_seconds": 27.907144092000635
+    },
+    {
+      "case": "crash_after_confirmation",
+      "repetition": 2,
+      "control_seconds": 21.52582703600001,
+      "fault_seconds": 27.530327891000525
+    },
+    {
+      "case": "crash_after_confirmation",
+      "repetition": 3,
+      "control_seconds": 21.347553519999565,
+      "fault_seconds": 27.33717435000017
+    },
+    {
+      "case": "crash_after_confirmation",
+      "repetition": 4,
+      "control_seconds": 21.24484823900002,
+      "fault_seconds": 27.09974606600008
+    },
+    {
+      "case": "crash_after_confirmation",
+      "repetition": 5,
+      "control_seconds": 21.555887018999783,
+      "fault_seconds": 27.22613521800031
+    },
+    {
+      "case": "crash_after_post",
+      "repetition": 1,
+      "control_seconds": 21.267253071000596,
+      "fault_seconds": 26.890214201999697
+    },
+    {
+      "case": "crash_after_post",
+      "repetition": 2,
+      "control_seconds": 21.419710338000186,
+      "fault_seconds": 27.31446285900074
+    },
+    {
+      "case": "crash_after_post",
+      "repetition": 3,
+      "control_seconds": 21.481520004999766,
+      "fault_seconds": 27.906728717000078
+    },
+    {
+      "case": "crash_after_post",
+      "repetition": 4,
+      "control_seconds": 21.474091512000086,
+      "fault_seconds": 27.217907375000323
+    },
+    {
+      "case": "crash_after_post",
+      "repetition": 5,
+      "control_seconds": 21.415224206999483,
+      "fault_seconds": 27.077694487999906
+    },
+    {
+      "case": "crash_before_authorization",
+      "repetition": 1,
+      "control_seconds": 6.277697550999619,
+      "fault_seconds": 6.71044437799992
+    },
+    {
+      "case": "crash_before_authorization",
+      "repetition": 2,
+      "control_seconds": 6.517044796999471,
+      "fault_seconds": 7.140992691000065
+    },
+    {
+      "case": "crash_before_authorization",
+      "repetition": 3,
+      "control_seconds": 6.833129239999835,
+      "fault_seconds": 6.6067869749995225
+    },
+    {
+      "case": "crash_before_authorization",
+      "repetition": 4,
+      "control_seconds": 6.430165005000163,
+      "fault_seconds": 6.7799236910004765
+    },
+    {
+      "case": "crash_before_authorization",
+      "repetition": 5,
+      "control_seconds": 6.115853090000201,
+      "fault_seconds": 6.674301940000078
+    }
+  ],
+  "mixed_load_pairs": 5,
+  "sampled_peak_data_bytes": 16355196,
+  "sampled_peak_backup_bytes": 203420,
+  "minimum_free_bytes": 8512139264,
+  "calibration_decision": [
+    "No configured deadline, retry budget, cadence, queue cap or storage cap was enlarged.",
+    "Existing source/valuation/channel deadlines were exercised at 20/30/10 seconds; eval-only adversarial one-second deadlines remain explicitly separate.",
+    "Five backup/export/restore/verified-reconciliation controls preserve original protected media and produce no duplicate fake POST.",
+    "Five matched controls per SIGKILL boundary and five matched mixed-load controls preserve the declared workload and runtime/test/lock revisions.",
+    "Sampled occupied bytes are below chosen storage caps; reserve remains above 1GiB. Quota boundaries are exercised by existing eval-only fault injection rather than filling the host disk.",
+    "Sampling gaps during intentional destination shutdowns and process restarts are retained and do not become zero-valued samples. Source baseline sampling has zero errors.",
+    "The 180s stagnation/5s tick/three-failure/1000-item settings remain engineering choices tested at their functional boundaries, not empirically promised throughput."
+  ],
+  "remaining_feature_acceptance": [
+    "Apply and re-evaluate the documented CLI/HTTP corrections after frozen full-suite evidence.",
+    "Complete all 58 contract items and quality gates; real operational enablement remains off."
+  ]
+}

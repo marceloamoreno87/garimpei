@@ -1,3 +1,18 @@
+# Entrega final F17 — 2026-11-13 UTC
+
+Implementação existente concluída após calibração e um ciclo de correção. Avaliação completa: [58PASS/10ACs](eval-report-2026-11-13T03-39-54Z.md); estado `done` pertence a esse relatório, não às aprovações históricas abaixo.
+
+- Perfil técnico calibrado sem mudar limites, com25paresSIGKILL,5parescargamista,30observaçõesdeadaptadores,35falhaspareadas e5backup/export/restore/reconciliações. Spec/plano/contrato regenerados.
+- Correções: instante/escopo/intervalo e última falha na CLI; rejeição dev antes do repositório e mensagem acionável; motivos HTTP409 distintos para revisão/acesso; assinatura de controle positiva obrigatória.
+- Corpus/fixtures: sampler nested DB/filas/mídias/backups/export/temporários, controles pareados de commit/autorização/POST/confirmação, scripts reproduzíveis de avaliação; nenhum dado/serviço real utilizado.
+- Verificação:700baselinePASS,12novos cobertos nos22afetadosPASS, coleção/união712; seis gates e Django/migrations0. Hashes finais iguais à candidata verificada. UI desktop/390px, teclado e falhas/retry pelo coordenador.
+- Limites: bytes são máximos lógicos amostrados, não alocação física contínua; nenhuma promessa de throughput/RPO/RTO. Habilitação da operação real continua desativada; nenhuma aprovação de F14/F15/F18 foi inferida.
+- Todos os recursos próprios foram encerrados; diários/evidências anteriores foram preservados e os incompletos marcados como históricos. O coordenador integra/publica conforme autorização do usuário.
+
+## Histórico preservado da implementação e dos ensaios anteriores
+
+O conteúdo abaixo registra estados e pendências das respectivas execuções; o estado atual está no relatório final acima.
+
 # Implementação F17 — em execução
 
 Branch isolada `feat/F17-resiliencia-operacional`, base `3ce35d5`. Este relatório parcial não declara aceite nem altera a feature para `done`.
@@ -60,3 +75,16 @@ Verificações adicionais em instâncias próprias: `test_collection.py::test_le
 O laboratório oferece `crash_after_post` e `crash_after_commit`: cada caso executa, em nova instância eval própria e com canal/fonte fake, a regressão existente com SIGKILL real e recuperação. Os testes individuais pela CLI passaram em 39,83 s e 16,41 s; a regressão combinada de todos os casos passou em 114,82 s e os seis gates passaram. As evidências sanitizadas estão em `evidence/fault-crash_after_post-2026-11-13T00-24-40Z.json` e `evidence/fault-crash_after_commit-2026-11-13T00-24-40Z.json`. O corte após commit ocorre depois de lote confirmado e antes do commit do lote seguinte.
 
 O comando `calibrate` canônico agora inclui as 35 medições adversas e ainda mantém o perfil não confirmado; sua regressão integral está em execução. A ampliação não equivale aos outros cortes de autorização, publicação e confirmação, nem a cinco repetições dos dois SIGKILL.
+
+
+## Calibração combinada e cortes de autorização — 2026-11-13
+
+O `calibrate` canônico foi reexecutado em 347,50 s com 30 medições dos adaptadores, 35 falhas com controle e cinco restaurações; [resultado sanitizado](evidence/calibration-combined-2026-11-13T00-24-40Z.json) mantém `profile_confirmed=false` e `operational_enablement=false`. O novo `calibrate-crashes` registra resultados incrementalmente; uma execução de 278,72 s mediu cinco SIGKILL após POST e cinco após lote confirmado, todos recuperados ([evidência](evidence/crash-calibration-2026-11-13T00-24-40Z.json)). Uma execução filtrada registrou cinco mortes após autorização e antes de POST em 96,07 s, sem reenvio ([evidência](evidence/crash-authorization-calibration-2026-11-13T00-24-40Z.json)). O teste de um único ciclo da CLI de três cortes passou em 192,19 s. Não foram medidos controles de mesma carga para os cortes e as contagens de fila referem-se à origem, não às instalações aninhadas; não se conclui o perfil a partir destes ensaios.
+
+
+O laboratório passou a ensaiar cortes de processo imediatamente antes e depois da autorização, após confirmação, após POST e após lote confirmado. Os dois primeiros são feitos por processo próprio com ponto de parada no teste, sem POST real; a confirmação e os demais usam o worker próprio. Cinco repetições por fronteira passaram e seus recursos foram encerrados: [lotes e POST](evidence/crash-calibration-2026-11-13T00-24-40Z.json), [após autorização](evidence/crash-authorization-calibration-2026-11-13T00-24-40Z.json), [após confirmação](evidence/crash-confirmation-calibration-2026-11-13T00-24-40Z.json) e [antes de autorização](evidence/crash-before-authorization-calibration-2026-11-13T00-24-40Z.json). Não houve controle temporal de mesma carga, nem registro de pico do banco da instância aninhada; não usar esses resultados para confirmar o perfil.
+
+
+## Interrupção solicitada — 2026-11-13
+
+A regressão final com cinco cortes terminou em falha: o daemon Docker ficou inacessível durante a execução e `close --clean` recusou limpeza por não conseguir verificar a propriedade. O teste final não passou e não deve ser considerado evidência de aceite. Os processos da origem, destino e instância aninhada que ainda existiam foram encerrados apenas após verificar seus manifestos; os recursos Docker não puderam ser inspecionados nem limpos enquanto o daemon estiver indisponível. Preservar a worktree e o laboratório `/tmp/garimpei-f17-five-cuts-test-PyivzY/test_persistent_unit_fault_sus0/operational-fault` para auditoria e limpeza futura pelo lifecycle. O estado anterior dos 25 cortes independentes é registrado nas evidências vinculadas acima.

@@ -1,0 +1,30 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_restore_output_identifies_snapshot_scope_and_uncovered_interval _____
+
+    def test_restore_output_identifies_snapshot_scope_and_uncovered_interval() -> None:
+        output = StringIO()
+        with patch("garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",return_value=NamedBackupCatalog()),patch("garimpei.infra.persistence.management.commands.operational_backup.build_restore_backup",return_value=RecordedRestore()):
+            call_command("operational_backup", "restore", "--archive", "/private/synthetic-canary.tar.gz", "--isolated", stdout=output)
+        text = output.getvalue()
+>       assert SNAPSHOT.isoformat() in text
+E       AssertionError: assert '2026-11-13T01:02:03+00:00' in 'Dados restaurados: 00000000-0000-4000-8000-000000000017; despacho bloqueado até reconciliação. Recupere acesso Facebook/WhatsApp separadamente.\n'
+E        +  where '2026-11-13T01:02:03+00:00' = <built-in method isoformat of datetime.datetime object at 0x7dcd455a3f90>()
+E        +    where <built-in method isoformat of datetime.datetime object at 0x7dcd455a3f90> = datetime.datetime(2026, 11, 13, 1, 2, 3, tzinfo=datetime.timezone.utc).isoformat
+
+tests/unit/test_operational_cli.py:44: AssertionError
+__ test_list_output_includes_scope_and_last_failure_separately_from_creation ___
+
+    def test_list_output_includes_scope_and_last_failure_separately_from_creation() -> None:
+        output = StringIO()
+        with patch("garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",return_value=NamedBackupCatalog()):
+            call_command("operational_backup","list",stdout=output)
+        text=output.getvalue()
+>       assert "12 anúncios" in text and "22 observações" in text
+E       AssertionError: assert ('12 anúncios' in 'Última cópia concluída: 2026-11-13 01:02:03+00:00; próxima: 2026-11-13 01:04:05+00:00\n00000000-0000-4000-8000-000000...o not_tested\nCópia no mesmo disco não cobre perda desse disco; acesso Facebook/WhatsApp exige recuperação separada.\n')
+
+tests/unit/test_operational_cli.py:56: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_operational_cli.py::test_restore_output_identifies_snapshot_scope_and_uncovered_interval
+FAILED tests/unit/test_operational_cli.py::test_list_output_includes_scope_and_last_failure_separately_from_creation
+2 failed in 0.05s

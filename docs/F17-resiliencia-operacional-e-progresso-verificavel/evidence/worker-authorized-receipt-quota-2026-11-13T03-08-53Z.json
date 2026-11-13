@@ -1,0 +1,13 @@
+{
+  "feature": "F17",
+  "item": "WRK-LIMITS-03",
+  "expected": "Under injected logical data quota with physical reserve available, complete previously authorized receipt and block an independent queued intent until pressure removed",
+  "scope": "owned F16 fixture with actual web/worker/PostgreSQL and loopback source/channel; no real services",
+  "limitations": [
+    "Exhaustion is a persisted synthetic logical-byte count, not a real10GiB image or full filesystem"
+  ],
+  "verdict": "BLOCKED",
+  "cleanup_succeeded": false,
+  "command_exit_code": 1,
+  "seconds": 18.468
+}

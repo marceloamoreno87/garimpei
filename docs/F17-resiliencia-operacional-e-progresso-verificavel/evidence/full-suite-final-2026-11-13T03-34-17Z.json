@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-13T03:34:17.509725+00:00",
+  "baseline_suite": {
+    "collected": 700,
+    "covered_unique": 700,
+    "missing": [],
+    "changed_inputs": [],
+    "runs": [
+      {
+        "junit": "results.xml",
+        "passed": 58,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "junit": "shard-0.xml",
+        "passed": 151,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "junit": "shard-1.xml",
+        "passed": 255,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "junit": "shard-2.xml",
+        "passed": 236,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "failed_nodeids": [],
+    "skipped_nodeids": [],
+    "passed": 700,
+    "execution": [
+      {
+        "shard": 0,
+        "exit_code": 0,
+        "seconds": 1082.4509614629997,
+        "selected": 151
+      },
+      {
+        "shard": 1,
+        "exit_code": 0,
+        "seconds": 1095.119157491,
+        "selected": 255
+      },
+      {
+        "shard": 2,
+        "exit_code": 0,
+        "seconds": 866.7319070109997,
+        "selected": 236
+      }
+    ],
+    "initial_sequential": {
+      "exit_code": 2,
+      "seconds": 667.457117815,
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "pytest",
+        "-q",
+        "--junitxml",
+        "<private>/results.xml"
+      ],
+      "changed_inputs": []
+    },
+    "initial_cleanup": {
+      "checked_instances": 33,
+      "remaining": [],
+      "interruption_cleanup_verified": true
+    },
+    "clean": true,
+    "final_cleanup": {
+      "owned_instances_checked": 145,
+      "remaining_resources": [],
+      "retained_diagnostic_manifests": [
+        {
+          "status": "failed",
+          "live_processes": 0,
+          "reason": "intentional startup rollback fixture retains diagnostic manifest"
+        },
+        {
+          "status": "failed",
+          "live_processes": 0,
+          "reason": "intentional startup rollback fixture retains diagnostic manifest"
+        },
+        {
+          "status": "failed",
+          "live_processes": 0,
+          "reason": "intentional startup rollback fixture retains diagnostic manifest"
+        }
+      ],
+      "cleanup_verified": true
+    },
+    "input_manifest_sha256": "72f9d26f1a03ef67a436ef0a8eb43d1d4f95946fc446cc80bf2075a21e06460b"
+  },
+  "candidate_manifest": "candidate-final-2026-11-13T03-22-49Z.json",
+  "candidate_affected_passed": 22,
+  "candidate_new_tests": [
+    "tests/http/test_operational_status.py::test_resume_conflicts_explain_revision_or_access_and_preserve_checkpoint",
+    "tests/unit/test_operational_cli.py::test_dev_restore_is_refused_with_target_guidance_before_repository_io",
+    "tests/unit/test_operational_cli.py::test_list_output_includes_scope_and_last_failure_separately_from_creation",
+    "tests/unit/test_operational_cli.py::test_restore_output_identifies_snapshot_scope_and_uncovered_interval",
+    "tests/unit/test_operations_calibration_signature.py::test_identical_identified_loads_are_accepted",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[0-0]",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[1-2]",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[1-None]",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[False-False]",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[None-1]",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[None-None]",
+    "tests/unit/test_operations_calibration_signature.py::test_unidentified_or_different_loads_cannot_count_as_a_matched_control[x-x]"
+  ],
+  "final_collected": 712,
+  "verified_unique_final_tests": 712,
+  "missing": [],
+  "note": "700 frozen baseline PASS; all 12 newly collected tests belong to the 22 PASS affected suite on the final candidate. Source/test/per-file digests verified equal after application. Authorized initial interruption had no FAIL/ERROR; 3 disjoint partitions cover remaining nodes without duplication."
+}

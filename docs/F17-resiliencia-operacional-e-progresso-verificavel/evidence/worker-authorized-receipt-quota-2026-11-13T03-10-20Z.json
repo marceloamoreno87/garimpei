@@ -1,0 +1,34 @@
+{
+  "feature": "F17",
+  "item": "WRK-LIMITS-03",
+  "expected": "Under injected logical data quota with physical reserve available, complete previously authorized receipt and block an independent queued intent until pressure removed",
+  "scope": "owned F16 fixture with actual web/worker/PostgreSQL and loopback source/channel; no real services",
+  "limitations": [
+    "Exhaustion is a persisted synthetic logical-byte count, not a real10GiB image or full filesystem"
+  ],
+  "verdict": "PASS",
+  "cleanup_succeeded": true,
+  "command_exit_code": 0,
+  "observed": {
+    "admission_blocked": true,
+    "guard_blocked": true,
+    "independent_new_intent_blocked": true,
+    "still_blocked_after_receipt": true,
+    "confirmed": true,
+    "attempt_count_unchanged": true,
+    "body_and_binding_preserved": true,
+    "protected_observation_count_preserved": true,
+    "reserve_free_bytes": 6792368128,
+    "injected_logical_media_bytes": 10737418240,
+    "real_posts": 0,
+    "independent_intent_allowed_after_pressure_removed": true,
+    "fake_post_count": 1
+  },
+  "cleanup": {
+    "processes": 0,
+    "container": 0,
+    "network": 0,
+    "volume": 0
+  },
+  "seconds": 18.495
+}
