@@ -1,0 +1,36 @@
+{
+  "item": "WRK-ISOLATION-01",
+  "verdict": "PASS",
+  "seconds_including_startup": 7.64574840899968,
+  "interest_A": {
+    "failures": 1,
+    "suspended": false,
+    "reason": "wrong_search_context",
+    "checkpoint": "",
+    "last_progress_at": null
+  },
+  "interest_B": {
+    "failures": 0,
+    "suspended": false,
+    "reason": "no_new_frontier",
+    "checkpoint": "58070c528ac8e387bfc110298bf417979caaa9ec0612a18f3c6ae17bd425090d",
+    "last_progress_at": "2026-01-01 12:00:00+00:00"
+  },
+  "confirmed_B_observation_ids": [
+    "1301"
+  ],
+  "failed_source_calls": 1,
+  "healthy_source_calls_after_failure": 6,
+  "additional_calls_while_given_attempt_waits": 0,
+  "attempt_deadline_after_first_try": [
+    "2026-01-01 12:05:00+00:00"
+  ],
+  "failure_counter_preserved": true,
+  "recovery_budget_reference": "WRK-RECOVERY-01/03 separately verify the three-failure cap and restart persistence",
+  "maximum_concurrent_source_calls": 1,
+  "reserved_listing_consumers": 1,
+  "scope": "Real Postgres/navigation task handler, loopback source; no real Facebook profile or credentials. The reserved listing slot and unchanged source-profile ownership guards enforce serialization.",
+  "at": "2026-11-13T03:38:17.660007+00:00",
+  "driver_sha256": "9177281d3b214bf564e02856975420e4958fd731ab887cb6a5c0f12f1ee3926c",
+  "cleanup_exit": 0
+}

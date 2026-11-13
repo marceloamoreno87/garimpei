@@ -17,6 +17,7 @@ from tests.factories.listing import (
     prepare_listing_instance,
     serve,
 )
+from tests.factories.operations_metrics import InstanceMeasurements, workload_signature
 from tests.factories.runtime import FoundationInstance
 
 type Scenario = tuple[FoundationInstance, Source, ControlledClock]
@@ -329,87 +330,105 @@ assert a.current_coverage.shipping == "unknown" and not a.scope_current
     ]
 
 
-def test_rollback_and_restart_after_first_batch(scenario: Scenario) -> None:
+@pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+def test_rollback_and_restart_after_first_batch(
+    scenario: Scenario, tmp_path: Path, kill_worker: bool
+) -> None:
     instance, source, clock = scenario
     source.mode = "many"
-    sql(
+    with InstanceMeasurements(
         instance,
-        """
-        CREATE FUNCTION f04_batch_gate() RETURNS trigger LANGUAGE plpgsql AS $$
-        BEGIN
-          IF EXISTS(SELECT 1 FROM runtime_listing WHERE id = NEW.listing_id AND external_id='220') THEN
-             PERFORM pg_sleep(45);
-          END IF;
-          RETURN NEW;
-        END $$;
-        CREATE TRIGGER f04_batch_gate BEFORE INSERT ON runtime_listingevent
-        FOR EACH ROW EXECUTE FUNCTION f04_batch_gate();
-    """,
-    )
-    configure(instance)
-    wait_for(
-        lambda: (
-            sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
-            and bool(
+        tmp_path / "commit-measurements.json",
+        mode="fault" if kill_worker else "control",
+    ) as measurements:
+        with instance.database() as barrier:
+            barrier.execute("SELECT pg_advisory_lock(170017)")
+            sql(
+                instance,
+                """
+                CREATE FUNCTION f04_batch_gate() RETURNS trigger LANGUAGE plpgsql AS $$
+                BEGIN
+                  IF EXISTS(SELECT 1 FROM runtime_listing WHERE id = NEW.listing_id AND external_id='220') THEN
+                     PERFORM pg_advisory_xact_lock(170017);
+                  END IF;
+                  RETURN NEW;
+                END $$;
+                CREATE TRIGGER f04_batch_gate BEFORE INSERT ON runtime_listingevent
+                FOR EACH ROW EXECUTE FUNCTION f04_batch_gate();
+            """,
+            )
+            configure(instance)
+            wait_for(
+                lambda: (
+                    sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
+                    and bool(
+                        sql(
+                            instance,
+                            "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND wait_event='advisory'",
+                        )
+                    )
+                ),
+                "first batch confirmed and next publication waiting on owned barrier",
+            )
+            assert phase(instance)[0][1] is None
+            confirmed_observations = sql(
+                instance, "SELECT * FROM runtime_listingobservation ORDER BY id"
+            )
+            confirmed_events = sql(instance, "SELECT * FROM runtime_listingevent ORDER BY id")
+            assert len(confirmed_observations) == len(confirmed_events) == 20
+            if kill_worker:
+                worker = next(
+                    record
+                    for record in instance.manifest["processes"]
+                    if "runworker" in record["command"]
+                )
+                verify_process(worker, instance.root)
+                os.kill(worker["pid"], signal.SIGKILL)
                 sql(
                     instance,
-                    "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND wait_event = 'PgSleep'",
+                    "SELECT pg_cancel_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND wait_event='advisory'",
                 )
+                assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
+                assert sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
+            barrier.execute("SELECT pg_advisory_unlock(170017)")
+        sql(
+            instance,
+            "DROP TRIGGER f04_batch_gate ON runtime_listingevent; DROP FUNCTION f04_batch_gate()",
+        )
+        calls_before = len(source.calls)
+        clock.advance(21)
+        if kill_worker:
+            command(instance, "./scripts/stop.sh")
+            command(instance, "./scripts/init.sh", "--disposable")
+        completed(instance, 1)
+        if kill_worker:
+            resumed_calls = source.calls[calls_before:]
+            assert not any(path == "/search" for path, _ in resumed_calls)
+            resumed_details = [path for path, _ in resumed_calls if path.startswith("/detail/")]
+            assert len(resumed_details) == 5
+            assert set(resumed_details) == {f"/detail/{identity}" for identity in range(220, 225)}
+        assert (
+            sql(
+                instance,
+                "SELECT o.* FROM runtime_listingobservation o JOIN runtime_listing l ON l.id=o.listing_id WHERE l.external_id::integer < 220 ORDER BY o.id",
             )
-        ),
-        "first committed batch and second batch held before the event commit",
-    )
-    assert phase(instance)[0][1] is None
-    assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
-    confirmed_ids = sql(instance, "SELECT external_id FROM runtime_listing ORDER BY external_id")
-    assert confirmed_ids == [(str(identity),) for identity in range(200, 220)]
-    confirmed_observations = sql(instance, "SELECT * FROM runtime_listingobservation ORDER BY id")
-    confirmed_events = sql(instance, "SELECT * FROM runtime_listingevent ORDER BY id")
-    worker = next(
-        record for record in instance.manifest["processes"] if "runworker" in record["command"]
-    )
-    verify_process(worker, instance.root)
-    os.kill(worker["pid"], signal.SIGKILL)
-    # PostgreSQL may finish the sleeping trigger before it notices the disconnected worker.
-    sql(
-        instance,
-        "SELECT pg_cancel_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND wait_event='PgSleep'",
-    )
-    sql(
-        instance,
-        "DROP TRIGGER f04_batch_gate ON runtime_listingevent; DROP FUNCTION f04_batch_gate()",
-    )
-    assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
-    assert sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
-    assert phase(instance)[0][2] is None
-    command(instance, "./scripts/stop.sh")
-    calls_before = len(source.calls)
-    clock.advance(21)
-    command(instance, "./scripts/init.sh", "--disposable")
-    completed(instance, 1)
-    resumed_calls = source.calls[calls_before:]
-    assert not any(path == "/search" for path, _ in resumed_calls)
-    resumed_details = [path for path, _ in resumed_calls if path.startswith("/detail/")]
-    assert len(resumed_details) == 5
-    assert set(resumed_details) == {f"/detail/{identity}" for identity in range(220, 225)}
-    assert (
-        sql(
-            instance,
-            "SELECT o.* FROM runtime_listingobservation o JOIN runtime_listing l "
-            "ON l.id=o.listing_id WHERE l.external_id::integer < 220 ORDER BY o.id",
+            == confirmed_observations
         )
-        == confirmed_observations
-    )
-    assert (
-        sql(
-            instance,
-            "SELECT e.* FROM runtime_listingevent e JOIN runtime_listing l "
-            "ON l.id=e.listing_id WHERE l.external_id::integer < 220 ORDER BY e.id",
+        assert (
+            sql(
+                instance,
+                "SELECT e.* FROM runtime_listingevent e JOIN runtime_listing l ON l.id=e.listing_id WHERE l.external_id::integer < 220 ORDER BY e.id",
+            )
+            == confirmed_events
         )
-        == confirmed_events
-    )
-    assert sql(instance, "SELECT count(*) FROM runtime_listingevent WHERE silent") == [(25,)]
-    assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(25,)]
+        assert sql(instance, "SELECT count(*) FROM runtime_listingevent WHERE silent") == [(25,)]
+        assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(25,)]
+        measurements.observed.update(
+            offers=25,
+            observations=25,
+            events=25,
+            workload_signature=workload_signature({"mode": source.mode, "count": 25}),
+        )
 
 
 def test_initial_partial_and_scope_change_preserve_silence(scenario: Scenario) -> None:

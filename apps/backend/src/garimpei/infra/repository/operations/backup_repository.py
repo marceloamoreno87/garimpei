@@ -215,6 +215,7 @@ class PostgresBackupRepository:
     def catalog(self) -> dict[str, object]:
         rows = BackupRecord.objects.filter(installation=self._installation).order_by("-started_at")
         schedule = BackupSchedule.objects.filter(installation=self._installation).first()
+        recovery = RecoveryBarrier.objects.filter(installation=self._installation).first()
         return {
             "records": [
                 {
@@ -228,12 +229,22 @@ class PostgresBackupRepository:
                     "snapshot_at": r.snapshot_at,
                     "restoration_state": r.restoration_state,
                     "bytes": r.size,
+                    "scope": r.scope,
                 }
                 for r in rows[:100]
             ],
             "next_due_at": schedule.next_due_at if schedule else None,
             "last_success_at": schedule.last_success_at if schedule else None,
             "last_failure_at": schedule.last_failure_at if schedule else None,
+            "recovery": {
+                "snapshot_at": recovery.snapshot_at,
+                "restored_at": recovery.restored_at,
+                "source_installation": recovery.evidence.get(
+                    "source_installation", "não informada"
+                ),
+            }
+            if recovery
+            else None,
         }
 
     def download(self, identity: UUID) -> ArchiveDownload:

@@ -1,0 +1,191 @@
+{
+  "feature": "F17",
+  "scope": "Partial Worker/E2E gap evaluation; real worker startup with fake loopback dependencies; no frozen source edits",
+  "at": "2026-11-13T03-06-46Z",
+  "commands": [
+    {
+      "operation": "prepare",
+      "exit_code": 0,
+      "seconds": 0.806
+    },
+    {
+      "operation": "start",
+      "exit_code": 0,
+      "seconds": 10.137
+    },
+    {
+      "operation": "seed",
+      "exit_code": 0,
+      "seconds": 3.262
+    },
+    {
+      "operation": "prepare-exhausted-and-overdue",
+      "exit_code": 0,
+      "seconds": 0.564
+    },
+    {
+      "operation": "resume-owned-seed-worker",
+      "exit_code": 0,
+      "seconds": 0.195
+    },
+    {
+      "operation": "stop-source-5",
+      "exit_code": 0,
+      "seconds": 1.593
+    },
+    {
+      "operation": "init-source-6",
+      "exit_code": 0,
+      "seconds": 3.941
+    },
+    {
+      "operation": "after-overdue-start-7",
+      "exit_code": 0,
+      "seconds": 0.432
+    },
+    {
+      "operation": "after-overdue-stability",
+      "exit_code": 0,
+      "seconds": 0.368
+    },
+    {
+      "operation": "stop-source-9",
+      "exit_code": 0,
+      "seconds": 1.688
+    },
+    {
+      "operation": "init-source-10",
+      "exit_code": 0,
+      "seconds": 3.996
+    },
+    {
+      "operation": "after-current-start",
+      "exit_code": 0,
+      "seconds": 0.38
+    },
+    {
+      "operation": "authorized-receipt-under-quota",
+      "exit_code": 1,
+      "seconds": 0.426
+    },
+    {
+      "operation": "close",
+      "exit_code": 0,
+      "seconds": 5.09
+    }
+  ],
+  "items": [
+    {
+      "item": "WRK-RECOVERY-01",
+      "verdict": "PASS",
+      "expected": "Third recoverable failure suspends unit at3 and preserves confirmed checkpoint",
+      "observed": {
+        "failures": 3,
+        "suspended": true,
+        "checkpoint": "confirmed-before-failure",
+        "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+        "backup_count": 1,
+        "next_due_at": "2026-11-10T03:06:11.506743+00:00"
+      }
+    },
+    {
+      "item": "WRK-BACKUP-02",
+      "verdict": "PASS",
+      "expected": "Real startup with schedule3days overdue creates exactly1catch-up copy and no copies for offline intervals",
+      "observed": {
+        "before": {
+          "failures": 3,
+          "suspended": true,
+          "checkpoint": "confirmed-before-failure",
+          "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+          "backup_count": 1,
+          "next_due_at": "2026-11-10T03:06:11.506743+00:00"
+        },
+        "after": {
+          "backup_count": 2,
+          "checkpoint": "confirmed-before-failure",
+          "claim_blocked": true,
+          "failures": 3,
+          "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+          "last_success_at": "2026-11-13T03:06:12.148695+00:00",
+          "next_due_at": "2026-11-14T03:06:12.148695+00:00",
+          "suspended": true
+        }
+      }
+    },
+    {
+      "item": "WRK-BACKUP-03",
+      "verdict": "PASS",
+      "expected": "Real startup with recent copy/future deadline preserves next_due and creates no extra copy",
+      "observed": {
+        "before": {
+          "backup_count": 2,
+          "checkpoint": "confirmed-before-failure",
+          "claim_blocked": true,
+          "failures": 3,
+          "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+          "last_success_at": "2026-11-13T03:06:12.148695+00:00",
+          "next_due_at": "2026-11-14T03:06:12.148695+00:00",
+          "suspended": true
+        },
+        "after": {
+          "backup_count": 2,
+          "checkpoint": "confirmed-before-failure",
+          "claim_blocked": true,
+          "failures": 3,
+          "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+          "last_success_at": "2026-11-13T03:06:12.148695+00:00",
+          "next_due_at": "2026-11-14T03:06:12.148695+00:00",
+          "suspended": true
+        }
+      }
+    },
+    {
+      "item": "WRK-RECOVERY-03",
+      "verdict": "PASS",
+      "expected": "Two actual worker restarts retain exhausted budget3/checkpoint/suspension, without a fourth attempt or fresh authorization",
+      "observed": {
+        "before": {
+          "failures": 3,
+          "suspended": true,
+          "checkpoint": "confirmed-before-failure",
+          "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+          "backup_count": 1,
+          "next_due_at": "2026-11-10T03:06:11.506743+00:00"
+        },
+        "after": {
+          "backup_count": 2,
+          "checkpoint": "confirmed-before-failure",
+          "claim_blocked": true,
+          "failures": 3,
+          "last_attempt_at": "2026-11-13T03:06:11.270583+00:00",
+          "last_success_at": "2026-11-13T03:06:12.148695+00:00",
+          "next_due_at": "2026-11-14T03:06:12.148695+00:00",
+          "suspended": true
+        }
+      }
+    }
+  ],
+  "completed": false,
+  "cleanup_succeeded": true,
+  "cleanup": [
+    {
+      "state": "closed",
+      "live_process_count": 0,
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    },
+    {
+      "state": "closed",
+      "live_process_count": 0,
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    }
+  ],
+  "limitations": [
+    "Logical data budget exhaustion is injected in synthetic MediaAsset.byte_count; physical filesystem is not filled",
+    "Startup observations cover two reconciler ticks and preserved next_due, not24hours of uptime"
+  ]
+}

@@ -1,0 +1,174 @@
+--- a/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py
++++ b/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py
+@@ -215,6 +215,7 @@
+     def catalog(self) -> dict[str, object]:
+         rows = BackupRecord.objects.filter(installation=self._installation).order_by("-started_at")
+         schedule = BackupSchedule.objects.filter(installation=self._installation).first()
++        recovery = RecoveryBarrier.objects.filter(installation=self._installation).first()
+         return {
+             "records": [
+                 {
+@@ -228,12 +229,22 @@
+                     "snapshot_at": r.snapshot_at,
+                     "restoration_state": r.restoration_state,
+                     "bytes": r.size,
++                    "scope": r.scope,
+                 }
+                 for r in rows[:100]
+             ],
+             "next_due_at": schedule.next_due_at if schedule else None,
+             "last_success_at": schedule.last_success_at if schedule else None,
+             "last_failure_at": schedule.last_failure_at if schedule else None,
++            "recovery": {
++                "snapshot_at": recovery.snapshot_at,
++                "restored_at": recovery.restored_at,
++                "source_installation": recovery.evidence.get(
++                    "source_installation", "não informada"
++                ),
++            }
++            if recovery
++            else None,
+         }
+
+     def download(self, identity: UUID) -> ArchiveDownload:
+--- a/apps/backend/src/garimpei/infra/persistence/management/commands/operational_backup.py
++++ b/apps/backend/src/garimpei/infra/persistence/management/commands/operational_backup.py
+@@ -1,4 +1,5 @@
+ from argparse import ArgumentParser
++from datetime import datetime
+ from typing import TypedDict, Unpack
+ from uuid import UUID, uuid4
+
+@@ -57,6 +58,12 @@
+             self.stdout.write(
+                 f"Dados restaurados: {identity}; despacho bloqueado até reconciliação. Recupere acesso Facebook/WhatsApp separadamente."
+             )
++            recovery = repository.catalog().get("recovery")
++            if isinstance(recovery, dict):
++                self.stdout.write(
++                    f"Origem: {recovery['source_installation']}; cópia de {_moment(recovery['snapshot_at'])}. "
++                    f"Intervalo sem reconciliação: {_moment(recovery['snapshot_at'])} até {_moment(recovery['restored_at'])}."
++                )
+             return
+         if action == "export":
+             identity = repository.export(UUID(options["id"] or ""), uuid4())
+@@ -69,13 +76,14 @@
+
+     def _list(self, catalog: dict[str, object]) -> None:
+         self.stdout.write(
+-            f"Última cópia concluída: {catalog['last_success_at']}; próxima: {catalog['next_due_at']}"
++            f"Última cópia concluída: {_moment(catalog['last_success_at'])}; próxima: {_moment(catalog['next_due_at'])}"
+         )
++        self.stdout.write(f"Última falha: {_moment(catalog.get('last_failure_at'))}")
+         records = catalog["records"]
+         if isinstance(records, list):
+             for record in records:
+                 self.stdout.write(
+-                    f"{record['id']} · {record['state']} · {record['snapshot_at']} · formato {record['format_version']} · restauração {record['restoration_state']}"
++                    f"{record['id']} · {record['state']} · {_moment(record['snapshot_at'])} · formato {record['format_version']} · restauração {record['restoration_state']} · {_scope_label(record.get('scope'))} · motivo {record.get('reason') or 'nenhum'}"
+                 )
+         self.stdout.write(
+             "Cópia no mesmo disco não cobre perda desse disco; acesso Facebook/WhatsApp exige recuperação separada."
+@@ -86,3 +94,14 @@
+     if not options["archive"]:
+         raise ValueError("archive required")
+     return options["archive"]
++
++
++def _moment(value: object) -> str:
++    return value.isoformat() if isinstance(value, datetime) else "não informado"
++
++
++def _scope_label(value: object) -> str:
++    if not isinstance(value, dict) or not isinstance(value.get("counts"), dict):
++        return "escopo não informado"
++    counts = value["counts"]
++    return f"{counts.get('runtime.listing', 'não medido')} anúncios; {counts.get('runtime.listingobservation', 'não medido')} observações"
+--- /dev/null
++++ b/apps/backend/tests/unit/test_operational_cli.py
+@@ -0,0 +1,85 @@
++"""The operator can identify the protected snapshot and its recovery boundary."""
++
++from datetime import UTC, datetime
++from io import StringIO
++from unittest.mock import patch
++from uuid import UUID
++
++from django.core.management import call_command
++
++IDENTITY = UUID("00000000-0000-4000-8000-000000000017")
++SNAPSHOT = datetime(2026, 11, 13, 1, 2, 3, tzinfo=UTC)
++RESTORED = datetime(2026, 11, 13, 1, 4, 5, tzinfo=UTC)
++FAILED = datetime(2026, 11, 13, 1, 0, 0, tzinfo=UTC)
++
++
++class NamedBackupCatalog:
++    def catalog(self) -> dict[str, object]:
++        return {
++            "last_success_at": SNAPSHOT,
++            "next_due_at": RESTORED,
++            "last_failure_at": FAILED,
++            "recovery": {
++                "snapshot_at": SNAPSHOT,
++                "restored_at": RESTORED,
++                "source_installation": "synthetic-source-installation",
++            },
++            "records": [
++                {
++                    "id": str(IDENTITY),
++                    "state": "completed",
++                    "snapshot_at": SNAPSHOT,
++                    "format_version": 1,
++                    "restoration_state": "not_tested",
++                    "reason": "",
++                    "scope": {"counts": {"runtime.listing": 12, "runtime.listingobservation": 22}},
++                }
++            ],
++        }
++
++
++class RecordedRestore:
++    def execute(self, archive: str, *, isolated: bool) -> UUID:
++        assert isolated and archive == "/private/synthetic-canary.tar.gz"
++        return IDENTITY
++
++
++def test_restore_output_identifies_snapshot_scope_and_uncovered_interval() -> None:
++    output = StringIO()
++    with (
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",
++            return_value=NamedBackupCatalog(),
++        ),
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.build_restore_backup",
++            return_value=RecordedRestore(),
++        ),
++    ):
++        call_command(
++            "operational_backup",
++            "restore",
++            "--archive",
++            "/private/synthetic-canary.tar.gz",
++            "--isolated",
++            stdout=output,
++        )
++    text = output.getvalue()
++    assert SNAPSHOT.isoformat() in text
++    assert RESTORED.isoformat() in text
++    assert "synthetic-source-installation" in text
++    assert "despacho bloqueado" in text.lower()
++    assert "synthetic-canary" not in text
++
++
++def test_list_output_includes_scope_and_last_failure_separately_from_creation() -> None:
++    output = StringIO()
++    with patch(
++        "garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",
++        return_value=NamedBackupCatalog(),
++    ):
++        call_command("operational_backup", "list", stdout=output)
++    text = output.getvalue()
++    assert "12 anúncios" in text and "22 observações" in text
++    assert FAILED.isoformat() in text
++    assert "not_tested" in text

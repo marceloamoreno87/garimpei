@@ -178,6 +178,12 @@ def operational_error(request: HttpRequest, error: Exception) -> HttpResponse:
     message = "Não foi possível concluir a operação. Os dados confirmados continuam preservados."
     if code == "recovery_barrier":
         message = "O despacho permanece bloqueado até reconciliar o intervalo após a cópia."
+    if code == "operational_revision_conflict":
+        message = "O estado mudou. Reabra o acompanhamento e use a revisão atual antes de retomar."
+    if code == "operational_access_suspended":
+        message = (
+            "O acesso à fonte continua suspenso. Recupere o acesso em Integrações antes de retomar."
+        )
     response: HttpResponse
     if request.path.endswith("/estado/") and request.GET.get("formato") != "html":
         response = JsonResponse(

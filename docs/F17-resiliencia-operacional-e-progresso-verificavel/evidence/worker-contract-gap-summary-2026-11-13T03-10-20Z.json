@@ -1,0 +1,66 @@
+{
+  "feature": "F17",
+  "scope": "Partial Worker contract gap evaluation; no full feature verdict",
+  "at": "2026-11-13T03:10:59.867135+00:00",
+  "frozen_runtime_code_sha256": "4d77d63d25ec1b692471ce39f4e15c849006e65c930d515adb1bf05eb944f977",
+  "frozen_measurement_code_sha256": "0ae3cd4cc53dc0b7908974fbbec59ca7c7c33af40b846e2ac12686eaa0418131",
+  "items": [
+    {
+      "item": "WRK-RECOVERY-01",
+      "verdict": "PASS",
+      "evidence": "worker-contract-gap-eval-2026-11-13T03-06-46Z.json"
+    },
+    {
+      "item": "WRK-BACKUP-02",
+      "verdict": "PASS",
+      "evidence": "worker-contract-gap-eval-2026-11-13T03-06-46Z.json"
+    },
+    {
+      "item": "WRK-BACKUP-03",
+      "verdict": "PASS",
+      "evidence": "worker-contract-gap-eval-2026-11-13T03-06-46Z.json"
+    },
+    {
+      "item": "WRK-RECOVERY-03",
+      "verdict": "PASS",
+      "evidence": "worker-contract-gap-eval-2026-11-13T03-06-46Z.json"
+    },
+    {
+      "item": "WRK-LIMITS-03",
+      "verdict": "PASS",
+      "evidence": "worker-authorized-receipt-quota-2026-11-13T03-10-20Z.json"
+    }
+  ],
+  "attempts": [
+    {
+      "evidence": "worker-contract-gap-eval-2026-11-13T03-06-46Z.json",
+      "outcome": "Four assessed items PASS; quota preparation stopped before quota test because D lacked sufficient comparables after real-worker reevaluation; not a product failure",
+      "driver_exit_code": 1,
+      "cleanup": "Verified two lab instances closed and zero owned resources"
+    },
+    {
+      "evidence": "worker-authorized-receipt-quota-2026-11-13T03-08-53Z.json",
+      "outcome": "BLOCKED before quota injection: additional900-price comparator correctly made sample dispersed; no POST",
+      "driver_exit_code": 1,
+      "cleanup": "Fixture cleanup ran in finally; follow-up ownership verification recorded separately"
+    },
+    {
+      "evidence": "worker-authorized-receipt-quota-2026-11-13T03-10-20Z.json",
+      "outcome": "PASS with two1100-price eligible targets and1450\u20131550 comparables; one fake POST; reserve6.79GiB",
+      "driver_exit_code": 0,
+      "cleanup": {
+        "processes": 0,
+        "container": 0,
+        "network": 0,
+        "volume": 0
+      }
+    }
+  ],
+  "limitations": [
+    "No frozen source/test/progress changes; only external probe scripts and evidence",
+    "The data admission quota uses an unlinked synthetic MediaAsset logical-byte count; no10GiB payload was downloaded and the filesystem was not filled",
+    "Automatic alert transport stayed disabled during startup probes; the real repository claim boundary was invoked after worker restarts to establish exhausted-unit denial",
+    "Backup startup observed through multiple5sreconciler ticks, not24hours of continuous operation",
+    "No inference about unassessed items or profile confirmation"
+  ]
+}

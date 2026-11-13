@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-13T03:15:12.099330+00:00",
+  "patch": "candidate-final-2026-11-13T03-15-12Z.patch",
+  "patch_sha256": "31197b9c0be073a47103a18daad24881d938f53ec77fb84e185104bc7c50b7ce",
+  "candidate_src_py_sha256": "d8a519fbceaedb239fcbda52cd53a3986df970128878a7a144d26bb3f6f795bb",
+  "candidate_tests_py_sha256": "f4bdae5dd1c1f9feb54eaaf6828cf1a62fffd15c7f2ba3f30cd8a2ad7857bf61",
+  "changed_file_sha256": {
+    "apps/backend/src/garimpei/infra/repository/operations/backup_repository.py": "743722394f7e8b841aaadcd468e7ac3ff96045a5702c86c963d06422281547f0",
+    "apps/backend/src/garimpei/infra/persistence/management/commands/operational_backup.py": "23a23c3dfbc5cd37038897279bad7ec392873c81f8a965b65c5a56725950f73e",
+    "apps/backend/src/garimpei/infra/repository/operations/progress_repository.py": "e6401443bba52cc7268e30de76d2e1e92ddec93807382948fcc4a0cfddf35b72",
+    "apps/backend/src/garimpei/infra/http/error_handler.py": "5ba1f32ea8874b526bb406812417018302d5b7ab3aa7b66191ef67e474adc2be",
+    "apps/backend/tests/http/test_operational_status.py": "697ff51ab225db16dd937d482155303510af87476c5a90df4964f056fa4edb3f",
+    "apps/backend/tests/unit/test_operational_cli.py": "d0d6839ea284ccb8b118e6ea6e8c585227fba6babcee89ba31142a4d152d7e67",
+    "apps/backend/tests/factories/operations_lab.py": "0ac59742c50b6d3697bf32dc8dfe1564b068df9df3e89e0b209b1ec1fcd286cd",
+    "apps/backend/tests/unit/test_operations_calibration_signature.py": "107a57301415e62693e7437236e7a5c29f58d6adaa91fedd10e2df9e2f6cca3a"
+  },
+  "tests": {
+    "command": "uv run --frozen --no-sync python -m pytest tests/unit/test_operational_cli.py tests/http/test_operational_status.py tests/unit/test_operational_progress.py tests/integration/test_operational_recovery.py tests/unit/test_operations_calibration_signature.py -q",
+    "passed": 21,
+    "exit": 0,
+    "seconds": 26.78
+  },
+  "gates": {
+    "command": "node scripts/run-gates.mjs",
+    "exit": 0,
+    "groups": 6
+  },
+  "scope": "CLI/HTTP explanations and catalog recovery metadata; reject unidentified report workloads. Operational limits, financial rules, scheduling and real enablement unchanged."
+}

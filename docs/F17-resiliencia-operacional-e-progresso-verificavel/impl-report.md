@@ -1,3 +1,18 @@
+# Entrega final F17 — 2026-11-13 UTC
+
+Implementação existente concluída após calibração e um ciclo de correção. Avaliação completa: [58PASS/10ACs](eval-report-2026-11-13T03-39-54Z.md); estado `done` pertence a esse relatório, não às aprovações históricas abaixo.
+
+- Perfil técnico calibrado sem mudar limites, com25paresSIGKILL,5parescargamista,30observaçõesdeadaptadores,35falhaspareadas e5backup/export/restore/reconciliações. Spec/plano/contrato regenerados.
+- Correções: instante/escopo/intervalo e última falha na CLI; rejeição dev antes do repositório e mensagem acionável; motivos HTTP409 distintos para revisão/acesso; assinatura de controle positiva obrigatória.
+- Corpus/fixtures: sampler nested DB/filas/mídias/backups/export/temporários, controles pareados de commit/autorização/POST/confirmação, scripts reproduzíveis de avaliação; nenhum dado/serviço real utilizado.
+- Verificação:700baselinePASS,12novos cobertos nos22afetadosPASS, coleção/união712; seis gates e Django/migrations0. Hashes finais iguais à candidata verificada. UI desktop/390px, teclado e falhas/retry pelo coordenador.
+- Limites: bytes são máximos lógicos amostrados, não alocação física contínua; nenhuma promessa de throughput/RPO/RTO. Habilitação da operação real continua desativada; nenhuma aprovação de F14/F15/F18 foi inferida.
+- Todos os recursos próprios foram encerrados; diários/evidências anteriores foram preservados e os incompletos marcados como históricos. O coordenador integra/publica conforme autorização do usuário.
+
+## Histórico preservado da implementação e dos ensaios anteriores
+
+O conteúdo abaixo registra estados e pendências das respectivas execuções; o estado atual está no relatório final acima.
+
 # Implementação F17 — em execução
 
 Branch isolada `feat/F17-resiliencia-operacional`, base `3ce35d5`. Este relatório parcial não declara aceite nem altera a feature para `done`.

@@ -74,3 +74,36 @@ with patch('garimpei.infra.queries.monitoring.postgres_queries.PostgresMonitorin
 assert list(MonitoringConfiguration.objects.values())==before
 """,
     )
+
+
+def test_resume_conflicts_explain_revision_or_access_and_preserve_checkpoint(
+    operational_instance: FoundationInstance,
+) -> None:
+    shell(
+        operational_instance,
+        """
+from django.test import Client
+from django.utils.timezone import now
+from garimpei.config.env import load_config
+from garimpei.infra.repository.operations.progress_repository import PostgresOperationalRepository
+from garimpei.infra.persistence.operations_models import OperationalUnit
+client=Client(enforce_csrf_checks=True,HTTP_HOST='127.0.0.1')
+assert client.get('/configuracoes/').status_code==200
+token=client.cookies['csrftoken'].value
+store=PostgresOperationalRepository(load_config().environment_id,now)
+for label,reason,revision,expected in [
+ ('revision','valuation_publication_failed','6','revisão atual'),
+ ('access','access_denied','7','Recupere o acesso'),
+]:
+ scope='resume-specific-'+label
+ store.confirm('valuation',scope,7,'confirmed-'+label,now(),pending=1)
+ for _ in range(3):store.failure('valuation',scope,7,reason,now())
+ row=OperationalUnit.objects.get(scope=scope)
+ before=OperationalUnit.objects.filter(id=row.id).values().get()
+ response=client.post('/acompanhamento/etapas/valuation/retomar/',{'unidade':str(row.id),'revisao':revision,'csrfmiddlewaretoken':token})
+ assert response.status_code==409
+ assert expected.encode() in response.content
+ assert response['Cache-Control']=='no-store'
+ assert OperationalUnit.objects.filter(id=row.id).values().get()==before
+""",
+    )

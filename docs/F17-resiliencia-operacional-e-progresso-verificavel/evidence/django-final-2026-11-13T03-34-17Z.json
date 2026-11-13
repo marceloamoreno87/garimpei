@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "check": "django",
+      "exit": 0,
+      "stdout": "System check identified no issues (0 silenced).\n",
+      "stderr": ""
+    },
+    {
+      "check": "makemigrations",
+      "exit": 0,
+      "stdout": "No changes detected\n",
+      "stderr": ""
+    },
+    {
+      "check": "migration_state",
+      "exit": 0,
+      "stdout": "Schema up to date\n",
+      "stderr": ""
+    }
+  ],
+  "cleanup_exit": 0,
+  "candidate_src_py_sha256": "202da6f7e2bf226bd3ac02d000a3370d7477ee2372ac47ba3fc7d31071a14dfd"
+}

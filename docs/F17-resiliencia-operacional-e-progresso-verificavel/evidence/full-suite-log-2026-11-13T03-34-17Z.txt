@@ -1,0 +1,4 @@
+F17 complete Python suite: 700 unique tests passed, 0 failure/error/skip.
+Initial sequential run: 58 PASS; voluntarily interrupted with SIGINT to run remaining tests in three isolated partitions. Initial exit code2 is recorded, not interpreted as a test failure.
+Partitions:151,255,236 PASS; each exit0. Coverage manifest and JUnit prove no omissions/duplicates.
+Frozen Python input hashes unchanged. Cleanup checked145 owned instances; no live processes/containers/networks/volumes remain; three intentional startup-failure diagnostic manifests retained with no live process.

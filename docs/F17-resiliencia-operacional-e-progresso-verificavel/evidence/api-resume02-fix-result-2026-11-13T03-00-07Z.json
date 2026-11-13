@@ -1,0 +1,41 @@
+{
+  "feature": "F17",
+  "item": "API-RESUME-02",
+  "source_report": "http-contract-gap-eval-2026-11-13T02-56-55Z.json",
+  "mode": "fix-runner cycle candidate, temporary isolated copy only; patch NOT yet applied to frozen feature worktree",
+  "cause": "ProgressConflict was converted to one generic revision-or-access error, whose HTTP message did not identify the recoverable impediment",
+  "expected": "409 identifies obsolete revision or suspended source access, preserving budget/checkpoint/suspension",
+  "changes": [
+    "Map existing revision mismatch to operational_revision_conflict; access suspension to operational_access_suspended without changing the domain interface",
+    "Render safe guidance to use current revision or recover source access in Integrations",
+    "HTTP regression asserts distinct specific guidance,409,no-store and unchanged full OperationalUnit row in both cases"
+  ],
+  "files": [
+    "apps/backend/src/garimpei/infra/repository/operations/progress_repository.py",
+    "apps/backend/src/garimpei/infra/http/error_handler.py",
+    "apps/backend/tests/http/test_operational_status.py"
+  ],
+  "red": {
+    "command": "uv run --frozen --no-sync pytest tests/http/test_operational_status.py::test_resume_conflicts_explain_revision_or_access_and_preserve_checkpoint -q",
+    "exit_code": 1,
+    "result": "1 failed in 12.41s",
+    "reason": "Expected specific revision guidance absent from409 response"
+  },
+  "green": {
+    "command": "uv run --frozen --no-sync pytest tests/http/test_operational_status.py tests/unit/test_operational_progress.py tests/integration/test_operational_recovery.py -q",
+    "exit_code": 0,
+    "result": "11 passed in 26.49s"
+  },
+  "gates": {
+    "command": "node scripts/run-gates.mjs",
+    "exit_code": 0,
+    "result": "Six Python groups approved"
+  },
+  "patch": "api-resume02-fix-2026-11-13T03-00-07Z.patch",
+  "patch_sha256": "972084850d2e6ac2845e763744bf72fd7919518944923020a55b09e3d17b3b97",
+  "limitations": [
+    "Tests and gates ran against explicit PYTHONPATH pointing to the temporary copy; no source/test edits in frozen worktree",
+    "Prior HTTP report FAIL remains preserved; candidate fix requires application and canonical re-evaluation after snapshot release",
+    "Full feature/profile approval is outside this partial correction"
+  ]
+}

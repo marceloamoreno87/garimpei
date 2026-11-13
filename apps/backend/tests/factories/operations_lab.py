@@ -315,9 +315,9 @@ def process_crash_fault(
     tests = {
         "crash_after_post": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
         "crash_after_commit": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
-        "crash_after_authorization": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+        "crash_after_authorization": "apps/backend/tests/integration/test_operations_crash_paired.py::test_authorization_cut_has_same_workload_control",
         "crash_after_confirmation": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
-        "crash_before_authorization": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_before_authorization_keeps_request_available",
+        "crash_before_authorization": "apps/backend/tests/integration/test_operations_crash_paired.py::test_authorization_cut_has_same_workload_control",
     }
     label = case if repetition is None else f"{case}-{repetition}"
     private = directory / "crash-tests" / label
@@ -326,6 +326,10 @@ def process_crash_fault(
         raise ValueError("Crash-test directory must not be a symlink")
     if private.exists():
         raise ValueError("Crash-test directory already exists; use a fresh laboratory")
+    selected = [tests[case]]
+    if case in {"crash_before_authorization", "crash_after_authorization"}:
+        boundary = "before" if case == "crash_before_authorization" else "after"
+        selected = [tests[case] + f"[{boundary}-{mode}]" for mode in ("control", "fault")]
     result = source.command(
         "uv",
         "run",
@@ -335,20 +339,50 @@ def process_crash_fault(
         "--no-sync",
         "pytest",
         "-q",
-        tests[case],
+        *selected,
         "--basetemp",
         str(private),
         timeout=150,
     )
     if result.returncode:
         raise RuntimeError("Owned process-crash scenario failed: " + result.stdout + result.stderr)
+    paired: dict[str, object] = {}
+    paired_filenames = {
+        "crash_after_confirmation": "confirmation-measurements.json",
+        "crash_after_post": "post-measurements.json",
+        "crash_after_commit": "commit-measurements.json",
+        "crash_before_authorization": "authorization-before-measurements.json",
+        "crash_after_authorization": "authorization-after-measurements.json",
+    }
+    if case in paired_filenames:
+        reports = sorted({path.resolve() for path in private.rglob(paired_filenames[case])})
+        if len(reports) != 2:
+            raise RuntimeError("Expected one measured control and one measured fault")
+        for path in reports:
+            observed_pair = json.loads(path.read_text())
+            paired[observed_pair["mode"]] = observed_pair
+        if set(paired) != {"control", "fault"}:
+            raise RuntimeError("Matched confirmation measurements were not identified")
+        control = cast(dict[str, object], paired["control"])
+        affected = cast(dict[str, object], paired["fault"])
+        _validate_paired_workload(control, affected)
     return {
         "fault_detected": True,
         "recovered": True,
         "real_sigkill": True,
         "scenario": tests[case],
         "scope": "separate owned eval instance with fake source and channel",
+        "paired_measurements": paired,
     }
+
+
+def _validate_paired_workload(control: dict[str, object], affected: dict[str, object]) -> None:
+    signature = control.get("workload_signature")
+    if type(signature) is not int or signature <= 0:
+        raise RuntimeError("Control must identify its synthetic workload")
+    counterpart = affected.get("workload_signature")
+    if type(counterpart) is not int or signature != counterpart:
+        raise RuntimeError("Control and fault did not use the same synthetic workload")
 
 
 def calibrate_crashes(directory: Path, repetitions: int, only: str | None = None) -> None:
@@ -378,7 +412,7 @@ def calibrate_crashes(directory: Path, repetitions: int, only: str | None = None
         "measurements": results,
         "profile_confirmed": False,
         "operational_enablement": False,
-        "limitation": "separate eval instances; paired same-load timing and remaining cut points pending",
+        "limitation": "logical-byte peaks are sampled; full-stage isolation and consolidated operational profile require separate validation",
     }
     _write_crash_calibration(report, summary)
     for case in (only,) if only else supported:

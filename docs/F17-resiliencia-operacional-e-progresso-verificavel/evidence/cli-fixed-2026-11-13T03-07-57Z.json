@@ -1,0 +1,110 @@
+{
+  "create": {
+    "exit": 0,
+    "stdout": "Operação concluída: e2dc6f88-a349-4a58-a6b1-9cb2d8d10a72\n",
+    "stderr": ""
+  },
+  "list": {
+    "exit": 0,
+    "stdout": "Última cópia concluída: 2026-11-13T03:05:47.842472+00:00; próxima: 2026-11-14T03:05:47.842472+00:00\nÚltima falha: não informado\ne2dc6f88-a349-4a58-a6b1-9cb2d8d10a72 · completed · 2026-11-13T03:05:47.699227+00:00 · formato 1 · restauração not_tested · 12 anúncios; 22 observações · motivo nenhum\nCópia no mesmo disco não cobre perda desse disco; acesso Facebook/WhatsApp exige recuperação separada.\n",
+    "stderr": ""
+  },
+  "verify": {
+    "exit": 0,
+    "stdout": "Integridade verificada: e2dc6f88-a349-4a58-a6b1-9cb2d8d10a72. Restauração: not_tested.\n",
+    "stderr": ""
+  },
+  "corruptions": [
+    {
+      "case": "truncated.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    },
+    {
+      "case": "hash.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    },
+    {
+      "case": "schema.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    },
+    {
+      "case": "unsafe.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    }
+  ],
+  "without_isolated": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: Operação não concluída: restore_requires_owned_disposable_eval"
+  },
+  "not_disposable": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: Operação não concluída: restore_requires_owned_disposable_eval"
+  },
+  "dev_target": {
+    "exit": 64,
+    "stdout": "",
+    "stderr": "CommandError: Argumentos inválidos; use --id UUID ou --archive PATH conforme a ação."
+  },
+  "restore": {
+    "exit": 0,
+    "stdout": "Dados restaurados: e2dc6f88-a349-4a58-a6b1-9cb2d8d10a72; despacho bloqueado até reconciliação. Recupere acesso Facebook/WhatsApp separadamente.\nOrigem: eval_f17_source_cfa0ef4c; cópia de 2026-11-13T03:05:47.699227+00:00. Intervalo sem reconciliação: 2026-11-13T03:05:47.699227+00:00 até 2026-11-13T03:05:54.391143+00:00.\n",
+    "stderr": ""
+  },
+  "status": {
+    "exit": 0,
+    "stdout": "Snapshot e57dde97-0397-4a39-ab15-ab9b8c84ce55 · 2026-11-13 03:05:33+00:00 · revisão 1\nDespacho bloqueado.\nAcesso Facebook/WhatsApp é recuperado separadamente dos dados.\n",
+    "stderr": ""
+  },
+  "nonempty_target": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: Operação não concluída: restore_requires_empty_disposable_eval"
+  },
+  "status_after_restart": {
+    "exit": 0,
+    "stdout": "Snapshot df38575f-5d85-4a6e-8ce1-497f5a096e9e · 2026-11-13 03:05:33+00:00 · revisão 1\nDespacho bloqueado.\nAcesso Facebook/WhatsApp é recuperado separadamente dos dados.\n",
+    "stderr": ""
+  },
+  "source_preserved": true,
+  "business_counts": {
+    "Listing": 12,
+    "ListingObservation": 22,
+    "ListingEvent": 0,
+    "MonitoringConfiguration": 1,
+    "ConditionAssessment": 0,
+    "ManualCondition": 1,
+    "ManualConditionHistory": 1,
+    "AlertIntent": 3,
+    "AlertAttempt": 2
+  },
+  "restore_output_has_snapshot": true,
+  "profile_confirmed": false,
+  "cleanup": [
+    {
+      "environment_id": "eval_f17_source_cfa0ef4c",
+      "state": "closed",
+      "database": "garimpei_eval_f17_source_cfa0ef4c",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    },
+    {
+      "environment_id": "eval_f17_destination_b0244c33",
+      "state": "closed",
+      "database": "garimpei_eval_f17_destination_b0244c33",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    }
+  ]
+}

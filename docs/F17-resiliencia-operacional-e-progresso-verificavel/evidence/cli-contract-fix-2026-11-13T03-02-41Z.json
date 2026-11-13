@@ -1,0 +1,18 @@
+{
+  "items": [
+    "CLI-RESTORE-01",
+    "CLI-VERIFY-01"
+  ],
+  "baseline_real_restore_missing_snapshot": true,
+  "red_tests": 2,
+  "green_tests": 2,
+  "green_seconds": 0.02,
+  "gates_exit": 0,
+  "files": [
+    "apps/backend/src/garimpei/infra/repository/operations/backup_repository.py",
+    "apps/backend/src/garimpei/infra/persistence/management/commands/operational_backup.py",
+    "apps/backend/tests/unit/test_operational_cli.py"
+  ],
+  "patch_sha256": "b2de3061677ffb0f1c8c48df060eadfb36fb1b2d3ff02ec1d28bec54a53219ab",
+  "snapshot_branch_changed": false
+}

@@ -1,11 +1,15 @@
 """A killed authorized sender cannot be reclaimed as an unsent request."""
 
+import json
 import os
 import signal
 import subprocess
 from pathlib import Path
 
+import pytest
+
 from tests.factories.alert_scenario import add_cases, alert_scenario, alert_shell, wait_alerts
+from tests.factories.operations_metrics import InstanceMeasurements, workload_signature
 from tests.factories.runtime import pause_worker, resume_worker
 from tests.factories.valuation import listing
 from tests.integration.test_collection import command, completed, sql, wait_for
@@ -44,6 +48,10 @@ assert intent('903').state=='queued'
             marker = tmp_path / "authorization-committed"
             code = f"""
 from pathlib import Path
+
+import pytest
+
+from tests.factories.operations_metrics import InstanceMeasurements, workload_signature
 from time import sleep
 from garimpei.domain.alert.alert import Binding
 from garimpei.infra.persistence.alert_models import FirstAlertIdentity
@@ -111,52 +119,74 @@ assert AlertAttempt.objects.filter(intent=row).count()==1
             resume_worker(worker_group)
 
 
-def test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend(tmp_path: Path) -> None:
+@pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+def test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend(
+    tmp_path: Path, kill_worker: bool
+) -> None:
     from garimpei.infra.runtime.processes import verify_process
 
     with alert_scenario(tmp_path) as (instance, source, clock, channel):
-        clock.advance(1)
-        source.rows["935"] = listing(
-            "935",
-            "1000,00",
-            published_at=clock.value.isoformat(),
-            delivery=True,
-            delivery_cep="01001000",
-            pickup=False,
-        )
-        clock.advance(61)
-        completed(instance, 2)
-        wait_alerts(instance, 1, clock)
-        confirmed = sql(
+        with InstanceMeasurements(
             instance,
-            "SELECT id::text,confirmed_message FROM runtime_alertintent WHERE state='confirmed'",
-        )
-        assert len(confirmed) == 1 and len(channel.messages) == 1
-        owner = next(
-            record for record in instance.manifest["processes"] if "runworker" in record["command"]
-        )
-        verify_process(owner, instance.config.root)
-        os.killpg(owner["pgid"], signal.SIGKILL)
-        command(instance, "./scripts/stop.sh")
-        clock.advance(61)
-        command(instance, "./scripts/init.sh", "--disposable")
-        clock.advance(1)
-        source.rows["936"] = listing(
-            "936",
-            "1000,00",
-            published_at=clock.value.isoformat(),
-            delivery=True,
-            delivery_cep="01001000",
-            pickup=False,
-        )
-        clock.advance(61)
-        wait_alerts(instance, 2, clock)
-        assert confirmed[0] in sql(
-            instance,
-            "SELECT id::text,confirmed_message FROM runtime_alertintent WHERE state='confirmed'",
-        )
-        assert len(channel.messages) == 2
-        assert len([call for call in channel.calls if call[0] == "POST"]) == 2
+            tmp_path / "confirmation-measurements.json",
+            mode="fault" if kill_worker else "control",
+        ) as measurements:
+            clock.advance(1)
+            source.rows["935"] = listing(
+                "935",
+                "1000,00",
+                published_at=clock.value.isoformat(),
+                delivery=True,
+                delivery_cep="01001000",
+                pickup=False,
+            )
+            clock.advance(61)
+            completed(instance, 2)
+            wait_alerts(instance, 1, clock)
+            confirmed = sql(
+                instance,
+                "SELECT id::text,confirmed_message FROM runtime_alertintent WHERE state='confirmed'",
+            )
+            assert len(confirmed) == 1 and len(channel.messages) == 1
+            clock.advance(61)
+            if kill_worker:
+                owner = next(
+                    record
+                    for record in instance.manifest["processes"]
+                    if "runworker" in record["command"]
+                )
+                verify_process(owner, instance.config.root)
+                os.killpg(owner["pgid"], signal.SIGKILL)
+                command(instance, "./scripts/stop.sh")
+                command(instance, "./scripts/init.sh", "--disposable")
+            clock.advance(1)
+            source.rows["936"] = listing(
+                "936",
+                "1000,00",
+                published_at=clock.value.isoformat(),
+                delivery=True,
+                delivery_cep="01001000",
+                pickup=False,
+            )
+            clock.advance(61)
+            wait_alerts(instance, 2, clock)
+            assert confirmed[0] in sql(
+                instance,
+                "SELECT id::text,confirmed_message FROM runtime_alertintent WHERE state='confirmed'",
+            )
+            assert len(channel.messages) == 2
+            assert len([call for call in channel.calls if call[0] == "POST"]) == 2
+            measurements.observed.update(
+                offers=2,
+                confirmed_posts=len(channel.messages),
+                workload_signature=workload_signature(source.rows),
+            )
+        report = json.loads((tmp_path / "confirmation-measurements.json").read_text())
+        assert report["offers"] == 2 and report["confirmed_posts"] == 2
+        assert report["sampled_peak_database_bytes"] > 0
+        assert report["sample_count"] > 1
+        assert report["max_pending_jobs"] >= 0
+        assert report["postgres_version"]
 
 
 def test_sigkill_before_authorization_keeps_request_available(tmp_path: Path) -> None:
@@ -191,6 +221,10 @@ assert intent('903').state=='queued'
             marker = tmp_path / "before-authorization"
             code = f"""
 from pathlib import Path
+
+import pytest
+
+from tests.factories.operations_metrics import InstanceMeasurements, workload_signature
 from time import sleep
 from garimpei.domain.alert.alert import Binding
 from garimpei.infra.persistence.alert_models import FirstAlertIdentity

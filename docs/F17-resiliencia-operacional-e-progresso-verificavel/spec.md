@@ -4,7 +4,7 @@
 
 **Complexidade: alta**, por atravessar coleta, avaliações, projeções, mensageria, filesystem e recuperação de dados. Fontes: [PRD](../PRD.md), [stack](../stack.md), contratos/evidências de F02/F04/F06/F08/F09/F10/F12 e arquivos atuais em `apps/backend/`. F017 resolve para o ID canônico **F17**, prioridade 1, onda 11. Dependências: F02, F04, F06, F08, F09, F10 e F12; todas constam como `done` no progresso consultado. Esta especificação não inicia implementação.
 
-**Estado documental:** especificação e plano emitidos; contrato preliminar enquanto faltar calibração dos limites novos. R07 e F17-AC01/AC07 exigem limites fundamentados em medição antes de fechar o contrato. O código atual não fornece a instrumentação/laboratório novos necessários; preparar o ensaio isolado é a primeira fase proposta, não trabalho executado nesta rodada. Após o ensaio, regenerar os três documentos com o perfil confirmado e sua evidência antes de liberar o contrato para implementação das políticas. A política de backup já foi decidida pelo usuário.
+**Estado documental (regeneração de 2026-11-13 UTC):** perfil técnico confirmado no recorte controlado após calibração, pares de falha e carga mista; evidências e limitações no registro [calibration-confirmed-2026-11-13T03-08-37Z.json](evidence/calibration-confirmed-2026-11-13T03-08-37Z.json) e no adendo ao fim desta especificação. O gate documental da fase 1 foi cumprido preservando requisitos, valores e escolhas do usuário. A implementação existente continua sob avaliação integral; esta atualização não declara a feature concluída nem habilita políticas na instalação real.
 
 **Incluído:** progresso durável por etapa/unidade, funil consistente, recuperação limitada, isolamento de filas, estabilidade da leitura durante falhas, migração, backup automático local/exportação e restauração exclusivamente em instância isolada. Decisão do usuário: **uma cópia a cada 24 horas e retenção das 7 últimas cópias concluídas**, com uma cópia na inicialização se o agendamento estiver atrasado.
 
@@ -214,6 +214,27 @@ Criar a fixture operacional descrita em `contract.md`, com comando reproduzível
 Gates de implementação: `node scripts/run-gates.mjs` já é runner Python atual; `uv run --project apps/backend --frozen --no-sync pytest apps/backend/tests`; checks Django/migrations; verificação do harness se lifecycle/scripts forem alterados. Navegação por `playwright-cli`, evidências desktop e janela estreita, com avaliação visual conforme `frontend-ui-design`. Registrar evidência por item e resultado de calibração/restauração; documentação produzida não comprova esses gates nem muda F17 para `done`.
 
 
-## Evidência de calibração inicial — 2026-11-12
+## Evidência histórica de calibração inicial — 2026-11-12
+
+**Estado histórico, superado pela calibração de 2026-11-13 UTC:** o parágrafo seguinte preserva a situação daquele ensaio e não define o estado canônico atual.
 
 [calibration-initial.json](evidence/calibration-initial.json) registra cinco controles e cinco timeouts por adaptador com prazos operacionais (fonte20s, valoração30s, canal10s), além de cinco percursos completos com PostgreSQL e recibo fake F16 em19,30–20,02s incluindo startup. Estes resultados confirmam as fronteiras existentes. O primeiro incremento de manutenção, restauração, isolamento e a integração de mídia ainda requerem ensaio; o contrato continua preliminar e a habilitação real permanece desativada. Nenhum limite foi ampliado e nenhum gate foi dispensado.
+
+
+## Perfil calibrado — 2026-11-13 UTC
+
+O gate documental da fase 1 foi satisfeito no recorte controlado descrito em [calibration-confirmed-2026-11-13T03-08-37Z.json](evidence/calibration-confirmed-2026-11-13T03-08-37Z.json). O perfil/hash **071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423** conserva todos os limites e políticas já aprovados: nenhum prazo, orçamento, fila ou armazenamento foi ampliado. Isto confirma o perfil técnico no laboratório; não aprova automaticamente os 58 itens nem habilita a instalação real.
+
+| Evidência atual | Resultado observado |
+|---|---|
+| Fonte/valoração/canal | 30 observações: cinco controles e cinco timeouts por adaptador, com prazos operacionais 20/30/10 s |
+| Falhas de rede/arquivo/fila | 35 observações pareadas; prazos de 1 s são injeção somente em eval, separados dos prazos operacionais |
+| Backup/exportação/restauração/reconciliação | Cinco controles completos; backup 0,516–0,546 s, exportação 0,376–0,411 s, restauração 0,594–0,674 s, verificação 0,351–0,408 s; mídia original protegida e zero POST duplicado |
+| Quedas de processo | 25 pares controle/falha: cinco por fronteira antes/depois de autorização, após POST, após confirmação e após lote confirmado/antes da publicação seguinte |
+| Carga mista | Cinco pares com duas ofertas: enquanto valoração e POST estavam retidos, runtime/coleta/backup avançaram em 6,790–6,880 s; controles 3,337–3,629 s |
+| Armazenamento | Máximo lógico amostrado de dados 16355196 bytes; backups/exportações/temporários 203420 bytes; mínimo livre 8512139264 bytes |
+| Revisões | Hashes de runtime, testes e uv.lock idênticos em todos os pares e na calibração canônica; versões completas no JSON |
+
+Os picos são máximos **amostrados a cada 0,1 s**, não ocupação física contínua. A origem teve 2.908 amostras e zero erro; o destino é fechado intencionalmente entre restaurações e os períodos sem conexão estão contados, sem preencher zeros. As consultas por restauração corroboram os tamanhos disponíveis. A idade máxima de 342 s inclui a unidade de recuperação deliberadamente pausada, não latência de trabalho saudável. Os limiares de 180 s/5 s/três falhas/1.000 unidades continuam escolhas de engenharia, exercitadas nos testes de fronteira, sem promessa de throughput ou RPO/RTO. Faltas de espaço são injetadas em eval; não foi necessário preencher o disco do operador.
+
+A confirmação é limitada à carga sintética rastreável, com PostgreSQL/web/workers reais, fonte/canal loopback e arquivos próprios. Os recursos da calibração e dos pares foram encerrados conforme os inventários. A evidência anterior acima permanece histórica. A avaliação integral e as correções de CLI/HTTP identificadas continuam obrigatórias para `done`; `operational_enablement=false` foi conservado.

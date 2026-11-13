@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from tests.factories.alert_scenario import (
     add_cases,
     alert_scenario,
@@ -7,6 +9,7 @@ from tests.factories.alert_scenario import (
     pause_worker,
     resume_worker,
 )
+from tests.factories.operations_metrics import InstanceMeasurements, workload_signature
 from tests.integration.test_collection import completed, sql, wait_for
 
 
@@ -198,9 +201,19 @@ print('CONFIRMATION-CONCURRENCY consistent dependency history PASS')
         assert not channel.messages
 
 
+@pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
 def test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries(
     tmp_path: Path,
+    kill_worker: bool,
 ) -> None:
+    _run_post_boundary(tmp_path, kill_worker, "confirmed")
+
+
+def test_killed_worker_reconciles_lost_post_response(tmp_path: Path) -> None:
+    _run_post_boundary(tmp_path, True, "lost")
+
+
+def _run_post_boundary(tmp_path: Path, kill_worker: bool, channel_mode: str) -> None:
     import os
     import signal
 
@@ -210,52 +223,65 @@ def test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries(
     from tests.integration.test_collection import command
 
     with alert_scenario(tmp_path) as (instance, source, clock, channel):
-        channel.mode = "lost"
-        channel.hold_post = True
-        clock.advance(1)
-        source.rows["931"] = listing(
-            "931",
-            "1000,00",
-            published_at=clock.value.isoformat(),
-            delivery=True,
-            delivery_cep="01001000",
-            pickup=False,
-        )
-        clock.advance(61)
-        completed(instance, 2)
-        assert channel.held.wait(35), "worker did not reach held POST"
-        original = sql(
-            instance, "SELECT id::text FROM runtime_alertintent WHERE state='authorized'"
-        )
-        assert len(original) == 1 and len(channel.messages) == 1
-        owner = next(
-            record for record in instance.manifest["processes"] if "runworker" in record["command"]
-        )
-        verify_process(owner, instance.config.root)
-        os.killpg(owner["pgid"], signal.SIGKILL)
-        channel.release.set()
-        command(instance, "./scripts/stop.sh")
-        clock.advance(61)
-        command(instance, "./scripts/init.sh", "--disposable")
-        wait_alerts(instance, 1, clock)
-        assert (
-            sql(instance, "SELECT id::text FROM runtime_alertintent WHERE state='confirmed'")
-            == original
-        )
-        assert sql(instance, "SELECT count(*) FROM runtime_alertattempt") == [(1,)]
-        assert len([call for call in channel.calls if call[0] == "POST"]) == 1
-        # A technical send job may remain doing; a later business tick still progresses.
-        channel.mode, channel.hold_post = "confirmed", False
-        clock.advance(1)
-        source.rows["932"] = listing(
-            "932",
-            "1000,00",
-            published_at=clock.value.isoformat(),
-            delivery=True,
-            delivery_cep="01001000",
-            pickup=False,
-        )
-        clock.advance(61)
-        wait_alerts(instance, 2, clock)
-        assert len([call for call in channel.calls if call[0] == "POST"]) == 2
-        print("WRK-ENVIO-04/06 actual SIGKILL after POST, same receipt, no duplicate PASS")
+        with InstanceMeasurements(
+            instance,
+            tmp_path / "post-measurements.json",
+            mode="fault" if kill_worker else "control",
+        ) as measurements:
+            channel.mode = channel_mode
+            channel.hold_post = True
+            clock.advance(1)
+            source.rows["931"] = listing(
+                "931",
+                "1000,00",
+                published_at=clock.value.isoformat(),
+                delivery=True,
+                delivery_cep="01001000",
+                pickup=False,
+            )
+            clock.advance(61)
+            completed(instance, 2)
+            assert channel.held.wait(35), "worker did not reach held POST"
+            original = sql(
+                instance, "SELECT id::text FROM runtime_alertintent WHERE state='authorized'"
+            )
+            assert len(original) == 1 and len(channel.messages) == 1
+            clock.advance(61)
+            if kill_worker:
+                owner = next(
+                    record
+                    for record in instance.manifest["processes"]
+                    if "runworker" in record["command"]
+                )
+                verify_process(owner, instance.config.root)
+                os.killpg(owner["pgid"], signal.SIGKILL)
+            channel.release.set()
+            if kill_worker:
+                command(instance, "./scripts/stop.sh")
+                command(instance, "./scripts/init.sh", "--disposable")
+            wait_alerts(instance, 1, clock)
+            assert (
+                sql(instance, "SELECT id::text FROM runtime_alertintent WHERE state='confirmed'")
+                == original
+            )
+            assert sql(instance, "SELECT count(*) FROM runtime_alertattempt") == [(1,)]
+            assert len([call for call in channel.calls if call[0] == "POST"]) == 1
+            # A technical send job may remain doing; a later business tick still progresses.
+            channel.mode, channel.hold_post = "confirmed", False
+            clock.advance(1)
+            source.rows["932"] = listing(
+                "932",
+                "1000,00",
+                published_at=clock.value.isoformat(),
+                delivery=True,
+                delivery_cep="01001000",
+                pickup=False,
+            )
+            clock.advance(61)
+            wait_alerts(instance, 2, clock)
+            assert len([call for call in channel.calls if call[0] == "POST"]) == 2
+            measurements.observed.update(
+                offers=2,
+                confirmed_posts=len(channel.messages),
+                workload_signature=workload_signature(source.rows),
+            )

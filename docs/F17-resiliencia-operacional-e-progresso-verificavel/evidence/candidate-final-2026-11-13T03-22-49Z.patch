@@ -1,0 +1,358 @@
+--- a/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py
++++ b/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py
+@@ -215,6 +215,7 @@
+     def catalog(self) -> dict[str, object]:
+         rows = BackupRecord.objects.filter(installation=self._installation).order_by("-started_at")
+         schedule = BackupSchedule.objects.filter(installation=self._installation).first()
++        recovery = RecoveryBarrier.objects.filter(installation=self._installation).first()
+         return {
+             "records": [
+                 {
+@@ -228,12 +229,22 @@
+                     "snapshot_at": r.snapshot_at,
+                     "restoration_state": r.restoration_state,
+                     "bytes": r.size,
++                    "scope": r.scope,
+                 }
+                 for r in rows[:100]
+             ],
+             "next_due_at": schedule.next_due_at if schedule else None,
+             "last_success_at": schedule.last_success_at if schedule else None,
+             "last_failure_at": schedule.last_failure_at if schedule else None,
++            "recovery": {
++                "snapshot_at": recovery.snapshot_at,
++                "restored_at": recovery.restored_at,
++                "source_installation": recovery.evidence.get(
++                    "source_installation", "não informada"
++                ),
++            }
++            if recovery
++            else None,
+         }
+
+     def download(self, identity: UUID) -> ArchiveDownload:
+--- a/apps/backend/src/garimpei/infra/persistence/management/commands/operational_backup.py
++++ b/apps/backend/src/garimpei/infra/persistence/management/commands/operational_backup.py
+@@ -1,11 +1,12 @@
+ from argparse import ArgumentParser
++from datetime import datetime
+ from typing import TypedDict, Unpack
+ from uuid import UUID, uuid4
+
+ from django.core.management.base import BaseCommand, CommandError
+ from django.db import DatabaseError
+
+-from garimpei.config.env import ConfigurationError
++from garimpei.config.env import ConfigurationError, load_config
+ from garimpei.domain.operations.errors import OperationsError
+ from garimpei.infra.gateway.operations.archive_gateway import ArchiveInvalid
+ from garimpei.main import build_backup_repository, build_create_backup, build_restore_backup
+@@ -39,11 +40,19 @@
+             ) from None
+         except (OperationsError, ArchiveInvalid, OSError, DatabaseError) as error:
+             reason = error.code if isinstance(error, OperationsError) else "operation_unavailable"
+-            raise CommandError("Operação não concluída: " + reason, returncode=1) from None
++            message = "Operação não concluída: " + reason
++            if reason in {
++                "restore_requires_owned_disposable_eval",
++                "restore_requires_empty_disposable_eval",
++            }:
++                message = "A restauração exige destino eval isolado, próprio, descartável e vazio."
++            raise CommandError(message, returncode=1) from None
+
+     def _dispatch(self, options: Options) -> None:
++        action = options["action"]
++        if action == "restore" and load_config(require_secrets=False).environment != "eval":
++            raise OperationsError("restore_requires_owned_disposable_eval")
+         repository = build_backup_repository()
+-        action = options["action"]
+         if action == "list":
+             self._list(repository.catalog())
+             return
+@@ -57,6 +66,12 @@
+             self.stdout.write(
+                 f"Dados restaurados: {identity}; despacho bloqueado até reconciliação. Recupere acesso Facebook/WhatsApp separadamente."
+             )
++            recovery = repository.catalog().get("recovery")
++            if isinstance(recovery, dict):
++                self.stdout.write(
++                    f"Origem: {recovery['source_installation']}; cópia de {_moment(recovery['snapshot_at'])}. "
++                    f"Intervalo sem reconciliação: {_moment(recovery['snapshot_at'])} até {_moment(recovery['restored_at'])}."
++                )
+             return
+         if action == "export":
+             identity = repository.export(UUID(options["id"] or ""), uuid4())
+@@ -69,13 +84,14 @@
+
+     def _list(self, catalog: dict[str, object]) -> None:
+         self.stdout.write(
+-            f"Última cópia concluída: {catalog['last_success_at']}; próxima: {catalog['next_due_at']}"
++            f"Última cópia concluída: {_moment(catalog['last_success_at'])}; próxima: {_moment(catalog['next_due_at'])}"
+         )
++        self.stdout.write(f"Última falha: {_moment(catalog.get('last_failure_at'))}")
+         records = catalog["records"]
+         if isinstance(records, list):
+             for record in records:
+                 self.stdout.write(
+-                    f"{record['id']} · {record['state']} · {record['snapshot_at']} · formato {record['format_version']} · restauração {record['restoration_state']}"
++                    f"{record['id']} · {record['state']} · {_moment(record['snapshot_at'])} · formato {record['format_version']} · restauração {record['restoration_state']} · {_scope_label(record.get('scope'))} · motivo {record.get('reason') or 'nenhum'}"
+                 )
+         self.stdout.write(
+             "Cópia no mesmo disco não cobre perda desse disco; acesso Facebook/WhatsApp exige recuperação separada."
+@@ -86,3 +102,14 @@
+     if not options["archive"]:
+         raise ValueError("archive required")
+     return options["archive"]
++
++
++def _moment(value: object) -> str:
++    return value.isoformat() if isinstance(value, datetime) else "não informado"
++
++
++def _scope_label(value: object) -> str:
++    if not isinstance(value, dict) or not isinstance(value.get("counts"), dict):
++        return "escopo não informado"
++    counts = value["counts"]
++    return f"{counts.get('runtime.listing', 'não medido')} anúncios; {counts.get('runtime.listingobservation', 'não medido')} observações"
+--- a/apps/backend/src/garimpei/infra/repository/operations/progress_repository.py
++++ b/apps/backend/src/garimpei/infra/repository/operations/progress_repository.py
+@@ -99,7 +99,12 @@
+             try:
+                 state.resume(expected_revision=revision, now=self._clock())
+             except ProgressConflict:
+-                raise OperationsError("operational_revision_or_access_conflict") from None
++                code = (
++                    "operational_revision_conflict"
++                    if row.revision != revision
++                    else "operational_access_suspended"
++                )
++                raise OperationsError(code) from None
+             _save(row, state)
+             OperationalDiagnostic.objects.create(
+                 id=uuid4(), unit=row, reason="explicit_resume", created_at=self._clock()
+--- a/apps/backend/src/garimpei/infra/http/error_handler.py
++++ b/apps/backend/src/garimpei/infra/http/error_handler.py
+@@ -178,6 +178,12 @@
+     message = "Não foi possível concluir a operação. Os dados confirmados continuam preservados."
+     if code == "recovery_barrier":
+         message = "O despacho permanece bloqueado até reconciliar o intervalo após a cópia."
++    if code == "operational_revision_conflict":
++        message = "O estado mudou. Reabra o acompanhamento e use a revisão atual antes de retomar."
++    if code == "operational_access_suspended":
++        message = (
++            "O acesso à fonte continua suspenso. Recupere o acesso em Integrações antes de retomar."
++        )
+     response: HttpResponse
+     if request.path.endswith("/estado/") and request.GET.get("formato") != "html":
+         response = JsonResponse(
+--- a/apps/backend/tests/http/test_operational_status.py
++++ b/apps/backend/tests/http/test_operational_status.py
+@@ -74,3 +74,36 @@
+ assert list(MonitoringConfiguration.objects.values())==before
+ """,
+     )
++
++
++def test_resume_conflicts_explain_revision_or_access_and_preserve_checkpoint(
++    operational_instance: FoundationInstance,
++) -> None:
++    shell(
++        operational_instance,
++        """
++from django.test import Client
++from django.utils.timezone import now
++from garimpei.config.env import load_config
++from garimpei.infra.repository.operations.progress_repository import PostgresOperationalRepository
++from garimpei.infra.persistence.operations_models import OperationalUnit
++client=Client(enforce_csrf_checks=True,HTTP_HOST='127.0.0.1')
++assert client.get('/configuracoes/').status_code==200
++token=client.cookies['csrftoken'].value
++store=PostgresOperationalRepository(load_config().environment_id,now)
++for label,reason,revision,expected in [
++ ('revision','valuation_publication_failed','6','revisão atual'),
++ ('access','access_denied','7','Recupere o acesso'),
++]:
++ scope='resume-specific-'+label
++ store.confirm('valuation',scope,7,'confirmed-'+label,now(),pending=1)
++ for _ in range(3):store.failure('valuation',scope,7,reason,now())
++ row=OperationalUnit.objects.get(scope=scope)
++ before=OperationalUnit.objects.filter(id=row.id).values().get()
++ response=client.post('/acompanhamento/etapas/valuation/retomar/',{'unidade':str(row.id),'revisao':revision,'csrfmiddlewaretoken':token})
++ assert response.status_code==409
++ assert expected.encode() in response.content
++ assert response['Cache-Control']=='no-store'
++ assert OperationalUnit.objects.filter(id=row.id).values().get()==before
++""",
++    )
+--- /dev/null
++++ b/apps/backend/tests/unit/test_operational_cli.py
+@@ -0,0 +1,121 @@
++"""The operator can identify the protected snapshot and its recovery boundary."""
++
++from datetime import UTC, datetime
++from io import StringIO
++from unittest.mock import patch
++from uuid import UUID
++
++import pytest
++from django.core.management import call_command
++from django.core.management.base import CommandError
++
++IDENTITY = UUID("00000000-0000-4000-8000-000000000017")
++SNAPSHOT = datetime(2026, 11, 13, 1, 2, 3, tzinfo=UTC)
++RESTORED = datetime(2026, 11, 13, 1, 4, 5, tzinfo=UTC)
++FAILED = datetime(2026, 11, 13, 1, 0, 0, tzinfo=UTC)
++
++
++class EvalConfiguration:
++    environment = "eval"
++
++
++class NamedBackupCatalog:
++    def catalog(self) -> dict[str, object]:
++        return {
++            "last_success_at": SNAPSHOT,
++            "next_due_at": RESTORED,
++            "last_failure_at": FAILED,
++            "recovery": {
++                "snapshot_at": SNAPSHOT,
++                "restored_at": RESTORED,
++                "source_installation": "synthetic-source-installation",
++            },
++            "records": [
++                {
++                    "id": str(IDENTITY),
++                    "state": "completed",
++                    "snapshot_at": SNAPSHOT,
++                    "format_version": 1,
++                    "restoration_state": "not_tested",
++                    "reason": "",
++                    "scope": {"counts": {"runtime.listing": 12, "runtime.listingobservation": 22}},
++                }
++            ],
++        }
++
++
++class RecordedRestore:
++    def execute(self, archive: str, *, isolated: bool) -> UUID:
++        assert isolated and archive == "/private/synthetic-canary.tar.gz"
++        return IDENTITY
++
++
++def test_restore_output_identifies_snapshot_scope_and_uncovered_interval() -> None:
++    output = StringIO()
++    with (
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.load_config",
++            return_value=EvalConfiguration(),
++        ),
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",
++            return_value=NamedBackupCatalog(),
++        ),
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.build_restore_backup",
++            return_value=RecordedRestore(),
++        ),
++    ):
++        call_command(
++            "operational_backup",
++            "restore",
++            "--archive",
++            "/private/synthetic-canary.tar.gz",
++            "--isolated",
++            stdout=output,
++        )
++    text = output.getvalue()
++    assert SNAPSHOT.isoformat() in text
++    assert RESTORED.isoformat() in text
++    assert "synthetic-source-installation" in text
++    assert "despacho bloqueado" in text.lower()
++    assert "synthetic-canary" not in text
++
++
++def test_list_output_includes_scope_and_last_failure_separately_from_creation() -> None:
++    output = StringIO()
++    with patch(
++        "garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",
++        return_value=NamedBackupCatalog(),
++    ):
++        call_command("operational_backup", "list", stdout=output)
++    text = output.getvalue()
++    assert "12 anúncios" in text and "22 observações" in text
++    assert FAILED.isoformat() in text
++    assert "not_tested" in text
++
++
++class NonEvalConfiguration:
++    environment = "dev"
++
++
++def test_dev_restore_is_refused_with_target_guidance_before_repository_io() -> None:
++    with (
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.load_config",
++            return_value=NonEvalConfiguration(),
++            create=True,
++        ),
++        patch(
++            "garimpei.infra.persistence.management.commands.operational_backup.build_backup_repository",
++            side_effect=AssertionError("Repository I/O must not start for a forbidden target"),
++        ),
++    ):
++        with pytest.raises(CommandError, match="eval isolado"):
++            call_command(
++                "operational_backup",
++                "restore",
++                "--archive",
++                "/private/synthetic.tar.gz",
++                "--isolated",
++            )
+--- a/apps/backend/tests/factories/operations_lab.py
++++ b/apps/backend/tests/factories/operations_lab.py
+@@ -365,8 +365,7 @@
+             raise RuntimeError("Matched confirmation measurements were not identified")
+         control = cast(dict[str, object], paired["control"])
+         affected = cast(dict[str, object], paired["fault"])
+-        if control.get("workload_signature") != affected.get("workload_signature"):
+-            raise RuntimeError("Control and fault did not use the same synthetic workload")
++        _validate_paired_workload(control, affected)
+     return {
+         "fault_detected": True,
+         "recovered": True,
+@@ -375,6 +374,15 @@
+         "scope": "separate owned eval instance with fake source and channel",
+         "paired_measurements": paired,
+     }
++
++
++def _validate_paired_workload(control: dict[str, object], affected: dict[str, object]) -> None:
++    signature = control.get("workload_signature")
++    if type(signature) is not int or signature <= 0:
++        raise RuntimeError("Control must identify its synthetic workload")
++    counterpart = affected.get("workload_signature")
++    if type(counterpart) is not int or signature != counterpart:
++        raise RuntimeError("Control and fault did not use the same synthetic workload")
+
+
+ def calibrate_crashes(directory: Path, repetitions: int, only: str | None = None) -> None:
+--- /dev/null
++++ b/apps/backend/tests/unit/test_operations_calibration_signature.py
+@@ -0,0 +1,17 @@
++import pytest
++
++from tests.factories.operations_lab import _validate_paired_workload
++
++
++@pytest.mark.parametrize(
++    "first,second", [(None, None), (None, 1), (1, None), (False, False), (0, 0), (1, 2), ("x", "x")]
++)
++def test_unidentified_or_different_loads_cannot_count_as_a_matched_control(
++    first: object, second: object
++) -> None:
++    with pytest.raises(RuntimeError):
++        _validate_paired_workload({"workload_signature": first}, {"workload_signature": second})
++
++
++def test_identical_identified_loads_are_accepted() -> None:
++    _validate_paired_workload({"workload_signature": 123}, {"workload_signature": 123})

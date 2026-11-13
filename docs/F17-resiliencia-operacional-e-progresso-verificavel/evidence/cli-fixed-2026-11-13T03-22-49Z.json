@@ -1,0 +1,111 @@
+{
+  "create": {
+    "exit": 0,
+    "stdout": "Operação concluída: 63b043e1-8a3a-4531-b181-65083c2e8eeb\n",
+    "stderr": ""
+  },
+  "list": {
+    "exit": 0,
+    "stdout": "Última cópia concluída: 2026-11-13T03:21:52.051108+00:00; próxima: 2026-11-14T03:21:52.051108+00:00\nÚltima falha: não informado\n63b043e1-8a3a-4531-b181-65083c2e8eeb · completed · 2026-11-13T03:21:51.900651+00:00 · formato 1 · restauração not_tested · 12 anúncios; 22 observações · motivo nenhum\nCópia no mesmo disco não cobre perda desse disco; acesso Facebook/WhatsApp exige recuperação separada.\n",
+    "stderr": ""
+  },
+  "verify": {
+    "exit": 0,
+    "stdout": "Integridade verificada: 63b043e1-8a3a-4531-b181-65083c2e8eeb. Restauração: not_tested.\n",
+    "stderr": ""
+  },
+  "corruptions": [
+    {
+      "case": "truncated.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    },
+    {
+      "case": "hash.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    },
+    {
+      "case": "schema.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    },
+    {
+      "case": "unsafe.tar",
+      "exit": 1,
+      "safe_reason": "operation_not_completed"
+    }
+  ],
+  "without_isolated": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: A restauração exige destino eval isolado, próprio, descartável e vazio."
+  },
+  "not_disposable": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: A restauração exige destino eval isolado, próprio, descartável e vazio."
+  },
+  "dev_target": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: A restauração exige destino eval isolado, próprio, descartável e vazio."
+  },
+  "restore": {
+    "exit": 0,
+    "stdout": "Dados restaurados: 63b043e1-8a3a-4531-b181-65083c2e8eeb; despacho bloqueado até reconciliação. Recupere acesso Facebook/WhatsApp separadamente.\nOrigem: eval_f17_source_53a9e783; cópia de 2026-11-13T03:21:51.900651+00:00. Intervalo sem reconciliação: 2026-11-13T03:21:51.900651+00:00 até 2026-11-13T03:21:58.959171+00:00.\n",
+    "stderr": ""
+  },
+  "status": {
+    "exit": 0,
+    "stdout": "Snapshot ba3234d4-e450-4970-a703-82bc6e7cdbcc · 2026-11-13 03:21:37+00:00 · revisão 1\nDespacho bloqueado.\nAcesso Facebook/WhatsApp é recuperado separadamente dos dados.\n",
+    "stderr": ""
+  },
+  "nonempty_target": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "CommandError: A restauração exige destino eval isolado, próprio, descartável e vazio."
+  },
+  "status_after_restart": {
+    "exit": 0,
+    "stdout": "Snapshot f88294e7-8d4f-42df-8725-354d5bd0b30b · 2026-11-13 03:21:37+00:00 · revisão 1\nDespacho bloqueado.\nAcesso Facebook/WhatsApp é recuperado separadamente dos dados.\n",
+    "stderr": ""
+  },
+  "source_preserved": true,
+  "business_counts": {
+    "Listing": 12,
+    "ListingObservation": 22,
+    "ListingEvent": 0,
+    "MonitoringConfiguration": 1,
+    "ConditionAssessment": 0,
+    "ManualCondition": 1,
+    "ManualConditionHistory": 1,
+    "AlertIntent": 3,
+    "AlertAttempt": 2
+  },
+  "restore_output_has_snapshot": true,
+  "profile_confirmed": false,
+  "cleanup": [
+    {
+      "environment_id": "eval_f17_source_53a9e783",
+      "state": "closed",
+      "database": "garimpei_eval_f17_source_53a9e783",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    },
+    {
+      "environment_id": "eval_f17_destination_5a966ad2",
+      "state": "closed",
+      "database": "garimpei_eval_f17_destination_5a966ad2",
+      "ports": {},
+      "live_processes": [],
+      "owned_containers": 0,
+      "owned_networks": 0,
+      "owned_volumes": 0
+    }
+  ],
+  "candidate_patch": "candidate-final-2026-11-13T03-22-49Z.patch"
+}

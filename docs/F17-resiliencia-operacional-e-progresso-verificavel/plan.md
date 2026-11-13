@@ -10,6 +10,8 @@
 
 **Gate para as fases seguintes:** regenerar spec/plano/contrato com os limites medidos e a evidência do ensaio; só então retirar a condição preliminar do contrato. Os estágios novos ainda inexistentes exigem medição do primeiro incremento em laboratório antes de habilitação; valores escolhidos não podem ser apresentados como observações empíricas.
 
+**Execução do gate — 2026-11-13 UTC:** concluído no recorte controlado; spec/plano/contrato foram regenerados com [calibration-confirmed-2026-11-13T03-08-37Z.json](evidence/calibration-confirmed-2026-11-13T03-08-37Z.json). Os valores permaneceram iguais e a habilitação real continua desligada. Fases seguintes e avaliação integral permanecem obrigatórias.
+
 ## Fase 2 — Progresso durável e integridade
 
 **2. Estado operacional** — Introduzir políticas e persistência de progresso, orçamento e checkpoint, ligadas às fronteiras confirmadas já existentes. Migrar dados preservando identidades, revisões e recibos sem transformar histórico não medido em avanço novo.
@@ -49,6 +51,27 @@
 **Verificação final:** seis gates Python, suíte relevante completa, Django/migrations, harness quando alterado e itens do contrato. Arquivar logs sanitizados; falhas, medições ausentes ou item não executado permanecem pendentes, sem declarar F17 concluída.
 
 
-## Evidência de calibração inicial — 2026-11-12
+## Evidência histórica de calibração inicial — 2026-11-12
+
+**Estado histórico, superado pela calibração de 2026-11-13 UTC:** o parágrafo seguinte preserva a situação daquele ensaio e não define o estado canônico atual.
 
 [calibration-initial.json](evidence/calibration-initial.json) registra cinco controles e cinco timeouts por adaptador com prazos operacionais (fonte20s, valoração30s, canal10s), além de cinco percursos completos com PostgreSQL e recibo fake F16 em19,30–20,02s incluindo startup. Estes resultados confirmam as fronteiras existentes. O primeiro incremento de manutenção, restauração, isolamento e a integração de mídia ainda requerem ensaio; o contrato continua preliminar e a habilitação real permanece desativada. Nenhum limite foi ampliado e nenhum gate foi dispensado.
+
+
+## Perfil calibrado — 2026-11-13 UTC
+
+O gate documental da fase 1 foi satisfeito no recorte controlado descrito em [calibration-confirmed-2026-11-13T03-08-37Z.json](evidence/calibration-confirmed-2026-11-13T03-08-37Z.json). O perfil/hash **071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423** conserva todos os limites e políticas já aprovados: nenhum prazo, orçamento, fila ou armazenamento foi ampliado. Isto confirma o perfil técnico no laboratório; não aprova automaticamente os 58 itens nem habilita a instalação real.
+
+| Evidência atual | Resultado observado |
+|---|---|
+| Fonte/valoração/canal | 30 observações: cinco controles e cinco timeouts por adaptador, com prazos operacionais 20/30/10 s |
+| Falhas de rede/arquivo/fila | 35 observações pareadas; prazos de 1 s são injeção somente em eval, separados dos prazos operacionais |
+| Backup/exportação/restauração/reconciliação | Cinco controles completos; backup 0,516–0,546 s, exportação 0,376–0,411 s, restauração 0,594–0,674 s, verificação 0,351–0,408 s; mídia original protegida e zero POST duplicado |
+| Quedas de processo | 25 pares controle/falha: cinco por fronteira antes/depois de autorização, após POST, após confirmação e após lote confirmado/antes da publicação seguinte |
+| Carga mista | Cinco pares com duas ofertas: enquanto valoração e POST estavam retidos, runtime/coleta/backup avançaram em 6,790–6,880 s; controles 3,337–3,629 s |
+| Armazenamento | Máximo lógico amostrado de dados 16355196 bytes; backups/exportações/temporários 203420 bytes; mínimo livre 8512139264 bytes |
+| Revisões | Hashes de runtime, testes e uv.lock idênticos em todos os pares e na calibração canônica; versões completas no JSON |
+
+Os picos são máximos **amostrados a cada 0,1 s**, não ocupação física contínua. A origem teve 2.908 amostras e zero erro; o destino é fechado intencionalmente entre restaurações e os períodos sem conexão estão contados, sem preencher zeros. As consultas por restauração corroboram os tamanhos disponíveis. A idade máxima de 342 s inclui a unidade de recuperação deliberadamente pausada, não latência de trabalho saudável. Os limiares de 180 s/5 s/três falhas/1.000 unidades continuam escolhas de engenharia, exercitadas nos testes de fronteira, sem promessa de throughput ou RPO/RTO. Faltas de espaço são injetadas em eval; não foi necessário preencher o disco do operador.
+
+A confirmação é limitada à carga sintética rastreável, com PostgreSQL/web/workers reais, fonte/canal loopback e arquivos próprios. Os recursos da calibração e dos pares foram encerrados conforme os inventários. A evidência anterior acima permanece histórica. A avaliação integral e as correções de CLI/HTTP identificadas continuam obrigatórias para `done`; `operational_enablement=false` foi conservado.
