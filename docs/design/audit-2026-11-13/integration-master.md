@@ -31,7 +31,7 @@ As novas convenções de apresentação estão descritas nas specs das features 
 
 ## Validação final
 
-A suíte final aprovou **899 casos únicos** em três lotes de 126, 178 e 595, sem falhas, erros, skips, omissões ou duplicatas. A união dos JUnits coincide exatamente com a coleção, e os hashes dos arquivos de código/testes permaneceram estáveis. Os seis grupos de gates e os quatro testes/check do harness passaram. A [evidência de integração](integration-validation.json) registra comandos, manifestos, resultados, checks documentais e limites de atribuição. O estado de publicação deve ser conferido pelo commit e pela referência remota informados na entrega; este relatório não afirma um push antes de sua execução.
+A suíte final aprovou **899 casos únicos** em três lotes de 126, 178 e 595, sem falhas, erros, skips, omissões ou duplicatas. A união dos JUnits coincide exatamente com a coleção, e os hashes dos arquivos de código/testes permaneceram estáveis. Os seis grupos de gates, o check do harness e os quatro testes do harness passaram. A [evidência de integração](integration-validation.json) registra comandos, manifestos, resultados, checks documentais e limites de atribuição. O estado de publicação deve ser conferido pelo commit e pela referência remota informados na entrega; este relatório não afirma um push antes de sua execução.
 
 A validação visual conserva os limites do relatório original: sem leitor de tela real, outros motores, dispositivo físico ou todas as combinações de fotos/IA com dados reais. O bloqueio positivo real de F21 continua explícito em sua avaliação.
 
