@@ -201,7 +201,8 @@ class LocalAssessmentInference:
             observation_id=work.value.observation_id,
             fingerprint=work.value.fingerprint,
             status=status if complete or status == "failed" else "partial",
-            reason=decision.reason,
+            # A missing seller declaration must not hide a rejected model response.
+            reason=reason if status == "failed" else decision.reason,
             condition=decision.condition,
             sufficient=decision.sufficient,
             model_revision=work.value.model_revision,
