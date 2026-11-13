@@ -1,0 +1,57 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_physical_reference_codes_expand_to_exact_evidence_before_consumption ___
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-82/test_physical_reference_codes_0')
+
+    def test_physical_reference_codes_expand_to_exact_evidence_before_consumption(tmp_path: Path) -> None:
+        from garimpei.domain.inference.condition_evidence import validate_condition_result
+        from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
+        from tests.factories.inference import OllamaGatewayFake, serve_inference
+
+        class CompactEvidenceFake(OllamaGatewayFake):
+            def respond(self, path: str) -> dict[str, object]:
+                result = super().respond(path)
+                if path == "/api/chat":
+                    result["message"] = dict(role="assistant", content=json.dumps({
+                        "schema_version": VERSION,
+                        "findings": [{"dimension": "appearance", "assessment": "light_wear",
+                                      "description": "Desgaste nas bordas", "references": ["i0", "t0"]}],
+                        "conflicts": [], "limitations": [], "examined_photos": ["i0"],
+                        "omitted_photos": [],
+                    }))
+                return result
+
+        context = json.dumps({"text": {"description": "Funciona perfeitamente. 日本語"}})
+        with serve_inference(CompactEvidenceFake()) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(PreparedPart(
+                "photo", context, "real_photo", coverage=({"source_sha256": "a" * 64},), profile=VERSION
+            ), LocalInputPreparer(settings).artifact())
+>       decoded = validate_condition_result(str(result["content"]), context, {"real_photo": "a" * 64})
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_condition_wire_budget.py:178:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+raw = '{"schema_version": "condition-evidence-v4", "findings": [{"dimension": "appearance", "assessment": "light_wear", "des...s", "references": ["i0", "t0"]}], "conflicts": [], "limitations": [], "examined_photos": ["i0"], "omitted_photos": []}'
+text = '{"text": {"description": "Funciona perfeitamente. \\u65e5\\u672c\\u8a9e"}}'
+photos = {'real_photo': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
+
+    def validate_condition_result(raw: str, text: str, photos: dict[str, str]) -> dict[str, object]:
+        try:
+            result = json.loads(raw)
+            context = json.loads(text)
+        except (TypeError, ValueError):
+            raise InferenceError("invalid_output", diagnostic="invalid_json_or_context") from None
+        if not Draft202012Validator(SCHEMA).is_valid(result):
+>           raise InferenceError("invalid_output", diagnostic="schema_mismatch")
+E           garimpei.domain.inference.errors.InferenceError: invalid_output
+
+src/garimpei/domain/inference/condition_evidence.py:115: InferenceError
+=========================== short test summary info ============================
+FAILED tests/unit/test_condition_wire_budget.py::test_physical_reference_codes_expand_to_exact_evidence_before_consumption
+1 failed, 6 deselected in 0.60s

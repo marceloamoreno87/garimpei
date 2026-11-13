@@ -1,0 +1,145 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_generation_schema_rejects_references_outside_the_physical_call[invented_quote] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-80/test_generation_schema_rejects0')
+invalid = 'invented_quote'
+
+    @pytest.mark.parametrize("invalid", ["invented_quote", "other_photo", "invented_hash"])
+    def test_generation_schema_rejects_references_outside_the_physical_call(
+        tmp_path: Path, invalid: str
+    ) -> None:
+        from copy import deepcopy
+
+        from jsonschema import Draft202012Validator
+
+        settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+        gateway = OllamaGateway(settings, HostGpuGuard(settings.gpu_lock, settings.owner), lambda: False)
+        context = json.dumps({"text": {"description": "Funciona perfeitamente."}})
+        part = PreparedPart(
+            "photo", context, "current_photo", coverage=({"source_sha256": "a" * 64},), profile=VERSION
+        )
+        body = gateway._body(part)
+        valid = {
+            "schema_version": VERSION,
+            "findings": [{
+                "dimension": "function_claim", "assessment": "declaration",
+                "description": "Declaração do vendedor",
+                "references": [{"kind": "text", "field": "description", "quote": "Funciona perfeitamente."}],
+            }],
+            "conflicts": [], "limitations": [],
+            "examined_photos": [{"photo_id": "current_photo", "sha256": "a" * 64}],
+            "omitted_photos": [],
+        }
+        validator = Draft202012Validator(body["format"])
+        assert validator.is_valid(valid)
+        rejected = deepcopy(valid)
+        if invalid == "invented_quote":
+            rejected["findings"][0]["references"][0]["quote"] = "Tudo original sem reparos."
+        elif invalid == "other_photo":
+            rejected["examined_photos"][0]["photo_id"] = "not_sent"
+        else:
+            rejected["examined_photos"][0]["sha256"] = "b" * 64
+>       assert not validator.is_valid(rejected)
+E       AssertionError: assert not True
+E        +  where True = is_valid({'schema_version': 'condition-evidence-v3', 'findings': [{'dimension': 'function_claim', 'assessment': 'declaration', ...d': 'text', 'field': 'description', 'quote': 'Tudo original sem reparos.'}]}], 'conflicts': [], 'limitations': [], ...})
+E        +    where is_valid = Draft202012Validator(schema={'additionalProperties': False, 'properties': {'conflicts': {'items': {'additionalProperti..., 'findings', 'conflicts', 'limitations', 'examined_photos', 'omitted_photos'], 'type': 'object'}, format_checker=None).is_valid
+
+tests/unit/test_condition_wire_budget.py:139: AssertionError
+_ test_generation_schema_rejects_references_outside_the_physical_call[other_photo] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-80/test_generation_schema_rejects1')
+invalid = 'other_photo'
+
+    @pytest.mark.parametrize("invalid", ["invented_quote", "other_photo", "invented_hash"])
+    def test_generation_schema_rejects_references_outside_the_physical_call(
+        tmp_path: Path, invalid: str
+    ) -> None:
+        from copy import deepcopy
+
+        from jsonschema import Draft202012Validator
+
+        settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+        gateway = OllamaGateway(settings, HostGpuGuard(settings.gpu_lock, settings.owner), lambda: False)
+        context = json.dumps({"text": {"description": "Funciona perfeitamente."}})
+        part = PreparedPart(
+            "photo", context, "current_photo", coverage=({"source_sha256": "a" * 64},), profile=VERSION
+        )
+        body = gateway._body(part)
+        valid = {
+            "schema_version": VERSION,
+            "findings": [{
+                "dimension": "function_claim", "assessment": "declaration",
+                "description": "Declaração do vendedor",
+                "references": [{"kind": "text", "field": "description", "quote": "Funciona perfeitamente."}],
+            }],
+            "conflicts": [], "limitations": [],
+            "examined_photos": [{"photo_id": "current_photo", "sha256": "a" * 64}],
+            "omitted_photos": [],
+        }
+        validator = Draft202012Validator(body["format"])
+        assert validator.is_valid(valid)
+        rejected = deepcopy(valid)
+        if invalid == "invented_quote":
+            rejected["findings"][0]["references"][0]["quote"] = "Tudo original sem reparos."
+        elif invalid == "other_photo":
+            rejected["examined_photos"][0]["photo_id"] = "not_sent"
+        else:
+            rejected["examined_photos"][0]["sha256"] = "b" * 64
+>       assert not validator.is_valid(rejected)
+E       AssertionError: assert not True
+E        +  where True = is_valid({'schema_version': 'condition-evidence-v3', 'findings': [{'dimension': 'function_claim', 'assessment': 'declaration', ...kind': 'text', 'field': 'description', 'quote': 'Funciona perfeitamente.'}]}], 'conflicts': [], 'limitations': [], ...})
+E        +    where is_valid = Draft202012Validator(schema={'additionalProperties': False, 'properties': {'conflicts': {'items': {'additionalProperti..., 'findings', 'conflicts', 'limitations', 'examined_photos', 'omitted_photos'], 'type': 'object'}, format_checker=None).is_valid
+
+tests/unit/test_condition_wire_budget.py:139: AssertionError
+_ test_generation_schema_rejects_references_outside_the_physical_call[invented_hash] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-80/test_generation_schema_rejects2')
+invalid = 'invented_hash'
+
+    @pytest.mark.parametrize("invalid", ["invented_quote", "other_photo", "invented_hash"])
+    def test_generation_schema_rejects_references_outside_the_physical_call(
+        tmp_path: Path, invalid: str
+    ) -> None:
+        from copy import deepcopy
+
+        from jsonschema import Draft202012Validator
+
+        settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+        gateway = OllamaGateway(settings, HostGpuGuard(settings.gpu_lock, settings.owner), lambda: False)
+        context = json.dumps({"text": {"description": "Funciona perfeitamente."}})
+        part = PreparedPart(
+            "photo", context, "current_photo", coverage=({"source_sha256": "a" * 64},), profile=VERSION
+        )
+        body = gateway._body(part)
+        valid = {
+            "schema_version": VERSION,
+            "findings": [{
+                "dimension": "function_claim", "assessment": "declaration",
+                "description": "Declaração do vendedor",
+                "references": [{"kind": "text", "field": "description", "quote": "Funciona perfeitamente."}],
+            }],
+            "conflicts": [], "limitations": [],
+            "examined_photos": [{"photo_id": "current_photo", "sha256": "a" * 64}],
+            "omitted_photos": [],
+        }
+        validator = Draft202012Validator(body["format"])
+        assert validator.is_valid(valid)
+        rejected = deepcopy(valid)
+        if invalid == "invented_quote":
+            rejected["findings"][0]["references"][0]["quote"] = "Tudo original sem reparos."
+        elif invalid == "other_photo":
+            rejected["examined_photos"][0]["photo_id"] = "not_sent"
+        else:
+            rejected["examined_photos"][0]["sha256"] = "b" * 64
+>       assert not validator.is_valid(rejected)
+E       AssertionError: assert not True
+E        +  where True = is_valid({'schema_version': 'condition-evidence-v3', 'findings': [{'dimension': 'function_claim', 'assessment': 'declaration', ...kind': 'text', 'field': 'description', 'quote': 'Funciona perfeitamente.'}]}], 'conflicts': [], 'limitations': [], ...})
+E        +    where is_valid = Draft202012Validator(schema={'additionalProperties': False, 'properties': {'conflicts': {'items': {'additionalProperti..., 'findings', 'conflicts', 'limitations', 'examined_photos', 'omitted_photos'], 'type': 'object'}, format_checker=None).is_valid
+
+tests/unit/test_condition_wire_budget.py:139: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_condition_wire_budget.py::test_generation_schema_rejects_references_outside_the_physical_call[invented_quote]
+FAILED tests/unit/test_condition_wire_budget.py::test_generation_schema_rejects_references_outside_the_physical_call[other_photo]
+FAILED tests/unit/test_condition_wire_budget.py::test_generation_schema_rejects_references_outside_the_physical_call[invented_hash]
+3 failed, 3 deselected in 0.11s

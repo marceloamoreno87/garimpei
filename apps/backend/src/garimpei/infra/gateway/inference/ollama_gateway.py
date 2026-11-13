@@ -15,10 +15,12 @@ from garimpei.domain.inference.condition_evidence import (
     PROMPT as CONDITION_PROMPT,
 )
 from garimpei.domain.inference.condition_evidence import (
-    SCHEMA as CONDITION_SCHEMA,
-)
-from garimpei.domain.inference.condition_evidence import (
     VERSION as CONDITION_VERSION,
+)
+from garimpei.domain.inference.condition_request import (
+    condition_content,
+    condition_schema,
+    decode_condition_content,
 )
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import PreparedPart
@@ -68,7 +70,7 @@ class OllamaGateway:
                 )
                 received = True
                 metrics.update(_response_metrics(envelope))
-                result = self._validate_received(envelope, part.profile)
+                result = self._validated_part(envelope, part)
                 metrics.update(cast(dict[str, object], result["metrics"]))
                 result["metrics"] = metrics | {
                     "gpu_samples": samples,
@@ -89,6 +91,19 @@ class OllamaGateway:
                     | {"gpu_samples": samples, "wall_duration_ns": time.monotonic_ns() - started},
                 ) from None
 
+    def _validated_part(self, envelope: dict[str, object], part: PreparedPart) -> dict[str, object]:
+        result = self._validate_received(envelope, part.profile)
+        if part.profile == CONDITION_VERSION:
+            result["content"] = decode_condition_content(
+                result.get("content"),
+                part.text,
+                part.image_id,
+                str(part.coverage[0].get("source_sha256", part.coverage[0].get("sha256")))
+                if part.image_id
+                else None,
+            )
+        return result
+
     def _validate_received(
         self, envelope: dict[str, object], profile: str = "local-evidence-v1"
     ) -> dict[str, object]:
@@ -105,20 +120,14 @@ class OllamaGateway:
 
     def _body(self, part: PreparedPart) -> dict[str, object]:
         content = part.text if part.image_id is None else "Examine image_id=" + part.image_id
+        digest = None
         if part.profile == CONDITION_VERSION:
-            content = part.text + (
-                "\nFoto atual: "
-                + json.dumps(
-                    {
-                        "photo_id": part.image_id,
-                        "sha256": part.coverage[0].get(
-                            "source_sha256", part.coverage[0].get("sha256")
-                        ),
-                    }
-                )
+            digest = (
+                str(part.coverage[0].get("source_sha256", part.coverage[0].get("sha256")))
                 if part.image_id
-                else ""
+                else None
             )
+            content = condition_content(part.text, part.image_id, digest)
         message: dict[str, object] = {"role": "user", "content": content}
         if part.image_hash:
             raw = (self._settings.directory / part.image_hash).read_bytes()
@@ -134,7 +143,7 @@ class OllamaGateway:
                 },
                 message,
             ],
-            "format": CONDITION_SCHEMA
+            "format": condition_schema(part.text, part.image_id, digest)
             if part.profile == CONDITION_VERSION
             else bounded_schema(part.text, part.image_id),
             "stream": False,

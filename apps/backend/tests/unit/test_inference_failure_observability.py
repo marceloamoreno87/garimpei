@@ -73,7 +73,9 @@ def test_rejected_length_envelope_keeps_reason_timing_and_gpu_without_private_co
         assert fake.calls.count("/api/chat") == 1
 
 
-@pytest.mark.parametrize("previous", ["condition-evidence-v1", "condition-evidence-v2"])
+@pytest.mark.parametrize(
+    "previous", ["condition-evidence-v1", "condition-evidence-v2", "condition-evidence-v3"]
+)
 def test_stale_condition_profile_is_rejected_before_gpu_or_transport(
     tmp_path: Path, previous: str
 ) -> None:

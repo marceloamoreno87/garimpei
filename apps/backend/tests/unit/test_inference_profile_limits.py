@@ -1,5 +1,6 @@
 """Approved F15 output budget never changes the F19 legacy or total context caps."""
 
+import json
 from pathlib import Path
 from uuid import uuid4
 
@@ -24,6 +25,18 @@ class ProfileLimitEnvelopeFake(OllamaGatewayFake):
         result = super().respond(path)
         if path == "/api/chat":
             result.update(eval_count=self.generated, prompt_eval_count=self.prompt)
+            result["message"] = dict(
+                role="assistant",
+                content=json.dumps(
+                    dict(
+                        schema_version=VERSION,
+                        findings=[],
+                        conflicts=[],
+                        limitations=[],
+                        photo=dict(status="not_provided", reason="No image"),
+                    )
+                ),
+            )
         return result
 
 
@@ -47,7 +60,11 @@ def test_dispatch_and_response_reserve_the_approved_profile_limit(
         guard = HostGpuGuard(settings.gpu_lock, settings.owner)
         assert guard.reserve()
         gateway = OllamaGateway(settings, guard, lambda: False)
-        part = PreparedPart("text", "Controlled", profile=profile)
+        part = PreparedPart(
+            "text",
+            '{"text":{"title":"Controlled"}}' if profile == VERSION else "Controlled",
+            profile=profile,
+        )
         options = gateway._body(part)["options"]
         assert isinstance(options, dict)
         assert options["num_ctx"] == 4096
@@ -61,8 +78,8 @@ def test_dispatch_and_response_reserve_the_approved_profile_limit(
 
 
 def test_condition_profile_revision_invalidates_both_prior_profiles() -> None:
-    assert VERSION == "condition-evidence-v3"
-    for version in ("condition-evidence-v1", "condition-evidence-v2"):
+    assert VERSION == "condition-evidence-v4"
+    for version in ("condition-evidence-v1", "condition-evidence-v2", "condition-evidence-v3"):
         with pytest.raises(InferenceError, match="unsupported_prompt_or_schema"):
             AnalysisInput(uuid4(), 1, "Controlled", (), version, version, uuid4(), 1)
 
@@ -109,7 +126,7 @@ def test_condition_visual_preparation_preserves_visual_and_output_reservations(
     # The same textual budget remains below legacy 2048; F15 must also reserve 1536 visual +1024 output.
     preparer._text_budget("Controlled", "local-evidence-v1")
     if accepted:
-        preparer._text_budget("Controlled", VERSION, visual=True)
+        preparer._text_budget('{"text":{"title":"Controlled"}}', VERSION, visual=True)
     else:
         with pytest.raises(InferenceError, match="context_unverified"):
-            preparer._text_budget("Controlled", VERSION, visual=True)
+            preparer._text_budget('{"text":{"title":"Controlled"}}', VERSION, visual=True)

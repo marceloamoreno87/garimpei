@@ -109,7 +109,7 @@ def test_current_profile_reanalysis_preserves_identified_previous_history(
 import hashlib
 from garimpei.infra.persistence.inference_models import InferencePart
 from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
-assert VERSION=='condition-evidence-v3'
+assert VERSION=='condition-evidence-v4'
 first=prepare.execute(listing.id)
 for _ in range(3):run.execute()
 assert complete.execute(first.id)
