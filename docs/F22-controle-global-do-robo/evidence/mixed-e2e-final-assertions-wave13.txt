@@ -1,0 +1,4 @@
+{"timestamp": "2026-11-13T18:04:11.557925+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_240aad97", "run_id": "fc5c99d8-fec0-4e3e-bdc0-f9a6ff35dd81"}
+61 objects imported automatically (use -v 2 for details).
+
+{"result": "MIXED_E2E_PASS", "old_uncertain_reference": "33b787cc-a6eb-4b63-84f3-b43f9e64917a", "old_body_preserved": true, "old_attempts": 1, "old_state": "review", "expired_first_no_attempt": true, "valid_reference": "591dfe5e-080d-4c3c-a5ed-e2d5916de31c", "valid_receipt": "message-1", "jobs": [[88, "garimpei.collect_listings", "succeeded"], [89, "garimpei.evaluate_valuation", "succeeded"], [90, "garimpei.media", "succeeded"], [91, "garimpei.local_analysis", "succeeded"]]}

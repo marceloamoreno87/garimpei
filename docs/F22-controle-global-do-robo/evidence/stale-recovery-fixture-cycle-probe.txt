@@ -1,0 +1,156 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_enable_keeps_gpu_occupied_and_never_publishes_superseded_observation ___
+
+robot_instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/c4f1/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-64/robot0/f22_d832a35f.env'))
+
+    def test_enable_keeps_gpu_occupied_and_never_publishes_superseded_observation(
+        robot_instance: FoundationInstance,
+    ) -> None:
+        group = pause_worker(robot_instance)
+        try:
+            result = robot_instance.shell("""
+    from uuid import uuid4
+    from django.utils.timezone import now
+    from garimpei.domain.robot.control import RobotCommand
+    from garimpei.domain.inference.request import AnalysisInput
+    from garimpei.domain.inference.ports import PreparedPart
+    from garimpei.infra.persistence.management.commands.local_ai import _smoke_observation
+    from garimpei.infra.persistence.listing_models import ListingObservation
+    from garimpei.infra.persistence.inference_models import InferenceControl,InferenceRequest,InferencePart
+    from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
+    from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+    from tests.factories.robot import _fresh
+    robot,status=_fresh()
+    old_id,text=_smoke_observation('robot-stale-resource','text')
+    repo=PostgresInferenceRepository(lambda:0,5,robot=robot)
+    old=repo.admit(AnalysisInput(old_id,1,text,()),'fixture',(PreparedPart('one',text),))
+    active=repo.claim(now());assert active and repo.authorize(active)
+    robot.command(RobotCommand(uuid4(),False,status.status().revision))
+    previous=ListingObservation.objects.select_related('listing','cycle').get(pk=old_id)
+    current=ListingObservation.objects.create(listing=previous.listing,cycle=previous.cycle,ordinal=2,observed_at=now(),evidence=previous.evidence,coverage=previous.coverage)
+    listing=previous.listing;listing.latest=current;listing.ordinal=2;listing.save(update_fields=['latest','ordinal'])
+    new=repo.admit(AnalysisInput(current.id,2,text+' current',()),'fixture',(PreparedPart('new',text+' current'),))
+    robot.command(RobotCommand(uuid4(),True,status.status().revision))
+    assert repo.claim(now()) is None,'global enable ignored old occupied GPU generation'
+    assert InferenceControl.objects.get(pk=1).active_request==old.request_id
+    assert not repo.publish(active,{'findings':[],'unknowns':['old'],'limitations':[]},{},now())
+    assert InferenceRequest.objects.get(pk=old.request_id).state=='superseded'
+    listing.refresh_from_db();assert listing.latest_id==current.id
+    new_work=repo.claim(now());assert new_work and new_work.request_id==new.request_id
+    assert new_work.generation>active.generation and repo.authorize(new_work)
+    assert repo.publish(new_work,{'findings':[],'unknowns':['current'],'limitations':[]},{},now())
+    assert PostgresInferenceQueries().analysis(new.request_id)['state']=='succeeded'
+    assert repo.publish(active,{}, {},now()) is False
+    assert InferenceRequest.objects.get(pk=new.request_id).state=='succeeded'
+    assert not InferenceControl.objects.get(pk=1).active_request
+    print('ROBOT_STALE_RESOURCE_PASS')
+    """)
+>           assert result.returncode == 0, result.stdout + result.stderr
+E           AssertionError: 61 objects imported automatically (use -v 2 for details).
+E             
+E             {"timestamp": "2026-11-13T17:51:27.325195+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f22_d832a35f", "run_id": "0abf67f7-272b-41b6-8b52-d0ec494d3a68"}
+E             Traceback (most recent call last):
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E                 return self.cursor.execute(sql, params)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             psycopg.errors.UniqueViolation: duplicate key value violates unique constraint "listing_observation_cycle"
+E             DETAIL:  Key (cycle_id, listing_id)=(131bec9b-9a4e-5112-94ca-8534156f17ab, 131bec9b-9a4e-5112-94ca-8534156f17ab) already exists.
+E             
+E             The above exception was the direct cause of the following exception:
+E             
+E             Traceback (most recent call last):
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/manage.py", line 8, in <module>
+E                 execute_from_command_line()
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                 utility.execute()
+E                 ~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                 self.fetch_command(subcommand).run_from_argv(self.argv)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                 self.execute(*args, **cmd_options)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                 output = self.handle(*args, **options)
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                 exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<string>", line 20, in <module>
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 665, in create
+E                 obj.save(force_insert=True, using=self.db)
+E                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+E                 self.save_base(
+E                 ~~~~~~~~~~~~~~^
+E                     using=using,
+E                     ^^^^^^^^^^^^
+E                 ...<2 lines>...
+E                     update_fields=update_fields,
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+E                 updated = self._save_table(
+E                     raw,
+E                 ...<4 lines>...
+E                     update_fields,
+E                 )
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+E                 results = self._do_insert(
+E                     cls._base_manager, using, fields, returning_fields, raw
+E                 )
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+E                 return manager._insert(
+E                        ~~~~~~~~~~~~~~~^
+E                     [self],
+E                     ^^^^^^^
+E                 ...<3 lines>...
+E                     raw=raw,
+E                     ^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1873, in _insert
+E                 return query.get_compiler(using=using).execute_sql(returning_fields)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1882, in execute_sql
+E                 cursor.execute(sql, params)
+E                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E                 return self._execute_with_wrappers(
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                     sql, params, many=False, executor=self._execute
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E                 return executor(sql, params, many, context)
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E                 with self.db.wrap_database_errors:
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E                 raise dj_exc_value.with_traceback(traceback) from exc_value
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E                 return self.cursor.execute(sql, params)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             django.db.utils.IntegrityError: duplicate key value violates unique constraint "listing_observation_cycle"
+E             DETAIL:  Key (cycle_id, listing_id)=(131bec9b-9a4e-5112-94ca-8534156f17ab, 131bec9b-9a4e-5112-94ca-8534156f17ab) already exists.
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...(cycle_id, listing_id)=(131bec9b-9a4e-5112-94ca-8534156f17ab, 131bec9b-9a4e-5112-94ca-8534156f17ab) already exists.\n').returncode
+
+tests/integration/test_robot_stale_recovery.py:47: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_robot_stale_recovery.py::test_enable_keeps_gpu_occupied_and_never_publishes_superseded_observation
+1 failed in 7.00s

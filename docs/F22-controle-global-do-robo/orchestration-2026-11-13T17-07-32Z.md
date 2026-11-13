@@ -25,3 +25,9 @@ Jornada adicional pelo playwright-cli e worker real, origem/WAHA loopback: mensa
 ## Coordenação da avaliação final
 
 Relatório de implementação preparado. Progresso F22 `implemented`; `done` ainda depende da suíte integrada e evidência de todos os itens. O coordenador possui a integração e a consolidação de progresso; esta sessão não faz merge/push. Banco/labs/browser próprios encerrados normalmente; worktree preservada.
+
+## Avaliação ampliada — 2026-11-13T18-08-52Z
+
+Relatório parcial20PASS/9SKIPPED preservado. Dez testes integrados aditivos fecharam barreiras individuais, disputa transacional, tempo/edição/reinício e revisão ultrapassada com GPU ocupada. Jornada mista: quatro jobs Procrastinate preenfileirados consumidos sob pausa sem novas operações; mensagem incerta conserva ref/bodySHA no stop/init; após49h, ligar cancela primeira intenção vencida, mantém incerta e confirma só oferta válida. Asserções finais exit0/capturas examinadas.
+
+Novo relatório `eval-report-2026-11-13T18-08-52Z.md`:29PASS, nenhumFAIL/BLOCKED/MANUAL/SKIPPED nos itens observáveis. Regressão integrada em execução no coordenador; status permanece implemented, sem declarar clean/done. Produção intocada desde8f10673. Labs/browsers próprios encerrados e limpos; worktree preservada para auditoria.
