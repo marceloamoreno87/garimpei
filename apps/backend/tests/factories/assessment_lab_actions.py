@@ -189,10 +189,9 @@ class AssessmentLab:
         if action == "change_input":
             return self.change_input(payload)
         if action == "evaluate_corpus":
-            return dict(
-                state="blocked",
-                reason="Human review and a separately coordinated real F19 runtime are required; controlled fake results are never quality evidence",
-            )
+            from tests.factories.assessment_quality import evaluate_corpus
+
+            return evaluate_corpus(payload)
         raise ValueError("Unknown lab action")
 
     def change_input(self, payload: dict[str, object]) -> dict[str, object]:

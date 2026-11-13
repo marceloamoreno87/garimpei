@@ -182,3 +182,33 @@ print('hostile text+image -> real F14/F15 prepare, real F19 image/dispatch/schem
 """,
         )
         print(output)
+
+
+def test_quality_runner_processes_local_fixture_but_refuses_fake_quality_evidence(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    output = shell(
+        instance,
+        origin,
+        BOOT
+        + """
+from unittest.mock import patch
+from pathlib import Path
+from tests.factories import assessment_quality_runtime as quality
+from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt
+from tests.factories.media import CORPUS
+case=dict(case_id='controlled-quality-runner-fixture',kind='synthetic_control',category='computer',text=dict(title='Notebook Dell',description='O aparelho funciona perfeitamente.',condition='Usado'),photos=[dict(photo_id='control',sha256='placeholder',width=900,height=900)],review=dict(label='good'))
+# Local HTTP serves only a synthetic F14 image. No human/reserved input is read.
+case['photos'][0]['sha256']='other.png'
+with patch.object(quality,'build_request_analysis',return_value=RequestAnalysisUseCase(irepo,ControlledEvidencePreparer())),patch.object(quality,'build_run_analysis',return_value=RunAnalysisUseCase(irepo,gateway,now)):
+ try:quality.run_case(case,ORIGIN)
+ except RuntimeError as error:assert str(error)=='Controlled fake results cannot enter real quality report'
+ else:raise AssertionError('controlled inference was labeled real')
+row=ConditionAssessment.objects.order_by('-created_at').first()
+assert row.status=='complete' and row.condition=='good'
+assert gateway.calls==1 and not AlertIntent.objects.exists() and not AlertAttempt.objects.exists()
+print('quality runner traverses F14/F15/F19 persistence with local synthetic control and rejects fake telemetry before any real quality report PASS')
+""",
+    )
+    print(output)

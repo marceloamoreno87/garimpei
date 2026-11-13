@@ -1,0 +1,25 @@
+..............F                                                          [100%]
+=================================== FAILURES ===================================
+_____ test_lab_real_action_reaches_validator_instead_of_unconditional_stub _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x747130f805d0>
+
+    def test_lab_real_action_reaches_validator_instead_of_unconditional_stub(monkeypatch):
+        from tests.factories.assessment_lab_actions import AssessmentLab
+        observed=[]
+        def validate(payload):
+            observed.append(payload)
+            return dict(state="blocked",reason="human_review_missing",model_executed=False)
+        monkeypatch.setattr("tests.factories.assessment_quality.evaluate_corpus",validate)
+        lab=object.__new__(AssessmentLab)
+        payload=dict(action="evaluate_corpus",mode="real",manifest="test-manifest",review="pending-review",package="test-package")
+>       assert lab.action(payload)["reason"]=="human_review_missing"
+E       AssertionError: assert 'Human review...lity evidence' == 'human_review_missing'
+E         
+E         - human_review_missing
+E         + Human review and a separately coordinated real F19 runtime are required; controlled fake results are never quality evidence
+
+tests/unit/test_assessment_quality_review.py:91: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_assessment_quality_review.py::test_lab_real_action_reaches_validator_instead_of_unconditional_stub
+1 failed, 14 passed in 0.16s
