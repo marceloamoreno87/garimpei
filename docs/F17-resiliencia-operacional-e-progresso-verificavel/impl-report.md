@@ -21,3 +21,8 @@ Full próprio em `aae6fce`:568 coletados,566PASS/2FAIL, dois shards disjuntos co
 Navegador verificou contagens reais, snapshots identificados, offline/retry preservando seis cards/contexto e exportação sem tráfego externo. `ui-evaluation.md` explicita as observações visuais e as jornadas ainda não integralmente executadas. Django e migrations passaram sem drift; harness quatro testes e verificador passaram.
 
 O CLI calibrate direto falhou antes das medições por falta de inicialização Django na cadeia de import de FixtureSource. O wrapper de medição inicializa Django explicitamente sem alterar fonte congelada; também terminou exit1 na tentativa repetida de limpar destino já encerrado; nenhum calibration.json publicado. O resultado está em laboratory-checkpoint.md. O CLI fault completo e a matriz contratual continuam ausentes. Por isso a avaliação canônica permanece pending com pré-requisitos bloqueados; o contrato, plano e spec permanecem preliminares, F17 continua implementing e GARIMPEI_OPERATIONS_ENABLED continua falso. Não foi afirmado aceite parcial como done nem confirmação do perfil.
+
+
+## Incremento de laboratório — 2026-11-13
+
+`fault --case unit_persistent` injeta a terceira falha no cenário `recovery`/`backup` de uma instância eval própria, exige unidade com duas falhas e worker pausado, verifica suspensão e checkpoint, verifica outra unidade e recusa repetição. O relatório sanitizado registra duração e estados. O teste de integração usa lifecycle próprio e cleanup no `finally` (1 passou). Os seis gates Python passaram. A comparação com a mesma carga e todos os demais casos continuam ausentes; o perfil não foi confirmado, nem a avaliação integral executada.
