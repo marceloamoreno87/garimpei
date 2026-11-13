@@ -47,6 +47,9 @@ def test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destin
         report = json.loads((directory / "calibration.json").read_text())
         assert report["operational_enablement"] is False
         assert report["profile_confirmed"] is False and report["pending"]
+        fault_measurements = report["fault_measurements"]
+        assert len(fault_measurements) == 35
+        assert {row["repetition"] for row in fault_measurements} == {1, 2, 3, 4, 5}
         measurements = report["measurements"]
         for stage in ("source", "valuation", "channel"):
             for case in ("control", "timeout"):

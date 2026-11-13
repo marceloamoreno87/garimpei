@@ -102,6 +102,13 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
             assert {row["repetition"] for row in rows} == {1, 2, 3, 4, 5}
             assert all(row["control"] and row["fault"] for row in rows)
             assert all(row["disk_free_bytes"] > 0 for row in rows)
+        for case in ("crash_after_post", "crash_after_commit"):
+            result = invoke("fault", "--case", case)
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / f"fault-{case}.json").read_text())
+            assert report["fault_detected"] is True
+            assert report["recovered"] is True
+            assert report["real_sigkill"] is True
     finally:
         closed = invoke("close")
         assert closed.returncode == 0, closed.stdout + closed.stderr

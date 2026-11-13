@@ -1,0 +1,9 @@
+{
+  "fault_detected": true,
+  "recovered": true,
+  "real_sigkill": true,
+  "scenario": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+  "scope": "separate owned eval instance with fake source and channel",
+  "case": "crash_after_commit",
+  "seconds": 16.20644170398009
+}
