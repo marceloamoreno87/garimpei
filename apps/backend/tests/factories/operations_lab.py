@@ -249,6 +249,48 @@ def _credential_canaries(directory: Path) -> None:
     manifest.chmod(0o600)
 
 
+def fault(directory: Path, case: str) -> None:
+    """Inject one bounded fault against the already seeded owned installation."""
+    data = json.loads((directory / "lab.json").read_text())
+    if data.get("scenario") not in {"recovery", "backup"} or not data.get("paused_source"):
+        raise ValueError("Persistent-unit fault requires a paused recovery or backup scenario")
+    report = directory / f"fault-{case}.json"
+    if report.exists():
+        raise ValueError("Fault already executed; prepare a fresh laboratory")
+    inspect(directory)
+    source = instances(directory)[0]
+    started = time.monotonic()
+    result = source.shell(_PERSISTENT_FAULT)
+    if result.returncode:
+        raise RuntimeError(result.stdout + result.stderr)
+    observed = json.loads(result.stdout.strip().splitlines()[-1])
+    observed.update({"case": case, "seconds": time.monotonic() - started})
+    report.write_text(json.dumps(observed, indent=2) + "\n")
+
+
+_PERSISTENT_FAULT = """
+import json
+from django.utils.timezone import now
+from garimpei.config.env import load_config
+from garimpei.infra.persistence.operations_models import OperationalUnit
+from garimpei.infra.repository.operations.progress_repository import PostgresOperationalRepository
+from tests.factories.operations_lab_seed import require_disposable
+require_disposable()
+identity=load_config().environment_id
+target=OperationalUnit.objects.get(installation=identity,scope='controlled-recovery')
+control=OperationalUnit.objects.get(installation=identity,scope='controlled-independent')
+assert target.failures==2 and not target.suspended and target.checkpoint=='confirmed-A'
+assert control.failures==0 and not control.suspended and control.checkpoint=='confirmed-B'
+stamp=now()
+PostgresOperationalRepository(identity,lambda:stamp).failure('listing','controlled-recovery',1,'source_transport',stamp)
+target.refresh_from_db();control.refresh_from_db()
+assert target.suspended and target.failures==3 and target.checkpoint=='confirmed-A'
+assert not control.suspended and control.failures==0 and control.checkpoint=='confirmed-B'
+def public(row):return {'suspended':row.suspended,'failures':row.failures,'checkpoint':row.checkpoint}
+print(json.dumps({'target':public(target),'control':public(control)}))
+"""
+
+
 def calibrate(directory: Path) -> None:
     from concurrent.futures import ThreadPoolExecutor
 
@@ -321,12 +363,13 @@ def _measure_adapter_controls(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "operation", choices=["prepare", "start", "seed", "inspect", "calibrate", "close"]
+        "operation", choices=["prepare", "start", "seed", "inspect", "fault", "calibrate", "close"]
     )
     parser.add_argument("--directory", required=True, type=Path)
     parser.add_argument(
         "--scenario", choices=["healthy", "counts", "recovery", "backup"], default="counts"
     )
+    parser.add_argument("--case", choices=["unit_persistent"])
     options = parser.parse_args()
     operation, directory = options.operation, options.directory.resolve()
     started = time.monotonic()
@@ -336,6 +379,10 @@ def main() -> None:
         lifecycle(directory, operation == "start")
     elif operation == "calibrate":
         calibrate(directory)
+    elif operation == "fault":
+        if options.case is None:
+            parser.error("fault requires --case")
+        fault(directory, options.case)
     elif operation == "seed":
         seed(directory, options.scenario)
     else:
