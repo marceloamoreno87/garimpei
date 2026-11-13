@@ -286,10 +286,10 @@
       ],
       "status": "implementing",
       "cycles": 0,
-      "failure_reason": "Perfil preliminar; subcomando fault e matriz completa ausentes; confirmação do perfil e avaliação integral pendentes. Calibração direta corrigida e medida. União final:676 testes e seis gates aprovados.",
-      "report_path": "docs/F17-resiliencia-operacional-e-progresso-verificavel/eval-report-2026-11-12T22-04-00Z.md",
+      "failure_reason": "Docker indisponível; calibração, perfil e avaliação integral permanecem pendentes.",
+      "report_path": "docs/F17-resiliencia-operacional-e-progresso-verificavel/eval-report-2026-11-13T02-29-47Z.md",
       "started_at": "2026-11-12T18:32:18.093465+00:00",
-      "updated_at": "2026-11-12T22:46:37.683458+00:00",
+      "updated_at": "2026-11-13T02:29:55.579276+00:00",
       "completed_at": null
     },
     "F18": {
