@@ -29,7 +29,7 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
             env=environment,
             capture_output=True,
             text=True,
-            timeout=180,
+            timeout=300 if operation == "calibrate-crashes" else 180,
         )
 
     prepared = invoke("prepare")
@@ -109,6 +109,19 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
             assert report["fault_detected"] is True
             assert report["recovered"] is True
             assert report["real_sigkill"] is True
+        repeated_crashes = invoke("calibrate-crashes", "--repetitions", "1")
+        assert repeated_crashes.returncode == 0, repeated_crashes.stdout + repeated_crashes.stderr
+        report = json.loads((directory / "crash-calibration.json").read_text())
+        assert len(report["measurements"]) == 5
+        assert {row["case"] for row in report["measurements"]} == {
+            "crash_after_post",
+            "crash_after_commit",
+            "crash_after_authorization",
+            "crash_after_confirmation",
+            "crash_before_authorization",
+        }
+        assert all(row["real_sigkill"] and row["recovered"] for row in report["measurements"])
+        assert report["profile_confirmed"] is False
     finally:
         closed = invoke("close")
         assert closed.returncode == 0, closed.stdout + closed.stderr

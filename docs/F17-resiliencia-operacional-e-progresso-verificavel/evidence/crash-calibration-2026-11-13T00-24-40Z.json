@@ -1,0 +1,128 @@
+{
+  "status": "complete",
+  "measurements": [
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_post",
+      "repetition": 1,
+      "seconds": 39.657291254989104,
+      "disk_free_bytes": 11658973184,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_post",
+      "repetition": 2,
+      "seconds": 39.13230854299036,
+      "disk_free_bytes": 11658207232,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_post",
+      "repetition": 3,
+      "seconds": 39.25042439598474,
+      "disk_free_bytes": 11657871360,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_post",
+      "repetition": 4,
+      "seconds": 39.77107424099813,
+      "disk_free_bytes": 11657580544,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_post",
+      "repetition": 5,
+      "seconds": 39.72696333701606,
+      "disk_free_bytes": 11657371648,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_commit",
+      "repetition": 1,
+      "seconds": 15.613914892019238,
+      "disk_free_bytes": 11657293824,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_commit",
+      "repetition": 2,
+      "seconds": 16.077233290998265,
+      "disk_free_bytes": 11227750400,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_commit",
+      "repetition": 3,
+      "seconds": 16.465673706989037,
+      "disk_free_bytes": 11227516928,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_commit",
+      "repetition": 4,
+      "seconds": 16.343028406990925,
+      "disk_free_bytes": 11227406336,
+      "pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_commit",
+      "repetition": 5,
+      "seconds": 16.380367673002183,
+      "disk_free_bytes": 11226763264,
+      "pending_jobs_after": 1
+    }
+  ],
+  "profile_confirmed": false,
+  "operational_enablement": false,
+  "limitation": "separate eval instances; paired same-load timing and remaining cut points pending"
+}

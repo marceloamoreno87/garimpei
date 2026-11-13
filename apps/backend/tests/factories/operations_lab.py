@@ -265,7 +265,13 @@ def fault(directory: Path, case: str) -> None:
         observed.update({"case": case, "seconds": time.monotonic() - started})
         report.write_text(json.dumps(observed, indent=2) + "\n")
         return
-    if case in {"crash_after_post", "crash_after_commit"}:
+    if case in {
+        "crash_after_post",
+        "crash_after_commit",
+        "crash_after_authorization",
+        "crash_after_confirmation",
+        "crash_before_authorization",
+    }:
         observed = process_crash_fault(directory, source, case)
         observed.update({"case": case, "seconds": time.monotonic() - started})
         report.write_text(json.dumps(observed, indent=2) + "\n")
@@ -303,14 +309,18 @@ def fault(directory: Path, case: str) -> None:
 
 
 def process_crash_fault(
-    directory: Path, source: FoundationInstance, case: str
+    directory: Path, source: FoundationInstance, case: str, repetition: int | None = None
 ) -> dict[str, object]:
     """Run the existing real SIGKILL scenarios in a separately owned eval instance."""
     tests = {
         "crash_after_post": "apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries",
         "crash_after_commit": "apps/backend/tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch",
+        "crash_after_authorization": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+        "crash_after_confirmation": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend",
+        "crash_before_authorization": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_before_authorization_keeps_request_available",
     }
-    private = directory / "crash-tests" / case
+    label = case if repetition is None else f"{case}-{repetition}"
+    private = directory / "crash-tests" / label
     private.parent.mkdir(mode=0o700, exist_ok=True)
     if private.parent.is_symlink():
         raise ValueError("Crash-test directory must not be a symlink")
@@ -339,6 +349,65 @@ def process_crash_fault(
         "scenario": tests[case],
         "scope": "separate owned eval instance with fake source and channel",
     }
+
+
+def calibrate_crashes(directory: Path, repetitions: int, only: str | None = None) -> None:
+    """Repeat real process failures, preserving partial results if interrupted."""
+    data = json.loads((directory / "lab.json").read_text())
+    if data.get("scenario") not in {"recovery", "backup"} or not data.get("paused_source"):
+        raise ValueError("Crash calibration requires a paused recovery or backup scenario")
+    if not 1 <= repetitions <= 5:
+        raise ValueError("Expected between one and five crash repetitions")
+    supported = (
+        "crash_after_post",
+        "crash_after_commit",
+        "crash_after_authorization",
+        "crash_after_confirmation",
+        "crash_before_authorization",
+    )
+    if only is not None and only not in supported:
+        raise ValueError("Expected a supported process-crash case")
+    report = directory / "crash-calibration.json"
+    if report.exists():
+        raise ValueError("Crash calibration already exists; use a fresh laboratory")
+    inspect(directory)
+    source = instances(directory)[0]
+    results: list[dict[str, object]] = []
+    summary: dict[str, object] = {
+        "status": "running",
+        "measurements": results,
+        "profile_confirmed": False,
+        "operational_enablement": False,
+        "limitation": "separate eval instances; paired same-load timing and remaining cut points pending",
+    }
+    _write_crash_calibration(report, summary)
+    for case in (only,) if only else supported:
+        for repetition in range(1, repetitions + 1):
+            started = time.monotonic()
+            observed = process_crash_fault(directory, source, case, repetition)
+            observed.update(
+                {
+                    "case": case,
+                    "repetition": repetition,
+                    "seconds": time.monotonic() - started,
+                    "disk_free_bytes": shutil.disk_usage(directory).free,
+                }
+            )
+            with source.database() as connection:
+                row = connection.execute(
+                    "SELECT count(*) FROM procrastinate_jobs WHERE status IN ('todo','doing')"
+                ).fetchone()
+                observed["source_pending_jobs_after"] = int(str(row[0])) if row else 0
+            results.append(observed)
+            _write_crash_calibration(report, summary)
+    summary["status"] = "complete"
+    _write_crash_calibration(report, summary)
+
+
+def _write_crash_calibration(report: Path, summary: dict[str, object]) -> None:
+    temporary = report.with_suffix(".tmp")
+    temporary.write_text(json.dumps(summary, indent=2) + "\n")
+    temporary.replace(report)
 
 
 def database_fault(directory: Path) -> dict[str, object]:
@@ -529,10 +598,12 @@ def main() -> None:
             "fault",
             "calibrate",
             "calibrate-faults",
+            "calibrate-crashes",
             "close",
         ],
     )
     parser.add_argument("--directory", required=True, type=Path)
+    parser.add_argument("--repetitions", type=int, default=5, choices=range(1, 6))
     parser.add_argument(
         "--scenario", choices=["healthy", "counts", "recovery", "backup"], default="counts"
     )
@@ -554,6 +625,9 @@ def main() -> None:
             "db_unavailable",
             "crash_after_post",
             "crash_after_commit",
+            "crash_after_authorization",
+            "crash_after_confirmation",
+            "crash_before_authorization",
         ],
     )
     options = parser.parse_args()
@@ -567,6 +641,8 @@ def main() -> None:
         calibrate(directory)
     elif operation == "calibrate-faults":
         calibrate_faults(directory)
+    elif operation == "calibrate-crashes":
+        calibrate_crashes(directory, options.repetitions, options.case)
     elif operation == "fault":
         if options.case is None:
             parser.error("fault requires --case")

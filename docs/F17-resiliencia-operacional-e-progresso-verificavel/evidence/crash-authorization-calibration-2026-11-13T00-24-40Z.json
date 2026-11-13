@@ -1,0 +1,68 @@
+{
+  "status": "complete",
+  "measurements": [
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_authorization",
+      "repetition": 1,
+      "seconds": 19.484857433999423,
+      "disk_free_bytes": 10796228608,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_authorization",
+      "repetition": 2,
+      "seconds": 19.446399498992832,
+      "disk_free_bytes": 10796027904,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_authorization",
+      "repetition": 3,
+      "seconds": 19.369634141010465,
+      "disk_free_bytes": 10795642880,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_authorization",
+      "repetition": 4,
+      "seconds": 19.019833764992654,
+      "disk_free_bytes": 10795778048,
+      "source_pending_jobs_after": 1
+    },
+    {
+      "fault_detected": true,
+      "recovered": true,
+      "real_sigkill": true,
+      "scenario": "apps/backend/tests/integration/test_operations_crash_authorization.py::test_sigkill_after_authorization_before_post_requires_reconciliation",
+      "scope": "separate owned eval instance with fake source and channel",
+      "case": "crash_after_authorization",
+      "repetition": 5,
+      "seconds": 18.499712701974204,
+      "disk_free_bytes": 10795696128,
+      "source_pending_jobs_after": 1
+    }
+  ],
+  "profile_confirmed": false,
+  "operational_enablement": false,
+  "limitation": "separate eval instances; paired same-load timing and remaining cut points pending"
+}

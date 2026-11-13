@@ -1,0 +1,1062 @@
+{
+  "format_version": 1,
+  "at": "2026-11-13T00:35:29.676000+00:00",
+  "profile": {
+    "version": 1,
+    "stalled_seconds": 180,
+    "tick_seconds": 5,
+    "failures": 3,
+    "queue_limit": 1000,
+    "unit_seconds": 60,
+    "archive_seconds": 300,
+    "data_bytes": 10737418240,
+    "backup_bytes": 10737418240,
+    "reserve_bytes": 1073741824,
+    "backup_interval": 86400,
+    "retention": 7
+  },
+  "profile_sha256": "071796693048f99049727b4a2f0c2a97809c67ee5b1378ba1fc7937977355423",
+  "hardware": {
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "python": "3.13.14",
+  "measurements": [
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0013402720214799047,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0009290699963457882,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0008516749949194491,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0007357260037679225,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0006904899782966822,
+      "timeout_seconds": 20,
+      "outcome": "page_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 20.01764772098977,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 20.02035896902089,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 20.020312898996053,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 20.020344683987787,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "source",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 20.017621077015065,
+      "timeout_seconds": 20,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.00205431500216946,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0006577189778909087,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0007623410201631486,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0006977790035307407,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0008725390071049333,
+      "timeout_seconds": 30,
+      "outcome": "quotes_returned",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 30.030839038983686,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 30.015718212991487,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 30.030442606977886,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 30.0286391210102,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "valuation",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 30.030377656017663,
+      "timeout_seconds": 30,
+      "outcome": "controlled_failure",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 1,
+      "seconds": 0.0011743459908757359,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 2,
+      "seconds": 0.0009127289813477546,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 3,
+      "seconds": 0.0007113149913493544,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 4,
+      "seconds": 0.0010044270020443946,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "control",
+      "repetition": 5,
+      "seconds": 0.0007171559846028686,
+      "timeout_seconds": 10,
+      "outcome": "confirmed",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 1,
+      "seconds": 10.01044559199363,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 2,
+      "seconds": 10.010725077998359,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 3,
+      "seconds": 10.010749406996183,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 4,
+      "seconds": 10.010624738992192,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    },
+    {
+      "stage": "channel",
+      "case": "timeout",
+      "repetition": 5,
+      "seconds": 10.01084193601855,
+      "timeout_seconds": 10,
+      "outcome": "uncertain",
+      "pending_jobs": 1
+    }
+  ],
+  "new_stage_measurements": [
+    {
+      "repetition": 1,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5211603560019284,
+      "export_seconds_including_cli": 0.39127690700115636,
+      "restore_seconds_including_cli": 0.6393796000047587,
+      "verify_seconds_including_cli": 0.4212393780180719,
+      "destination_startup_seconds": 4.2414265179832,
+      "archive_bytes": 20192,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12359347,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 2,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5211158980091568,
+      "export_seconds_including_cli": 0.4041959960013628,
+      "restore_seconds_including_cli": 0.6450874790025409,
+      "verify_seconds_including_cli": 0.4155594340118114,
+      "destination_startup_seconds": 3.9834543589968234,
+      "archive_bytes": 20357,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 3,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5270534090232104,
+      "export_seconds_including_cli": 0.4055006149865221,
+      "restore_seconds_including_cli": 0.6190675820107572,
+      "verify_seconds_including_cli": 0.3613418299937621,
+      "destination_startup_seconds": 4.250360112986527,
+      "archive_bytes": 20433,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 4,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.55989447698812,
+      "export_seconds_including_cli": 0.3932912809832487,
+      "restore_seconds_including_cli": 0.6539498170022853,
+      "verify_seconds_including_cli": 0.3854085089988075,
+      "destination_startup_seconds": 3.936244534997968,
+      "archive_bytes": 20500,
+      "protected_originals": 1,
+      "source_database_bytes": 16283315,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    },
+    {
+      "repetition": 5,
+      "case": "control",
+      "corpus": "12 identities, versioned facts, two original loopback receipts",
+      "backup_seconds_including_cli": 0.5232093379891012,
+      "export_seconds_including_cli": 0.38958603801438585,
+      "restore_seconds_including_cli": 0.658782765007345,
+      "verify_seconds_including_cli": 0.39768714498495683,
+      "destination_startup_seconds": 4.276081946998602,
+      "archive_bytes": 20564,
+      "protected_originals": 1,
+      "source_database_bytes": 16316083,
+      "destination_database_bytes": 12400307,
+      "restoration_state": "verified",
+      "duplicate_posts": 0,
+      "private_input_scan": "passed"
+    }
+  ],
+  "fault_measurements": [
+    {
+      "case": "network_timeout",
+      "repetition": 1,
+      "seconds": 2.0156266760022845,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0009552040137350559
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0014247560175136
+      },
+      "disk_free_bytes": 13381042176,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 2,
+      "seconds": 1.507017480005743,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008089439943432808
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013465689844452
+      },
+      "disk_free_bytes": 13381038080,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 3,
+      "seconds": 1.5069828249979764,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007670900085940957
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0013774759718217
+      },
+      "disk_free_bytes": 13381038080,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 4,
+      "seconds": 1.507212928001536,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007689640042372048
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0015121799951885
+      },
+      "disk_free_bytes": 13381033984,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "network_timeout",
+      "repetition": 5,
+      "seconds": 2.0075847760017496,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.00068008599919267
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0016729710041545
+      },
+      "disk_free_bytes": 13381029888,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 1,
+      "seconds": 1.5084274999971967,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.001990402990486473
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0014850680017844
+      },
+      "disk_free_bytes": 13381025792,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 2,
+      "seconds": 2.0074103439983446,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008222379838116467
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0012392909848131
+      },
+      "disk_free_bytes": 13380960256,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 3,
+      "seconds": 1.5072832770238165,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0011777480249293149
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.0012932519894093
+      },
+      "disk_free_bytes": 13380952064,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 4,
+      "seconds": 1.5072091500042006,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007977420173119754
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001426458999049
+      },
+      "disk_free_bytes": 13380943872,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_valuation",
+      "repetition": 5,
+      "seconds": 1.5072701510216575,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0009867449989542365
+      },
+      "fault": {
+        "outcome": "timeout",
+        "seconds": 1.001428712013876
+      },
+      "disk_free_bytes": 13380939776,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 1,
+      "seconds": 1.507587934989715,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008664319757372141
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0015020949940663
+      },
+      "disk_free_bytes": 13380939776,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12375731,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 2,
+      "seconds": 2.0080100769991986,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008633850084152073
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.001794392010197
+      },
+      "disk_free_bytes": 13380939776,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 3,
+      "seconds": 1.5073249279812444,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0009232989978045225
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0015015740063973
+      },
+      "disk_free_bytes": 13380939776,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 4,
+      "seconds": 2.007598179014167,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0008563029987271875
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0016006770019885
+      },
+      "disk_free_bytes": 13380939776,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "slow_channel",
+      "repetition": 5,
+      "seconds": 1.5071209520101547,
+      "control": {
+        "outcome": "success",
+        "seconds": 0.0007730459910817444
+      },
+      "fault": {
+        "outcome": "uncertain",
+        "seconds": 1.0012883100134786
+      },
+      "disk_free_bytes": 13380939776,
+      "sampled_archive_bytes": 0,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 1,
+      "seconds": 0.0034807450138032436,
+      "control": {
+        "completed": true,
+        "seconds": 0.0008398509817197919
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001735769910737872
+      },
+      "disk_free_bytes": 13380931584,
+      "sampled_archive_bytes": 336,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 2,
+      "seconds": 0.0032978699891828,
+      "control": {
+        "completed": true,
+        "seconds": 0.0006326610164251179
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00016071199206635356
+      },
+      "disk_free_bytes": 13380923392,
+      "sampled_archive_bytes": 672,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 3,
+      "seconds": 0.003120196983218193,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005261199839878827
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001545209961477667
+      },
+      "disk_free_bytes": 13380915200,
+      "sampled_archive_bytes": 1008,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 4,
+      "seconds": 0.003464754991000518,
+      "control": {
+        "completed": true,
+        "seconds": 0.0005206210189498961
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0001536889758426696
+      },
+      "disk_free_bytes": 13380907008,
+      "sampled_archive_bytes": 1345,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "disk_full",
+      "repetition": 5,
+      "seconds": 0.0031472670088987797,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004655570082832128
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.000146134989336133
+      },
+      "disk_free_bytes": 13380898816,
+      "sampled_archive_bytes": 1681,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 1,
+      "seconds": 0.0034461460018064827,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004817770095542073
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00038346200017258525
+      },
+      "disk_free_bytes": 13380890624,
+      "sampled_archive_bytes": 2017,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 2,
+      "seconds": 0.0035789950052276254,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004941910156048834
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003387379983905703
+      },
+      "disk_free_bytes": 13380882432,
+      "sampled_archive_bytes": 2353,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 3,
+      "seconds": 0.0036044739827048033,
+      "control": {
+        "completed": true,
+        "seconds": 0.000465906981844455
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003166570095345378
+      },
+      "disk_free_bytes": 13380874240,
+      "sampled_archive_bytes": 2689,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 4,
+      "seconds": 0.0038023960078135133,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004730600048787892
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003223069943487644
+      },
+      "disk_free_bytes": 13380866048,
+      "sampled_archive_bytes": 3025,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "archive_interrupted",
+      "repetition": 5,
+      "seconds": 0.003984313982073218,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004854139988310635
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0003238900098949671
+      },
+      "disk_free_bytes": 13380857856,
+      "sampled_archive_bytes": 3361,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 1,
+      "seconds": 0.004966528998920694,
+      "control": {
+        "completed": true,
+        "seconds": 0.000513367005623877
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.000654041999951005
+      },
+      "disk_free_bytes": 13380845568,
+      "sampled_archive_bytes": 4019,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 2,
+      "seconds": 0.00446286000078544,
+      "control": {
+        "completed": true,
+        "seconds": 0.00048687600065022707
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0005209509981796145
+      },
+      "disk_free_bytes": 13380833280,
+      "sampled_archive_bytes": 4677,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 3,
+      "seconds": 0.004498744005104527,
+      "control": {
+        "completed": true,
+        "seconds": 0.0004617600061465055
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.0004229159967508167
+      },
+      "disk_free_bytes": 13380820992,
+      "sampled_archive_bytes": 5335,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 4,
+      "seconds": 0.0051548469928093255,
+      "control": {
+        "completed": true,
+        "seconds": 0.000491986982524395
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.000758517999202013
+      },
+      "disk_free_bytes": 13380808704,
+      "sampled_archive_bytes": 5993,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "export_interrupted",
+      "repetition": 5,
+      "seconds": 0.004705141996964812,
+      "control": {
+        "completed": true,
+        "seconds": 0.000513517006766051
+      },
+      "fault": {
+        "rejected": true,
+        "previous_preserved": true,
+        "no_partial": true,
+        "seconds": 0.00041372902342118323
+      },
+      "disk_free_bytes": 13380796416,
+      "sampled_archive_bytes": 6649,
+      "database_bytes": 12288527,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 1,
+      "seconds": 0.04224353801691905,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.004065963003085926
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.005846696003573015
+      },
+      "disk_free_bytes": 13380796416,
+      "sampled_archive_bytes": 6649,
+      "database_bytes": 13083151,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 2,
+      "seconds": 0.039213843003381044,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.0034298200043849647
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.004871825978625566
+      },
+      "disk_free_bytes": 13380796416,
+      "sampled_archive_bytes": 6649,
+      "database_bytes": 13828623,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 3,
+      "seconds": 0.04044908902142197,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.00352084101177752
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.004667741013690829
+      },
+      "disk_free_bytes": 13380796416,
+      "sampled_archive_bytes": 6649,
+      "database_bytes": 14565903,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 4,
+      "seconds": 0.04004133600392379,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.004010181990452111
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.0054009759915061295
+      },
+      "disk_free_bytes": 13380796416,
+      "sampled_archive_bytes": 6649,
+      "database_bytes": 15286799,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    },
+    {
+      "case": "queue_full",
+      "repetition": 5,
+      "seconds": 0.04015295099816285,
+      "control": {
+        "admitted": true,
+        "pending": 999,
+        "seconds": 0.0036790989979635924
+      },
+      "fault": {
+        "admitted": false,
+        "pending": 1000,
+        "seconds": 0.0051220059976913035
+      },
+      "disk_free_bytes": 13380796416,
+      "sampled_archive_bytes": 6649,
+      "database_bytes": 16024079,
+      "pending_jobs_after": 1,
+      "oldest_pending_at": "2026-11-13T00:29:46+00:00"
+    }
+  ],
+  "free_bytes": 12518838272,
+  "scope": "operational adapter timeouts and five controls of owned backup/export/restore/verified reconciliation",
+  "pending": [
+    "full fault CLI matrix is not yet implemented; real enablement remains blocked"
+  ],
+  "operational_enablement": false,
+  "profile_confirmed": false
+}
