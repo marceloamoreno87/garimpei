@@ -260,7 +260,21 @@ def fault(directory: Path, case: str) -> None:
     inspect(directory)
     source = instances(directory)[0]
     started = time.monotonic()
-    result = source.shell(_PERSISTENT_FAULT)
+    if case == "unit_persistent":
+        code = _PERSISTENT_FAULT
+    elif case == "queue_full":
+        code = (
+            "import json;from tests.factories.operations_lab_fault import queue_fault;"
+            "print(json.dumps(queue_fault()))"
+        )
+    else:
+        archive_directory = directory / "fault-data" / case
+        code = (
+            "import json;from pathlib import Path;"
+            "from tests.factories.operations_lab_fault import archive_fault;"
+            f"print(json.dumps(archive_fault(Path({str(archive_directory)!r}),{case!r})))"
+        )
+    result = source.shell(code)
     if result.returncode:
         raise RuntimeError(result.stdout + result.stderr)
     observed = json.loads(result.stdout.strip().splitlines()[-1])
@@ -369,7 +383,16 @@ def main() -> None:
     parser.add_argument(
         "--scenario", choices=["healthy", "counts", "recovery", "backup"], default="counts"
     )
-    parser.add_argument("--case", choices=["unit_persistent"])
+    parser.add_argument(
+        "--case",
+        choices=[
+            "unit_persistent",
+            "disk_full",
+            "archive_interrupted",
+            "export_interrupted",
+            "queue_full",
+        ],
+    )
     options = parser.parse_args()
     operation, directory = options.operation, options.directory.resolve()
     started = time.monotonic()

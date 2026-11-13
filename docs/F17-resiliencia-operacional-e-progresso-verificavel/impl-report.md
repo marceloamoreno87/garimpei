@@ -26,3 +26,8 @@ O CLI calibrate direto falhou antes das medições por falta de inicialização 
 ## Incremento de laboratório — 2026-11-13
 
 `fault --case unit_persistent` injeta a terceira falha no cenário `recovery`/`backup` de uma instância eval própria, exige unidade com duas falhas e worker pausado, verifica suspensão e checkpoint, verifica outra unidade e recusa repetição. O relatório sanitizado registra duração e estados. O teste de integração usa lifecycle próprio e cleanup no `finally` (1 passou). Os seis gates Python passaram. A comparação com a mesma carga e todos os demais casos continuam ausentes; o perfil não foi confirmado, nem a avaliação integral executada.
+
+
+## Ampliação da matriz — 2026-11-13
+
+O comando de laboratório também executa `disk_full` por orçamento reduzido em eval, `archive_interrupted`, `export_interrupted` e `queue_full`. Os três ensaios de arquivo comparam a mesma carga com controle de sucesso, medem os tempos, confirmam a preservação da cópia anterior e ausência de arquivo parcial. O ensaio de fila compara 1.000 itens com controle de 999 em filas independentes; a transação é revertida, sem remover outros trabalhos. Estas provas são das fronteiras de arquivo e admissão, não de todo o fluxo E2E. O teste dirigido exercita os cinco casos pela CLI e fecha o laboratório próprio. Ainda faltam casos de rede, lease, cursor, concorrência e crash, além das medições abrangentes e fechamento do perfil; F17 continua sem aceite.
