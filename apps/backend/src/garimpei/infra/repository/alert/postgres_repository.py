@@ -206,6 +206,8 @@ class PostgresAlertRepository:
             )
 
     def ready(self, now: datetime, *, reconcile: bool) -> tuple[UUID, ...]:
+        if not reconcile and not robot_enabled():
+            return ()
         states = ["authorized", "uncertain"] if reconcile else ["queued", "blocked", "safe_retry"]
         return tuple(
             AlertIntent.objects.filter(state__in=states, next_action__lte=now)
@@ -216,6 +218,9 @@ class PostgresAlertRepository:
 
     def block(self, identity: UUID, reason: str, now: datetime) -> None:
         with transaction.atomic():
+            lock_monitoring_publication()
+            if not robot_enabled():
+                return
             row = AlertIntent.objects.select_for_update().get(id=identity)
             if row.state in ["queued", "blocked", "safe_retry"]:
                 postpone(row, reason, now, self._policy)
@@ -225,7 +230,7 @@ class PostgresAlertRepository:
     ) -> Delivery | None:
         with transaction.atomic():
             lock_monitoring_publication()
-            if not reconcile and self._robot is not None and not robot_enabled():
+            if not reconcile and not robot_enabled():
                 return None
             if self._recovery_guard is not None and self._recovery_guard():
                 return None

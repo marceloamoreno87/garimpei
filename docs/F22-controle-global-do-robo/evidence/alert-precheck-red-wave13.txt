@@ -1,0 +1,168 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_paused_alert_precheck_never_spends_failures_or_changes_schedule[missing_binding] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-59/test_paused_alert_precheck_nev0')
+case = 'missing_binding'
+
+    @pytest.mark.parametrize("case", ["missing_binding", "pause_during_check"])
+    def test_paused_alert_precheck_never_spends_failures_or_changes_schedule(
+        tmp_path: Path, case: str
+    ) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + f"\ncase={case!r}\n"
+                    + """
+    from uuid import uuid4
+    from garimpei.main import build_robot_repository,build_read_robot_status,build_read_listing_changes
+    from garimpei.domain.robot.control import RobotCommand
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    robot=build_robot_repository();status=build_read_robot_status()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    intent=FirstAlertIdentity.objects.get(listing=l).intent
+    before=(intent.failures,intent.next_action,intent.state,intent.reason,intent.attempts.count())
+    class PausingUnavailableChannel:
+     def check(self, binding):
+      robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+      return False
+     def send(self, delivery):raise AssertionError('No send after failed check')
+    if case=='missing_binding':robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+    SendAlertUseCase(store,PausingUnavailableChannel(),None if case=='missing_binding' else binding,build_read_listing_changes(),lambda:now).execute()
+    intent.refresh_from_db()
+    assert not status.execute().enabled
+    assert (intent.failures,intent.next_action,intent.state,intent.reason,intent.attempts.count())==before
+    print('ROBOT_ALERT_PRECHECK_PASS:'+case)
+    """,
+                )
+
+tests/integration/test_robot_alert_precheck.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/c4f1/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-59/test_paused_alert_precheck_nev0/wave11b_f16_abb11858.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...nt.next_action,intent.state,intent.reason,intent.attempts.count())==before\nprint('ROBOT_ALERT_PRECHECK_PASS:'+case)\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 61 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T17:39:48.981533+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_abb11858", "run_id": "ca0f100f-4616-4739-bca2-36b5ebf7d144"}
+E         {"timestamp": "2026-11-13T17:39:49.110542+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_abb11858", "run_id": "ca0f100f-4616-4739-bca2-36b5ebf7d144", "alert_reference": "222dbee6-398b-4e71-a3f7-118805716037", "alert_state": "blocked", "alert_reason": "configuration_missing"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 35, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 35, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'eligible', 'eligible', UUID('222dbee6-398b-4e71-a3f7-118805716037'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('blocked', 'configuration_missing', UUID('578f5e07-a927-4b50-8baf-c72858ee0d5c'), datetime.datetime(2026, 11, 12, 12, 0, 15, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+_ test_paused_alert_precheck_never_spends_failures_or_changes_schedule[pause_during_check] _
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-59/test_paused_alert_precheck_nev1')
+case = 'pause_during_check'
+
+    @pytest.mark.parametrize("case", ["missing_binding", "pause_during_check"])
+    def test_paused_alert_precheck_never_spends_failures_or_changes_schedule(
+        tmp_path: Path, case: str
+    ) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + f"\ncase={case!r}\n"
+                    + """
+    from uuid import uuid4
+    from garimpei.main import build_robot_repository,build_read_robot_status,build_read_listing_changes
+    from garimpei.domain.robot.control import RobotCommand
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    robot=build_robot_repository();status=build_read_robot_status()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    intent=FirstAlertIdentity.objects.get(listing=l).intent
+    before=(intent.failures,intent.next_action,intent.state,intent.reason,intent.attempts.count())
+    class PausingUnavailableChannel:
+     def check(self, binding):
+      robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+      return False
+     def send(self, delivery):raise AssertionError('No send after failed check')
+    if case=='missing_binding':robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+    SendAlertUseCase(store,PausingUnavailableChannel(),None if case=='missing_binding' else binding,build_read_listing_changes(),lambda:now).execute()
+    intent.refresh_from_db()
+    assert not status.execute().enabled
+    assert (intent.failures,intent.next_action,intent.state,intent.reason,intent.attempts.count())==before
+    print('ROBOT_ALERT_PRECHECK_PASS:'+case)
+    """,
+                )
+
+tests/integration/test_robot_alert_precheck.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/c4f1/garimpei'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-59/test_paused_alert_precheck_nev1/wave11b_f16_7149b974.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...nt.next_action,intent.state,intent.reason,intent.attempts.count())==before\nprint('ROBOT_ALERT_PRECHECK_PASS:'+case)\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 61 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T17:40:01.736336+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_7149b974", "run_id": "04ea7202-d402-42b7-8f0d-8b6248e25feb"}
+E         {"timestamp": "2026-11-13T17:40:01.865673+00:00", "level": "INFO", "logger": "garimpei.alert", "event": "alert_state", "environment_id": "eval_wave11b_f16_7149b974", "run_id": "04ea7202-d402-42b7-8f0d-8b6248e25feb", "alert_reference": "f2016abd-2340-43df-92aa-fc806d6d1a18", "alert_state": "blocked", "alert_reason": "session_unavailable"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 35, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 35, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'eligible', 'eligible', UUID('f2016abd-2340-43df-92aa-fc806d6d1a18'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('blocked', 'session_unavailable', UUID('1153b27d-2dd8-477f-9480-d605bfe1d09d'), datetime.datetime(2026, 11, 12, 12, 0, 15, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_robot_alert_precheck.py::test_paused_alert_precheck_never_spends_failures_or_changes_schedule[missing_binding]
+FAILED tests/integration/test_robot_alert_precheck.py::test_paused_alert_precheck_never_spends_failures_or_changes_schedule[pause_during_check]
+2 failed in 25.46s
