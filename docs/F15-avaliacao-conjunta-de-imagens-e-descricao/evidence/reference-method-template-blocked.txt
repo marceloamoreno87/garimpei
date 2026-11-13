@@ -1,0 +1,1 @@
+{"state": "blocked", "reason": "reference_or_frozen_input_incomplete", "detail": "Explicit reference_method must be human or ai_assisted", "model_executed": false}

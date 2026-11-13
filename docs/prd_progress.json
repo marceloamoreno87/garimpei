@@ -244,10 +244,10 @@
       ],
       "status": "implemented",
       "cycles": 4,
-      "failure_reason": "Qualidade real pendente: revisão humana dos 23 casos e execução reservada na GPU própria. 30/31 itens PASS; seis gates e regressões focais aprovados; full corrente em consolidação.",
+      "failure_reason": "Referência assistida por IA autorizada, sem equivalência automática à revisão humana independente; corpus reservado real e consolidação ainda pendentes.",
       "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T14-44-31Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-13T14:45:42.025363+00:00",
+      "updated_at": "2026-11-13T14:57:19.623297+00:00",
       "completed_at": null
     },
     "F16": {

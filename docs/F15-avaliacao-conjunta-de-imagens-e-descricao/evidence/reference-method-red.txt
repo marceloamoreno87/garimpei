@@ -1,0 +1,597 @@
+.................F.FFFFFFFFFFF                                           [100%]
+=================================== FAILURES ===================================
+____ test_quality_report_counts_abstentions_errors_and_keeps_kind_separate _____
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_quality_report_counts_abs0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d850dd00>
+
+    def test_quality_report_counts_abstentions_errors_and_keeps_kind_separate(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        from tests.factories import assessment_quality_runtime as runtime
+        from tests.factories.inference import inference_settings
+    
+        settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+        monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
+        results: list[dict[str, Any]] = [
+            dict(
+                case_id="control-a",
+                reference="defect",
+                automatic="good",
+                kind="synthetic_control",
+                category="computer",
+            ),
+            dict(
+                case_id="real-a",
+                reference="good",
+                automatic="defect",
+                kind="real_source_unreviewed",
+                category="console",
+            ),
+            dict(
+                case_id="real-b",
+                reference="uncertain",
+                automatic="uncertain",
+                kind="real_source_unreviewed",
+                category=None,
+            ),
+        ]
+        output = tmp_path / "controlled-report.json"
+>       runtime._write(
+            output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method="human"), results, complete=True
+        )
+
+tests/unit/test_assessment_quality_review.py:263: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_quality_report_counts_abs0/controlled-report.json')
+plan = {'manifest_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'review_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reference_method': 'human'}
+results = [{'case_id': 'control-a', 'reference': 'defect', 'automatic': 'good', 'kind': 'synthetic_control', ...}, {'case_id': '......}, {'case_id': 'real-b', 'reference': 'uncertain', 'automatic': 'uncertain', 'kind': 'real_source_unreviewed', ...}]
+complete = True
+
+    def _write(
+        output: Path, plan: dict[str, Any], results: list[dict[str, Any]], *, complete: bool
+    ) -> None:
+        labels = ("good", "defect", "uncertain")
+        matrix = {human: {automatic: 0 for automatic in labels} for human in labels}
+        for result in results:
+>           matrix[result["human"]][result["automatic"]] += 1
+                   ^^^^^^^^^^^^^^^
+E           KeyError: 'human'
+
+tests/factories/assessment_quality_runtime.py:232: KeyError
+___ test_reference_method_is_explicit_and_retained_without_inference[human] ____
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_reference_method_is...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_reference_method_is_expli0', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d7cbdd50>
+method = 'human'
+
+    @pytest.mark.parametrize("method", ["human", "ai_assisted"])
+    def test_reference_method_is_explicit_and_retained_without_inference(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, method: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        data["reference_method"] = method
+        if method == "ai_assisted":
+            for row in data["cases"]:
+                row["reviewer"] = "Codex (IA)"
+        path.write_text(json.dumps(data))
+        plan = read_plan(Path(frozen["manifest"]), path, Path(frozen["package"]))
+>       assert plan["reference_method"] == method
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'reference_method'
+
+tests/unit/test_assessment_quality_review.py:326: KeyError
+_ test_reference_method_is_explicit_and_retained_without_inference[ai_assisted] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_reference_method_is...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_reference_method_is_expli1', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d789e5f0>
+method = 'ai_assisted'
+
+    @pytest.mark.parametrize("method", ["human", "ai_assisted"])
+    def test_reference_method_is_explicit_and_retained_without_inference(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, method: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        data["reference_method"] = method
+        if method == "ai_assisted":
+            for row in data["cases"]:
+                row["reviewer"] = "Codex (IA)"
+        path.write_text(json.dumps(data))
+        plan = read_plan(Path(frozen["manifest"]), path, Path(frozen["package"]))
+>       assert plan["reference_method"] == method
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'reference_method'
+
+tests/unit/test_assessment_quality_review.py:326: KeyError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[absent] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp0', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d789da20>
+fault = 'absent'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp0'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[null] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp1', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d789e900>
+fault = 'null'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp1'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[invalid] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp2', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d78fcde0>
+fault = 'invalid'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp2'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[top_extra] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp3', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d78fd4e0>
+fault = 'top_extra'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp3'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[case_extra] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp4', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d78fdda0>
+fault = 'case_extra'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp4'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[finding_extra] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp5', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d789e820>
+fault = 'finding_extra'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp5'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+_ test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[evidence_extra] _
+
+frozen = {'manifest': '/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_ext...e/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp6', 'mode': 'real'}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d789d5c0>
+fault = 'evidence_extra'
+
+    @pytest.mark.parametrize("fault", ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"])
+    def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+        frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+    ) -> None:
+        path = Path(frozen["review"])
+        data = json.loads(path.read_text())
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+        if fault == "absent":
+            data.pop("reference_method")
+        elif fault == "null":
+            data["reference_method"] = None
+        elif fault == "invalid":
+            data["reference_method"] = "as_if_human"
+        elif fault == "top_extra":
+            data["independent_human_review"] = True
+        elif fault == "case_extra":
+            data["cases"][0]["model_prediction"] = "good"
+        else:
+            finding = dict(dimension="appearance", severity="unknown", component="main", description="Synthetic controlled review", evidence=dict(photo_id="test-case-0"))
+            data["cases"][0]["findings"] = [finding]
+            if fault == "finding_extra":
+                finding["confidence"] = 1
+            else:
+                finding["evidence"]["tool"] = "send"
+        path.write_text(json.dumps(data))
+    
+        def forbidden(*args: object) -> None:
+            raise AssertionError("Invalid reference touched photos/runtime")
+    
+        monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+        monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+>       result = evaluate_corpus(frozen)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_assessment_quality_review.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/assessment_quality.py:19: in evaluate_corpus
+    plan = read_plan(
+tests/factories/assessment_quality_review.py:54: in read_plan
+    photos = [_photo(photo, package) for photo in case["photos"]]
+              ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp6'))
+
+    def forbidden(*args: object) -> None:
+>       raise AssertionError("Invalid reference touched photos/runtime")
+E       AssertionError: Invalid reference touched photos/runtime
+
+tests/unit/test_assessment_quality_review.py:362: AssertionError
+___ test_report_names_the_reference_method_and_never_calls_ai_a_human[human] ___
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_report_names_the_referenc0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d78fd160>
+method = 'human'
+
+    @pytest.mark.parametrize("method", ["human", "ai_assisted"])
+    def test_report_names_the_reference_method_and_never_calls_ai_a_human(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch, method: str
+    ) -> None:
+        from tests.factories import assessment_quality_runtime as runtime
+        from tests.factories.inference import inference_settings
+    
+        settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+        monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
+        results = [dict(case_id="controlled-reference", reference="defect", automatic="good", kind="synthetic_control", category="computer")]
+        output = tmp_path / "report.json"
+>       runtime._write(output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method=method), results, complete=True)
+
+tests/unit/test_assessment_quality_review.py:381: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_report_names_the_referenc0/report.json')
+plan = {'manifest_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'review_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reference_method': 'human'}
+results = [{'case_id': 'controlled-reference', 'reference': 'defect', 'automatic': 'good', 'kind': 'synthetic_control', ...}]
+complete = True
+
+    def _write(
+        output: Path, plan: dict[str, Any], results: list[dict[str, Any]], *, complete: bool
+    ) -> None:
+        labels = ("good", "defect", "uncertain")
+        matrix = {human: {automatic: 0 for automatic in labels} for human in labels}
+        for result in results:
+>           matrix[result["human"]][result["automatic"]] += 1
+                   ^^^^^^^^^^^^^^^
+E           KeyError: 'human'
+
+tests/factories/assessment_quality_runtime.py:232: KeyError
+_ test_report_names_the_reference_method_and_never_calls_ai_a_human[ai_assisted] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_report_names_the_referenc1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d78fc1a0>
+method = 'ai_assisted'
+
+    @pytest.mark.parametrize("method", ["human", "ai_assisted"])
+    def test_report_names_the_reference_method_and_never_calls_ai_a_human(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch, method: str
+    ) -> None:
+        from tests.factories import assessment_quality_runtime as runtime
+        from tests.factories.inference import inference_settings
+    
+        settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+        monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
+        results = [dict(case_id="controlled-reference", reference="defect", automatic="good", kind="synthetic_control", category="computer")]
+        output = tmp_path / "report.json"
+>       runtime._write(output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method=method), results, complete=True)
+
+tests/unit/test_assessment_quality_review.py:381: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_report_names_the_referenc1/report.json')
+plan = {'manifest_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'review_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reference_method': 'ai_assisted'}
+results = [{'case_id': 'controlled-reference', 'reference': 'defect', 'automatic': 'good', 'kind': 'synthetic_control', ...}]
+complete = True
+
+    def _write(
+        output: Path, plan: dict[str, Any], results: list[dict[str, Any]], *, complete: bool
+    ) -> None:
+        labels = ("good", "defect", "uncertain")
+        matrix = {human: {automatic: 0 for automatic in labels} for human in labels}
+        for result in results:
+>           matrix[result["human"]][result["automatic"]] += 1
+                   ^^^^^^^^^^^^^^^
+E           KeyError: 'human'
+
+tests/factories/assessment_quality_runtime.py:232: KeyError
+=========================== short test summary info ============================
+FAILED tests/unit/test_assessment_quality_review.py::test_quality_report_counts_abstentions_errors_and_keeps_kind_separate
+FAILED tests/unit/test_assessment_quality_review.py::test_reference_method_is_explicit_and_retained_without_inference[human]
+FAILED tests/unit/test_assessment_quality_review.py::test_reference_method_is_explicit_and_retained_without_inference[ai_assisted]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[absent]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[null]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[invalid]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[top_extra]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[case_extra]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[finding_extra]
+FAILED tests/unit/test_assessment_quality_review.py::test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io[evidence_extra]
+FAILED tests/unit/test_assessment_quality_review.py::test_report_names_the_reference_method_and_never_calls_ai_a_human[human]
+FAILED tests/unit/test_assessment_quality_review.py::test_report_names_the_reference_method_and_never_calls_ai_a_human[ai_assisted]
+12 failed, 18 passed in 0.72s

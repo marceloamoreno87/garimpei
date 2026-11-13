@@ -11,3 +11,8 @@ A retomada exerceu tokenização oficial e cadeia de validação com imagem/text
 Não há matriz de qualidade real, falsos bons/falsos defeitos, abstenções, GPU/RAM ou latências fria/quente medidos por F15. Campos permanecem pendentes, sem zeros fictícios. Após receber e validar rótulos, fechar ajuste/reservado e condições de execução, preparar runtime F19 próprio com artefato aprovado e coordenação exclusiva, executar o reservado real uma vez e publicar IDs/hashes/revisões, matriz, erros de evidência, limitações por categoria, recursos e latências. Não há meta numérica de precisão aprovada nem percentual de certeza a inventar.
 
 O executor foi entregue nesta retomada (correction-cycle4.md): ingestão de export humano vinculada ao hash do manifesto, validação antes de runtime, caminho real de F14/F15/F19, relatório incremental/matriz/erros/métricas e recusa de fakes.19 unit PASS e1integração controlada comprovam preparação técnica, sem alegação de execução real do reservado.
+
+
+## Método da referência — instrução atual
+
+O usuário autorizou Codex a revisar o pacote com auxílio de IA. A autoria deve ser explícita (`Codex (IA)`) e o export usa `reference_method=ai_assisted`; isso gera concordância entre IAs, sem alegação de revisão humana independente. O método é obrigatório no arquivo e não é inferido por reviewer. O template começa nulo e não pode executar o corpus. Referências declaradas humanas usam `reference_method=human`. O relatório separa esses métodos e usa `reference` por caso; a opção assistida registra `independent_human_review=false` e não satisfaz automaticamente E2E-QUALIDADE-01 legado. Ver `reference-method.md`. Os exemplos de CLI continuam iguais; método vem do arquivo exportado, nunca de um argumento que substitua sua autoria.

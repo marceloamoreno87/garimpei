@@ -1,4 +1,4 @@
-"""Real F14/F15/F19 corpus driver. Imported only after human review validation."""
+"""Real F14/F15/F19 corpus driver. Imported only after attributed reference validation."""
 
 import hashlib
 import json
@@ -47,10 +47,13 @@ from garimpei.main import (
 from garimpei.usecase.listing.complete_assessment_usecase import CompleteAssessmentUseCase
 from garimpei.usecase.listing.prepare_assessment_usecase import PrepareAssessmentUseCase
 from tests.factories.assessment_origin import serve_assessment_images
+from tests.factories.assessment_quality_review import reference_method
 from tests.factories.monitoring import require_disposable
 
 
 def execute(plan_path: Path, output: Path) -> None:
+    plan = json.loads(plan_path.read_text())
+    reference_method(plan)
     require_disposable()
     if not load_inference_settings().service_enabled or load_alert_settings().enabled:
         raise RuntimeError("Real IA enabled and alerts disabled are required")
@@ -64,7 +67,6 @@ def execute(plan_path: Path, output: Path) -> None:
     diagnostic = gateway.diagnose()
     if diagnostic.get("reason") != "ready" or not gateway.unload():
         raise RuntimeError("Verified pinned real runtime and owned model unload required")
-    plan = json.loads(plan_path.read_text())
     selected = [case for case in plan["cases"] if case["split"] == "reserved"]
     files = {photo["sha256"]: Path(photo["file"]) for case in selected for photo in case["photos"]}
     for digest, file in files.items():
@@ -180,7 +182,7 @@ def run_case(case: dict[str, Any], origin: str) -> dict[str, Any]:
         case_id=case["case_id"],
         kind=case["kind"],
         category=case["category"],
-        human=case["review"]["label"],
+        reference=case["review"]["label"],
         automatic=assessment.condition,
         status=assessment.status,
         reason=assessment.reason,
@@ -226,14 +228,21 @@ def _memory_samples() -> Iterator[list[dict[str, float | int]]]:
 def _write(
     output: Path, plan: dict[str, Any], results: list[dict[str, Any]], *, complete: bool
 ) -> None:
+    method = reference_method(plan)
     labels = ("good", "defect", "uncertain")
-    matrix = {human: {automatic: 0 for automatic in labels} for human in labels}
+    matrix = {reference: {automatic: 0 for automatic in labels} for reference in labels}
     for result in results:
-        matrix[result["human"]][result["automatic"]] += 1
+        matrix[result["reference"]][result["automatic"]] += 1
     lock = read_lock(load_inference_settings().model_lock)
     report = dict(
         complete=complete,
         runtime="real_local_F19",
+        reference_method=method,
+        independent_human_review=method == "human",
+        comparison_kind="human_reference_comparison" if method == "human" else "ai_agreement",
+        matrix_axes=["reference", "automatic"],
+        legacy_human_acceptance_satisfied=False if method == "ai_assisted" else None,
+        requires_contract_evaluation=True,
         manifest_sha256=plan["manifest_sha256"],
         review_sha256=plan["review_sha256"],
         policy_version=POLICY_VERSION,
@@ -244,8 +253,8 @@ def _write(
         split="reserved",
         results=results,
         matrix=matrix,
-        false_good=sum(matrix[h]["good"] for h in labels if h != "good"),
-        false_defect=sum(matrix[h]["defect"] for h in labels if h != "defect"),
+        automatic_good_reference_other=sum(matrix[r]["good"] for r in labels if r != "good"),
+        automatic_defect_reference_other=sum(matrix[r]["defect"] for r in labels if r != "defect"),
         abstentions=sum(matrix[h]["uncertain"] for h in labels),
         by_category={
             category: sum(str(r["category"]) == category for r in results)
@@ -253,6 +262,16 @@ def _write(
         },
         note="No numerical accuracy target approved. Synthetic controls and real photographs remain distinct in every result; host RAM is not model-only RAM. Thermal order is not proof of continued residency; inspect per-call load_duration.",
     )
+    if method == "human":
+        report["false_good"] = report["automatic_good_reference_other"]
+        report["false_defect"] = report["automatic_defect_reference_other"]
+        report["methodology"] = (
+            "Comparison against an explicitly declared human reference; contract approval remains separate."
+        )
+    else:
+        report["methodology"] = (
+            "Agreement between an AI-assisted reference and the evaluated model; no independent human ground truth or human validation is claimed."
+        )
     temporary = output.with_suffix(".writing.json")
     temporary.write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str) + "\n")
     temporary.chmod(0o600)

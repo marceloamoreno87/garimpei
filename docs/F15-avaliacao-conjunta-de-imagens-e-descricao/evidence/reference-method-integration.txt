@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/e16d/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 9 items / 8 deselected / 1 selected
+
+tests/integration/test_assessment_boundaries.py::test_quality_runner_processes_local_fixture_but_refuses_fake_quality_evidence 58 objects imported automatically (use -v 2 for details).
+
+quality runner traverses F14/F15/F19 persistence with local synthetic control and rejects fake telemetry before any real quality report PASS
+
+PASSED
+
+======================= 1 passed, 8 deselected in 9.17s ========================

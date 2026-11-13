@@ -57,6 +57,7 @@ def frozen(tmp_path: Path) -> dict[str, str]:
         json.dumps(
             dict(
                 schema_version=1,
+                reference_method="human",
                 rubric="condition-policy-v1",
                 manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest(),
                 cases=reviews,
@@ -156,7 +157,7 @@ def test_invalid_export_is_rejected_before_any_model_or_runtime(
     monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
     result = evaluate_corpus(frozen)
     assert result["state"] == "blocked" and result["model_executed"] is False
-    assert result["reason"] == "human_review_or_frozen_input_incomplete"
+    assert result["reason"] == "reference_or_frozen_input_incomplete"
 
 
 def test_conclusive_label_requires_a_real_frozen_reference(frozen: dict[str, str]) -> None:
@@ -238,21 +239,21 @@ def test_quality_report_counts_abstentions_errors_and_keeps_kind_separate(
     results: list[dict[str, Any]] = [
         dict(
             case_id="control-a",
-            human="defect",
+            reference="defect",
             automatic="good",
             kind="synthetic_control",
             category="computer",
         ),
         dict(
             case_id="real-a",
-            human="good",
+            reference="good",
             automatic="defect",
             kind="real_source_unreviewed",
             category="console",
         ),
         dict(
             case_id="real-b",
-            human="uncertain",
+            reference="uncertain",
             automatic="uncertain",
             kind="real_source_unreviewed",
             category=None,
@@ -260,7 +261,10 @@ def test_quality_report_counts_abstentions_errors_and_keeps_kind_separate(
     ]
     output = tmp_path / "controlled-report.json"
     runtime._write(
-        output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64), results, complete=True
+        output,
+        dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method="human"),
+        results,
+        complete=True,
     )
     report = json.loads(output.read_text())
     assert report["false_good"] == 1 and report["false_defect"] == 1 and report["abstentions"] == 1
@@ -308,3 +312,134 @@ def test_real_report_cannot_complete_when_all_photos_fail_before_dispatch(
     with pytest.raises(RuntimeError, match="No real-photo inference"):
         runtime.execute(plan_file, tmp_path / "must-not-complete.json")
     assert completed and not any(completed)
+
+
+@pytest.mark.parametrize("method", ["human", "ai_assisted"])
+def test_reference_method_is_explicit_and_retained_without_inference(
+    frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, method: str
+) -> None:
+    path = Path(frozen["review"])
+    data = json.loads(path.read_text())
+    data["reference_method"] = method
+    if method == "ai_assisted":
+        for row in data["cases"]:
+            row["reviewer"] = "Codex (IA)"
+    path.write_text(json.dumps(data))
+    plan = read_plan(Path(frozen["manifest"]), path, Path(frozen["package"]))
+    assert plan["reference_method"] == method
+    assert plan["independent_human_review"] is (method == "human")
+    result = evaluate_corpus(dict(frozen, mode="validate"))
+    assert result["state"] == "validated" and result["model_executed"] is False
+    assert result["reference_method"] == method
+    assert result["independent_human_review"] is (method == "human")
+
+
+@pytest.mark.parametrize(
+    "fault",
+    ["absent", "null", "invalid", "top_extra", "case_extra", "finding_extra", "evidence_extra"],
+)
+def test_unattributed_or_extra_export_fields_fail_before_photo_or_runtime_io(
+    frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, fault: str
+) -> None:
+    path = Path(frozen["review"])
+    data = json.loads(path.read_text())
+    for row in data["cases"]:
+        row["reviewer"] = "Codex (IA)"
+    if fault == "absent":
+        data.pop("reference_method")
+    elif fault == "null":
+        data["reference_method"] = None
+    elif fault == "invalid":
+        data["reference_method"] = "as_if_human"
+    elif fault == "top_extra":
+        data["independent_human_review"] = True
+    elif fault == "case_extra":
+        data["cases"][0]["model_prediction"] = "good"
+    else:
+        finding: dict[str, Any] = dict(
+            dimension="appearance",
+            severity="unknown",
+            component="main",
+            description="Synthetic controlled review",
+            evidence=dict(photo_id="test-case-0"),
+        )
+        data["cases"][0]["findings"] = [finding]
+        if fault == "finding_extra":
+            finding["confidence"] = 1
+        else:
+            finding["evidence"]["tool"] = "send"
+    path.write_text(json.dumps(data))
+
+    def forbidden(*args: object) -> None:
+        raise AssertionError("Invalid reference touched photos/runtime")
+
+    monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
+    monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
+    result = evaluate_corpus(frozen)
+    assert result["state"] == "blocked" and result["model_executed"] is False
+
+
+@pytest.mark.parametrize("method", ["human", "ai_assisted"])
+def test_report_names_the_reference_method_and_never_calls_ai_a_human(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, method: str
+) -> None:
+    from tests.factories import assessment_quality_runtime as runtime
+    from tests.factories.inference import inference_settings
+
+    settings = inference_settings(tmp_path, "http://127.0.0.1:1")
+    monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
+    results = [
+        dict(
+            case_id="controlled-reference",
+            reference="defect",
+            automatic="good",
+            kind="synthetic_control",
+            category="computer",
+        )
+    ]
+    output = tmp_path / "report.json"
+    runtime._write(
+        output,
+        dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method=method),
+        results,
+        complete=True,
+    )
+    report = json.loads(output.read_text())
+    assert report["reference_method"] == method
+    assert report["independent_human_review"] is (method == "human")
+    assert report["matrix_axes"] == ["reference", "automatic"]
+    assert report["matrix"]["defect"]["good"] == 1
+    assert all("human" not in row for row in report["results"])
+    if method == "ai_assisted":
+        assert report["comparison_kind"] == "ai_agreement"
+        assert "false_good" not in report and "false_defect" not in report
+        assert report["automatic_good_reference_other"] == 1
+        assert report["legacy_human_acceptance_satisfied"] is False
+    else:
+        assert report["comparison_kind"] == "human_reference_comparison"
+        assert report["false_good"] == 1
+
+
+@pytest.mark.parametrize(
+    "change", [{"reference_method": "human"}, {"mode": None}, {"mode": "invented"}]
+)
+def test_invalid_action_metadata_is_rejected_before_reading_export(
+    frozen: dict[str, str], monkeypatch: pytest.MonkeyPatch, change: dict[str, object]
+) -> None:
+    def forbidden(*args: object) -> None:
+        raise AssertionError("Invalid action read reference or runtime")
+
+    monkeypatch.setattr("tests.factories.assessment_quality.read_plan", forbidden)
+    result = evaluate_corpus(dict(frozen, **change))
+    assert result["state"] == "blocked" and result["model_executed"] is False
+
+
+def test_null_method_blocks_before_reading_manifest_or_photos(frozen: dict[str, str]) -> None:
+    path = Path(frozen["review"])
+    data = json.loads(path.read_text())
+    data["reference_method"] = None
+    path.write_text(json.dumps(data))
+    Path(frozen["manifest"]).unlink()
+    result = evaluate_corpus(frozen)
+    assert result["state"] == "blocked" and result["model_executed"] is False
+    assert "reference_method" in result["detail"]
