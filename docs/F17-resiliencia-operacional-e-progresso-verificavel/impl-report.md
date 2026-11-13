@@ -31,3 +31,12 @@ O CLI calibrate direto falhou antes das medições por falta de inicialização 
 ## Ampliação da matriz — 2026-11-13
 
 O comando de laboratório também executa `disk_full` por orçamento reduzido em eval, `archive_interrupted`, `export_interrupted` e `queue_full`. Os três ensaios de arquivo comparam a mesma carga com controle de sucesso, medem os tempos, confirmam a preservação da cópia anterior e ausência de arquivo parcial. O ensaio de fila compara 1.000 itens com controle de 999 em filas independentes; a transação é revertida, sem remover outros trabalhos. Estas provas são das fronteiras de arquivo e admissão, não de todo o fluxo E2E. O teste dirigido exercita os cinco casos pela CLI e fecha o laboratório próprio. Ainda faltam casos de rede, lease, cursor, concorrência e crash, além das medições abrangentes e fechamento do perfil; F17 continua sem aceite.
+
+
+## Rede e fronteiras de navegação — 2026-11-13
+
+A CLI de laboratório exercita `network_timeout`, `slow_valuation` e `slow_channel` nos adaptadores reais contra HTTP fake em loopback, com um segundo de timeout apenas para eval e uma chamada controle por caso. O timeout após POST gera estado incerto, não confirmação ou retentativa segura. Os ensaios `repeat_cursor`, `lease_expired`, `late_result` e `crash_before_commit` exercitam o repositório real de navegação sobre o seed próprio em uma transação revertida; conferem detecção e um percurso de controle. O ensaio chamado `lease_expired` força uma geração obsoleta: não comprova expiração temporal real da lease. A exceção antes do commit é uma falha de injeção no ponto de escrita, não um SIGKILL.
+
+O teste integrado da CLI passou (1 teste, 32,21 s). O teste separado de worker morto com SIGKILL após POST passou em 39,42 s, comprovando reconciliação no fake sem duplicar o POST e continuidade independente. Os seis gates Python passaram. Essas evidências não fecham a matriz nem o perfil operacional.
+
+`db_unavailable` interrompe PostgreSQL do destino descartável, selecionado por labels de projeto, serviço, ambiente e checkout; o banco da origem é verificado durante a interrupção e o destino reiniciado no finally. O teste integrado completo dos casos passou em 32,99 s; seis gates passaram. Este ensaio prova indisponibilidade e recuperação da conexão, não a experiência HTTP integral.
