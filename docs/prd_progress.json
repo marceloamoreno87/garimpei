@@ -242,13 +242,13 @@
         "F14",
         "F19"
       ],
-      "status": "implemented",
+      "status": "done",
       "cycles": 8,
-      "failure_reason": "Perfil F15v3 até1024 autorizado, legado512/contexto4096 preservados. 50unit/integrações14+9/seis gates PASS; calibração GPU1024/full pendentes. Três correções desta onda consumidas, sem done antecipado.",
-      "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T15-39-09Z.md",
+      "failure_reason": null,
+      "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T16-58-43Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-13T16:31:43.688135+00:00",
-      "completed_at": null
+      "updated_at": "2026-11-13T16:58:43.821396+00:00",
+      "completed_at": "2026-11-13T16:58:43.821396+00:00"
     },
     "F16": {
       "name": "Alertas pela primeira elegibilidade e diagnóstico",

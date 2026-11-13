@@ -1,0 +1,144 @@
+{
+  "read_only_complement": true,
+  "no_restart_or_inference_performed": true,
+  "timestamp": "2026-11-13T16:47:58.254611+00:00",
+  "source_commit": "b43092b82ac7d034b5f967aa7fb930bdc2b77f4c",
+  "backend_tree": "0b63d4db4cad9f74421d2ac4792b52bea6eb50e2",
+  "corpus_nonce": "20bfbb180db84076b2778bec0a5d6255",
+  "raw_report_sha256": "cd339addd4ecde268aad060ccfe8c7ae94b1699ae747b90907fa74e1e9dc7a4e",
+  "runtime_run_id": "7d357119-b279-4f6e-b95f-5e332a1be69f",
+  "manifest_status": "stopped",
+  "manifest_container_reference": "1b068f28ce79",
+  "reference_matches_full_container_id_prefix": true,
+  "container": {
+    "id": "1b068f28ce79f58cfcbcbf28a4840337586c84096c33b539b14a5a047a753298",
+    "image": "ollama/ollama:0.40.16@sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592",
+    "environment": "eval_f15_gpu_20261113",
+    "checkout": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/checkout"
+  },
+  "container_state": {
+    "Status": "exited",
+    "Running": false,
+    "StartedAt": "2026-11-13T16:33:21.463034113Z",
+    "FinishedAt": "2026-11-13T16:38:24.853411173Z"
+  },
+  "OLLAMA_NO_CLOUD": 1,
+  "connected_networks": [
+    {
+      "id": "c44fd95b8ae0faed59215c121ee12c7b974514034ac985a82d8a3a768ab4ab0b",
+      "name": "garimpei-eval_f15_gpu_20261113_inference",
+      "internal": true,
+      "driver": "bridge",
+      "environment": "eval_f15_gpu_20261113",
+      "checkout": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/checkout"
+    }
+  ],
+  "only_internal_inference_network_connected": true,
+  "source_path_checks": [
+    {
+      "file": "apps/backend/src/garimpei/main.py",
+      "sha256": "8500182c3e0c9fa40861cb8fe3a1fec632106ada7a20311c31a22e35308ee0d2",
+      "matches_frozen_snapshot": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/gateway/inference/docker_transport.py",
+      "sha256": "833ad0f7d4fffacf84b941696b0f0a96549d191d4918b16a36fae71be0e37e9e",
+      "matches_frozen_snapshot": true
+    },
+    {
+      "file": "apps/backend/src/garimpei/infra/gateway/inference/ollama_gateway.py",
+      "sha256": "27a3decb39b7843737c6acf4b10983a97bb9bf5ca0f3121da614c18b0017ead3",
+      "matches_frozen_snapshot": true
+    }
+  ],
+  "remote_fallback_evidence": {
+    "main_injects": "DockerOllamaTransport(config).request",
+    "used_transport": "docker exec persistent REST bridge to container127.0.0.1:11434",
+    "paths_allowlist": [
+      "/api/version",
+      "/api/tags",
+      "/api/show",
+      "/api/ps",
+      "/api/chat"
+    ],
+    "used_transport_failure_path": "raises InferenceError; no remote retry/fallback branch",
+    "gateway_optional_HTTP_path": "also rejects hostnames other than127.0.0.1; not selected by main DI",
+    "claim_scope": "static frozen-source path plus stopped-container runtime/network configuration; no new active network test"
+  },
+  "gpu_reservation_released": true,
+  "volumes_preserved": true,
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .State}}",
+        "1b068f28ce79"
+      ],
+      "started_at": "2026-11-13T16:47:58.111087+00:00",
+      "finished_at": "2026-11-13T16:47:58.139905+00:00",
+      "exit_code": 0,
+      "stdout": "{\"Status\":\"exited\",\"Running\":false,\"Paused\":false,\"Restarting\":false,\"OOMKilled\":false,\"Dead\":false,\"Pid\":0,\"ExitCode\":0,\"Error\":\"\",\"StartedAt\":\"2026-11-13T16:33:21.463034113Z\",\"FinishedAt\":\"2026-11-13T16:38:24.853411173Z\"}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{range .Config.Env}}{{if eq (index (split . \"=\") 0) \"OLLAMA_NO_CLOUD\"}}{{println .}}{{end}}{{end}}",
+        "1b068f28ce79"
+      ],
+      "started_at": "2026-11-13T16:47:58.139940+00:00",
+      "finished_at": "2026-11-13T16:47:58.168575+00:00",
+      "exit_code": 0,
+      "stdout": "OLLAMA_NO_CLOUD=1",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"id\":{{json .Id}},\"image\":{{json .Config.Image}},\"environment\":{{json (index .Config.Labels \"com.garimpei.environment\")}},\"checkout\":{{json (index .Config.Labels \"com.garimpei.checkout\")}}}",
+        "1b068f28ce79"
+      ],
+      "started_at": "2026-11-13T16:47:58.168594+00:00",
+      "finished_at": "2026-11-13T16:47:58.196432+00:00",
+      "exit_code": 0,
+      "stdout": "{\"id\":\"1b068f28ce79f58cfcbcbf28a4840337586c84096c33b539b14a5a047a753298\",\"image\":\"ollama/ollama:0.40.16@sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592\",\"environment\":\"eval_f15_gpu_20261113\",\"checkout\":\"/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/checkout\"}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .NetworkSettings.Networks}}",
+        "1b068f28ce79"
+      ],
+      "started_at": "2026-11-13T16:47:58.196492+00:00",
+      "finished_at": "2026-11-13T16:47:58.226235+00:00",
+      "exit_code": 0,
+      "stdout": "{\"garimpei-eval_f15_gpu_20261113_inference\":{\"IPAMConfig\":null,\"Links\":null,\"Aliases\":[\"garimpei-eval_f15_gpu_20261113-ollama-1\",\"ollama\"],\"DriverOpts\":null,\"GwPriority\":0,\"NetworkID\":\"c44fd95b8ae0faed59215c121ee12c7b974514034ac985a82d8a3a768ab4ab0b\",\"EndpointID\":\"\",\"Gateway\":\"\",\"IPAddress\":\"\",\"MacAddress\":\"\",\"IPPrefixLen\":0,\"IPv6Gateway\":\"\",\"GlobalIPv6Address\":\"\",\"GlobalIPv6PrefixLen\":0,\"DNSNames\":[\"garimpei-eval_f15_gpu_20261113-ollama-1\",\"ollama\",\"1b068f28ce79\"]}}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "network",
+        "inspect",
+        "--format",
+        "{\"id\":{{json .Id}},\"name\":{{json .Name}},\"internal\":{{json .Internal}},\"driver\":{{json .Driver}},\"environment\":{{json (index .Labels \"com.garimpei.environment\")}},\"checkout\":{{json (index .Labels \"com.garimpei.checkout\")}}}",
+        "c44fd95b8ae0faed59215c121ee12c7b974514034ac985a82d8a3a768ab4ab0b"
+      ],
+      "started_at": "2026-11-13T16:47:58.226275+00:00",
+      "finished_at": "2026-11-13T16:47:58.253766+00:00",
+      "exit_code": 0,
+      "stdout": "{\"id\":\"c44fd95b8ae0faed59215c121ee12c7b974514034ac985a82d8a3a768ab4ab0b\",\"name\":\"garimpei-eval_f15_gpu_20261113_inference\",\"internal\":true,\"driver\":\"bridge\",\"environment\":\"eval_f15_gpu_20261113\",\"checkout\":\"/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/checkout\"}",
+      "stderr": ""
+    }
+  ],
+  "initial_inspection_note": "A local assertion initially expected a full64-character manifest ID; the manifest stores a12-character Docker ID prefix. Read-only inspect resolved and matched the full ID; no runtime change was needed."
+}

@@ -1,74 +1,82 @@
-# F15 — Avaliação real da referência assistida por IA
+# F15 — Avaliação local e referência assistida por IA
 
-**Estado:** E2E-QUALIDADE-01 permanece BLOCKED pela ausência de comprovação quantitativa de latência fria/quente de inferência nas falhas. A execução física terminou; a suíte integral de 780 testes passou integralmente nas três partições, sem omissão ou alteração das 660 entradas de código verificadas. [Resumo completo](evidence/full-2026-11-13-suite-summary.json). Nenhum done/clean é declarado aqui.
+**Estado:** avaliação do contrato concluída:31itens PASS/8ACs verificados. A prova física v3/1024 e a cobertura final de812testes passaram após reparo explícito de ambiente Chromium; o full bruto preserva811PASS/1FAIL e não foi reescrito. O ensaio publica erros e limitações e não declara suficiência visual do modelo nem acurácia contra verdade humana. O relatório anterior15:39:09 permanece histórico.
 
-O usuário aprovou substituir o aceite humano pela referência assistida por IA. A canon 9ce6a75 preserva os IDs/8ACs e exige origem/método explícitos; `independent_human_review=false` e `legacy_human_acceptance_satisfied=false` permanecem verdadeiros e não são a causa do bloqueio atual. A referência foi produzida por Codex em sessão assistente; a revisão exata do serviço e sua execução local não foram atestadas. O motor F19 efetivamente avaliado é separado dessa origem e usa Qwen local na RTX5070.
+O usuário aprovou a referência de IA em F15-AC05 e depois saída até 1024 somente na F15, mantendo legado 512/contexto 4096. A canon integrada em b43092b preserva IDs/DAG e exige origem/método explícitos. `reference_method=ai_assisted`, `independent_human_review=false` e `legacy_human_acceptance_satisfied=false` permanecem verdadeiros. A referência foi produzida por Codex em sessão assistente; a revisão exata do serviço e sua execução local não foram atestadas. O F19 avaliado é separado dessa origem e usa Qwen local na RTX5070.
 
-A cópia exata da referência está em [evidence/ai-reference-reviewed-2026-11-13.json](evidence/ai-reference-reviewed-2026-11-13.json), SHA256 `e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496`. O manifesto permanece `26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b`. Freeze às14:59:39UTC, última revisão registrada14:57:10.635UTC; primeiro request local às15:19:29.452838UTC. O [audit](evidence/ai-reference-freeze-audit-2026-11-13.json) e o registro original de freeze conservam essa separação. Não houve alteração de labels/splits após consultar o modelo.
+A [referência exata](evidence/ai-reference-reviewed-2026-11-13.json) conserva SHA256 `e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496`; manifesto `26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b`. O [freeze original](evidence/ai-reference-freeze-audit-2026-11-13.json) é anterior à primeira execução local. Nenhum label/split foi alterado após as predições.
 
-## Composição e limites
+## Universo, exposição e cobertura
 
 | Universo | Total | good | defect | uncertain |
 |---|---:|---:|---:|---:|
 | Revisado por IA |23|4|7|12|
-| Ajuste, não executado neste benchmark |7|4|0|3|
-| Reservado, executado |16|0|7|9|
+| Ajuste, fora deste benchmark |7|4|0|3|
+| Reservado, repetido nesta onda |16|0|7|9|
 
-O pacote contém 18 ilustrações sintéticas,3 regressões textuais e2 casos reais/9originais autorizados de F14. O reservado tem1 anúncio real PS5 (4 fotos),12 controles visuais sintéticos e3 textos. Hot wheels (5 fotos, fora das famílias suportadas) está no ajuste e não foi executado. Há controles nas seis categorias, mas o material real reservado cobre somente console; outras categorias reais são lacunas declaradas, sem inventar um mínimo contratual de 6 categorias reais.
+O reservado já foi consultado em rodadas anteriores. Este ensaio repete esses16 casos depois do ajuste de prompt/teto, sem alegar novo holdout independente. Há1anúncio real PS5/4 fotos,12 controles visuais sintéticos e3 textos. Hot wheels/5 fotos pertence ao ajuste, fora das famílias suportadas. Os controles cobrem seis categorias; material real reservado cobre somente console. Outras categorias reais são lacunas declaradas, sem meta contratual inventada de6 categorias reais.
 
-Nenhum good está no reservado. Sua linha vazia é ausência de suporte para avaliar essa classe, não precisão 100%, acerto ou estimativa de sensibilidade. Os controles positivos de Service continuam demonstrando a regra determinística no seu próprio escopo; não substituem uma amostra visual positiva reservada nem viram avaliação independente.
+Nenhum good está no reservado. Linha vazia não é precisão100% nem sensibilidade medida; controles positivos de Service demonstram regras no seu escopo, sem virar amostra visual positiva reservada ou validação humana independente. O campo legado de proveniência `kind=real_source_unreviewed` identifica a origem do snapshot, não nega a revisão posterior `ai_assisted` congelada.
 
-## Execução e concordância observada
+## Fonte, limites e execução
 
-Fonte de código 2453f5f,707 arquivos iguais na cópia, sem alteração backend. F19 usou `qwen3.5:4b-q4_K_M`, digest `sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04`, política `condition-policy-v1`, prompt/schema `condition-evidence-v1`. As cópias locais/hash/pins F14 foram preservadas. Root/cota F14 foram corrigidos apenas no env privado (64 MiB); a tentativa anterior configuration_required/zero chamadas não foi contada como inferência.
+Fonte `b43092b82ac7d034b5f967aa7fb930bdc2b77f4c`, backend tree `0b63d4db4cad9f74421d2ac4792b52bea6eb50e2`;721 arquivos da cópia verificados sem mudança. Modelo `qwen3.5:4b-q4_K_M`, digest `sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04`; imagem Ollama0.40.16 pinada. Perfil/schema `condition-evidence-v3`, política `condition-policy-v1`. O [resumo físico](evidence/wave2-v3-quality-summary.json) identifica nonce20bfbb180db84076b2778bec0a5d6255, revisões, métricas e cleanup; a [auditoria](evidence/wave2-v3-quality-artifact-audit.json) e o [mapa de cópias exatas](evidence/wave2-v3-quality-copy-map.json) mantêm os hashes das cópias sanitizadas.
 
-CLI exit0 em 89.658 s; driver complete=true significa término de processamento, não aprovação. Foram 13 partes realmente enviadas, todas rejeitadas como invalid_output;0 partes sucedidas. No caso real havia4 fotos fornecidas:1 parte enviada/falha e3 pendentes, não examinadas. As três regressões textuais não chamaram o modelo. O banco/fila foram preservados para auditoria.
+Teto F15=1024, legado=512, contexto=4096. Preparador reserva1536para imagem e até1536para texto F15 multimodal, incluindo instruções/schema/margem; entrada que não cabe é recusada sem truncar. [Auditoria offline](evidence/wave2-profile-1024-budget.json): tokenizer oficial,23 textos, máximo1506 com identidade vazia. A [auditoria real das 14 partes enviadas](evidence/wave2-v3-real-budget-audit.json) registra máximo de 731 tokens de prompt, soma máxima com reserva 1755≤4096, inclusive nas saídas rejeitadas. O contexto real e a soma prompt_eval_count+reserva seguem verificados; nenhuma folga foi obtida alterando modelo/pins/schema estrito. Os perfis v1/v2 ficam históricos e incompatíveis com nova avaliação v3.
+
+CLI exit 0 em 132.961269 s,16 casos. Foram14 partes enviadas:8 aceitas e6 rejeitadas;2 fotos da galeria real permaneceram pendentes. Driver completo significa término do ensaio, não aprovação das predições. As3 regressões textuais não chamaram o modelo. Nenhuma foto pendente/falha é apresentada como examinada.
 
 | Referência IA → condição automática | good | defect | uncertain |
 |---|---:|---:|---:|
-| good (sem suporte reservado) |0|0|0|
-| defect |0|2|5|
+| good, sem suporte reservado |0|0|0|
+| defect |0|3|4|
 | uncertain |0|0|9|
 
-A matriz descreve a condição automática do pipeline conservador. São 11 concordâncias de rótulo,5 divergências (defect→uncertain) e14 abstenções automáticas; **nenhuma resposta visual do modelo foi aceita**. Os 2 defect vêm de proteção textual determinística. Esses números não são acurácia do Qwen contra verdade humana nem demonstram suficiência visual do modelo. Não há meta numérica de qualidade aprovada.
+São12 concordâncias de rótulo,4 divergências defect→uncertain e13 abstenções. Três condições defect incluem2 guardas textuais determinísticas e1 caso visual. Isso não é acurácia do Qwen contra verdade humana nem comprovação de suficiência generalizada; não há meta numérica aprovada. Nenhum caso foi promovido automaticamente a good.
 
-## Erros e cobertura visual
+## Erros e cobertura por categoria
 
-| Categoria de referência, somente casos visuais | Casos | Fotos fornecidas | Partes enviadas | invalid_output | Pendentes |
-|---|---:|---:|---:|---:|---:|
-| Eletrônicos gerais |2|2|2|2|0|
-| Câmeras |2|2|2|2|0|
-| Computadores |2|2|2|2|0|
-| Consoles (inclui PS5 real) |3|6|3|3|3|
-| Fones |2|2|2|2|0|
-| TVs |2|2|2|2|0|
-| Total |13|16|13|13|3|
+| Categoria, casos visuais | Casos | Fotos fornecidas | Enviadas | Aceitas | Rejeitadas | Pendentes |
+|---|---:|---:|---:|---:|---:|---:|
+| Eletrônicos gerais |2|2|2|1|1|0|
+| Câmeras |2|2|2|1|1|0|
+| Computadores |2|2|2|2|0|0|
+| Consoles, inclui PS5 real |3|6|4|3|1|2|
+| Fones |2|2|2|0|2|0|
+| TVs |2|2|2|1|1|0|
+| Total |13|16|14|8|6|2|
 
-`invalid_output` não preservou submotivo exato de stop/token/envelope/schema. Não foi feita chamada extra para diagnóstico, e não se atribui uma causa não comprovada. Fotos fornecidas, partes enviadas e respostas aceitas são diferentes: os hashes/IDs e as filas por caso estão em [quality-real-case-coverage-2026-11-13.json](evidence/quality-real-case-coverage-2026-11-13.json). As3 partes pending pertencem a request failed; sua presença no catálogo não as torna examinadas.
+Cinco partes falharam por `generation_length_limit` (eletrônicos, câmera, console real, fone e TV); uma por `text_reference_mismatch` (fone). Saída incompleta e citação não literal continuam rejeitadas. Outras abstenções incluem cinco conflitos de identidade, evidência visual insuficiente e texto não testado; referências exatas não garantem correção semântica da interpretação de IA.
 
-## Recursos e tempo: medidas e ausência de prova
+O PS5 real tem4 fotos: `d304…248b` examinada/succeeded; `c95c…` enviada/rejeitada por limite; `e078…` e `ffc3…` pendentes/não enviadas. Hashes completos, estados públicos e métricas numéricas estão em [cobertura por caso/parte](evidence/wave2-v3-quality-case-coverage.json). Requisição failed conserva as pendentes como não examinadas; não há reanálise ou envio extra ocultos.
 
-| Medida | Observação | Escopo/limite |
-|---|---|---|
-| Ollama no runtime próprio |3.1 GB,100% GPU,context 4096 | Snapshot de offload;100% não é taxa de utilização do chip. |
-| NVIDIA RTX5070 no host |6481 MiB usados,19% utilização | Snapshot exato versionado; inclui outros usos do host e não é pico do modelo. |
-| RAM host |pico observado23.874.101.248 bytes |800 amostras; alvo100 ms, mediana real100.280 ms. Não é RAM exclusiva do modelo. |
-| RSS avaliador |pico183.148.544 bytes |Mesmo sampler; não é RSS do processo Ollama no contêiner. |
-| Parede do primeiro caso após unload confirmado |19.779949 s |Caso real com 4 fotos fornecidas/1 parte enviada; inclui preparação/orquestração e resposta rejeitada. |
-| Parede dos12 casos visuais posteriores |5.090829–5.696210 s; mediana5.203406 s |Materiais distintos; não é comparação controlada fria/quente nem load_duration. |
-| Casos textuais sem inferência |0.032616–0.035966 s |Política determinística; não são latências de IA. |
+## Frio/quente e recursos medidos
 
-A prova GPU é [f15-ai-media-ready-runtime-proof.json](evidence/f15-ai-media-ready-runtime-proof.json); RAM e wallclock estão no [resumo real](evidence/f15-ai-real-final-summary.json). Um sampler externo iniciado depois do CLI não foi usado como prova do período de inferência.
+O [par controlado separado](evidence/wave2-v3-controlled-pair-summary.json) usou a mesma foto/texto/bodySHA duas vezes, sem alterar parte v1 histórica. Frio após unload verificado e residência ausente; quente com o digest pinado já residente. Ambos:959tokens, done_reason=stop, JSON/schema/referências aceitos pelo gateway e validador F15. Essas duas chamadas não se somam ao corpus.
 
-As partes falhas retiveram apenas sent=true, sem load_duration, métricas por chamada de GPU/VRAM ou tempo quantitativo de inferência fria/quente. A ordem after_verified_unload/subsequent_case não preenche sozinha essa lacuna; cargas distintas e parede do driver não serão promovidas a essa medição. Este é o observável ainda BLOCKED do contrato; não se exige pico de GPU, samplerGPU específico ou mínimo de acurácia inventado.
+| Medida | Fria | Quente | Condição/escopo |
+|---|---:|---:|---|
+| Total servidor |12.917914821s|8.312028550s|Envelope da mesma carga, inclui carregamento |
+| Carregamento servidor |3.767243235s|0.003073627s|load_duration real |
+| Parede monotônica gateway |12.928708116s|8.322323604s|Chamada pública, residência e validação |
+| VRAM reportada pelo servidor |3.140.495.604B|3.140.495.604B|size_vram=size; contexto4096 |
+| Pico GPUhost observado |7245MiB|7156MiB|44/29amostras, não exclusivo do modelo |
+| Utilização GPUhost máxima observada |79%|79%|Não confundir com offload100% |
+| Pico RAMhost observado |21.481.107.456B|22.177.738.752B|129/83amostras, outros programas inclusos |
+| Pico RSS avaliador |77.746.176B|77.877.248B|Processo avaliador, não Ollama |
 
-## Encerramento e próximo escopo
+Durante o corpus:417 amostras GPUhost, pico7201MiB/81%;1232 amostras RAM, pico host23.417.470.976B e RSSavaliador183.414.784B. O sampler GPU usa intervalo alvo250ms mais a consulta, RAM alvo100ms; host compartilhado com outros programas e a suíte completa em paralelo. Esses picos são observados nas amostras, não garantias de pico absoluto nem memória exclusiva do modelo. O controle legado separado também foi aceito fisicamente com num_predict512/context4096, sem alterar seu perfil ou incluir a chamada na matriz F15.
 
-Contêineres próprios foram parados normalmente (exit0), reserva de GPU liberada; pesos/banco/fila preservados. Nenhum Facebook ou WAHA real foi utilizado. A inferência F19 ficou na rede interna local do contêiner, separada da origem não atestada local da referência de IA.
+## Isolamento, fila e encerramento
 
-As três correções autorizadas desta retomada foram consumidas (cycles 5). Um próximo escopo deve investigar as13rejeições sem inventar funcionamento/identidade, preservar telemetria nas falhas, explicar/cobrir as 3 partes não examinadas e realizar medição fria/quente com condições documentadas. Não mudar labels/splits para obter resultado desejado; se houver ajuste com dados já consultados, declarar a nova rodada e sua exposição. Nova avaliação e eventual conclusão exigem autorização/orçamento próprio e os gates aplicáveis. F21/F22 continuam aguardando F15.
+Runtime eval próprio com GPU guard, modelo/imagem pinados, root/cota F14 privada64MiB, alertas desabilitados e nenhum Facebook ou WAHA real. Origem da referência Codex é separada da inferência local F19; a [inspeção complementar somente leitura](evidence/wave2-v3-local-only-network-proof.json) confirma OLLAMA_NO_CLOUD=1, única rede interna e contêiner/run/nonce correspondentes. O caminho de código congelado injeta transporte Docker para REST em127.0.0.1:11434; falha lança InferenceError sem fallback remoto. Essa prova combina código e configuração preservada do contêiner parado, sem nova sondagem ativa de rede.
 
+Snapshot final somente leitura:7 requisições succeeded e6 failed;8 partes succeeded,6 failed e2pending; active_request=null. Stop normal exit0, todos os contêineres próprios parados, reserva GPU liberada; pesos/banco/fila/histórico preservados. O principal não foi ativado.
 
-## Gates finais
+## Gates e limites do aceite
 
-Full 780:780 coletados/780 únicos/780 PASS, sem missing/not_passed/changed_inputs; partições 283/239/258, todas exit0 e sem falha/erro/skip nos XMLs. Artefatos em evidence/full-2026-11-13-*. Seis gates Python também passaram e a fonte permaneceu congelada. O bloqueio E2E de latência fria/quente e as limitações de resposta visual continuam apesar desses gates. Ver o relatório canônico eval-report-2026-11-13T15-39-09Z.md.
+Seis gates Python PASS e regressões focais atuais:50 unitários,14 integrações e9 do módulo final com repetição explícita. A [verificação final](evidence/wave2-full-final-verification-summary.json) cobre812IDs em813tentativas: full bruto811PASS/1FAIL por Chromium Socket path too long antes de abrir a página; o mesmo teste passou com TMPDIR curto em disco, sem alterar fonte/assertivas. Os [artefatos brutos](evidence/wave2-full-2026-11-13-suite-summary.json), [retry](evidence/wave2-tracking-short-tmp-retry.txt) e [audit de cópias](evidence/wave2-full-copy-audit.json) preservam a distinção. Não se somam as contagens focais sobrepostas como testes distintos. [Audit de reuso](evidence/wave2-evidence-reuse-audit.json) distingue fonte UI/migrations/pins inalterada e fronteiras de inferência reexecutadas.
+
+As correções 6–8 consumiram3/3 desta onda, histórico cycles=8. Qualquer nova alteração de código exige escopo próprio. O veredito final aplica o contrato atual, que exige medidas/comparação/limitações publicadas, sem meta de acurácia ou validação humana independente fabricadas.
+
+Relatório canônico final: [eval-report-2026-11-13T16-58-43Z.md](eval-report-2026-11-13T16-58-43Z.md).

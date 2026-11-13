@@ -1,0 +1,117 @@
+{
+  "scope": "Raw failed full run preserved separately from explicit environment repair/retry/final consolidation; JSON/XML exact, TXT trailing whitespace only.",
+  "copies": [
+    {
+      "source_name": "inputs.json",
+      "repository_name": "wave2-full-2026-11-13-inputs.json",
+      "source_sha256": "997646c7bb4ce2b97d33f671f3a4fdf26656b7efe4c69b58c63e2ee37a809250",
+      "copy_sha256": "997646c7bb4ce2b97d33f671f3a4fdf26656b7efe4c69b58c63e2ee37a809250",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "partition-manifest.json",
+      "repository_name": "wave2-full-2026-11-13-partition-manifest.json",
+      "source_sha256": "ddefbe7c524bd107c9335d60f1cd193fef7be22b69b49afcb171450c1742994a",
+      "copy_sha256": "ddefbe7c524bd107c9335d60f1cd193fef7be22b69b49afcb171450c1742994a",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "suite-summary.json",
+      "repository_name": "wave2-full-2026-11-13-suite-summary.json",
+      "source_sha256": "f1d9cc86f2aaa71921e59daaf7cbd0aa1a00536a64c1dfa9bd4a9add844c88d8",
+      "copy_sha256": "f1d9cc86f2aaa71921e59daaf7cbd0aa1a00536a64c1dfa9bd4a9add844c88d8",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "collection.txt",
+      "repository_name": "wave2-full-2026-11-13-collection.txt",
+      "source_sha256": "1e5ee477f79e0aa4440cc74405d5aad911526755f76f8d01d5c046f5c41b5c57",
+      "copy_sha256": "1e5ee477f79e0aa4440cc74405d5aad911526755f76f8d01d5c046f5c41b5c57",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-0-execution.json",
+      "repository_name": "wave2-full-2026-11-13-shard-0-execution.json",
+      "source_sha256": "fd90ff215b245e40a09b24cd3786418af7539c93c346e62edca445b2a65afb62",
+      "copy_sha256": "fd90ff215b245e40a09b24cd3786418af7539c93c346e62edca445b2a65afb62",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-0.xml",
+      "repository_name": "wave2-full-2026-11-13-shard-0.xml",
+      "source_sha256": "376dd8d3abc049a9454dc82f8e1210f11e62275d3812617c35e653c73b21577b",
+      "copy_sha256": "376dd8d3abc049a9454dc82f8e1210f11e62275d3812617c35e653c73b21577b",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-0.log",
+      "repository_name": "wave2-full-2026-11-13-shard-0.txt",
+      "source_sha256": "4aaa3e2355038dfb87480405bdc13d46ed506e54f747f4f4f83f871b862c6583",
+      "copy_sha256": "4aaa3e2355038dfb87480405bdc13d46ed506e54f747f4f4f83f871b862c6583",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-1-execution.json",
+      "repository_name": "wave2-full-2026-11-13-shard-1-execution.json",
+      "source_sha256": "dee0c9eadeb451bfd10b4e82b0b4055def8e748129e0fa1b39a157ddff0bf6f4",
+      "copy_sha256": "dee0c9eadeb451bfd10b4e82b0b4055def8e748129e0fa1b39a157ddff0bf6f4",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-1.xml",
+      "repository_name": "wave2-full-2026-11-13-shard-1.xml",
+      "source_sha256": "b18dd148bf6574dcf24fb3373602e152d5126b0fe5b044baa0001f247529821b",
+      "copy_sha256": "b18dd148bf6574dcf24fb3373602e152d5126b0fe5b044baa0001f247529821b",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-1.log",
+      "repository_name": "wave2-full-2026-11-13-shard-1.txt",
+      "source_sha256": "4d0dbf5805d048086406b2eea351567957c0e96fe4773f5dcdfa76c2c48d05c0",
+      "copy_sha256": "4d0dbf5805d048086406b2eea351567957c0e96fe4773f5dcdfa76c2c48d05c0",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-2-execution.json",
+      "repository_name": "wave2-full-2026-11-13-shard-2-execution.json",
+      "source_sha256": "ce83ac516cc0cacd1d9f9b9dda861716ce8a5ece8911afc4f3840d263ba3a81c",
+      "copy_sha256": "ce83ac516cc0cacd1d9f9b9dda861716ce8a5ece8911afc4f3840d263ba3a81c",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-2.xml",
+      "repository_name": "wave2-full-2026-11-13-shard-2.xml",
+      "source_sha256": "2ce88bbb4c03dde486ee0db4d0b40d0cfb1801261339c3f091836877dce14990",
+      "copy_sha256": "2ce88bbb4c03dde486ee0db4d0b40d0cfb1801261339c3f091836877dce14990",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "shard-2.log",
+      "repository_name": "wave2-full-2026-11-13-shard-2.txt",
+      "source_sha256": "6822a96c60752f1d546ebd1bdf7d8cf906d5b15a05ca985f1139863e251ac4ea",
+      "copy_sha256": "1da5c67143c1e3bb36b7c2a8390fe2eb9dc52699e3d7881f543366015a4ef688",
+      "transformation": "trailing whitespace only; terminal newline"
+    },
+    {
+      "source_name": "full-final-verification-summary.json",
+      "repository_name": "wave2-full-final-verification-summary.json",
+      "source_sha256": "0cb9d5befeb1c940246c30497d36dd5157e002440f8b46357b8c36dffd6bde61",
+      "copy_sha256": "0cb9d5befeb1c940246c30497d36dd5157e002440f8b46357b8c36dffd6bde61",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "tracking-short-tmp-retry.xml",
+      "repository_name": "wave2-tracking-short-tmp-retry.xml",
+      "source_sha256": "21ca57f14f1ac732d4f63a994301f7507667c6c843047b2f95dab14b2df0d722",
+      "copy_sha256": "21ca57f14f1ac732d4f63a994301f7507667c6c843047b2f95dab14b2df0d722",
+      "transformation": "exact bytes"
+    },
+    {
+      "source_name": "tracking-short-tmp-retry.txt",
+      "repository_name": "wave2-tracking-short-tmp-retry.txt",
+      "source_sha256": "c528f481b40b11993285892541fa3f20768763018ee9d2db4f755eb512d32e10",
+      "copy_sha256": "c528f481b40b11993285892541fa3f20768763018ee9d2db4f755eb512d32e10",
+      "transformation": "exact bytes"
+    }
+  ]
+}

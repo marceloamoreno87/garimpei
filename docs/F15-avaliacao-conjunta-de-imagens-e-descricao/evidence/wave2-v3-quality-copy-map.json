@@ -1,0 +1,24 @@
+{
+  "source_commit": "b43092b82ac7d034b5f967aa7fb930bdc2b77f4c",
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "copies": [
+    {
+      "original_name": "case-coverage-part-metrics.json",
+      "repository_file": "wave2-v3-quality-case-coverage.json",
+      "sha256": "6ee04c872c057d35f461a324e04f463a64b64cb6a7f734e21e0cb5885202e4cd",
+      "exact_bytes_verified": true
+    },
+    {
+      "original_name": "summary.json",
+      "repository_file": "wave2-v3-quality-summary.json",
+      "sha256": "7af2fe30fb968d6c4540ec1433e17c971a7697e18c2a46ff63a1ff88eef54a48",
+      "exact_bytes_verified": true
+    },
+    {
+      "original_name": "local-only-network-proof.json",
+      "repository_file": "wave2-v3-local-only-network-proof.json",
+      "sha256": "5f1cb73a3756ae2a776125a8d02132f7ecffcc314866e2d274fd4551285882e6",
+      "exact_bytes_verified": true
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "file": "case-coverage-part-metrics.json",
+      "bytes": 32946,
+      "sha256": "6ee04c872c057d35f461a324e04f463a64b64cb6a7f734e21e0cb5885202e4cd"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 9555,
+      "sha256": "7af2fe30fb968d6c4540ec1433e17c971a7697e18c2a46ff63a1ff88eef54a48"
+    }
+  ],
+  "no_secret_values_found": true,
+  "no_model_bodies_or_photo_bytes_exported": true,
+  "source_commit": "b43092b82ac7d034b5f967aa7fb930bdc2b77f4c",
+  "backend_tree": "0b63d4db4cad9f74421d2ac4792b52bea6eb50e2",
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "nonce": "20bfbb180db84076b2778bec0a5d6255",
+  "cleanup": {
+    "all_owned_containers_stopped": true,
+    "gpu_reservation_released": true,
+    "normal_stop_exit_code": 0,
+    "weights_database_queue_history_preserved": true
+  }
+}

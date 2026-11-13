@@ -1,0 +1,315 @@
+{
+  "scope": "Authorized repeat of already exposed reserved corpus, not an independent holdout or human validation",
+  "execution_completed": true,
+  "requires_contract_evaluation": true,
+  "source_commit": "b43092b82ac7d034b5f967aa7fb930bdc2b77f4c",
+  "backend_tree": "0b63d4db4cad9f74421d2ac4792b52bea6eb50e2",
+  "runtime_source_files_verified": 721,
+  "changed_copy_sources": [],
+  "source_sha256_table_digest": "d87f81810e9ea6c5afda5aaf6982d4869f1228a7f73dc56092a9de6c7275e283",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "comparison_kind": "ai_agreement",
+  "legacy_human_acceptance_satisfied": false,
+  "review_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "unique_frozen_review_photos_verified": 27,
+  "nonce": "20bfbb180db84076b2778bec0a5d6255",
+  "execution_marker": {
+    "schema_version": 1,
+    "execution_id": "20bfbb180db84076b2778bec0a5d6255",
+    "stage": "completed",
+    "model_executed": true,
+    "case_calls_sent": 14
+  },
+  "profile": "condition-evidence-v3",
+  "policy_version": "condition-policy-v1",
+  "schema_version": "condition-evidence-v3",
+  "model": "qwen3.5:4b-q4_K_M",
+  "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "image": "ollama/ollama:0.40.16@sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592",
+  "caps": {
+    "F15": 1024,
+    "legacy": 512,
+    "context": 4096
+  },
+  "isolation": {
+    "environment": "eval_f15_gpu_20261113",
+    "alerts_enabled": false,
+    "assessment_service_default": false,
+    "media_budget_bytes": 67108864,
+    "private_checkout": true,
+    "real_Facebook_or_WAHA_used": false,
+    "GPU_owner_guard": true
+  },
+  "cases": 16,
+  "by_kind": {
+    "real_source_unreviewed": 1,
+    "synthetic_control": 12,
+    "text_regression": 3
+  },
+  "reference_counts_reserved": {
+    "uncertain": 9,
+    "defect": 7
+  },
+  "calls_sent": 14,
+  "part_states": {
+    "succeeded": 8,
+    "failed": 6,
+    "pending": 2
+  },
+  "failure_diagnostics": {
+    "generation_length_limit": 5,
+    "text_reference_mismatch": 1
+  },
+  "matrix": {
+    "good": {
+      "good": 0,
+      "defect": 0,
+      "uncertain": 0
+    },
+    "defect": {
+      "good": 0,
+      "defect": 3,
+      "uncertain": 4
+    },
+    "uncertain": {
+      "good": 0,
+      "defect": 0,
+      "uncertain": 9
+    }
+  },
+  "automatic_good_reference_other": 0,
+  "automatic_defect_reference_other": 0,
+  "abstentions": 13,
+  "by_category": {
+    "camera": {
+      "cases": 3,
+      "final_reasons": {
+        "invalid_analysis": 1,
+        "identity_conflict": 1,
+        "not_tested": 1
+      },
+      "part_failures": {
+        "generation_length_limit": 1
+      }
+    },
+    "computer": {
+      "cases": 3,
+      "final_reasons": {
+        "clear_defect": 2,
+        "identity_conflict": 1
+      },
+      "part_failures": {}
+    },
+    "console": {
+      "cases": 4,
+      "final_reasons": {
+        "invalid_analysis": 1,
+        "insufficient_visual_evidence": 1,
+        "identity_conflict": 1,
+        "clear_defect": 1
+      },
+      "part_failures": {
+        "generation_length_limit": 1
+      }
+    },
+    "electronics": {
+      "cases": 2,
+      "final_reasons": {
+        "identity_conflict": 1,
+        "invalid_analysis": 1
+      },
+      "part_failures": {
+        "generation_length_limit": 1
+      }
+    },
+    "headphone": {
+      "cases": 2,
+      "final_reasons": {
+        "invalid_analysis": 2
+      },
+      "part_failures": {
+        "generation_length_limit": 1,
+        "text_reference_mismatch": 1
+      }
+    },
+    "television": {
+      "cases": 2,
+      "final_reasons": {
+        "invalid_analysis": 1,
+        "identity_conflict": 1
+      },
+      "part_failures": {
+        "generation_length_limit": 1
+      }
+    }
+  },
+  "cli_elapsed_seconds": 132.9612693980016,
+  "case_elapsed_seconds_sum": 126.31309647800663,
+  "ram": {
+    "scope": "host RAM/evaluatorRSS, not model-exclusive",
+    "samples": 1232,
+    "peak_host_used_bytes": 23417470976,
+    "peak_evaluator_rss_bytes": 183414784
+  },
+  "gpu": {
+    "scope": "host during calls; model size_vram per-call separately",
+    "samples": 417,
+    "host_peak_memory_mib": 7201,
+    "utilization_peak_percent": 81
+  },
+  "pair": {
+    "pair_id": "359bde96916b4fc8b39e7658758ac0e5",
+    "same_request_body_twice": true,
+    "historical_v1_part_unchanged": true,
+    "requests": [
+      {
+        "label": "cold",
+        "call_id": "9c060158ab0040f8ab3666ed45bcfb4d",
+        "body_sha256": "4c8b150746621c69a3cc302f05f8a110b742fef6b8457ec54bcf95764684634c",
+        "sent_at": 1794587614.512716,
+        "num_predict": 1024,
+        "num_ctx": 4096
+      },
+      {
+        "label": "warm",
+        "call_id": "b071e807125347e0b4e8ee02f46f95c3",
+        "body_sha256": "4c8b150746621c69a3cc302f05f8a110b742fef6b8457ec54bcf95764684634c",
+        "sent_at": 1794587627.4612117,
+        "num_predict": 1024,
+        "num_ctx": 4096
+      }
+    ],
+    "calls": [
+      {
+        "label": "cold",
+        "call_id": "9c060158ab0040f8ab3666ed45bcfb4d",
+        "gateway_accepted": true,
+        "valid_json": true,
+        "condition_schema_references_accepted": true,
+        "envelope": {
+          "model": "qwen3.5:4b-q4_K_M",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 12917914821,
+          "load_duration": 3767243235,
+          "prompt_eval_count": 714,
+          "prompt_eval_duration": 609492000,
+          "eval_count": 959,
+          "eval_duration": 8524956000
+        },
+        "metrics": {
+          "residency_before": "absent",
+          "total_duration": 12917914821,
+          "load_duration": 3767243235,
+          "prompt_eval_duration": 609492000,
+          "eval_duration": 8524956000,
+          "prompt_eval_count": 714,
+          "eval_count": 959,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "context_length": 4096,
+          "wall_duration_ns": 12928708116
+        },
+        "gpu_samples": 44,
+        "gpu_host_peak_mib": 7245,
+        "gpu_utilization_peak_percent": 79,
+        "ram": {
+          "scope": "host RAM and evaluator process RSS; not model-exclusive RAM",
+          "samples": 129,
+          "peak_host_used_bytes": 21481107456,
+          "peak_evaluator_rss_bytes": 77746176
+        }
+      },
+      {
+        "label": "warm",
+        "call_id": "b071e807125347e0b4e8ee02f46f95c3",
+        "gateway_accepted": true,
+        "valid_json": true,
+        "condition_schema_references_accepted": true,
+        "envelope": {
+          "model": "qwen3.5:4b-q4_K_M",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 8312028550,
+          "load_duration": 3073627,
+          "prompt_eval_count": 714,
+          "prompt_eval_duration": 49305000,
+          "eval_count": 959,
+          "eval_duration": 8170319000
+        },
+        "metrics": {
+          "residency_before": "matching_model",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "total_duration": 8312028550,
+          "load_duration": 3073627,
+          "prompt_eval_duration": 49305000,
+          "eval_duration": 8170319000,
+          "prompt_eval_count": 714,
+          "eval_count": 959,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "context_length": 4096,
+          "wall_duration_ns": 8322323604
+        },
+        "gpu_samples": 29,
+        "gpu_host_peak_mib": 7156,
+        "gpu_utilization_peak_percent": 79,
+        "ram": {
+          "scope": "host RAM and evaluator process RSS; not model-exclusive RAM",
+          "samples": 83,
+          "peak_host_used_bytes": 22177738752,
+          "peak_evaluator_rss_bytes": 77877248
+        }
+      }
+    ]
+  },
+  "legacy_synthetic_control": {
+    "separate_synthetic_legacy_control": true,
+    "not_f15_corpus": true,
+    "profile": "local-evidence-v1",
+    "calls": [
+      {
+        "num_predict": 512,
+        "num_ctx": 4096,
+        "model": "qwen3.5:4b-q4_K_M",
+        "body_sha256": "c4e5e8caae931505381fea65e759cc578057521f33e14f9040b4742d4cae39c7"
+      }
+    ],
+    "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "gateway_accepted": true,
+    "public_legacy_validation_accepted": true,
+    "elapsed_seconds": 4.493347921001259
+  },
+  "cleanup": {
+    "all_owned_containers_stopped": true,
+    "gpu_reservation_released": true,
+    "normal_stop_exit_code": 0,
+    "weights_database_queue_history_preserved": true
+  },
+  "limitations": [
+    "Six inference parts were rejected; two real-gallery photos remain pending.",
+    "Four good references are in calibration, not this reserved selection; good-class recall is not measured.",
+    "AI-assisted reference and exposed corpus prevent independent human/holdout accuracy claims.",
+    "Host RAM/GPU samples include other programs; size_vram is model residency metadata."
+  ],
+  "read_only_queue_snapshot_before_stop": {
+    "request_states": {
+      "succeeded": 7,
+      "failed": 6
+    },
+    "part_states": {
+      "succeeded": 8,
+      "pending": 2,
+      "failed": 6
+    },
+    "active_request": null,
+    "snapshot_scope": "own corpus request IDs, read-only after driver/legacy control and before normal stop"
+  }
+}

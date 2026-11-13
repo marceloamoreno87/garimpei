@@ -1,0 +1,1014 @@
+[
+  {
+    "case_id": "source-1502910511735697",
+    "kind": "real_source_unreviewed",
+    "category": "console",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "failed",
+    "reason": "invalid_analysis",
+    "sufficient": false,
+    "elapsed_seconds": 21.261923385995033,
+    "thermal_position": "after_verified_unload",
+    "photo_count": 4,
+    "calls_sent": 2,
+    "coverage": [
+      {
+        "id": "p_d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "903cc2e2c8690a208fe3ca50438b4de62a4c24f3a02132acfd5f556d04e7b8de",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "903cc2e2c8690a208fe3ca50438b4de62a4c24f3a02132acfd5f556d04e7b8de",
+        "source_sha256": "d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b",
+        "transformation": "512-v1"
+      },
+      {
+        "id": "p_c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7",
+        "kind": "image",
+        "sent": true,
+        "reason": "invalid_output",
+        "sha256": "90920638623eeacef3264207753d3d00c8f82fa013ff7f0d1f6355d0fa6efbf4",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "90920638623eeacef3264207753d3d00c8f82fa013ff7f0d1f6355d0fa6efbf4",
+        "source_sha256": "c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7",
+        "transformation": "512-v1"
+      },
+      {
+        "id": "p_e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5",
+        "kind": "image",
+        "sent": false,
+        "reason": "pending",
+        "sha256": "f12dc96aea26d0a85bdb073b209c0c002c8ee4d6093b23f229c40c1ea89fb138",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "f12dc96aea26d0a85bdb073b209c0c002c8ee4d6093b23f229c40c1ea89fb138",
+        "source_sha256": "e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5",
+        "transformation": "512-v1"
+      },
+      {
+        "id": "p_ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1",
+        "kind": "image",
+        "sent": false,
+        "reason": "pending",
+        "sha256": "d89a159b3e35a455a15dada353a009b3def269333e2b68500dd030ccda6a0599",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "d89a159b3e35a455a15dada353a009b3def269333e2b68500dd030ccda6a0599",
+        "source_sha256": "ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 959,
+          "eval_duration": 8092176000,
+          "load_duration": 2788478197,
+          "context_length": 4096,
+          "total_duration": 11443104954,
+          "residency_before": "absent",
+          "wall_duration_ns": 11452239246,
+          "prompt_eval_count": 714,
+          "prompt_eval_duration": 548963000
+        },
+        "gpu_samples": 40,
+        "gpu_host_peak_mib": 6893,
+        "gpu_utilization_peak_percent": 78
+      },
+      {
+        "part_index": 1,
+        "state": "failed",
+        "reason": "invalid_output",
+        "diagnostic_code": "generation_length_limit",
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 1024,
+          "eval_duration": 8612576000,
+          "load_duration": 3356601,
+          "context_length": 4096,
+          "total_duration": 8915930502,
+          "diagnostic_code": "generation_length_limit",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 8927590927,
+          "prompt_eval_count": 712,
+          "prompt_eval_duration": 207253000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 31,
+        "gpu_host_peak_mib": 6891,
+        "gpu_utilization_peak_percent": 78
+      },
+      {
+        "part_index": 2,
+        "state": "pending",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {},
+        "gpu_samples": 0,
+        "gpu_host_peak_mib": null,
+        "gpu_utilization_peak_percent": null
+      },
+      {
+        "part_index": 3,
+        "state": "pending",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {},
+        "gpu_samples": 0,
+        "gpu_host_peak_mib": null,
+        "gpu_utilization_peak_percent": null
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 210,
+      "peak_host_used_bytes": 21809561600,
+      "peak_evaluator_rss_bytes": 183353344
+    }
+  },
+  {
+    "case_id": "electronics-clear_defect",
+    "kind": "synthetic_control",
+    "category": "electronics",
+    "reference": "defect",
+    "automatic": "uncertain",
+    "status": "complete",
+    "reason": "identity_conflict",
+    "sufficient": false,
+    "elapsed_seconds": 8.175330375001067,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "7db2261defcaf7986c14db44fd7b74d178c7a3521c821df4004fff1818d2da8e",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "7db2261defcaf7986c14db44fd7b74d178c7a3521c821df4004fff1818d2da8e",
+        "source_sha256": "c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 866,
+          "eval_duration": 7432400000,
+          "load_duration": 1734339,
+          "context_length": 4096,
+          "total_duration": 7666896967,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 7676638575,
+          "prompt_eval_count": 704,
+          "prompt_eval_duration": 173336000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 27,
+        "gpu_host_peak_mib": 6889,
+        "gpu_utilization_peak_percent": 77
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 79,
+      "peak_host_used_bytes": 21949583360,
+      "peak_evaluator_rss_bytes": 183414784
+    }
+  },
+  {
+    "case_id": "electronics-suspected",
+    "kind": "synthetic_control",
+    "category": "electronics",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "failed",
+    "reason": "invalid_analysis",
+    "sufficient": false,
+    "elapsed_seconds": 9.542036192004161,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf",
+        "kind": "image",
+        "sent": true,
+        "reason": "invalid_output",
+        "sha256": "9354f785ba2f23b4e03e19e669e68fd801973e93b594ec900e7574837092eff3",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "9354f785ba2f23b4e03e19e669e68fd801973e93b594ec900e7574837092eff3",
+        "source_sha256": "ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "failed",
+        "reason": "invalid_output",
+        "diagnostic_code": "generation_length_limit",
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 1024,
+          "eval_duration": 8756640000,
+          "load_duration": 897492,
+          "context_length": 4096,
+          "total_duration": 9004296518,
+          "diagnostic_code": "generation_length_limit",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 9013373996,
+          "prompt_eval_count": 705,
+          "prompt_eval_duration": 173906000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 32,
+        "gpu_host_peak_mib": 6900,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 93,
+      "peak_host_used_bytes": 21971415040,
+      "peak_evaluator_rss_bytes": 172417024
+    }
+  },
+  {
+    "case_id": "camera-clear_defect",
+    "kind": "synthetic_control",
+    "category": "camera",
+    "reference": "defect",
+    "automatic": "uncertain",
+    "status": "failed",
+    "reason": "invalid_analysis",
+    "sufficient": false,
+    "elapsed_seconds": 10.11575115499727,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097",
+        "kind": "image",
+        "sent": true,
+        "reason": "invalid_output",
+        "sha256": "0360f3982fe89ccb050d0b846c3c110a9f67917960c40706aa24b2d0b554e0f9",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "0360f3982fe89ccb050d0b846c3c110a9f67917960c40706aa24b2d0b554e0f9",
+        "source_sha256": "73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "failed",
+        "reason": "invalid_output",
+        "diagnostic_code": "generation_length_limit",
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 1024,
+          "eval_duration": 8977729000,
+          "load_duration": 1162251,
+          "context_length": 4096,
+          "total_duration": 9627603592,
+          "diagnostic_code": "generation_length_limit",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 9636570169,
+          "prompt_eval_count": 716,
+          "prompt_eval_duration": 472785000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 34,
+        "gpu_host_peak_mib": 7051,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 99,
+      "peak_host_used_bytes": 22112432128,
+      "peak_evaluator_rss_bytes": 172531712
+    }
+  },
+  {
+    "case_id": "camera-suspected",
+    "kind": "synthetic_control",
+    "category": "camera",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "partial",
+    "reason": "identity_conflict",
+    "sufficient": false,
+    "elapsed_seconds": 9.619416509005532,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "dfff53de7add73e79f6160d3dde5e0926ace8b93011a6b5ab2d325a47b3658cf",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "dfff53de7add73e79f6160d3dde5e0926ace8b93011a6b5ab2d325a47b3658cf",
+        "source_sha256": "1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 1000,
+          "eval_duration": 8681716000,
+          "load_duration": 1107017,
+          "context_length": 4096,
+          "total_duration": 9122412169,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 9131587751,
+          "prompt_eval_count": 712,
+          "prompt_eval_duration": 362449000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 32,
+        "gpu_host_peak_mib": 7136,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 94,
+      "peak_host_used_bytes": 22202548224,
+      "peak_evaluator_rss_bytes": 172593152
+    }
+  },
+  {
+    "case_id": "computer-clear_defect",
+    "kind": "synthetic_control",
+    "category": "computer",
+    "reference": "defect",
+    "automatic": "defect",
+    "status": "complete",
+    "reason": "clear_defect",
+    "sufficient": false,
+    "elapsed_seconds": 6.134363678000227,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+        "source_sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 614,
+          "eval_duration": 5356860000,
+          "load_duration": 1237691,
+          "context_length": 4096,
+          "total_duration": 5600882568,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 5614038758,
+          "prompt_eval_count": 710,
+          "prompt_eval_duration": 173229000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 20,
+        "gpu_host_peak_mib": 7130,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 59,
+      "peak_host_used_bytes": 22373330944,
+      "peak_evaluator_rss_bytes": 172634112
+    }
+  },
+  {
+    "case_id": "computer-suspected",
+    "kind": "synthetic_control",
+    "category": "computer",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "partial",
+    "reason": "identity_conflict",
+    "sufficient": false,
+    "elapsed_seconds": 6.96290444600163,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+        "source_sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 630,
+          "eval_duration": 5829533000,
+          "load_duration": 929978,
+          "context_length": 4096,
+          "total_duration": 6430881618,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 6439815359,
+          "prompt_eval_count": 714,
+          "prompt_eval_duration": 183837000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 22,
+        "gpu_host_peak_mib": 7201,
+        "gpu_utilization_peak_percent": 77
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 67,
+      "peak_host_used_bytes": 22776172544,
+      "peak_evaluator_rss_bytes": 172728320
+    }
+  },
+  {
+    "case_id": "console-clear_defect",
+    "kind": "synthetic_control",
+    "category": "console",
+    "reference": "defect",
+    "automatic": "uncertain",
+    "status": "complete",
+    "reason": "insufficient_visual_evidence",
+    "sufficient": false,
+    "elapsed_seconds": 9.018123927999113,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "f83c788415a77fb41ebab179ffd193efb167a5c47255ae3158f2039beddcc972",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "f83c788415a77fb41ebab179ffd193efb167a5c47255ae3158f2039beddcc972",
+        "source_sha256": "ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 965,
+          "eval_duration": 8251098000,
+          "load_duration": 966495,
+          "context_length": 4096,
+          "total_duration": 8555116986,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 8564677771,
+          "prompt_eval_count": 731,
+          "prompt_eval_duration": 227802000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 29,
+        "gpu_host_peak_mib": 7193,
+        "gpu_utilization_peak_percent": 77
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 88,
+      "peak_host_used_bytes": 22995439616,
+      "peak_evaluator_rss_bytes": 172773376
+    }
+  },
+  {
+    "case_id": "console-suspected",
+    "kind": "synthetic_control",
+    "category": "console",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "complete",
+    "reason": "identity_conflict",
+    "sufficient": false,
+    "elapsed_seconds": 9.176780667999992,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "b0c5de7e3cddb9e03da0871a938f9b954e32632d8b15edda8466241b298b288c",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "b0c5de7e3cddb9e03da0871a938f9b954e32632d8b15edda8466241b298b288c",
+        "source_sha256": "6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 915,
+          "eval_duration": 7926079000,
+          "load_duration": 1018429,
+          "context_length": 4096,
+          "total_duration": 8624097246,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 8633425500,
+          "prompt_eval_count": 715,
+          "prompt_eval_duration": 518292000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 30,
+        "gpu_host_peak_mib": 6951,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 89,
+      "peak_host_used_bytes": 23215407104,
+      "peak_evaluator_rss_bytes": 172867584
+    }
+  },
+  {
+    "case_id": "headphone-clear_defect",
+    "kind": "synthetic_control",
+    "category": "headphone",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "failed",
+    "reason": "invalid_analysis",
+    "sufficient": false,
+    "elapsed_seconds": 9.443272913005785,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30",
+        "kind": "image",
+        "sent": true,
+        "reason": "invalid_output",
+        "sha256": "2c46a5f3895cfc69be541debf0417b0e98f47986ed3babb6dbcba0404aa2990f",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "2c46a5f3895cfc69be541debf0417b0e98f47986ed3babb6dbcba0404aa2990f",
+        "source_sha256": "0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "failed",
+        "reason": "invalid_output",
+        "diagnostic_code": "generation_length_limit",
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 1024,
+          "eval_duration": 8605408000,
+          "load_duration": 1011650,
+          "context_length": 4096,
+          "total_duration": 8922052990,
+          "diagnostic_code": "generation_length_limit",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 8930991173,
+          "prompt_eval_count": 722,
+          "prompt_eval_duration": 212225000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 31,
+        "gpu_host_peak_mib": 7099,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 92,
+      "peak_host_used_bytes": 23223693312,
+      "peak_evaluator_rss_bytes": 172974080
+    }
+  },
+  {
+    "case_id": "headphone-suspected",
+    "kind": "synthetic_control",
+    "category": "headphone",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "failed",
+    "reason": "invalid_analysis",
+    "sufficient": false,
+    "elapsed_seconds": 8.542589140997734,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df",
+        "kind": "image",
+        "sent": true,
+        "reason": "invalid_output",
+        "sha256": "737dcf91c026e49aa8c264c8caf5563533fdf5c88800250f5d0ae93b0f0ad713",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "737dcf91c026e49aa8c264c8caf5563533fdf5c88800250f5d0ae93b0f0ad713",
+        "source_sha256": "9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "failed",
+        "reason": "invalid_output",
+        "diagnostic_code": "text_reference_mismatch",
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 828,
+          "eval_duration": 7378112000,
+          "load_duration": 1073795,
+          "context_length": 4096,
+          "total_duration": 7984426975,
+          "diagnostic_code": "text_reference_mismatch",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 7993494215,
+          "prompt_eval_count": 722,
+          "prompt_eval_duration": 451861000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 28,
+        "gpu_host_peak_mib": 7050,
+        "gpu_utilization_peak_percent": 81
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 82,
+      "peak_host_used_bytes": 23417470976,
+      "peak_evaluator_rss_bytes": 173019136
+    }
+  },
+  {
+    "case_id": "television-clear_defect",
+    "kind": "synthetic_control",
+    "category": "television",
+    "reference": "defect",
+    "automatic": "uncertain",
+    "status": "failed",
+    "reason": "invalid_analysis",
+    "sufficient": false,
+    "elapsed_seconds": 9.622679132997291,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+        "kind": "image",
+        "sent": true,
+        "reason": "invalid_output",
+        "sha256": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+        "examined": false,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+        "source_sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "failed",
+        "reason": "invalid_output",
+        "diagnostic_code": "generation_length_limit",
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 1024,
+          "eval_duration": 8831317000,
+          "load_duration": 930378,
+          "context_length": 4096,
+          "total_duration": 9132020788,
+          "diagnostic_code": "generation_length_limit",
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 9141008251,
+          "prompt_eval_count": 715,
+          "prompt_eval_duration": 201879000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 32,
+        "gpu_host_peak_mib": 7050,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 94,
+      "peak_host_used_bytes": 23385014272,
+      "peak_evaluator_rss_bytes": 173043712
+    }
+  },
+  {
+    "case_id": "television-suspected",
+    "kind": "synthetic_control",
+    "category": "television",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "complete",
+    "reason": "identity_conflict",
+    "sufficient": false,
+    "elapsed_seconds": 8.600607407999632,
+    "thermal_position": "subsequent_case",
+    "photo_count": 1,
+    "calls_sent": 1,
+    "coverage": [
+      {
+        "id": "p_4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+        "kind": "image",
+        "sent": true,
+        "reason": "examined",
+        "sha256": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+        "examined": true,
+        "provided": true,
+        "revision": 1,
+        "derived_hash": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+        "source_sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+        "transformation": "512-v1"
+      }
+    ],
+    "parts": [
+      {
+        "part_index": 0,
+        "state": "succeeded",
+        "reason": "",
+        "diagnostic_code": null,
+        "metrics": {
+          "sent": true,
+          "size": 3140495604,
+          "size_vram": 3140495604,
+          "eval_count": 912,
+          "eval_duration": 7810518000,
+          "load_duration": 963294,
+          "context_length": 4096,
+          "total_duration": 8084713051,
+          "resident_before": {
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "context_length": 4096
+          },
+          "residency_before": "matching_model",
+          "wall_duration_ns": 8093820263,
+          "prompt_eval_count": 719,
+          "prompt_eval_duration": 200399000,
+          "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        },
+        "gpu_samples": 29,
+        "gpu_host_peak_mib": 6916,
+        "gpu_utilization_peak_percent": 78
+      }
+    ],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 83,
+      "peak_host_used_bytes": 23388901376,
+      "peak_evaluator_rss_bytes": 173129728
+    }
+  },
+  {
+    "case_id": "intermittent",
+    "kind": "text_regression",
+    "category": "console",
+    "reference": "defect",
+    "automatic": "defect",
+    "status": "partial",
+    "reason": "clear_defect",
+    "sufficient": false,
+    "elapsed_seconds": 0.03206532399781281,
+    "thermal_position": "no_inference",
+    "photo_count": 0,
+    "calls_sent": 0,
+    "coverage": [],
+    "parts": [],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 1,
+      "peak_host_used_bytes": 23336513536,
+      "peak_evaluator_rss_bytes": 173125632
+    }
+  },
+  {
+    "case_id": "battery",
+    "kind": "text_regression",
+    "category": "computer",
+    "reference": "defect",
+    "automatic": "defect",
+    "status": "partial",
+    "reason": "clear_defect",
+    "sufficient": false,
+    "elapsed_seconds": 0.03263051900285063,
+    "thermal_position": "no_inference",
+    "photo_count": 0,
+    "calls_sent": 0,
+    "coverage": [],
+    "parts": [],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 1,
+      "peak_host_used_bytes": 23336189952,
+      "peak_evaluator_rss_bytes": 173162496
+    }
+  },
+  {
+    "case_id": "untested",
+    "kind": "text_regression",
+    "category": "camera",
+    "reference": "uncertain",
+    "automatic": "uncertain",
+    "status": "partial",
+    "reason": "not_tested",
+    "sufficient": false,
+    "elapsed_seconds": 0.032621703001495916,
+    "thermal_position": "no_inference",
+    "photo_count": 0,
+    "calls_sent": 0,
+    "coverage": [],
+    "parts": [],
+    "ram": {
+      "scope": "host RAM/evaluatorRSS, not model-exclusive",
+      "samples": 1,
+      "peak_host_used_bytes": 23339089920,
+      "peak_evaluator_rss_bytes": 173187072
+    }
+  }
+]

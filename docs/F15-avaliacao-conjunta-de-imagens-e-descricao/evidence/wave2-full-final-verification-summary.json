@@ -1,0 +1,37 @@
+{
+  "evaluated_at": "2026-11-13T16:55:42.075830+00:00",
+  "raw_suite_summary": "/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/garimpei-f15-155131-full-m8dt19tw/suite-summary.json",
+  "raw_full_clean": false,
+  "raw_full_passed": 811,
+  "collected": 812,
+  "covered_unique": 812,
+  "initial_failed": {
+    "tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status": "Chromium aborted before navigation: Socket path too long"
+  },
+  "environment_repair": {
+    "initial_TMPDIR": "/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131",
+    "retry_TMPDIR": "/home/marce/.cache/g15",
+    "storage": "disk, outside tmpfs",
+    "application_or_test_source_changed": false
+  },
+  "retry": {
+    "test_id": "tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status",
+    "exit_code": 0,
+    "passed": 1,
+    "seconds": 24.303,
+    "junit": "/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/tracking-short-tmp-retry.xml",
+    "log": "/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/tracking-short-tmp-retry.txt"
+  },
+  "backend_inputs_checked": 664,
+  "changed_inputs": [],
+  "final_latest_outcomes": {
+    "passed": 812,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "missing": 0
+  },
+  "total_case_attempts": 813,
+  "validation_passed_after_environment_repair": true,
+  "note": "Original full run remains failed. Its 811 passed tests plus exact failed test rerun after repairing Chromium TMPDIR provide final coverage on identical source. No original log or XML was rewritten."
+}

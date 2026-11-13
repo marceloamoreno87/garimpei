@@ -1,0 +1,95 @@
+{
+  "pair_id": "670afd1d8b234854b970b8d556b7dc79",
+  "commit": "b3ae49699c3fd84a6d54e32fd2206a626153f21b",
+  "backend_tree": "7837cc6dde533d9109602e1f2b3a570d06ca0a7f",
+  "source_files_checked": 709,
+  "source_changed_files": [],
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "historical_v1_part_unchanged": true,
+  "generation_calls_count": 2,
+  "identical_request_bodies": true,
+  "call_input_comparison_to_v1": "same saved image/text; profile/prompt/schema const updated only to current v2; no policy/pin/cap changes",
+  "calls": [
+    {
+      "label": "cold",
+      "call_id": "7770a442bfc247c0aa9fdc800dbdd8e4",
+      "gateway_error": {
+        "code": "invalid_output",
+        "diagnostic": "generation_length_limit",
+        "sent": true
+      },
+      "metric_types": {
+        "residency_before": "str",
+        "total_duration": "int",
+        "load_duration": "int",
+        "prompt_eval_duration": "int",
+        "eval_duration": "int",
+        "prompt_eval_count": "int",
+        "eval_count": "int",
+        "size": "int",
+        "size_vram": "int",
+        "context_length": "int",
+        "gpu_samples": "list",
+        "wall_duration_ns": "int"
+      },
+      "residency_before": "absent",
+      "resident_before_digest": null,
+      "total_seconds": 8.78677386,
+      "load_seconds": 3.451453874,
+      "size_vram_bytes": 3140495604,
+      "gpu_samples": 31,
+      "gpu_host_memory_peak_mib": 6711,
+      "gpu_utilization_peak_percent": 81,
+      "ram": {
+        "scope": "host RAM and evaluator process RSS; not model-exclusive RAM",
+        "samples": 88,
+        "peak_host_used_bytes": 17025220608,
+        "peak_evaluator_rss_bytes": 77672448
+      },
+      "ram_median_interval_seconds": 0.10030470100173261
+    },
+    {
+      "label": "warm",
+      "call_id": "8119c8b89ac64f4ca9dfc784f3c2dc74",
+      "gateway_error": {
+        "code": "invalid_output",
+        "diagnostic": "generation_length_limit",
+        "sent": true
+      },
+      "metric_types": {
+        "residency_before": "str",
+        "resident_before": "dict",
+        "resident_before_digest": "str",
+        "total_duration": "int",
+        "load_duration": "int",
+        "prompt_eval_duration": "int",
+        "eval_duration": "int",
+        "prompt_eval_count": "int",
+        "eval_count": "int",
+        "size": "int",
+        "size_vram": "int",
+        "context_length": "int",
+        "gpu_samples": "list",
+        "wall_duration_ns": "int"
+      },
+      "residency_before": "matching_model",
+      "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+      "total_seconds": 4.696686455,
+      "load_seconds": 0.002738253,
+      "size_vram_bytes": 3140495604,
+      "gpu_samples": 17,
+      "gpu_host_memory_peak_mib": 6740,
+      "gpu_utilization_peak_percent": 78,
+      "ram": {
+        "scope": "host RAM and evaluator process RSS; not model-exclusive RAM",
+        "samples": 47,
+        "peak_host_used_bytes": 17059323904,
+        "peak_evaluator_rss_bytes": 77680640
+      },
+      "ram_median_interval_seconds": 0.10029693549950025
+    }
+  ],
+  "scope": "controlled diagnostic, not corpus/quality pass",
+  "limits": "512 output/4096 context/180seconds unchanged",
+  "telemetry_scope": "RAMhost/evaluatorRSS and GPUhost samples, not model-exclusive RAM; server size_vram reported separately"
+}

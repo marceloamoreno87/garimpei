@@ -1,0 +1,31 @@
+{
+  "collected": 812,
+  "covered_unique": 812,
+  "passed": 811,
+  "missing": [],
+  "not_passed": {
+    "tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status": "failed"
+  },
+  "changed_inputs": [],
+  "execution": [
+    {
+      "shard": 0,
+      "exit_code": 0,
+      "seconds": 1290.4710077630007,
+      "selected": 329
+    },
+    {
+      "shard": 1,
+      "exit_code": 0,
+      "seconds": 1298.7198032529996,
+      "selected": 143
+    },
+    {
+      "shard": 2,
+      "exit_code": 1,
+      "seconds": 1191.4839757910013,
+      "selected": 340
+    }
+  ],
+  "clean": false
+}

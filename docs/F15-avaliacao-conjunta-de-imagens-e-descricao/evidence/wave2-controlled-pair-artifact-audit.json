@@ -1,0 +1,15 @@
+{
+  "scope": "Sanitized summaries only; private envelopes/generated bodies/photos are not copied. Diagnostic pairs are separate from corpus.",
+  "artifacts": [
+    {
+      "path": "wave2-v2-controlled-pair-summary.json",
+      "sha256": "c5117144242b3d9e15a357ed613d5d37e2e0c4ce7bfa656dd349e9928ff8f2c8",
+      "bytes": 3402
+    },
+    {
+      "path": "wave2-v3-controlled-pair-summary.json",
+      "sha256": "8024c2de6bc7f66a0c6c56be684137cfed9849df302f3edb2c683d02b7675bd1",
+      "bytes": 19603
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+........................................................................ [ 21%]
+..........................F............................................. [ 42%]
+........................................................................ [ 63%]
+........................................................................ [ 84%]
+....................................................                     [100%]
+=================================== FAILURES ===================================
+______________ test_browser_draft_rollback_and_collection_status _______________
+
+scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/...tmp/test_browser_draft_rollback_an0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, tzinfo=datetime.timezone.utc)))
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/garimpei-f15-155131-full-m8dt19tw/shard-2-tmp/test_browser_draft_rollback_an0')
+
+    def test_browser_draft_rollback_and_collection_status(scenario: Scenario, tmp_path: Path) -> None:
+        instance, source, clock = scenario
+        origin = f"http://127.0.0.1:{instance.config.web_port}"
+        session = f"-s=garimpei-f04-{uuid4().hex[:8]}"
+
+        def browser(*args: str) -> None:
+            result = instance.command("playwright-cli", session, *args, timeout=30)
+            assert result.returncode == 0 and "### Error" not in result.stdout, (
+                result.stdout + result.stderr
+            )
+
+        def run(body: str) -> None:
+            browser("run-code", "async page => {" + body + "}")
+
+        command(
+            instance,
+            "uv",
+            "run",
+            "--project",
+            "apps/backend",
+            "--frozen",
+            "--no-sync",
+            "python",
+            "apps/backend/manage.py",
+            "runtime_probe",
+            "--wait",
+        )
+>       browser("open", origin)
+
+tests/http/test_tracking.py:89:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ('open', 'http://127.0.0.1:22946')
+
+    def browser(*args: str) -> None:
+        result = instance.command("playwright-cli", session, *args, timeout=30)
+>       assert result.returncode == 0 and "### Error" not in result.stdout, (
+            result.stdout + result.stderr
+        )
+E       AssertionError: /home/marce/.nvm/versions/node/v26.3.1/lib/node_modules/@playwright/cli/node_modules/playwright-core/lib/tools/cli-client/session.js:172
+E             const rejectWithPid = (reject, message) => reject(Object.assign(new Error(`Daemon pid=${child.pid}: ${message}`), { daemonPid: child.pid }));
+E                                                                             ^
+E
+E         Error: Daemon pid=973946: Daemon process exited with code 1
+E         [TargetClosedError2: Target page, context or browser has been closed
+E         Browser logs:
+E
+E         <launching> /home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,AvoidCorsURLLoaderRestartOnRedirect,TcpPortRandomizationWin,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,PreconnectToSearch,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface,SkipListAccountsWithoutGaiaCookies --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --enable-unsafe-swiftshader --edge-skip-compat-layer-relaunch --disable-stack-profiler --disable-infobars --disable-sync --do-not-de-elevate --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-blink-features=AutomationControlled --user-data-dir=/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/playwright_chromiumdev_profile-w0qpIB --remote-debugging-pipe --no-startup-window
+E         <launched> pid=973959
+E         [pid=973959][err] [973959:973959:1113/105000.849528:FATAL:chrome/browser/process_singleton_posix.cc:315] Socket path too long: /home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/org.chromium.Chromium.lYBNzL/SingletonSocket.
+E         [pid=973959][err] [1113/105000.858787:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
+E         [pid=973959][err] [1113/105000.859062:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
+E         [pid=973959][err] Received signal 6
+E         [pid=973959][err] #0 0x583dde0dc533 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x7491532)
+E         [pid=973959][err] #1 0x583de30532a4 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc4082a3)
+E         [pid=973959][err] #2 0x7b40b7c45cb0 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45caf)
+E         [pid=973959][err] #3 0x7b40b7c45b7e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45b7d)
+E         [pid=973959][err] #4 0x7b40b7c288ec (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288eb)
+E         [pid=973959][err] #5 0x583de3049b45 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3feb44)
+E         [pid=973959][err] #6 0x583de30089bd (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3bd9bc)
+E         [pid=973959][err] #7 0x583de300890d (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3bd90c)
+E         [pid=973959][err] #8 0x583ddaf1ebc6 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x42d3bc5)
+E         [pid=973959][err] #9 0x583dddac5059 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6e7a058)
+E         [pid=973959][err] #10 0x583ddd263d76 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6618d75)
+E         [pid=973959][err] #11 0x583ddd2640cf (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x66190ce)
+E         [pid=973959][err] #12 0x583ddd264084 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6619083)
+E         [pid=973959][err] #13 0x583ddd72d5c9 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6ae25c8)
+E         [pid=973959][err] #14 0x583ddd72ca03 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6ae1a02)
+E         [pid=973959][err] #15 0x583ddd7289f0 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6add9ef)
+E         [pid=973959][err] #16 0x583ddd727cce (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6adcccd)
+E         [pid=973959][err] #17 0x583ddd726edf (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6adbede)
+E         [pid=973959][err] #18 0x7b40b7c2a601 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600)
+E         [pid=973959][err] #19 0x7b40b7c2a718 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717)
+E         [pid=973959][err] #20 0x583dde3c63aa (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x777b3a9)
+E         [pid=973959][err]   r8: 0000000000000016  r9: 0000000000000001 r10: 00000e10000e853b r11: 0000000000000246
+E         [pid=973959][err]  r12: 0000000000000006 r13: 0000583c00000000 r14: 00000000000000db r15: 00007fff0e010420
+E         [pid=973959][err]   di: 00000000000edc87  si: 00000000000edc87  bp: 00007fff0e00fd90  bx: 00000000000edc87
+E         [pid=973959][err]   dx: 0000000000000006  ax: 0000000000000000  cx: 00007b40b7ca616c  sp: 00007fff0e00fd50
+E         [pid=973959][err]   ip: 00007b40b7ca616c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+E         [pid=973959][err]  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+E         [pid=973959][err] [end of stack trace]
+E         Call log:
+E         [2m  - <launching> /home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,AvoidCorsURLLoaderRestartOnRedirect,TcpPortRandomizationWin,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,PreconnectToSearch,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface,SkipListAccountsWithoutGaiaCookies --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --enable-unsafe-swiftshader --edge-skip-compat-layer-relaunch --disable-stack-profiler --disable-infobars --disable-sync --do-not-de-elevate --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-blink-features=AutomationControlled --user-data-dir=/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/playwright_chromiumdev_profile-w0qpIB --remote-debugging-pipe --no-startup-window[22m
+E         [2m  - <launched> pid=973959[22m
+E         [2m  - [pid=973959][err] [973959:973959:1113/105000.849528:FATAL:chrome/browser/process_singleton_posix.cc:315] Socket path too long: /home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/org.chromium.Chromium.lYBNzL/SingletonSocket.[22m
+E         [2m  - [pid=973959][err] [1113/105000.858787:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)[22m
+E         [2m  - [pid=973959][err] [1113/105000.859062:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)[22m
+E         [2m  - [pid=973959][err] Received signal 6[22m
+E         [2m  - [pid=973959][err] #0 0x583dde0dc533 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x7491532)[22m
+E         [2m  - [pid=973959][err] #1 0x583de30532a4 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc4082a3)[22m
+E         [2m  - [pid=973959][err] #2 0x7b40b7c45cb0 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45caf)[22m
+E         [2m  - [pid=973959][err] #3 0x7b40b7c45b7e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45b7d)[22m
+E         [2m  - [pid=973959][err] #4 0x7b40b7c288ec (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288eb)[22m
+E         [2m  - [pid=973959][err] #5 0x583de3049b45 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3feb44)[22m
+E         [2m  - [pid=973959][err] #6 0x583de30089bd (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3bd9bc)[22m
+E         [2m  - [pid=973959][err] #7 0x583de300890d (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3bd90c)[22m
+E         [2m  - [pid=973959][err] #8 0x583ddaf1ebc6 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x42d3bc5)[22m
+E         [2m  - [pid=973959][err] #9 0x583dddac5059 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6e7a058)[22m
+E         [2m  - [pid=973959][err] #10 0x583ddd263d76 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6618d75)[22m
+E         [2m  - [pid=973959][err] #11 0x583ddd2640cf (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x66190ce)[22m
+E         [2m  - [pid=973959][err] #12 0x583ddd264084 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6619083)[22m
+E         [2m  - [pid=973959][err] #13 0x583ddd72d5c9 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6ae25c8)[22m
+E         [2m  - [pid=973959][err] #14 0x583ddd72ca03 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6ae1a02)[22m
+E         [2m  - [pid=973959][err] #15 0x583ddd7289f0 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6add9ef)[22m
+E         [2m  - [pid=973959][err] #16 0x583ddd727cce (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6adcccd)[22m
+E         [2m  - [pid=973959][err] #17 0x583ddd726edf (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6adbede)[22m
+E         [2m  - [pid=973959][err] #18 0x7b40b7c2a601 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600)[22m
+E         [2m  - [pid=973959][err] #19 0x7b40b7c2a718 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717)[22m
+E         [2m  - [pid=973959][err] #20 0x583dde3c63aa (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x777b3a9)[22m
+E         [2m  - [pid=973959][err]   r8: 0000000000000016  r9: 0000000000000001 r10: 00000e10000e853b r11: 0000000000000246[22m
+E         [2m  - [pid=973959][err]  r12: 0000000000000006 r13: 0000583c00000000 r14: 00000000000000db r15: 00007fff0e010420[22m
+E         [2m  - [pid=973959][err]   di: 00000000000edc87  si: 00000000000edc87  bp: 00007fff0e00fd90  bx: 00000000000edc87[22m
+E         [2m  - [pid=973959][err]   dx: 0000000000000006  ax: 0000000000000000  cx: 00007b40b7ca616c  sp: 00007fff0e00fd50[22m
+E         [2m  - [pid=973959][err]   ip: 00007b40b7ca616c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000[22m
+E         [2m  - [pid=973959][err]  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000[22m
+E         [2m  - [pid=973959][err] [end of stack trace][22m
+E         [2m  - [pid=973959] <gracefully close start>[22m
+E         [2m  - [pid=973959] <kill>[22m
+E         [2m  - [pid=973959] <will force kill>[22m
+E         [2m  - [pid=973959] <process did exit: exitCode=null, signal=SIGABRT>[22m
+E         [2m  - [pid=973959] starting temporary directories cleanup[22m
+E         [2m  - [pid=973959] finished temporary directories cleanup[22m
+E         [2m  - [pid=973959] <gracefully close end>[22m
+E         ] {
+E           log: [
+E             '  - <launching> /home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,AvoidCorsURLLoaderRestartOnRedirect,TcpPortRandomizationWin,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,PreconnectToSearch,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface,SkipListAccountsWithoutGaiaCookies --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --enable-unsafe-swiftshader --edge-skip-compat-layer-relaunch --disable-stack-profiler --disable-infobars --disable-sync --do-not-de-elevate --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-blink-features=AutomationControlled --user-data-dir=/home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/playwright_chromiumdev_profile-w0qpIB --remote-debugging-pipe --no-startup-window',
+E             '  - <launched> pid=973959',
+E             '  - [pid=973959][err] [973959:973959:1113/105000.849528:FATAL:chrome/browser/process_singleton_posix.cc:315] Socket path too long: /home/marce/.cache/garimpei-evaluations/f15-wave-20261113-155131/org.chromium.Chromium.lYBNzL/SingletonSocket.',
+E             '  - [pid=973959][err] [1113/105000.858787:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)',
+E             '  - [pid=973959][err] [1113/105000.859062:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)',
+E             '  - [pid=973959][err] Received signal 6',
+E             '  - [pid=973959][err] #0 0x583dde0dc533 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x7491532)',
+E             '  - [pid=973959][err] #1 0x583de30532a4 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc4082a3)',
+E             '  - [pid=973959][err] #2 0x7b40b7c45cb0 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45caf)',
+E             '  - [pid=973959][err] #3 0x7b40b7c45b7e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45b7d)',
+E             '  - [pid=973959][err] #4 0x7b40b7c288ec (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288eb)',
+E             '  - [pid=973959][err] #5 0x583de3049b45 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3feb44)',
+E             '  - [pid=973959][err] #6 0x583de30089bd (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3bd9bc)',
+E             '  - [pid=973959][err] #7 0x583de300890d (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0xc3bd90c)',
+E             '  - [pid=973959][err] #8 0x583ddaf1ebc6 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x42d3bc5)',
+E             '  - [pid=973959][err] #9 0x583dddac5059 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6e7a058)',
+E             '  - [pid=973959][err] #10 0x583ddd263d76 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6618d75)',
+E             '  - [pid=973959][err] #11 0x583ddd2640cf (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x66190ce)',
+E             '  - [pid=973959][err] #12 0x583ddd264084 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6619083)',
+E             '  - [pid=973959][err] #13 0x583ddd72d5c9 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6ae25c8)',
+E             '  - [pid=973959][err] #14 0x583ddd72ca03 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6ae1a02)',
+E             '  - [pid=973959][err] #15 0x583ddd7289f0 (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6add9ef)',
+E             '  - [pid=973959][err] #16 0x583ddd727cce (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6adcccd)',
+E             '  - [pid=973959][err] #17 0x583ddd726edf (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x6adbede)',
+E             '  - [pid=973959][err] #18 0x7b40b7c2a601 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600)',
+E             '  - [pid=973959][err] #19 0x7b40b7c2a718 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717)',
+E             '  - [pid=973959][err] #20 0x583dde3c63aa (/home/marce/.cache/ms-playwright/chromium-1252/chrome-linux64/chrome+0x777b3a9)',
+E             '  - [pid=973959][err]   r8: 0000000000000016  r9: 0000000000000001 r10: 00000e10000e853b r11: 0000000000000246',
+E             '  - [pid=973959][err]  r12: 0000000000000006 r13: 0000583c00000000 r14: 00000000000000db r15: 00007fff0e010420',
+E             '  - [pid=973959][err]   di: 00000000000edc87  si: 00000000000edc87  bp: 00007fff0e00fd90  bx: 00000000000edc87',
+E             '  - [pid=973959][err]   dx: 0000000000000006  ax: 0000000000000000  cx: 00007b40b7ca616c  sp: 00007fff0e00fd50',
+E             '  - [pid=973959][err]   ip: 00007b40b7ca616c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000',
+E             '  - [pid=973959][err]  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000',
+E             '  - [pid=973959][err] [end of stack trace]',
+E             '  - [pid=973959] <gracefully close start>',
+E             '  - [pid=973959] <kill>',
+E             '  - [pid=973959] <will force kill>',
+E             '  - [pid=973959] <process did exit: exitCode=null, signal=SIGABRT>',
+E             '  - [pid=973959] starting temporary directories cleanup',
+E             '  - [pid=973959] finished temporary directories cleanup',
+E             '  - [pid=973959] <gracefully close end>'
+E           ]
+E         }
+E
+E             at rejectWithPid (/home/marce/.nvm/versions/node/v26.3.1/lib/node_modules/@playwright/cli/node_modules/playwright-core/lib/tools/cli-client/session.js:172:69)
+E             at ChildProcess.<anonymous> (/home/marce/.nvm/versions/node/v26.3.1/lib/node_modules/@playwright/cli/node_modules/playwright-core/lib/tools/cli-client/session.js:182:11)
+E             at ChildProcess.emit (node:events:509:20)
+E             at maybeClose (node:internal/child_process:1108:16)
+E             at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+E           daemonPid: 973946
+E         }
+E
+E         Node.js v26.3.1
+E
+E       assert (1 == 0)
+E        +  where 1 = CompletedProcess(args=['playwright-cli', '-s=garimpei-f04-360b4bd8', 'open', 'http://127.0.0.1:22946'], returncode=1, ...    at ChildProcess._handle.onexit (node:internal/child_process:305:5) {\n  daemonPid: 973946\n}\n\nNode.js v26.3.1\n").returncode
+
+tests/http/test_tracking.py:69: AssertionError
+=========================== short test summary info ============================
+FAILED tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status
+1 failed, 339 passed in 1190.94s (0:19:50)

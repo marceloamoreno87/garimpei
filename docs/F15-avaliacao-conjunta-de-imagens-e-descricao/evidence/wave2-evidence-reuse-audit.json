@@ -1,0 +1,91 @@
+{
+  "baseline_commit": "2453f5f",
+  "current_commit": "b43092b82ac7d034b5f967aa7fb930bdc2b77f4c",
+  "backend_tree": "0b63d4db4cad9f74421d2ac4792b52bea6eb50e2",
+  "contract_items": [
+    "SVC-AVALIACAO-01",
+    "SVC-AVALIACAO-02",
+    "SVC-AVALIACAO-03",
+    "SVC-AVALIACAO-04",
+    "SVC-AVALIACAO-05",
+    "SVC-TEXTO-01",
+    "SVC-TEXTO-02",
+    "SVC-TEXTO-03",
+    "SVC-MANUAL-01",
+    "API-CONSULTA-01",
+    "API-MANUAL-01",
+    "WRK-IMAGENS-01",
+    "WRK-IMAGENS-02",
+    "WRK-VERSAO-01",
+    "WRK-VERSAO-02",
+    "WRK-VERSAO-03",
+    "WRK-VERSAO-04",
+    "WRK-FALHA-01",
+    "WRK-FALHA-02",
+    "WRK-FALHA-03",
+    "UI-AVALIACAO-01",
+    "UI-AVALIACAO-02",
+    "UI-AVALIACAO-03",
+    "UI-MANUAL-01",
+    "UI-ATUALIZACAO-01",
+    "E2E-ALERTA-01",
+    "E2E-ALERTA-02",
+    "E2E-ALERTA-03",
+    "E2E-ALERTA-04",
+    "E2E-OPERACAO-01",
+    "E2E-QUALIDADE-01"
+  ],
+  "item_count": 31,
+  "immutable_scopes": [
+    {
+      "path": "apps/backend/src/garimpei/infra/http",
+      "changed_paths": [],
+      "unchanged": true,
+      "baseline_commit": "2453f5f"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations",
+      "changed_paths": [],
+      "unchanged": true,
+      "baseline_commit": "2453f5f"
+    },
+    {
+      "path": "docs/F19-inferencia-multimodal-local-em-docker/model-lock.json",
+      "changed_paths": [],
+      "unchanged": true,
+      "baseline_commit": "2453f5f"
+    },
+    {
+      "path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/ai-reference-reviewed-2026-11-13.json",
+      "changed_paths": [],
+      "unchanged": true,
+      "baseline_commit": "e6a9706"
+    },
+    {
+      "path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/human-review-manifest.json",
+      "changed_paths": [],
+      "unchanged": true,
+      "baseline_commit": "2453f5f"
+    }
+  ],
+  "changed_backend_paths": [
+    "apps/backend/src/garimpei/config/env.py",
+    "apps/backend/src/garimpei/domain/inference/condition_evidence.py",
+    "apps/backend/src/garimpei/domain/inference/errors.py",
+    "apps/backend/src/garimpei/domain/inference/ports.py",
+    "apps/backend/src/garimpei/domain/inference/profile_limits.py",
+    "apps/backend/src/garimpei/domain/inference/request.py",
+    "apps/backend/src/garimpei/infra/gateway/inference/input_preparer.py",
+    "apps/backend/src/garimpei/infra/gateway/inference/ollama_gateway.py",
+    "apps/backend/src/garimpei/infra/repository/inference/postgres_repository.py",
+    "apps/backend/src/garimpei/usecase/inference/run_analysis_usecase.py",
+    "apps/backend/tests/integration/test_inference_failure_observability.py",
+    "apps/backend/tests/unit/test_inference_failure_observability.py",
+    "apps/backend/tests/unit/test_inference_profile_limits.py"
+  ],
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "reuse_policy": "Prior30PASS are historical evidence, with product HTTP templates/static/migrations/model pins/reference unchanged. Current full812 and focused tests revalidate changed inference boundaries; final status awaits full and physical artifacts. UI screenshots are reused for unchanged UI source, not claimed as newly executed browser sessions.",
+  "full_status": "Final coverage812passed in813attempts after explicit Chromium TMPDIR repair; rawfull811pass/1fail retained,664inputs unchanged",
+  "physical_status": "completed; see wave2-v3-quality-summary.json and independent controlled cold/warm pair",
+  "final_report": "eval-report-2026-11-13T16-58-43Z.md"
+}

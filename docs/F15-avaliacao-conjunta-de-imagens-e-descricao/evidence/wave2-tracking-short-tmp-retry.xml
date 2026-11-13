@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="24.323" timestamp="2026-11-13T10:54:27.210519-06:00" hostname="moreno"><testcase classname="tests.http.test_tracking" name="test_browser_draft_rollback_and_collection_status" time="24.303" /></testsuite></testsuites>
