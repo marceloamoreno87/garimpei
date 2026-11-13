@@ -1,0 +1,62 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_native_city_origin_is_independent_of_the_registered_postal_code _____
+
+    def test_native_city_origin_is_independent_of_the_registered_postal_code() -> None:
+        from urllib.parse import parse_qs, urlsplit
+    
+        city = Point(-23.55, -46.6333, None, "São Paulo", "SP")
+        browser = RecordedNavigation((Feed((), False, True),), [])
+        source = FacebookMarketplace(browser, city, CategoryCatalog("", "", ()))
+        for cep in ("01001000", "22222222", "04132001"):
+            scope = Scope(uuid4(), "facebook_marketplace", cep, 1, cep, ())
+            query = Search(Match("product", "playstation 5"), "PlayStation 5", "marketplace", purpose="research")
+>           result = source.search(scope, query, None)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_marketplace_city_policy.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/garimpei/infra/gateway/listing/facebook_marketplace.py:61: in search
+    url = self._url(scope, query)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <garimpei.infra.gateway.listing.facebook_marketplace.FacebookMarketplace object at 0x7f1ddde3c980>
+scope = Scope(configuration_id=UUID('abb18e7e-ff93-44cc-824e-df41935fd7ac'), source='facebook_marketplace', cep='01001000', revision=1, key='01001000', searches=(), window=None)
+query = Search(interest=Match(kind='product', key='playstation 5'), term='PlayStation 5', modality='marketplace', equivalent_terms=(), excluded_terms=(), purpose='research')
+
+    def _url(self, scope: Scope, query: Search) -> str:
+        from urllib.parse import urlencode
+    
+>       point = self._geocoding.resolve(scope.cep)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Point' object has no attribute 'resolve'
+
+src/garimpei/infra/gateway/listing/facebook_marketplace.py:218: AttributeError
+_______ test_city_policy_supersedes_the_previous_postal_search_signature _______
+
+    def test_city_policy_supersedes_the_previous_postal_search_signature() -> None:
+        config = MonitoringSnapshot(
+            configured=True,
+            configuration_id=uuid4(),
+            source="facebook_marketplace",
+            revision=1,
+            cep="01001000",
+            product_names=("RTX 4060 8GB",),
+        )
+        scope = Scope.from_snapshot(config)
+        assert scope is not None
+        old = hashlib.sha256(
+            json.dumps(
+                ["facebook_marketplace", "01001000", [("product", "rtx 4060 8gb")], "48h-marketplace-potential-v4", 20]
+            ).encode()
+        ).hexdigest()
+>       assert scope.key != old
+E       AssertionError: assert '2592c890c67d88f4c77ed1dddfc2753bf4a549e0f408f5866936f7c419da2e6c' != '2592c890c67d88f4c77ed1dddfc2753bf4a549e0f408f5866936f7c419da2e6c'
+E        +  where '2592c890c67d88f4c77ed1dddfc2753bf4a549e0f408f5866936f7c419da2e6c' = Scope(configuration_id=UUID('4bc95fa0-0fdd-4a3a-ae92-654e1dea66f0'), source='facebook_marketplace', cep='01001000', re... term='RTX 4060 8GB', modality='marketplace', equivalent_terms=(), excluded_terms=(), purpose='active'),), window=None).key
+
+tests/unit/test_marketplace_city_policy.py:50: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_marketplace_city_policy.py::test_native_city_origin_is_independent_of_the_registered_postal_code
+FAILED tests/unit/test_marketplace_city_policy.py::test_city_policy_supersedes_the_previous_postal_search_signature
+2 failed in 0.10s

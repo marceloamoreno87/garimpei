@@ -1,0 +1,18 @@
+### Ran Playwright code
+```js
+await (async page => {
+ await page.setViewportSize({width:390,height:844});
+ const assert=(v,m)=>{if(!v)throw new Error(m)};
+ let box=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));assert(box.width===box.scroll,'mobile detail overflow');
+ assert((await page.locator('main').innerText()).includes('R$ 1.012,50'),'mobile value absent');
+ await page.screenshot({path:'/tmp/f18-ui-valued-mobile.png',fullPage:true});
+ await page.getByText('Revisar sua correção de identidade',{exact:true}).click();
+ assert(await page.getByRole('textbox',{name:'Capacidade',exact:true}).isVisible(),'form capacity hidden');
+ const irrelevant=await page.locator('input[name="brand"]').evaluate(e=>({disabled:e.disabled,visible:!!e.getClientRects().length}));
+ assert(irrelevant.disabled && !irrelevant.visible,'unrelated field active');
+ box=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));assert(box.width===box.scroll,'mobile form overflow');
+ await page.screenshot({path:'/tmp/f18-ui-manual-mobile.png',fullPage:true});
+ console.log(JSON.stringify({mobile_width:390,overflow:false,irrelevant,source:'controlled'}));
+}
+)(page);
+```

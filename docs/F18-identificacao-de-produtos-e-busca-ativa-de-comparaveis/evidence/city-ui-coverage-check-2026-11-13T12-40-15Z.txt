@@ -1,0 +1,15 @@
+### Result
+{"width":{"width":390,"scroll":390},"seven_interests":true,"zero_cell_phone_observations":true,"corpus_version":"f18-interest-snapshot-v1"}
+### Ran Playwright code
+```js
+await (async page => {
+ const panel=page.locator('details').filter({hasText:'Recorte f18-interest-snapshot-v1'});
+ const text=await panel.innerText();
+ if(!text.includes('Cell Phones\n\n0 observações examinadas') || !text.includes('Categoria selecionável não garante') || !text.includes('16 propostas textuais'))throw new Error('coverage dishonest');
+ const width=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));if(width.width!==width.scroll)throw new Error('overflow');
+ await panel.evaluate(e=>e.scrollIntoView({block:'start'}));
+ await page.screenshot({path:'/tmp/f18-ui-coverage-mobile.png'});
+ return {width,seven_interests:true,zero_cell_phone_observations:true,corpus_version:'f18-interest-snapshot-v1'};
+}
+)(page);
+```

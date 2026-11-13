@@ -29,11 +29,32 @@ from garimpei.domain.listing.window import PublicationWindow
 from garimpei.infra.gateway.listing.relay_parser import (
     Feed,
     JsonObject,
+    browse_parameters,
     documents,
     feed_from,
     mapping,
 )
 from garimpei.infra.repository.integration.private_session import private_directory
+
+
+def _native_research_matches(observed: JsonObject, filters: "SearchFilters") -> bool:
+    if not filters.all_publication_dates or filters.window is not None:
+        return False
+    if observed.get("commerce_search_and_rp_ctime_days") not in (None, ""):
+        return False
+    latitude = observed.get("filter_location_latitude")
+    longitude = observed.get("filter_location_longitude")
+    radius = observed.get("filter_radius_km")
+    return (
+        isinstance(latitude, (int, float))
+        and not isinstance(latitude, bool)
+        and isinstance(longitude, (int, float))
+        and not isinstance(longitude, bool)
+        and type(radius) is int
+        and radius == filters.radius_km
+        and abs(latitude - filters.origin.latitude) <= 0.0001
+        and abs(longitude - filters.origin.longitude) <= 0.0001
+    )
 
 
 def valid_source_cursor(cursor: str) -> bool:
@@ -314,6 +335,12 @@ class MarketplaceBrowser:
         self._filters = filters
         self._cursor = None
         self._query_payload = self._query_template(rows)
+        native_feed = feed_from(rows)
+        if native_feed is not None and _native_research_matches(browse_parameters(rows), filters):
+            # These results and metadata came from the same native document. A
+            # rewritten POST would discard that binding without proving its own.
+            self._cursor = native_feed.cursor
+            return rows, native_feed
         variables = deepcopy(mapping(self._query_payload["variables"]))
         original = variables.get("params")
         parsed = mapping(json.loads(original)) if isinstance(original, str) else mapping(original)

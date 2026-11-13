@@ -61,7 +61,7 @@ def test_category_navigation_uses_the_verified_native_category_route() -> None:
     assert scope is not None
     source = FacebookMarketplace(
         NativeCategoryNavigation(),
-        FixedCep(),
+        FixedCep().resolve("01001000"),
         CategoryCatalog(
             "",
             "",
@@ -139,7 +139,7 @@ def test_live_source_search_continuation_and_detail_evidence() -> None:
     )
     source = FacebookMarketplace(
         browser,
-        FixedCep(),
+        FixedCep().resolve("01001000"),
         CategoryCatalog(
             "",
             "",
@@ -219,19 +219,25 @@ def test_source_boundary_requires_native_order_and_observed_monotonicity() -> No
             (Feed(tuple(row(str(101 + i), stamp) for i, stamp in enumerate(stamps)), True, False),),
             [],
         )
-        source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+        source = FacebookMarketplace(
+            browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+        )
         page = source.search(scope, scope.searches[0], None)
         assert page.window_proof == expected
         assert (page.continuation is None) == (expected is not None)
 
     # An empty intermediate page with a continuation is not proof of exhaustion.
     browser = RecordedNavigation((Feed((), True, True, "next-cursor"),), [])
-    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     page = source.search(scope, scope.searches[0], None)
     assert page.continuation is not None and page.window_proof is None
 
     browser = RecordedNavigation((Feed((), True, True, "next", True),), [])
-    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     page = source.search(scope, scope.searches[0], None)
     assert page.continuation is None and page.window_proof == "source_end_of_results"
 
@@ -264,7 +270,9 @@ def test_media_carousel_fragment_binds_only_to_verified_listing_identity() -> No
             ],
         },
     )
-    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope.from_snapshot(
         MonitoringSnapshot(
             configured=True,
@@ -301,7 +309,9 @@ def test_comparable_research_does_not_inherit_publication_age_filter() -> None:
     )
     assert scope is not None
     source = FacebookMarketplace(
-        RecordedNavigation((Feed((), False, True),), []), FixedCep(), CategoryCatalog("", "", ())
+        RecordedNavigation((Feed((), False, True),), []),
+        FixedCep().resolve("01001000"),
+        CategoryCatalog("", "", ()),
     )
     query = Search(
         Match("product", "sony:ps5:slim:disc:1tb"),
@@ -324,7 +334,7 @@ def test_comparable_research_does_not_inherit_publication_age_filter() -> None:
 
 
 @pytest.mark.parametrize("purpose", ["active", "research"])
-def test_marketplace_search_requests_twenty_km_around_registered_cep(
+def test_marketplace_search_requests_twenty_km_around_injected_source_origin(
     purpose: Literal["active", "research"],
 ) -> None:
     from urllib.parse import parse_qs, urlsplit
@@ -342,7 +352,9 @@ def test_marketplace_search_requests_twenty_km_around_registered_cep(
             return super().search(url, filters)
 
     browser = CaptureNavigation((Feed((), False, True),), [])
-    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "scope", ())
     query = Search(
         Match("product", "playstation 5"), "PlayStation 5", "marketplace", purpose=purpose
@@ -377,7 +389,9 @@ def test_research_does_not_validate_a_saved_five_hundred_km_context() -> None:
             return (metadata,) + rows[1:], feed
 
     browser = SavedRadiusNavigation((Feed((), False, True),), [])
-    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "scope", ())
     page = source.search(
         scope,
@@ -404,7 +418,9 @@ def test_initial_page_matching_radius_does_not_prove_graphql_results() -> None:
             return rows + ({"_garimpei_response_context_unverified": True},), feed
 
     browser = InitialOnlyNavigation((Feed((), False, True),), [])
-    source = FacebookMarketplace(browser, FixedCep(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, FixedCep().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 1, "scope", ())
     page = source.search(
         scope,

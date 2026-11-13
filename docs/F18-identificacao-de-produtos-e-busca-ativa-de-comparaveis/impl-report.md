@@ -7,3 +7,7 @@ A fase 1 do plano continua condicionada à comprovação geográfica real. As fa
 Validação atual: seis gates Python com exit 0 e 29 testes focais aprovados em 88.56 s, conforme `evidence/resumed-gates-2026-11-13T02-36-06Z.txt` e `evidence/resumed-focal-2026-11-13T02-36-06Z.txt`. Avaliação parcial canônica: `eval-report-2026-11-13T02-36-06Z.md`; `WRK-RESEARCH-01` bloqueado externamente, demais itens não reexecutados integralmente. Status do progresso permanece `implemented`, execução `manual-pending`.
 
 Arquivos desta retomada: novo relatório de avaliação, este relatório de implementação, novo diário de orquestração e duas evidências de execução; atualização exclusiva da entrada F18 em `docs/prd_progress.json`. Diário anterior não rastreado de 02:29:22Z preservado integralmente.
+
+## Retomada 2026-11-13T12-40-15Z — cidade nativa aprovada
+
+São Paulo/SP (-23.55/-46.6333) e20km substituem centro postal da pesquisa; CEP preserva seus outros usos. A página nativa é aceita somente com feed/contexto do mesmo documento, sem filtro de publicação; continuação mantém template/cursor da fonte. Contextos antigos são superados, históricos identificados e respostas não comprovadas continuam recusadas. Prova real limitada2páginas/48IDs/2detalhes/0retidos; sucesso de5referências é controlado. Seis gates,27testes de fonte,12integrações,456casos da regressão final após retry de limpeza do worker, UI e controles F16 documentados em evidence. Avaliação completa aguarda consolidação da suíte ampla.

@@ -14,7 +14,6 @@ from garimpei.infra.gateway.listing.marketplace_browser import (
 )
 
 if TYPE_CHECKING:
-    from garimpei.domain.listing.ports import Geocoding
     from garimpei.domain.monitoring.values import CategoryCatalog
     from garimpei.infra.gateway.listing.relay_parser import Feed, JsonObject
 from garimpei.domain.listing.scope import Scope, Search
@@ -39,11 +38,11 @@ class FacebookMarketplace:
     def __init__(
         self,
         browser: MarketplaceNavigation,
-        geocoding: "Geocoding",
+        origin: Point,
         catalog: "CategoryCatalog",
     ) -> None:
         self._browser = browser
-        self._geocoding = geocoding
+        self._search_origin = origin
         self._catalog = catalog
         self._query_key: str | None = None
         self._page_number = 0
@@ -215,9 +214,7 @@ class FacebookMarketplace:
     def _url(self, scope: Scope, query: Search) -> str:
         from urllib.parse import urlencode
 
-        point = self._geocoding.resolve(scope.cep)
-        if point is None:
-            raise SourceFailure("geocoding_coordinates_unavailable")
+        point = self._search_origin
         self._origin = point
         params: dict[str, str] = {
             "sortBy": "creation_time_descend",

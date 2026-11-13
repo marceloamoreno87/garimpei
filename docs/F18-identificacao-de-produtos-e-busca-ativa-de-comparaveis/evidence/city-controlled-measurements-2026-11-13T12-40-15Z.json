@@ -1,0 +1,211 @@
+{
+  "source_kind": "controlled",
+  "environment": "owned_eval_loopback",
+  "measured_at": "2026-11-13T13:07:35.212334+00:00",
+  "source_is_real": false,
+  "fixtures": "tests/fixtures/valuation/research_cases.json",
+  "policy_test_inputs": {
+    "policy_version": "controlled-only-v1",
+    "measured_at": "2026-11-12T12:00:00+00:00",
+    "environment": "eval-controlled",
+    "corpus_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "evidence_paths": [
+      "/tmp/pytest-of-marce/pytest-30/test_worker_consumes_research_0/controlled-0.json",
+      "/tmp/pytest-of-marce/pytest-30/test_worker_consumes_research_0/controlled-1.json"
+    ],
+    "max_queries_per_slice": 2,
+    "max_pages_per_query": 3,
+    "max_details_per_slice": 2,
+    "max_slice_seconds": 30,
+    "request_timeout_seconds": 2,
+    "max_attempts_per_input": 10,
+    "retry_delays_seconds": [
+      5,
+      10,
+      20
+    ],
+    "lease_seconds": 40,
+    "max_wait_slices_per_interest": 3,
+    "max_pending_per_interest": 4
+  },
+  "measurements": {
+    "client_probes": [
+      {
+        "operation": "query",
+        "seconds": 0.0009710539961815812,
+        "candidates": 5
+      },
+      {
+        "operation": "detail",
+        "seconds": 0.0009914459951687604
+      }
+    ],
+    "worker_slice_seconds": [
+      0.123998,
+      0.104987,
+      0.063088
+    ],
+    "server_operations": [
+      {
+        "operation": "query",
+        "seconds": 1.2603995855897665e-05
+      },
+      {
+        "operation": "detail",
+        "seconds": 4.09800122724846e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 7.693997758906335e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 6.772999768145382e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.851004971191287e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 6.573005521204323e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 1.1972006177529693e-05
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.820998921990395e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.289999535307288e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 7.434005965478718e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.4199990699999034e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 6.0919992392882705e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.059999239165336e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.210000381339341e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 4.80900052934885e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.11800283472985e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.689005436375737e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.679000994656235e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.76899731438607e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.199995939619839e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.100002454128116e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.7199940783903e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 6.843001756351441e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 5.961002898402512e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 6.441994628403336e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 1.3919998309575021e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 5.410001904238015e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.4289990910328925e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.9390000640414655e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 6.7920045694336295e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.367997462395579e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 4.6290006139315665e-06
+      },
+      {
+        "operation": "other",
+        "seconds": 6.322006811387837e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 7.023001671768725e-06
+      },
+      {
+        "operation": "detail",
+        "seconds": 6.111004040576518e-06
+      },
+      {
+        "operation": "query",
+        "seconds": 5.9710000641644e-06
+      }
+    ]
+  },
+  "confirmed": {
+    "pages": 1,
+    "details": 5,
+    "slices": 3,
+    "retained": 5,
+    "profit": "1012.50",
+    "reference_events": 0,
+    "reference_matches": 0
+  },
+  "non_interference": {
+    "collection_advanced": true,
+    "research_failure": "source_http_503",
+    "decrease_events": 1,
+    "real_whatsapp_posts": 0
+  },
+  "run_note": "Business assertions completed; first stop.sh --clean failed generically; owned cleanup retry and fresh full worker test passed. This measurement is not presented as an initially clean test."
+}

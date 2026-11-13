@@ -43,3 +43,11 @@ Este plano descreve trabalho futuro. A especificação não executa outra featur
 **10. Encerramento verificável** — Consolidar gates, regressões, jornadas e evidências por item/critério, preservando pendências reais. Atualizar apenas artefatos e metadados cabíveis ao fluxo de implementação/avaliação.
 
 **Verificação:** seis gates por `node scripts/run-gates.mjs`, pytest aplicável/suíte completa, navegador `playwright-cli`, avaliação `frontend-ui-design`, corpus/limites/prova real presentes. Nenhum desses checks foi executado nesta entrega de especificação; F18 continua `pending`.
+
+## Retomada — orientação de cidade de2026-11-13
+
+1. Registrar a aprovação São Paulo/SP+20km e a observação nativa com24resultados; preservar IDs e decisões históricas.
+2. Reproduzir em testes a perda da primeira página nativa compatível e a dependência indevida do CEP na localização da busca.
+3. Injetar a origem nativa na composição, preservar CEP/cobertura existentes e versionar o escopo. Reutilizar somente página nativa compatível; filtros divergentes mantêm guard de contexto.
+4. Testar fonte/continuação/retomada, persistência/contexto e primeira elegibilidade; executar seis gates e regressões pertinentes.
+5. Exercitar a fonte real em perfil exclusivo sem publicar dados ou enviar mensagens reais; medir requisições e conservar metadados sanitizados. Reavaliar todos os itens; somente avaliação limpa conclui F18.

@@ -1,0 +1,355 @@
+{
+  "feature": "F18",
+  "source_kind": "real",
+  "started_at": "2026-11-13T12:55:33.758491+00:00",
+  "query": "RTX 4060 8GB",
+  "origin": {
+    "latitude": -23.55,
+    "longitude": -46.6333,
+    "accuracy_m": null,
+    "city": "São Paulo",
+    "state": "SP",
+    "coordinates_known": true
+  },
+  "requested_radius_km": 20,
+  "publication_age_filter": null,
+  "used_observation_window_days": 14,
+  "limits": {
+    "queries": 1,
+    "pages": 2,
+    "details": 2,
+    "seconds": 180,
+    "request_timeout_seconds": 20
+  },
+  "pages": [
+    {
+      "index": 1,
+      "seconds": 4.062938472998212,
+      "candidate_count": 24,
+      "source_context": {
+        "verified": true,
+        "latitude": -23.55,
+        "longitude": -46.6333,
+        "radius_km": 20,
+        "query": "RTX 4060 8GB"
+      },
+      "diagnostic": null,
+      "has_continuation": true,
+      "continuation_sha256": "544de97f31361ffb2c42c4f164255c3a8e301bfef247c62db3741676a04d0236",
+      "explicit_adapter_queries_total": 0,
+      "candidates": [
+        {
+          "external_id": "2904182806625218",
+          "title": "Placa de Vídeo Galax RTX 3060TI",
+          "price": "1500.00"
+        },
+        {
+          "external_id": "1799853134401855",
+          "title": "RTX 1070TI",
+          "price": "800.00"
+        },
+        {
+          "external_id": "3666806850166445",
+          "title": "RTX 3080",
+          "price": "800.00"
+        },
+        {
+          "external_id": "1561306802471907",
+          "title": "RTX 2080",
+          "price": "800.00"
+        },
+        {
+          "external_id": "3086018761739930",
+          "title": "RTX 3060 TI",
+          "price": "800.00"
+        },
+        {
+          "external_id": "4050362315094968",
+          "title": "RTX 1070 TI",
+          "price": "800.00"
+        },
+        {
+          "external_id": "1109109921959431",
+          "title": "Rtx A400 Dlss Ray tracing e edição de IA",
+          "price": "1000.00"
+        },
+        {
+          "external_id": "4664147487204538",
+          "title": "Tuf a gaming F16 RTX 5060- i5,14450HX 16GB DDr5 SSD 512GB",
+          "price": "7500.00"
+        },
+        {
+          "external_id": "987395737249746",
+          "title": "AMD Ryzen 7 5700X3D 8-Core Processor",
+          "price": "7490.00"
+        },
+        {
+          "external_id": "921785817569667",
+          "title": "Placa de vídeo RTX 3060 12GB Asus",
+          "price": "2000.00"
+        },
+        {
+          "external_id": "2500006100491094",
+          "title": "PC Gamer RTX 5060 8GB | Intel Core i5 10400F | 16GB DDR4 | SSD NVMe 500gb | Water Cooler RGB",
+          "price": "4500.00"
+        },
+        {
+          "external_id": "2578204302680919",
+          "title": "Rog ally z1 extreme unico dono + mod bateria (novo)",
+          "price": "3600.00"
+        },
+        {
+          "external_id": "2380392516100971",
+          "title": "Placa de Vídeo Nvidia RTX 4060 8GB Palit - Semi-nova",
+          "price": "1899.00"
+        },
+        {
+          "external_id": "1167254672536759",
+          "title": "RTX 4060 8gb msi white, somente venda preço não negociável não aceito troca.",
+          "price": "2000.00"
+        },
+        {
+          "external_id": "1454640192663713",
+          "title": "Placa de Vídeo MSI GeForce RTX 5080 Inspire 3X OC 16GB GDDR7 - Lacrada",
+          "price": "8880.00"
+        },
+        {
+          "external_id": "2088566761780017",
+          "title": "Rtx 5060ti 8g",
+          "price": "3500.00"
+        },
+        {
+          "external_id": "1082331721522152",
+          "title": "Placa de video Rtx 3060 12 gb 256 bits biostar extreme",
+          "price": "2000.00"
+        },
+        {
+          "external_id": "4204913356475900",
+          "title": "RTX 5070TI",
+          "price": "8000.00"
+        },
+        {
+          "external_id": "1393132959316672",
+          "title": "RTX ZOTAC 3060 12GB",
+          "price": "2500.00"
+        },
+        {
+          "external_id": "1704493894341737",
+          "title": "RTX 3080 Aorus Xtreme Waterforce",
+          "price": "4000.00"
+        },
+        {
+          "external_id": "29167972302871151",
+          "title": "Rtx 5060",
+          "price": "2500.00"
+        },
+        {
+          "external_id": "944527405408659",
+          "title": "Rtx 5060 ti 16gb asus triple fan troco por RTX 4070 TI",
+          "price": "4800.00"
+        },
+        {
+          "external_id": "1818449012730247",
+          "title": "🔥MSI RTX 5080 SHADOW 3X OC 16GB GDDR7💥LACRADA💥+ GARANTIA 🔥MELHOR Q RTX 4080 S 9070XT 🚀! TROCA!",
+          "price": "10499.00"
+        },
+        {
+          "external_id": "2280224312562667",
+          "title": "Notebook Gamer ASUS TUF F15 - I7 12700H - RTX 4070 - 16GB - SSD M.2 1TB",
+          "price": "7899.00"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "seconds": 2.438153773000522,
+      "candidate_count": 24,
+      "source_context": {
+        "verified": true,
+        "latitude": -23.55,
+        "longitude": -46.6333,
+        "radius_km": 20,
+        "query": "RTX 4060 8GB"
+      },
+      "diagnostic": null,
+      "has_continuation": true,
+      "continuation_sha256": "29f4f4e57e9809ff1dc5d310069d9f4bdea66883c99d5d7ade18b18a24d69346",
+      "explicit_adapter_queries_total": 1,
+      "candidates": [
+        {
+          "external_id": "1906991920484951",
+          "title": "Notebook Gamer LENOVO LOQ - RYZEN 7 7435HS - RTX 4070 - 16GB - SSD M.2 512GB",
+          "price": "7899.00"
+        },
+        {
+          "external_id": "2226779038269317",
+          "title": "GeForce RTX 3050 6GB Palit",
+          "price": "1400.00"
+        },
+        {
+          "external_id": "1881371843032100",
+          "title": "PLACA DE VIDEO RTX 3060 12GB ASUS ( ACEITO CARTAO )",
+          "price": "1700.00"
+        },
+        {
+          "external_id": "1456786435997038",
+          "title": "Rtx 5060 ti 8gb troco ou vendo",
+          "price": "2999.00"
+        },
+        {
+          "external_id": "1795770398309892",
+          "title": "Placa de Vídeo NVIDIA GeForce RTX 5060 8GB – GALAX",
+          "price": "2500.00"
+        },
+        {
+          "external_id": "981320434571998",
+          "title": "RTX 3050 GALAX 8GB",
+          "price": "1400.00"
+        },
+        {
+          "external_id": "1700309901604462",
+          "title": "Vendo O Troco RTX 3060 TI Tuf Gaming",
+          "price": "2000.00"
+        },
+        {
+          "external_id": "982743671088276",
+          "title": "Rtx 4060ti 8gb galax",
+          "price": "2400.00"
+        },
+        {
+          "external_id": "2909082009457077",
+          "title": "Placa de Vídeo MSI GeForce RTX 3050 LP 6G OC",
+          "price": "1300.00"
+        },
+        {
+          "external_id": "1166864799328498",
+          "title": "RTX 5080 16gb MSI GAMING TRIO \nAceitamos trocas ,Leia a descrição",
+          "price": "11500.00"
+        },
+        {
+          "external_id": "1603036687760889",
+          "title": "RTX 5070ti Gigabyte gaming OC - NOVA",
+          "price": "8499.00"
+        },
+        {
+          "external_id": "2039873426680594",
+          "title": "RX 5700 XT 8gb - TROCA+VOLTA",
+          "price": "1.00"
+        },
+        {
+          "external_id": "2173318143395212",
+          "title": "ASUS 5070 ATLAS SHARK 3 FANS 12GB GDDR7  LACRADA +GARANTIA+ MELHOR Q 4070 TI 9070 DLSS5.0!",
+          "price": "5499.00"
+        },
+        {
+          "external_id": "1126463747033809",
+          "title": "RTX 3060 Ti 8Gb (LEIA A LEGENDA)",
+          "price": "0.00"
+        },
+        {
+          "external_id": "1124411753325531",
+          "title": "Rtx 2070 gigabyte com Defeito",
+          "price": "350.00"
+        },
+        {
+          "external_id": "1938625344066867",
+          "title": "PC RYZEN 5 5500/ RTX 4060",
+          "price": "4000.00"
+        },
+        {
+          "external_id": "996409649569792",
+          "title": "RTX 5060 TI Gigabyte 8GB (NOVA LACRADA)",
+          "price": "3199.00"
+        },
+        {
+          "external_id": "1606609860646149",
+          "title": "RTX 4070 Super Asus 12gb",
+          "price": "4499.00"
+        },
+        {
+          "external_id": "1864575444897516",
+          "title": "Rtx 5060 ti 16gb + tcl mini led 180hz troco por Rtx 5070 Ti",
+          "price": "6800.00"
+        },
+        {
+          "external_id": "1170009858939585",
+          "title": "GTX 1660 6gb",
+          "price": "900.00"
+        },
+        {
+          "external_id": "1163798729401279",
+          "title": "RTX 5080 16GB MSI GAMING TRIO (L",
+          "price": "12999.00"
+        },
+        {
+          "external_id": "1175162768267036",
+          "title": "RTX 5070 12GB ASUS PRIME OC (LACRADA COM NF)",
+          "price": "5799.00"
+        },
+        {
+          "external_id": "4386121908365497",
+          "title": "GALAX RTX 5060 8GB edição limitada – 8 Meses de Uso – Com Caixa Original",
+          "price": "2750.00"
+        },
+        {
+          "external_id": "1826614658659900",
+          "title": "Placa de video RTX3060 ti Asus Rog Strix",
+          "price": "2300.00"
+        }
+      ]
+    }
+  ],
+  "details": [
+    {
+      "external_id": "2904182806625218",
+      "url": "https://www.facebook.com/marketplace/item/2904182806625218/",
+      "seconds": 6.000384150996979,
+      "title": "Placa de Vídeo Galax RTX 3060TI",
+      "price": "1500.00",
+      "source_available": true,
+      "published_at": "2026-11-13T12:12:06+00:00",
+      "observed_at": "2026-11-13T12:55:46.259151+00:00",
+      "identity_state": "unrecognized",
+      "product_key": null,
+      "condition": "Novo",
+      "eligible_for_target": false
+    },
+    {
+      "external_id": "1799853134401855",
+      "url": "https://www.facebook.com/marketplace/item/1799853134401855/",
+      "seconds": 6.509336641996924,
+      "title": "RTX 1070TI",
+      "price": "800.00",
+      "source_available": true,
+      "published_at": "2026-11-13T12:06:02+00:00",
+      "observed_at": "2026-11-13T12:55:52.769472+00:00",
+      "identity_state": "unrecognized",
+      "product_key": null,
+      "condition": "Novo",
+      "eligible_for_target": false
+    }
+  ],
+  "read_only": true,
+  "business_observations_published": 0,
+  "real_whatsapp_posts": 0,
+  "profile_copied": false,
+  "unique_candidate_count": 48,
+  "retained_from_examined_details": 0,
+  "source_elapsed_seconds": 19.011308499000734,
+  "status": "verified_native_city_bounded",
+  "coverage": "Two bounded native pages and at most two details; source continuation is not exhaustion; no five-real-comparable claim.",
+  "profile_closed": true,
+  "finished_at": "2026-11-13T12:55:52.851986+00:00",
+  "measurements": {
+    "query_seconds": [
+      4.062938472998212,
+      2.438153773000522
+    ],
+    "detail_seconds": [
+      6.000384150996979,
+      6.509336641996924
+    ],
+    "source_window_seconds": 19.09351072699792
+  },
+  "corpus_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d"
+}

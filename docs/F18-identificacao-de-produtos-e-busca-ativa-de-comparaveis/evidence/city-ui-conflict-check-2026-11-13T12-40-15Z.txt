@@ -1,0 +1,17 @@
+### Result
+{"conflict":"825gb versus 1tb","source_city":"São Paulo/SP","radius":20,"profit_blocked":true,"box":{"width":390,"scroll":390}}
+### Ran Playwright code
+```js
+await (async page => {
+ const assert=(v,m)=>{if(!v)throw new Error(m)};const text=await page.locator('main').innerText();
+ assert(text.includes('sua correção 825gb; anúncio 1tb'),'conflict evidence missing');
+ assert(!text.includes('R$ 1.012,50') && text.includes('Venda estimada, lucro aplicável e novas autorizações de alerta aguardam a revisão'),'old profit released conflict');
+ assert(text.includes('São Paulo/SP · raio 20 km'),'new source city label absent');
+ const panel=page.getByText('Revisar sua correção de identidade',{exact:true});
+ if(!(await page.getByRole('button',{name:'Manter minha correção revisada',exact:true}).isVisible()))await panel.click();
+ const box=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));assert(box.width===box.scroll,'conflict overflow');
+ await page.screenshot({path:'/tmp/f18-ui-conflict-mobile.png',fullPage:true});
+ return {conflict:'825gb versus 1tb',source_city:'São Paulo/SP',radius:20,profit_blocked:true,box};
+}
+)(page);
+```

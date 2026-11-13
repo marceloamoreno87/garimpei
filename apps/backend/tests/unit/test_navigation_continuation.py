@@ -57,7 +57,9 @@ class ContinuationBrowser:
 
 def test_safe_cursor_can_reconstruct_in_a_new_adapter() -> None:
     browser = ContinuationBrowser()
-    source = FacebookMarketplace(browser, Geocoding(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, Geocoding().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 4, "scope", ())
     query = Search(Match("product", "ps5 slim"), "PS5 Slim", "marketplace")
     page = source.search(scope, query, "source:opaque-previous")
@@ -83,14 +85,18 @@ def test_native_cursor_survives_new_adapter_without_assuming_base64_or_480_bytes
     # Use synthetic opaque data, never a captured authenticated cursor.
     cursor = '{"offset":"' + "x" * 1650 + '","page":2}'
     first_browser = LongCursorBrowser(cursor)
-    first_source = FacebookMarketplace(first_browser, Geocoding(), CategoryCatalog("", "", ()))
+    first_source = FacebookMarketplace(
+        first_browser, Geocoding().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 4, "scope", ())
     query = Search(Match("product", "ps5 slim"), "PS5 Slim", "marketplace")
     first_page = first_source.search(scope, query, None)
     assert first_page.continuation == "source:" + cursor
 
     resumed_browser = LongCursorBrowser(cursor)
-    resumed_source = FacebookMarketplace(resumed_browser, Geocoding(), CategoryCatalog("", "", ()))
+    resumed_source = FacebookMarketplace(
+        resumed_browser, Geocoding().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     second_page = resumed_source.search(scope, query, first_page.continuation)
     assert resumed_browser.calls == ["context", cursor]
     assert second_page.rebuilt and second_page.traversed_pages == 2
@@ -100,7 +106,9 @@ def test_native_cursor_survives_new_adapter_without_assuming_base64_or_480_bytes
 @pytest.mark.parametrize("cursor", ["x" * 4097, "opaque\nvalue", "opaque\x00value", "é"])
 def test_native_cursor_rejects_controls_oversize_and_non_ascii(cursor: str) -> None:
     browser = ContinuationBrowser()
-    source = FacebookMarketplace(browser, Geocoding(), CategoryCatalog("", "", ()))
+    source = FacebookMarketplace(
+        browser, Geocoding().resolve("01001000"), CategoryCatalog("", "", ())
+    )
     scope = Scope(uuid4(), "facebook_marketplace", "01001000", 4, "scope", ())
     query = Search(Match("product", "ps5 slim"), "PS5 Slim", "marketplace")
     with pytest.raises(SourceFailure, match="cursor_expired"):

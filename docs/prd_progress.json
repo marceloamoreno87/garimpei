@@ -302,11 +302,11 @@
         "F13"
       ],
       "status": "implemented",
-      "cycles": 1,
-      "failure_reason": "Contexto geográfico da resposta real não comprovado; 6 km era metadado HTML inicial. Pesquisa automática desativada. Retomada parcial: 29 testes e seis gates aprovados.",
+      "cycles": 2,
+      "failure_reason": "São Paulo/20 km comprovados; avaliação completa aguarda suíte ampla e consolidação final.",
       "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T02-36-06Z.md",
       "started_at": "2026-11-12T19:40:37.616175Z",
-      "updated_at": "2026-11-13T02:38:46.832789+00:00",
+      "updated_at": "2026-11-13T13:07:55.578061+00:00",
       "completed_at": null
     },
     "F19": {
