@@ -27,6 +27,7 @@ Estas condições descrevem o ambiente de exercício do contrato. Sua preparaç�
 ### Configuration
 
 - Configuração central de F19 com revisão exata do modelo, cloud desabilitado, endpoint local, concorrência/contexto/imagens/saída/fila/timeout/tentativas finitos e comprovados. Nenhuma credencial é entrada do modelo. Configuração de teste usa `GARIMPEI_ENV=eval`, instância própria e arquivo privado fora do repositório.
+- Ajuste aprovado em 2026-11-13: somente o perfil F15 pode gerar até 1.024 tokens; legado F19 permanece até 512 e o contexto total permanece 4.096. Verificar configuração central, reserva completa de texto/instruções/schema/imagem e saída por perfil, recusa de excesso e `num_predict` real. Saída truncada continua inválida. O novo perfil tem versão/chave próprias e não reutiliza resultado incompatível; os rótulos e splits de referência não mudam.
 - Política/rubrica e prompt/schema versionados, F15 ativa. Lab produz e verifica configuração sem segredos pelo protocolo definido na spec; valores de teste não são metas do produto.
 
 ### External dependencies
