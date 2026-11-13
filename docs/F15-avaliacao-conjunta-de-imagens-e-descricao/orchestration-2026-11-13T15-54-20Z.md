@@ -19,6 +19,8 @@ Referênciae13/splits congelados. O reservado já foi exposto e a repetição se
 
 | 7 | correction (2/3 nesta onda) | checkpoint verified | [filtragem P2](correction-cycle-7.md): 34 unitários, 7 integração e seis gates PASS |
 
+| 8 | correction (3/3 nesta onda) | checkpoint verified | [perfil v3/1024 autorizado](correction-cycle-8.md): 50 unitários, integrações14/9 e seis gates PASS; GPU/full pendentes |
+
 ## Final Verdict
 
 Causa confirmada e checkpoint corrigido/verificado. Avaliação canônica permanece pendente da prova física v2 e full do coordenador. Sem veredito done antecipado.

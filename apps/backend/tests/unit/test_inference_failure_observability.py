@@ -73,14 +73,17 @@ def test_rejected_length_envelope_keeps_reason_timing_and_gpu_without_private_co
         assert fake.calls.count("/api/chat") == 1
 
 
-def test_stale_condition_profile_is_rejected_before_gpu_or_transport(tmp_path: Path) -> None:
+@pytest.mark.parametrize("previous", ["condition-evidence-v1", "condition-evidence-v2"])
+def test_stale_condition_profile_is_rejected_before_gpu_or_transport(
+    tmp_path: Path, previous: str
+) -> None:
     settings = inference_settings(tmp_path, "http://127.0.0.1:9")
     gateway = OllamaGateway(
         settings, HostGpuGuard(settings.gpu_lock, settings.owner), lambda: False
     )
     with pytest.raises(InferenceError, match="unsupported_prompt_or_schema") as captured:
         gateway.infer(
-            PreparedPart("text", "old profile", profile="condition-evidence-v1"),
+            PreparedPart("text", "old profile", profile=previous),
             LocalInputPreparer(settings).artifact(),
         )
     assert captured.value.diagnostic == "unsupported_profile" and captured.value.sent is False

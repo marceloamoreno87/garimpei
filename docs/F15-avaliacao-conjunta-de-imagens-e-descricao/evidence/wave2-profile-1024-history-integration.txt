@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/e16d/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 9 items
+
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[json-invalid_json_or_context] PASSED [ 11%]
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[schema-schema_mismatch] PASSED [ 22%]
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[text-text_reference_mismatch] PASSED [ 33%]
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[photo-image_reference_mismatch] PASSED [ 44%]
+tests/integration/test_inference_failure_observability.py::test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v1] PASSED [ 55%]
+tests/integration/test_inference_failure_observability.py::test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v2] PASSED [ 66%]
+tests/integration/test_inference_failure_observability.py::test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v1] PASSED [ 77%]
+tests/integration/test_inference_failure_observability.py::test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v2] PASSED [ 88%]
+tests/integration/test_inference_failure_observability.py::test_accepted_http_envelope_then_rejected_json_persists_only_numeric_metrics PASSED [100%]
+
+============================== 9 passed in 28.54s ==============================

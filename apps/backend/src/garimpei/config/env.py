@@ -14,6 +14,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
+from garimpei.domain.inference.profile_limits import (
+    CONTEXT_TOKENS,
+    LEGACY_OUTPUT_TOKENS,
+    TEXT_TOKENS,
+)
 from garimpei.domain.navigation.policy import NavigationPolicy
 
 
@@ -482,10 +487,20 @@ class InferenceSettings:
     idle_seconds: int = 300
     lease_seconds: int = 240
     attempts: int = 3
-    text_tokens: int = 2048
-    context_tokens: int = 4096
-    output_tokens: int = 512
+    text_tokens: int = TEXT_TOKENS
+    context_tokens: int = CONTEXT_TOKENS
+    output_tokens: int = LEGACY_OUTPUT_TOKENS
     photo_manifest: Path | None = None
+
+    def __post_init__(self) -> None:
+        if (
+            self.context_tokens != CONTEXT_TOKENS
+            or self.output_tokens != LEGACY_OUTPUT_TOKENS
+            or not 1 <= self.text_tokens <= TEXT_TOKENS
+        ):
+            raise ConfigurationError(
+                "Inference budgets: expected context=4096, legacy output=512, text<=2048"
+            )
 
 
 def load_inference_settings() -> InferenceSettings:

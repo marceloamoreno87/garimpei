@@ -1,0 +1,122 @@
+...FFFF                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_dispatch_and_response_reserve_the_approved_profile_limit[condition-evidence-v2-700-3072-True-] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-43/test_dispatch_and_response_res3')
+profile = 'condition-evidence-v2', generated = 700, prompt = 3072
+accepted = True, reason = ''
+
+    @pytest.mark.parametrize(
+        "profile,generated,prompt,accepted,reason",
+        [
+            ("local-evidence-v1", 511, 3584, True, ""),
+            ("local-evidence-v1", 512, 100, False, "invalid_output"),
+            ("local-evidence-v1", 1, 3585, False, "context_unverified"),
+            (VERSION, 700, 3072, True, ""),
+            (VERSION, 1024, 100, False, "invalid_output"),
+            (VERSION, 700, 3073, False, "context_unverified"),
+        ],
+    )
+    def test_dispatch_and_response_reserve_the_approved_profile_limit(
+        tmp_path: Path, profile: str, generated: int, prompt: int, accepted: bool, reason: str
+    ) -> None:
+        fake = ProfileLimitEnvelopeFake(generated, prompt)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            part = PreparedPart("text", "Controlled", profile=profile)
+            options = gateway._body(part)["options"]
+            assert isinstance(options, dict)
+            assert options["num_ctx"] == 4096
+>           assert options["num_predict"] == (1024 if profile == VERSION else 512)
+E           assert 512 == 1024
+
+tests/unit/test_inference_profile_limits.py:54: AssertionError
+_ test_dispatch_and_response_reserve_the_approved_profile_limit[condition-evidence-v2-1024-100-False-invalid_output] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-43/test_dispatch_and_response_res4')
+profile = 'condition-evidence-v2', generated = 1024, prompt = 100
+accepted = False, reason = 'invalid_output'
+
+    @pytest.mark.parametrize(
+        "profile,generated,prompt,accepted,reason",
+        [
+            ("local-evidence-v1", 511, 3584, True, ""),
+            ("local-evidence-v1", 512, 100, False, "invalid_output"),
+            ("local-evidence-v1", 1, 3585, False, "context_unverified"),
+            (VERSION, 700, 3072, True, ""),
+            (VERSION, 1024, 100, False, "invalid_output"),
+            (VERSION, 700, 3073, False, "context_unverified"),
+        ],
+    )
+    def test_dispatch_and_response_reserve_the_approved_profile_limit(
+        tmp_path: Path, profile: str, generated: int, prompt: int, accepted: bool, reason: str
+    ) -> None:
+        fake = ProfileLimitEnvelopeFake(generated, prompt)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            part = PreparedPart("text", "Controlled", profile=profile)
+            options = gateway._body(part)["options"]
+            assert isinstance(options, dict)
+            assert options["num_ctx"] == 4096
+>           assert options["num_predict"] == (1024 if profile == VERSION else 512)
+E           assert 512 == 1024
+
+tests/unit/test_inference_profile_limits.py:54: AssertionError
+_ test_dispatch_and_response_reserve_the_approved_profile_limit[condition-evidence-v2-700-3073-False-context_unverified] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-43/test_dispatch_and_response_res5')
+profile = 'condition-evidence-v2', generated = 700, prompt = 3073
+accepted = False, reason = 'context_unverified'
+
+    @pytest.mark.parametrize(
+        "profile,generated,prompt,accepted,reason",
+        [
+            ("local-evidence-v1", 511, 3584, True, ""),
+            ("local-evidence-v1", 512, 100, False, "invalid_output"),
+            ("local-evidence-v1", 1, 3585, False, "context_unverified"),
+            (VERSION, 700, 3072, True, ""),
+            (VERSION, 1024, 100, False, "invalid_output"),
+            (VERSION, 700, 3073, False, "context_unverified"),
+        ],
+    )
+    def test_dispatch_and_response_reserve_the_approved_profile_limit(
+        tmp_path: Path, profile: str, generated: int, prompt: int, accepted: bool, reason: str
+    ) -> None:
+        fake = ProfileLimitEnvelopeFake(generated, prompt)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            part = PreparedPart("text", "Controlled", profile=profile)
+            options = gateway._body(part)["options"]
+            assert isinstance(options, dict)
+            assert options["num_ctx"] == 4096
+>           assert options["num_predict"] == (1024 if profile == VERSION else 512)
+E           assert 512 == 1024
+
+tests/unit/test_inference_profile_limits.py:54: AssertionError
+_______ test_condition_profile_revision_invalidates_both_prior_profiles ________
+
+    def test_condition_profile_revision_invalidates_both_prior_profiles() -> None:
+>       assert VERSION == "condition-evidence-v3"
+E       AssertionError: assert 'condition-evidence-v2' == 'condition-evidence-v3'
+E
+E         - condition-evidence-v3
+E         ?                     ^
+E         + condition-evidence-v2
+E         ?                     ^
+
+tests/unit/test_inference_profile_limits.py:64: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_inference_profile_limits.py::test_dispatch_and_response_reserve_the_approved_profile_limit[condition-evidence-v2-700-3072-True-]
+FAILED tests/unit/test_inference_profile_limits.py::test_dispatch_and_response_reserve_the_approved_profile_limit[condition-evidence-v2-1024-100-False-invalid_output]
+FAILED tests/unit/test_inference_profile_limits.py::test_dispatch_and_response_reserve_the_approved_profile_limit[condition-evidence-v2-700-3073-False-context_unverified]
+FAILED tests/unit/test_inference_profile_limits.py::test_condition_profile_revision_invalidates_both_prior_profiles
+4 failed, 3 passed in 3.13s

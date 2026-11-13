@@ -22,6 +22,7 @@ from garimpei.domain.inference.condition_evidence import (
 )
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import PreparedPart
+from garimpei.domain.inference.profile_limits import VISUAL_RESERVE_TOKENS, output_token_limit
 from garimpei.domain.inference.request import AnalysisInput, ImageReference
 from garimpei.domain.inference.result import SCHEMA, bounded_schema
 from garimpei.infra.gateway.inference.artifact_policy import validate_artifact_lock
@@ -60,8 +61,13 @@ class LocalInputPreparer:
 
     def prepare(self, value: AnalysisInput) -> tuple[PreparedPart, ...]:
         parts: list[PreparedPart] = []
+        if value.text.strip() or value.prompt_version == CONDITION_VERSION:
+            self._text_budget(
+                value.text,
+                value.prompt_version,
+                visual=bool(value.images) and value.prompt_version == CONDITION_VERSION,
+            )
         if value.text.strip():
-            self._text_budget(value.text, value.prompt_version)
             digest = hashlib.sha256(value.text.encode()).hexdigest()
             parts.append(
                 PreparedPart(
@@ -91,7 +97,9 @@ class LocalInputPreparer:
         digest = str(read_lock(self._settings.model_lock)["model_digest"])
         return tuple(replace(part, model_digest=digest) for part in parts)
 
-    def _text_budget(self, text: str, profile: str = "local-evidence-v1") -> None:
+    def _text_budget(
+        self, text: str, profile: str = "local-evidence-v1", *, visual: bool = False
+    ) -> None:
         settings = self._settings
         lock = read_lock(settings.model_lock)
         tokenizer = cast(dict[str, str], lock.get("tokenizer", {}))
@@ -103,7 +111,8 @@ class LocalInputPreparer:
         prompt = CONDITION_PROMPT if profile == CONDITION_VERSION else PROMPT
         schema = CONDITION_SCHEMA if profile == CONDITION_VERSION else bounded_schema(text, None)
         count = len(codec.encode(prompt + json.dumps(schema) + text).ids) + 256
-        if count > settings.text_tokens:
+        reserved = output_token_limit(profile) + (VISUAL_RESERVE_TOKENS if visual else 0)
+        if count > settings.text_tokens or count + reserved > settings.context_tokens:
             raise InferenceError("context_unverified")
 
     def _image(self, reference: ImageReference) -> PreparedPart:

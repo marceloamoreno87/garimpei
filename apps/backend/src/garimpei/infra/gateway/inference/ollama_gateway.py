@@ -22,6 +22,7 @@ from garimpei.domain.inference.condition_evidence import (
 )
 from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.inference.ports import PreparedPart
+from garimpei.domain.inference.profile_limits import output_token_limit
 from garimpei.domain.inference.request import MODEL, SUPPORTED_PROFILES
 from garimpei.domain.inference.result import bounded_schema
 from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
@@ -66,7 +67,7 @@ class OllamaGateway:
                 )
                 received = True
                 metrics.update(_response_metrics(envelope))
-                result = self._validate_received(envelope)
+                result = self._validate_received(envelope, part.profile)
                 metrics.update(cast(dict[str, object], result["metrics"]))
                 result["metrics"] = metrics | {
                     "gpu_samples": samples,
@@ -87,9 +88,11 @@ class OllamaGateway:
                     | {"gpu_samples": samples, "wall_duration_ns": time.monotonic_ns() - started},
                 ) from None
 
-    def _validate_received(self, envelope: dict[str, object]) -> dict[str, object]:
+    def _validate_received(
+        self, envelope: dict[str, object], profile: str = "local-evidence-v1"
+    ) -> dict[str, object]:
         try:
-            return self._validated_envelope(envelope)
+            return self._validated_envelope(envelope, profile)
         except InferenceError as error:
             raise InferenceError(
                 error.code,
@@ -140,12 +143,14 @@ class OllamaGateway:
             "keep_alive": "5m",
             "options": {
                 "num_ctx": self._settings.context_tokens,
-                "num_predict": self._settings.output_tokens,
+                "num_predict": output_token_limit(part.profile),
                 "temperature": 0,
             },
         }
 
-    def _validated_envelope(self, envelope: dict[str, object]) -> dict[str, object]:
+    def _validated_envelope(
+        self, envelope: dict[str, object], profile: str = "local-evidence-v1"
+    ) -> dict[str, object]:
         message = envelope.get("message")
         if envelope.get("done") is not True:
             raise InferenceError("invalid_output", diagnostic="generation_incomplete")
@@ -163,11 +168,11 @@ class OllamaGateway:
         ):
             raise InferenceError("invalid_output", diagnostic="assistant_message_or_tool_calls")
         if (
-            _metric(envelope, "prompt_eval_count") + self._settings.output_tokens
+            _metric(envelope, "prompt_eval_count") + output_token_limit(profile)
             > self._settings.context_tokens
         ):
             raise InferenceError("context_unverified", diagnostic="response_context_budget")
-        if _metric(envelope, "eval_count") >= self._settings.output_tokens:
+        if _metric(envelope, "eval_count") >= output_token_limit(profile):
             raise InferenceError("invalid_output", diagnostic="generation_token_limit")
         resident = self._resident()
         if resident is None or _metric(resident, "size_vram") < _metric(resident, "size"):

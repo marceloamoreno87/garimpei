@@ -243,11 +243,11 @@
         "F19"
       ],
       "status": "implemented",
-      "cycles": 7,
-      "failure_reason": "Nova onda: perfil v2 e telemetria corrigidos; P2 de métricas brutas fechado com 34 unitários/7 integração/seis gates PASS. Par físico v2 ainda length512; avaliação/full pendentes. 2/3 correções consumidas.",
+      "cycles": 8,
+      "failure_reason": "Perfil F15v3 até1024 autorizado, legado512/contexto4096 preservados. 50unit/integrações14+9/seis gates PASS; calibração GPU1024/full pendentes. Três correções desta onda consumidas, sem done antecipado.",
       "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T15-39-09Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-13T16:21:44.926895+00:00",
+      "updated_at": "2026-11-13T16:31:43.688135+00:00",
       "completed_at": null
     },
     "F16": {

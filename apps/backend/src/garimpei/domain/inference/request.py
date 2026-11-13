@@ -14,6 +14,7 @@ from garimpei.domain.inference.condition_evidence import (
     VERSION as CONDITION_VERSION,
 )
 from garimpei.domain.inference.errors import InferenceError
+from garimpei.domain.inference.profile_limits import CONTEXT_TOKENS, output_token_limit
 
 VERSION = "local-evidence-v1"
 MODEL = "qwen3.5:4b-q4_K_M"
@@ -73,8 +74,8 @@ class AnalysisInput:
             "artifact": artifact,
             "transformation": "512-v1",
             "options": {
-                "num_ctx": 4096,
-                "num_predict": 512,
+                "num_ctx": CONTEXT_TOKENS,
+                "num_predict": output_token_limit(self.prompt_version),
                 "temperature": 0,
                 "think": False,
                 "visual_text": False,

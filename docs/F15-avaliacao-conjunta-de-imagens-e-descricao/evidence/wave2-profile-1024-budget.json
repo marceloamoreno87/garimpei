@@ -1,0 +1,201 @@
+{
+  "profile": "condition-evidence-v3",
+  "policy_version": "condition-policy-v1",
+  "tokenizer_sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+  "prompt_sha256": "73636a5eb433c6afcf3b810e146fe66ff8dd81877a4995cfa860af636b0a2b80",
+  "schema_sha256": "f3b82e6d2217f063e75419829e89d31802605e867d53e74a66854e7e1944d1e7",
+  "context_limit": 4096,
+  "legacy_output_limit": 512,
+  "condition_output_limit": 1024,
+  "visual_reservation_preserved": 1536,
+  "condition_multimodal_text_cap": 1536,
+  "max_fixture_text_tokens": 1506,
+  "all_fixtures_fit": true,
+  "scope": "Offline exact tokenizer audit of frozen 23 texts/category and empty identity; no GPU inference. Actual identity/context must still pass preparer; actual prompt_eval_count plus output is checked against4096 in response.",
+  "cases": [
+    {
+      "case_id": "source-1633686958401669",
+      "text_tokens_with_margin": 1489,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4049,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "source-1502910511735697",
+      "text_tokens_with_margin": 1493,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4053,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "electronics-light_wear",
+      "text_tokens_with_margin": 1495,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4055,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "electronics-clear_defect",
+      "text_tokens_with_margin": 1495,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4055,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "electronics-suspected",
+      "text_tokens_with_margin": 1495,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4055,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "camera-light_wear",
+      "text_tokens_with_margin": 1498,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4058,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "camera-clear_defect",
+      "text_tokens_with_margin": 1498,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4058,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "camera-suspected",
+      "text_tokens_with_margin": 1498,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4058,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "computer-light_wear",
+      "text_tokens_with_margin": 1494,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4054,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "computer-clear_defect",
+      "text_tokens_with_margin": 1494,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4054,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "computer-suspected",
+      "text_tokens_with_margin": 1494,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4054,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "console-light_wear",
+      "text_tokens_with_margin": 1500,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4060,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "console-clear_defect",
+      "text_tokens_with_margin": 1500,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4060,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "console-suspected",
+      "text_tokens_with_margin": 1500,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4060,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "headphone-light_wear",
+      "text_tokens_with_margin": 1501,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4061,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "headphone-clear_defect",
+      "text_tokens_with_margin": 1501,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4061,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "headphone-suspected",
+      "text_tokens_with_margin": 1501,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4061,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "television-light_wear",
+      "text_tokens_with_margin": 1499,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4059,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "television-clear_defect",
+      "text_tokens_with_margin": 1499,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4059,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "television-suspected",
+      "text_tokens_with_margin": 1499,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4059,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "intermittent",
+      "text_tokens_with_margin": 1506,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4066,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "battery",
+      "text_tokens_with_margin": 1500,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4060,
+      "fits_total_context": true
+    },
+    {
+      "case_id": "untested",
+      "text_tokens_with_margin": 1500,
+      "conservative_visual_tokens": 1536,
+      "output_reservation": 1024,
+      "total_reserved": 4060,
+      "fits_total_context": true
+    }
+  ]
+}
