@@ -224,13 +224,13 @@
         "F08",
         "F12"
       ],
-      "status": "implemented",
+      "status": "done",
       "cycles": 2,
-      "failure_reason": "E2E-FONTE-01 bloqueado: amostra real sem duas resoluções comprovadas; avaliação parcial com 34 itens SKIPPED. Necessária nova amostra, comparação de bytes e jornada real.",
-      "report_path": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-13T02-35-56Z.md",
+      "failure_reason": null,
+      "report_path": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/eval-report-2026-11-13T12-24-34Z.md",
       "started_at": "2026-11-12T18:30:51.546640+00:00",
-      "updated_at": "2026-11-13T02:36:41.292966+00:00",
-      "completed_at": null
+      "updated_at": "2026-11-13T12:24:34.455511+00:00",
+      "completed_at": "2026-11-13T12:24:34.455511+00:00"
     },
     "F15": {
       "name": "Avaliação conjunta de imagens e descrição",
