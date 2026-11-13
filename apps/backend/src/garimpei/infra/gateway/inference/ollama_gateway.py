@@ -27,6 +27,7 @@ from garimpei.domain.inference.request import MODEL, SUPPORTED_PROFILES
 from garimpei.domain.inference.result import bounded_schema
 from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
 from garimpei.infra.gateway.inference.input_preparer import PROMPT, artifact_signature, read_lock
+from garimpei.infra.gateway.inference.json_encoding import compact_json
 
 
 class OllamaGateway:
@@ -312,7 +313,7 @@ def _http(
     connection.request(
         "GET" if body is None else "POST",
         path,
-        body=json.dumps(body).encode() if body is not None else None,
+        body=compact_json(body).encode() if body is not None else None,
         headers={"Content-Type": "application/json"},
     )
     response = connection.getresponse()

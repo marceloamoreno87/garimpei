@@ -141,6 +141,26 @@ class PostgresAlertDiagnosticQueries:
                 gold = self._gold.read(listing_id)
             except GoldDiagnosticReadFailed:
                 gold_failed = True
+        gold_blocks = gold is not None and gold.state != "qualified"
+        if gold_blocks and gold is not None:
+            current_reason = gold.reason
+        if (
+            gold_blocks
+            and gold is not None
+            and active
+            and active.state in {"queued", "blocked", "safe_retry"}
+        ):
+            state, reason = gold.state, gold.reason
+            reasons = tuple(dict.fromkeys((gold.reason, *reasons)))
+        if gold_failed and active and active.state in {"queued", "blocked", "safe_retry"}:
+            state, reason, current_reason = (
+                "waiting",
+                "gold_dependency_unavailable",
+                "gold_dependency_unavailable",
+            )
+        label = reason_label(reason)
+        if gold_blocks and gold is not None and state in {"waiting", "blocked"}:
+            label = gold.label
         return AlertDiagnostic(
             gold=gold,
             gold_failed=gold_failed,
@@ -149,11 +169,13 @@ class PostgresAlertDiagnosticQueries:
             reason=reason,
             label="Envio incerto; aguardando reconciliação"
             if state in {"authorized", "uncertain", "review"}
-            else reason_label(reason),
+            else label,
             first_alert_state=first_state,
             reasons=reasons,
             current_reason=current_reason,
-            current_label=reason_label(current_reason),
+            current_label=gold.label
+            if gold_blocks and gold is not None
+            else reason_label(current_reason),
             evaluated_at=decision.evaluated_at if decision else None,
             next_action_at=active.next_action if active else (row.next_action if row else None),
             observation_id=observation,

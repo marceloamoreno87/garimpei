@@ -8,6 +8,7 @@ from uuid import UUID
 from django.db import DatabaseError
 
 from garimpei.domain.alert.gold_diagnostic import GoldDiagnostic, GoldDiagnosticReadFailed
+from garimpei.domain.alert.gold_evidence import POLICY
 from garimpei.domain.alert.gold_qualification import qualify
 from garimpei.infra.persistence.alert_models import FirstEligibilityDecision
 from garimpei.infra.persistence.gold_models import GoldQualification
@@ -47,21 +48,26 @@ class PostgresGoldDiagnosticQueries:
             raise GoldDiagnosticReadFailed() from error
 
     def _read(self, listing_id: UUID) -> GoldDiagnostic | None:
-        row = (
-            GoldQualification.objects.filter(listing_id=listing_id, purpose_key="first")
-            .order_by("-evaluated_at", "-id")
-            .first()
-        )
         listing = Listing.objects.select_related("latest").filter(id=listing_id).first()
-        if row is None or listing is None or listing.latest is None:
+        if listing is None or listing.latest is None:
             return None
         first = (
             FirstEligibilityDecision.objects.filter(identity__listing_id=listing_id)
-            .order_by("-evaluated_at")
+            .order_by("-generation")
             .first()
         )
         snapshot, _ = gold_snapshot(listing, first.financial if first else {}, self._clock())
         decision = qualify(snapshot, self._clock())
+        rows = GoldQualification.objects.filter(
+            listing_id=listing_id, purpose_key="first", policy=POLICY
+        )
+        # Input identity is authoritative; controlled clocks and UUIDs do not establish order.
+        row = rows.filter(
+            input_fingerprint=decision.input_fingerprint, observation_id=listing.latest_id
+        ).first()
+        row = row or rows.order_by("-evaluated_at").first()
+        if row is None:
+            return None
         current = (
             row.input_fingerprint == decision.input_fingerprint
             and row.observation_id == listing.latest_id
