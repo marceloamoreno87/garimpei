@@ -1,0 +1,190 @@
+{
+  "recorded_at": "2026-11-13T21:26:35.792467+00:00",
+  "reviewed_feature_head": "ba91646dfd5e81eb582cb61a88efa75951eaccce",
+  "base": "15b1f48dee41b1faddc296a5d484a55a922ec999",
+  "production_changed_files": [
+    "apps/backend/src/garimpei/domain/inference/condition_evidence.py",
+    "apps/backend/src/garimpei/domain/inference/condition_request.py",
+    "apps/backend/src/garimpei/infra/gateway/inference/input_preparer.py",
+    "apps/backend/src/garimpei/infra/gateway/inference/ollama_gateway.py"
+  ],
+  "features_changed_in_progress": [
+    "F21"
+  ],
+  "all_registered_worktree_heads_included": true,
+  "worktrees": [
+    {
+      "path": "/home/marce/dev/garimpei",
+      "head": "15b1f48dee41b1faddc296a5d484a55a922ec999",
+      "branch": "refs/heads/ui/audit-20261113-concurrent",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/0d94/garimpei",
+      "head": "9a754971e9bad9dbf0ba2b7ec470998bc8ea1d21",
+      "branch": "refs/heads/feat/F17-resiliencia-operacional",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/1bf0/garimpei",
+      "head": "15b1f48dee41b1faddc296a5d484a55a922ec999",
+      "branch": "refs/heads/master",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/34bb/garimpei",
+      "head": "2add5b3750721ae5bfa9aec26e7bf017d17ac985",
+      "branch": "refs/heads/feat/F16-primeira-elegibilidade",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/4bff/garimpei",
+      "head": "6078fd8a65007b579c12fb4a41aad9636abc52f4",
+      "branch": "refs/heads/fix/F13-prova-continuidade",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6c3f/garimpei",
+      "head": "e33c69be6427a704086f6295aee7093c636316f7",
+      "branch": "refs/heads/feat/F19-inferencia-multimodal-local",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6cd6/garimpei",
+      "head": "5a90b88cc211cef36a8b4d90274f275a59ff91f2",
+      "branch": "refs/heads/fix/startup-deadline-envelope",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6efe/garimpei",
+      "head": "021ef59a760aeb308df8f5f90f910405f9e230b5",
+      "branch": "refs/heads/fix/navigation-effective-budget",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/7ae4/garimpei",
+      "head": "f999b1b494c563c2f7e49d2a5d6354fe63e50bd9",
+      "branch": "refs/heads/feat/F14-imagens-locais",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/90b7/garimpei",
+      "head": "ee8b3a4727c4e2fa8ec6e7e0450bad35c78a458e",
+      "branch": "refs/heads/fix/exploration-configuration-lock",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a716/garimpei",
+      "head": "fde9f90f7fac2e6d3891c4091d5f82e98cc058e8",
+      "branch": "refs/heads/integration/pending-features-2026-11-12",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a9af/garimpei",
+      "head": "1ec8b10a2d7049f0fe7e260b167876eaa8766f0b",
+      "branch": "refs/heads/feat/F20-apresentacao-financeira",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/b9f3/garimpei",
+      "head": "6ec0c2ffb3889ec8ec11efcfdff19dc8b7295501",
+      "branch": "refs/heads/fix/collection-invalid-unicode",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/baf1/garimpei",
+      "head": "a5c0cb7603e31da7579f039679f22ed51396c084",
+      "branch": "refs/heads/feat/F18-identificacao-comparaveis",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/c4f1/garimpei",
+      "head": "b870d1a16f6a6bc4b8ff8ffe2d71375628ca66dd",
+      "branch": "refs/heads/fix/wave13-regression-tests",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/c6a4/garimpei",
+      "head": "8783b2e899501c5d6a91768fee1b549567544784",
+      "branch": "refs/heads/wave/20261113-f21",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e16d/garimpei",
+      "head": "b0b8643d647e77eb87d934660f1fb70f7535dafd",
+      "branch": "refs/heads/feat/F15-avaliacao-multimodal",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e38a/garimpei",
+      "head": "004fb0fa5be07f108ee8b22a3973c330aa6b6829",
+      "branch": "refs/heads/feat/F13-navegacao-ativa",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/ef90/garimpei",
+      "head": "ba91646dfd5e81eb582cb61a88efa75951eaccce",
+      "branch": "refs/heads/feat/f21-prova-real",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-nova-onda",
+      "head": "35a9c7213c8c556cf62925b390dbfde6d98d1beb",
+      "branch": "refs/heads/wave/20261113-f14",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-onda-atual",
+      "head": "21ad43694bad598b661ecdb54b3d465c01eaafb0",
+      "branch": "refs/heads/wave/current-f14",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-retomada",
+      "head": "affc6deb8bfb8c1f2514a0c9dcb54991933f601f",
+      "branch": "refs/heads/wave/resume-f14",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-nova-onda",
+      "head": "4f459049da1fb6e8d5cfedf54b9e48f1cabd31bd",
+      "branch": "refs/heads/wave/20261113-f17",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-onda-atual",
+      "head": "f12fdc5271879cf149b661638c9aba522ade37eb",
+      "branch": "refs/heads/wave/current-f17",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-retomada",
+      "head": "b303c51f43fd8ccefd90065c90afb04319e9972e",
+      "branch": "refs/heads/wave/resume-f17",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda",
+      "head": "4dcc787cd268c565e8e1fbd8d6dfe441620216e6",
+      "branch": "refs/heads/wave/20261113-f18",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-onda-atual",
+      "head": "b871a6696b0d9dbb481733dfb30537b330dbc5ea",
+      "branch": "refs/heads/wave/current-f18",
+      "included_in_reviewed_head": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-retomada",
+      "head": "f87012cdc3146d64e3bf6351e8662ec150ef26e3",
+      "branch": "refs/heads/wave/resume-f18",
+      "included_in_reviewed_head": true
+    }
+  ],
+  "redaction_published_hashes_verified": true,
+  "quality_evidence": "final-validation.json",
+  "feature_done": false,
+  "remaining_requirement": "E2E-REAL-01 positive real Gold qualification with confirmed 10 percent fee",
+  "integration_authorization": "User requested merge of all worktrees into master, commit and push; publication does not mark F21 done."
+}
