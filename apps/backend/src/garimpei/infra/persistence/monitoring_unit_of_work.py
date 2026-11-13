@@ -5,6 +5,7 @@ from django.db import DatabaseError, connection, transaction
 
 from garimpei.domain.monitoring.errors import ConfigurationSaveFailed
 from garimpei.domain.monitoring.ports import MonitoringRepository
+from garimpei.infra.repository.robot.locking import lock_robot_control
 
 
 class PostgresMonitoringUnitOfWork:
@@ -22,6 +23,7 @@ class PostgresMonitoringUnitOfWork:
 
 
 def lock_monitoring_publication() -> None:
+    lock_robot_control()
     # Row locks cannot serialize simultaneous first POSTs when no slot exists yet.
     with connection.cursor() as cursor:
         cursor.execute("SELECT pg_advisory_xact_lock(73003)")

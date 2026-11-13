@@ -22,6 +22,7 @@ from garimpei.infra.persistence.listing_models import Listing
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.persistence.valuation_models import ValuationProgress
 from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
+from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 from garimpei.infra.repository.valuation.identity_mapper import (
     decode_identity,
     encode_identity,
@@ -135,6 +136,8 @@ class PostgresIdentityRepository:
     @transaction.atomic
     def _record(self, identity: UUID) -> None:
         lock_monitoring_publication()
+        if not robot_enabled():
+            return
         row = (
             Listing.objects.select_for_update(of=("self",))
             .select_related("latest")

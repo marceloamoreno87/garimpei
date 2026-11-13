@@ -8,6 +8,7 @@ from garimpei.domain.inference.errors import InferenceError
 from garimpei.domain.listing.assessment import Assessment
 from garimpei.domain.listing.assessment_ports import AssessmentError
 from garimpei.domain.media.errors import MediaError
+from garimpei.domain.robot.errors import RobotPaused, RobotUnavailable
 from garimpei.infra.persistence.listing_models import Listing
 from garimpei.infra.repository.listing.assessment_repository import PostgresAssessmentRepository
 from garimpei.usecase.listing.complete_assessment_usecase import CompleteAssessmentUseCase
@@ -39,6 +40,8 @@ class AssessmentHandler:
         try:
             work = self._prepare.execute(identity)
             self._complete.execute(work.id)
+        except (RobotPaused, RobotUnavailable):
+            return
         except (InferenceError, MediaError, AssessmentError) as error:
             logger.info(
                 "condition_assessment_waiting",

@@ -60,7 +60,17 @@ class ErrorMiddleware:
                 if status == 400
                 else "Não foi possível consultar ou gravar o controle do robô. Tente novamente."
             )
-            response = render(_request, "robot/error.html", {"message": message}, status=status)
+            template = (
+                "robot/control.html"
+                if _request.path == "/acompanhamento/robo/"
+                else "robot/error.html"
+            )
+            context = {
+                "message": message,
+                "robot_available": False,
+                "robot_title": "Estado do robô indisponível",
+            }
+            response = render(_request, template, context, status=status)
             response["Cache-Control"] = "no-store"
             return response
         operational_route = _request.path == "/acompanhamento/" or _request.path.startswith(

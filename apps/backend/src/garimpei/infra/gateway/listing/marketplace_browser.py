@@ -26,6 +26,7 @@ from playwright_stealth import Stealth
 from garimpei.domain.listing.geography import Point
 from garimpei.domain.listing.ports import SourceFailure
 from garimpei.domain.listing.window import PublicationWindow
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.infra.gateway.listing.relay_parser import (
     Feed,
     JsonObject,
@@ -34,6 +35,7 @@ from garimpei.infra.gateway.listing.relay_parser import (
     feed_from,
     mapping,
 )
+from garimpei.infra.gateway.robot.admission import robot_operation
 from garimpei.infra.repository.integration.private_session import private_directory
 
 
@@ -95,6 +97,7 @@ class MarketplaceBrowser:
         profile: Path | None = None,
         login_origin: str = "https://www.facebook.com",
         profile_headless: bool = False,
+        robot: RobotAdmission | None = None,
     ) -> None:
         self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="marketplace-browser")
         self._path = state_path
@@ -103,6 +106,7 @@ class MarketplaceBrowser:
             login_origin,
             profile_headless,
         )
+        self._robot = robot
         self._timeout = timeout * 1000
         self._cadence = cadence_ms
         self._engine: Playwright | None = None
@@ -300,7 +304,7 @@ class MarketplaceBrowser:
             remaining = self._timeout - int((time.monotonic() - started) * 1000)
             if remaining <= 0:
                 raise SourceFailure("source_request_timeout")
-            response = page.goto(url, wait_until="domcontentloaded", timeout=remaining)
+            response = self._goto(page, url, remaining)
             if response is not None and response.status in (401, 403, 429):
                 raise SourceFailure(
                     f"source_http_{response.status}",
@@ -393,35 +397,7 @@ class MarketplaceBrowser:
     def _query_rows(self, query: JsonObject) -> tuple[JsonObject, ...]:
         page = self._open()
         try:
-            payload = page.evaluate(
-                """async input => {
-                  const controller = new AbortController();
-                  const timer = setTimeout(() => controller.abort(), input.timeout);
-                  try {
-                    const requireModule = name => {
-                      try { return require(name); } catch { return {}; }
-                    };
-                    const token = requireModule('DTSGInitialData').token || requireModule('DTSG').getToken?.();
-                    const lsd = requireModule('LSD').token;
-                    const user = requireModule('CurrentUserInitialData').USER_ID;
-                    if (!token || !user) return '';
-                    const body = new URLSearchParams({
-                      av:user, __user:user, __a:'1', __comet_req:'15', fb_dtsg:token, lsd:lsd || '',
-                      fb_api_caller_class:'RelayModern',
-                      fb_api_req_friendly_name:input.query.name,
-                      doc_id:input.query.doc_id,
-                      variables:JSON.stringify(input.query.variables),
-                      server_timestamps:'true'
-                    });
-                    const response = await fetch('/api/graphql/', {
-                      method:'POST', credentials:'same-origin', signal:controller.signal,
-                      headers:{'Content-Type':'application/x-www-form-urlencoded'}, body
-                    });
-                    return {status:response.status, retryAfter:response.headers.get('Retry-After') || '', body:response.ok ? await response.text() : ''};
-                  } finally { clearTimeout(timer); }
-                }""",
-                {"query": query, "timeout": self._timeout},
-            )
+            payload = self._evaluate_query(page, query)
             page.wait_for_timeout(self._cadence)
             self._check_access(page)
             result = mapping(payload)
@@ -447,6 +423,45 @@ class MarketplaceBrowser:
             raise
         except BrowserError as error:
             raise self._browser_failure(page, error, "search_query_failed") from None
+
+    def _goto(self, page: Page, url: str, timeout: int) -> Response | None:
+        with robot_operation(self._robot, "source_browser", "navigate:" + url):
+            return page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+
+    def _evaluate_query(self, page: Page, query: JsonObject) -> JsonObject:
+        request = json.dumps(query, sort_keys=True, separators=(",", ":"))
+        with robot_operation(self._robot, "source_browser", "query:" + request):
+            return mapping(
+                page.evaluate(
+                    """async input => {
+                  const controller = new AbortController();
+                  const timer = setTimeout(() => controller.abort(), input.timeout);
+                  try {
+                    const requireModule = name => {
+                      try { return require(name); } catch { return {}; }
+                    };
+                    const token = requireModule('DTSGInitialData').token || requireModule('DTSG').getToken?.();
+                    const lsd = requireModule('LSD').token;
+                    const user = requireModule('CurrentUserInitialData').USER_ID;
+                    if (!token || !user) return '';
+                    const body = new URLSearchParams({
+                      av:user, __user:user, __a:'1', __comet_req:'15', fb_dtsg:token, lsd:lsd || '',
+                      fb_api_caller_class:'RelayModern',
+                      fb_api_req_friendly_name:input.query.name,
+                      doc_id:input.query.doc_id,
+                      variables:JSON.stringify(input.query.variables),
+                      server_timestamps:'true'
+                    });
+                    const response = await fetch('/api/graphql/', {
+                      method:'POST', credentials:'same-origin', signal:controller.signal,
+                      headers:{'Content-Type':'application/x-www-form-urlencoded'}, body
+                    });
+                    return {status:response.status, retryAfter:response.headers.get('Retry-After') || '', body:response.ok ? await response.text() : ''};
+                  } finally { clearTimeout(timer); }
+                }""",
+                    {"query": query, "timeout": self._timeout},
+                )
+            )
 
     def _browser_failure(self, page: Page, error: BrowserError, fallback: str) -> SourceFailure:
         if page.is_closed():
@@ -501,6 +516,17 @@ class MarketplaceBrowser:
         page = self._open()
         start = len(self._feeds)
         try:
+            self._scroll_request(page)
+            page.wait_for_timeout(self._cadence)
+            self._check_access(page)
+            if len(self._feeds) <= start:
+                raise SourceFailure("continuation_unavailable")
+            return self._feeds[-1]
+        except BrowserError:
+            raise SourceFailure("continuation_unavailable") from None
+
+    def _scroll_request(self, page: Page) -> None:
+        with robot_operation(self._robot, "source_browser", "scroll:" + page.url):
             with page.expect_response(
                 lambda response: (
                     "/api/graphql" in response.url
@@ -509,13 +535,6 @@ class MarketplaceBrowser:
                 timeout=self._timeout,
             ):
                 page.evaluate("window.scrollTo(0, document.documentElement.scrollHeight)")
-            page.wait_for_timeout(self._cadence)
-            self._check_access(page)
-            if len(self._feeds) <= start:
-                raise SourceFailure("continuation_unavailable")
-            return self._feeds[-1]
-        except BrowserError:
-            raise SourceFailure("continuation_unavailable") from None
 
     def _close(self) -> None:
         try:

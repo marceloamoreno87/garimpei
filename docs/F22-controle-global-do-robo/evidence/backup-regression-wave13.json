@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-13T17:30:24.145634+00:00",
+  "symptom": "Operational status backup creation raises507; direct schema validation rejects3 new installation-local models.",
+  "cause": "ArchiveInvalid archive_business_schema_incomplete before snapshot capture",
+  "red": {
+    "command": "uv run --directory apps/backend --frozen --no-sync pytest tests/integration/test_robot_backup.py -q",
+    "exit_code": 1,
+    "failed": 1,
+    "duration_seconds": 12.17,
+    "observed_exception": "ArchiveInvalid archive_business_schema_incomplete"
+  },
+  "decision": "RobotControl, RobotControlCommand and RobotOperation remain destination-local. Business backup does not copy another installation intention/command/live ownership; same-database restarts retain them. Existing InferenceControl has same installation-local classification.",
+  "green": {
+    "command": "uv run --directory apps/backend --frozen --no-sync pytest tests/integration/test_robot_backup.py tests/http/test_operational_status.py::test_status_versions_filters_resume_csrf_and_nonempty_catalog -q",
+    "exit_code": 0,
+    "passed": 2,
+    "duration_seconds": 26.3
+  },
+  "scope": "Actual PostgreSQL snapshot and backup preserve local pause, commands and operation rows exactly while including listing business data. This is not a cross-installation restore test."
+}
