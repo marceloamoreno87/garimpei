@@ -38,7 +38,10 @@ TEMPLATES = [
         "DIRS": [HTTP_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
-            "context_processors": ["garimpei.infra.http.integration.context.integration_context"]
+            "context_processors": [
+                "garimpei.infra.http.integration.context.integration_context",
+                "garimpei.infra.http.shell_context.shell_context",
+            ]
         },
     }
 ]

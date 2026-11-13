@@ -87,11 +87,14 @@ class ErrorMiddleware:
         ):
             response = render(
                 _request,
-                "navigation/error.html",
+                "navigation/error_page.html"
+                if _request.path.startswith(("/sugestoes/", "/configuracoes/"))
+                else "navigation/error.html",
                 {
+                    "retry_url": _request.path,
                     "message": _exception.message
                     if isinstance(_exception, NavigationError)
-                    else "Não foi possível ler ou gravar o percurso. Tente novamente."
+                    else "Não foi possível ler ou gravar o percurso. Tente novamente.",
                 },
                 status=_exception.status if isinstance(_exception, NavigationError) else 503,
             )

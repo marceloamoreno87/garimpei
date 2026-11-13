@@ -1,7 +1,7 @@
 <fieldset>
     <legend>Sua região</legend>
     <label for="cep">CEP de referência</label>
-    <input id="cep" name="cep" value="{{ cep }}" inputmode="numeric" autocomplete="postal-code" aria-describedby="cep-help{% if error.field == 'cep' %} cep-error{% endif %}" {% if error.field == 'cep' %}aria-invalid="true"{% endif %}>
+    <input id="cep" name="cep" required maxlength="9" value="{{ cep }}" inputmode="numeric" autocomplete="postal-code" aria-describedby="cep-help{% if error.field == 'cep' %} cep-error{% endif %}" {% if error.field == 'cep' %}aria-invalid="true"{% endif %}>
     <p class="help" id="cep-help">Use 01001-000 ou oito dígitos. Validamos apenas o formato.</p>
     {% if error.field == 'cep' %}<p class="field-error" id="cep-error">{{ error }}</p>{% endif %}
     <div class="region-context">

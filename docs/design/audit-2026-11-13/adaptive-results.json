@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Narrow navigation starts collapsed",
+    "pass": true
+  },
+  {
+    "name": "Menu exposes the selected destination",
+    "pass": true
+  },
+  {
+    "name": "Escape closes the menu and restores its trigger focus",
+    "pass": true
+  },
+  {
+    "name": "Desktop navigation remains directly available",
+    "pass": true
+  },
+  {
+    "name": "Menu navigation works with synthesized Chromium touch",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//ofertas/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//ofertas/00000000-0000-0000-0000-000000000001/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//configuracoes/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//acompanhamento/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//integracoes/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//integracoes/ia/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//sugestoes/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 1440//acompanhamento/backups/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//ofertas/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//ofertas/00000000-0000-0000-0000-000000000001/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//configuracoes/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//acompanhamento/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//integracoes/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//integracoes/ia/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//sugestoes/",
+    "pass": true
+  },
+  {
+    "name": "Text at 200% has no horizontal overflow: 375//acompanhamento/backups/",
+    "pass": true
+  },
+  {
+    "name": "Initial navigation failure offers an immediate recovery action",
+    "pass": true
+  },
+  {
+    "name": "Navigation retry replaces the failed loading state with a confirmed reading",
+    "pass": true
+  },
+  {
+    "name": "Forced colors preserve the current-page outline",
+    "pass": true
+  },
+  {
+    "name": "Reduced motion does not animate the connection feedback",
+    "pass": true
+  }
+]

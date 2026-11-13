@@ -1,5 +1,5 @@
 .ai-status dl { display: grid; grid-template-columns: minmax(8rem, .9fr) minmax(0, 1.1fr); gap: .85rem 1.25rem; margin: 1.5rem 0; }
-.ai-status dt { color: var(--color-text-secondary, #52665d); }
+.ai-status dt { color: var(--color-muted); }
 .ai-status dd { margin: 0; overflow-wrap: anywhere; }
 .ai-status form { margin: 1rem 0; }
 @media (max-width: 600px) {

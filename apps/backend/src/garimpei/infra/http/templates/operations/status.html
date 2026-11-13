@@ -17,8 +17,9 @@
         {% for key, count in counts.items %}
             <div>
                 <dt>{{ count.label }}</dt>
-                <dd>{% if count.available %}{{ count.value }}{% else %}Indisponível{% endif %}</dd>
-                <p>{{ count.definition }}</p>
+                <dd>{% if count.available %}{{ count.value }}{% else %}Indisponível{% endif %}
+                    <p>{{ count.definition }}</p>
+                </dd>
             </div>
         {% endfor %}
     </dl>

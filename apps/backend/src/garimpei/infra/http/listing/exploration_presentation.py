@@ -44,6 +44,11 @@ def safe_url(value: str) -> str:
 
 def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
     composition = offer.composition
+    profit_value = (
+        composition.profit.value
+        if complete_components(offer) and compatible_composition(offer)
+        else None
+    )
     result: dict[str, object] = dict(
         offer=offer,
         source_label="Facebook Marketplace"
@@ -55,7 +60,9 @@ def card(offer: Offer, criteria: Criteria) -> dict[str, object]:
         price=money_label(composition.purchase.value)
         if composition.purchase.value is not None
         else "Preço não informado",
-        profit=money_label(composition.profit.value if complete_components(offer) else None),
+        profit=money_label(profit_value),
+        profit_negative=profit_value is not None and profit_value < 0,
+        profit_unavailable=profit_value is None,
         profit_label="Lucro estimado",
         profit_scope="Revisão histórica da estimativa"
         if composition.policy == "profit-brl-v1"

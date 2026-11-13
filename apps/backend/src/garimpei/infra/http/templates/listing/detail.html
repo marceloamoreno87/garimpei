@@ -1,19 +1,25 @@
 {% extends "listing/layout.html" %}
+{% block title %}{{ offer.title|default:"Confira a oferta" }} · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1">
         <a class="back-link"
            href="{% url 'condition-list' %}{% if offer %}?aba={{ offer.state.tab }}{% endif %}">Voltar para {% if offer %}{{ offer.state.tab_label }}{% else %}as ofertas{% endif %}</a>
+        {% if not offer %}<h1>{% if error_code == "CONDITION_NOT_FOUND" %}Oferta não encontrada{% else %}Não foi possível abrir a oferta{% endif %}</h1>{% endif %}
         {% if error %}
             <section id="form-error"
                      tabindex="-1"
                      role="alert"
                      class="error-summary"
                      data-error-code="{{ error_code }}">
-                <h2>Não foi possível confirmar a alteração</h2>
+                <h2>{% if submitted %}Não foi possível confirmar a alteração{% else %}Confira a oferta{% endif %}</h2>
 
                 <p>{{ error }}</p>
-                {% if not readable %}<p>A consulta também está indisponível. Recarregue os detalhes antes de tentar salvar novamente.</p>{% endif %}
-                <a href="{{ reload_url }}">Recarregar detalhes</a>
+                {% if not readable and error_code != "CONDITION_NOT_FOUND" %}<p>A consulta também está indisponível. Recarregue os detalhes antes de tentar salvar novamente.</p>{% endif %}
+                {% if error_code == "CONDITION_NOT_FOUND" %}
+                    <a class="button secondary" href="{% url 'condition-list' %}">Explorar outras ofertas</a>
+                {% else %}
+                    <a href="{{ reload_url }}">Recarregar detalhes</a>
+                {% endif %}
             </section>
         {% endif %}
         {% if offer %}

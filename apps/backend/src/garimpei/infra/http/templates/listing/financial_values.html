@@ -11,7 +11,7 @@
             {{ resale }}
         </dd>
     </div>
-    <div class="financial-profit">
+    <div class="financial-profit{% if profit_negative %} financial-profit--negative{% elif profit_unavailable %} financial-profit--unavailable{% endif %}">
         <dt>Lucro estimado</dt>
         <dd>
             {{ profit }}

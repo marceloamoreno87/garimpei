@@ -1,6 +1,6 @@
 <div id="whatsapp-status" class="whatsapp-status" aria-live="polite"
      hx-get="{% url 'integration-status' %}?expected={% if connected %}WORKING{% else %}PAIRING{% endif %}"
-     hx-trigger="every 5s" hx-swap="outerHTML">
+     hx-trigger="every 5s [!document.hidden && !document.activeElement.closest('#whatsapp-status')]" hx-swap="outerHTML">
     {% if connected %}
         <p class="connection-label">WhatsApp conectado</p>
         <p class="help">Sua conta está pronta para escolher o grupo.</p>

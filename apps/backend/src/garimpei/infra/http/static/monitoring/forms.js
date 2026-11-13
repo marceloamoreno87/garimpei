@@ -2,7 +2,7 @@
   if (window.garimpeiFormsLoaded) return;
   window.garimpeiFormsLoaded = true;
   function focusFeedback() {
-    const summary = document.getElementById('form-error');
+    const summary = document.querySelector('#form-error, #identity-error');
     if (summary) {
       summary.focus();
     } else if (document.querySelector('[data-preview]')) {
@@ -10,7 +10,7 @@
     }
   }
   document.addEventListener('htmx:beforeSwap', event => {
-    if (document.querySelector('#exploration')) return;
+    if (!event.detail.requestConfig?.elt?.matches('form[hx-boost]')) return;
     if ([403, 409, 422, 500, 503].includes(event.detail.xhr.status)) {
       event.detail.shouldSwap = true;
       event.detail.isError = false;
@@ -24,11 +24,12 @@
   document.addEventListener('htmx:afterRequest', event => {
     if (event.detail.elt.matches('form')) event.detail.elt.removeAttribute('aria-busy');
   });
-  document.addEventListener('htmx:sendError', () => {
-    const form = document.querySelector('form');
+  const transportFailure = event => {
+    const form = event.detail.elt?.closest('form[hx-boost]');
     if (!form) return;
     form.querySelector('#transport-error')?.remove();
     const message = document.createElement('p');
+    form.removeAttribute('aria-busy');
     message.id = 'transport-error';
     message.tabIndex = -1;
     message.className = 'error-summary';
@@ -36,5 +37,7 @@
     message.textContent = 'Não foi possível confirmar a gravação. Verifique a conexão e tente novamente.';
     form.prepend(message);
     message.focus();
-  });
+  };
+  document.addEventListener('htmx:sendError', transportFailure);
+  document.addEventListener('htmx:timeout', transportFailure);
 })();

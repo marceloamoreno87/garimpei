@@ -1,4 +1,5 @@
 {% extends "monitoring/layout.html" %}
+{% block title %}{% if editing %}Configurações{% elif step == "regiao" %}Sua região{% elif step == "custos" %}Seus custos{% else %}Seus interesses{% endif %} · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1">
         <div class="page-heading">
@@ -30,8 +31,11 @@
                     {% csrf_token %}
                     <input type="hidden" name="revision" value="{{ revision }}">
                     <h2 id="section-title">{% if editing %}Preferências de monitoramento{% elif step == 'regiao' %}Onde você quer procurar?{% elif step == 'custos' %}Quais custos considerar?{% else %}O que vale acompanhar?{% endif %}</h2>
+                    {% if editing %}<h3>Região de busca</h3>{% endif %}
                     {% if editing or step == 'regiao' %}{% include "monitoring/region_fields.html" %}{% endif %}
+                    {% if editing %}<h3>Taxa de revenda</h3>{% endif %}
                     {% if editing or step == 'custos' %}{% include "monitoring/cost_fields.html" %}{% endif %}
+                    {% if editing %}<h3>Interesses de monitoramento</h3>{% endif %}
                     {% if editing or step == 'interesses' %}{% include "monitoring/interest_fields.html" %}{% endif %}
                     <div class="actions">
                         {% if step == 'custos' %}<a href="{% url 'monitoring-step' step='regiao' %}">Voltar para região</a>{% endif %}

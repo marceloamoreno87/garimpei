@@ -550,5 +550,11 @@
     "path": "src/garimpei/domain/valuation/research_diagnostic.py",
     "consumer": "src/garimpei/infra/http/templates/valuation/research.html",
     "reason": "Django renders the measured per-input attempt ceiling alongside consumption"
+  },
+  {
+    "symbol": "shell_context",
+    "path": "src/garimpei/infra/http/shell_context.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django template context processor for route orientation"
   }
 ]

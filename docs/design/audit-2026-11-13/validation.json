@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-13",
+  "scope": "Django templates, authored CSS/JS and presentation boundaries",
+  "templates_reviewed": 38,
+  "browser": {
+    "command": "run-verification.py --check matrix",
+    "cases": 80,
+    "viewports": [
+      1440,
+      768,
+      375,
+      320
+    ],
+    "axe_violations": 0,
+    "axe_incomplete": 0,
+    "horizontal_overflow": 0,
+    "h1_and_selected_destination": "one per case"
+  },
+  "interactions": {
+    "passed": 22,
+    "artifact": "interaction-results.json"
+  },
+  "adaptive": {
+    "passed": 25,
+    "artifact": "adaptive-results.json",
+    "text_resize": "200% root font size",
+    "touch": "synthesized Chromium touch"
+  },
+  "python_gates": {
+    "command": "node scripts/run-gates.mjs",
+    "groups_passed": 6,
+    "exit_code": 0
+  },
+  "tests": [
+    {
+      "command": "uv run --frozen --no-sync pytest tests/unit tests/http/test_navigation_shell.py tests/http/test_monitoring.py tests/http/test_condition_recovery.py -q",
+      "cwd": "apps/backend",
+      "passed": 499
+    },
+    {
+      "command": "uv run --frozen --no-sync pytest tests/http -q",
+      "cwd": "apps/backend",
+      "passed": 22,
+      "initial_failed": 1,
+      "reason": "archive_storage_limit: /tmp free space below the 1 GiB reserve"
+    },
+    {
+      "command": "pytest tests/http/test_operational_status.py::test_status_versions_filters_resume_csrf_and_nonempty_catalog --basetemp=<private directory outside checkout on disk> -q",
+      "cwd": "apps/backend",
+      "passed": 1,
+      "exit_code": 0
+    },
+    {
+      "command": "pytest tests/http/test_financial_presentation.py --basetemp=<private directory outside checkout on disk> -q",
+      "cwd": "apps/backend",
+      "passed": 1,
+      "exit_code": 0
+    }
+  ],
+  "limits": [
+    "No real account pairing or message sending",
+    "No real GPU inference in this audit",
+    "No screen reader, Safari/Firefox, physical touch device or usability study",
+    "Not every gallery/multimodal/conflict combination was rendered",
+    "Impeccable launcher and detector unavailable due executable permission"
+  ]
+}

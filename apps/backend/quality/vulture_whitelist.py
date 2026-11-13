@@ -206,3 +206,6 @@ _.not_evaluated
 _.corpus_version
 
 _.attempt_limit
+
+# Registered Django template context processor; see quality/entrypoints.json.
+shell_context

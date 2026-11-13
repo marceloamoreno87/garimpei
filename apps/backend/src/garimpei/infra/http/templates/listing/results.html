@@ -11,10 +11,13 @@
          hx-swap="innerHTML"
          hx-sync="#exploration:abort"></div>
     {% if applied %}<p class="notice" role="status">Lista atualizada. Revisão aplicada em {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p>{% endif %}
+    {% if configured and page.published_at %}
     <nav class="condition-tabs"
          role="tablist"
          aria-label="Condição das ofertas">
         {% for t in tabs %}<a role="tab"
+                              id="condition-{{ t.key }}"
+                              aria-controls="offer-results"
                               aria-selected="{% if t.key == criteria.tab %}true{% else %}false{% endif %}"
                               tabindex="{% if t.key == criteria.tab %}0{% else %}-1{% endif %}"
                               href="{{ t.url }}"
@@ -42,8 +45,16 @@
         </label>
         <label>Categoria<select id="exploration-category" name="categoria"><option value="">Todas</option>{% for key,label in categories %}<option value="{{ key }}"
                                                                                                                                                    {% if key == criteria.category %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
-        <button type="submit" class="secondary">Filtrar ofertas</button>
+        <div class="filter-actions">
+            <button type="submit" class="secondary">Filtrar ofertas</button>
+            {% if criteria.query or criteria.category %}
+                <a href="{{ clear }}" class="filter-reset"
+                   hx-get="{{ clear }}" hx-target="#exploration" hx-swap="outerHTML"
+                   hx-sync="#exploration:replace">Limpar filtros</a>
+            {% endif %}
+        </div>
     </form>
+    {% endif %}
     {% if not configured %}
         <div class="empty">
             <h2>Prepare seu acompanhamento</h2>
@@ -54,12 +65,13 @@
         <div class="empty" role="status"><h2>{% if collection.initial_completed_at %}Nenhuma oferta encontrada na coleta{% else %}Coleta inicial em andamento{% endif %}</h2>
             <p>{% if collection.initial_completed_at %}A coleta foi concluída sem ofertas neste escopo.{% else %}Estamos preenchendo sua lista. Publicações comprovadamente novas já podem gerar alertas.{% endif %}</p><a href="{% url 'monitoring-tracking' %}">Ver acompanhamento</a></div>
     {% endif %}
-    {% if collection.phase == "partial" or collection.phase == "unavailable" %}<div class="notice" role="status"><strong>{% if collection.phase == "partial" %}Coleta parcial{% else %}Falha na fonte{% endif %}</strong><p>Os últimos dados disponíveis foram preservados. Última coleta válida: {{ collection.last_success_at|date:"d/m/Y H:i:s"|default:"ainda não concluída" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
-    {% if configured and not worker_active %}<div class="notice" role="status"><strong>Acompanhamento interrompido</strong><p>O worker não está ativo. Os últimos dados disponíveis continuam legíveis: {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
+    {% if collection.phase == "partial" or collection.phase == "unavailable" %}<div class="notice notice--warning" role="status"><strong>{% if collection.phase == "partial" %}Coleta parcial{% else %}Falha na fonte{% endif %}</strong><p>Os últimos dados disponíveis foram preservados. Última coleta válida: {{ collection.last_success_at|date:"d/m/Y H:i:s"|default:"ainda não concluída" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
+    {% if configured and not worker_active %}<div class="notice notice--warning" role="status"><strong>Acompanhamento interrompido</strong><p>O worker não está ativo. Os últimos dados disponíveis continuam legíveis: {{ page.published_at|date:"d/m/Y H:i:s" }} UTC.</p><a href="{% url 'monitoring-tracking' %}">Conferir acompanhamento</a></div>{% endif %}
+    {% if page.published_at %}
     <header class="result-heading"><h2 id="results-title" tabindex="-1">{% if page.total %}{{ page.start }}–{{ page.end }} de {{ page.total }}{% else %}Nenhum resultado{% endif %}</h2>
         <p>Lucro estimado, do maior para o menor</p>
     </header>
-    <div class="offer-grid">
+    <div class="offer-grid" id="offer-results" role="tabpanel" aria-labelledby="condition-{{ criteria.tab }}" tabindex="0">
         {% for card in cards %}
             <article class="offer-card {% if forloop.first %}featured{% endif %}"
                      data-offer-id="{{ card.identity }}"
@@ -72,7 +84,7 @@
                     <p class="fine">{{ card.offer.condition.label }}</p>
                     {% if card.assessment %}<p class="fine">{{ card.assessment_reason }}</p>{% endif %}
                     <h3><a class="offer-title" href="{{ card.detail_url }}">{{ card.title }}</a></h3>
-                    {% include "listing/financial_values.html" with price=card.price resale=card.resale profit=card.profit %}
+                    {% include "listing/financial_values.html" with price=card.price resale=card.resale profit=card.profit profit_negative=card.profit_negative profit_unavailable=card.profit_unavailable %}
                     {% if card.finance_reason %}<p class="fine">{{ card.finance_reason }}.</p>{% endif %}
                     <p class="fine">{% if card.alert_failed %}Estado do alerta indisponível{% elif card.alert %}{{ card.alert.label }}{% else %}Aguardando avaliação do alerta{% endif %}</p>
                     <a class="button secondary"
@@ -84,6 +96,7 @@
                 <p>Tente outra busca ou remova os filtros para voltar à lista.</p><a class="button secondary" href="{{ clear }}">Limpar filtros</a></div>{% endif %}
         {% endfor %}
     </div>
+    {% if page.pages > 1 %}
     <nav class="pagination" aria-label="Paginação de ofertas">
         {% if criteria.page > 1 %}<a class="button secondary"
                                      href="{{ previous }}"
@@ -99,5 +112,7 @@
                                               hx-swap="outerHTML"
                                               hx-sync="#exploration:replace">Próxima</a>{% else %}<span aria-disabled="true">Próxima</span>{% endif %}
     </nav>
+    {% endif %}
     {% if page.published_at %}<p class="fine">Dados publicados em {{ page.published_at|date:"d/m/Y H:i:s" }} UTC. A negociação acontece na plataforma de origem.</p>{% endif %}
+    {% endif %}
 </section>

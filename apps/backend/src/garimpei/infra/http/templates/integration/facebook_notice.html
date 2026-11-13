@@ -1,10 +1,10 @@
 <div id="facebook-access"
      hx-get="{% url 'integration-facebook-status' %}{% if facebook_detail %}?detail=1{% endif %}"
-     hx-trigger="every 10s" hx-swap="outerHTML">
+     hx-trigger="every 10s [!document.hidden && !document.activeElement.closest('#facebook-access')]" hx-swap="outerHTML">
     {% if facebook_notice %}
-        <aside class="integration-notice" data-state="{{ facebook_phase }}" aria-label="Acesso ao Facebook" role="status">
-            <strong>{{ facebook_notice.0 }}</strong>
-            <p>{{ facebook_notice.1 }}</p>
+        <aside class="integration-notice{% if not facebook_detail %} integration-notice--global{% endif %}" data-state="{{ facebook_phase }}" aria-label="Acesso ao Facebook" role="status">
+            <div><strong>{{ facebook_notice.0 }}</strong>
+            <p>{{ facebook_notice.1 }}</p></div>
             {% if not facebook_detail %}
                 <a href="{% url 'integration-settings' %}#facebook">{% if facebook_phase == "missing" %}Conectar Facebook{% elif "browser_" in facebook_phase %}Verificar conexão{% else %}Renovar cookies{% endif %}</a>
             {% endif %}

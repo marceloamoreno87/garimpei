@@ -1,0 +1,12 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Não foi possível carregar · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Não foi possível carregar</h1>
+        <div class="error-summary" id="form-error" role="alert" tabindex="-1">
+            {% include "navigation/error.html" %}
+        </div>
+        <a class="button secondary" href="{{ retry_url }}">Reabrir {{ ui_label|lower }}</a>
+        <a class="button secondary" href="{% url 'monitoring-tracking' %}">Voltar ao acompanhamento</a>
+    </main>
+{% endblock %}

@@ -24,3 +24,11 @@
 .integration-notice[data-state="expired"],.integration-notice[data-state="challenge"],.integration-notice[data-state="missing_file"]{background:var(--color-warning-bg);color:var(--color-warning)}
 .integration-notice[data-state="expired"] a,.integration-notice[data-state="challenge"] a{color:inherit}
 .integration-notice[data-state="browser_challenge"],.integration-notice[data-state="browser_failed"],.integration-notice[data-state="browser_interrupted"]{background:var(--color-warning-bg);color:var(--color-warning)}
+
+.integration-body .integration-notice { margin: 0 0 var(--space-5); }
+.integration-notice--global { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); max-width: none; }
+.integration-notice--global p { font-size: var(--font-sm); max-width: 68ch; }
+.integration-notice--global > a { flex: none; }
+@media (max-width: 720px) {
+  .integration-notice--global { align-items: start; flex-direction: column; gap: var(--space-2); }
+}

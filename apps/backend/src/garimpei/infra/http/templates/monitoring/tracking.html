@@ -10,9 +10,18 @@
 {% block title %}Acompanhamento · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1" class="tracking-view">
-        <h1>Seu acompanhamento</h1>
-        <section class="tracking-state">
-            <p class="notice">Configuração concluída</p>
+        <header class="page-heading">
+            <h1>Seu acompanhamento</h1>
+            <p>Confira a coleta, as análises e os alertas. Cada etapa informa o que aconteceu e como continuar.</p>
+        </header>
+        <nav class="section-navigation" aria-label="Seções do acompanhamento">
+            <a href="#collection-status">Coleta</a>
+            <a href="#operational-status">Etapas e alertas</a>
+            <a href="#navigation-progress">Percurso</a>
+            {% if comparable_research %}<a href="#research-heading">Comparáveis</a>{% endif %}
+        </nav>
+        <section class="tracking-state" id="collection-status" aria-label="Estado da coleta">
+
             <div role="status">
                 {% if collection.phase == "running" %}
                     {% if collection.initial_completed_at %}
@@ -59,11 +68,14 @@
             <a class="button secondary" href="{% url 'monitoring-edit' %}">Revisar configurações</a>
         </section>
         {% include "operations/status.html" with as_of=operations.as_of scope_revision=operations.scope_revision stages=operations.stages counts=operations.counts dispatch_suspended=operations.dispatch_suspended %}
-        <section hx-get="/acompanhamento/navegacao/"
+        <section id="navigation-progress" hx-get="/acompanhamento/navegacao/"
                  hx-trigger="load"
                  hx-swap="outerHTML"
                  aria-label="Percurso da navegação">
-            <p>Carregando percurso…</p>
+            <div id="navigation-feedback" role="status"><p>Carregando percurso…</p></div>
+            <button class="secondary" type="button"
+                    hx-get="{% url 'navigation-status' %}" hx-target="#navigation-progress"
+                    hx-swap="outerHTML">Tentar carregar percurso</button>
         </section>
         {% if comparable_research %}
             {% include "valuation/research.html" %}

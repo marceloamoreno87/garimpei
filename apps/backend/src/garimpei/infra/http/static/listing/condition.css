@@ -3,5 +3,5 @@
 @media(max-width:720px){.offer-grid,.offer-lead{grid-template-columns:minmax(0,1fr)}.condition-tabs{margin-top:28px}.condition-tabs a{padding:12px 6px;min-height:88px}.offer-copy{padding:24px}.offer-lead .photo-fallback{min-height:180px}.condition-summary button{width:100%}.condition-detail-layout{gap:28px}}
 
 .condition-assessment { min-width: 0; overflow-wrap: anywhere; margin-block: 2rem; }
-.condition-assessment blockquote { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 3px solid var(--color-primary); }
+.condition-assessment blockquote { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 1px solid var(--color-primary); }
 .condition-assessment article { margin-block: 1rem; }

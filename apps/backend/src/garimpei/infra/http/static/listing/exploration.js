@@ -1,4 +1,6 @@
 (() => {
+  if (window.garimpeiExplorationLoaded) return;
+  window.garimpeiExplorationLoaded = true;
   document.addEventListener('error', event => {
     if (!(event.target instanceof HTMLImageElement)) return;
     const img = event.target;
@@ -17,6 +19,20 @@
   window.addEventListener('pageshow', poll);
   document.body.addEventListener('htmx:configRequest', event => {
     event.detail.headers['X-Exploration-Context'] = context();
+  });
+  let pendingFocus = null;
+  document.body.addEventListener('htmx:beforeRequest', event => {
+    if (event.detail.target?.id !== 'exploration') return;
+    const active = document.activeElement;
+    pendingFocus = event.detail.elt.matches('[role=tab]')
+      ? {kind: 'tab'}
+      : active?.id === 'exploration-search'
+        ? {kind: 'search', start: active.selectionStart, end: active.selectionEnd}
+        : {kind: 'results'};
+    region()?.setAttribute('aria-busy', 'true');
+  });
+  document.body.addEventListener('htmx:afterRequest', event => {
+    if (event.detail.target?.id === 'exploration') region()?.removeAttribute('aria-busy');
   });
   let loadedAt = new Date().toLocaleTimeString('pt-BR');
   const readingFailure = () => {
@@ -45,6 +61,7 @@
     });
   }
   document.body.addEventListener('htmx:beforeSwap', event => {
+    if (!['updates', 'exploration', 'main'].includes(event.detail.target?.id)) return;
     const requestContext = event.detail.requestConfig?.headers['X-Exploration-Context'];
     if (!event.detail.target.isConnected || (requestContext && requestContext !== context())) {
       event.detail.shouldSwap = false;
@@ -79,6 +96,18 @@
     }
     if (event.detail.target.id !== 'exploration') return;
     const root = region();
+    if (pendingFocus) {
+      const target = pendingFocus.kind === 'tab'
+        ? root?.querySelector('[role=tab][aria-selected=true]')
+        : pendingFocus.kind === 'search'
+          ? root?.querySelector('#exploration-search')
+          : root?.querySelector('#results-title');
+      target?.focus({preventScroll: pendingFocus.kind === 'search'});
+      if (pendingFocus.kind === 'search') target?.setSelectionRange(pendingFocus.start, pendingFocus.end);
+      const count = root?.querySelector('#results-title')?.textContent;
+      if (count && feedback) feedback.textContent = `Ofertas exibidas: ${count}`;
+      pendingFocus = null;
+    }
     if (root?.dataset.applied === 'true') {
       document.querySelector('#exploration-feedback').textContent = '';
       (root.querySelector('.offer-title') || root.querySelector('#results-title'))?.focus();

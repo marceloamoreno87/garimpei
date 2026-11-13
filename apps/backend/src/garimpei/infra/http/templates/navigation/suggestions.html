@@ -2,17 +2,22 @@
 {% block title %}Sugestões relacionadas · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1">
+        <header class="page-heading">
+        <a href="{% url 'monitoring-tracking' %}">Voltar ao acompanhamento</a>
         <h1>Sugestões relacionadas</h1>
         <p>Uma possibilidade de pesquisa, separada das ofertas monitoradas. Nenhum interesse é adicionado sem você salvar a configuração.</p>
-        <a href="{% url 'monitoring-tracking' %}">Voltar ao acompanhamento</a>
+        </header>
         <section class="tracking-state" aria-labelledby="suggestion-budget-title">
             <h2 id="suggestion-budget-title">Exploração em tempo livre</h2>
             <p role="status">{{ suggestions.budget.message }}</p>
             {% if suggestions.budget.next_at %}<p>Nova verificação a partir de {{ suggestions.budget.next_at|date:"d/m/Y H:i:s T" }}. O trabalho ativo mantém prioridade.</p>{% endif %}
+            <details>
+                <summary>Como a exploração é limitada</summary>
             <p>Última fatia: {{ suggestions.budget.pages }} página(s) recebida(s) de {{ suggestions.budget.page_limit }} e {{ suggestions.budget.details }} detalhe(s) de {{ suggestions.budget.detail_limit }}.</p>
             <p>Até {{ suggestions.budget.seconds_limit }} s por fatia, com intervalo mínimo de {{ suggestions.budget.interval_seconds }} s.</p>
             <p>{{ suggestions.budget.suggestion_count }} de {{ suggestions.budget.suggestion_limit }} registros preservados; até {{ suggestions.budget.evidence_limit }} evidências por sugestão.</p>
             {% if suggestions.budget.capacity_message %}<p>{{ suggestions.budget.capacity_message }}</p>{% endif %}
+            </details>
         </section>
         {% for suggestion in suggestions.items %}
             <article class="tracking-state">

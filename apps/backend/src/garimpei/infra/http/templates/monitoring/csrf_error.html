@@ -1,4 +1,5 @@
 {% extends "monitoring/layout.html" %}
+{% block title %}Recarregue para continuar · Garimpei{% endblock %}
 {% block main %}
     <main id="main" tabindex="-1">
         <h1>Recarregue antes de salvar</h1>
@@ -6,6 +7,6 @@
             <p>Não foi possível validar este formulário. Seus dados salvos foram preservados.</p>
             <p>CSRF_FAILED</p>
         </div>
-        <a href="/">Voltar à configuração salva</a>
+        <a href="{% url 'monitoring-edit' %}">Voltar à configuração salva</a>
     </main>
 {% endblock %}
