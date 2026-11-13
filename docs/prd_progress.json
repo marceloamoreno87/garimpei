@@ -355,12 +355,12 @@
         "F18",
         "F20"
       ],
-      "status": "implementing",
-      "cycles": 0,
-      "failure_reason": null,
-      "report_path": null,
+      "status": "implemented",
+      "cycles": 2,
+      "failure_reason": "E2E-REAL-01 pendente: corpus real avaliado sem análise suficiente e qualificação positiva; zero envios. Fixtures não substituem a prova real.",
+      "report_path": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T18-20-00Z.md",
       "started_at": "2026-11-13T17:07:55.571673+00:00",
-      "updated_at": "2026-11-13T17:07:55.571673+00:00",
+      "updated_at": "2026-11-13T18:21:52.125080+00:00",
       "completed_at": null
     },
     "F22": {
