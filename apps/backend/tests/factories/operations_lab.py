@@ -260,12 +260,27 @@ def fault(directory: Path, case: str) -> None:
     inspect(directory)
     source = instances(directory)[0]
     started = time.monotonic()
+    if case == "db_unavailable":
+        observed = database_fault(directory)
+        observed.update({"case": case, "seconds": time.monotonic() - started})
+        report.write_text(json.dumps(observed, indent=2) + "\n")
+        return
     if case == "unit_persistent":
         code = _PERSISTENT_FAULT
     elif case == "queue_full":
         code = (
             "import json;from tests.factories.operations_lab_fault import queue_fault;"
             "print(json.dumps(queue_fault()))"
+        )
+    elif case in {"network_timeout", "slow_valuation", "slow_channel"}:
+        code = (
+            "import json;from tests.factories.operations_lab_fault import network_fault;"
+            f"print(json.dumps(network_fault({case!r})))"
+        )
+    elif case in {"repeat_cursor", "lease_expired", "late_result", "crash_before_commit"}:
+        code = (
+            "from tests.factories.operations_lab_fault import navigation_script;"
+            f"exec(navigation_script({case!r}))"
         )
     else:
         archive_directory = directory / "fault-data" / case
@@ -280,6 +295,66 @@ def fault(directory: Path, case: str) -> None:
     observed = json.loads(result.stdout.strip().splitlines()[-1])
     observed.update({"case": case, "seconds": time.monotonic() - started})
     report.write_text(json.dumps(observed, indent=2) + "\n")
+
+
+def database_fault(directory: Path) -> dict[str, object]:
+    """Stop only the owned destination PostgreSQL and always restart it."""
+    import psycopg
+
+    source, target = instances(directory)
+    if source.config.environment_id == target.config.environment_id:
+        raise ValueError("Source and destination identities must differ")
+    if not (target.config.directory / "manifest.json").exists():
+        raise ValueError("Destination must be started and owned by this lab")
+    result = subprocess.run(
+        [
+            "docker",
+            "ps",
+            "-q",
+            "--filter",
+            f"label=com.docker.compose.project=garimpei-{target.config.environment_id}",
+            "--filter",
+            "label=com.docker.compose.service=postgres",
+            "--filter",
+            f"label=com.garimpei.environment={target.config.environment_id}",
+            "--filter",
+            f"label=com.garimpei.checkout={target.root}",
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    containers = result.stdout.splitlines()
+    if len(containers) != 1:
+        raise ValueError("Expected exactly one running owned destination database container")
+    with target.database() as connection:
+        assert connection.execute("SELECT 1").fetchone() == (1,)
+    started = time.monotonic()
+    subprocess.run(
+        ["docker", "stop", "--time", "1", containers[0]], capture_output=True, check=True
+    )
+    try:
+        unavailable = False
+        try:
+            with psycopg.connect(target.config.database_url, connect_timeout=1):
+                pass
+        except psycopg.OperationalError:
+            unavailable = True
+        with source.database() as connection:
+            source_available = connection.execute("SELECT 1").fetchone() == (1,)
+        if not unavailable or not source_available:
+            raise AssertionError("Owned destination outage or independent source was not observed")
+    finally:
+        subprocess.run(["docker", "start", containers[0]], capture_output=True, check=True)
+    with target.database() as connection:
+        recovered = connection.execute("SELECT 1").fetchone() == (1,)
+    if not recovered:
+        raise AssertionError("Owned destination did not recover")
+    return {
+        "fault": {"unavailable": unavailable, "seconds": time.monotonic() - started},
+        "control": {"source_available": source_available},
+        "recovered": recovered,
+    }
 
 
 _PERSISTENT_FAULT = """
@@ -391,6 +466,14 @@ def main() -> None:
             "archive_interrupted",
             "export_interrupted",
             "queue_full",
+            "network_timeout",
+            "slow_valuation",
+            "slow_channel",
+            "repeat_cursor",
+            "lease_expired",
+            "late_result",
+            "crash_before_commit",
+            "db_unavailable",
         ],
     )
     options = parser.parse_args()

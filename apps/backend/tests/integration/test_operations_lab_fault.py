@@ -62,6 +62,28 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
         assert report["fault"]["admitted"] is False
         assert report["fault"]["pending"] == 1000
         assert report["cleaned"] is True
+        for case in ("network_timeout", "slow_valuation", "slow_channel"):
+            result = invoke("fault", "--case", case)
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / f"fault-{case}.json").read_text())
+            assert report["control"]["outcome"] == "success"
+            assert report["fault"]["outcome"] == (
+                "uncertain" if case == "slow_channel" else "timeout"
+            )
+            assert report["timeout_seconds"] == 1
+        for case in ("repeat_cursor", "lease_expired", "late_result", "crash_before_commit"):
+            result = invoke("fault", "--case", case)
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / f"fault-{case}.json").read_text())
+            assert report["fault_detected"] is True
+            assert report["control_confirmed"] is True
+            assert report["seed_preserved"] is True
+        unavailable = invoke("fault", "--case", "db_unavailable")
+        assert unavailable.returncode == 0, unavailable.stdout + unavailable.stderr
+        report = json.loads((directory / "fault-db_unavailable.json").read_text())
+        assert report["fault"]["unavailable"] is True
+        assert report["control"]["source_available"] is True
+        assert report["recovered"] is True
     finally:
         closed = invoke("close")
         assert closed.returncode == 0, closed.stdout + closed.stderr
