@@ -1,0 +1,12 @@
+{
+  "run": "2026-11-13T02-35-56Z",
+  "mode": "audit-existing-sanitized-evidence",
+  "source": "docs/F14-coleta-e-exibicao-confiavel-de-imagens/evidence/source-feed-detail-2026-11-13T02-29-00Z.json",
+  "source_sha256": "cb6b61ebe7dbd79b80837a36880a91ed868c6be64231e02fe73a3844c8a705b0",
+  "listing_count": 8,
+  "photo_count": 44,
+  "photos_with_multiple_distinct_dimensions": 0,
+  "new_source_access": false,
+  "source_bytes_comparison_executed": false,
+  "real_browser_journey_executed": false
+}
