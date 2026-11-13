@@ -24,9 +24,9 @@ response_fault = 'tool_calls'
         media_instance: tuple[FoundationInstance, str], tmp_path: Path, response_fault: str
     ) -> None:
         from PIL import Image, ImageDraw
-    
+
         from tests.factories.assessment_origin import serve_assessment_images
-    
+
         photo = tmp_path / "hostile-control.png"
         image = Image.new("RGB", (512, 512), "white")
         ImageDraw.Draw(image).text(
@@ -133,8 +133,8 @@ response_fault = 'tool_calls'
     """,
             )
 
-tests/integration/test_assessment_boundaries.py:88: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_assessment_boundaries.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-3/media-database0/media_3bc8d31d3e.env'))
 origin = 'http://127.0.0.1:40735'
@@ -144,7 +144,7 @@ code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.
         result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 58 objects imported automatically (use -v 2 for details).
-E         
+E
 E         {"timestamp": "2026-11-13T14:21:57.495580+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_3bc8d31d3e", "run_id": "309727c1-ce22-4557-b3f9-72ccf43bce73"}
 E         Traceback (most recent call last):
 E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
@@ -166,7 +166,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 171, in <module>
 E         AssertionError: ('failed', 'function_not_declared')
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "ORIGIN='http://127.0.0.1:40735'\n\nfrom datetime import timedelta\nfrom uuid import UUID\nfrom django.utils.timezone import now\nfrom django.db import connection\nfrom garimpei.infra.persistence.listing_models import Listing, ListingObservation, CollectionState\nfrom garimpei.infra.persistence.media_models import MediaAsset, MediaCapture, MediaEntry, MediaJob, MediaReference\nfrom garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries\nfrom garimpei.main import build_media_runner, build_media_repository, build_media_store\nfrom garimpei.domain.media.errors import MediaError\nfrom garimpei.usecase.media.read_gallery_usecase import ReadMediaGalleryUseCase\nfrom garimpei.usecase.media.acquire_media_usecase import AcquireMediaForAnalysisUseCase\nfrom garimpei.usecase.media.release_reference_usecase import ReleaseMediaReferenceUseCase\nfrom garimpei.usecase.media.clean_media_usecase import CleanMediaUseCase\nfrom garimpei.domain.media.media import MediaFile\nfrom tests.factories.media import seed_media_cases, inspect_media_cas..._command_line\n    utility.execute()\n    ~~~~~~~~~~~~~~~^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute\n    self.fetch_command(subcommand).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 171, in <module>\nAssertionError: (\'failed\', \'function_not_declared\')\n').returncode
 
@@ -182,9 +182,9 @@ response_fault = 'fabricated_quote'
         media_instance: tuple[FoundationInstance, str], tmp_path: Path, response_fault: str
     ) -> None:
         from PIL import Image, ImageDraw
-    
+
         from tests.factories.assessment_origin import serve_assessment_images
-    
+
         photo = tmp_path / "hostile-control.png"
         image = Image.new("RGB", (512, 512), "white")
         ImageDraw.Draw(image).text(
@@ -291,8 +291,8 @@ response_fault = 'fabricated_quote'
     """,
             )
 
-tests/integration/test_assessment_boundaries.py:88: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_assessment_boundaries.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-3/media-database0/media_3bc8d31d3e.env'))
 origin = 'http://127.0.0.1:40735'
@@ -302,7 +302,7 @@ code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.
         result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 58 objects imported automatically (use -v 2 for details).
-E         
+E
 E         {"timestamp": "2026-11-13T14:22:00.720205+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_3bc8d31d3e", "run_id": "309727c1-ce22-4557-b3f9-72ccf43bce73"}
 E         Traceback (most recent call last):
 E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
@@ -324,7 +324,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 171, in <module>
 E         AssertionError: ('failed', 'function_not_declared')
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "ORIGIN='http://127.0.0.1:40735'\n\nfrom datetime import timedelta\nfrom uuid import UUID\nfrom django.utils.timezone import now\nfrom django.db import connection\nfrom garimpei.infra.persistence.listing_models import Listing, ListingObservation, CollectionState\nfrom garimpei.infra.persistence.media_models import MediaAsset, MediaCapture, MediaEntry, MediaJob, MediaReference\nfrom garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries\nfrom garimpei.main import build_media_runner, build_media_repository, build_media_store\nfrom garimpei.domain.media.errors import MediaError\nfrom garimpei.usecase.media.read_gallery_usecase import ReadMediaGalleryUseCase\nfrom garimpei.usecase.media.acquire_media_usecase import AcquireMediaForAnalysisUseCase\nfrom garimpei.usecase.media.release_reference_usecase import ReleaseMediaReferenceUseCase\nfrom garimpei.usecase.media.clean_media_usecase import CleanMediaUseCase\nfrom garimpei.domain.media.media import MediaFile\nfrom tests.factories.media import seed_media_cases, inspect_media_cas..._command_line\n    utility.execute()\n    ~~~~~~~~~~~~~~~^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute\n    self.fetch_command(subcommand).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 171, in <module>\nAssertionError: (\'failed\', \'function_not_declared\')\n').returncode
 
@@ -340,9 +340,9 @@ response_fault = 'unknown_photo'
         media_instance: tuple[FoundationInstance, str], tmp_path: Path, response_fault: str
     ) -> None:
         from PIL import Image, ImageDraw
-    
+
         from tests.factories.assessment_origin import serve_assessment_images
-    
+
         photo = tmp_path / "hostile-control.png"
         image = Image.new("RGB", (512, 512), "white")
         ImageDraw.Draw(image).text(
@@ -449,8 +449,8 @@ response_fault = 'unknown_photo'
     """,
             )
 
-tests/integration/test_assessment_boundaries.py:88: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_assessment_boundaries.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-3/media-database0/media_3bc8d31d3e.env'))
 origin = 'http://127.0.0.1:40735'
@@ -460,7 +460,7 @@ code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.
         result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 58 objects imported automatically (use -v 2 for details).
-E         
+E
 E         {"timestamp": "2026-11-13T14:22:03.837135+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_3bc8d31d3e", "run_id": "309727c1-ce22-4557-b3f9-72ccf43bce73"}
 E         Traceback (most recent call last):
 E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
@@ -482,7 +482,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 171, in <module>
 E         AssertionError: ('failed', 'function_not_declared')
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "ORIGIN='http://127.0.0.1:40735'\n\nfrom datetime import timedelta\nfrom uuid import UUID\nfrom django.utils.timezone import now\nfrom django.db import connection\nfrom garimpei.infra.persistence.listing_models import Listing, ListingObservation, CollectionState\nfrom garimpei.infra.persistence.media_models import MediaAsset, MediaCapture, MediaEntry, MediaJob, MediaReference\nfrom garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries\nfrom garimpei.main import build_media_runner, build_media_repository, build_media_store\nfrom garimpei.domain.media.errors import MediaError\nfrom garimpei.usecase.media.read_gallery_usecase import ReadMediaGalleryUseCase\nfrom garimpei.usecase.media.acquire_media_usecase import AcquireMediaForAnalysisUseCase\nfrom garimpei.usecase.media.release_reference_usecase import ReleaseMediaReferenceUseCase\nfrom garimpei.usecase.media.clean_media_usecase import CleanMediaUseCase\nfrom garimpei.domain.media.media import MediaFile\nfrom tests.factories.media import seed_media_cases, inspect_media_cas..._command_line\n    utility.execute()\n    ~~~~~~~~~~~~~~~^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute\n    self.fetch_command(subcommand).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 171, in <module>\nAssertionError: (\'failed\', \'function_not_declared\')\n').returncode
 
@@ -498,9 +498,9 @@ response_fault = 'invalid_json'
         media_instance: tuple[FoundationInstance, str], tmp_path: Path, response_fault: str
     ) -> None:
         from PIL import Image, ImageDraw
-    
+
         from tests.factories.assessment_origin import serve_assessment_images
-    
+
         photo = tmp_path / "hostile-control.png"
         image = Image.new("RGB", (512, 512), "white")
         ImageDraw.Draw(image).text(
@@ -607,8 +607,8 @@ response_fault = 'invalid_json'
     """,
             )
 
-tests/integration/test_assessment_boundaries.py:88: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_assessment_boundaries.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-3/media-database0/media_3bc8d31d3e.env'))
 origin = 'http://127.0.0.1:40735'
@@ -618,7 +618,7 @@ code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.
         result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: 58 objects imported automatically (use -v 2 for details).
-E         
+E
 E         {"timestamp": "2026-11-13T14:22:06.929858+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_3bc8d31d3e", "run_id": "309727c1-ce22-4557-b3f9-72ccf43bce73"}
 E         Traceback (most recent call last):
 E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
@@ -640,7 +640,7 @@ E             exec(options["command"], {**globals(), **self.get_namespace(**opti
 E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E           File "<string>", line 171, in <module>
 E         AssertionError: ('failed', 'function_not_declared')
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "ORIGIN='http://127.0.0.1:40735'\n\nfrom datetime import timedelta\nfrom uuid import UUID\nfrom django.utils.timezone import now\nfrom django.db import connection\nfrom garimpei.infra.persistence.listing_models import Listing, ListingObservation, CollectionState\nfrom garimpei.infra.persistence.media_models import MediaAsset, MediaCapture, MediaEntry, MediaJob, MediaReference\nfrom garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries\nfrom garimpei.main import build_media_runner, build_media_repository, build_media_store\nfrom garimpei.domain.media.errors import MediaError\nfrom garimpei.usecase.media.read_gallery_usecase import ReadMediaGalleryUseCase\nfrom garimpei.usecase.media.acquire_media_usecase import AcquireMediaForAnalysisUseCase\nfrom garimpei.usecase.media.release_reference_usecase import ReleaseMediaReferenceUseCase\nfrom garimpei.usecase.media.clean_media_usecase import CleanMediaUseCase\nfrom garimpei.domain.media.media import MediaFile\nfrom tests.factories.media import seed_media_cases, inspect_media_cas..._command_line\n    utility.execute()\n    ~~~~~~~~~~~~~~~^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute\n    self.fetch_command(subcommand).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 171, in <module>\nAssertionError: (\'failed\', \'function_not_declared\')\n').returncode
 

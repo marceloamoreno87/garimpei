@@ -1,0 +1,16 @@
+{
+  "kind": "independent_code_inspection",
+  "reviewer_agent": "/root/f15_final_review",
+  "range": "f25a4e0..2453f5f",
+  "actionable_findings": 0,
+  "scope": [
+    "explicit_reference_origin",
+    "frozen_hashes",
+    "bounded_readiness",
+    "digest_and_owned_unload",
+    "run_nonce_execution_proof"
+  ],
+  "extra_tests_executed": false,
+  "gpu_execution_by_reviewer": false,
+  "source": "Coordinator report in this evaluation session; not a replacement for full gates or physical quality evidence."
+}

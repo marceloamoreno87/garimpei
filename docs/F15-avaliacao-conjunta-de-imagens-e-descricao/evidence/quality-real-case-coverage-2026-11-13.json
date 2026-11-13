@@ -1,0 +1,1068 @@
+{
+  "source_file": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/quality-ai-real-media-ready-20261113T1519.json",
+  "source_sha256": "86cd6ad7732cd172d5ca05a3f8cf07fcc8627ff46c4b8ef862d88815e11931a5",
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "review_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "reference_method": "ai_assisted",
+  "comparison_kind": "ai_agreement",
+  "independent_human_review": false,
+  "legacy_human_acceptance_satisfied": false,
+  "driver_complete": true,
+  "runtime_label_is_not_a_verdict": true,
+  "model": "qwen3.5:4b-q4_K_M",
+  "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "policy_version": "condition-policy-v1",
+  "prompt_version": "condition-evidence-v1",
+  "schema_version": "condition-evidence-v1",
+  "cases": [
+    {
+      "case_id": "source-1502910511735697",
+      "kind": "real_source_unreviewed",
+      "category": "console",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "e53159bd-483b-4ac3-a955-55c36f0aa4ac",
+      "observation_id": "870ffa56-3af4-47c8-a418-299317d3b004",
+      "fingerprint": "1c749681dda80c695347fe9d7bacba2ebf9008bafb1009a5792fa3d13869bd8d",
+      "photos": [
+        {
+          "photo_id": "photo-1",
+          "sha256": "d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b"
+        },
+        {
+          "photo_id": "photo-2",
+          "sha256": "c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7"
+        },
+        {
+          "photo_id": "photo-3",
+          "sha256": "e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5"
+        },
+        {
+          "photo_id": "photo-4",
+          "sha256": "ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1"
+        }
+      ],
+      "elapsed_seconds": 19.77994856800069,
+      "thermal_position": "after_verified_unload",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output",
+        "",
+        "",
+        ""
+      ],
+      "analyses": [
+        {
+          "request_id": "e0506aac-ef67-4403-b9ce-8c61173aac01",
+          "observation_id": "870ffa56-3af4-47c8-a418-299317d3b004",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "e53159bd-483b-4ac3-a955-55c36f0aa4ac",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "903cc2e2c8690a208fe3ca50438b4de62a4c24f3a02132acfd5f556d04e7b8de",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "903cc2e2c8690a208fe3ca50438b4de62a4c24f3a02132acfd5f556d04e7b8de",
+              "source_sha256": "d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b",
+              "transformation": "512-v1"
+            },
+            {
+              "id": "p_c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7",
+              "kind": "image",
+              "sent": false,
+              "reason": "pending",
+              "sha256": "90920638623eeacef3264207753d3d00c8f82fa013ff7f0d1f6355d0fa6efbf4",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "90920638623eeacef3264207753d3d00c8f82fa013ff7f0d1f6355d0fa6efbf4",
+              "source_sha256": "c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7",
+              "transformation": "512-v1"
+            },
+            {
+              "id": "p_e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5",
+              "kind": "image",
+              "sent": false,
+              "reason": "pending",
+              "sha256": "f12dc96aea26d0a85bdb073b209c0c002c8ee4d6093b23f229c40c1ea89fb138",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "f12dc96aea26d0a85bdb073b209c0c002c8ee4d6093b23f229c40c1ea89fb138",
+              "source_sha256": "e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5",
+              "transformation": "512-v1"
+            },
+            {
+              "id": "p_ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1",
+              "kind": "image",
+              "sent": false,
+              "reason": "pending",
+              "sha256": "d89a159b3e35a455a15dada353a009b3def269333e2b68500dd030ccda6a0599",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "d89a159b3e35a455a15dada353a009b3def269333e2b68500dd030ccda6a0599",
+              "source_sha256": "ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            },
+            {
+              "state": "pending",
+              "result": null,
+              "metrics": {},
+              "reason": ""
+            },
+            {
+              "state": "pending",
+              "result": null,
+              "metrics": {},
+              "reason": ""
+            },
+            {
+              "state": "pending",
+              "result": null,
+              "metrics": {},
+              "reason": ""
+            }
+          ],
+          "created_at": "2026-11-13T15:19:29.452838+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 195
+    },
+    {
+      "case_id": "electronics-clear_defect",
+      "kind": "synthetic_control",
+      "category": "electronics",
+      "reference": "defect",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "cbc27d52-8784-41d4-9f49-4e71d5490ab7",
+      "observation_id": "f78e937b-76f3-4f7c-af66-638b3e76f051",
+      "fingerprint": "0e697ac9e13c8f5e01f4ff0e3afb431a685daa16f7e034fe3d810e2a2864bcf5",
+      "photos": [
+        {
+          "photo_id": "electronics-clear_defect",
+          "sha256": "c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d"
+        }
+      ],
+      "elapsed_seconds": 5.180378946002747,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "f77d15f0-1cb2-499f-aac6-1d7b8542990a",
+          "observation_id": "f78e937b-76f3-4f7c-af66-638b3e76f051",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "cbc27d52-8784-41d4-9f49-4e71d5490ab7",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "7db2261defcaf7986c14db44fd7b74d178c7a3521c821df4004fff1818d2da8e",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "7db2261defcaf7986c14db44fd7b74d178c7a3521c821df4004fff1818d2da8e",
+              "source_sha256": "c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:19:49.169575+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 49
+    },
+    {
+      "case_id": "electronics-suspected",
+      "kind": "synthetic_control",
+      "category": "electronics",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "44e3fb1a-e15e-47e8-a449-bcbf5977db74",
+      "observation_id": "c2a37245-7e29-496a-8869-986cd1c96423",
+      "fingerprint": "9464131971cf3b289b0f3540f83833324dfc5a0360d8d11c994204198098b907",
+      "photos": [
+        {
+          "photo_id": "electronics-suspected",
+          "sha256": "ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf"
+        }
+      ],
+      "elapsed_seconds": 5.140425470999617,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "d9ce9d67-efd9-4344-9ae4-b821c3be7733",
+          "observation_id": "c2a37245-7e29-496a-8869-986cd1c96423",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "44e3fb1a-e15e-47e8-a449-bcbf5977db74",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "9354f785ba2f23b4e03e19e669e68fd801973e93b594ec900e7574837092eff3",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "9354f785ba2f23b4e03e19e669e68fd801973e93b594ec900e7574837092eff3",
+              "source_sha256": "ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:19:54.452311+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 49
+    },
+    {
+      "case_id": "camera-clear_defect",
+      "kind": "synthetic_control",
+      "category": "camera",
+      "reference": "defect",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "1db8f93e-da21-4cc1-bd53-70d2f6aa33e1",
+      "observation_id": "81958dfc-874b-4993-a245-4db779c0b2e8",
+      "fingerprint": "fc428273a199856a54c51afeaf79e23d33c0f2397ee88ef5b36008649b8f0565",
+      "photos": [
+        {
+          "photo_id": "camera-clear_defect",
+          "sha256": "73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097"
+        }
+      ],
+      "elapsed_seconds": 5.226433878000535,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "60a4b1e9-afb2-4cbf-a5d9-4b3ae2da7bfd",
+          "observation_id": "81958dfc-874b-4993-a245-4db779c0b2e8",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "1db8f93e-da21-4cc1-bd53-70d2f6aa33e1",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "0360f3982fe89ccb050d0b846c3c110a9f67917960c40706aa24b2d0b554e0f9",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "0360f3982fe89ccb050d0b846c3c110a9f67917960c40706aa24b2d0b554e0f9",
+              "source_sha256": "73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:19:59.695503+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 50
+    },
+    {
+      "case_id": "camera-suspected",
+      "kind": "synthetic_control",
+      "category": "camera",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "ec81d589-fabf-465a-a78d-449c0e49ff9a",
+      "observation_id": "7bc67609-0a30-40cd-83f5-c645321a32c6",
+      "fingerprint": "3a9477eaf39a09a7db930480dd619bcf2ecd5d9fc5179a42b3a4d2ceeac2a9f0",
+      "photos": [
+        {
+          "photo_id": "camera-suspected",
+          "sha256": "1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2"
+        }
+      ],
+      "elapsed_seconds": 5.14053789999889,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "1d736f90-3397-45b6-bef1-b0d6a30c5dc4",
+          "observation_id": "7bc67609-0a30-40cd-83f5-c645321a32c6",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "ec81d589-fabf-465a-a78d-449c0e49ff9a",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "dfff53de7add73e79f6160d3dde5e0926ace8b93011a6b5ab2d325a47b3658cf",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "dfff53de7add73e79f6160d3dde5e0926ace8b93011a6b5ab2d325a47b3658cf",
+              "source_sha256": "1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:05.081183+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 49
+    },
+    {
+      "case_id": "computer-clear_defect",
+      "kind": "synthetic_control",
+      "category": "computer",
+      "reference": "defect",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "cd5b7588-e94b-4426-b4f9-7960b6e487ae",
+      "observation_id": "4152fc46-8db8-484c-8c8f-30c15084a1b0",
+      "fingerprint": "252cc479bcaecf80d4c66915ede8d7e7f673e85dabcdab9c4dbba186cd56a49d",
+      "photos": [
+        {
+          "photo_id": "computer-clear_defect",
+          "sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda"
+        }
+      ],
+      "elapsed_seconds": 5.113873826005147,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "4d0fe3e3-a2b3-4a14-9688-5eaa5c8950cd",
+          "observation_id": "4152fc46-8db8-484c-8c8f-30c15084a1b0",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "cd5b7588-e94b-4426-b4f9-7960b6e487ae",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+              "source_sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:10.339305+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 49
+    },
+    {
+      "case_id": "computer-suspected",
+      "kind": "synthetic_control",
+      "category": "computer",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "7ceac33b-f1bc-4b2f-8657-ca4674476a95",
+      "observation_id": "863486d3-8439-41a4-8536-d0332fe9d01e",
+      "fingerprint": "6dce58e17ea41ae0f77946548cceaf9f83a6f8950539735d9e4481163078e689",
+      "photos": [
+        {
+          "photo_id": "computer-suspected",
+          "sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5"
+        }
+      ],
+      "elapsed_seconds": 5.4646360900005675,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "c6e0e6fe-693e-4bc4-8b8e-47777df4f9c9",
+          "observation_id": "863486d3-8439-41a4-8536-d0332fe9d01e",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "7ceac33b-f1bc-4b2f-8657-ca4674476a95",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+              "source_sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:15.739031+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 51
+    },
+    {
+      "case_id": "console-clear_defect",
+      "kind": "synthetic_control",
+      "category": "console",
+      "reference": "defect",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "68ea1cd1-1ea0-45c7-b227-110ae54c5f16",
+      "observation_id": "13eda3d5-0149-43c8-99b3-457a103d35e9",
+      "fingerprint": "54e697048d662dca4298e7c4267ad695947fc7292c70cc0921bcad989ec19bff",
+      "photos": [
+        {
+          "photo_id": "console-clear_defect",
+          "sha256": "ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93"
+        }
+      ],
+      "elapsed_seconds": 5.4839388510008575,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "e985d5a9-9819-47de-b887-4e799052b85e",
+          "observation_id": "13eda3d5-0149-43c8-99b3-457a103d35e9",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "68ea1cd1-1ea0-45c7-b227-110ae54c5f16",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "f83c788415a77fb41ebab179ffd193efb167a5c47255ae3158f2039beddcc972",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "f83c788415a77fb41ebab179ffd193efb167a5c47255ae3158f2039beddcc972",
+              "source_sha256": "ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:21.263707+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 52
+    },
+    {
+      "case_id": "console-suspected",
+      "kind": "synthetic_control",
+      "category": "console",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "9d24a5d3-910f-4d0e-acc0-340610974685",
+      "observation_id": "5eaac150-ee45-4493-97db-04371129a2ee",
+      "fingerprint": "02f70439c3d0838bdb0c48b383cef1e0de08c57999af62461866338f23a03eef",
+      "photos": [
+        {
+          "photo_id": "console-suspected",
+          "sha256": "6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0"
+        }
+      ],
+      "elapsed_seconds": 5.163126032995933,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "8ee73c88-a7e9-47c7-b92d-49ebcec13f7a",
+          "observation_id": "5eaac150-ee45-4493-97db-04371129a2ee",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "9d24a5d3-910f-4d0e-acc0-340610974685",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "b0c5de7e3cddb9e03da0871a938f9b954e32632d8b15edda8466241b298b288c",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "b0c5de7e3cddb9e03da0871a938f9b954e32632d8b15edda8466241b298b288c",
+              "source_sha256": "6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:26.842425+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 49
+    },
+    {
+      "case_id": "headphone-clear_defect",
+      "kind": "synthetic_control",
+      "category": "headphone",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "049ee6ea-5722-4562-afb1-080fe24e8d8c",
+      "observation_id": "e9a48a09-829f-460f-9daf-d485d6b0ad54",
+      "fingerprint": "f206417ec90cd7fef7131e7173401fee41b9da4426f3d9eafcc65dd2f6cae9ab",
+      "photos": [
+        {
+          "photo_id": "headphone-clear_defect",
+          "sha256": "0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30"
+        }
+      ],
+      "elapsed_seconds": 5.398142106998421,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "598c4c4f-8095-42a9-87b0-a829ea60cd1f",
+          "observation_id": "e9a48a09-829f-460f-9daf-d485d6b0ad54",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "049ee6ea-5722-4562-afb1-080fe24e8d8c",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "2c46a5f3895cfc69be541debf0417b0e98f47986ed3babb6dbcba0404aa2990f",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "2c46a5f3895cfc69be541debf0417b0e98f47986ed3babb6dbcba0404aa2990f",
+              "source_sha256": "0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:32.190626+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 52
+    },
+    {
+      "case_id": "headphone-suspected",
+      "kind": "synthetic_control",
+      "category": "headphone",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "397b9b11-e14d-4b97-834a-a96a9f489296",
+      "observation_id": "be16e5aa-1607-4145-a5cf-2576a0ce1d16",
+      "fingerprint": "793c74c77afb0ac3c5eb4a6cecac635054f433ca6cf77068b918b3f8ab1b864a",
+      "photos": [
+        {
+          "photo_id": "headphone-suspected",
+          "sha256": "9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df"
+        }
+      ],
+      "elapsed_seconds": 5.696210442998563,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "c9b02c97-d65f-4fbf-9190-9375163d0961",
+          "observation_id": "be16e5aa-1607-4145-a5cf-2576a0ce1d16",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "397b9b11-e14d-4b97-834a-a96a9f489296",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "737dcf91c026e49aa8c264c8caf5563533fdf5c88800250f5d0ae93b0f0ad713",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "737dcf91c026e49aa8c264c8caf5563533fdf5c88800250f5d0ae93b0f0ad713",
+              "source_sha256": "9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:37.776211+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 54
+    },
+    {
+      "case_id": "television-clear_defect",
+      "kind": "synthetic_control",
+      "category": "television",
+      "reference": "defect",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "a109e4d9-cad6-45d4-8caf-e91aeb04f480",
+      "observation_id": "3eacf3e0-2ea9-40ec-bfc6-21ebafed5dce",
+      "fingerprint": "f65156195423be2410714f3a413924754139a664227109cf17d070d18582a4b3",
+      "photos": [
+        {
+          "photo_id": "television-clear_defect",
+          "sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda"
+        }
+      ],
+      "elapsed_seconds": 5.257862746002502,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "65f544b7-1836-456c-81bf-02f8279ee041",
+          "observation_id": "3eacf3e0-2ea9-40ec-bfc6-21ebafed5dce",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "a109e4d9-cad6-45d4-8caf-e91aeb04f480",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "3e2c601a533d9c88d63b73cfe8a9914e210f40422463f2a5224aa2afe944f579",
+              "source_sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:43.584494+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 50
+    },
+    {
+      "case_id": "television-suspected",
+      "kind": "synthetic_control",
+      "category": "television",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "failed",
+      "reason": "invalid_analysis",
+      "assessment_id": "0b2affb9-b946-4e34-82aa-4fd59ec1186a",
+      "observation_id": "dccac150-8f89-438a-b2b0-f55d2dd6020c",
+      "fingerprint": "e7c39760e73354c7dc86e89b39f874dc00ef2c3c24599ec5878e27fab9e8962f",
+      "photos": [
+        {
+          "photo_id": "television-suspected",
+          "sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5"
+        }
+      ],
+      "elapsed_seconds": 5.09082944200054,
+      "thermal_position": "subsequent_case",
+      "inference_sent": true,
+      "case_calls_sent": 1,
+      "limitations": [],
+      "evidence_errors": [
+        "invalid_output"
+      ],
+      "analyses": [
+        {
+          "request_id": "cbb70975-5350-4248-a5a9-290efc47c923",
+          "observation_id": "dccac150-8f89-438a-b2b0-f55d2dd6020c",
+          "revision": 1,
+          "state": "failed",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "condition-evidence-v1",
+          "schema_version": "condition-evidence-v1",
+          "cohort_id": "0b2affb9-b946-4e34-82aa-4fd59ec1186a",
+          "cohort_generation": 1,
+          "coverage": [
+            {
+              "id": "p_4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+              "kind": "image",
+              "sent": true,
+              "reason": "invalid_output",
+              "sha256": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+              "examined": false,
+              "provided": true,
+              "revision": 1,
+              "derived_hash": "7987a4762b071e89768214b88b8f547295fa2eed72bc1cc0b131d5b1ac538b82",
+              "source_sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+              "transformation": "512-v1"
+            }
+          ],
+          "parts": [
+            {
+              "state": "failed",
+              "result": null,
+              "metrics": {
+                "sent": true
+              },
+              "reason": "invalid_output"
+            }
+          ],
+          "created_at": "2026-11-13T15:20:48.969290+00:00",
+          "completed_at": null
+        }
+      ],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 48
+    },
+    {
+      "case_id": "intermittent",
+      "kind": "text_regression",
+      "category": "console",
+      "reference": "defect",
+      "automatic": "defect",
+      "status": "partial",
+      "reason": "clear_defect",
+      "assessment_id": "9e823389-9f0e-4c43-8abd-62c1eb23a833",
+      "observation_id": "6f8ecdcc-6c1f-4863-a969-716c75e7f381",
+      "fingerprint": "38a656f10226277e901b490966a517c64e5541073d3e1f992616e61f1daaaa0b",
+      "photos": [],
+      "elapsed_seconds": 0.03570475000014994,
+      "thermal_position": "no_inference",
+      "inference_sent": false,
+      "case_calls_sent": 0,
+      "limitations": [],
+      "evidence_errors": [],
+      "analyses": [],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 1
+    },
+    {
+      "case_id": "battery",
+      "kind": "text_regression",
+      "category": "computer",
+      "reference": "defect",
+      "automatic": "defect",
+      "status": "partial",
+      "reason": "clear_defect",
+      "assessment_id": "2372e302-8821-4d39-968e-bd9f0c2641f9",
+      "observation_id": "d77efc61-dbf2-4fbf-a9be-21de89cea5e2",
+      "fingerprint": "aa46868f65d082a0ebd58c3fa49563ea6622f41e74384094090cfec9ec2af77a",
+      "photos": [],
+      "elapsed_seconds": 0.03596561800077325,
+      "thermal_position": "no_inference",
+      "inference_sent": false,
+      "case_calls_sent": 0,
+      "limitations": [],
+      "evidence_errors": [],
+      "analyses": [],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 1
+    },
+    {
+      "case_id": "untested",
+      "kind": "text_regression",
+      "category": "camera",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "status": "partial",
+      "reason": "not_tested",
+      "assessment_id": "588daa78-2516-4361-8407-8ca7b5a3fb02",
+      "observation_id": "6f7e1c07-9ffe-48f4-a6d8-239bcaef1c3c",
+      "fingerprint": "f6a1cc194852b251d0335f3549d46e3da01b69a6b000601e0d546dbc86d767ec",
+      "photos": [],
+      "elapsed_seconds": 0.032615999996778555,
+      "thermal_position": "no_inference",
+      "inference_sent": false,
+      "case_calls_sent": 0,
+      "limitations": [],
+      "evidence_errors": [],
+      "analyses": [],
+      "ram_scope": "host RAM and evaluator RSS sampled at100ms; model VRAM in per-call F19 metrics",
+      "ram_sample_count": 1
+    }
+  ],
+  "scope": "Provided hashes, physically sent parts and accepted parts remain separate. Per-case wallclock and thermal order flags are not model-only cold/warm timing measurements."
+}

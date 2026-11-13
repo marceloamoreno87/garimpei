@@ -15,7 +15,7 @@ monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x747130f805d0>
         payload=dict(action="evaluate_corpus",mode="real",manifest="test-manifest",review="pending-review",package="test-package")
 >       assert lab.action(payload)["reason"]=="human_review_missing"
 E       AssertionError: assert 'Human review...lity evidence' == 'human_review_missing'
-E         
+E
 E         - human_review_missing
 E         + Human review and a separately coordinated real F19 runtime are required; controlled fake results are never quality evidence
 

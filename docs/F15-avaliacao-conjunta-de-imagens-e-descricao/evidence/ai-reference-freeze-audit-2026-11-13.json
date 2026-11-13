@@ -1,0 +1,20 @@
+{
+  "reference_file": "ai-reference-reviewed-2026-11-13.json",
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "reviewer_values": [
+    "Codex (IA; revisão solicitada pelo usuário)"
+  ],
+  "latest_reviewed_at": "2026-11-13T14:57:10.635Z",
+  "earliest_physical_request_created_at": "2026-11-13T15:19:29.452838+00:00",
+  "review_precedes_requests": true,
+  "source_commit": "2453f5f",
+  "authority_commit": "9ce6a75",
+  "reference_universe": 23,
+  "adjustment": 7,
+  "reserved": 16,
+  "reserved_good_support": 0,
+  "note": "Exact export bytes preserved; labels/splits not normalized or changed. Review dates supplement the coordinator freeze audit. Reference AI execution is not attested local; evaluated F19 remains local."
+}

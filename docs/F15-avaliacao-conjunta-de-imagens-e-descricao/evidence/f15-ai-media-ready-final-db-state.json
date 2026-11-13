@@ -1,0 +1,27 @@
+{
+  "inference_request_states": {
+    "failed": 13
+  },
+  "inference_part_states": {
+    "pending": 3,
+    "failed": 13
+  },
+  "inference_part_reasons": {
+    "": 3,
+    "invalid_output": 13
+  },
+  "inference_control": [
+    {
+      "paused": false
+    }
+  ],
+  "media_capture_states": {
+    "failed": 13,
+    "ready": 19
+  },
+  "media_job_states": {
+    "done": 32,
+    "failed": 16
+  },
+  "media_assets": 16
+}

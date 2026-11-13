@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "docker",
+      "exec",
+      "1b068f28ce79",
+      "ollama",
+      "ps"
+    ],
+    "exit_code": 0,
+    "stdout": "NAME                 ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen3.5:4b-q4_K_M    d8b0f5e9760c    3.1 GB    100% GPU     4096       llamacpp    4 minutes from now    \n",
+    "stderr": "",
+    "timestamp": 1794583231.694856
+  },
+  {
+    "command": [
+      "nvidia-smi",
+      "--query-gpu=name,memory.used,utilization.gpu",
+      "--format=csv,noheader"
+    ],
+    "exit_code": 0,
+    "stdout": "NVIDIA GeForce RTX 5070, 6481 MiB, 19 %\n",
+    "stderr": "",
+    "timestamp": 1794583231.7432706
+  },
+  {
+    "command": [
+      "docker",
+      "inspect",
+      "--format",
+      "{{json .NetworkSettings.Networks}}",
+      "1b068f28ce79"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"garimpei-eval_f15_gpu_20261113_inference\":{\"IPAMConfig\":null,\"Links\":null,\"Aliases\":[\"garimpei-eval_f15_gpu_20261113-ollama-1\",\"ollama\"],\"DriverOpts\":null,\"GwPriority\":0,\"NetworkID\":\"c44fd95b8ae0faed59215c121ee12c7b974514034ac985a82d8a3a768ab4ab0b\",\"EndpointID\":\"fc2b1bfcc2921e156edfcd03bca7ef904aae22518eb8efcae81f1b5704e74cdf\",\"Gateway\":\"\",\"IPAddress\":\"172.20.0.2\",\"MacAddress\":\"aa:07:69:e6:48:33\",\"IPPrefixLen\":16,\"IPv6Gateway\":\"\",\"GlobalIPv6Address\":\"\",\"GlobalIPv6PrefixLen\":0,\"DNSNames\":[\"garimpei-eval_f15_gpu_20261113-ollama-1\",\"ollama\",\"1b068f28ce79\"]}}\n",
+    "stderr": "",
+    "timestamp": 1794583234.7718968
+  }
+]

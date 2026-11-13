@@ -1,0 +1,41 @@
+{
+  "base": "c393828",
+  "files": [
+    {
+      "file": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/cycle5-warmup-six-gates.txt",
+      "old_sha256": "59d3f158e70e68a5471403e1deb8fe52c29646561279340eea250e2a754d63c1",
+      "new_sha256": "ea4ad5998e3b25c6d57cd8c4e50a3faf34767393c0fffa970f59f56ecb339fa0",
+      "normalization": "trailing whitespace only; exit codes and result text unchanged"
+    },
+    {
+      "file": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/reference-method-red.txt",
+      "old_sha256": "188b06497126f3b61cd7fbfe3b3c2fdc9d5eae0b1eb6135a575deab76b84ccd6",
+      "new_sha256": "929e0ed8e527f1cb2dc0d0c2623414243b7631e6eb8896621c0c8b3663e8fff0",
+      "normalization": "trailing whitespace only; exit codes and result text unchanged"
+    },
+    {
+      "file": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/reference-method-six-gates.txt",
+      "old_sha256": "f1abd89f1adeca3d3e20732d7d66e4f3cd5c04512fcc15f2aa2bdf76726d5c4e",
+      "new_sha256": "53d338afa90590e9cba7cbabbf2bfbab013753faaa0a80fa706b1cd1cc0ac357",
+      "normalization": "trailing whitespace only; exit codes and result text unchanged"
+    },
+    {
+      "file": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/retomada-hostile-red.txt",
+      "old_sha256": "581875ac60a05d379e7b53efe902b2b17ee850c02d56bc01a9e422f59eda5613",
+      "new_sha256": "31d8f023d707d889fef06acb952b02dccf1551f98415935543fc6e93e67ff8b7",
+      "normalization": "trailing whitespace only; exit codes and result text unchanged"
+    },
+    {
+      "file": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/retomada-quality-runner-red.txt",
+      "old_sha256": "c63aaeaab110e4d625fc21b5764214af40236ccbd577cfae4e9560bcec43d7a3",
+      "new_sha256": "60fbac0fd3703f751f3947d2ad1c4e48e885e6a1b41be04a95f5f00efa7105d0",
+      "normalization": "trailing whitespace only; exit codes and result text unchanged"
+    },
+    {
+      "file": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/evidence/retomada-six-gates-final.txt",
+      "old_sha256": "f1abd89f1adeca3d3e20732d7d66e4f3cd5c04512fcc15f2aa2bdf76726d5c4e",
+      "new_sha256": "53d338afa90590e9cba7cbabbf2bfbab013753faaa0a80fa706b1cd1cc0ac357",
+      "normalization": "trailing whitespace only; exit codes and result text unchanged"
+    }
+  ]
+}

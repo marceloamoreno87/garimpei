@@ -1,0 +1,35 @@
+{
+  "source_commit": "2453f5f",
+  "backend_tree": "5c5c4043bc8992a77b087f1e4db9cb07d8b91a38",
+  "full_directory": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/garimpei-f15-wave-full-pzio7ytg",
+  "full_status": "PASS",
+  "compared": 660,
+  "changed": [],
+  "missing": [],
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "reference_method": "ai_assisted",
+  "reviewer_values": [
+    "Codex (IA; revisão solicitada pelo usuário)"
+  ],
+  "reference_universe": {
+    "uncertain": 12,
+    "good": 4,
+    "defect": 7
+  },
+  "reference_splits": {
+    "adjustment": {
+      "uncertain": 3,
+      "good": 4
+    },
+    "reserved": {
+      "uncertain": 9,
+      "defect": 7
+    }
+  },
+  "note": "Input identity only; not a declaration that the full suite or physical inference passed. Zero reserved good references is lack of support, not100percent accuracy.",
+  "full_summary": "full-2026-11-13-suite-summary.json",
+  "covered_unique": 780,
+  "passed": 780,
+  "final_current_changed_inputs": []
+}

@@ -12,7 +12,7 @@ Ainda em trabalho: laboratório reproduzível com ações do contrato; matriz de
 
 ## Fechamento — 2026-11-12T22:00Z
 
-Implementação estável em80d5fed, após aa2c6b2/060be5d/4a5b8a0. A avaliação final desta worktree registra28PASS/0FAIL/3BLOCKED em31itens;3ACs verificados e5indeterminados. Status implemented/manual-pending, sem done/clean. Bloqueios: qualidade real/revisão humana adiada explicitamente; mudança física completa de versões de política/prompt/schema/modelo sem artefato executado; ensaio completo de instrução hostil em imagem não efetuado. F14 permanece pré-requisito externo incompleto. O coordenador possui correções adicionais de vigência/identidade na união, avaliadas separadamente.
+Implementação estável em80d5fed, após aa2c6b2/060be5d/4a5b8a0. A avaliação final desta worktree registra28PASS/0 FAIL/3BLOCKED em31itens;3ACs verificados e5indeterminados. Status implemented/manual-pending, sem done/clean. Bloqueios: qualidade real/revisão humana adiada explicitamente; mudança física completa de versões de política/prompt/schema/modelo sem artefato executado; ensaio completo de instrução hostil em imagem não efetuado. F14 permanece pré-requisito externo incompleto. O coordenador possui correções adicionais de vigência/identidade na união, avaliadas separadamente.
 
 Correção1 reproduziu lotes irmãos superseded com5/12 fotos distintas e WebP omitido; migração0022 adiciona coorte/geração sem alterar default/assinatura do perfil legado.84afetadosPASS35,71s. Correção2 corrigiu cobertura pendente0/0→0/1 e digest divergente indevidamente aceito;3focaisPASS13,41s. Rodada anterior à guarda final16integraçõesPASS109,72s, preservada como checkpoint, sem extrapolá-la ao fonte posterior.
 
@@ -29,6 +29,13 @@ Evidência suplementar fornecida pelo coordenador da união:6c315ca/identidade e
 
 F14 agora done. Corrigido diagnóstico técnico mascarado quando a descrição não declarava funcionamento, com4regressões hostis através das fronteiras reais F14/F15/F19 e transporte controlado. Quatro migrações de metadados legados sintéticos comprovam revisão/fingerprint/abstenção/histórico sem trocar pesos de produção.
 
-Preparado pacote offline23casos com9originais reais autorizados/18 ilustrações/3 regressões e export humano vinculado ao manifesto, mantendo todoslabels nulos. Adicionado executor real de qualidade com validação anterior a runtime, propriedade eval, fila exclusiva, recusa de fake e relato de matriz/erros/recursos;19 unit e1integração controlada aprovados. Modelo/GPU próprios foram preparados pelo coordenador somente com calibração sintética F19. Corpus reservado continua sem execução aguardando revisão efetiva e depois medição real.
+Preparado pacote offline23 casos com9originais reais autorizados/18 ilustrações/3 regressões e export humano vinculado ao manifesto, mantendo todoslabels nulos. Adicionado executor real de qualidade com validação anterior a runtime, propriedade eval, fila exclusiva, recusa de fake e relato de matriz/erros/recursos;19 unit e1integração controlada aprovados. Modelo/GPU próprios foram preparados pelo coordenador somente com calibração sintética F19. Corpus reservado continua sem execução aguardando revisão efetiva e depois medição real.
 
 Fonte backend congelada em f25a4e0, precedida por31b327a. Seis gates e regressões afetadas aprovados; baseline724 reutilizado para entradas inalteradas, full após mudanças consolidado separadamente pelo coordenador. Ver novo eval-report desta data. A feature permanece implemented/pending, nunca done por preparação documental/técnica.
+
+
+## Consolidação final da retomada —2026-11-13
+
+Backend2453f5f/árvore5c5c4043bc8992a77b087f1e4db9cb07d8b91a38 permaneceu congelado. Full 780 e os seis gates passaram; XMLs e hashes comprovam cobertura única sem omissões, sourcechanges ou skips. As três correções autorizadas consumiram cycles 2→3→4→5; a adaptação de método foi requisito novo, sem incremento artificial.
+
+A referência de IA explicitamente aprovada foi congelada em23 casos (7 ajuste/16 reservados) e preservada em bytes exatos. Runtime F14/F19 próprio teve a cota/root de mídia preparados apenas no env privado. Execução física:13 partes enviadas,13 invalid_output/0 aceitas e3 pendentes; matriz/abstenções/erros/escopos de recursos publicados. Não houve prova quantitativa de inferência fria/quente nos envelopes falhos. A feature continua implemented com30/31 itens PASS e E2E-QUALIDADE-01 BLOCKED;5/8 ACs verificados,3 indeterminados. Diário termina exhausted3/3; próxima correção/medição exige novo escopo/orçamento. Sem ativar runtime principal, Facebook ou WAHA real.

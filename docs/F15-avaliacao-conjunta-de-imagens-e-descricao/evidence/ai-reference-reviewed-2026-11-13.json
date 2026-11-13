@@ -1,0 +1,666 @@
+{
+  "schema_version": 1,
+  "rubric": "condition-policy-v1",
+  "cases": [
+    {
+      "case_id": "source-1633686958401669",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:07.002Z",
+      "category": null,
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "identity",
+          "severity": "unknown",
+          "component": "main",
+          "evidence": {
+            "photo_id": "photo-4",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Miniatura Hot Wheels em blister, fora das famílias eletrônicas avaliadas. As fotos não estabelecem condição funcional sob esta rubrica."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Somente título e fotos disponíveis; descrição e condição do vendedor não foram capturadas. Não houve teste de funcionamento.",
+        "Brinquedo fora das seis categorias; não reclassificar como eletrônico. Fotografias próximas têm reflexos e desfoque."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "source-1502910511735697",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:07.169Z",
+      "category": "console",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "unknown",
+          "component": "main",
+          "evidence": {
+            "photo_id": "photo-3",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Console e dois controles aparecem conservados nas vistas fornecidas. Há reflexos/marcas na superfície preta e luz azul acesa; isso não demonstra funcionamento em jogo, leitura ou portas."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Somente título e fotos disponíveis; descrição e condição do vendedor não foram capturadas. Não houve teste de funcionamento.",
+        "Luz acesa não comprova operação em jogo; portas, acessórios e capacidade de armazenamento não foram testados."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "electronics-light_wear",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:07.386Z",
+      "category": "electronics",
+      "label": "good",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "light_wear",
+          "component": "main",
+          "evidence": {
+            "photo_id": "electronics-light_wear",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Traço branco curto e fino na área externa do corpo representado, sem ruptura desenhada; representa desgaste cosmético leve."
+        },
+        {
+          "dimension": "function_claim",
+          "severity": "unknown",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "O aparelho funciona perfeitamente."
+          },
+          "description": "Declaração positiva explícita do texto controlado, separada da aparência; não é teste presencial."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "electronics-clear_defect",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:07.552Z",
+      "category": "electronics",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": "electronics-clear_defect",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Grande traço irregular atravessa o corpo do aparelho e alcança sua borda, com segmento saliente abaixo; representa ruptura relevante no controle ilustrado."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "electronics-suspected",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:07.703Z",
+      "category": "electronics",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "unknown",
+          "evidence": {
+            "photo_id": "electronics-suspected",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Anel/mancha clara central sem ruptura inequívoca; não é possível decidir se é reflexo, detalhe ou dano do aparelho."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "camera-light_wear",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:07.919Z",
+      "category": "camera",
+      "label": "good",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "light_wear",
+          "component": "main",
+          "evidence": {
+            "photo_id": "camera-light_wear",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Marca curta e fina no corpo, à esquerda da lente representada; não há ruptura inequívoca no círculo da lente."
+        },
+        {
+          "dimension": "function_claim",
+          "severity": "unknown",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "O aparelho funciona perfeitamente."
+          },
+          "description": "Declaração positiva explícita do texto controlado, separada da aparência; não é teste presencial."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "camera-clear_defect",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:08.069Z",
+      "category": "camera",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": "camera-clear_defect",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Zigue-zague atravessa a região da lente e do corpo e chega à borda inferior; representa trinca/ruptura relevante no desenho."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "camera-suspected",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:08.218Z",
+      "category": "camera",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "unknown",
+          "evidence": {
+            "photo_id": "camera-suspected",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Área circular clara sobre a lente pode representar mancha ou reflexo; a ilustração não permite concluir que a lente esteja quebrada."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "computer-light_wear",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:08.369Z",
+      "category": "computer",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "main",
+          "evidence": {
+            "photo_id": "computer-light_wear",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Linha branca curta está dentro da área da tela, e não claramente na tampa ou moldura. Pode ser conteúdo exibido ou marca no painel; sua natureza e gravidade não estão demonstradas."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico.",
+        "Os controles de computador e TV reutilizam a mesma ilustração por tipo; a figura não discrimina modelo/família com detalhe suficiente."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "computer-clear_defect",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:08.518Z",
+      "category": "computer",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": "computer-clear_defect",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Traço irregular amplo cruza a tela e ultrapassa a borda inferior do conjunto, representando dano estrutural relevante do item principal."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico.",
+        "Os controles de computador e TV reutilizam a mesma ilustração por tipo; a figura não discrimina modelo/família com detalhe suficiente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "computer-suspected",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:08.669Z",
+      "category": "computer",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "main",
+          "evidence": {
+            "photo_id": "computer-suspected",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Anel claro na área de tela pode ser reflexo ou imagem apresentada; não comprova dano ou ausência de defeito."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico.",
+        "Os controles de computador e TV reutilizam a mesma ilustração por tipo; a figura não discrimina modelo/família com detalhe suficiente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "console-light_wear",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:08.886Z",
+      "category": "console",
+      "label": "good",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "light_wear",
+          "component": "main",
+          "evidence": {
+            "photo_id": "console-light_wear",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Marca superficial curta no painel externo esquerdo, com contorno do corpo preservado no desenho."
+        },
+        {
+          "dimension": "function_claim",
+          "severity": "unknown",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "O aparelho funciona perfeitamente."
+          },
+          "description": "Declaração positiva explícita do texto controlado, separada da aparência; não é teste presencial."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "console-clear_defect",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:09.035Z",
+      "category": "console",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": "console-clear_defect",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Traço em zigue-zague atravessa a representação do corpo/coluna central e alcança a borda; é ruptura relevante desenhada no console, não apenas em acessório."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "console-suspected",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:09.185Z",
+      "category": "console",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "main",
+          "evidence": {
+            "photo_id": "console-suspected",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Marca circular clara sobre o corpo/faixa central sem quebra definida; não é possível determinar a extensão do possível dano."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "headphone-light_wear",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:09.402Z",
+      "category": "headphone",
+      "label": "good",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "light_wear",
+          "component": "main",
+          "evidence": {
+            "photo_id": "headphone-light_wear",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Traço curto sobre a concha esquerda; haste e contornos das conchas continuam íntegros na representação."
+        },
+        {
+          "dimension": "function_claim",
+          "severity": "unknown",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "O aparelho funciona perfeitamente."
+          },
+          "description": "Declaração positiva explícita do texto controlado, separada da aparência; não é teste presencial."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "headphone-clear_defect",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:09.552Z",
+      "category": "headphone",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "unknown",
+          "evidence": {
+            "photo_id": "headphone-clear_defect",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "O zigue-zague aparece na área interna entre as conchas e não cruza inequivocamente a haste ou as conchas. Não é possível atribuir a marca a uma ruptura do fone principal."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "headphone-suspected",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:09.702Z",
+      "category": "headphone",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "unknown",
+          "evidence": {
+            "photo_id": "headphone-suspected",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Anel claro na região interna do arco; o esquema não permite atribuir essa região a componente danificado do fone."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "television-light_wear",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:09.852Z",
+      "category": "television",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "main",
+          "evidence": {
+            "photo_id": "television-light_wear",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Traço fino dentro da área do painel pode pertencer à imagem exibida ou representar risco físico. Não há detalhe suficiente para tratá-lo como simples desgaste da moldura."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico.",
+        "Os controles de computador e TV reutilizam a mesma ilustração por tipo; a figura não discrimina modelo/família com detalhe suficiente."
+      ],
+      "text_corrections": null,
+      "split": "adjustment"
+    },
+    {
+      "case_id": "television-clear_defect",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:10.002Z",
+      "category": "television",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": "television-clear_defect",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Zigue-zague longo atravessa o painel e alcança a borda externa inferior; o desenho representa trinca/ruptura estrutural relevante."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico.",
+        "Os controles de computador e TV reutilizam a mesma ilustração por tipo; a figura não discrimina modelo/família com detalhe suficiente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "television-suspected",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:10.152Z",
+      "category": "television",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "appearance",
+          "severity": "suspected",
+          "component": "main",
+          "evidence": {
+            "photo_id": "television-suspected",
+            "text_field": null,
+            "quote": null
+          },
+          "description": "Círculo claro no painel é ambíguo: reflexo, conteúdo exibido ou marca. Não sustenta conclusão de funcionamento ou defeito inequívoco."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente.",
+        "Ilustração sintética esquemática; não mede reconhecimento de fotografias reais nem comprova funcionamento físico.",
+        "Os controles de computador e TV reutilizam a mesma ilustração por tipo; a figura não discrimina modelo/família com detalhe suficiente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "intermittent",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:10.319Z",
+      "category": "console",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "function_claim",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "desliga sozinho depois de dez minutos"
+          },
+          "description": "Desligamento involuntário após dez minutos é falha funcional explícita, apesar da frase positiva inicial."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "battery",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:10.486Z",
+      "category": "computer",
+      "label": "defect",
+      "findings": [
+        {
+          "dimension": "function_claim",
+          "severity": "clear_defect",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "só funciona conectado na tomada"
+          },
+          "description": "O item é um notebook portátil com bateria e o texto restringe o uso à tomada; é limitação funcional anormal para o contexto informado."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    },
+    {
+      "case_id": "untested",
+      "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+      "reviewed_at": "2026-11-13T14:57:10.635Z",
+      "category": "camera",
+      "label": "uncertain",
+      "findings": [
+        {
+          "dimension": "consistency",
+          "severity": "suspected",
+          "component": "main",
+          "evidence": {
+            "photo_id": null,
+            "text_field": "description",
+            "quote": "Não foi testado. Funciona perfeitamente."
+          },
+          "description": "A declaração de que não foi testado contradiz a afirmação genérica de funcionamento; o texto não sustenta funcionamento confiável."
+        }
+      ],
+      "limitations": [
+        "Revisão produzida por Codex (IA), não por avaliador humano independente."
+      ],
+      "text_corrections": null,
+      "split": "reserved"
+    }
+  ],
+  "finding_format": {
+    "dimension": "appearance|function_claim|completeness|identity|consistency",
+    "severity": "light_wear|clear_defect|suspected|unknown",
+    "component": "main|accessory|unknown",
+    "evidence": {
+      "photo_id": null,
+      "text_field": null,
+      "quote": null
+    },
+    "description": null
+  },
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "reference_method": "ai_assisted"
+}

@@ -1,0 +1,101 @@
+{
+  "source_directory": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/garimpei-f15-wave-full-pzio7ytg",
+  "source_commit": "2453f5f",
+  "backend_tree": "5c5c4043bc8992a77b087f1e4db9cb07d8b91a38",
+  "full_passed": 780,
+  "current_input_hashes_compared": 660,
+  "current_changed_inputs": [],
+  "files": [
+    {
+      "source": "inputs.json",
+      "file": "full-2026-11-13-inputs.json",
+      "source_sha256": "bc2bf210dc0761545fe58d8bd185421c99870fb68e4a67f98ff14b20f3605f80",
+      "published_sha256": "bc2bf210dc0761545fe58d8bd185421c99870fb68e4a67f98ff14b20f3605f80",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "partition-manifest.json",
+      "file": "full-2026-11-13-partition-manifest.json",
+      "source_sha256": "0826f21aa0751311c0f35db6e15fef473cef5a253e2def70c4f986bf7d03a3e2",
+      "published_sha256": "0826f21aa0751311c0f35db6e15fef473cef5a253e2def70c4f986bf7d03a3e2",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "suite-summary.json",
+      "file": "full-2026-11-13-suite-summary.json",
+      "source_sha256": "d0db8191e9c5567df38d6905e861bf20c602afad6639f60a388487ffd772d8a3",
+      "published_sha256": "d0db8191e9c5567df38d6905e861bf20c602afad6639f60a388487ffd772d8a3",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "collection.txt",
+      "file": "full-2026-11-13-collection.txt",
+      "source_sha256": "484a327ca64d7b5a38ff071cfe2fdaf024c4bd83411c070d92d0863750ffc96c",
+      "published_sha256": "484a327ca64d7b5a38ff071cfe2fdaf024c4bd83411c070d92d0863750ffc96c",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-0.xml",
+      "file": "full-2026-11-13-shard-0.xml",
+      "source_sha256": "65f12228c4d0421b6f9d8fa30528b67e361e9eb10f38caf4ba982def644ce903",
+      "published_sha256": "65f12228c4d0421b6f9d8fa30528b67e361e9eb10f38caf4ba982def644ce903",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-0-execution.json",
+      "file": "full-2026-11-13-shard-0-execution.json",
+      "source_sha256": "6fa2f088ba68299d355f82822e8ed990c5b314fda6a7204de3911ead9544b18d",
+      "published_sha256": "6fa2f088ba68299d355f82822e8ed990c5b314fda6a7204de3911ead9544b18d",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-0.log",
+      "file": "full-2026-11-13-shard-0.txt",
+      "source_sha256": "4f1cace97db36b4f87b54961b54f74f52745efa70a1714230e97aa70be7def45",
+      "published_sha256": "4f1cace97db36b4f87b54961b54f74f52745efa70a1714230e97aa70be7def45",
+      "whitespace_only_normalization": true
+    },
+    {
+      "source": "shard-1.xml",
+      "file": "full-2026-11-13-shard-1.xml",
+      "source_sha256": "1da405ad96d77bd5b48a36c7ae991f794774bd83844d23075a405ed2b7462422",
+      "published_sha256": "1da405ad96d77bd5b48a36c7ae991f794774bd83844d23075a405ed2b7462422",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-1-execution.json",
+      "file": "full-2026-11-13-shard-1-execution.json",
+      "source_sha256": "1ef2ab5bd30fb3d4e89e7fb652ccd5f3bc153c87a1af2528657dd6aa4fe5d3b2",
+      "published_sha256": "1ef2ab5bd30fb3d4e89e7fb652ccd5f3bc153c87a1af2528657dd6aa4fe5d3b2",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-1.log",
+      "file": "full-2026-11-13-shard-1.txt",
+      "source_sha256": "5ca05b680dc298e2873d16648bef8f3d5cb81384203e11d3372d3a7d4abf2886",
+      "published_sha256": "5ca05b680dc298e2873d16648bef8f3d5cb81384203e11d3372d3a7d4abf2886",
+      "whitespace_only_normalization": true
+    },
+    {
+      "source": "shard-2.xml",
+      "file": "full-2026-11-13-shard-2.xml",
+      "source_sha256": "1551498f162059318164bfd35501fb1f831a01ead5cb71762359d48e5a4a2061",
+      "published_sha256": "1551498f162059318164bfd35501fb1f831a01ead5cb71762359d48e5a4a2061",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-2-execution.json",
+      "file": "full-2026-11-13-shard-2-execution.json",
+      "source_sha256": "7ca8cdf173ea5b75ae62b11033a38413df7e7fe6c2c6547d154440389712dd7a",
+      "published_sha256": "7ca8cdf173ea5b75ae62b11033a38413df7e7fe6c2c6547d154440389712dd7a",
+      "whitespace_only_normalization": false
+    },
+    {
+      "source": "shard-2.log",
+      "file": "full-2026-11-13-shard-2.txt",
+      "source_sha256": "93afb5a7610eed1bae76c2e8d69fdf52c5f82c19bd5dad1a9262596185a2b097",
+      "published_sha256": "93afb5a7610eed1bae76c2e8d69fdf52c5f82c19bd5dad1a9262596185a2b097",
+      "whitespace_only_normalization": true
+    }
+  ]
+}

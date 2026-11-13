@@ -1,0 +1,275 @@
+{
+  "execution_completed": true,
+  "quality_pass": false,
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "comparison_kind": "ai_agreement",
+  "legacy_human_acceptance_satisfied": false,
+  "source_commit": "2453f5f47458eeb54a15a73fcd7bb71f6149f1e5",
+  "source_copy_changed_files": [],
+  "source_files_checked": 707,
+  "review_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "cases": 16,
+  "by_kind": {
+    "real_source_unreviewed": 1,
+    "synthetic_control": 12,
+    "text_regression": 3
+  },
+  "case_calls_sent": 13,
+  "part_states": {
+    "failed": 13,
+    "pending": 3
+  },
+  "part_reasons": {
+    "invalid_output": 13,
+    "": 3
+  },
+  "matrix": {
+    "good": {
+      "good": 0,
+      "defect": 0,
+      "uncertain": 0
+    },
+    "defect": {
+      "good": 0,
+      "defect": 2,
+      "uncertain": 5
+    },
+    "uncertain": {
+      "good": 0,
+      "defect": 0,
+      "uncertain": 9
+    }
+  },
+  "automatic_good_reference_other": 0,
+  "automatic_defect_reference_other": 0,
+  "abstentions": 14,
+  "per_case": [
+    {
+      "case_id": "source-1502910511735697",
+      "kind": "real_source_unreviewed",
+      "calls_sent": 1,
+      "photo_count": 4,
+      "part_states": {
+        "failed": 1,
+        "pending": 3
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 19.77994856800069,
+      "thermal_position": "after_verified_unload"
+    },
+    {
+      "case_id": "electronics-clear_defect",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.180378946002747,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "electronics-suspected",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.140425470999617,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "camera-clear_defect",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.226433878000535,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "camera-suspected",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.14053789999889,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "computer-clear_defect",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.113873826005147,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "computer-suspected",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.4646360900005675,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "console-clear_defect",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.4839388510008575,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "console-suspected",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.163126032995933,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "headphone-clear_defect",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.398142106998421,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "headphone-suspected",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.696210442998563,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "television-clear_defect",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.257862746002502,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "television-suspected",
+      "kind": "synthetic_control",
+      "calls_sent": 1,
+      "photo_count": 1,
+      "part_states": {
+        "failed": 1
+      },
+      "automatic": "uncertain",
+      "reason": "invalid_analysis",
+      "elapsed_seconds": 5.09082944200054,
+      "thermal_position": "subsequent_case"
+    },
+    {
+      "case_id": "intermittent",
+      "kind": "text_regression",
+      "calls_sent": 0,
+      "photo_count": 0,
+      "part_states": {},
+      "automatic": "defect",
+      "reason": "clear_defect",
+      "elapsed_seconds": 0.03570475000014994,
+      "thermal_position": "no_inference"
+    },
+    {
+      "case_id": "battery",
+      "kind": "text_regression",
+      "calls_sent": 0,
+      "photo_count": 0,
+      "part_states": {},
+      "automatic": "defect",
+      "reason": "clear_defect",
+      "elapsed_seconds": 0.03596561800077325,
+      "thermal_position": "no_inference"
+    },
+    {
+      "case_id": "untested",
+      "kind": "text_regression",
+      "calls_sent": 0,
+      "photo_count": 0,
+      "part_states": {},
+      "automatic": "uncertain",
+      "reason": "not_tested",
+      "elapsed_seconds": 0.032615999996778555,
+      "thermal_position": "no_inference"
+    }
+  ],
+  "cli_elapsed_seconds": 89.6582078729989,
+  "case_total_seconds": 83.24063066900271,
+  "memory": {
+    "scope": "host RAM and evaluator RSS, not model-exclusive RAM",
+    "samples": 800,
+    "target_interval_seconds": 0.1,
+    "median_actual_interval_seconds": 0.10027959099897998,
+    "peak_host_ram_used_bytes": 23874101248,
+    "peak_evaluator_rss_bytes": 183148544
+  },
+  "gpu_proof": "f15-ai-media-ready-runtime-proof.json:ollama ps100%GPU context4096; midrun host6479MiB50%; previously verified driver621.01",
+  "cold_warm_limitations": "First sent case followed confirmed unload, later cases marked subsequent_case. Every failed part retained sent=true only; load_duration, per-call VRAM/GPU samples and cold/warm timing cannot be established from retained failed envelopes. No exclusive model-RAM claim. External100ms sampler began after CLI completion and is not evidence of run-time sampling.",
+  "failure_diagnosis_limitations": "invalid_output does not retain exact stop/token/envelope/schema rejection subreason; no additional inference requests were made to diagnose.",
+  "final_db_snapshot": "f15-ai-media-ready-final-db-state.json",
+  "raw_report": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/quality-ai-real-media-ready-20261113T1519.json",
+  "runtime_queue_retained": true,
+  "model": "qwen3.5:4b-q4_K_M",
+  "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "all_owned_containers_stopped": true,
+  "gpu_reservation_released": true,
+  "volumes_preserved": true,
+  "normal_stop_exit_code": 0
+}

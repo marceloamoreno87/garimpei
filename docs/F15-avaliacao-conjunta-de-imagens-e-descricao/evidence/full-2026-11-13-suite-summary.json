@@ -1,0 +1,29 @@
+{
+  "collected": 780,
+  "covered_unique": 780,
+  "passed": 780,
+  "missing": [],
+  "not_passed": {},
+  "changed_inputs": [],
+  "execution": [
+    {
+      "shard": 0,
+      "exit_code": 0,
+      "seconds": 1259.7375794130057,
+      "selected": 283
+    },
+    {
+      "shard": 1,
+      "exit_code": 0,
+      "seconds": 1167.4705305930038,
+      "selected": 239
+    },
+    {
+      "shard": 2,
+      "exit_code": 0,
+      "seconds": 1267.0992740220026,
+      "selected": 258
+    }
+  ],
+  "clean": true
+}

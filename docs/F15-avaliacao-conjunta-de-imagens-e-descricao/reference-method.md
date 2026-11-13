@@ -16,3 +16,8 @@ Resultados por caso usam `reference`, nunca o antigo campo `human`. Ambos os mé
 Verificação desta etapa:12falhas esperadas/18PASS antes da mudança;34unit PASS depois, cobrindo ambos os métodos, metadados nulos/legados/extras, bloqueio anterior a foto/runtime e nomenclatura da matriz. Integração do executor:1PASS/8deselected usando controle local e recusando resultado fake como prova real. Seis gates Python aprovados. CLI sobre o template com método nulo retorna exit2/model_executed=false. Evidências `evidence/reference-method-{red,unit,integration,six-gates,template-blocked}.txt`.
 
 `cycles=4` permanece: esta etapa adapta requisito explicitamente solicitado; não inventa uma nova correção do ciclo anterior. A suíte integral do coordenador foi interrompida por SIGINT antes desta mudança, sem declaração de aprovação. Uma nova consolidação pode usar o checkpoint desta etapa.
+
+
+## Aceite canônico aprovado e resultado desta rodada
+
+A canon 9ce6a75 registra a aprovação explícita do usuário: referência assistida por IA substitui o requisito humano em F15-AC05/E2E-QUALIDADE-01. Por isso independent_human_review=false e legacy_human_acceptance_satisfied=false continuam verdadeiros, mas não constituem falha sob o aceite atual. O arquivo de referênciae13 foi congelado antes dos requests locais e está versionado exatamente. A rodada física não comprovou o observável quantitativo de inferência fria/quente nas respostas falhas, mantendo E2E BLOCKED; não se introduziu uma meta numérica de acurácia ou de categorias reais.

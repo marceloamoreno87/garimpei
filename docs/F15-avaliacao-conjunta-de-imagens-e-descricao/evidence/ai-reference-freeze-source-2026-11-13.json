@@ -1,0 +1,19 @@
+{
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "reviewer": "Codex (IA; revisão solicitada pelo usuário)",
+  "review_file_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "manifest_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+  "visual_review_completed_before_local_model": true,
+  "cases": 23,
+  "label_counts": {
+    "good": 4,
+    "defect": 7,
+    "uncertain": 12
+  },
+  "freeze_at": "2026-11-13T14:59:39.526962+00:00",
+  "source_images_examined": 27,
+  "text_only_cases_examined": 3,
+  "reference_model_version": "Assistant session; exact service revision not attested",
+  "caution": "Agreement with AI references is not independent human validation or measured ground-truth accuracy."
+}

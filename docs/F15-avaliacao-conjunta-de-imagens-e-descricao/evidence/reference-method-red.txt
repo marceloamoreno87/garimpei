@@ -10,7 +10,7 @@ monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d850dd00>
     ) -> None:
         from tests.factories import assessment_quality_runtime as runtime
         from tests.factories.inference import inference_settings
-    
+
         settings = inference_settings(tmp_path, "http://127.0.0.1:1")
         monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
         results: list[dict[str, Any]] = [
@@ -41,8 +41,8 @@ monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d04d850dd00>
             output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method="human"), results, complete=True
         )
 
-tests/unit/test_assessment_quality_review.py:263: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:263:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 output = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_quality_report_counts_abs0/controlled-report.json')
 plan = {'manifest_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'review_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reference_method': 'human'}
@@ -138,23 +138,23 @@ fault = 'absent'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp0'))
 
@@ -195,23 +195,23 @@ fault = 'null'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp1'))
 
@@ -252,23 +252,23 @@ fault = 'invalid'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp2'))
 
@@ -309,23 +309,23 @@ fault = 'top_extra'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp3'))
 
@@ -366,23 +366,23 @@ fault = 'case_extra'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp4'))
 
@@ -423,23 +423,23 @@ fault = 'finding_extra'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp5'))
 
@@ -480,23 +480,23 @@ fault = 'evidence_extra'
             else:
                 finding["evidence"]["tool"] = "send"
         path.write_text(json.dumps(data))
-    
+
         def forbidden(*args: object) -> None:
             raise AssertionError("Invalid reference touched photos/runtime")
-    
+
         monkeypatch.setattr("tests.factories.assessment_quality_review._photo", forbidden)
         monkeypatch.setattr("tests.factories.assessment_quality._execute", forbidden)
 >       result = evaluate_corpus(frozen)
                  ^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/unit/test_assessment_quality_review.py:366: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:366:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/factories/assessment_quality.py:19: in evaluate_corpus
     plan = read_plan(
 tests/factories/assessment_quality_review.py:54: in read_plan
     photos = [_photo(photo, package) for photo in case["photos"]]
               ^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ({'photo_id': 'test-case-0', 'path': 'test-case-0.png', 'sha256': 'f78fae2d66f2b8ade42b19353ded41d9ef78b48d004bf117fc3...ath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_unattributed_or_extra_exp6'))
 
@@ -517,15 +517,15 @@ method = 'human'
     ) -> None:
         from tests.factories import assessment_quality_runtime as runtime
         from tests.factories.inference import inference_settings
-    
+
         settings = inference_settings(tmp_path, "http://127.0.0.1:1")
         monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
         results = [dict(case_id="controlled-reference", reference="defect", automatic="good", kind="synthetic_control", category="computer")]
         output = tmp_path / "report.json"
 >       runtime._write(output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method=method), results, complete=True)
 
-tests/unit/test_assessment_quality_review.py:381: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:381:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 output = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_report_names_the_referenc0/report.json')
 plan = {'manifest_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'review_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reference_method': 'human'}
@@ -555,15 +555,15 @@ method = 'ai_assisted'
     ) -> None:
         from tests.factories import assessment_quality_runtime as runtime
         from tests.factories.inference import inference_settings
-    
+
         settings = inference_settings(tmp_path, "http://127.0.0.1:1")
         monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
         results = [dict(case_id="controlled-reference", reference="defect", automatic="good", kind="synthetic_control", category="computer")]
         output = tmp_path / "report.json"
 >       runtime._write(output, dict(manifest_sha256="a" * 64, review_sha256="b" * 64, reference_method=method), results, complete=True)
 
-tests/unit/test_assessment_quality_review.py:381: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_assessment_quality_review.py:381:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 output = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-18/test_report_names_the_referenc1/report.json')
 plan = {'manifest_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'review_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'reference_method': 'ai_assisted'}

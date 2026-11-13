@@ -1,0 +1,11 @@
+{
+  "time": 1794583154.7812142,
+  "changed_keys": {
+    "GARIMPEI_MEDIA_ROOT": "/home/marce/.cache/garimpei-evaluations/f15-next-wave/gpu-preparation/media",
+    "GARIMPEI_MEDIA_BUDGET_BYTES": 67108864
+  },
+  "env_mode": "0600",
+  "preserved_IA_pins_limits": true,
+  "reference_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "prior_repro": "f15-ai-retry-blocked-summary.json"
+}

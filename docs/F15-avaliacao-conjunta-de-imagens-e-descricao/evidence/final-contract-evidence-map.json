@@ -1,0 +1,549 @@
+{
+  "contract": "contract.md",
+  "authority_commit": "9ce6a75",
+  "backend_tree": "5c5c4043bc8992a77b087f1e4db9cb07d8b91a38",
+  "items": [
+    {
+      "id": "SVC-AVALIACAO-01",
+      "title": "Funcionamento declarado e desgaste leve",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição automática é boa.",
+        "O desgaste consta como ressalva com foto identificada.",
+        "A declaração do vendedor está separada da aparência observada.",
+        "Não é afirmado funcionamento comprovado por inspeção."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Matriz pública PostgreSQL e screenshot completo: boa+suficiente, light_wear com foto; citação literal separada e limitação de teste presencial."
+    },
+    {
+      "id": "SVC-AVALIACAO-02",
+      "title": "Defeito claro prevalece",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição automática é com defeito.",
+        "O sinal negativo conserva trecho/foto e motivo.",
+        "O requisito de condição para alerta não é satisfeito sem escolha manual prevalecente e avaliação suficiente."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Matriz pública e E2E clear_defect: automático defect com evidência retida; manualgood só autoriza quando análise suficiente e demais critérios válidos."
+    },
+    {
+      "id": "SVC-AVALIACAO-03",
+      "title": "Suspeita e conflito não resolvido",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição automática é não confirmada.",
+        "O resultado aponta a evidência e o que requer revisão.",
+        "Não há acusação de fraude ou certeza fabricada."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Matriz controlada mantém suspected/unknown como uncertain e insuficiente; texto de ressalva preservado, sem acusação ou percentual."
+    },
+    {
+      "id": "SVC-AVALIACAO-04",
+      "title": "Evidência insuficiente",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição automática é não confirmada.",
+        "O motivo distingue ausência, pendência, falha e insuficiência.",
+        "O requisito de condição para envio automático não é satisfeito."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Fronteira pública mantém ausência/pendência/falha/inutilidade como uncertain e sem satisfazer alerta; cobertura0/1 e ausência sem timestamp fictício."
+    },
+    {
+      "id": "SVC-AVALIACAO-05",
+      "title": "Aparência não prova funcionamento nem identidade",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição automática é não confirmada.",
+        "A avaliação explicita funcionamento desconhecido ou o conflito aplicável.",
+        "Atributo não comprovado não é apresentado como identificado."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Sem declaração/identidade conflituosa/categoria desconhecida não há promoção; matriz pública distingue ausência de função comprovada e limite visual."
+    },
+    {
+      "id": "SVC-TEXTO-01",
+      "title": "Três regressões sem modelo",
+      "status": "PASS",
+      "contract_bullets": [
+        "Desligamento intermitente e restrição anormal de energia não recebem condição automática boa.",
+        "“Não foi testado. Funciona perfeitamente.” permanece não confirmado.",
+        "Cada ressalva conserva trecho original e motivo sem depender da IA."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Regressões determinísticas de desligamento intermitente, portátil só na tomada e não testado+frase positiva preservam trecho/motivo sem IA."
+    },
+    {
+      "id": "SVC-TEXTO-02",
+      "title": "Controles preservados",
+      "status": "PASS",
+      "contract_bullets": [
+        "O positivo recebe boa condição automática.",
+        "O negativo recebe condição automática com defeito."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Controle positivo com visual útil permanecegood; não liga permanecedefect; não depende de executar modelo real."
+    },
+    {
+      "id": "SVC-TEXTO-03",
+      "title": "Escopo da restrição",
+      "status": "PASS",
+      "contract_bullets": [
+        "Uso normal de energia da TV não é rotulado como falha de bateria.",
+        "Defeito do acessório não comprova defeito do item principal.",
+        "Ausência de contexto relevante produz abstenção em vez de correspondência forçada."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "TV/console na rede não recebe defeito de bateria; acessório não condena item principal; contexto desconhecido abstém."
+    },
+    {
+      "id": "SVC-MANUAL-01",
+      "title": "Escolha prevalece sem fabricar avaliação",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição efetiva e a aba respeitam a escolha manual salva.",
+        "A divergência automática conclusiva permanece identificável.",
+        "Avaliação ausente/inconclusiva não se torna suficiente por causa da escolha.",
+        "O requisito de envio automático permanece bloqueado sem análise suficiente."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Manualgood/rev1 preservado na leitura, reanálise e reinício; não satisfaz alerta sem avaliação suficiente; divergência conclusiva visível."
+    },
+    {
+      "id": "API-CONSULTA-01",
+      "title": "Falha de IA é estado da oferta",
+      "status": "PASS",
+      "contract_bullets": [
+        "A resposta é 200 com os dados conhecidos do anúncio.",
+        "A falha local é identificada sem mostrar avaliação anterior como atual.",
+        "A leitura não inicia nem aguarda inferência."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "GET retorna200 com anúncio e falha OOM controlada/histórico anterior; gateway infer foi cercado por erro sentinela para impedir inferência inline."
+    },
+    {
+      "id": "API-MANUAL-01",
+      "title": "Revisão antiga não substitui escolha atual",
+      "status": "PASS",
+      "contract_bullets": [
+        "A resposta é 409 com orientação de revisar o estado atual.",
+        "A escolha manual confirmada permanece intacta."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "POST com CSRF válido salva303; revisão0 repetida recebe409, mantém manualgood/rev1; CSRF ausente403."
+    },
+    {
+      "id": "UI-AVALIACAO-01",
+      "title": "Evidências compreensíveis",
+      "status": "PASS",
+      "contract_bullets": [
+        "Aparência, funcionamento declarado e limitações são apresentados separadamente.",
+        "Cada sinal permite identificar seu trecho ou foto de suporte.",
+        "Modelo e momento da análise ficam acessíveis em informação secundária.",
+        "Não há percentual de certeza ou garantia de funcionamento."
+      ],
+      "evidence_mode": "reused_visual_evidence_unchanged_product_UI",
+      "evidence": [
+        "visual-review.md",
+        "evidence/ui-check-summary.json",
+        "eval-report-2026-11-12T22-00-00Z.md"
+      ],
+      "observed": "CLI1440/390 distingue declaração, aparência, limitações, data/modelo secundários; Enter em Foto1 leva ao original640x480; sem garantia/percentual."
+    },
+    {
+      "id": "UI-AVALIACAO-02",
+      "title": "Espera e ausência honestas",
+      "status": "PASS",
+      "contract_bullets": [
+        "A mensagem distingue a causa da condição não confirmada.",
+        "Fotos não examinadas não aparecem como analisadas.",
+        "Texto, preço conhecido e link da origem continuam consultáveis."
+      ],
+      "evidence_mode": "reused_visual_evidence_unchanged_product_UI",
+      "evidence": [
+        "visual-review.md",
+        "evidence/ui-check-summary.json",
+        "eval-report-2026-11-12T22-00-00Z.md"
+      ],
+      "observed": "CLI distingue espera0/1 e ausência0fotos, mantém texto/preço/origem; falhaHTTP exercitada e ausência não inventa execução do modelo."
+    },
+    {
+      "id": "UI-AVALIACAO-03",
+      "title": "Histórico não se apresenta como atual",
+      "status": "PASS",
+      "contract_bullets": [
+        "A avaliação anterior tem identificação de versão/data anterior.",
+        "A entrada vigente apresenta estado pendente ou insuficiente.",
+        "Não há promoção automática com base somente no resultado antigo."
+      ],
+      "evidence_mode": "reused_visual_evidence_unchanged_product_UI",
+      "evidence": [
+        "visual-review.md",
+        "evidence/ui-check-summary.json",
+        "eval-report-2026-11-12T22-00-00Z.md"
+      ],
+      "observed": "Após texto alterado, página identifica avaliação anterior por ID e apresenta análise vigente pendente; não reutiliza finding antigo como decisão vigente."
+    },
+    {
+      "id": "UI-MANUAL-01",
+      "title": "Conflito visível e escolha preservada",
+      "status": "PASS",
+      "contract_bullets": [
+        "A escolha manual permanece ativa.",
+        "O aviso de divergência mostra a evidência correspondente.",
+        "O controle de correção existente continua acessível por teclado."
+      ],
+      "evidence_mode": "reused_visual_evidence_unchanged_product_UI",
+      "evidence": [
+        "visual-review.md",
+        "evidence/ui-check-summary.json",
+        "eval-report-2026-11-12T22-00-00Z.md"
+      ],
+      "observed": "Formulário operado por teclado; manualgood permanece e nova análise defect exibe divergência+evidência; reflow195/390 sem overflow."
+    },
+    {
+      "id": "UI-ATUALIZACAO-01",
+      "title": "Nova análise não interrompe leitura",
+      "status": "PASS",
+      "contract_bullets": [
+        "O aviso “Há atualizações” é apresentado.",
+        "A ordem e os dados da lista aberta permanecem na revisão anterior até o clique.",
+        "Os filtros em uso são preservados."
+      ],
+      "evidence_mode": "reused_visual_evidence_unchanged_product_UI",
+      "evidence": [
+        "visual-review.md",
+        "evidence/ui-check-summary.json",
+        "eval-report-2026-11-12T22-00-00Z.md"
+      ],
+      "observed": "Poll mostrou aviso e preservou exatamente URL/revisão/filtros/foco/ordem/dados; clique explícito aplicou nova revisão e manteveq=Notebook/aba."
+    },
+    {
+      "id": "WRK-IMAGENS-01",
+      "title": "Agregação e rastreabilidade",
+      "status": "PASS",
+      "contract_bullets": [
+        "A análise agrega as fotos distintas dentro dos limites por chamada.",
+        "Cada foto exibida tem vínculo com o anúncio/observação corretos.",
+        "Duplicatas não exigem inferência repetida dos mesmos bytes.",
+        "A cobertura permite identificar o material efetivamente examinado."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "5e12fotos DISTINTAS completam lotes de4na mesma coorte; duplicata porhash sem inferência repetida; pins e vínculo foto/observação preservados; WebP derivadoPNG sem tocar original."
+    },
+    {
+      "id": "WRK-IMAGENS-02",
+      "title": "Omissão não vira boa condição",
+      "status": "PASS",
+      "contract_bullets": [
+        "O resultado identifica cobertura parcial e motivo das omissões.",
+        "A condição automática não é promovida a boa.",
+        "O requisito automático de condição para envio não é satisfeito."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Omissões/galeria parcial geram partial+motivo/cobertura e não satisfazem condição para envio; ausência e pending também não promovem."
+    },
+    {
+      "id": "WRK-VERSAO-01",
+      "title": "Entrada idêntica reaproveita resultado",
+      "status": "PASS",
+      "contract_bullets": [
+        "O resultado aplicável é reutilizado.",
+        "Não ocorre nova inferência para essa entrada confirmada.",
+        "O vínculo da observação atual é explícito quando seu conteúdo idêntico foi reobservado."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Preparação concorrente converge; reobservação de conteúdo idêntico cria novo vínculo de observação com requisições anteriores e gateway.calls inalterado."
+    },
+    {
+      "id": "WRK-VERSAO-02",
+      "title": "Mudança relevante permite reanálise",
+      "status": "PASS",
+      "contract_bullets": [
+        "A avaliação anterior permanece no histórico.",
+        "A entrada nova recebe revisão própria e não reutiliza resultado incompatível.",
+        "A decisão vigente não trata a análise anterior como atual enquanto aguarda a nova."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "PostgreSQL: quatro fixtures legadas explicitamente sintéticas (política, prompt, schema, modelo) tornam-se inaplicáveis imediatamente; preparação do perfil atual aprovado produz fingerprint/generation/request próprios, sem copiar resultado incompatível. Antes da nova publicação há waiting e nenhum alerta; após publicação o histórico/result/publication_order legados permanecem intactos. Mudanças de texto/foto, atraso, reobservação e identidade foram novamente exercitadas. Não houve troca física de pesos nem pin alternativo de produção."
+    },
+    {
+      "id": "WRK-VERSAO-03",
+      "title": "Resultado atrasado não substitui o atual",
+      "status": "PASS",
+      "contract_bullets": [
+        "A avaliação mais recente continua vigente.",
+        "O resultado antigo fica identificado como superado.",
+        "Não surge nova promoção ou intenção de alerta pela publicação antiga."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Publicação antiga é superseded após entrada nova, inclusive antes do reconciliador seguinte; não cria intenção nem substitui corrente."
+    },
+    {
+      "id": "WRK-VERSAO-04",
+      "title": "Concorrência converge",
+      "status": "PASS",
+      "contract_bullets": [
+        "Há uma avaliação aplicável para a chave idempotente.",
+        "Não há duplicação de publicação da condição.",
+        "Referências de entrada/modelo permanecem consistentes."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Dois threads/conexões preparam mesmaentrada:1avaliação/1requisição; canonicalização JSONB evita divergência de chave; publicação única e referência consistente."
+    },
+    {
+      "id": "WRK-FALHA-01",
+      "title": "Saída inválida e conteúdo hostil",
+      "status": "PASS",
+      "contract_bullets": [
+        "Resposta sem evidência válida não promove boa condição.",
+        "O motivo de rejeição/abstenção é registrado.",
+        "Instruções do anúncio não executam ferramentas nem alteram configuração.",
+        "Não são encaminhados segredos ou dados de sessão ao modelo."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Quatro variantes com texto e imagem hostis sintéticos atravessaram F14/F15, registro/derivação/preparador/gateway F19 reais e transporte controlado: tool_calls, JSON inválido, citação fabricada e foto não pertencente ao manifesto. Uma tentativa terminal por caso; motivo invalid_analysis preservado mesmo sem declaração de funcionamento; condição uncertain e zero intenções/transmissões. Payload contém somente system/user/evidências, sem tools, segredos ou marcador de sessão; arquivos de configuração/lock intactos. Tokenizer oficial com SHA verificado; real_tokenizer=True. Não é teste semântico do modelo/GPU."
+    },
+    {
+      "id": "WRK-FALHA-02",
+      "title": "Falha técnica limitada e histórico preservado",
+      "status": "PASS",
+      "contract_bullets": [
+        "Há diagnóstico específico e recuperação limitada ao perfil configurado.",
+        "O histórico confirmado permanece disponível.",
+        "A falha não produz condição automática boa.",
+        "Evidência insuficiente não gera repetição infinita da mesma análise."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "OOM controlado faz3tentativas limitadas F19, diagnóstico gpu_resource_unavailable, preserva anteriorgood e publica failed sem satisfazer alerta; HTTP200 permanece."
+    },
+    {
+      "id": "WRK-FALHA-03",
+      "title": "Retomada após interrupção",
+      "status": "PASS",
+      "contract_bullets": [
+        "Trabalho válido é retomado sem duplicar publicação confirmada.",
+        "A escolha manual e os resultados confirmados sobrevivem.",
+        "Resultado já disponível em F19 pode ser reaproveitado sem perda de vínculo."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Resultado F19succeeded persistido antespublicação; outro processo Python reconstrói componentes e publica uma vez sem nova inferência, manualgood permanece."
+    },
+    {
+      "id": "E2E-ALERTA-01",
+      "title": "Não enviar antes da avaliação suficiente",
+      "status": "PASS",
+      "contract_bullets": [
+        "Não há envio autorizado para o destino fake.",
+        "A decisão registra o motivo ligado à avaliação aplicável.",
+        "O contador de transmissões permanece inalterado."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Semfotos/pendente e manualgood não criam intenção/tentativa; fila espera waiting_condition_assessment; canal fake permanece vazio. Insuficiência parcial/suspeita bloqueada pela fronteira compartilhada."
+    },
+    {
+      "id": "E2E-ALERTA-02",
+      "title": "Resultado completo alimenta o fluxo existente",
+      "status": "PASS",
+      "contract_bullets": [
+        "A condição usada corresponde à mesma observação e revisão de avaliação.",
+        "O fluxo existente pode autorizar uma única intenção conforme suas regras.",
+        "A composição financeira vem de F06/F07, sem preço ou desconto inventado pela IA.",
+        "O conteúdo novo qualifica a avaliação como provável e preserva ressalvas relevantes."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Após visual suficiente, fluxoexistente confirmaUMA mensagemfake e recibo único apósrestart; decisão tem assessmentid/rev; preços1.000/1.500 vêm do financeiro. Mensagem provável retém desgaste/dano e divergência manual."
+    },
+    {
+      "id": "E2E-ALERTA-03",
+      "title": "Ação manual não fabrica elegibilidade",
+      "status": "PASS",
+      "contract_bullets": [
+        "A aba respeita a escolha confirmada.",
+        "A avaliação continua incompleta para o envio automático.",
+        "Nenhuma intenção ou transmissão é criada pela ação manual."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Salvar manualgood muda aba e revisão; avaliação permanece incompleta, zero intenção/tentativa/envio antes da conclusão suficiente."
+    },
+    {
+      "id": "E2E-ALERTA-04",
+      "title": "Adoção preserva histórico",
+      "status": "PASS",
+      "contract_bullets": [
+        "Recibos e corpos históricos permanecem intactos.",
+        "Envio incerto continua sujeito à reconciliação existente.",
+        "Não há reabertura indiscriminada de exclusões nem segundo primeiro alerta."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Ativação conserva exatamente ids/estado/corpo/confirmedmessage/ack/at e tentativas de recibo confirmado, uncertain e exclusão terminal; nenhuma nova mensagemfake."
+    },
+    {
+      "id": "E2E-OPERACAO-01",
+      "title": "Inferência lenta não bloqueia coleta e leitura",
+      "status": "PASS",
+      "contract_bullets": [
+        "O outro anúncio publica progresso sem esperar a inferência terminar.",
+        "A interface continua respondendo com dados confirmados e estado de espera.",
+        "A tarefa lenta respeita os limites e a coordenação de recursos de F19."
+      ],
+      "evidence_mode": "focal_regressions_executed_and_full_current_PASS",
+      "evidence": [
+        "evidence/retomada-integration-green.txt",
+        "evidence/retomada-unit-http.txt",
+        "evidence/cycle5-warmup-unit.txt"
+      ],
+      "observed": "Gatewayfake bloqueado porEvent enquanto outro anúncio avança no coletor real/publica snapshot e HTTP200 responde; inferência liberada depois."
+    },
+    {
+      "id": "E2E-QUALIDADE-01",
+      "title": "Corpus de referência e modelo local",
+      "status": "BLOCKED",
+      "contract_bullets": [
+        "O relatório identifica modelo Qwen3.5 4B Q4_K_M, revisões e IDs/hashes efetivamente avaliados.",
+        "A comparação publica matriz referência de IA × condição automática, concordâncias, divergências e abstenções, identificando a ausência de validação humana independente.",
+        "Erros de evidência e limitações por categoria são publicados.",
+        "Consumo de GPU/RAM e latência fria/quente são registrados com as condições da medição.",
+        "O motor F19 avaliado não usa inferência remota; a origem de IA da referência e a ausência de validação humana independente ficam explícitas, sem alegação de precisão aprovada sem meta definida."
+      ],
+      "evidence_mode": "new_physical_execution_and_declared_measurement_gap",
+      "evidence": [
+        "quality-report.md",
+        "evidence/f15-ai-real-final-summary.json",
+        "evidence/quality-real-case-coverage-2026-11-13.json",
+        "evidence/f15-ai-media-ready-runtime-proof.json",
+        "evidence/ai-reference-reviewed-2026-11-13.json",
+        "evidence/ai-reference-freeze-audit-2026-11-13.json"
+      ],
+      "observed": "Physical run completed16reserved cases,13parts sent/13invalid_output/0accepted/3pending. ReferenceAI frozen before calls. GPU/RAM observed in declared scopes, case wallclock available, but retained failed envelopes lack proven quantitative cold/warm inference timing. BLOCKED is not an accuracy threshold or missing human-review objection."
+    }
+  ],
+  "total": 31,
+  "pass_items": 30,
+  "blocked_items": 1,
+  "full_gate": "PASS:780/780unique,source unchanged,0failure/skip",
+  "note": "An evidence map, not a claim of a clean evaluation or full-suite success."
+}
