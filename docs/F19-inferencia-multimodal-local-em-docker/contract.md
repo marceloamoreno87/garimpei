@@ -26,7 +26,7 @@ Estas condições são entregáveis futuros. Não há inferência real ou prepar
 
 ### Configuration
 
-- Modelo `qwen3.5:4b-q4_K_M`, imagem e manifesto fixados, GPU real nos itens correspondentes. `OLLAMA_NO_CLOUD=1`, um modelo carregado/uma inferência, contexto 4.096, saída até 512 tokens; modo equilibrado com inatividade de 300 s e conferência a cada 5 s.
+- Modelo `qwen3.5:4b-q4_K_M`, imagem e manifesto fixados, GPU real nos itens correspondentes. `OLLAMA_NO_CLOUD=1`, um modelo carregado/uma inferência, contexto 4.096, saída até 512 tokens no perfil legado F19 e até 1.024 somente no perfil de condição F15, conforme aprovação explícita de 2026-11-13; modo equilibrado com inatividade de 300 s e conferência a cada 5 s. Reserva de saída específica do perfil participa de todas as verificações de contexto, incluindo texto, instruções/schema e orçamento visual comprovado. Entrada que não caiba é recusada, sem truncamento silencioso.
 - Até 16 KiB de texto recebido/2.048 tokens textuais enviados incluindo instruções; orçamento visual comprovado; até 4 imagens, uma por chamada, PNG/JPEG até 10 MiB/20 MP, derivado até 512×512. Conexão/diagnóstico 3 s, chamada 180 s, resposta 64 KiB; até 100 pendentes, 1 GiB de dados de inferência sem pesos, lease 240 s, até três tentativas por parte com recuo 15 s/30 s e teto 300 s.
 - Endpoint loopback/rede privada do ambiente, arquivos autorizados, nenhum fallback remoto/CPU silencioso. Fontes/WAHA controlados e relógio falso somente em avaliação; segredos ficam fora de fixtures, relatórios e contêiner do modelo.
 - Criação, consulta e conferência dos limites efetivos devem estar disponíveis em operations.md e no diagnóstico sanitizado; valores diferentes exigem revisão documental antes da avaliação.

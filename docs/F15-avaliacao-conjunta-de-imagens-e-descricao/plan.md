@@ -39,3 +39,8 @@ Os caminhos e formatos estão em [spec.md](spec.md); os observáveis em [contrac
 ## Atualização aprovada — 2026-11-13
 
 Preservar IDs, DAG e verificações determinísticas. A fase 7 usa referência assistida por IA aprovada, congelada antes das predições; registrar ausência de validação humana independente. Exercitar pré-condições reais de prontidão do transporte e GPU com prazo finito, além dos controles. A falha inicial de aquecimento não deve ser escondida nem resolvida com bypass de pins/GPU. Somente resultados físicos vinculados ao corpus e gates aprovados permitem concluir o aceite revisado.
+
+
+## Capacidade de saída aprovada — 2026-11-13
+
+Aplicar o teto aprovado de 1024 somente ao perfil F15, mantendo legado512/contexto4096. Versionar perfil e cache; conferir todas as guardas de entrada/saída/contexto, incluindo reserva visual, sem relaxar schema ou aceitar truncamento. Repetir regressões, seis gates, revisão do delta, par físico frio/quente e corpus declarado já exposto; congelar a fonte final antes da suíte completa e consolidar somente evidência correspondente. Aprovação do teto não altera IDs, DAG, rótulos ou critérios determinísticos.

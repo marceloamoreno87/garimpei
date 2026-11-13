@@ -61,7 +61,7 @@ Parâmetros de partida técnicos, sem medições concluídas ou promessa de lat�
 | Limite | Valor inicial / comportamento |
 |---|---|
 | Modelos/inferência | `OLLAMA_MAX_LOADED_MODELS=1`, `OLLAMA_NUM_PARALLEL=1`; uma inferência em execução por GPU/ambiente |
-| Contexto/saída | 4.096 tokens de contexto, até 512 tokens gerados; `num_ctx=4096`, `num_predict=512`; saída encerrada por limite não é resultado válido |
+| Contexto/saída | 4.096 tokens de contexto; legado F19 até 512 tokens gerados, condição F15 até 1.024 conforme aprovação explícita de 2026-11-13. `num_ctx=4096`, `num_predict` finito conforme perfil; reservar a saída dentro do mesmo contexto. Saída encerrada por limite não é resultado válido |
 | Entrada textual | Até 16 KiB recebidos; conteúdo efetivamente enviado deve caber em 2.048 tokens incluindo instruções/schema; excedente explicitamente omitido ou requisição recusada |
 | Imagens | Até 4 por requisição, 1 por chamada; PNG/JPEG verificados, até 10 MiB e 20 megapixels decodificados por arquivo; derivado de até 512×512, sem ampliar |
 | Orçamento visual | Número de tokens visuais e margem restante validados no perfil fixado; sem garantia comprovada de cabimento, retornar `context_unverified` em vez de truncar silenciosamente |
@@ -191,3 +191,10 @@ Produzir `operations.md`, `model-lock.json` e manifesto de evidências real dura
 Prova real: RTX 5070 no contêiner, texto, imagem sintética identificada e foto autorizada em manifesto privado; registrar serviço/modelo/digests, contexto, contagem textual/visual validada, uso efetivo GPU, pico VRAM/RAM e tempos frio/quente. Bloquear saída externa após preparo e comprovar inferência local. Medir coexistência com web/worker/navegador/WAHA sem enviar mensagens; simular as falhas destrutivas exclusivamente em serviço/volume de avaliação próprios. Conferir inatividade/recarga e pausa durante chamada.
 
 Executar na implementação `node scripts/run-gates.mjs`, `uv run --project apps/backend --frozen --no-sync pytest`, `uv run --project apps/backend --frozen --no-sync python apps/backend/manage.py check --settings=garimpei.config.test_settings` e `uv build --project apps/backend`; migrations com PostgreSQL real isolado. Navegar em Integrações via `playwright-cli` e avaliar UI com frontend-ui-design. Nenhuma dessas verificações é declarada executada nesta entrega documental.
+
+
+## Ajuste de saída aprovado — 2026-11-13
+
+Após sondagens v1 e v2 terminarem em `done_reason=length` no teto de 512 tokens, o usuário aprovou até 1024 somente no perfil de condição F15. O legado F19 mantém 512 e todos os perfis mantêm contexto total 4096, artefato/digests, schema estrito e limites de serviço vigentes. A configuração e as guardas usam a reserva específica do perfil; recusar a entrada que não caiba, incluindo texto, instruções/schema e orçamento visual comprovado. Não ampliar o contexto nem truncar evidência para caber.
+
+A mudança deve ter perfil/chave versionados, preservar histórico sem tratar versões antigas como legado e demonstrar limites legados inalterados em regressões. A avaliação F15 atual publica medições reais com o novo teto e declara a exposição anterior do corpus. Aprovação de configuração não aprova qualidade nem substitui gates ou prova física. Relatórios F19 anteriores permanecem históricos sob os limites então medidos.

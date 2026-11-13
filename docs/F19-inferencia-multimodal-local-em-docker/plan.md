@@ -33,3 +33,8 @@ Verificação da fase: jornada via playwright-cli, revisão/CSRF, falhas do gate
 **8. Consolidar validação.** Executar gates, suíte, checks e build; vincular cada item do contrato à evidência e documentar operação/limitações. Falta de prova real permanece pendente; conclusão depende da avaliação completa, sem commit, push, PR ou deploy implícitos.
 
 Verificação da fase: todos os ACs e gates têm resultado verificável; medições podem exigir revisão dos parâmetros antes da avaliação, sem trocar modelo ou liberar fallback silencioso.
+
+
+## Ajuste aprovado — saída específica F15
+
+O usuário aprovou em 2026-11-13 até 1024 tokens somente para condição F15; legado F19 continua até 512 e contexto total 4096. Integrar configuração central e guardas por perfil, versionamento e reserva completa de contexto. Verificar legado inalterado, rejeição de entrada que não caiba e de resposta truncada, hashes/revisões e consumo/latência reais no reensaio F15. Este adendo preserva os itens e evidências históricos e não declara gates ou inferência aprovados por documentação.
