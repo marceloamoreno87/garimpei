@@ -44,7 +44,7 @@ scenario = 'matching'
         if scenario == "missing_context":
             native = {}
         requests: list[dict[str, object]] = []
-    
+
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self) -> None:
                 document = {
@@ -62,7 +62,7 @@ scenario = 'matching'
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
-    
+
             def do_POST(self) -> None:
                 fields = parse_qs(self.rfile.read(int(self.headers["Content-Length"])).decode())
                 variables = json.loads(fields["variables"][0])
@@ -73,10 +73,10 @@ scenario = 'matching'
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
-    
+
             def log_message(self, _format: str, *args: object) -> None:
                 pass
-    
+
         with ThreadingHTTPServer(("127.0.0.1", 0), Handler) as server:
             thread = Thread(target=server.serve_forever, daemon=True)
             thread.start()
@@ -94,7 +94,7 @@ scenario = 'matching'
                     return
 >               assert first.listings[0]["id"] == "101" and not unproved
 E               AssertionError: assert ('201' == '101'
-E                 
+E
 E                 - 101
 E                 + 201)
 

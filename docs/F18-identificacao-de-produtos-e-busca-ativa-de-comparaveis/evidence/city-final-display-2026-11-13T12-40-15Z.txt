@@ -14,7 +14,7 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_resear
         source = ResearchLoopbackSource()
         root = Path(__file__).resolve().parents[4]
         from tests.factories.comparable_research import NOW
-    
+
         clock = ControlledClock(tmp_path / "clock", NOW)
         clock.advance(0)
         with serve(source) as url:
@@ -24,7 +24,7 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_resear
             from garimpei.infra.gateway.listing.fixture_source import FixtureSource
             from tests.factories.comparable_research import KEY, TITLE
             from tests.factories.comparable_research import scope as controlled_scope
-    
+
             probe = FixtureSource(url, 2)
             probe_scope = controlled_scope()
             probe_query = Search(Match("product", KEY), TITLE, "marketplace", purpose="research")
@@ -183,7 +183,7 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_resear
                 (tmp_path / "controlled-measurements.json").write_text(
                     json.dumps(measured, indent=2) + "\n"
                 )
-    
+
             except BaseException:
                 print(
                     "F18 investigations",
@@ -207,8 +207,8 @@ tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_resear
                 source.release.set()
 >               command(instance, "./scripts/stop.sh", "--clean")
 
-tests/integration/test_research_worker.py:208: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_research_worker.py:208:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 instance = FoundationInstance(root=PosixPath('/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_research_0/f18_worker_f53a3a8d.env'))
 arguments = ('./scripts/stop.sh', '--clean')
@@ -218,7 +218,7 @@ arguments = ('./scripts/stop.sh', '--clean')
 >       assert result.returncode == 0, result.stdout + result.stderr
 E       AssertionError: {"timestamp": "2026-11-13T13:07:41.603334+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f18_worker_f53a3a8d", "run_id": "920192ed-fc18-420c-a6da-4ef598ec0754"}
 E         Runtime operation failed (RUNTIME_ERROR); inspect owned private diagnostics
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['./scripts/stop.sh', '--clean'], returncode=1, stdout='', stderr='{"timestamp": "2026-11-13T13:...920192ed-fc18-420c-a6da-4ef598ec0754"}\nRuntime operation failed (RUNTIME_ERROR); inspect owned private diagnostics\n').returncode
 

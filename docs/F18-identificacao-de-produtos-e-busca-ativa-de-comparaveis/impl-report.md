@@ -11,3 +11,7 @@ Arquivos desta retomada: novo relatório de avaliação, este relatório de impl
 ## Retomada 2026-11-13T12-40-15Z — cidade nativa aprovada
 
 São Paulo/SP (-23.55/-46.6333) e20km substituem centro postal da pesquisa; CEP preserva seus outros usos. A página nativa é aceita somente com feed/contexto do mesmo documento, sem filtro de publicação; continuação mantém template/cursor da fonte. Contextos antigos são superados, históricos identificados e respostas não comprovadas continuam recusadas. Prova real limitada2páginas/48IDs/2detalhes/0retidos; sucesso de5referências é controlado. Seis gates,27testes de fonte,12integrações,456casos da regressão final após retry de limpeza do worker, UI e controles F16 documentados em evidence. Avaliação completa aguarda consolidação da suíte ampla.
+
+## Conclusão da retomada — 2026-11-13
+
+Suíte final integral: 724 PASS, três partições disjuntas, zero entradas alteradas. Avaliação completa em eval-report-2026-11-13T13-37-52Z.md: 29 itens PASS e 14 aceites verificados; F18 done. Manifesto medido aprovado, limites preservados e runtime principal parado. A tentativa ampla anterior foi invalidada por ENOSPC e repetida integralmente em disco com espaço disponível.

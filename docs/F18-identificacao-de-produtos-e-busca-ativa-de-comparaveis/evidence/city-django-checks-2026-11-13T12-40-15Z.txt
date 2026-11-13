@@ -9,4 +9,3 @@ No changes detected
 
 warning: `VIRTUAL_ENV=/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda/apps/backend/.venv` does not match the project environment path `apps/backend/.venv` and will be ignored; use `--active` to target the active environment instead
 {"timestamp": "2026-11-13T13:01:58.947000+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f18_city_ui_d36e96e2", "run_id": "cacb9fbf-7a8a-4dac-af9b-b6440724d759"}
-

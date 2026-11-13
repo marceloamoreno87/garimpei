@@ -13,4 +13,3 @@ warning: `VIRTUAL_ENV=/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda/ap
 {"timestamp": "2026-11-13T13:00:12.184394+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f18_city_ui_d36e96e2", "run_id": "cacb9fbf-7a8a-4dac-af9b-b6440724d759"}
 {"timestamp": "2026-11-13T13:00:12.190396+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f18_city_ui_d36e96e2", "run_id": "cacb9fbf-7a8a-4dac-af9b-b6440724d759"}
 {"timestamp": "2026-11-13T13:00:12.197356+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f18_city_ui_d36e96e2", "run_id": "cacb9fbf-7a8a-4dac-af9b-b6440724d759"}
-

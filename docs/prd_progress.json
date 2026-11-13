@@ -301,13 +301,13 @@
         "F12",
         "F13"
       ],
-      "status": "implemented",
+      "status": "done",
       "cycles": 2,
-      "failure_reason": "São Paulo/20 km comprovados; avaliação completa aguarda suíte ampla e consolidação final.",
-      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T02-36-06Z.md",
+      "failure_reason": null,
+      "report_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T13-37-52Z.md",
       "started_at": "2026-11-12T19:40:37.616175Z",
-      "updated_at": "2026-11-13T13:07:55.578061+00:00",
-      "completed_at": null
+      "updated_at": "2026-11-13T13:37:52.720570+00:00",
+      "completed_at": "2026-11-13T13:37:52.720570+00:00"
     },
     "F19": {
       "name": "Inferência multimodal local em Docker",

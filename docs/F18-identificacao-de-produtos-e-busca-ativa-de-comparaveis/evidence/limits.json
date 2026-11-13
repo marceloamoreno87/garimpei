@@ -5,7 +5,7 @@
   "corpus_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
   "evidence_paths": [
     "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/live-city-2026-11-13T12-40-15Z.json",
-    "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/city-controlled-measurements-2026-11-13T12-40-15Z.json"
+    "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/city-worker-confirmed-measurements-2026-11-13T12-40-15Z.json"
   ],
   "max_queries_per_slice": 2,
   "max_pages_per_query": 3,
@@ -21,8 +21,10 @@
   "lease_seconds": 240,
   "max_wait_slices_per_interest": 7,
   "max_pending_per_interest": 4,
-  "automatic_activation": false,
-  "activation_block_reason": "final_union_validation_pending",
+  "automatic_activation": true,
   "cadence_ms_at_measurement": 1200,
-  "method": "Conservative finite policy calibrated with the real20-second request cap and21.056-second window plus controlled query/detail/slice timings. Three page units include one initial page and a two-unit cold native reconstruction/continuation. Retry and lease budgets were exercised with a controlled clock; they do not reset on restart. Seven home-interest turns match the actual seven-interest corpus; four pending investigations cap each home interest. Recent reliable publications break equal-age ties, while older waiting turns win before newly admitted work. No complete-source coverage or universal latency guarantee is asserted. Updated city-source native path measured on2026-11-13: one initial native page without rewritten POST, one original-cursor continuation and two details; unchanged numeric caps. Runtime remains stopped during evaluation."
+  "method": "Conservative finite policy calibrated with the real20-second request cap and21.056-second window plus controlled query/detail/slice timings. Three page units include one initial page and a two-unit cold native reconstruction/continuation. Retry and lease budgets were exercised with a controlled clock; they do not reset on restart. Seven home-interest turns match the actual seven-interest corpus; four pending investigations cap each home interest. Recent reliable publications break equal-age ties, while older waiting turns win before newly admitted work. No complete-source coverage or universal latency guarantee is asserted. Updated city-source native path measured on2026-11-13: one initial native page without rewritten POST, one original-cursor continuation and two details; unchanged numeric caps. Runtime remains stopped during evaluation.",
+  "validated_at": "2026-11-13T13:37:52.720570+00:00",
+  "source_freeze": "2b603ec",
+  "verification_path": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/city-full-suite-summary-2026-11-13T13-37-52Z.json"
 }
