@@ -1,0 +1,166 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_successful_envelope_never_reintroduces_untrusted_optional_metrics[CANARY] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-39/test_successful_envelope_never0')
+invalid = 'CANARY'
+
+    @pytest.mark.parametrize("invalid", ["CANARY", None, True, -1, 2**63, float("inf")])
+    def test_successful_envelope_never_reintroduces_untrusted_optional_metrics(
+        tmp_path: Path, invalid: object
+    ) -> None:
+        fake = MalformedOptionalMetricsFake(invalid)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(
+                PreparedPart("text", "controlled"), LocalInputPreparer(settings).artifact()
+            )
+            metrics = result["metrics"]
+            assert isinstance(metrics, dict)
+>           assert not {"total_duration", "load_duration", "context_length"} & metrics.keys()
+E           AssertionError: assert not ({'context_length', 'load_duration', 'total_duration'} & dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']))
+E            +  where dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']) = <built-in method keys of dict object at 0x756180d9a800>()
+E            +    where <built-in method keys of dict object at 0x756180d9a800> = {'residency_before': 'unverified', 'resident_before': {'size': 10, 'size_vram': 10}, 'prompt_eval_count': 100, 'eval_count': 40, ...}.keys
+
+tests/unit/test_inference_failure_observability.py:178: AssertionError
+_ test_successful_envelope_never_reintroduces_untrusted_optional_metrics[None] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-39/test_successful_envelope_never1')
+invalid = None
+
+    @pytest.mark.parametrize("invalid", ["CANARY", None, True, -1, 2**63, float("inf")])
+    def test_successful_envelope_never_reintroduces_untrusted_optional_metrics(
+        tmp_path: Path, invalid: object
+    ) -> None:
+        fake = MalformedOptionalMetricsFake(invalid)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(
+                PreparedPart("text", "controlled"), LocalInputPreparer(settings).artifact()
+            )
+            metrics = result["metrics"]
+            assert isinstance(metrics, dict)
+>           assert not {"total_duration", "load_duration", "context_length"} & metrics.keys()
+E           AssertionError: assert not ({'context_length', 'load_duration', 'total_duration'} & dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']))
+E            +  where dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']) = <built-in method keys of dict object at 0x75617f125fc0>()
+E            +    where <built-in method keys of dict object at 0x75617f125fc0> = {'residency_before': 'unverified', 'resident_before': {'size': 10, 'size_vram': 10}, 'prompt_eval_count': 100, 'eval_count': 40, ...}.keys
+
+tests/unit/test_inference_failure_observability.py:178: AssertionError
+_ test_successful_envelope_never_reintroduces_untrusted_optional_metrics[True] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-39/test_successful_envelope_never2')
+invalid = True
+
+    @pytest.mark.parametrize("invalid", ["CANARY", None, True, -1, 2**63, float("inf")])
+    def test_successful_envelope_never_reintroduces_untrusted_optional_metrics(
+        tmp_path: Path, invalid: object
+    ) -> None:
+        fake = MalformedOptionalMetricsFake(invalid)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(
+                PreparedPart("text", "controlled"), LocalInputPreparer(settings).artifact()
+            )
+            metrics = result["metrics"]
+            assert isinstance(metrics, dict)
+>           assert not {"total_duration", "load_duration", "context_length"} & metrics.keys()
+E           AssertionError: assert not ({'context_length', 'load_duration', 'total_duration'} & dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']))
+E            +  where dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']) = <built-in method keys of dict object at 0x756180dfe480>()
+E            +    where <built-in method keys of dict object at 0x756180dfe480> = {'residency_before': 'unverified', 'resident_before': {'size': 10, 'size_vram': 10}, 'prompt_eval_count': 100, 'eval_count': 40, ...}.keys
+
+tests/unit/test_inference_failure_observability.py:178: AssertionError
+__ test_successful_envelope_never_reintroduces_untrusted_optional_metrics[-1] __
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-39/test_successful_envelope_never3')
+invalid = -1
+
+    @pytest.mark.parametrize("invalid", ["CANARY", None, True, -1, 2**63, float("inf")])
+    def test_successful_envelope_never_reintroduces_untrusted_optional_metrics(
+        tmp_path: Path, invalid: object
+    ) -> None:
+        fake = MalformedOptionalMetricsFake(invalid)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(
+                PreparedPart("text", "controlled"), LocalInputPreparer(settings).artifact()
+            )
+            metrics = result["metrics"]
+            assert isinstance(metrics, dict)
+>           assert not {"total_duration", "load_duration", "context_length"} & metrics.keys()
+E           AssertionError: assert not ({'context_length', 'load_duration', 'total_duration'} & dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']))
+E            +  where dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']) = <built-in method keys of dict object at 0x756180dd86c0>()
+E            +    where <built-in method keys of dict object at 0x756180dd86c0> = {'residency_before': 'unverified', 'resident_before': {'size': 10, 'size_vram': 10}, 'prompt_eval_count': 100, 'eval_count': 40, ...}.keys
+
+tests/unit/test_inference_failure_observability.py:178: AssertionError
+_ test_successful_envelope_never_reintroduces_untrusted_optional_metrics[9223372036854775808] _
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-39/test_successful_envelope_never4')
+invalid = 9223372036854775808
+
+    @pytest.mark.parametrize("invalid", ["CANARY", None, True, -1, 2**63, float("inf")])
+    def test_successful_envelope_never_reintroduces_untrusted_optional_metrics(
+        tmp_path: Path, invalid: object
+    ) -> None:
+        fake = MalformedOptionalMetricsFake(invalid)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(
+                PreparedPart("text", "controlled"), LocalInputPreparer(settings).artifact()
+            )
+            metrics = result["metrics"]
+            assert isinstance(metrics, dict)
+>           assert not {"total_duration", "load_duration", "context_length"} & metrics.keys()
+E           AssertionError: assert not ({'context_length', 'load_duration', 'total_duration'} & dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']))
+E            +  where dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']) = <built-in method keys of dict object at 0x756180df6340>()
+E            +    where <built-in method keys of dict object at 0x756180df6340> = {'residency_before': 'unverified', 'resident_before': {'size': 10, 'size_vram': 10}, 'prompt_eval_count': 100, 'eval_count': 40, ...}.keys
+
+tests/unit/test_inference_failure_observability.py:178: AssertionError
+_ test_successful_envelope_never_reintroduces_untrusted_optional_metrics[inf] __
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-39/test_successful_envelope_never5')
+invalid = inf
+
+    @pytest.mark.parametrize("invalid", ["CANARY", None, True, -1, 2**63, float("inf")])
+    def test_successful_envelope_never_reintroduces_untrusted_optional_metrics(
+        tmp_path: Path, invalid: object
+    ) -> None:
+        fake = MalformedOptionalMetricsFake(invalid)
+        with serve_inference(fake) as endpoint:
+            settings = inference_settings(tmp_path, endpoint)
+            guard = HostGpuGuard(settings.gpu_lock, settings.owner)
+            assert guard.reserve()
+            gateway = OllamaGateway(settings, guard, lambda: False)
+            result = gateway.infer(
+                PreparedPart("text", "controlled"), LocalInputPreparer(settings).artifact()
+            )
+            metrics = result["metrics"]
+            assert isinstance(metrics, dict)
+>           assert not {"total_duration", "load_duration", "context_length"} & metrics.keys()
+E           AssertionError: assert not ({'context_length', 'load_duration', 'total_duration'} & dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']))
+E            +  where dict_keys(['residency_before', 'resident_before', 'prompt_eval_count', 'eval_count', 'total_duration', 'load_duration', 'size_vram', 'context_length', 'gpu_samples', 'wall_duration_ns']) = <built-in method keys of dict object at 0x756180ddb840>()
+E            +    where <built-in method keys of dict object at 0x756180ddb840> = {'residency_before': 'unverified', 'resident_before': {'size': 10, 'size_vram': 10}, 'prompt_eval_count': 100, 'eval_count': 40, ...}.keys
+
+tests/unit/test_inference_failure_observability.py:178: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_inference_failure_observability.py::test_successful_envelope_never_reintroduces_untrusted_optional_metrics[CANARY]
+FAILED tests/unit/test_inference_failure_observability.py::test_successful_envelope_never_reintroduces_untrusted_optional_metrics[None]
+FAILED tests/unit/test_inference_failure_observability.py::test_successful_envelope_never_reintroduces_untrusted_optional_metrics[True]
+FAILED tests/unit/test_inference_failure_observability.py::test_successful_envelope_never_reintroduces_untrusted_optional_metrics[-1]
+FAILED tests/unit/test_inference_failure_observability.py::test_successful_envelope_never_reintroduces_untrusted_optional_metrics[9223372036854775808]
+FAILED tests/unit/test_inference_failure_observability.py::test_successful_envelope_never_reintroduces_untrusted_optional_metrics[inf]
+6 failed, 5 deselected in 3.15s

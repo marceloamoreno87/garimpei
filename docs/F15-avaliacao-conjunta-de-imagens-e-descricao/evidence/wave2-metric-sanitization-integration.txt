@@ -1,0 +1,110 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from ini)
+rootdir: /home/marce/.codex/worktrees/e16d/garimpei/apps/backend
+configfile: pyproject.toml
+plugins: django-4.14.0, anyio-4.16.0
+collecting ... collected 14 items
+
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[json-invalid_json_or_context] PASSED [  7%]
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[schema-schema_mismatch] PASSED [ 14%]
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[text-text_reference_mismatch] PASSED [ 21%]
+tests/integration/test_inference_failure_observability.py::test_response_rejection_keeps_timing_and_subreason_in_public_query[photo-image_reference_mismatch] PASSED [ 28%]
+tests/integration/test_inference_failure_observability.py::test_persisted_condition_v1_is_never_executed_or_accepted_as_legacy_f19 PASSED [ 35%]
+tests/integration/test_inference_failure_observability.py::test_current_v2_reanalysis_preserves_identified_v1_history_and_uses_new_request PASSED [ 42%]
+tests/integration/test_inference_failure_observability.py::test_accepted_http_envelope_then_rejected_json_persists_only_numeric_metrics FAILED [ 50%]
+tests/integration/test_inference.py::test_recovery_waits_for_proof_respects_due_and_three_attempts PASSED [ 57%]
+tests/integration/test_inference.py::test_concurrent_admission_and_publication_are_idempotent PASSED [ 64%]
+tests/integration/test_inference.py::test_control_http_validates_csrf_conflict_and_unconfirmed_write PASSED [ 71%]
+tests/integration/test_inference.py::test_retry_success_clears_obsolete_diagnostic PASSED [ 78%]
+tests/integration/test_inference.py::test_pause_during_call_finishes_one_part_and_requires_explicit_resume PASSED [ 85%]
+tests/integration/test_inference.py::test_empty_queue_reconciliation_does_not_enqueue_work PASSED [ 92%]
+tests/integration/test_inference.py::test_uncertain_execution_renders_cause_before_active_claim PASSED [100%]
+
+=================================== FAILURES ===================================
+_ test_accepted_http_envelope_then_rejected_json_persists_only_numeric_metrics _
+
+media_instance = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/...-evaluations/f15-next-wave/pytest-of-marce/pytest-40/media-database0/media_aaea7c53f8.env')), 'http://127.0.0.1:44745')
+
+    def test_accepted_http_envelope_then_rejected_json_persists_only_numeric_metrics(
+        media_instance: tuple[FoundationInstance, str],
+    ) -> None:
+        instance, origin = media_instance
+>       output = shell(
+            instance,
+            origin,
+            BOOT
+            + """
+    import tempfile
+    from pathlib import Path
+    from tests.factories.inference import inference_settings,serve_inference
+    from tests.unit.test_inference_failure_observability import MalformedOptionalMetricsFake
+    from garimpei.domain.inference.request import AnalysisInput
+    from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
+    from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
+    from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
+    from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+    with tempfile.TemporaryDirectory() as temporary,serve_inference(MalformedOptionalMetricsFake('CANARY')) as endpoint:
+     settings=inference_settings(Path(temporary),endpoint)
+     guard=HostGpuGuard(settings.gpu_lock,settings.owner);assert guard.reserve()
+     gateway=OllamaGateway(settings,guard,lambda:False)
+     text=json.dumps(dict(text=dict(title='Controlado',description=None,condition=None)))
+     part=PreparedPart('text',text,profile=VERSION)
+     ticket=irepo.admit(AnalysisInput(obs.id,1,text,(),VERSION,VERSION),LocalInputPreparer(settings).artifact(),(part,))
+     assert RunAnalysisUseCase(irepo,gateway,now).execute() is False
+     public=PostgresInferenceQueries().analysis(ticket.request_id)['parts'][0]
+     assert public['reason']=='invalid_output' and public['result'] is None
+     metrics=public['metrics']
+     assert metrics['diagnostic_code']=='invalid_json_or_context' and metrics['sent'] is True
+     assert not {'total_duration','load_duration','context_length'} & metrics.keys(),metrics
+     assert metrics['size_vram']==10 and metrics['eval_count']==40
+     assert 'CANARY' not in json.dumps(metrics),metrics
+    print('real HTTP accepted envelope -> rejected condition JSON -> public PostgreSQL query omits malformed metrics without fabricating zero PASS')
+    """,
+        )
+
+tests/integration/test_inference_failure_observability.py:143:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/e16d/garimpei'), private_file=PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-40/media-database0/media_aaea7c53f8.env'))
+origin = 'http://127.0.0.1:44745'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...velope -> rejected condition JSON -> public PostgreSQL query omits malformed metrics without fabricating zero PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 58 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-13T16:19:38.732722+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_aaea7c53f8", "run_id": "ff2906f3-6051-4e8a-8429-37e447f16a7f"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 107, in <module>
+E           File "<string>", line 11, in __init__
+E           File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/src/garimpei/domain/inference/request.py", line 65, in __post_init__
+E             raise InferenceError("condition_cohort_required")
+E         garimpei.domain.inference.errors.InferenceError: condition_cohort_required
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "ORIGIN='http://127.0.0.1:44745'\n\nfrom datetime import timedelta\nfrom uuid import UUID\nfrom django.utils.timezone import now\nfrom django.db import connection\nfrom garimpei.infra.persistence.listing_models import Listing, ListingObservation, CollectionState\nfrom garimpei.infra.persistence.media_models import MediaAsset, MediaCapture, MediaEntry, MediaJob, MediaReference\nfrom garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries\nfrom garimpei.main import build_media_runner, build_media_repository, build_media_store\nfrom garimpei.domain.media.errors import MediaError\nfrom garimpei.usecase.media.read_gallery_usecase import ReadMediaGalleryUseCase\nfrom garimpei.usecase.media.acquire_media_usecase import AcquireMediaForAnalysisUseCase\nfrom garimpei.usecase.media.release_reference_usecase import ReleaseMediaReferenceUseCase\nfrom garimpei.usecase.media.clean_media_usecase import CleanMediaUseCase\nfrom garimpei.domain.media.media import MediaFile\nfrom tests.factories.media import seed_media_cases, inspect_media_cas...and).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 107, in <module>\n  File "<string>", line 11, in __init__\n  File "/home/marce/.codex/worktrees/e16d/garimpei/apps/backend/src/garimpei/domain/inference/request.py", line 65, in __post_init__\n    raise InferenceError("condition_cohort_required")\ngarimpei.domain.inference.errors.InferenceError: condition_cohort_required\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_inference_failure_observability.py::test_accepted_http_envelope_then_rejected_json_persists_only_numeric_metrics
+=================== 1 failed, 13 passed in 70.24s (0:01:10) ====================

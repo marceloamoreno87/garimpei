@@ -17,6 +17,8 @@ Referênciae13/splits congelados. O reservado já foi exposto e a repetição se
 | initial | diagnosis | confirmed | [sondagem v1: length/512 e JSON truncado](evidence/wave2-baseline-length-summary.json) |
 | 6 | correction (1/3 nesta onda) | checkpoint verified | [correção e regressões](correction-cycle-6.md): 28 unitários, 13 integração e seis gates PASS; prova v2/full pendentes |
 
+| 7 | correction (2/3 nesta onda) | checkpoint verified | [filtragem P2](correction-cycle-7.md): 34 unitários, 7 integração e seis gates PASS |
+
 ## Final Verdict
 
 Causa confirmada e checkpoint corrigido/verificado. Avaliação canônica permanece pendente da prova física v2 e full do coordenador. Sem veredito done antecipado.

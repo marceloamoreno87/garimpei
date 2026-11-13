@@ -174,14 +174,7 @@ class OllamaGateway:
             raise InferenceError("gpu_degraded", 503)
         return {
             "content": message.get("content"),
-            "metrics": {
-                key: envelope.get(key)
-                for key in ["total_duration", "load_duration", "prompt_eval_count", "eval_count"]
-            }
-            | {
-                "size_vram": resident.get("size_vram"),
-                "context_length": resident.get("context_length"),
-            },
+            "metrics": _response_metrics(envelope) | _resident_metrics(resident),
         }
 
     def _failure_residency(self) -> dict[str, object]:

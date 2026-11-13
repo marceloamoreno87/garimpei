@@ -134,3 +134,43 @@ print('historical prompt/schema=condition-evidence-v1 remains identified; curren
 """,
     )
     print(output)
+
+
+def test_accepted_http_envelope_then_rejected_json_persists_only_numeric_metrics(
+    media_instance: tuple[FoundationInstance, str],
+) -> None:
+    instance, origin = media_instance
+    output = shell(
+        instance,
+        origin,
+        BOOT
+        + """
+import tempfile
+from uuid import uuid4
+from pathlib import Path
+from tests.factories.inference import inference_settings,serve_inference
+from tests.unit.test_inference_failure_observability import MalformedOptionalMetricsFake
+from garimpei.domain.inference.request import AnalysisInput
+from garimpei.infra.gateway.inference.gpu_guard import HostGpuGuard
+from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
+from garimpei.infra.gateway.inference.input_preparer import LocalInputPreparer
+from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+with tempfile.TemporaryDirectory() as temporary,serve_inference(MalformedOptionalMetricsFake('CANARY')) as endpoint:
+ settings=inference_settings(Path(temporary),endpoint)
+ guard=HostGpuGuard(settings.gpu_lock,settings.owner);assert guard.reserve()
+ gateway=OllamaGateway(settings,guard,lambda:False)
+ text=json.dumps(dict(text=dict(title='Controlado',description=None,condition=None)))
+ part=PreparedPart('text',text,profile=VERSION)
+ ticket=irepo.admit(AnalysisInput(obs.id,obs.ordinal,text,(),VERSION,VERSION,uuid4(),1),LocalInputPreparer(settings).artifact(),(part,))
+ assert RunAnalysisUseCase(irepo,gateway,now).execute() is False
+ public=PostgresInferenceQueries().analysis(ticket.request_id)['parts'][0]
+ assert public['reason']=='invalid_output' and public['result'] is None
+ metrics=public['metrics']
+ assert metrics['diagnostic_code']=='invalid_json_or_context' and metrics['sent'] is True
+ assert not {'total_duration','load_duration','context_length'} & metrics.keys(),metrics
+ assert metrics['size_vram']==10 and metrics['eval_count']==40
+ assert 'CANARY' not in json.dumps(metrics),metrics
+print('real HTTP accepted envelope -> rejected condition JSON -> public PostgreSQL query omits malformed metrics without fabricating zero PASS')
+""",
+    )
+    print(output)
