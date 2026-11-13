@@ -355,12 +355,12 @@
         "F18",
         "F20"
       ],
-      "status": "pending",
+      "status": "implementing",
       "cycles": 0,
       "failure_reason": null,
       "report_path": null,
-      "started_at": null,
-      "updated_at": "2026-11-12T22:45:32.311073Z",
+      "started_at": "2026-11-13T17:07:55.571673+00:00",
+      "updated_at": "2026-11-13T17:07:55.571673+00:00",
       "completed_at": null
     },
     "F22": {

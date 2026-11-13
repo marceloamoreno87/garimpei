@@ -82,6 +82,10 @@ from garimpei.infra.persistence.assessment_models import (  # noqa: E402,F401
     ConditionAssessment,
 )
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision  # noqa: E402,F401
+from garimpei.infra.persistence.gold_models import (  # noqa: E402,F401
+    GoldPolicyAdoption,
+    GoldQualification,
+)
 from garimpei.infra.persistence.identity_models import (  # noqa: E402,F401
     IdentityProgress,
     ManualIdentityRevision,

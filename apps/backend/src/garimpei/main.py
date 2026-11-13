@@ -65,6 +65,8 @@ if TYPE_CHECKING:
     from garimpei.infra.worker.listing_handler import ListingTaskHandler
     from garimpei.infra.worker.research_handler import ComparableResearchTaskHandler
     from garimpei.infra.worker.valuation_handler import ValuationTaskHandler
+    from garimpei.usecase.alert.adopt_gold_policy_usecase import AdoptGoldPolicyUseCase
+    from garimpei.usecase.alert.qualify_gold_alert_usecase import QualifyGoldAlertUseCase
     from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
     from garimpei.usecase.inference.read_analysis_usecase import ReadAnalysisUseCase
     from garimpei.usecase.inference.request_analysis_usecase import RequestAnalysisUseCase
@@ -601,9 +603,14 @@ def build_first_alert_store() -> "PostgresFirstAlertRepository":
 
 def build_read_alert_diagnostic() -> "ReadAlertDiagnosticUseCase":
     from garimpei.infra.queries.alert.diagnostic_queries import PostgresAlertDiagnosticQueries
+    from garimpei.infra.queries.alert.gold_queries import PostgresGoldDiagnosticQueries
     from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
 
-    return ReadAlertDiagnosticUseCase(PostgresAlertDiagnosticQueries())
+    return ReadAlertDiagnosticUseCase(
+        PostgresAlertDiagnosticQueries(
+            PostgresGoldDiagnosticQueries(_listing_clock(load_listing_settings()))
+        )
+    )
 
 
 def build_alert_store() -> "PostgresAlertRepository":
@@ -1651,6 +1658,26 @@ def build_robot_handler() -> "RobotHandler":
     from garimpei.usecase.robot.set_robot_state_usecase import SetRobotStateUseCase
 
     return RobotHandler(build_read_robot_status(), SetRobotStateUseCase(build_robot_repository()))
+
+
+def build_qualify_gold_alert() -> "QualifyGoldAlertUseCase":
+    from garimpei.infra.repository.alert.gold_evidence_repository import (
+        PostgresGoldEvidenceRepository,
+    )
+    from garimpei.usecase.alert.qualify_gold_alert_usecase import QualifyGoldAlertUseCase
+
+    return QualifyGoldAlertUseCase(
+        PostgresGoldEvidenceRepository(), _listing_clock(load_listing_settings())
+    )
+
+
+def build_adopt_gold_policy() -> "AdoptGoldPolicyUseCase":
+    from garimpei.infra.repository.alert.gold_adoption import PostgresGoldPolicyRepository
+    from garimpei.usecase.alert.adopt_gold_policy_usecase import AdoptGoldPolicyUseCase
+
+    return AdoptGoldPolicyUseCase(
+        PostgresGoldPolicyRepository(), _listing_clock(load_listing_settings())
+    )
 
 
 def robot_work_enabled() -> bool:

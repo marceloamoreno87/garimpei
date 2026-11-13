@@ -9,6 +9,7 @@ from garimpei.domain.alert.diagnostic import (
     AlertDiagnosticReadFailed,
     AlertHistory,
 )
+from garimpei.domain.alert.gold_diagnostic import GoldDiagnosticQueries, GoldDiagnosticReadFailed
 from garimpei.infra.persistence.alert_models import (
     AlertFeedCursor,
     AlertIntent,
@@ -58,6 +59,9 @@ def reason_label(reason: str) -> str:
 
 
 class PostgresAlertDiagnosticQueries:
+    def __init__(self, gold: GoldDiagnosticQueries | None = None) -> None:
+        self._gold = gold
+
     def read(
         self, listing_id: UUID, displayed_observation_id: UUID | None
     ) -> AlertDiagnostic | None:
@@ -66,8 +70,7 @@ class PostgresAlertDiagnosticQueries:
         except DatabaseError as error:
             raise AlertDiagnosticReadFailed() from error
 
-    @staticmethod
-    def _read(listing_id: UUID, displayed: UUID | None) -> AlertDiagnostic | None:
+    def _read(self, listing_id: UUID, displayed: UUID | None) -> AlertDiagnostic | None:
         listing = (
             Listing.objects.select_related("latest", "identity_progress__manual__observation")
             .filter(id=listing_id)
@@ -132,7 +135,15 @@ class PostgresAlertDiagnosticQueries:
         if listing.latest:
             identity = identify_row(listing, getattr(listing, "identity_progress", None))
             current_reason = identity.reason or current_reason
+        gold, gold_failed = None, False
+        if self._gold is not None:
+            try:
+                gold = self._gold.read(listing_id)
+            except GoldDiagnosticReadFailed:
+                gold_failed = True
         return AlertDiagnostic(
+            gold=gold,
+            gold_failed=gold_failed,
             listing_id=listing_id,
             state=state,
             reason=reason,

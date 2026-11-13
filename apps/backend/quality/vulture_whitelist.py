@@ -215,3 +215,7 @@ _.last_command
 _.result_revision
 _.control_epoch
 _.worker_reference
+
+# F21 inspected Django template/SQL consumers; exact paths in entrypoints.json.
+_.retained_count
+_.gold_policy_verified

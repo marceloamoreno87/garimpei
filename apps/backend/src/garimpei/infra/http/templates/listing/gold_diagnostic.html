@@ -1,0 +1,12 @@
+{% if alert.gold_failed %}
+    <p role="status">Não foi possível consultar a qualificação do alerta. Os dados da oferta continuam disponíveis.</p>
+{% elif alert.gold %}
+    <div class="notice" aria-label="Qualificação atual do alerta">
+        <p><strong>{{ alert.gold.label }}</strong></p>
+        {% if alert.gold.canonical_name %}<p>Produto normalizado: {{ alert.gold.canonical_name }}.</p>{% endif %}
+        {% if not alert.gold.current %}<p>A qualificação histórica não corresponde às evidências atuais.</p>{% endif %}
+        <p class="fine">{{ alert.gold.policy }} · avaliação em {{ alert.gold.evaluated_at|date:"d/m/Y H:i:s" }} UTC.</p>
+        <p>{{ alert.gold.retained_count }} anúncios usados equivalentes · mediana de preços pedidos. Não comprova venda realizada ou lucro garantido.</p>
+        {% if alert.gold.valid_until %}<p class="fine">Validade da amostra: {{ alert.gold.valid_until|date:"d/m/Y H:i:s" }} UTC.</p>{% endif %}
+    </div>
+{% endif %}

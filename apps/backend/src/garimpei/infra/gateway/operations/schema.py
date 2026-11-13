@@ -15,6 +15,7 @@ from garimpei.infra.persistence.alert_models import (
     ManualConditionHistory,
 )
 from garimpei.infra.persistence.exploration_models import ExplorationOffer, ExplorationRevision
+from garimpei.infra.persistence.gold_models import GoldPolicyAdoption, GoldQualification
 from garimpei.infra.persistence.inference_models import InferencePart, InferenceRequest
 from garimpei.infra.persistence.integration_models import IntegrationSettings
 from garimpei.infra.persistence.listing_models import (
@@ -317,11 +318,32 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "evaluated_at",
         ),
     ),
+    "runtime.goldpolicyadoption": (
+        GoldPolicyAdoption,
+        ("policy", "state", "activated_at", "consumer_version", "inventory"),
+    ),
+    "runtime.goldqualification": (
+        GoldQualification,
+        (
+            "listing",
+            "observation",
+            "purpose_key",
+            "policy",
+            "input_fingerprint",
+            "state",
+            "reason",
+            "reasons",
+            "evidence",
+            "evaluated_at",
+            "valid_until",
+        ),
+    ),
     "runtime.alertintent": (
         AlertIntent,
         (
             "decision",
             "first_decision",
+            "gold_qualification",
             "session",
             "recipient",
             "account",
@@ -347,6 +369,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "ordinal",
             "generation",
             "authorized_at",
+            "gold_policy_verified",
             "state",
             "reason",
             "message_id",
@@ -363,6 +386,7 @@ SCHEMA: dict[str, tuple[type[Model], tuple[str, ...]]] = {
             "listing",
             "signature",
             "manual_signature",
+            "manual_gold_signature",
             "generation",
             "next_action",
             "state",

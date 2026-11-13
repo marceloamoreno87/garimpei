@@ -1,9 +1,14 @@
+import hashlib
+import json
 from datetime import datetime
 from decimal import Decimal
 from typing import cast
 from uuid import UUID
 
+from garimpei.domain.valuation.identification_values import IdentificationResult
+from garimpei.domain.valuation.policy import VALUATION_POLICY
 from garimpei.domain.valuation.values import Comparable, NewQuote, NewReference, Resale, Valuation
+from garimpei.infra.persistence.listing_models import Listing
 from garimpei.infra.repository.listing.mapper import (
     EvidenceRecord,
     decode_evidence,
@@ -144,3 +149,33 @@ def decode_valuation(raw: dict[str, object]) -> Valuation:
         if raw.get("identification")
         else None,
     )
+
+
+def listing_comparable(
+    row: Listing, identification: IdentificationResult | None = None
+) -> Comparable:
+    observation = row.latest
+    assert observation is not None
+    evidence = decode_evidence(cast(EvidenceRecord, observation.evidence))
+    return Comparable(
+        row.id,
+        row.source,
+        row.external_id,
+        evidence.title or "",
+        row.canonical_url,
+        observation.price,
+        observation.observed_at,
+        observation.ordinal,
+        evidence,
+        identification=identification,
+    )
+
+
+def valuation_signature(snapshot: dict[str, object], product: str | None) -> str:
+    value = dict(
+        policy=VALUATION_POLICY,
+        product=product,
+        target=snapshot["target"],
+        candidates=snapshot["candidates"],
+    )
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()

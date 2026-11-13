@@ -27,6 +27,8 @@ from garimpei.infra.queries.listing.assessment_queries import PostgresAssessment
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.alert.delivery_state import authorize, complete, postpone
 from garimpei.infra.repository.alert.financial import financial_snapshot
+from garimpei.infra.repository.alert.gold_adoption import gold_active
+from garimpei.infra.repository.alert.gold_evidence_repository import PostgresGoldEvidenceRepository
 from garimpei.infra.repository.robot.postgres_repository import finish_matching, robot_enabled
 
 
@@ -73,7 +75,8 @@ class PostgresAlertRepository:
             True,
             False,
         )
-        reason = condition.reason or reason
+        if event.kind in {"discovered", "price_decreased"} and not event.silent:
+            reason = condition.reason or reason
         if event.kind == "discovered":
             reason = "first_eligibility_managed"
         AlertEventDecision.objects.get_or_create(
@@ -183,6 +186,12 @@ class PostgresAlertRepository:
             row.state, row.reason = "excluded", reason
         else:
             row.state, row.reason, row.financial = financial_snapshot(event, profit)
+        if row.state == "eligible" and gold_active():
+            gold = PostgresGoldEvidenceRepository.qualify_locked(
+                event.listing, "event:" + str(event.id), row.financial, now
+            )
+            if gold.state != "qualified":
+                row.state, row.reason = "waiting", gold.reason
         if load_assessment_enabled():
             assessment = PostgresAssessmentQueries().observation(
                 event.listing_id, event.observation_id

@@ -592,5 +592,17 @@
     "path": "src/garimpei/infra/persistence/robot_models.py",
     "consumer": "src/garimpei/infra/repository/robot/postgres_repository.py",
     "reason": "Persisted operation owner for recovery diagnostics"
+  },
+  {
+    "symbol": "GoldDiagnostic.retained_count",
+    "path": "src/garimpei/domain/alert/gold_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/gold_diagnostic.html",
+    "reason": "Django displays the retained comparable count of the recorded gold qualification"
+  },
+  {
+    "symbol": "AlertAttempt.gold_policy_verified",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "src/garimpei/infra/persistence/migrations/0027_gold_qualification.py",
+    "reason": "PostgreSQL authorization trigger rejects incompatible consumers after adoption; restore schema preserves the original marker"
   }
 ]

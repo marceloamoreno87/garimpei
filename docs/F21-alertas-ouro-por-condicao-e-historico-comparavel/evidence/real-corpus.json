@@ -1,0 +1,1073 @@
+{
+  "schema_version": 1,
+  "status": "collected_real_positive_still_pending",
+  "prepared_at": "2026-11-13T17:22:07.957946+00:00",
+  "independent_human_review": false,
+  "positive_qualification_demonstrated": false,
+  "real_equivalent_retained_count": 3,
+  "runs": [
+    {
+      "query": "PS5 Slim disco 1TB",
+      "origin": {
+        "latitude": -23.55,
+        "longitude": -46.6333,
+        "accuracy_m": null,
+        "city": "São Paulo",
+        "state": "SP",
+        "coordinates_known": true
+      },
+      "requested_radius_km": 20,
+      "started_at": "2026-11-13T17:14:44.182582+00:00",
+      "finished_at": "2026-11-13T17:16:14.182107+00:00",
+      "elapsed_seconds": 89.99954487099603,
+      "status": "bounded_collection_complete",
+      "profile_closed": true,
+      "unique_candidate_count": 48,
+      "limits": {
+        "queries": 1,
+        "pages": 2,
+        "details_per_batch": 2,
+        "max_batches": 6,
+        "seconds_per_batch": 180,
+        "request_timeout_seconds": 20
+      },
+      "details": [
+        {
+          "external_id": "1005340945271628",
+          "url": "https://www.facebook.com/marketplace/item/1005340945271628/",
+          "observed_at": "2026-11-13T17:14:56.651489+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim digital",
+          "description": "Vende-se ps5 slim digital novo  de mais retira e testa na minha casa  quero 3800 não abaixo 1 real",
+          "price": "3800.00",
+          "published_at": "2026-11-12T04:07:06+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "capacity"
+          ],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1690609309064213",
+              "sha256": "ff564b67c45db0bd8f7a474a43fe4267f30ad66bfd3c5ab7bdbbcd05834da51e",
+              "width": 720,
+              "height": 960,
+              "bytes": 71152,
+              "mime": "image/jpeg",
+              "review_file": "1005340945271628-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1054612230934867",
+          "url": "https://www.facebook.com/marketplace/item/1054612230934867/",
+          "observed_at": "2026-11-13T17:15:03.621891+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim digital 2 controle e nota fiscal",
+          "description": "Ainda na garantia comprado no mês 5 de 2026",
+          "price": "4200.00",
+          "published_at": "2026-11-11T15:13:14+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "capacity"
+          ],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1472291044839888",
+              "sha256": "02f659b17451afc8d4192a0da85113e7f9719706ee3022f3dc3d4ecb5bc000c4",
+              "width": 895,
+              "height": 960,
+              "bytes": 153198,
+              "mime": "image/jpeg",
+              "review_file": "1054612230934867-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1158352697142636",
+          "url": "https://www.facebook.com/marketplace/item/1158352697142636/",
+          "observed_at": "2026-11-13T17:15:10.311051+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "PS5 Slim Digital Seminovo",
+          "description": "🔴🔵🔴NSan Games🔵🔴🔵🔴\n\n📍 Venha nos conhecer:\nAv. Giovanni Batista Pirelli, 155 \nSanto André – SP | CEP: 093111-340\n\n🎮 PS5 Slim Digital Seminovo\n💰3900,00\n\n🛒 Serviços e vantagens:\n⭐️LOJA FÍSICA EM SHOPPING\n💎 Garantia e suporte técnico \n✅ Avaliamos trocas em outros consoles ou jogos\n🚗 Entregas em São Paulo\n✈️ Envio para todo o Brasil 🇧🇷\n📦 Frete por conta do comprador (a calcular)\n\n📞 Contatos:\n📲 WhatsApp: https://wa.me/[telefone removido]\n📷 Instagram: @nintendosan_\n\n🟠 Shopee (com taxas): \nhttps://shopee.com.br/nintendosan?entryPoint=ShopBySearch&searchKeyword=ntendosan",
+          "price": "3900.00",
+          "published_at": "2026-11-12T17:32:23+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "capacity"
+          ],
+          "photo_count": 4,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2357407561689825",
+              "sha256": "37f978ba9aa5a432489d2b3d05dea086f429acdb693d2b21ad845adb85d55914",
+              "width": 638,
+              "height": 960,
+              "bytes": 78925,
+              "mime": "image/jpeg",
+              "review_file": "1158352697142636-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1370088626197204",
+          "url": "https://www.facebook.com/marketplace/item/1370088626197204/",
+          "observed_at": "2026-11-13T17:15:16.273453+00:00",
+          "identity_state": "identified",
+          "product_key": "sony:ps5:slim:digital:825gb",
+          "condition_auto": "good",
+          "title": "Troco ou vendo Ps5 slim 825Gb",
+          "description": "🎮 VENDO OU TROCO – PLAYSTATION 5 SLIM DIGITAL 825GB, NÃO TEM JOGOS.\n\nEstou vendendo meu PS5 Slim, em ótimo estado de conservação e funcionamento, muito bem cuidado.\n\nEstou vendendo por conta de que vou iniciar uma faculdade e pretendo investir em um PC para meus estudos e trabalho.\n\n💰 Venda: R$ 3500\n\n🔄 Troca: Aceito PC Gamer do mesmo nível.\n\n📌 Aparelho funcionando perfeitamente.\n\nInteressados podem chamar no chat para conversar. Não tenho interesse em trocas por outros consoles.\n\nNegociação séria!",
+          "price": "3500.00",
+          "published_at": "2026-11-13T16:55:34+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 5,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2378048723016637",
+              "sha256": "f9b0eb70f8ff06ea657314ca39df5aa4d2387633fd565fc01f1bfd22f54155ab",
+              "width": 960,
+              "height": 720,
+              "bytes": 39861,
+              "mime": "image/jpeg",
+              "review_file": "1370088626197204-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1470894654977240",
+          "url": "https://www.facebook.com/marketplace/item/1470894654977240/",
+          "observed_at": "2026-11-13T17:15:23.205665+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "PlayStation 5 slim 1TB",
+          "description": "PlayStation 5 slim 1 TB\nTodos os acessórios,  caixa, NF\nSempre bem cuidado \nApenas venda, entrego.",
+          "price": "3700.00",
+          "published_at": "2026-11-13T07:34:27+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "edition"
+          ],
+          "photo_count": 3,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "4446704855578619",
+              "sha256": "181fa4af932475e0ea5d90f97e621a0b5852b3ca68a0bf83d93ca7846b51f1cb",
+              "width": 720,
+              "height": 960,
+              "bytes": 141509,
+              "mime": "image/jpeg",
+              "review_file": "1470894654977240-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1531351985495292",
+          "url": "https://www.facebook.com/marketplace/item/1531351985495292/",
+          "observed_at": "2026-11-13T17:15:30.400667+00:00",
+          "identity_state": "identified",
+          "product_key": "sony:ps5:slim:digital:1tb",
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim digital Usado 1Tb",
+          "description": "Console Ps5 slim digital 1tb usado disponível a pronta entrega para retirada na loja física ou envios via motoboy na região de São Paulo capital, entrego na estação da luz!",
+          "price": "3750.00",
+          "published_at": "2026-11-12T11:17:05+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1845802626604425",
+              "sha256": "6f15e3d4bfd1c1d0390d60951a10da3da92356922cf701971a000fde5b1a07f8",
+              "width": 540,
+              "height": 960,
+              "bytes": 65780,
+              "mime": "image/jpeg",
+              "review_file": "1531351985495292-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1591941069288940",
+          "url": "https://www.facebook.com/marketplace/item/1591941069288940/",
+          "observed_at": "2026-11-13T17:15:36.994495+00:00",
+          "identity_state": "conflicting_identity",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim edição 30 anos",
+          "description": "✅ Instagram @wes_leygames\n✅ Vendo games em casa 🏠 🎮\n✅ Digite Wesley games no Google \n✅ Bem avaliado pelos clientes\n              Acompanha\n✔️ Ps5 slim edição 30 anos\n✔️ Memória 1TB\n✔️ 1 controle 🎮\n✔️ Acompanha tudo das fotos\n✔️ Modelo semi novo\n✔️ 3 meses de garantia\n\nAceito PS5 slim mídia física e 3.200$\nAceito PS5 sim mídia digital e 3.400$\nAceito Xbox séries X e 2.400$\nAceito Xbox séries s e 4.300$\nAceito Nintendo switch 2 e 3.200$\nAceito ps4 também, Nintendo switch d.e.s.b.l.o.q.u.e.a.d.o. \nPs3 d.e.s.b.l.o.q.u.e.a.d.o.\n\nPasso cartão de crédito 💳 \nE parcelo até 12X\n( Juros por conta do cliente )\n\nEntrego na sua residência, 🚗📤 🎮\nSó paga após o game estar na sua mão \nOu pode retirar no meu endereço 🏠 \nOu local público\n\nGolpistas conheço todos os golpes",
+          "price": "6199.00",
+          "published_at": "2026-11-12T23:40:41+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": null,
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 9,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1136371065956874",
+              "sha256": "59a29e602df259f958c3696db96a4af746d6a02440815f094992777297042f01",
+              "width": 960,
+              "height": 669,
+              "bytes": 101723,
+              "mime": "image/jpeg",
+              "review_file": "1591941069288940-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1790234202089817",
+          "url": "https://www.facebook.com/marketplace/item/1790234202089817/",
+          "observed_at": "2026-11-13T17:15:45.704167+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "PlayStation 5 slim 825GB",
+          "description": "PlayStation 5 slim\nTenha a experiência de ter um PlayStation em estado de lacrado, por um valor acessível \n4 meses de uso\nCaixa + NF\nTodos os acessórios e Proteções \nEntrego \nParcelo em até 12x com juros da infinit pay",
+          "price": "3700.00",
+          "published_at": "2026-11-13T07:36:07+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "edition"
+          ],
+          "photo_count": 6,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2419796065222615",
+              "sha256": "8939bfa76530ce184912d115426ebb9d6903bf3bd28081ae83511ee71626b71c",
+              "width": 720,
+              "height": 960,
+              "bytes": 105695,
+              "mime": "image/jpeg",
+              "review_file": "1790234202089817-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1792220515205625",
+          "url": "https://www.facebook.com/marketplace/item/1792220515205625/",
+          "observed_at": "2026-11-13T17:15:52.755258+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "PS5 Slim digital | Lacrado | NF | Garantia | segurança",
+          "description": "Console lacrado com nota fiscal e garantia até meados de novembro 2027. \n\nTenho diversas avaliações positivas, vide estrelas ao lado da minha foto de perfil. \n\nEstou localizado na zona norte, Bairro Parque Edu Chaves. \n\nAceito olx pay para quem conseguir retirar e confirmar o pagamento após os testes!",
+          "price": "3600.00",
+          "published_at": "2026-11-13T01:41:18+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Novo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "capacity"
+          ],
+          "photo_count": 4,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2117085052248244",
+              "sha256": "c064a409908a5ba1b4c207dc412524b3cd60f65c4a17e7db5a7dc399c66175fe",
+              "width": 720,
+              "height": 960,
+              "bytes": 65295,
+              "mime": "image/jpeg",
+              "review_file": "1792220515205625-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1802008214346010",
+          "url": "https://www.facebook.com/marketplace/item/1802008214346010/",
+          "observed_at": "2026-11-13T17:15:59.842189+00:00",
+          "identity_state": "missing_attribute",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim mídia física",
+          "description": "Ps5 slim mídia física estado de novo quero 4200 moro próximo metro capao",
+          "price": "4200.00",
+          "published_at": "2026-11-12T04:26:42+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [
+            "capacity"
+          ],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2019104028786370",
+              "sha256": "5cf7a9cd3dcf2b189d7896ee0ff4d1d16b11a0aae381bc322800f966676f6232",
+              "width": 617,
+              "height": 960,
+              "bytes": 73335,
+              "mime": "image/jpeg",
+              "review_file": "1802008214346010-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1803954560860458",
+          "url": "https://www.facebook.com/marketplace/item/1803954560860458/",
+          "observed_at": "2026-11-13T17:16:07.215343+00:00",
+          "identity_state": "conflicting_identity",
+          "product_key": null,
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim com leitor edição ghost of yotei com 3 tb mais suporte vertical 7200",
+          "description": "Ps5 slim com leitor edição ghost of yotei mais ssd 2tb mais suporte vertical 7200",
+          "price": "7200.00",
+          "published_at": "2026-11-13T00:46:22+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 6,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1130522896430115",
+              "sha256": "2fdd32495c87b4cc1f02cda7f8f608b163cbb88cf5a5fd8c4e038738db467e5d",
+              "width": 540,
+              "height": 960,
+              "bytes": 69251,
+              "mime": "image/jpeg",
+              "review_file": "1803954560860458-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1846421886676158",
+          "url": "https://www.facebook.com/marketplace/item/1846421886676158/",
+          "observed_at": "2026-11-13T17:16:14.094440+00:00",
+          "identity_state": "identified",
+          "product_key": "sony:ps5:slim:digital:1tb",
+          "condition_auto": "uncertain",
+          "title": "Ps5 slim digital 1TB",
+          "description": "Ps5 está em ótimo estado de conservação, sem avarias.\n\nAcompanha:\n\nCaixa original \nManual\nControle sem defeito\nCabo de força \nCabo hdmi original\nSuporte original \nCabo original tipo C\n\nParcelo em até 12x c juros\nVim retirar",
+          "price": "3950.00",
+          "published_at": "2026-11-12T12:46:51+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1173096848502588",
+              "sha256": "042519e64d98e2da2f81a453c6124a5f9f9213d0698298ccba4072df3c8c501b",
+              "width": 720,
+              "height": 960,
+              "bytes": 112869,
+              "mime": "image/jpeg",
+              "review_file": "1846421886676158-0.jpg",
+              "correlated": true
+            }
+          ]
+        }
+      ],
+      "retained_equivalent_details": 0
+    },
+    {
+      "query": "iPhone 13 128GB",
+      "origin": {
+        "latitude": -23.55,
+        "longitude": -46.6333,
+        "accuracy_m": null,
+        "city": "São Paulo",
+        "state": "SP",
+        "coordinates_known": true
+      },
+      "requested_radius_km": 20,
+      "started_at": "2026-11-13T17:19:28.529238+00:00",
+      "finished_at": "2026-11-13T17:20:59.807578+00:00",
+      "elapsed_seconds": 91.27835613499337,
+      "status": "bounded_collection_complete",
+      "profile_closed": true,
+      "unique_candidate_count": 48,
+      "limits": {
+        "queries": 1,
+        "pages": 2,
+        "details_per_batch": 2,
+        "max_batches": 6,
+        "seconds_per_batch": 180,
+        "request_timeout_seconds": 20
+      },
+      "details": [
+        {
+          "external_id": "1020926864376566",
+          "url": "https://www.facebook.com/marketplace/item/1020926864376566/",
+          "observed_at": "2026-11-13T17:19:40.875609+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "iPhone 13 128gb",
+          "description": "Vende-se IPhone 13 todo original !! 128 gb. Nas condições das fotos , traseira trincada.\n\n   R$ 1.450 \n\nSaude da Bateria  74 % \n\n Câmeras ✅\n Microfone ✅\n Chip ✅\n  Atualiza/Formata ✅\n\nSomente traseira trincada !!  Vai com capinhas",
+          "price": "1450.00",
+          "published_at": "2026-11-13T01:53:37+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 5,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1871613070697411",
+              "sha256": "5c881437ebceefbdb91bf1a70be182877fb2b92477a38edab4b273d7f2099259",
+              "width": 720,
+              "height": 960,
+              "bytes": 91881,
+              "mime": "image/jpeg",
+              "review_file": "1020926864376566-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1129432053120603",
+          "url": "https://www.facebook.com/marketplace/item/1129432053120603/",
+          "observed_at": "2026-11-13T17:19:48.470871+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "IPhone 13 / 128 GB Disponível nas cores BRANCA e AZUL ESCURO",
+          "description": "iPhone 13 /128GB - LOJA FÍSICA EM CAIEIRAS \nTEMOS DUAS CORES DISPONÍVEIS BRANCA e AZUL ESCURO \nR$1850,00 CADA \nCELULAR EM PERFEITO ESTADO! \nFACE ID, SINAL, CHIP, WIFI ✅\nACEITO CARTÃO ATÉ 12X ✅\n06 MESES DE GARANTIA",
+          "price": "1800.00",
+          "published_at": "2026-11-12T16:17:46+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 3,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1867847757907696",
+              "sha256": "d67f06788a128933a10f9af626613ab416dd4ac72189eec637703942fc391be3",
+              "width": 443,
+              "height": 960,
+              "bytes": 44158,
+              "mime": "image/jpeg",
+              "review_file": "1129432053120603-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1149985297537880",
+          "url": "https://www.facebook.com/marketplace/item/1149985297537880/",
+          "observed_at": "2026-11-13T17:19:55.613136+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "good",
+          "title": "iPhone 13 Azul – 128GB (LEIA O ANÚNCIO)",
+          "description": "📱 iPhone 13 Azul – 128GB\n\nAparelho funcionando perfeitamente!\n\nDetalhes:\n\n- Cor: Azul\n- Aparelho original\n- Tela trocada\n- Face ID OK\n- Câmeras OK\n- Wi-Fi OK\n- Bluetooth OK\n- Chip OK\n- Bateria 67%\n- Todas as demais funções funcionando\n- Sem marcas de queda\n\n💰 Valor: R$ 1.500,00\n\n📍 Entrega em São Bernardo do Campo, dependendo da localização.\n\nNegociável, mas sem proposta absurda.\n\nInteressados, chamar no privado",
+          "price": "1450.00",
+          "published_at": "2026-11-13T13:56:23+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": true,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 9,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1445300210483665",
+              "sha256": "bbf0f3deacbea9e7a3096bd969c76ebce7c607c0fc12db1b874f7af6e5ae9a94",
+              "width": 443,
+              "height": 960,
+              "bytes": 71801,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-0.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1675674267404100",
+              "sha256": "992696f0bb2f2ce28d0053adde23f4f977d9f1bd42ea21216d6fdb6af0be02d4",
+              "width": 443,
+              "height": 960,
+              "bytes": 30072,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-1.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1192674079849191",
+              "sha256": "0d3726a60b18586da11184850ee06f7d1259c58403fe9486d800188486d5eb53",
+              "width": 443,
+              "height": 960,
+              "bytes": 52790,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-2.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "2129463571026930",
+              "sha256": "46a9d8dba11475e0cbfa113789f6453ece5b2a0cfc4f624297c019afa36dfb41",
+              "width": 443,
+              "height": 960,
+              "bytes": 39063,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-3.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "2218217678781565",
+              "sha256": "0ff342d7198edd9c935d3fde33c34df242b83f01001112027c4d1c1efd8be868",
+              "width": 443,
+              "height": 960,
+              "bytes": 34809,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-4.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "28715628411471830",
+              "sha256": "0a868cc223fda17a50c74ab44f35ebd6d8077bc6d65d2c2180a20a5d90ffdf22",
+              "width": 443,
+              "height": 960,
+              "bytes": 67931,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-5.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1148138114379440",
+              "sha256": "fa5878812904ccd1bfed635033f923f589a504e2dc42b89a2d1ef07a60850ead",
+              "width": 960,
+              "height": 443,
+              "bytes": 63921,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-6.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1110220191885901",
+              "sha256": "8d1e9da12aeee0c09eba428b0172524df7e80c6895ee41cea961905f29a9c40f",
+              "width": 960,
+              "height": 443,
+              "bytes": 88149,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-7.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1909105100458921",
+              "sha256": "b8fb3aa4c4dc41671f4c2f5d6528cfc700fb1750272fdf5d91181de1d461044c",
+              "width": 443,
+              "height": 960,
+              "bytes": 71569,
+              "mime": "image/jpeg",
+              "review_file": "1149985297537880-8.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1156072093429318",
+          "url": "https://www.facebook.com/marketplace/item/1156072093429318/",
+          "observed_at": "2026-11-13T17:20:03.161062+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "good",
+          "title": "Vendo IPhone 13 - 128 GB (Seminovo)",
+          "description": "📱 VENDO IPHONE 13 – 128 GB\n\n✨ Cor: Meia Lua (preto)\n🔋 Saúde da bateria: 86%\n\nAparelho em perfeito funcionamento! Todas as funções funcionando normalmente.\n\nDetalhes sobre a conservação:\n\nPequeno detalhe na parte traseira.\n\nMarca na tela somente na película.\n\nAlguns sinais de uso na estrutura, sem interferir no funcionamento.\n\nACOMPANHA:\n\nCarregador;\n\nCapinhas (conforme fotos).\n\n❤️ Aparelho bem conservado e pronto para uso!\n\n📩 Interessados, chamar no privado para mais informações e negociação.",
+          "price": "1850.00",
+          "published_at": "2026-11-13T02:24:53+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": true,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 10,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "4788669328084514",
+              "sha256": "2b01b0deae4fb19d002c282d9ba2c35714141a376dbb8ffe5533555eeaac9d3f",
+              "width": 540,
+              "height": 960,
+              "bytes": 48355,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-0.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "983083621052805",
+              "sha256": "e6a64cb84cb16c14931c7ed1e806920d4c9feb88572dd3478189d4dadd8f8960",
+              "width": 768,
+              "height": 960,
+              "bytes": 98663,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-1.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "2526068051221317",
+              "sha256": "549eea91233e60913b34a2c52626a22b6ad6cdd7db8f6a29e69e6f89d41a4c5b",
+              "width": 540,
+              "height": 960,
+              "bytes": 53226,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-2.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "2116662829214372",
+              "sha256": "67ae619ea308d20ef087d711ab0cf76d1f11d07fe4beb55cf2ea0b8a09ff35ac",
+              "width": 540,
+              "height": 960,
+              "bytes": 48056,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-3.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "4511772252372457",
+              "sha256": "a58f6078299d145b724651d4ee2813a93ba773e14b06d222f31c52a60ad05704",
+              "width": 540,
+              "height": 960,
+              "bytes": 47516,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-4.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "2274618270600163",
+              "sha256": "1ccdf65781d664d58d1dd4104272e7136590149cb35e845f64468f7d313f51f5",
+              "width": 540,
+              "height": 960,
+              "bytes": 50741,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-5.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1007785459045238",
+              "sha256": "4ef113fb0a0d62069768dced743e4bc1e6febebc4411cfca564bcd860def1d5c",
+              "width": 540,
+              "height": 960,
+              "bytes": 48482,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-6.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1085150371205759",
+              "sha256": "38836561673dd15aa3997c95dcf37e40479bf1d245e58d3584d972d6caa9a8cb",
+              "width": 540,
+              "height": 960,
+              "bytes": 45296,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-7.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1655374699467944",
+              "sha256": "a8544598c2d5a1cf067138b7b65387b9f1f7210892c67cf241ab705273c1243a",
+              "width": 960,
+              "height": 540,
+              "bytes": 74988,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-8.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1617687499548373",
+              "sha256": "f16e14ffcfeb396cd750177ab93ee953af733c5f5539044b02a3f5f7faeb3858",
+              "width": 720,
+              "height": 960,
+              "bytes": 54085,
+              "mime": "image/jpeg",
+              "review_file": "1156072093429318-9.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1165537993092402",
+          "url": "https://www.facebook.com/marketplace/item/1165537993092402/",
+          "observed_at": "2026-11-13T17:20:10.925121+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "iPhone 13 128gb",
+          "description": "iPhone 13 128gb branco \n83% bateria original \nCom caixa e cabo \nAparelho zerado, sem marcas de uso\n\nParcelo em até 12x com juros",
+          "price": "1999.00",
+          "published_at": "2026-11-12T23:29:25+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 7,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1145161264777891",
+              "sha256": "36812f9c1e142163eeb03dc3aed396e5f2eaab8a83abde4609907d4599032c4e",
+              "width": 720,
+              "height": 960,
+              "bytes": 43931,
+              "mime": "image/jpeg",
+              "review_file": "1165537993092402-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1181087451145526",
+          "url": "https://www.facebook.com/marketplace/item/1181087451145526/",
+          "observed_at": "2026-11-13T17:20:17.777301+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "Iphone 13 128gb",
+          "description": "Iphone 13 em perfeito estado de funcionamento, tudo funciona, somente caiu e a parte superficial de trás trincou mas o funcionamento dele esta intacto, cameras, audios tudo. Estou vendendo pq ganhei outro de presente. Acompanha cabo de alimentação \nCapinha e ele ja esta com à película",
+          "price": "1150.00",
+          "published_at": "2026-11-13T01:53:31+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 6,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2336804353527310",
+              "sha256": "a7ec27493ae3128863166830236f481a5d90f663260da3652864a457f6f32023",
+              "width": 720,
+              "height": 960,
+              "bytes": 57101,
+              "mime": "image/jpeg",
+              "review_file": "1181087451145526-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1290171709961226",
+          "url": "https://www.facebook.com/marketplace/item/1290171709961226/",
+          "observed_at": "2026-11-13T17:20:24.482156+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "Iphone 13 128gb",
+          "description": "Outlet do celular \nMaua plaza shopping \nNota fiscal \n90 dias de garantia pela loja",
+          "price": "1395.00",
+          "published_at": "2026-11-12T19:41:21+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1111812345061399",
+              "sha256": "0a56b42d95c392af66a557bd412e7dbb88c65cb9091fc70c539036e3c87ead79",
+              "width": 540,
+              "height": 960,
+              "bytes": 51888,
+              "mime": "image/jpeg",
+              "review_file": "1290171709961226-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1308991358021048",
+          "url": "https://www.facebook.com/marketplace/item/1308991358021048/",
+          "observed_at": "2026-11-13T17:20:31.305110+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:pro:128gb",
+          "condition_auto": "uncertain",
+          "title": "iPhone 13 Pro 128gb",
+          "description": "",
+          "price": "2900.00",
+          "published_at": "2026-11-12T19:10:10+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 1,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2853802798328471",
+              "sha256": "1f50e3b4344baf2f4692f1181fb18d1b6eb5743f9e425a5075d10ea935da956b",
+              "width": 720,
+              "height": 960,
+              "bytes": 51590,
+              "mime": "image/jpeg",
+              "review_file": "1308991358021048-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1430739545795570",
+          "url": "https://www.facebook.com/marketplace/item/1430739545795570/",
+          "observed_at": "2026-11-13T17:20:38.214181+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "IPHONE 13 128GB",
+          "description": "IPHONE 13 128GB\nNUNCA ABERTO\nTUDO OK\nVAI COMPLETO\nSAÚDE DA BATERIA 79% 🔋\n\nApenas algumas marcas de uso",
+          "price": "2000.00",
+          "published_at": "2026-11-12T19:05:41+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 6,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2245768739690526",
+              "sha256": "731d8b41ee9edfd9fe98f91777e4575bb2016364388b323d319ffa86975d16ba",
+              "width": 720,
+              "height": 960,
+              "bytes": 88586,
+              "mime": "image/jpeg",
+              "review_file": "1430739545795570-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1437877778518653",
+          "url": "https://www.facebook.com/marketplace/item/1437877778518653/",
+          "observed_at": "2026-11-13T17:20:45.417690+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "IPHONE 13 - 128GB",
+          "description": "Celular sem marcas de uso, trinco apenas na película de vidro. Acompanha carregador original e cabo. (Saúde da bateria em 71%, aparelho nunca aberto)",
+          "price": "2100.00",
+          "published_at": "2026-11-12T20:47:56+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 7,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2344846809650321",
+              "sha256": "cad3dff76159ec756768e2fe3e88662be19ed4df92c86a335cb31bfcad604e21",
+              "width": 720,
+              "height": 960,
+              "bytes": 86564,
+              "mime": "image/jpeg",
+              "review_file": "1437877778518653-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1439059944489818",
+          "url": "https://www.facebook.com/marketplace/item/1439059944489818/",
+          "observed_at": "2026-11-13T17:20:52.420531+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "uncertain",
+          "title": "iPhone 13 - 128gb",
+          "description": "Usado, em bom estado e com 76% de saúde da bateria.\n\niOS 27\n\n✅ Nunca foi aberto ou teve peças substituídas\n✅ Acompanha caixa original\n❌ Não acompanha carregador\n\n💳 Parcelamento em até 21x com juros!\nO limite de parcelas está sujeito às condições do banco emissor do cartão.\n\n📩 Interessados, entrar em contato pelo direct!",
+          "price": "1600.00",
+          "published_at": "2026-11-13T01:16:10+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — em boas condições",
+          "source_available": true,
+          "eligible_as_historical_comparable": false,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 4,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "2905602119806954",
+              "sha256": "9de7e7f06a0b88e5eb0a3f1db7b590f2fdba078349cd2919f4cab43008854149",
+              "width": 540,
+              "height": 960,
+              "bytes": 38286,
+              "mime": "image/jpeg",
+              "review_file": "1439059944489818-0.jpg",
+              "correlated": true
+            }
+          ]
+        },
+        {
+          "external_id": "1447579983522224",
+          "url": "https://www.facebook.com/marketplace/item/1447579983522224/",
+          "observed_at": "2026-11-13T17:20:59.701543+00:00",
+          "identity_state": "identified",
+          "product_key": "apple:iphone13:standard:128gb",
+          "condition_auto": "good",
+          "title": "📱 iPhone 13  - 128gb🔥",
+          "description": "📱 iPhone 13  - 128gb🔥\n\n✅ Todo original de fábrica \n✅ Aparelho funcionando perfeitamente\n✅ Saúde da bateria 75%🔋\n✅ Sem travamentos\n✅ Câmeras, áudio, biometria/Face ID e demais funções funcionando normalmente\n✅ Aparelho pronto para uso \n✅ Acompanha caixa 📲\n\n💳 Aceito PIX, dinheiro e cartão de crédito (parcelamento em até 18x)\n\n🔄 Avalio trocas por outro celular, com volta em dinheiro, cartão ou pix \n\n📍 [ZONA LESTE]\n\n⚡ Interessou? Chama pelo Messenger!\n📸 Posso enviar mais fotos e vídeos do aparelho.",
+          "price": "1600.00",
+          "published_at": "2026-11-13T08:43:44+00:00",
+          "published_at_source": "facebook.creation_time",
+          "condition": "Usado — seminovo",
+          "source_available": true,
+          "eligible_as_historical_comparable": true,
+          "automatic_identity_missing_attributes": [],
+          "photo_count": 3,
+          "reference_method": "ai_assisted_textual_review",
+          "independent_human_review": false,
+          "photos_verified": true,
+          "photos": [
+            {
+              "photo_id": "1778896096550748",
+              "sha256": "b4192a14e3bc0440ce7129e9f8cf29851c2c70e0875da7843d1f20c2f97b8895",
+              "width": 720,
+              "height": 960,
+              "bytes": 80557,
+              "mime": "image/jpeg",
+              "review_file": "1447579983522224-0.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1029090453546205",
+              "sha256": "a7043b04e9503915d47527ba7141a8d535acaae859e8caf2e69851544e4984a7",
+              "width": 720,
+              "height": 960,
+              "bytes": 49252,
+              "mime": "image/jpeg",
+              "review_file": "1447579983522224-1.jpg",
+              "correlated": true
+            },
+            {
+              "photo_id": "1670733511061648",
+              "sha256": "d93f9dd8dda48438cabffed22f734199788c223e0ced62416acf3f1e0d3f15e0",
+              "width": 720,
+              "height": 960,
+              "bytes": 90878,
+              "mime": "image/jpeg",
+              "review_file": "1447579983522224-2.jpg",
+              "correlated": true
+            }
+          ]
+        }
+      ],
+      "retained_equivalent_details": 3
+    }
+  ],
+  "method_notes": [
+    "24 detalhes reais de duas pesquisas nativas São Paulo/20km. Sem edição de preferências/perfil copiado/WAHA real.",
+    "A coleta iPhone inicialmente comparou contra uma chave digitada incorretamente; a classificação publicada foi recomputada pelas funções F18/F06 sobre o snapshot original preservado, usando apple:iphone13:standard:128gb.",
+    "Rótulos são avaliação textual assistida por IA; não constituem revisão humana. Fotos ainda precisam de download/verificação/revisão e inferência local."
+  ],
+  "required_review": {
+    "human": "Conferir título/descrição/fotos e rotular cada caso, registrando autor/data antes da inferência comparada.",
+    "positive": "Uma oferta com análise suficiente e ao menos cinco comparáveis equivalentes retidos próprios, além da janela/cobertura/configuração."
+  }
+}

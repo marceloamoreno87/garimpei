@@ -11,6 +11,8 @@ from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueri
 from garimpei.infra.repository.alert.assessment_note import assessment_note
 from garimpei.infra.repository.alert.financial import decode_snapshot
 from garimpei.infra.repository.alert.first_authorization import first_body, prepare_first
+from garimpei.infra.repository.alert.gold_authorization import attempt_gold_policy, prepare_gold
+from garimpei.infra.repository.alert.gold_message import gold_message_note
 from garimpei.infra.repository.alert.message_authorization import prepare_financial
 
 logger = logging.getLogger("garimpei.alert")
@@ -82,6 +84,11 @@ def _claim(
     ):
         postpone(row, "first_evaluation_pending", now, policy)
         return None
+    if not reconcile:
+        gold_reason = prepare_gold(row, now)
+        if gold_reason is not None:
+            postpone(row, gold_reason, now, policy)
+            return None
     if row.first_decision_id is not None:
         return _claim_first(row, binding, now, reconcile, configuration, listings, policy)
     reason = prepare_financial(row, now)
@@ -144,13 +151,19 @@ def _attempt(row: AlertIntent, binding: Binding, now: datetime, reconcile: bool)
                 ),
             )
         )
+        note = gold_message_note(row)
+        row.body += "\n" + note if note else ""
         row.session, row.recipient, row.account = (
             binding.session,
             binding.recipient,
             binding.account,
         )
     return AlertAttempt.objects.create(
-        intent=row, ordinal=row.attempts.count() + 1, generation=row.generation, authorized_at=now
+        intent=row,
+        ordinal=row.attempts.count() + 1,
+        generation=row.generation,
+        authorized_at=now,
+        gold_policy_verified=attempt_gold_policy(),
     )
 
 
@@ -237,6 +250,7 @@ def _claim_first(
             ordinal=row.attempts.count() + 1,
             generation=row.generation,
             authorized_at=now,
+            gold_policy_verified=attempt_gold_policy(),
         )
     row.state, row.reason = "uncertain" if reconcile else "authorized", "transmission_possible"
     row.save()
