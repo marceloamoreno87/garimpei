@@ -20,10 +20,14 @@ from django.db import connection
 from django.db.migrations.executor import MigrationExecutor
 from django.utils.timezone import now
 from uuid import uuid4
-from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt
-from garimpei.infra.persistence.inference_models import InferenceControl
 executor=MigrationExecutor(connection)
-executor.migrate([('runtime','0025_merge_identity_research')])
+legacy=[('runtime','0025_merge_identity_research')]
+executor.migrate(legacy)
+# Historical rows must use the schema actually installed, including after F21 adds fields.
+apps=executor.loader.project_state(legacy).apps
+AlertIntent=apps.get_model('runtime','AlertIntent')
+AlertAttempt=apps.get_model('runtime','AlertAttempt')
+InferenceControl=apps.get_model('runtime','InferenceControl')
 InferenceControl.objects.get_or_create(pk=1)
 InferenceControl.objects.filter(pk=1).update(paused=True,active_request=uuid4(),reason='execution_unknown')
 intent=AlertIntent.objects.create(state='uncertain',session='synthetic',recipient='100@g.us',account='200@c.us',body='frozen legacy body',financial={'unchanged':'yes'},created_at=now(),next_action=now())
@@ -31,13 +35,18 @@ AlertAttempt.objects.create(intent=intent,ordinal=1,generation=1,authorized_at=n
 with connection.cursor() as cursor:
  cursor.execute('SELECT count(*) FROM procrastinate_jobs'); jobs=cursor.fetchone()[0]
 old=(intent.id,intent.body,intent.financial,intent.attempts.count())
-executor=MigrationExecutor(connection);executor.migrate([('runtime','0026_robot_control')])
-from garimpei.infra.persistence.robot_models import RobotControl,RobotOperation
+adopted=[('runtime','0026_robot_control')]
+executor=MigrationExecutor(connection);executor.migrate(adopted)
+apps=executor.loader.project_state(adopted).apps
+RobotControl=apps.get_model('runtime','RobotControl')
+RobotOperation=apps.get_model('runtime','RobotOperation')
+InferenceControl=apps.get_model('runtime','InferenceControl')
+AlertIntent=apps.get_model('runtime','AlertIntent')
 from garimpei.infra.queries.robot.postgres_queries import PostgresRobotQueries
 assert RobotControl.objects.get(pk='local').requested_enabled
 assert not RobotOperation.objects.exists()
 assert InferenceControl.objects.get(pk=1).paused
-intent.refresh_from_db();assert (intent.id,intent.body,intent.financial,intent.attempts.count())==old
+intent=AlertIntent.objects.get(pk=old[0]);assert (intent.id,intent.body,intent.financial,intent.attempts.count())==old
 with connection.cursor() as cursor:
  cursor.execute('SELECT count(*) FROM procrastinate_jobs');assert cursor.fetchone()[0]==jobs
 status=PostgresRobotQueries().status();assert status.unknown==2 and status.state=='unknown'

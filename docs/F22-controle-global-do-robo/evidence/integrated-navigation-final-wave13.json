@@ -1,0 +1,29 @@
+{
+  "source": "5f713bb8a13856819c1f45d5954a9cfcf9469cd4",
+  "command": [
+    "uv",
+    "run",
+    "--directory",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry",
+    "--basetemp=/tmp/g13-navigation-final",
+    "--junitxml=/home/marce/.codex/worktrees/c4f1/garimpei/docs/F22-controle-global-do-robo/evidence/integrated-navigation-final-wave13.xml",
+    "-q"
+  ],
+  "nodes": [
+    "tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry"
+  ],
+  "started_at_epoch": 1794594624.157208,
+  "test_hashes": {
+    "apps/backend/tests/integration/test_profit.py": "5380d2c5fe42020bc125f63bd18d0808fab8f468a2df8dc37471ccec7b9927bd",
+    "apps/backend/tests/integration/test_navigation_events.py": "de803e5d04521761a9d1cf41c06a7eb60c7cdb4771cf0f6c3f38f2f8da2a535c",
+    "apps/backend/tests/integration/test_robot_migration.py": "09e64098edba07c2e252cd13c541ae30db49f9223ce9b093d2776630edef9685"
+  },
+  "production_diff": "",
+  "exit_code": 0,
+  "ended_at_epoch": 1794594677.7596188,
+  "inputs_unchanged": true
+}

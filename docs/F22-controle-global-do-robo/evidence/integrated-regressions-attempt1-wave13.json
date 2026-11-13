@@ -1,0 +1,55 @@
+{
+  "kind": "retrospective execution attribution; hashes were not captured before first run",
+  "source": "5f713bb8a13856819c1f45d5954a9cfcf9469cd4",
+  "exit_code": 1,
+  "result": "1 failed, 5 passed in145.74s",
+  "command": "TMPDIR=/tmp/g13 uv run --directory apps/backend --frozen --no-sync pytest tests/integration/test_profit.py tests/integration/test_navigation_events.py tests/integration/test_robot_migration.py --basetemp=/tmp/g13-regressions-green -q",
+  "assertion_preservation": {
+    "test_profit.py": {
+      "original_assertions": 64,
+      "preserved_exactly": true,
+      "current_sha256": "5380d2c5fe42020bc125f63bd18d0808fab8f468a2df8dc37471ccec7b9927bd"
+    },
+    "test_navigation_events.py": {
+      "original_assertions": 48,
+      "preserved_exactly": true,
+      "current_sha256": "de803e5d04521761a9d1cf41c06a7eb60c7cdb4771cf0f6c3f38f2f8da2a535c"
+    },
+    "test_robot_migration.py": {
+      "original_assertions": 11,
+      "preserved_exactly": true,
+      "current_sha256": "09e64098edba07c2e252cd13c541ae30db49f9223ce9b093d2776630edef9685"
+    }
+  },
+  "production_diff_empty": true,
+  "hash_limitation": "Pre-execution hashes not recorded. Current profit differs only by formatter since that run; current migration bytes unchanged. Navigation subsequently corrects fixture published_at to original logical clock+1 second. No result is attributed to an unexecuted production change.",
+  "node_results": {
+    "tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits": "PASSED",
+    "tests/integration/test_profit.py::test_reduction_event_is_immutable_and_revalidates_cep_and_variant": "PASSED",
+    "tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale": "PASSED",
+    "tests/integration/test_profit.py::test_consistent_snapshot_during_two_head_publication": "PASSED",
+    "tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry": "FAILED",
+    "tests/integration/test_robot_migration.py::test_adoption_preserves_legacy_authorizations_and_individual_pause": "PASSED"
+  },
+  "current_test_inputs": {
+    "apps/backend/tests/integration/test_profit.py": {
+      "original_assertions": 64,
+      "preserved_exactly": true,
+      "current_sha256": "5380d2c5fe42020bc125f63bd18d0808fab8f468a2df8dc37471ccec7b9927bd",
+      "current_ast_sha256": "ea1107d731aa21c73c8ea9162f643df3186b87881efedb74b12face8887186ff"
+    },
+    "apps/backend/tests/integration/test_navigation_events.py": {
+      "original_assertions": 48,
+      "preserved_exactly": true,
+      "current_sha256": "de803e5d04521761a9d1cf41c06a7eb60c7cdb4771cf0f6c3f38f2f8da2a535c",
+      "current_ast_sha256": "2ba988c2577c5d1d5f14e31cb149f0213d97ea65b6bbbe36cf72b8bd90c12ecd"
+    },
+    "apps/backend/tests/integration/test_robot_migration.py": {
+      "original_assertions": 11,
+      "preserved_exactly": true,
+      "current_sha256": "09e64098edba07c2e252cd13c541ae30db49f9223ce9b093d2776630edef9685",
+      "current_ast_sha256": "ec3844b307ffff4873aa0783dbd6db6433ef874e7c4fe265f75c3dd095f5a357"
+    }
+  },
+  "format_note": "After attempt1, ruff format changed only whitespace/parentheses in profit; no logical edit. Migration content remained unchanged. These hashes describe the final files, not a pre-execution capture. Assertion text equality is checked against source5f713bb for all123 original assertions."
+}

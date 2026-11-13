@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 
 from tests.factories.alert_scenario import alert_shell, wait_alerts, wait_listing_alerts
@@ -35,6 +36,14 @@ def test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_re
     canary = FileAccessCanary(tmp_path / "synthetic-secret.txt")
     try:
         with navigation_alert_scenario(tmp_path) as ((instance, _source, clock, channel), source):
+            # The worker may use the idle suggestion budget as soon as Slim is configured.
+            # Make its evidence available before that first legitimate slice can run.
+            source.pro_rows["9130"] = listing(
+                "9130",
+                "3200,00",
+                title="PS5 Pro",
+                published_at=(clock.value + timedelta(seconds=1)).isoformat(),
+            )
             # Exact two interests: electronics plus Slim, whose canonical/literal alias share budget.
             shell(
                 instance,
@@ -48,9 +57,6 @@ build_monitoring_handler()._update.execute(StepInput('editar',config.revision,ce
             )
             completed(instance, 2)
             clock.advance(1)
-            source.pro_rows["9130"] = listing(
-                "9130", "3200,00", title="PS5 Pro", published_at=clock.value.isoformat()
-            )
             shell(
                 instance,
                 """
@@ -64,6 +70,25 @@ from garimpei.infra.persistence.listing_models import Listing,ListingEvent
 settings=_effective_listing_settings();policy=load_navigation_policy();clock=_listing_clock(settings)
 store=PostgresSuggestionRepository(build_read_monitoring_configuration(),build_navigation_catalog(),policy,clock,settings.timeout,settings.cadence_ms/1000)
 RunSuggestionsUseCase(store,FixtureSource(settings.fixture_url,settings.timeout),policy,lambda:0.0,settings.timeout,settings.cadence_ms/1000).execute()
+""",
+            )
+            # A competing worker can own the slice; its confirmation is asynchronous.
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT count(*) FROM runtime_suggestionevidence WHERE external_id='9130'",
+                    )
+                    == [(1,)]
+                ),
+                "related listing evidence confirmed by the suggestion slice",
+            )
+            shell(
+                instance,
+                """
+from garimpei.main import build_read_monitoring_configuration
+from garimpei.infra.persistence.navigation_models import SuggestionEvidence
+from garimpei.infra.persistence.listing_models import Listing
 assert SuggestionEvidence.objects.get(external_id='9130')
 assert not Listing.objects.filter(external_id='9130').exists()
 assert 'PS5 Pro' not in build_read_monitoring_configuration().execute().product_names
