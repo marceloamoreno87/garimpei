@@ -1,0 +1,133 @@
+"""Private replay driver: real source snapshots/bytes and real local model; loopback source and WAHA."""
+import os,json,time,hashlib,traceback
+from pathlib import Path
+from datetime import datetime,UTC
+from uuid import uuid4
+from garimpei.config.env import configure_django
+configure_django()
+import django
+django.setup()
+from django.utils.timezone import now
+from garimpei.main import *
+from garimpei.infra.persistence.listing_models import Listing,CollectionState
+from garimpei.infra.persistence.valuation_models import ValuationWork
+from garimpei.infra.persistence.assessment_models import ConditionAssessment
+from garimpei.infra.persistence.gold_models import GoldQualification
+from garimpei.infra.persistence.alert_models import AlertIntent,FirstAlertIdentity
+from garimpei.infra.persistence.robot_models import RobotControl
+from garimpei.domain.robot.control import RobotCommand
+from garimpei.usecase.robot.set_robot_state_usecase import SetRobotStateUseCase
+from garimpei.infra.repository.alert.gold_adoption import adopt_gold_policy
+from garimpei.infra.repository.listing.assessment_repository import PostgresAssessmentRepository
+from garimpei.infra.gateway.listing.assessment_inference import LocalAssessmentInference
+from garimpei.infra.gateway.listing.assessment_inputs import LocalAssessmentInputs
+from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
+from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+from garimpei.usecase.listing.prepare_assessment_usecase import PrepareAssessmentUseCase
+from garimpei.usecase.listing.complete_assessment_usecase import CompleteAssessmentUseCase
+from tests.factories.assessment_origin import serve_assessment_images
+from tests.factories.listing import ControlledClock,serve
+from tests.factories.valuation import ValuationSource
+from tests.factories.runtime import FoundationInstance,pause_worker,resume_worker
+from tests.factories.alert import WahaServer,serve_waha
+from tests.integration.test_collection import configure
+root=Path.cwd().parents[1];p=Path(__file__).parent.resolve();evidence=root/'docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence';old=Path('/tmp/garimpei-f21-wave13')
+references=[('fresh-iphone13-ai-reference-2026-11-13.json','6b577f4b4953a8e80fdb01903927b6b52be1b33a36952d73da37657156525d7c'),('user-corpus-ai-reference-2026-11-13.json','50b854bbe3b091b5fb414b93318ae461362a6324f16259a355c4f13adc117e74'),('ai-reference-frozen-wave13.json','7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191')]
+references.append(("cheap-iphone13-ai-reference-2026-11-13.json","8ebf55c0a4a82d6f5b9aab537641df21bd767f838994b2e92e7c2b898dca8905"))
+cases=[]
+for filename,digest in references:
+ raw=(evidence/filename).read_bytes();assert hashlib.sha256(raw).hexdigest()==digest
+ ref=json.loads(raw);assert ref['reference_method']=='ai_assisted' and ref['independent_human_review'] is False
+ for case in ref['records']:cases.append(dict(case,reference_file=filename,reference_sha256=digest))
+raws={}
+for file in [old/'iphone-private.json',old/'collector-extra/details-private.json',old/'collector-final/details-private.json',p/'fresh-corpus-private.json',p/'user-corpus-private.json',p/'cheap13-corpus-private.json']:
+ for row in json.loads(file.read_text())['details']:
+  if 'evidence' in row:raws[row['external_id']]=row
+files={}
+for folder in [old/'review',old/'collector-extra/media',old/'collector-final/media',p/'fresh-media',p/'parent-user-review',p/'cheap13-media']:
+ for file in folder.rglob('*'):
+  if file.is_file() and file.suffix.lower() in {'.jpg','.jpeg','.png'}:files[hashlib.sha256(file.read_bytes()).hexdigest()]=file
+photos={}
+for case in cases:
+ key=case['external_id'];expected=case.get('expected_photos') or [dict(photo_key=x['key'],sha256=x['sha256']) for x in json.loads((p/'parent-user-review/photos.json').read_text()) if x['external_id']==key]
+ # User reference stores its own hashes; verify against frozen review independently of local output.
+ if case['reference_file'].startswith('user-'):
+  expected=[dict(photo_key=x['key'],sha256=x['sha256']) for x in json.loads((p/'parent-user-review/photos.json').read_text()) if x['external_id']==key]
+ for photo in expected:assert photo['sha256'] in files
+ photos[key]=expected
+instance=FoundationInstance(root,p/'proof2.env');group=pause_worker(instance)
+clock=ControlledClock(p/'clock',datetime.now(UTC));clock.advance(0)
+control=RobotControl.objects.get(installation='local');SetRobotStateUseCase(build_robot_repository()).execute(RobotCommand(uuid4(),True,control.revision))
+source=ValuationSource(rows={},offers=[]);channel=WahaServer(recipient='100@g.us');summary=dict(feature='F21',profile='condition-evidence-v4',source_kind='authorized_real_snapshots_replayed_locally',reference_method='ai_assisted',independent_human_review=False,real_whatsapp_posts=0,started_at=now().isoformat(),references=references,cases=[],status='running',wire_reference_codes_expanded_deterministically=True,physical_model_calls=[])
+output=evidence/'real-model-cheap13-ef90.json'
+def write():output.write_text(json.dumps(summary,ensure_ascii=False,indent=2,default=str)+'\n')
+write()
+try:
+ with serve_assessment_images(files) as (origin,_),serve(source) as url,serve_waha(channel) as waha:
+  values=dict(GARIMPEI_LISTING_FIXTURE_URL=url,GARIMPEI_VALUATION_FIXTURE_URL=url,GARIMPEI_LISTING_FIXTURE_CLOCK=str(clock.path),GARIMPEI_MEDIA_EVAL_ORIGIN=origin,GARIMPEI_MEDIA_BUDGET_BYTES='134217728',GARIMPEI_MEDIA_MIN_FREE_BYTES='1048576',GARIMPEI_ALERT_FIXTURE_URL=waha,GARIMPEI_ALERTS_ENABLED='true',GARIMPEI_WAHA_SESSION='synthetic',GARIMPEI_WAHA_RECIPIENT='100@g.us',GARIMPEI_WAHA_ACCOUNT='200@c.us')
+  with instance.private_file.open('a') as f:f.write(''.join(k+'='+v+'\n' for k,v in values.items()))
+  os.environ.update(values)
+  for case in cases:
+   key=case['external_id'];e=raws[key]['evidence'];original={x['key']:x for x in e['media']['photos']}
+   local=[dict(key=x['photo_key'],primary=index==0,correlated=True,variants=[dict(url=origin+'/'+x['sha256'],width=original[x['photo_key']]['variants'][0].get('width'),height=original[x['photo_key']]['variants'][0].get('height'))]) for index,x in enumerate(photos[key])]
+   source.rows[key]={**e,'external_id':key,'url':raws[key]['url'],'price':'R$ '+str(e['price']).replace('.',','),'media':dict(presence='present',complete=True,reason='',known_count=len(local),photos=local)}
+  configure(instance)
+  from garimpei.usecase.monitoring.save_step_usecase import StepInput
+  form=build_monitoring_queries().read_form();build_monitoring_handler()._update.execute(StepInput('editar',form.revision,cep='01001000',shipping_estimate='25.50',resale_fee_percent='10.00',category_ids=('479353692612078',),product_names=('iPhone 13 128GB','iPhone 15 Pro Max 256GB')))
+  adopt_gold_policy(clock.value);build_first_alert_store().adopt(clock.value)
+  CollectionState.objects.update(next_attempt_at=clock.value)
+  for _ in range(200):
+   reconcile_listings();state=CollectionState.objects.filter(configuration_id=build_read_monitoring_configuration().execute().configuration_id,current_id__isnull=False).first()
+   if state is None:break
+   build_listing_task_handler().execute(str(state.current_id),state.generation)
+  print('COLLECTED',Listing.objects.count(),flush=True)
+  for _ in range(200):
+   jobs=build_media_repository().due(now())
+   if not jobs:break
+   for job in jobs:build_media_runner().execute(job)
+  print('MEDIA_READY',flush=True)
+  reconcile_valuations()
+  for work in ValuationWork.objects.filter(completed=False):build_valuation_handler().execute(work.id)
+  print('VALUATIONS_READY',flush=True)
+  repository=PostgresAssessmentRepository();inference=LocalAssessmentInference(build_request_analysis(),build_media_repository(),build_media_store(),PostgresMediaQueries())
+  prepare=PrepareAssessmentUseCase(LocalAssessmentInputs(),repository,inference,now);complete=CompleteAssessmentUseCase(repository,inference,now);runner=build_run_analysis();gateway=build_inference_gateway()
+  deadline=time.monotonic()+20
+  while gateway.diagnose().get('reason')!='ready':
+   assert time.monotonic()<deadline,'Local model transport readiness deadline';time.sleep(.1)
+  transport=gateway._transport
+  def capture(path,body,timeout):
+   raw=transport(path,body,timeout)
+   if path=='/api/chat':
+    index=len(summary['physical_model_calls']);file=p/f'cheap13-physical-output-{index:03}.json';file.write_text(json.dumps(raw,ensure_ascii=False,indent=2));file.chmod(0o600)
+    summary['physical_model_calls'].append(dict(index=index,done=raw.get('done'),done_reason=raw.get('done_reason'),eval_count=raw.get('eval_count'),prompt_eval_count=raw.get('prompt_eval_count'),raw_response_sha256=hashlib.sha256(file.read_bytes()).hexdigest(),model=raw.get('model'),model_created_at=raw.get('created_at'),raw_reference_kind='short_codes_not_hashes',original_image_payload=True))
+   return raw
+  gateway._transport=capture
+  for case in cases:
+   if case['external_id']!='1902857791096295':continue
+   key=case['external_id']
+   listing=Listing.objects.filter(external_id=key).first()
+   if listing is None:
+    summary['cases'].append(dict(external_id=key,reference_file=case['reference_file'],reference_label=case.get('label',case.get('reference_condition')),status='not_collected_by_application',reason='collection_scope_or_window_filter',local_model_calls=0,source_observed_at=raws[key]['observed_at'],source_published_at=raws[key]['evidence'].get('published_at')));write();continue
+   started=time.monotonic();work=prepare.execute(listing.id);deadline=time.monotonic()+1200
+   while ConditionAssessment.objects.get(id=work.id).publication_order is None:
+    complete.execute(work.id)
+    if ConditionAssessment.objects.get(id=work.id).publication_order is not None:break
+    runner.execute();assert time.monotonic()<deadline,'Assessment deadline';time.sleep(.05)
+   row=ConditionAssessment.objects.get(id=work.id);analyses=[PostgresInferenceQueries().analysis(identity) for identity in work.requests];parts=[p for a in analyses for p in a['parts']]
+   assert all(p['metrics'].get('controlled_fake') is not True for p in parts)
+   store=build_first_alert_store();store.adopt(clock.value);store.publish(listing.id,store.prepare(listing.id),build_read_profit().execute(listing.id),clock.value)
+   qualification=GoldQualification.objects.filter(listing=listing,purpose_key='first').order_by('-evaluated_at').first();before=len(channel.messages)
+   for stage in ['send','reconcile']:build_alert_handler(stage).execute()
+   # Repeated evaluation and delivery must preserve the confirmed receipt.
+   for stage in ['refresh','send','reconcile']:build_alert_handler(stage).execute()
+   first=FirstAlertIdentity.objects.get(listing=listing)
+   record=dict(external_id=key,listing_id=str(listing.id),reference_file=case['reference_file'],reference_label=case.get('label',case.get('reference_condition')),source_observed_at=raws[key]['observed_at'],source_published_at=raws[key]['evidence'].get('published_at'),assessment_id=str(work.id),assessment=row.result,parts=parts,gold_state=qualification.state if qualification else None,gold_reason=qualification.reason if qualification else None,gold_evidence=qualification.evidence if qualification else None,first_state=first.state,first_reason=first.reason,new_fake_posts=len(channel.messages)-before,elapsed_seconds=time.monotonic()-started)
+   summary['cases'].append(record);summary['fake_whatsapp_messages']=channel.messages;write()
+   print('CASE',key,record['assessment'].get('condition'),record['assessment'].get('reason'),record['gold_state'],record['gold_reason'],record['new_fake_posts'],flush=True)
+  summary['status']='complete';summary['finished_at']=now().isoformat();write()
+except BaseException as error:
+ summary['status']='failed';summary['error_class']=type(error).__name__;summary['finished_at']=now().isoformat();write();traceback.print_exc();raise
+finally:
+ control=RobotControl.objects.get(installation='local');SetRobotStateUseCase(build_robot_repository()).execute(RobotCommand(uuid4(),False,control.revision));resume_worker(group)
+ # Normal stop keeps this run's database and evidence for browser review/restart checks.
+ stopped=instance.command('./scripts/stop.sh',timeout=120);summary['stop_exit']=stopped.returncode;write()

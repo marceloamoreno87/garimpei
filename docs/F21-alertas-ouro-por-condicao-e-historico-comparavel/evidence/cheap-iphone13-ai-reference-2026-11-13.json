@@ -1,0 +1,65 @@
+{
+  "feature": "F21",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "reviewer": "coordinator_AI",
+  "frozen_at": "2026-11-13T20:27:57.857621+00:00",
+  "local_outputs_of_this_case_seen": false,
+  "records": [
+    {
+      "external_id": "1902857791096295",
+      "url": "https://www.facebook.com/marketplace/item/1902857791096295/",
+      "price": "1400.00",
+      "published_at": "2026-11-11T23:17:20+00:00",
+      "reference_condition": "uncertain",
+      "notes": "Six photos examined at original resolution. Green dualcamera phone appears cosmetically preserved and screen on. Battery health screenshot(photo2) explicitly says battery cannot be verified genuine and phone cannot determine health; displayed100% is not verified health. Seller declares replaced screen/battery. A separate triplecamera phone with cracked back is present in background/photos0,1 and centered photo5; no attribution of its cracks to main dualcamera phone, but gallery identity/correlation ambiguity remains. These are decisive limitations, not a positive condition reference.",
+      "decisive_photo_indices": [
+        2,
+        5
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1808280927074132",
+          "sha256": "7cefae7fce6d4cdf57f4280f9a4137caa4f3681d854b3daaa4c7c167262aab10",
+          "width": 720,
+          "height": 960
+        },
+        {
+          "photo_key": "1610236010383132",
+          "sha256": "0c5bd04d2ee2ec4f8967143220c14ec60c6a8bf34cdb07e021f16d834d600fa3",
+          "width": 720,
+          "height": 960
+        },
+        {
+          "photo_key": "1135891549326695",
+          "sha256": "4e58ee67136d6b0c749ab84cad5c90b5d91cb1d7c5a4a1d483faf36990f581b7",
+          "width": 432,
+          "height": 960
+        },
+        {
+          "photo_key": "1673305770830082",
+          "sha256": "64b0bd59d1e6989c14b77766214e6d04a6f2b4a8db5ffc73be45d66d9f7ac7b4",
+          "width": 720,
+          "height": 960
+        },
+        {
+          "photo_key": "1682075479981362",
+          "sha256": "820078c2333e9c38f8a53dbb08fcc42c550b5ee69983b8100c0a5b27133c2570",
+          "width": 720,
+          "height": 960
+        },
+        {
+          "photo_key": "2820048348390207",
+          "sha256": "ad7cf6bc244470aa971fbf4d2c3bb64b105dcc7479b305faaac8211619a9a331",
+          "width": 960,
+          "height": 720
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "No independent human review or physical test; do not infer neworiginalparts or reliable100%health from this gallery.",
+    "Source published2026-11-11T23:17:20Z and originalprice1400 preserved; no clock/price changes.",
+    "No localmodel output used to set this reference."
+  ]
+}

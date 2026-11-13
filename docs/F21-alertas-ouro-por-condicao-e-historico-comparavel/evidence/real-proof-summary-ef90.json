@@ -1,0 +1,79 @@
+{
+  "feature": "F21",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "model": "qwen3.5:4b-q4_K_M",
+  "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "profile": "condition-evidence-v4",
+  "source_freeze_sha256": "3b7912d7c6e0a7a24891eec7db8968a220106c0c8a67a4a53e823bc3ebff8bb2",
+  "num_ctx": 4096,
+  "num_predict": 1024,
+  "visual_reserve": 1536,
+  "safety_margin": 256,
+  "fee_percent": "10.00",
+  "cohorts": [
+    {
+      "report": "real-model-proof-ef90.json",
+      "status": "complete",
+      "physical_calls": 52,
+      "recorded_cases": 22,
+      "analyzed_cases": 12,
+      "not_collected": 10,
+      "assessment_statuses": {
+        "complete": 11,
+        "failed": 1
+      },
+      "assessment_conditions": {
+        "defect": 1,
+        "uncertain": 9,
+        "good": 2
+      },
+      "sufficient": 2,
+      "gold_states": {
+        "blocked": 9,
+        "waiting": 3
+      },
+      "fake_posts": 0,
+      "stop_exit": 0
+    },
+    {
+      "report": "real-model-cheap13-ef90.json",
+      "status": "complete",
+      "physical_calls": 6,
+      "recorded_cases": 1,
+      "analyzed_cases": 1,
+      "not_collected": 0,
+      "assessment_statuses": {
+        "partial": 1
+      },
+      "assessment_conditions": {
+        "defect": 1
+      },
+      "sufficient": 0,
+      "gold_states": {
+        "waiting": 1
+      },
+      "fake_posts": 0,
+      "stop_exit": 0
+    }
+  ],
+  "physical_calls_final": 58,
+  "generated_token_range": [
+    270,
+    571
+  ],
+  "max_physical_prompt_eval_count": 1260,
+  "generation_length_limit": 0,
+  "qualified_gold": 0,
+  "real_whatsapp_posts": 0,
+  "fake_whatsapp_posts": 0,
+  "positive_real_gold_demonstrated": false,
+  "limitations": [
+    "Initial/probe outputs are separate and do not count as final-model quality evidence.",
+    "Abstentions and rejected forbidden claims remain failures/partial coverage; no simulated result fills them.",
+    "Two sufficient real good offers have negative profit at10percent; positive40offer failed condition.",
+    "The extra1400offer has partial photo coverage, battery warning and gallery ambiguity; no positive inferred.",
+    "Five1600references appear to reuse photos/text. F18 policy deduplicates source/ID, not unproven seller/unit identity.",
+    "Model emits false or unsupported visual findings in some cases; this is not a human accuracy benchmark."
+  ]
+}

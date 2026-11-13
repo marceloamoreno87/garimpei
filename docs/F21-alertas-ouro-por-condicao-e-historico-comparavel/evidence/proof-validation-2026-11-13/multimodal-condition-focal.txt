@@ -1,0 +1,134 @@
+F
+=================================== FAILURES ===================================
+_ test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[light_wear] _
+
+tmp_path = PosixPath('/var/tmp/g21-multimodal-focal/test_first_alert_waits_for_com0')
+finding = 'light_wear'
+
+    @pytest.mark.parametrize("finding", ["light_wear", "clear_defect"])
+    def test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt(
+        tmp_path: Path,
+        finding: str,
+    ) -> None:
+        with (
+            serve_assessment_images() as (origin, _requests),
+            first_eligibility_scenario(tmp_path) as (instance, source, clock, channel),
+        ):
+            group = pause_worker(instance)
+            try:
+                with instance.private_file.open("a") as output:
+                    output.write(
+                        f"GARIMPEI_ASSESSMENT_ENABLED=true\nGARIMPEI_MEDIA_ROOT={tmp_path}/media\nGARIMPEI_MEDIA_BUDGET_BYTES=67108864\nGARIMPEI_MEDIA_MIN_FREE_BYTES=1048576\nGARIMPEI_MEDIA_EVAL_ORIGIN={origin}\n"
+                    )
+                source.rows["16001"]["description"] = "O aparelho funciona perfeitamente."
+                clock.advance(61)
+                shell(
+                    instance,
+                    """from garimpei.main import reconcile_listings,build_listing_task_handler,build_read_condition,build_classify_condition,build_first_alert_store,build_read_profit,build_alert_handler,_listing_clock
+    from garimpei.config.env import load_listing_settings
+    from garimpei.infra.persistence.listing_models import CollectionState,Listing
+    from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt,FirstAlertIdentity
+    clock=_listing_clock(load_listing_settings())
+    CollectionState.objects.update(next_attempt_at=clock())
+    for _ in range(40):
+     reconcile_listings();state=CollectionState.objects.filter(current_id__isnull=False).first()
+     if state is None:break
+     build_listing_task_handler().execute(str(state.current_id),state.generation)
+    l=Listing.objects.get(external_id='16001');condition=build_read_condition().execute(l.id).state
+    assert condition.analysis.condition=='uncertain' and not condition.satisfies_alert_condition
+    store=build_first_alert_store();store.adopt(clock());store.publish(l.id,store.prepare(l.id),build_read_profit().execute(l.id),clock())
+    assert FirstAlertIdentity.objects.get(listing=l).reason=='waiting_condition_assessment'
+    build_classify_condition().execute(l.id,'good',condition.revision)
+    assert build_read_condition().execute(l.id).state.effective=='good'
+    assert not build_read_condition().execute(l.id).state.satisfies_alert_condition
+    for stage in ('adopt','refresh','reconcile','send'):build_alert_handler(stage).execute()
+    assert not AlertIntent.objects.filter(first_decision__identity__listing=l).exists()
+    assert not AlertAttempt.objects.exists()
+    """,
+                )
+                assert not target_messages(channel)
+                source.rows["16001"]["media"] = dict(
+                    presence="present",
+                    complete=True,
+                    reason="",
+                    photos=[
+                        dict(
+                            key="alert-photo-" + str(index),
+                            primary=index == 0,
+                            correlated=True,
+                            variants=[dict(url=origin + "/" + filename, width=640, height=480)],
+                        )
+                        for index, filename in enumerate(
+                            ("console-light_wear.png", "console-suspected.png")
+                        )
+                    ],
+                )
+                clock.advance(61)
+                shell(
+                    instance,
+                    """from garimpei.main import reconcile_listings,build_listing_task_handler,build_read_condition,build_media_repository,build_media_runner,_listing_clock
+    from garimpei.config.env import load_listing_settings
+    from garimpei.infra.persistence.listing_models import CollectionState,Listing
+    from garimpei.infra.persistence.assessment_models import ConditionAssessment
+    from django.utils.timezone import now
+    from tests.factories.assessment import assessment_context
+    clock=_listing_clock(load_listing_settings());CollectionState.objects.update(next_attempt_at=clock())
+    for _ in range(40):
+     reconcile_listings();state=CollectionState.objects.filter(current_id__isnull=False).first()
+     if state is None:break
+     build_listing_task_handler().execute(str(state.current_id),state.generation)
+    for _ in range(8):
+     for job in build_media_repository().due(now()):build_media_runner().execute(job)
+    l=Listing.objects.get(external_id='16001');context=assessment_context();context.gateway.kind=FINDING_KIND;work=context.prepare.execute(l.id)
+    assert not build_read_condition().execute(l.id).state.satisfies_alert_condition
+    for _ in range(6):context.run.execute()
+    assert context.complete.execute(work.id)
+    state=build_read_condition().execute(l.id).state
+    assert state.assessment.sufficient and state.satisfies_alert_condition and state.manual=='good'
+    assert state.assessment.runtime=='controlled_fake'
+    """.replace("FINDING_KIND", repr(finding)),
+                )
+            finally:
+                resume_worker(group)
+>           wait_first(channel, clock)
+
+tests/integration/test_multimodal_alert_condition.py:97:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+channel = WahaServer(ready=True, authenticated=True, mode='confirmed', ack=1, account='200@c.us', recipient='100@g.us', hold_che...[], held=<threading.Event at 0x73d88575e250: unset>, release=<threading.Event at 0x73d88575e470: set>, hold_post=False)
+clock = ControlledClock(path=PosixPath('/var/tmp/g21-multimodal-focal/test_first_alert_waits_for_com0/clock'), value=datetime.datetime(2026, 11, 12, 12, 2, 32, tzinfo=datetime.timezone.utc))
+
+    def wait_first(channel: WahaServer, clock: ControlledClock) -> None:
+        next_advance = time.monotonic() + 6
+
+        def confirmed() -> bool:
+            nonlocal next_advance
+            if time.monotonic() >= next_advance:
+                clock.advance(6)
+                next_advance = time.monotonic() + 6
+            return len(target_messages(channel)) == 1
+
+>       wait_for(confirmed, "F16 first alert receipt", seconds=35)
+
+tests/integration/test_first_eligibility.py:25:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+predicate = <function wait_first.<locals>.confirmed at 0x73d8857da3e0>
+description = 'F16 first alert receipt', seconds = 35
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for F16 first alert receipt
+
+tests/integration/test_collection.py:55: Failed
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16006', 'waiting', 'amostra_dispersa', None, datetime.datetime(2026, 11, 12, 12, 2, 37, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'manual_change_only', None, datetime.datetime(2026, 11, 12, 12, 2, 37, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'amostra_dispersa', None, datetime.datetime(2026, 11, 12, 12, 2, 37, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'amostra_dispersa', None, datetime.datetime(2026, 11, 12, 12, 2, 37, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'amostra_dispersa', None, datetime.datetime(2026, 11, 12, 12, 2, 37, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'amostra_dispersa', None, datetime.datetime(2026, 11, 12, 12, 2, 37, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_multimodal_alert_condition.py::test_first_alert_waits_for_complete_photo_evidence_and_keeps_its_confirmed_receipt[light_wear]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 53.16s

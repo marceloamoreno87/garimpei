@@ -1,0 +1,144 @@
+{
+  "recorded_at": "2026-11-13T21:21:59.744500+00:00",
+  "branch": "feat/f21-prova-real",
+  "base": "15b1f48dee41b1faddc296a5d484a55a922ec999",
+  "engineering_checks_passed": true,
+  "all_contract_gates_passed": false,
+  "feature_done": false,
+  "feature_status": "implemented",
+  "evaluation_scope": "E2E-REAL-01 only; prior full-contract verdict retains its original provenance",
+  "contract_real_proof": "BLOCKED: no real positive Gold qualification at confirmed 10 percent fee",
+  "python_six_groups": {
+    "status": "PASS",
+    "evidence": "child-gates-fixture-final.txt"
+  },
+  "regression": {
+    "status": "PASS",
+    "unique_tests": 913,
+    "evidence": "coverage-audit.json",
+    "method": "Union of complete original shards on unchanged production and final full dependency-affected reruns; original failures remain preserved"
+  },
+  "final_affected_groups": [
+    {
+      "started_at": "2026-11-13T21:11:46.683259+00:00",
+      "finished_at": "2026-11-13T21:21:20.243568+00:00",
+      "exit_code": 0,
+      "source_drift": []
+    },
+    {
+      "started_at": "2026-11-13T21:11:50.606041+00:00",
+      "finished_at": "2026-11-13T21:21:34.009028+00:00",
+      "exit_code": 0,
+      "source_drift": []
+    }
+  ],
+  "other_checks": [
+    {
+      "name": "django-check",
+      "command": [
+        "uv",
+        "run",
+        "--directory",
+        "apps/backend",
+        "--frozen",
+        "--no-sync",
+        "python",
+        "manage.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T21:05:13.800613+00:00",
+      "finished_at": "2026-11-13T21:05:14.157248+00:00"
+    },
+    {
+      "name": "migrations",
+      "command": [
+        "uv",
+        "run",
+        "--directory",
+        "apps/backend",
+        "--frozen",
+        "--no-sync",
+        "python",
+        "manage.py",
+        "makemigrations",
+        "--check",
+        "--dry-run"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T21:05:14.157485+00:00",
+      "finished_at": "2026-11-13T21:05:14.508088+00:00"
+    },
+    {
+      "name": "wheel",
+      "command": [
+        "uv",
+        "build",
+        "--wheel",
+        "--out-dir",
+        "/var/tmp/g21-final-wheel",
+        "apps/backend"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T21:05:14.508325+00:00",
+      "finished_at": "2026-11-13T21:05:14.830746+00:00"
+    },
+    {
+      "name": "harness-tests",
+      "command": [
+        "node",
+        "--test",
+        "scripts/test/harness.test.mjs"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T21:05:14.830952+00:00",
+      "finished_at": "2026-11-13T21:05:14.995546+00:00"
+    },
+    {
+      "name": "harness-check",
+      "command": [
+        "node",
+        "scripts/check-harness.mjs"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T21:05:14.995770+00:00",
+      "finished_at": "2026-11-13T21:05:15.336743+00:00"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T21:05:15.336967+00:00",
+      "finished_at": "2026-11-13T21:05:15.342499+00:00"
+    }
+  ],
+  "independent_review": {
+    "verdict": "no_confirmed_P1_P2",
+    "production_sha256": {
+      "ollama_gateway.py": "a03ed938701f50aa5db476b77cbed2053a0d2f3fad43b305cb1edc2ab579280b",
+      "input_preparer.py": "bdea7eafd53b7e3c03410fc0b6cc7695c050769cadfa4c41c24abb082062440d",
+      "condition_evidence.py": "9324111b2435b8e84f9f78bb480f1ac1293ebe714fabaa9b0337df8dcbb8d5c0",
+      "condition_request.py": "8a556834dce2578cf0e8a803a478b6fe2b5f9832583a0a352e86e823d57ce154"
+    },
+    "evidence": "final-review.json"
+  },
+  "real_proof": {
+    "reference_method": "ai_assisted",
+    "independent_human_review": false,
+    "fee_percent": "10.00",
+    "physical_calls": 58,
+    "positive_real_gold": 0,
+    "real_whatsapp_posts": 0,
+    "fake_whatsapp_posts": 0,
+    "evidence": "../real-proof-summary-ef90.json"
+  },
+  "limitations": [
+    "Passing engineering checks does not complete F21 or replace E2E-REAL-01.",
+    "No single uninterrupted 913-case green process is claimed.",
+    "No positive case, human accuracy benchmark, real WhatsApp send or relaxed policy is claimed."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-11-13T21:12:23.016882+00:00",
+  "frozen_at": "2026-11-13T20:15:39.823590+00:00",
+  "production_python_files": 462,
+  "production_drift": [],
+  "changed_test_paths": [
+    "apps/backend/tests/factories/assessment_quality_runtime.py",
+    "apps/backend/tests/factories/first_eligibility.py",
+    "apps/backend/tests/integration/test_assessment_boundaries.py",
+    "apps/backend/tests/unit/test_assessment_quality_review.py"
+  ],
+  "qualification": "Full665file manifest includes tests; fourtestharnesschangesafterrealproof do notchangeproductionfreeze",
+  "frozen_source_set_sha256": "3b7912d7c6e0a7a24891eec7db8968a220106c0c8a67a4a53e823bc3ebff8bb2",
+  "manifest_file_sha256": "6b61ee2b65c8c470c0e0249a862881779f3a2ad1bc972474bf771bffc756e959"
+}

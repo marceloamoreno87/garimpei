@@ -1,0 +1,812 @@
+F.FF.F.................................................................. [ 16%]
+........................................................................ [ 33%]
+......................................FF................................ [ 50%]
+........................................................................ [ 67%]
+........................................................................ [ 84%]
+....................................................................     [100%]
+=================================== FAILURES ===================================
+_______________ test_persistent_unit_fault_suspends_only_target ________________
+
+tmp_path = PosixPath('/var/tmp/g21s0/test_persistent_unit_fault_sus0')
+
+    def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-fault"
+        environment = dict(os.environ)
+        for name in ("DJANGO_SETTINGS_MODULE", "GARIMPEI_ENV_FILE", "VIRTUAL_ENV"):
+            environment.pop(name, None)
+
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                capture_output=True,
+                text=True,
+                timeout=300 if operation == "calibrate-crashes" else 180,
+            )
+
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stderr
+        try:
+            for operation, arguments in (("start", ()), ("seed", ("--scenario", "recovery"))):
+                result = invoke(operation, *arguments)
+>               assert result.returncode == 0, result.stdout + result.stderr
+E               AssertionError: Traceback (most recent call last):
+E                   File "<frozen runpy>", line 203, in _run_module_as_main
+E                   File "<frozen runpy>", line 88, in _run_code
+E                   File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 692, in <module>
+E                     main()
+E                     ~~~~^^
+E                   File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 673, in main
+E                     lifecycle(directory, operation == "start")
+E                     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 98, in lifecycle
+E                     raise RuntimeError("Owned lifecycle failed: " + result.stdout + result.stderr)
+E                 RuntimeError: Owned lifecycle failed: Resolved 73 packages in 0.91ms
+E                 Checked 71 packages in 11ms
+E                 {"timestamp": "2026-11-13T20:19:19.012215+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_destination_2b5b2db7", "run_id": "c7cb1564-b26c-4d78-a7d7-18a10a55791d"}
+E                 {"timestamp": "2026-11-13T20:19:24.774202+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_destination_2b5b2db7", "run_id": "c7cb1564-b26c-4d78-a7d7-18a10a55791d"}
+E                 {"timestamp": "2026-11-13T20:19:24.797679+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f17_destination_2b5b2db7", "run_id": "c7cb1564-b26c-4d78-a7d7-18a10a55791d"}
+E                 Docker: unavailable or operation timeout
+E
+E
+E               assert 1 == 0
+E                +  where 1 = CompletedProcess(args=['/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/bin/python', '-m', 'tests.factor...estination_2b5b2db7", "run_id": "c7cb1564-b26c-4d78-a7d7-18a10a55791d"}\nDocker: unavailable or operation timeout\n\n').returncode
+
+tests/integration/test_operations_lab_fault.py:40: AssertionError
+_____________ test_first_alert_publication_boundaries[concurrent] ______________
+
+tmp_path = PosixPath('/var/tmp/g21s0/test_first_alert_publication_b1')
+case = 'concurrent'
+
+    @pytest.mark.parametrize(
+        "case",
+        [
+            "inventory_barrier",
+            "concurrent",
+            "zero",
+            "negative",
+            "manual_race",
+            "manual_defect",
+            "stale_observation",
+            "history_unavailable",
+            "oscillation",
+        ],
+    )
+    def test_first_alert_publication_boundaries(tmp_path: Path, case: str) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+                scripts = {
+                    "inventory_barrier": """
+    from garimpei.main import _effective_alert_settings,_alert_policy,build_read_listing_changes
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.usecase.alert.refresh_first_eligibility_usecase import RefreshFirstEligibilityUseCase
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.intent.state=='queued' and r.intent.first_decision.financial['schema_version']==2
+    FirstAlertInventory.objects.update(completed=False,cursor=l.id)
+    RefreshFirstEligibilityUseCase(s,build_read_profit(),lambda:now).execute()
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is None
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    SendAlertUseCase(store,gateway,binding,build_read_listing_changes(),lambda:now).execute()
+    r.intent.refresh_from_db();assert r.intent.state=='queued' and r.intent.attempts.count()==0
+    s.adopt(now);assert FirstAlertInventory.objects.get().completed
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is not None
+    """,
+                    "concurrent": """
+    from concurrent.futures import ThreadPoolExecutor
+    from django.db import close_old_connections
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l)
+    def claim(_):
+     try:return build_alert_store().claim(r.intent_id,binding,now,reconcile=False)
+     finally:close_old_connections()
+    with ThreadPoolExecutor(max_workers=2) as pool: deliveries=list(pool.map(claim,range(2)))
+    assert sum(d is not None for d in deliveries)==1
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r.refresh_from_db();assert AlertIntent.objects.filter(first_decision__identity=r).count()==1
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    delivery=next(d for d in deliveries if d is not None)
+    store.finish(delivery,gateway.send(delivery),now)
+    assert AlertIntent.objects.get(id=delivery.reference).state=='confirmed'
+    """,
+                    "zero": """
+    from decimal import Decimal
+    e['price']='1350.00';l.latest.price=Decimal('1350.00');l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);delivery=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert delivery is not None and 'Lucro estimado: R$ 0,00' in delivery.body
+    """,
+                    "negative": """
+    from decimal import Decimal
+    e['price']='1400.00';l.latest.price=Decimal('1400.00');l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);delivery=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert delivery is not None and 'Lucro estimado: -R$ 50,00' in delivery.body
+    """,
+                    "manual_race": """
+    from garimpei.main import build_classify_condition,build_read_condition
+    e['description']='Não foi testado.';l.latest.evidence=e;l.latest.save()
+    signature=s.prepare(l.id);profit=build_read_profit().execute(l.id)
+    condition=build_read_condition().execute(l.id)
+    build_classify_condition().execute(l.id,'good',condition.state.revision)
+    s.publish(l.id,signature,profit,now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='manual_change_only' and r.intent_id is None
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=6))
+    r.refresh_from_db();assert r.intent_id is None
+    """,
+                    "manual_defect": """
+    from garimpei.main import build_classify_condition,build_read_condition
+    e['description']='Não foi testado.';l.latest.evidence=e;l.latest.save()
+    condition=build_read_condition().execute(l.id)
+    build_classify_condition().execute(l.id,'defect',condition.state.revision)
+    e['description']='Funciona perfeitamente. Controle original incluído.';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='condition_excluded' and r.intent_id is None
+    from garimpei.main import build_read_alert_diagnostic
+    assert build_read_condition().execute(l.id).state.effective=='defect'
+    d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+    assert d.current_reason=='condition_excluded' and d.first_alert_state=='not_sent'
+    """,
+                    "stale_observation": """
+    from garimpei.infra.persistence.listing_models import CollectionCycle,ListingObservation,ListingInterestMatch
+    signature=s.prepare(l.id);profit=build_read_profit().execute(l.id);old=l.latest
+    cycle=CollectionCycle.objects.create(state=old.cycle.state,scope_key=old.cycle.scope_key,revision=old.cycle.revision,phase='complete',started_at=now,finished_at=now)
+    new=ListingObservation.objects.create(listing=l,cycle=cycle,ordinal=old.ordinal+1,observed_at=now,price=old.price,evidence=old.evidence,coverage=old.coverage,provenance=old.provenance)
+    for match in old.matches.all():ListingInterestMatch.objects.create(observation=new,kind=match.kind,key=match.key)
+    l.latest=new;l.save()
+    s.publish(l.id,signature,profit,now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='profit_observation_mismatch' and r.intent_id is None
+    stale=r.decisions.latest('generation').id
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=1))
+    r.refresh_from_db();assert r.intent_id is not None
+    assert r.decisions.get(id=stale).reason=='profit_observation_mismatch'
+    """,
+                    "history_unavailable": """
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor
+    from garimpei.main import build_read_alert_diagnostic
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);AlertFeedCursor.objects.update(history_ready=False)
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is None
+    d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+    assert d.reason=='history_unavailable' and d.state=='suspended'
+    """,
+                    "oscillation": """
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);first=r.intent_id
+    delivery=store.claim(first,binding,now,reconcile=False)
+    store.finish(delivery,Outcome('confirmed','ack',Receipt('original-receipt',True,binding.recipient,delivery.body,1)),now)
+    for index,text in enumerate(('Não foi testado.','Funciona perfeitamente.','Com defeito.','Funciona perfeitamente.')):
+     e['description']=text;l.latest.evidence=e;l.latest.save();s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=index+1))
+     r.refresh_from_db();assert r.intent_id==first
+    from dataclasses import replace
+    profit=build_read_profit().execute(l.id)
+    changed=replace(profit,policy=profit.policy+'-revision-2')
+    s.publish(l.id,s.prepare(l.id),changed,now+timedelta(seconds=10))
+    r.refresh_from_db();assert r.intent_id==first
+    assert r.decisions.latest('generation').financial['policy']==changed.policy
+    assert AlertIntent.objects.filter(first_decision__identity=r).count()==1
+    assert store.claim(first,Binding('new','300@g.us','400@c.us'),now+timedelta(seconds=20),reconcile=False) is None
+    """,
+                }
+                script = scripts[case]
+                if case in {"zero", "negative"}:
+                    row = first_cases()["variations"][case]
+                    price = row["price"].replace(",", ".")
+                    script = script.replace("1350.00" if case == "zero" else "1400.00", price)
+>               shell(instance, PREPARE + script)
+
+tests/integration/test_first_alert_boundaries.py:151:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/ef90/garimpei'), private_file=PosixPath('/var/tmp/g21s0/test_first_alert_publication_b1/wave11b_f16_39f8f092.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...inish(delivery,gateway.send(delivery),now)\nassert AlertIntent.objects.get(id=delivery.reference).state=='confirmed'\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-13T20:20:54.866838+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_39f8f092", "run_id": "336fa1cc-ad19-47ce-84c6-3eefabcf9941"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 23, in <module>
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/_base.py", line 625, in result_iterator
+E             yield _result_or_cancel(fs.pop())
+E                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/_base.py", line 318, in _result_or_cancel
+E             return fut.result(timeout)
+E                    ~~~~~~~~~~^^^^^^^^^
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/_base.py", line 460, in result
+E             return self.__get_result()
+E                    ~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/_base.py", line 402, in __get_result
+E             raise self._exception
+E           File "/home/marce/.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+E             result = self.fn(*self.args, **self.kwargs)
+E           File "<string>", line 21, in claim
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 252, in claim
+E             .get(id=identity)
+E              ~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.AlertIntent.DoesNotExist: AlertIntent matching query does not exist.
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...    )\ngarimpei.infra.persistence.alert_models.AlertIntent.DoesNotExist: AlertIntent matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+________________ test_first_alert_publication_boundaries[zero] _________________
+
+tmp_path = PosixPath('/var/tmp/g21s0/test_first_alert_publication_b2')
+case = 'zero'
+
+    @pytest.mark.parametrize(
+        "case",
+        [
+            "inventory_barrier",
+            "concurrent",
+            "zero",
+            "negative",
+            "manual_race",
+            "manual_defect",
+            "stale_observation",
+            "history_unavailable",
+            "oscillation",
+        ],
+    )
+    def test_first_alert_publication_boundaries(tmp_path: Path, case: str) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+                scripts = {
+                    "inventory_barrier": """
+    from garimpei.main import _effective_alert_settings,_alert_policy,build_read_listing_changes
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.usecase.alert.refresh_first_eligibility_usecase import RefreshFirstEligibilityUseCase
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.intent.state=='queued' and r.intent.first_decision.financial['schema_version']==2
+    FirstAlertInventory.objects.update(completed=False,cursor=l.id)
+    RefreshFirstEligibilityUseCase(s,build_read_profit(),lambda:now).execute()
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is None
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    SendAlertUseCase(store,gateway,binding,build_read_listing_changes(),lambda:now).execute()
+    r.intent.refresh_from_db();assert r.intent.state=='queued' and r.intent.attempts.count()==0
+    s.adopt(now);assert FirstAlertInventory.objects.get().completed
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is not None
+    """,
+                    "concurrent": """
+    from concurrent.futures import ThreadPoolExecutor
+    from django.db import close_old_connections
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l)
+    def claim(_):
+     try:return build_alert_store().claim(r.intent_id,binding,now,reconcile=False)
+     finally:close_old_connections()
+    with ThreadPoolExecutor(max_workers=2) as pool: deliveries=list(pool.map(claim,range(2)))
+    assert sum(d is not None for d in deliveries)==1
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r.refresh_from_db();assert AlertIntent.objects.filter(first_decision__identity=r).count()==1
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    delivery=next(d for d in deliveries if d is not None)
+    store.finish(delivery,gateway.send(delivery),now)
+    assert AlertIntent.objects.get(id=delivery.reference).state=='confirmed'
+    """,
+                    "zero": """
+    from decimal import Decimal
+    e['price']='1350.00';l.latest.price=Decimal('1350.00');l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);delivery=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert delivery is not None and 'Lucro estimado: R$ 0,00' in delivery.body
+    """,
+                    "negative": """
+    from decimal import Decimal
+    e['price']='1400.00';l.latest.price=Decimal('1400.00');l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);delivery=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert delivery is not None and 'Lucro estimado: -R$ 50,00' in delivery.body
+    """,
+                    "manual_race": """
+    from garimpei.main import build_classify_condition,build_read_condition
+    e['description']='Não foi testado.';l.latest.evidence=e;l.latest.save()
+    signature=s.prepare(l.id);profit=build_read_profit().execute(l.id)
+    condition=build_read_condition().execute(l.id)
+    build_classify_condition().execute(l.id,'good',condition.state.revision)
+    s.publish(l.id,signature,profit,now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='manual_change_only' and r.intent_id is None
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=6))
+    r.refresh_from_db();assert r.intent_id is None
+    """,
+                    "manual_defect": """
+    from garimpei.main import build_classify_condition,build_read_condition
+    e['description']='Não foi testado.';l.latest.evidence=e;l.latest.save()
+    condition=build_read_condition().execute(l.id)
+    build_classify_condition().execute(l.id,'defect',condition.state.revision)
+    e['description']='Funciona perfeitamente. Controle original incluído.';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='condition_excluded' and r.intent_id is None
+    from garimpei.main import build_read_alert_diagnostic
+    assert build_read_condition().execute(l.id).state.effective=='defect'
+    d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+    assert d.current_reason=='condition_excluded' and d.first_alert_state=='not_sent'
+    """,
+                    "stale_observation": """
+    from garimpei.infra.persistence.listing_models import CollectionCycle,ListingObservation,ListingInterestMatch
+    signature=s.prepare(l.id);profit=build_read_profit().execute(l.id);old=l.latest
+    cycle=CollectionCycle.objects.create(state=old.cycle.state,scope_key=old.cycle.scope_key,revision=old.cycle.revision,phase='complete',started_at=now,finished_at=now)
+    new=ListingObservation.objects.create(listing=l,cycle=cycle,ordinal=old.ordinal+1,observed_at=now,price=old.price,evidence=old.evidence,coverage=old.coverage,provenance=old.provenance)
+    for match in old.matches.all():ListingInterestMatch.objects.create(observation=new,kind=match.kind,key=match.key)
+    l.latest=new;l.save()
+    s.publish(l.id,signature,profit,now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='profit_observation_mismatch' and r.intent_id is None
+    stale=r.decisions.latest('generation').id
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=1))
+    r.refresh_from_db();assert r.intent_id is not None
+    assert r.decisions.get(id=stale).reason=='profit_observation_mismatch'
+    """,
+                    "history_unavailable": """
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor
+    from garimpei.main import build_read_alert_diagnostic
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);AlertFeedCursor.objects.update(history_ready=False)
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is None
+    d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+    assert d.reason=='history_unavailable' and d.state=='suspended'
+    """,
+                    "oscillation": """
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);first=r.intent_id
+    delivery=store.claim(first,binding,now,reconcile=False)
+    store.finish(delivery,Outcome('confirmed','ack',Receipt('original-receipt',True,binding.recipient,delivery.body,1)),now)
+    for index,text in enumerate(('Não foi testado.','Funciona perfeitamente.','Com defeito.','Funciona perfeitamente.')):
+     e['description']=text;l.latest.evidence=e;l.latest.save();s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=index+1))
+     r.refresh_from_db();assert r.intent_id==first
+    from dataclasses import replace
+    profit=build_read_profit().execute(l.id)
+    changed=replace(profit,policy=profit.policy+'-revision-2')
+    s.publish(l.id,s.prepare(l.id),changed,now+timedelta(seconds=10))
+    r.refresh_from_db();assert r.intent_id==first
+    assert r.decisions.latest('generation').financial['policy']==changed.policy
+    assert AlertIntent.objects.filter(first_decision__identity=r).count()==1
+    assert store.claim(first,Binding('new','300@g.us','400@c.us'),now+timedelta(seconds=20),reconcile=False) is None
+    """,
+                }
+                script = scripts[case]
+                if case in {"zero", "negative"}:
+                    row = first_cases()["variations"][case]
+                    price = row["price"].replace(",", ".")
+                    script = script.replace("1350.00" if case == "zero" else "1400.00", price)
+>               shell(instance, PREPARE + script)
+
+tests/integration/test_first_alert_boundaries.py:151:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/ef90/garimpei'), private_file=PosixPath('/var/tmp/g21s0/test_first_alert_publication_b2/wave11b_f16_d2b3604f.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...r.intent_id,binding,now,reconcile=False)\nassert delivery is not None and 'Lucro estimado: R$ 0,00' in delivery.body\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-13T20:21:13.520818+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_d2b3604f", "run_id": "fd264ecc-dec2-424b-a821-9a83b1ffedac"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 19, in <module>
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 252, in claim
+E             .get(id=identity)
+E              ~~~^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.AlertIntent.DoesNotExist: AlertIntent matching query does not exist.
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...    )\ngarimpei.infra.persistence.alert_models.AlertIntent.DoesNotExist: AlertIntent matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+_____________ test_first_alert_publication_boundaries[manual_race] _____________
+
+tmp_path = PosixPath('/var/tmp/g21s0/test_first_alert_publication_b4')
+case = 'manual_race'
+
+    @pytest.mark.parametrize(
+        "case",
+        [
+            "inventory_barrier",
+            "concurrent",
+            "zero",
+            "negative",
+            "manual_race",
+            "manual_defect",
+            "stale_observation",
+            "history_unavailable",
+            "oscillation",
+        ],
+    )
+    def test_first_alert_publication_boundaries(tmp_path: Path, case: str) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, channel):
+            group = pause_worker(instance)
+            try:
+                scripts = {
+                    "inventory_barrier": """
+    from garimpei.main import _effective_alert_settings,_alert_policy,build_read_listing_changes
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.usecase.alert.refresh_first_eligibility_usecase import RefreshFirstEligibilityUseCase
+    from garimpei.usecase.alert.send_alert_usecase import SendAlertUseCase
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.intent.state=='queued' and r.intent.first_decision.financial['schema_version']==2
+    FirstAlertInventory.objects.update(completed=False,cursor=l.id)
+    RefreshFirstEligibilityUseCase(s,build_read_profit(),lambda:now).execute()
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is None
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    SendAlertUseCase(store,gateway,binding,build_read_listing_changes(),lambda:now).execute()
+    r.intent.refresh_from_db();assert r.intent.state=='queued' and r.intent.attempts.count()==0
+    s.adopt(now);assert FirstAlertInventory.objects.get().completed
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is not None
+    """,
+                    "concurrent": """
+    from concurrent.futures import ThreadPoolExecutor
+    from django.db import close_old_connections
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l)
+    def claim(_):
+     try:return build_alert_store().claim(r.intent_id,binding,now,reconcile=False)
+     finally:close_old_connections()
+    with ThreadPoolExecutor(max_workers=2) as pool: deliveries=list(pool.map(claim,range(2)))
+    assert sum(d is not None for d in deliveries)==1
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r.refresh_from_db();assert AlertIntent.objects.filter(first_decision__identity=r).count()==1
+    from garimpei.main import _effective_alert_settings,_alert_policy
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    settings=_effective_alert_settings();gateway=WahaGateway(settings.url,settings.key,_alert_policy())
+    delivery=next(d for d in deliveries if d is not None)
+    store.finish(delivery,gateway.send(delivery),now)
+    assert AlertIntent.objects.get(id=delivery.reference).state=='confirmed'
+    """,
+                    "zero": """
+    from decimal import Decimal
+    e['price']='1350.00';l.latest.price=Decimal('1350.00');l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);delivery=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert delivery is not None and 'Lucro estimado: R$ 0,00' in delivery.body
+    """,
+                    "negative": """
+    from decimal import Decimal
+    e['price']='1400.00';l.latest.price=Decimal('1400.00');l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);delivery=store.claim(r.intent_id,binding,now,reconcile=False)
+    assert delivery is not None and 'Lucro estimado: -R$ 50,00' in delivery.body
+    """,
+                    "manual_race": """
+    from garimpei.main import build_classify_condition,build_read_condition
+    e['description']='Não foi testado.';l.latest.evidence=e;l.latest.save()
+    signature=s.prepare(l.id);profit=build_read_profit().execute(l.id)
+    condition=build_read_condition().execute(l.id)
+    build_classify_condition().execute(l.id,'good',condition.state.revision)
+    s.publish(l.id,signature,profit,now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='manual_change_only' and r.intent_id is None
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=6))
+    r.refresh_from_db();assert r.intent_id is None
+    """,
+                    "manual_defect": """
+    from garimpei.main import build_classify_condition,build_read_condition
+    e['description']='Não foi testado.';l.latest.evidence=e;l.latest.save()
+    condition=build_read_condition().execute(l.id)
+    build_classify_condition().execute(l.id,'defect',condition.state.revision)
+    e['description']='Funciona perfeitamente. Controle original incluído.';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='condition_excluded' and r.intent_id is None
+    from garimpei.main import build_read_alert_diagnostic
+    assert build_read_condition().execute(l.id).state.effective=='defect'
+    d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+    assert d.current_reason=='condition_excluded' and d.first_alert_state=='not_sent'
+    """,
+                    "stale_observation": """
+    from garimpei.infra.persistence.listing_models import CollectionCycle,ListingObservation,ListingInterestMatch
+    signature=s.prepare(l.id);profit=build_read_profit().execute(l.id);old=l.latest
+    cycle=CollectionCycle.objects.create(state=old.cycle.state,scope_key=old.cycle.scope_key,revision=old.cycle.revision,phase='complete',started_at=now,finished_at=now)
+    new=ListingObservation.objects.create(listing=l,cycle=cycle,ordinal=old.ordinal+1,observed_at=now,price=old.price,evidence=old.evidence,coverage=old.coverage,provenance=old.provenance)
+    for match in old.matches.all():ListingInterestMatch.objects.create(observation=new,kind=match.kind,key=match.key)
+    l.latest=new;l.save()
+    s.publish(l.id,signature,profit,now)
+    r=FirstAlertIdentity.objects.get(listing=l);assert r.reason=='profit_observation_mismatch' and r.intent_id is None
+    stale=r.decisions.latest('generation').id
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=1))
+    r.refresh_from_db();assert r.intent_id is not None
+    assert r.decisions.get(id=stale).reason=='profit_observation_mismatch'
+    """,
+                    "history_unavailable": """
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor
+    from garimpei.main import build_read_alert_diagnostic
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);AlertFeedCursor.objects.update(history_ready=False)
+    assert store.claim(r.intent_id,binding,now,reconcile=False) is None
+    d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+    assert d.reason=='history_unavailable' and d.state=='suspended'
+    """,
+                    "oscillation": """
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);first=r.intent_id
+    delivery=store.claim(first,binding,now,reconcile=False)
+    store.finish(delivery,Outcome('confirmed','ack',Receipt('original-receipt',True,binding.recipient,delivery.body,1)),now)
+    for index,text in enumerate(('Não foi testado.','Funciona perfeitamente.','Com defeito.','Funciona perfeitamente.')):
+     e['description']=text;l.latest.evidence=e;l.latest.save();s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=index+1))
+     r.refresh_from_db();assert r.intent_id==first
+    from dataclasses import replace
+    profit=build_read_profit().execute(l.id)
+    changed=replace(profit,policy=profit.policy+'-revision-2')
+    s.publish(l.id,s.prepare(l.id),changed,now+timedelta(seconds=10))
+    r.refresh_from_db();assert r.intent_id==first
+    assert r.decisions.latest('generation').financial['policy']==changed.policy
+    assert AlertIntent.objects.filter(first_decision__identity=r).count()==1
+    assert store.claim(first,Binding('new','300@g.us','400@c.us'),now+timedelta(seconds=20),reconcile=False) is None
+    """,
+                }
+                script = scripts[case]
+                if case in {"zero", "negative"}:
+                    row = first_cases()["variations"][case]
+                    price = row["price"].replace(",", ".")
+                    script = script.replace("1350.00" if case == "zero" else "1400.00", price)
+>               shell(instance, PREPARE + script)
+
+tests/integration/test_first_alert_boundaries.py:151:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/ef90/garimpei'), private_file=PosixPath('/var/tmp/g21s0/test_first_alert_publication_b4/wave11b_f16_c3fcd6c3.env'))
+code = '\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...re(l.id),build_read_profit().execute(l.id),now+timedelta(seconds=6))\nr.refresh_from_db();assert r.intent_id is None\n'
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-13T20:21:50.310725+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_c3fcd6c3", "run_id": "d25c431d-13ac-402c-8bc4-452ac12d4217"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 22, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 22, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16003', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+_ test_global_pause_does_not_extend_publication_or_reference_validity[publication] _
+
+tmp_path = PosixPath('/var/tmp/g21s0/test_global_pause_does_not_ext0')
+expired = 'publication'
+
+    @pytest.mark.parametrize("expired", ["publication", "reference"])
+    def test_global_pause_does_not_extend_publication_or_reference_validity(
+        tmp_path: Path, expired: str
+    ) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, clock, channel):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + f"\nexpired={expired!r}\n"
+                    + """
+    from uuid import uuid4
+    from garimpei.main import build_robot_repository,build_read_robot_status
+    from garimpei.domain.robot.control import RobotCommand
+    from garimpei.infra.persistence.robot_models import RobotControl
+    if expired=='reference':
+     progress=ValuationProgress.objects.select_related('current').get(listing=l)
+     result=dict(progress.current.result);result['resale']=dict(result['resale'])
+     result['resale']['valid_until']=(now+timedelta(seconds=1)).isoformat()
+     progress.current.result=result;progress.current.save(update_fields=['result'])
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    intent=FirstAlertIdentity.objects.get(listing=l).intent
+    assert intent and intent.state=='queued'
+    robot=build_robot_repository();status=build_read_robot_status()
+    robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+    """,
+                )
+
+tests/integration/test_robot_pause_time_and_edit.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/ef90/garimpei'), private_file=PosixPath('/var/tmp/g21s0/test_global_pause_does_not_ext0/wave11b_f16_0ee5410f.env'))
+code = '\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto..._repository();status=build_read_robot_status()\nrobot.command(RobotCommand(uuid4(),False,status.execute().revision))\n'
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-13T20:37:39.056737+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_0ee5410f", "run_id": "313b4f57-20e8-495a-abe6-63dddc626050"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 29, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 29, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16005', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+_ test_global_pause_does_not_extend_publication_or_reference_validity[reference] _
+
+tmp_path = PosixPath('/var/tmp/g21s0/test_global_pause_does_not_ext1')
+expired = 'reference'
+
+    @pytest.mark.parametrize("expired", ["publication", "reference"])
+    def test_global_pause_does_not_extend_publication_or_reference_validity(
+        tmp_path: Path, expired: str
+    ) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, clock, channel):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + f"\nexpired={expired!r}\n"
+                    + """
+    from uuid import uuid4
+    from garimpei.main import build_robot_repository,build_read_robot_status
+    from garimpei.domain.robot.control import RobotCommand
+    from garimpei.infra.persistence.robot_models import RobotControl
+    if expired=='reference':
+     progress=ValuationProgress.objects.select_related('current').get(listing=l)
+     result=dict(progress.current.result);result['resale']=dict(result['resale'])
+     result['resale']['valid_until']=(now+timedelta(seconds=1)).isoformat()
+     progress.current.result=result;progress.current.save(update_fields=['result'])
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    intent=FirstAlertIdentity.objects.get(listing=l).intent
+    assert intent and intent.state=='queued'
+    robot=build_robot_repository();status=build_read_robot_status()
+    robot.command(RobotCommand(uuid4(),False,status.execute().revision))
+    """,
+                )
+
+tests/integration/test_robot_pause_time_and_edit.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/ef90/garimpei'), private_file=PosixPath('/var/tmp/g21s0/test_global_pause_does_not_ext1/wave11b_f16_82fe4dd6.env'))
+code = '\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto..._repository();status=build_read_robot_status()\nrobot.command(RobotCommand(uuid4(),False,status.execute().revision))\n'
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E
+E         {"timestamp": "2026-11-13T20:37:52.933077+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_82fe4dd6", "run_id": "406cdb62-2de6-423c-b22a-f003e433f7c6"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 29, in <module>
+E         AssertionError
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 29, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16002', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'waiting', 'waiting_condition_assessment', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target
+FAILED tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[concurrent]
+FAILED tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[zero]
+FAILED tests/integration/test_first_alert_boundaries.py::test_first_alert_publication_boundaries[manual_race]
+FAILED tests/integration/test_robot_pause_time_and_edit.py::test_global_pause_does_not_extend_publication_or_reference_validity[publication]
+FAILED tests/integration/test_robot_pause_time_and_edit.py::test_global_pause_does_not_extend_publication_or_reference_validity[reference]
+6 failed, 422 passed in 1151.41s (0:19:11)

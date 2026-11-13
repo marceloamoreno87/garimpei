@@ -1,0 +1,174 @@
+{
+  "at": "2026-11-13T21:25:09.567440+00:00",
+  "operation": "Remove only spaces/tabs at physical line ends in public text logs. Private copies retain pre-normalization bytes. No outcome, assertion, node ID or XML attribute changed.",
+  "files": [
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/affected-modules-recheck.txt",
+      "before_sha256": "0782512966c1aea2a29e836d2126ffef9420f1d53f49169c4ea6286d10bcdff6",
+      "published_sha256": "9719a876405321c7c5a4682213476db024904ba62b0c773076fe1105452ff2e3",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/affected-modules-recheck.xml",
+      "before_sha256": "d587cde2c4688acaa4adf485e6e0ff4d2171d490ac34e016f752eb071b74b728",
+      "published_sha256": "eaf2982868c549b30d2400c4270640b13ccd67b4f1ec60a9aa1221b584f81a8f",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-bounded-reference-red.txt",
+      "before_sha256": "d6fb30a51eb068ba4bbd6098c922f8ca92ae0a50e93d6266673a2ebf30f45668",
+      "published_sha256": "3557b47de53da238a0e3ec3288ff46d5fd8ccff259db0f660f3dd3773c9c168f",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-compact-reference-red.txt",
+      "before_sha256": "46accbcc2cfde99e7905548da75cb3601b8c7308e5fd01f9da02d5ef23027752",
+      "published_sha256": "3219c5b7d2384d80b58f0dabc915111aa674cc80ebfaf9fe82e40360f6fd4cb7",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-coverage-budget-red.txt",
+      "before_sha256": "2f8c946ff830b9214fa756a14c147382ff107f3c80913a2f481dbf3e0744169a",
+      "published_sha256": "ff4bdb2ccec3c3ddb1bc26bf0dee2e0105fabc00065605a5dd026f4f2a6bb3a8",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-gates-cycle1.txt",
+      "before_sha256": "5baa7b47f41b3961d7db461a0bf9f49480e95c0b0c8356b893e2ddf876532947",
+      "published_sha256": "0ca8a79da11f4c8d659761f56126563121bff56106622743121d41593f436d0e",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-gates-final.txt",
+      "before_sha256": "5baa7b47f41b3961d7db461a0bf9f49480e95c0b0c8356b893e2ddf876532947",
+      "published_sha256": "0ca8a79da11f4c8d659761f56126563121bff56106622743121d41593f436d0e",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-gates-fixture-final.txt",
+      "before_sha256": "5baa7b47f41b3961d7db461a0bf9f49480e95c0b0c8356b893e2ddf876532947",
+      "published_sha256": "0ca8a79da11f4c8d659761f56126563121bff56106622743121d41593f436d0e",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/child-gates-test-fixes.txt",
+      "before_sha256": "5baa7b47f41b3961d7db461a0bf9f49480e95c0b0c8356b893e2ddf876532947",
+      "published_sha256": "0ca8a79da11f4c8d659761f56126563121bff56106622743121d41593f436d0e",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-enospc-attempt/shard-0.txt",
+      "before_sha256": "ad46d46f9ea448a61b2c3b2018d9bb909544add26141c2ce31507a7ad86dae07",
+      "published_sha256": "5368652d6e38f8a617696a141ec66bb02980add1833bdc22da64eb20ba40fa8b",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-enospc-attempt/shard-0.xml",
+      "before_sha256": "49abada76822ca092f1cb179d25ae43a69151ccb35bf43204f63c260fe65df7e",
+      "published_sha256": "ee7d39edbc95b9be69006c2922084aa4c714523d3f93ce494eaf5b595975d8d8",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-enospc-attempt/shard-1.txt",
+      "before_sha256": "3fa51a85108e81f0d22fc0fc217aef4b77e9d9c44d8d42dbaa5fcedfbe4e82ee",
+      "published_sha256": "a2f2ce9cfb18f7c21ae6af2c0842b6c0825f297101f302e0ac30f5d824e31ccb",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-enospc-attempt/shard-1.xml",
+      "before_sha256": "d1de6cfad5820ff6929f4eda927ada4fbbcf895a06e3c3c6a71cf09b0179198a",
+      "published_sha256": "d5f8983387f5a051db3a1caa263cef9612c32ad577ddf6a774b6337f2e154cb0",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-enospc-attempt/shard-2.txt",
+      "before_sha256": "0ba550515141aec88bcb630a2a1eb31426cfaaa929b8140bcbc21287dd0c3a07",
+      "published_sha256": "a64c08336beb92a4a85449d20b01cb86e77c36265cf947ee09b7346c675e3e9b",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-enospc-attempt/shard-2.xml",
+      "before_sha256": "3e784b5cd818085500165b5b327a4de9b4769391472ab522b1ed2722d2852336",
+      "published_sha256": "021e338746ce7a62f4b419b2e3aed3b265d3455f398ca234812458c5fa737515",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/environment-leak-red.txt",
+      "before_sha256": "c45d714ac5c114ced5d1921152b4f0b9ab8bc3589cd0cac70cef592f7e502952",
+      "published_sha256": "3e37b0bba7efc9776a980cd4aa42a3e82c17045e5920447794a4bd8d0de36392",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/multimodal-condition-focal.txt",
+      "before_sha256": "19bdbeae0e55b64f619f20af6b6da563718c8112023e077dba5a92a5992528a1",
+      "published_sha256": "b1b09f72c39dc4119f43d092634f53a0a48a46878eac79587f3bc3afd9ba3ede",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/multimodal-condition-focal.xml",
+      "before_sha256": "5607a630f2127659feca080a1ada7300f71852ed0212395152e18de6cb5208c0",
+      "published_sha256": "c9f2066587f6b9be7e4ebeda5b065a225ec97b4102932fc1739d4a6cb801cc2f",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/shard-0.txt",
+      "before_sha256": "4dfd9fdca24a07b7db126ef8296d38a6f64b3bbc4e9b7fddcfaa3b3842deb15e",
+      "published_sha256": "32f88168fd89523e6942f92d766b71c470a150caf1aaf688f2a6769e0f928ee3",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/shard-0.xml",
+      "before_sha256": "7d1ed0c857e6be7b5147fddc21326cfdf0829424c719cfe9ea7f8e3f0eadacba",
+      "published_sha256": "a60c7a2f24324077274f8fd51864f456ace32365b2e8d89b7be68fcc8a20c63d",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/shard-1.txt",
+      "before_sha256": "bf35ca42cb4226501d66ef4850bf7c043872928cfe4380d823bdae95ea917a62",
+      "published_sha256": "983b00da258cdcaf37e31073b54e32364249e4678671485d18e70f2def6f6204",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/shard-1.xml",
+      "before_sha256": "ffd569633437c3f6f5d76dc1a391a452ff59ebbb3f5498032feeb93470608d80",
+      "published_sha256": "26ef2d2379727ca7bd3fd3e5d36c97d78f05163e25432a70d9d4288faa07d0c6",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/shard-2.txt",
+      "before_sha256": "35c7b8b04117a092f0c32e6be5cd7911a476efb95a987292bc0aeeae12a49d21",
+      "published_sha256": "30c153e0315966451c646ae036e376bc35fb5f3d4bd4de875a014ad4d41979a0",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": false
+    },
+    {
+      "file": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/proof-validation-2026-11-13/shard-2.xml",
+      "before_sha256": "d49307b7566198b361e65a42da37b6c830b43db0f5673010d320d49fea974452",
+      "published_sha256": "f175df96f530a58dbc0d266f8b20033534ad33559b458ab24d3705288fa5f1d2",
+      "only_trailing_spaces_removed": true,
+      "xml_attributes_and_outcomes_preserved": true
+    }
+  ]
+}

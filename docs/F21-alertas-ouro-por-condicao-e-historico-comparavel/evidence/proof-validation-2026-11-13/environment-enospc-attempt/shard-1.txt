@@ -1,0 +1,61 @@
+F.......
+=================================== FAILURES ===================================
+_ test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination _
+
+tmp_path = PosixPath('/tmp/g21f-s1/test_direct_calibration_keeps_0')
+
+    def test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination(
+        tmp_path: Path,
+    ) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-calibration"
+        environment = dict(os.environ)
+        environment.pop("DJANGO_SETTINGS_MODULE", None)
+        environment.pop("GARIMPEI_ENV_FILE", None)
+        environment.pop("VIRTUAL_ENV", None)
+
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                text=True,
+                capture_output=True,
+                timeout=600,
+            )
+
+        prepared = invoke("prepare")
+>       assert prepared.returncode == 0, prepared.stdout + prepared.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<frozen runpy>", line 203, in _run_module_as_main
+E           File "<frozen runpy>", line 88, in _run_code
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 692, in <module>
+E             main()
+E             ~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 671, in main
+E             prepare(directory)
+E             ~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 46, in prepare
+E             copy = prepare_checkout_copy(root, directory)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/runtime.py", line 130, in prepare_checkout_copy
+E             raise RuntimeError("Failed to prepare isolated Python environment copy")
+E         RuntimeError: Failed to prepare isolated Python environment copy
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/bin/python', '-m', 'tests.factor...led to prepare isolated Python environment copy")\nRuntimeError: Failed to prepare isolated Python environment copy\n').returncode
+
+tests/integration/test_operations_calibration.py:39: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_operations_calibration.py::test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/gold_driver.py:37: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+1 failed, 7 passed in 111.74s (0:01:51)

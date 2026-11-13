@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-13T21:06:25.940245+00:00",
+  "reason": "Failed disposable-fixture setup echoed test environment assignments in pytest traces. Public copies redact password/key values; raw diagnostics retained in ignored private runtime. No outcome, stack frame, node ID or assertion altered.",
+  "files": [
+    {
+      "file": "environment-enospc-attempt/shard-0.txt",
+      "original_sha256": "2fd423cb0e3fd3e41c6282ff24510037fe296a2f30677f3780da7e33c81aa543",
+      "published_sha256": "5368652d6e38f8a617696a141ec66bb02980add1833bdc22da64eb20ba40fa8b",
+      "redactions": 184,
+      "after_redaction_before_normalization_sha256": "ad46d46f9ea448a61b2c3b2018d9bb909544add26141c2ce31507a7ad86dae07",
+      "normalization_receipt": "public-log-whitespace-normalization.json"
+    },
+    {
+      "file": "environment-enospc-attempt/shard-0.xml",
+      "original_sha256": "5471fbcfabb57358bc2ec9dbdcd2ff65fe34c90651a1f1cc734a347c998f1258",
+      "published_sha256": "ee7d39edbc95b9be69006c2922084aa4c714523d3f93ce494eaf5b595975d8d8",
+      "redactions": 184,
+      "after_redaction_before_normalization_sha256": "49abada76822ca092f1cb179d25ae43a69151ccb35bf43204f63c260fe65df7e",
+      "normalization_receipt": "public-log-whitespace-normalization.json"
+    },
+    {
+      "file": "environment-enospc-attempt/shard-2.txt",
+      "original_sha256": "1532937240067f30dbe28fe60907f8d7d8803567deb253ec4de95923822ab2fa",
+      "published_sha256": "a64c08336beb92a4a85449d20b01cb86e77c36265cf947ee09b7346c675e3e9b",
+      "redactions": 176,
+      "after_redaction_before_normalization_sha256": "0ba550515141aec88bcb630a2a1eb31426cfaaa929b8140bcbc21287dd0c3a07",
+      "normalization_receipt": "public-log-whitespace-normalization.json"
+    },
+    {
+      "file": "environment-enospc-attempt/shard-2.xml",
+      "original_sha256": "3333ea5eba104f09c507479757301e90166d78b19a6751633e3d269241f402b1",
+      "published_sha256": "021e338746ce7a62f4b419b2e3aed3b265d3455f398ca234812458c5fa737515",
+      "redactions": 176,
+      "after_redaction_before_normalization_sha256": "3e784b5cd818085500165b5b327a4de9b4769391472ab522b1ed2722d2852336",
+      "normalization_receipt": "public-log-whitespace-normalization.json"
+    }
+  ]
+}

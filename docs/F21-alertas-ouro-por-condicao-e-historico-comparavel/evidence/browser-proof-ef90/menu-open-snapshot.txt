@@ -1,0 +1,422 @@
+### Page
+- Page URL: http://127.0.0.1:24636/ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/
+- Page Title: Iphone 13 128Gb · Garimpei
+### Snapshot
+```yaml
+- generic [ref=f1e1]:
+  - link "Pular para o conteúdo" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - complementary "Garimpei" [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "Garimpei." [ref=f1e5] [cursor=pointer]:
+        - /url: /
+      - button "Menu" [expanded] [active] [ref=f1e343] [cursor=pointer]
+    - navigation "Navegação principal" [ref=f1e7]:
+      - generic [ref=f1e8]:
+        - link "Ofertas" [ref=f1e9] [cursor=pointer]:
+          - /url: /ofertas/
+        - link "Acompanhamento" [ref=f1e10] [cursor=pointer]:
+          - /url: /acompanhamento/
+        - link "Sugestões" [ref=f1e11] [cursor=pointer]:
+          - /url: /sugestoes/
+      - generic [ref=f1e12]:
+        - link "Configurações" [ref=f1e13] [cursor=pointer]:
+          - /url: /configuracoes/
+        - link "Integrações" [ref=f1e14] [cursor=pointer]:
+          - /url: /integracoes/
+        - link "IA local" [ref=f1e15] [cursor=pointer]:
+          - /url: /integracoes/ia/
+  - generic [ref=f1e17]:
+    - banner [ref=f1e18]:
+      - generic [ref=f1e19]: Ofertas
+      - generic [ref=f1e20]: Neste computador · Facebook Marketplace
+    - status "Acesso ao Facebook" [ref=f1e363]:
+      - generic [ref=f1e364]:
+        - strong [ref=f1e365]: Conecte o Facebook
+        - paragraph [ref=f1e366]: Abra o navegador do Garimpei e entre na sua conta para permitir a coleta.
+      - link "Conectar Facebook" [ref=f1e367] [cursor=pointer]:
+        - /url: /integracoes/#facebook
+    - complementary "Estado do robô" [ref=f1e27]:
+      - strong [ref=f1e28]: Robô desligado
+      - link "Conferir acompanhamento" [ref=f1e29] [cursor=pointer]:
+        - /url: /acompanhamento/
+    - main [ref=f1e30]:
+      - link "Voltar aos resultados" [ref=f1e31] [cursor=pointer]:
+        - /url: /ofertas/?aba=funcionam&q=&categoria=&pagina=1&versao=ccef8470-844b-4a69-931e-d8431634d657
+      - generic [ref=f1e32]:
+        - heading "Iphone 13 128Gb" [level=1] [ref=f1e33]
+        - paragraph [ref=f1e34]: Facebook Marketplace · Anúncio 1902857791096295 · Observação 13/11/2026 20:29:34 UTC
+      - navigation "Seções da oferta" [ref=f1e35]:
+        - link "Estimativa" [ref=f1e36] [cursor=pointer]:
+          - /url: "#finance-heading"
+        - link "Referências" [ref=f1e37] [cursor=pointer]:
+          - /url: "#references-heading"
+        - link "Identidade" [ref=f1e38] [cursor=pointer]:
+          - /url: "#identity-heading"
+        - link "Alerta" [ref=f1e39] [cursor=pointer]:
+          - /url: "#alert-heading"
+        - link "Texto e fotos" [ref=f1e40] [cursor=pointer]:
+          - /url: "#assessment-heading"
+        - link "Funcionamento" [ref=f1e41] [cursor=pointer]:
+          - /url: "#condition-heading"
+      - status
+      - generic [ref=f1e42]:
+        - region [ref=f1e43]:
+          - region "Fotos de Iphone 13 128Gb" [ref=f1e44]:
+            - status [ref=f1e45]: Fotos conservadas neste computador
+            - figure "Foto 1 · 720 × 960 px · Obtida em 13/11/2026 20:29:44 UTC" [ref=f1e46]:
+              - link "Ampliar foto 1 de Iphone 13 128Gb" [ref=f1e344] [cursor=pointer]:
+                - /url: /ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/imagens/18cee7c0-93fc-42cb-a059-ebd6d9bce34b/original/
+                - img "Iphone 13 128Gb · foto 1" [ref=f1e345]
+            - figure "Foto 2 · 720 × 960 px · Obtida em 13/11/2026 20:29:44 UTC" [ref=f1e48]:
+              - link "Ampliar foto 2 de Iphone 13 128Gb" [ref=f1e346] [cursor=pointer]:
+                - /url: /ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/imagens/02877bba-b6a2-4cd5-a7b4-4961e148ca6e/original/
+                - img "Iphone 13 128Gb · foto 2" [ref=f1e347]
+            - figure "Foto 3 · 432 × 960 px · Obtida em 13/11/2026 20:29:44 UTC" [ref=f1e50]:
+              - link "Ampliar foto 3 de Iphone 13 128Gb" [ref=f1e348] [cursor=pointer]:
+                - /url: /ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/imagens/084d6a7f-f535-4366-ae9a-6a89d3b8bcab/original/
+                - img "Iphone 13 128Gb · foto 3" [ref=f1e349]
+            - figure "Foto 4 · 720 × 960 px · Obtida em 13/11/2026 20:29:44 UTC" [ref=f1e52]:
+              - link "Ampliar foto 4 de Iphone 13 128Gb" [ref=f1e350] [cursor=pointer]:
+                - /url: /ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/imagens/a281de87-b981-4f2a-a6f1-a1b4a2df61d0/original/
+                - img "Iphone 13 128Gb · foto 4" [ref=f1e351]
+            - figure "Foto 5 · 720 × 960 px · Obtida em 13/11/2026 20:29:44 UTC" [ref=f1e54]:
+              - link "Ampliar foto 5 de Iphone 13 128Gb" [ref=f1e352] [cursor=pointer]:
+                - /url: /ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/imagens/e06086c6-9a21-46de-8a94-39cbfd3c3635/original/
+                - img "Iphone 13 128Gb · foto 5" [ref=f1e353]
+            - figure "Foto 6 · 960 × 720 px · Obtida em 13/11/2026 20:29:44 UTC" [ref=f1e56]:
+              - link "Ampliar foto 6 de Iphone 13 128Gb" [ref=f1e354] [cursor=pointer]:
+                - /url: /ofertas/17c66d5e-4832-4936-ab8a-1cf34e824e88/imagens/d0e67d8e-20fa-40d5-a0f0-c10356c75584/original/
+                - img "Iphone 13 128Gb · foto 6" [ref=f1e355]
+            - navigation "Selecionar foto" [ref=f1e58]:
+              - link "Foto 1" [ref=f1e59] [cursor=pointer]:
+                - /url: "#foto-18cee7c0-93fc-42cb-a059-ebd6d9bce34b"
+              - link "Foto 2" [ref=f1e60] [cursor=pointer]:
+                - /url: "#foto-02877bba-b6a2-4cd5-a7b4-4961e148ca6e"
+              - link "Foto 3" [ref=f1e61] [cursor=pointer]:
+                - /url: "#foto-084d6a7f-f535-4366-ae9a-6a89d3b8bcab"
+              - link "Foto 4" [ref=f1e62] [cursor=pointer]:
+                - /url: "#foto-a281de87-b981-4f2a-a6f1-a1b4a2df61d0"
+              - link "Foto 5" [ref=f1e63] [cursor=pointer]:
+                - /url: "#foto-e06086c6-9a21-46de-8a94-39cbfd3c3635"
+              - link "Foto 6" [ref=f1e64] [cursor=pointer]:
+                - /url: "#foto-d0e67d8e-20fa-40d5-a0f0-c10356c75584"
+            - generic [ref=f1e65]:
+              - button "Solicitar recuperação das fotos" [ref=f1e66] [cursor=pointer]
+              - paragraph [ref=f1e67]: O pedido respeita o prazo da próxima tentativa; a obtenção ocorre em segundo plano.
+          - heading "Entenda a estimativa" [level=2] [ref=f1e68]
+          - generic "Valores da oferta" [ref=f1e69]:
+            - generic [ref=f1e70]:
+              - term [ref=f1e71]: Preço de compra
+              - definition [ref=f1e72]: R$ 1.400,00
+            - generic [ref=f1e73]:
+              - term [ref=f1e74]: Preço de venda estimado
+              - definition [ref=f1e75]: R$ 1.600,00
+            - generic [ref=f1e76]:
+              - term [ref=f1e77]: Lucro estimado
+              - definition [ref=f1e78]: R$ 40,00
+          - generic [ref=f1e79]:
+            - term [ref=f1e80]: Taxa provisória · 10,00%
+            - definition [ref=f1e81]: R$ 160,00
+          - paragraph [ref=f1e82]: Estimativa para equivalente funcional. A taxa é provisória e não representa uma tarifa confirmada do marketplace.
+        - region [ref=f1e83]:
+          - heading "Referências para comparar" [level=2] [ref=f1e84]
+          - paragraph [ref=f1e85]: Preços anunciados de usados. Não representam vendas realizadas.
+          - list [ref=f1e86]:
+            - listitem [ref=f1e87]:
+              - heading "📱 iPhone 13 - 128gb🔥" [level=3] [ref=f1e88]
+              - paragraph [ref=f1e89]: Facebook Marketplace · 1169612668777760 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e90]: R$ 1.600,00
+              - link "Abrir referência" [ref=f1e91] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1169612668777760/
+            - listitem [ref=f1e92]:
+              - heading "📱 iPhone 13 - 128gb🔥" [level=3] [ref=f1e93]
+              - paragraph [ref=f1e94]: Facebook Marketplace · 1447579983522224 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e95]: R$ 1.600,00
+              - link "Abrir referência" [ref=f1e96] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1447579983522224/
+            - listitem [ref=f1e97]:
+              - heading "📱 iPhone 13 - 128gb🔥" [level=3] [ref=f1e98]
+              - paragraph [ref=f1e99]: Facebook Marketplace · 1839249197206568 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e100]: R$ 1.600,00
+              - link "Abrir referência" [ref=f1e101] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1839249197206568/
+            - listitem [ref=f1e102]:
+              - heading "📱 iPhone 13 - 128gb🔥" [level=3] [ref=f1e103]
+              - paragraph [ref=f1e104]: Facebook Marketplace · 1654513062783723 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e105]: R$ 1.600,00
+              - link "Abrir referência" [ref=f1e106] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1654513062783723/
+            - listitem [ref=f1e107]:
+              - heading "📱 iPhone 13 - 128gb🔥" [level=3] [ref=f1e108]
+              - paragraph [ref=f1e109]: Facebook Marketplace · 2380604816050904 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e110]: R$ 1.600,00
+              - link "Abrir referência" [ref=f1e111] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/2380604816050904/
+            - listitem [ref=f1e112]:
+              - heading "📱 iPhone 13 - 128gb🔥" [level=3] [ref=f1e113]
+              - paragraph [ref=f1e114]: Facebook Marketplace · 1621338866348626 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e115]: R$ 1.600,00
+              - link "Abrir referência" [ref=f1e116] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1621338866348626/
+            - listitem [ref=f1e117]:
+              - heading "Vendo IPhone 13 - 128 GB (Seminovo)" [level=3] [ref=f1e118]
+              - paragraph [ref=f1e119]: Facebook Marketplace · 1156072093429318 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e120]: R$ 1.850,00
+              - link "Abrir referência" [ref=f1e121] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1156072093429318/
+            - listitem [ref=f1e122]:
+              - heading "IPhone 13 - 128 GB" [level=3] [ref=f1e123]
+              - paragraph [ref=f1e124]: Facebook Marketplace · 1004776551984738 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e125]: R$ 1.400,00
+              - link "Abrir referência" [ref=f1e126] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1004776551984738/
+            - listitem [ref=f1e127]:
+              - heading "iPhone 13 Azul – 128GB (LEIA O ANÚNCIO)" [level=3] [ref=f1e128]
+              - paragraph [ref=f1e129]: Facebook Marketplace · 1149985297537880 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e130]: R$ 1.450,00
+              - link "Abrir referência" [ref=f1e131] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1149985297537880/
+            - listitem [ref=f1e132]:
+              - heading "iPhone 13 normal 128GB" [level=3] [ref=f1e133]
+              - paragraph [ref=f1e134]: Facebook Marketplace · 1810839963486848 · 13/11/2026 20:29:34 UTC
+              - strong [ref=f1e135]: R$ 1.400,00
+              - link "Abrir referência" [ref=f1e136] [cursor=pointer]:
+                - /url: https://www.facebook.com/marketplace/item/1810839963486848/
+          - generic [ref=f1e137]:
+            - heading "Referência de novo" [level=3] [ref=f1e138]
+            - paragraph [ref=f1e139]: Referência de novo indisponível.
+          - link "Abrir anúncio original" [ref=f1e140] [cursor=pointer]:
+            - /url: https://www.facebook.com/marketplace/item/1902857791096295/
+      - region [ref=f1e141]:
+        - heading "Busca de comparáveis" [level=2] [ref=f1e142]
+        - status [ref=f1e143]: A pesquisa automática aguarda a calibração dos limites com a fonte. As referências já confirmadas continuam sujeitas à validade e às regras de comparação.
+        - paragraph [ref=f1e144]: Ainda não há pesquisa confirmada para esta oferta. A pesquisa exige um modelo identificado, interesse ativo e amostra insuficiente.
+        - group [ref=f1e145]:
+          - generic "Ver a cobertura dos interesses no recorte revisado" [ref=f1e146] [cursor=pointer]
+      - region [ref=f1e147]:
+        - heading "Identifique o produto" [level=2] [ref=f1e148]
+        - paragraph [ref=f1e149]: Identidade reconhecida. Observação vigente 1 · correção 0.
+        - paragraph [ref=f1e150]: Modelo e atributos sustentam a comparação. A identidade não confirma o funcionamento nem o preço de venda.
+        - group [ref=f1e151]:
+          - generic "Ver os atributos e a origem" [ref=f1e152] [cursor=pointer]
+        - group [ref=f1e153]:
+          - generic "Corrigir modelo ou atributos (opcional)" [ref=f1e154] [cursor=pointer]
+          - option "Selecione a família"
+          - option "PlayStation 5"
+          - option "iPhone" [selected]
+          - option "Xbox Series"
+          - option "Nintendo Switch"
+          - option "Placa RTX"
+          - option "Corpo de câmera"
+          - option "TV de modelo conhecido"
+          - option "Fone de modelo conhecido"
+          - option "Selecione a edição"
+          - option "Com leitor de disco"
+          - option "Digital"
+          - option "Padrão" [selected]
+          - option "Pro"
+          - option "Pro Max"
+          - option "Mini"
+          - option "Plus"
+          - option "Somente o corpo"
+      - region [ref=f1e155]:
+        - heading "Alerta desta oferta" [level=2] [ref=f1e156]
+        - generic "Qualificação atual do alerta" [ref=f1e157]:
+          - paragraph [ref=f1e158]:
+            - strong [ref=f1e159]: Aguardando análise de texto e fotos
+          - paragraph [ref=f1e160]: "Produto normalizado: iPhone 13 128 GB."
+          - paragraph [ref=f1e161]: gold-alert-v1 · avaliação em 13/11/2026 20:29:34 UTC.
+          - paragraph [ref=f1e162]: 10 anúncios usados equivalentes · mediana de preços pedidos. Não comprova venda realizada ou lucro garantido.
+          - paragraph [ref=f1e163]: "Validade da amostra: 27/11/2026 20:29:34 UTC."
+        - paragraph [ref=f1e164]:
+          - strong [ref=f1e165]: Aguardando análise de texto e fotos
+        - paragraph [ref=f1e166]: "Última avaliação: 13/11/2026 20:29:34 UTC."
+        - paragraph [ref=f1e167]: "Publicação: 11/11/2026 23:17:20 UTC. Limite do primeiro alerta: 13/11/2026 23:17:20 UTC."
+      - region [ref=f1e168]:
+        - heading "Avaliação conjunta de texto e fotos" [level=2] [ref=f1e169]
+        - status [ref=f1e170]: Defeito declarado ou dano relevante identificado nas evidências
+        - paragraph [ref=f1e171]: Aparência avaliada nas fotos disponíveis. O funcionamento interno, as portas e as partes não mostradas precisam de teste presencial.
+        - heading "Declaração do vendedor" [level=3] [ref=f1e172]
+        - blockquote [ref=f1e173]:
+          - paragraph [ref=f1e174]: Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente.
+          - generic [ref=f1e175]: Descrição do anúncio
+        - blockquote [ref=f1e176]:
+          - paragraph [ref=f1e177]: Face id funcionando normalmente
+          - generic [ref=f1e178]: Descrição do anúncio
+        - heading "Aparência e evidências" [level=3] [ref=f1e179]
+        - article [ref=f1e180]:
+          - paragraph [ref=f1e181]: Tela com fratura visível na borda inferior e no canto superior direito. — desgaste leve, com ressalva
+          - link "Foto 1 da avaliação" [ref=f1e182] [cursor=pointer]:
+            - /url: "#foto-18cee7c0-93fc-42cb-a059-ebd6d9bce34b"
+        - article [ref=f1e183]:
+          - paragraph [ref=f1e184]: Fratura de vidro na tela, evidenciada pela quebra física visível.
+          - link "Foto 1 da avaliação" [ref=f1e185] [cursor=pointer]:
+            - /url: "#foto-18cee7c0-93fc-42cb-a059-ebd6d9bce34b"
+        - article [ref=f1e186]:
+          - paragraph [ref=f1e187]: A caixa do carregador não é visível na imagem.
+          - blockquote [ref=f1e188]:
+            - paragraph [ref=f1e189]: caixinha do carregador (sem fio)
+            - generic [ref=f1e190]: Descrição do anúncio
+        - article [ref=f1e191]:
+          - paragraph [ref=f1e192]: Afirmação de funcionamento normal e Face ID sem comprovação visual.
+          - blockquote [ref=f1e193]:
+            - paragraph [ref=f1e194]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e195]: Descrição do anúncio
+          - blockquote [ref=f1e196]:
+            - paragraph [ref=f1e197]: Usado — seminovo
+            - generic [ref=f1e198]: Condição informada do anúncio
+        - article [ref=f1e199]:
+          - paragraph [ref=f1e200]: O iPhone verde na mão apresenta reflexo de luz e leve desgaste nas bordas, sem danos visíveis evidentes. — desgaste leve, com ressalva
+          - link "Foto 2 da avaliação" [ref=f1e201] [cursor=pointer]:
+            - /url: "#foto-02877bba-b6a2-4cd5-a7b4-4961e148ca6e"
+        - article [ref=f1e202]:
+          - paragraph [ref=f1e203]: A saúde da bateria não é verificável visualmente; a declaração de 100% requer verificação técnica.
+          - blockquote [ref=f1e204]:
+            - paragraph [ref=f1e205]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e206]: Descrição do anúncio
+        - article [ref=f1e207]:
+          - paragraph [ref=f1e208]: O vendedor afirma que o carregador sem fio está incluído, mas não há evidência visual de um carregador na foto.
+          - blockquote [ref=f1e209]:
+            - paragraph [ref=f1e210]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e211]: Descrição do anúncio
+          - blockquote [ref=f1e212]:
+            - paragraph [ref=f1e213]: caixinha do carregador (sem fio)
+            - generic [ref=f1e214]: Descrição do anúncio
+        - article [ref=f1e215]:
+          - paragraph [ref=f1e216]: A identidade do dispositivo como iPhone 13 é baseada no texto; a foto mostra um modelo com câmera tríplice, mas não confirma o modelo exato.
+          - blockquote [ref=f1e217]:
+            - paragraph [ref=f1e218]: Iphone 13 128Gb
+            - generic [ref=f1e219]: Título do anúncio
+        - article [ref=f1e220]:
+          - paragraph [ref=f1e221]: A funcionalidade do Face ID e da tela é declarada pelo vendedor, sem comprovação visual ou teste.
+          - blockquote [ref=f1e222]:
+            - paragraph [ref=f1e223]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e224]: Descrição do anúncio
+        - article [ref=f1e225]:
+          - paragraph [ref=f1e226]: A foto é uma captura de tela do menu de saúde da bateria, não mostrando o estado físico do dispositivo.
+          - link "Foto 3 da avaliação" [ref=f1e227] [cursor=pointer]:
+            - /url: "#foto-084d6a7f-f535-4366-ae9a-6a89d3b8bcab"
+        - article [ref=f1e228]:
+          - paragraph [ref=f1e229]: O texto afirma que a saúde da bateria é 100% e que Face ID funciona normalmente, mas isso é uma declaração textual sem verificação visual.
+          - blockquote [ref=f1e230]:
+            - paragraph [ref=f1e231]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e232]: Descrição do anúncio
+        - article [ref=f1e233]:
+          - paragraph [ref=f1e234]: O texto afirma que a bateria e a tela foram trocadas anteriormente.
+          - blockquote [ref=f1e235]:
+            - paragraph [ref=f1e236]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e237]: Descrição do anúncio
+        - article [ref=f1e238]:
+          - paragraph [ref=f1e239]: A foto não permite verificar se o carregador sem fio está presente ou em bom estado, conforme mencionado no texto.
+          - blockquote [ref=f1e240]:
+            - paragraph [ref=f1e241]: caixinha do carregador (sem fio)
+            - generic [ref=f1e242]: Descrição do anúncio
+        - article [ref=f1e243]:
+          - paragraph [ref=f1e244]: Seller claims no scratches on the device.
+          - blockquote [ref=f1e245]:
+            - paragraph [ref=f1e246]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e247]: Descrição do anúncio
+        - article [ref=f1e248]:
+          - paragraph [ref=f1e249]: Seller states Face ID is functioning normally.
+          - blockquote [ref=f1e250]:
+            - paragraph [ref=f1e251]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e252]: Descrição do anúncio
+        - article [ref=f1e253]:
+          - paragraph [ref=f1e254]: Photo does not show the included accessories (cases, box).
+          - link "Foto 4 da avaliação" [ref=f1e255] [cursor=pointer]:
+            - /url: "#foto-a281de87-b981-4f2a-a6f1-a1b4a2df61d0"
+        - article [ref=f1e256]:
+          - paragraph [ref=f1e257]: Seller identifies device as iPhone 13 128GB.
+          - blockquote [ref=f1e258]:
+            - paragraph [ref=f1e259]: Iphone 13 128Gb
+            - generic [ref=f1e260]: Título do anúncio
+        - article [ref=f1e261]:
+          - paragraph [ref=f1e262]: Visual evidence does not confirm or contradict seller's condition claims.
+          - link "Foto 4 da avaliação" [ref=f1e263] [cursor=pointer]:
+            - /url: "#foto-a281de87-b981-4f2a-a6f1-a1b4a2df61d0"
+        - article [ref=f1e264]:
+          - paragraph [ref=f1e265]: Pós-frontal com leve brilho e reflexo, sem danos visíveis ou riscos evidentes. — desgaste leve, com ressalva
+          - link "Foto 5 da avaliação" [ref=f1e266] [cursor=pointer]:
+            - /url: "#foto-e06086c6-9a21-46de-8a94-39cbfd3c3635"
+        - article [ref=f1e267]:
+          - paragraph [ref=f1e268]: Vendedor afirma funcionamento normal de Face ID e bateria 100%.
+          - blockquote [ref=f1e269]:
+            - paragraph [ref=f1e270]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e271]: Descrição do anúncio
+          - blockquote [ref=f1e272]:
+            - paragraph [ref=f1e273]: caixinha do carregador (sem fio)
+            - generic [ref=f1e274]: Descrição do anúncio
+        - article [ref=f1e275]:
+          - paragraph [ref=f1e276]: Não é possível confirmar visualmente a integridade interna ou estado da bateria.
+          - link "Foto 5 da avaliação" [ref=f1e277] [cursor=pointer]:
+            - /url: "#foto-e06086c6-9a21-46de-8a94-39cbfd3c3635"
+        - article [ref=f1e278]:
+          - paragraph [ref=f1e279]: Vendedor identifica o dispositivo como iPhone 13 com 128GB.
+          - blockquote [ref=f1e280]:
+            - paragraph [ref=f1e281]: Iphone 13 128Gb
+            - generic [ref=f1e282]: Título do anúncio
+        - article [ref=f1e283]:
+          - paragraph [ref=f1e284]: A foto não permite verificar se a descrição de 'sem arranhões' é consistente com o estado real.
+          - link "Foto 5 da avaliação" [ref=f1e285] [cursor=pointer]:
+            - /url: "#foto-e06086c6-9a21-46de-8a94-39cbfd3c3635"
+        - article [ref=f1e286]:
+          - paragraph [ref=f1e287]: Traseira do iPhone apresenta riscos finos e reflexo irregular, indicando uso anterior. — desgaste leve, com ressalva
+          - link "Foto 6 da avaliação" [ref=f1e288] [cursor=pointer]:
+            - /url: "#foto-d0e67d8e-20fa-40d5-a0f0-c10356c75584"
+        - article [ref=f1e289]:
+          - paragraph [ref=f1e290]: Venda inclui duas capinhas (transparente e cinza) e caixinha do carregador sem fio, conforme texto.
+          - blockquote [ref=f1e291]:
+            - paragraph [ref=f1e292]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E"
+            - generic [ref=f1e293]: Descrição do anúncio
+          - blockquote [ref=f1e294]:
+            - paragraph [ref=f1e295]: caixinha do carregador (sem fio)
+            - generic [ref=f1e296]: Descrição do anúncio
+        - article [ref=f1e297]:
+          - paragraph [ref=f1e298]: Identificação como iPhone 13 128GB baseada em visual do módulo de câmera e descrição textual.
+          - blockquote [ref=f1e299]:
+            - paragraph [ref=f1e300]: Iphone 13 128Gb
+            - generic [ref=f1e301]: Título do anúncio
+        - heading "Limitações e verificações presenciais" [level=3] [ref=f1e302]
+        - list [ref=f1e303]:
+          - listitem [ref=f1e304]: Não é possível verificar a saúde da bateria ou o funcionamento do Face ID visualmente.
+          - listitem [ref=f1e305]: A identidade do dispositivo não pode ser confirmada sem inspeção interna.
+          - listitem [ref=f1e306]: A ausência de caixa impede verificação da integridade dos acessórios.
+          - listitem [ref=f1e307]: A foto não permite verificar a saúde real da bateria nem confirmar se o carregador está presente.
+          - listitem [ref=f1e308]: Não há evidência visual de que a tela ou bateria foram trocadas, apenas uma declaração do vendedor.
+          - listitem [ref=f1e309]: O estado 'seminovo' é subjetivo e não pode ser quantificado pela imagem.
+          - listitem [ref=f1e310]: A ausência de ferramentas impede testes de funcionamento.
+          - listitem [ref=f1e311]: A única foto (i0) é uma interface de software e não permite verificar a integridade física do iPhone 13.
+          - listitem [ref=f1e312]: As declarações sobre troca de bateria/tela e funcionamento do Face ID são baseadas exclusivamente no texto, sem evidência visual.
+          - listitem [ref=f1e313]: Não há como confirmar visualmente se o carregador está incluído ou em bom estado.
+          - listitem [ref=f1e314]: Photo shows only the front screen; cannot verify back panel scratches, camera lenses, or ports.
+          - listitem [ref=f1e315]: Battery health and replacement history are unverified by visual inspection.
+          - listitem [ref=f1e316]: Seller claims of 'sem novo' (semi-new) status cannot be visually confirmed.
+          - listitem [ref=f1e317]: Accessory items mentioned in text are not visible in the photo.
+          - listitem [ref=f1e318]: Face ID functionality requires functional testing, not visual confirmation.
+          - listitem [ref=f1e319]: A única foto disponível não permite verificar funções internas, como saúde da bateria ou Face ID.
+          - listitem [ref=f1e320]: Não há evidência visual para confirmar a troca de tela e bateria mencionada pelo vendedor.
+          - listitem [ref=f1e321]: O estado de uso real não pode ser confirmado sem inspeção física detalhada.
+          - listitem [ref=f1e322]: A identidade do dispositivo só é confirmada pela declaração textual, não pela imagem.
+          - listitem [ref=f1e323]: Saúde da bateria 100% não verificada visualmente; requer diagnóstico técnico.
+          - listitem [ref=f1e324]: Troca de bateria e tela afirmada, mas sem evidência física ou serial number compatível.
+          - listitem [ref=f1e325]: Funcionamento do Face ID não confirmado pela imagem.
+          - listitem [ref=f1e326]: Ausente prova de originalidade ou histórico de reparo.
+          - listitem [ref=f1e327]: Estado interno (tela, bateria) não acessível visualmente.
+        - paragraph [ref=f1e328]: "Cobertura: 5 de 6 fotos examinadas."
+        - paragraph [ref=f1e329]: Resultado parcial registrado em 13/11/2026 20:30:20 UTC. Configuração local Qwen3.5 4B Q4_K_M · sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04. Revisão 1.
+        - paragraph [ref=f1e330]: A avaliação atual não satisfaz a condição para alerta automático.
+      - region "Condição da oferta" [ref=f1e331]:
+        - generic [ref=f1e332]:
+          - heading "Não funciona bem" [level=2] [ref=f1e333]
+          - paragraph [ref=f1e334]: Classificação a partir do anúncio
+          - link "Ver em Com defeito" [ref=f1e335] [cursor=pointer]:
+            - /url: /ofertas/?aba=defeitos&q=&categoria=&pagina=1&versao=ccef8470-844b-4a69-931e-d8431634d657
+        - generic [ref=f1e336]:
+          - heading "O que o anúncio informa" [level=2] [ref=f1e337]
+          - generic [ref=f1e338]:
+            - term [ref=f1e339]: Condição informada
+            - definition [ref=f1e340]: Usado — seminovo
+            - term [ref=f1e341]: Descrição
+            - definition [ref=f1e342]: "Iphone 13 128Gb com pouco tempo de uso, nenhum arranhão, funcionando normalmente. Saúde da bateria 100% Bateria e tela já foram trocadas. Face id funcionando normalmente Duas capinhas: uma transparente e outra cinza de vidro com indução. E caixinha do carregador (sem fio)"
+```

@@ -83,9 +83,7 @@ def execute(plan_path: Path, output: Path) -> None:
         if hashlib.sha256(file.read_bytes()).hexdigest() != digest:
             raise RuntimeError("Frozen photo changed after validation")
     results: list[dict[str, Any]] = []
-    with serve_assessment_images(files) as (origin, _):
-        os.environ["GARIMPEI_MEDIA_EVAL_ORIGIN"] = origin
-        os.environ["GARIMPEI_ASSESSMENT_ENABLED"] = "true"
+    with serve_assessment_images(files) as (origin, _), _assessment_environment(origin):
         for case in selected:
             sent_before = sum(int(row.get("case_calls_sent", 0)) for row in results)
             _execution_marker(
@@ -129,6 +127,25 @@ def execute(plan_path: Path, output: Path) -> None:
     _execution_marker(
         output, plan, "completed", True, sum(row["case_calls_sent"] for row in results)
     )
+
+
+@contextmanager
+def _assessment_environment(origin: str) -> Iterator[None]:
+    values = {"GARIMPEI_MEDIA_EVAL_ORIGIN": origin, "GARIMPEI_ASSESSMENT_ENABLED": "true"}
+    previous = {key: os.environ.get(key) for key in values}
+    os.environ.update(values)
+    try:
+        yield
+    finally:
+        _restore_environment(previous)
+
+
+def _restore_environment(previous: dict[str, str | None]) -> None:
+    for key, value in previous.items():
+        if value is None:
+            os.environ.pop(key, None)
+        else:
+            os.environ[key] = value
 
 
 def run_case(case: dict[str, Any], origin: str) -> dict[str, Any]:

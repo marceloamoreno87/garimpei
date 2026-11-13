@@ -1,0 +1,11 @@
+{
+  "status": "invalid_environment_ENOSPC",
+  "recorded_at": "2026-11-13T20:19:03.069549+00:00",
+  "raw_artifacts": "environment-enospc-attempt/",
+  "raw_results": "shard0/2 failed under tmpfs ENOSPC; shard1 interrupted gracefully exit2",
+  "source_inputs_unchanged": true,
+  "original_tmpfs": "16GiB 100% full",
+  "retry_tmpdir": "/var/tmp/g21f",
+  "retry_basetemp": "/var/tmp/g21sN",
+  "unrelated_resources_removed": false
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="8" time="108.671" timestamp="2026-11-13T14:16:16.432944-06:00" hostname="moreno"><testcase classname="tests.integration.test_operations_calibration" name="test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination" time="3.392"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;frozen runpy&gt;&quot;, line 203, in _run_module_as_main&#10;    File &quot;&lt;frozen runpy&gt;&quot;, line 88, in _run_code&#10;    File &quot;/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py&quot;, line 692, in &lt;module&gt;&#10;      main()&#10;      ~~~~^^&#10;    File &quot;/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py&quot;, line 671, in main&#10;      prepare(directory)&#10;      ~~~~~~~^^^^^^^^^^^&#10;[+8 more lines; full report in element text]">tmp_path = PosixPath('/tmp/g21f-s1/test_direct_calibration_keeps_0')
+
+    def test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination(
+        tmp_path: Path,
+    ) -&gt; None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-calibration"
+        environment = dict(os.environ)
+        environment.pop("DJANGO_SETTINGS_MODULE", None)
+        environment.pop("GARIMPEI_ENV_FILE", None)
+        environment.pop("VIRTUAL_ENV", None)
+
+        def invoke(operation: str, *arguments: str) -&gt; subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                text=True,
+                capture_output=True,
+                timeout=600,
+            )
+
+        prepared = invoke("prepare")
+&gt;       assert prepared.returncode == 0, prepared.stdout + prepared.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "&lt;frozen runpy&gt;", line 203, in _run_module_as_main
+E           File "&lt;frozen runpy&gt;", line 88, in _run_code
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 692, in &lt;module&gt;
+E             main()
+E             ~~~~^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 671, in main
+E             prepare(directory)
+E             ~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 46, in prepare
+E             copy = prepare_checkout_copy(root, directory)
+E           File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/runtime.py", line 130, in prepare_checkout_copy
+E             raise RuntimeError("Failed to prepare isolated Python environment copy")
+E         RuntimeError: Failed to prepare isolated Python environment copy
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/bin/python', '-m', 'tests.factor...led to prepare isolated Python environment copy")\nRuntimeError: Failed to prepare isolated Python environment copy\n').returncode
+
+tests/integration/test_operations_calibration.py:39: AssertionError</failure></testcase><testcase classname="tests.integration.test_gold_authorization" name="test_gold_first_alert_is_qualified_once_and_body_explains_reference" time="13.134" /><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[NO_PHOTOS-gold_photos_missing]" time="12.334" /><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[PROFIT_ZERO-gold_profit_non_positive]" time="12.312" /><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[DEFECT-gold_condition_defect]" time="14.129" /><testcase classname="tests.integration.test_gold_authorization" name="test_insufficient_conjunction_never_posts[HISTORY_FOUR-gold_history_insufficient]" time="13.102" /><testcase classname="tests.integration.test_gold_authorization" name="test_queued_input_change_is_rechecked_at_final_authorization" time="15.110" /><testcase classname="tests.integration.test_gold_authorization" name="test_policy_fence_rejects_incompatible_consumers_and_keeps_confirmed_history" time="12.625" /><testcase time="5.657" /></testsuite></testsuites>

@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-11-13T20:31:15.099418+00:00",
+  "reviewer": "independent_agent_final_review",
+  "verdict": "no_confirmed_P1_P2",
+  "pure_repro": "PASS expansionUnicode/hash/quote, omittedcoverage, 4invalidcasesrejected; counteractualbodyexact",
+  "source_files_sha256": {
+    "condition_evidence.py": "9324111b2435b8e84f9f78bb480f1ac1293ebe714fabaa9b0337df8dcbb8d5c0",
+    "condition_request.py": "8a556834dce2578cf0e8a803a478b6fe2b5f9832583a0a352e86e823d57ce154",
+    "input_preparer.py": "bdea7eafd53b7e3c03410fc0b6cc7695c050769cadfa4c41c24abb082062440d",
+    "ollama_gateway.py": "a03ed938701f50aa5db476b77cbed2053a0d2f3fad43b305cb1edc2ab579280b"
+  },
+  "limits": {
+    "context": 4096,
+    "output": 1024,
+    "visual_reserve": 1536
+  },
+  "scope": "code review and pure repro; not fullsuite or realmodel verdict",
+  "environment_initial_repro_failures": "heredoc ENOSPC and a fixture import before valid independent finalrepro",
+  "collection_focal_recheck": {
+    "exit_code": 0,
+    "passed": 1,
+    "seconds": 26.98,
+    "source_test": "tests/integration/test_collection.py::test_initial_service_coverage_and_resume_after_stop",
+    "tmpdir": "/var/tmp/g21f",
+    "basetemp": "/var/tmp/g21r-debug",
+    "limitation": "Does not explain original parallelfailures; await originaltracebacks"
+  }
+}

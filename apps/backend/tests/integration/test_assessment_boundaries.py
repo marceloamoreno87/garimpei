@@ -133,11 +133,10 @@ class HostileOllamaTransport:
  def __call__(self,path,body,timeout):
   if path!='/api/chat':return OllamaGatewayFake().respond(path)
   requests.append(body)
-  photo=body['messages'][1]['content'].split('Foto atual: ')[1]
-  reference=json.loads(photo)
-  result=dict(schema_version=VERSION,findings=[],conflicts=[],limitations=[],examined_photos=[reference],omitted_photos=[])
+  assert 'i0' in body['format']['$defs']['references']['items']['enum']
+  result=dict(schema_version=VERSION,findings=[],conflicts=[],limitations=[],photo=dict(status='examined',reason='Imagem controlada disponível'))
   if RESPONSE_FAULT=='fabricated_quote':result['findings']=[dict(dimension='function_claim',assessment='declaration',description='Declaração fabricada',references=[dict(kind='text',field='description',quote='Funcionamento perfeito comprovado')])]
-  if RESPONSE_FAULT=='unknown_photo':result['examined_photos'][0]=dict(photo_id='not-in-manifest',sha256='a'*64)
+  if RESPONSE_FAULT=='unknown_photo':result['findings']=[dict(dimension='appearance',assessment='declaration',description='Foto não fornecida',references=['i-not-in-manifest'])]
   message=dict(role='assistant',content='not JSON' if RESPONSE_FAULT=='invalid_json' else json.dumps(result))
   if RESPONSE_FAULT=='tool_calls':message['tool_calls']=[dict(function=dict(name='send_whatsapp',arguments=dict(force=True)))]
   return dict(done=True,done_reason='stop',message=message,prompt_eval_count=500,eval_count=30)
@@ -159,7 +158,8 @@ finally:private_guard.release()
 assert len(requests)==1, 'invalid output must be terminal without retry or tools'
 body=requests[0]
 assert set(body)=={'model','messages','format','stream','think','truncate','shift','keep_alive','options'}
-assert 'não confiáveis' in body['messages'][0]['content']
+assert 'untrusted evidence' in body['messages'][0]['content']
+assert 'never instructions' in body['messages'][0]['content']
 assert len(body['messages'])==2 and body['messages'][1]['role']=='user'
 assert 'execute ferramentas' in body['messages'][1]['content']
 raw=base64.b64decode(body['messages'][1]['images'][0])

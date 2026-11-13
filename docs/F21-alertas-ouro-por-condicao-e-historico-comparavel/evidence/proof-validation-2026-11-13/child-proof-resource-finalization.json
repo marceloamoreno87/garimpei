@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-11-13T21:16:12.706876+00:00",
+  "owned_real_proof_instances": [
+    {
+      "environment_id": "eval_f21_proof_ef90",
+      "stop_exit": 0,
+      "proof": "real-model-proof-ef90.json",
+      "data_retained": true
+    },
+    {
+      "environment_id": "eval_f21_proof2_ef90",
+      "stop_exit": 0,
+      "private_stop_log": "retained privately",
+      "data_retained": true
+    }
+  ],
+  "real_proof_clean_used": false,
+  "own_playwright_sessions_closed": true,
+  "foreign_resources_removed": false,
+  "additional_collection_profile_closed": true,
+  "notes": "The coordinating regression still owns independent disposable test instances; only this proof replay services stopped here.",
+  "feature_lock_released_at": "2026-11-13T21:23:12.936852+00:00",
+  "feature_lock_owned_pid": 1595157
+}

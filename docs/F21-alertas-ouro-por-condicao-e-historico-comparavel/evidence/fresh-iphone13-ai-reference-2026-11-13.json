@@ -1,0 +1,68 @@
+{
+  "feature": "F21",
+  "cohort": "fresh-iphone13",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "author": "Codex root visual review",
+  "frozen_at": "2026-11-13T20:00:20.468716+00:00",
+  "records": [
+    {
+      "external_id": "1004776551984738",
+      "label": "good",
+      "notes": "Declara funcionamento perfeitamente e tela trocada. Cinco fotos mostram frente apagada, traseira sem fratura clara, desgaste cosmético nas bordas e tela Sobre acesa com iPhone13/128GB. Bateria73% é declaração; foto não mostra painel de saúde nem aviso de manutenção. Tela contém reflexos/faixas cuja natureza não é determinada pela fotografia; não se atribui defeito funcional sem evidência. Não há teste físico ou validação de originalidade.",
+      "text_reviewed": true,
+      "expected_photos": [
+        {
+          "photo_key": "1668356154791878",
+          "sha256": "13a852a3a0f921b6a291524b2c017fb0ea28f4501dc8c6d99d1261b434f7c171"
+        },
+        {
+          "photo_key": "994358773111453",
+          "sha256": "449aaafc7586c6872b45844bc95d9c8fbe6891987e38094e88f8fb0a0cbd4328"
+        },
+        {
+          "photo_key": "1671346157977899",
+          "sha256": "daee33535ada4f9baeccd91a63842ad449be8e7ca3ec59d53f4fe27a258b368b"
+        },
+        {
+          "photo_key": "1194356229584978",
+          "sha256": "655de96fb914c8d5e5450d0d48599fbbf380d3906783518768509399457d5eb6"
+        },
+        {
+          "photo_key": "29189767154011903",
+          "sha256": "5a9045a35eb5d285d255a60afdafcd90648fd5cd70382162ff8ee38c8f805a06"
+        }
+      ],
+      "source_observed_at": "2026-11-13T19:52:14.220461+00:00",
+      "source_published_at": "2026-11-12T14:01:49+00:00"
+    },
+    {
+      "external_id": "1169612668777760",
+      "label": "good",
+      "notes": "Mesmas três cenas e descrição dos cinco anúncios1600 anteriores; tela ligada, traseira sem fratura clara, app/home. Não comprovam bateria75% nem funções. Declaração explícita sustenta funcionamento; ausência de aviso/dano evidente na amostra. Republicação provável, unidades/vendedores independentes não demonstrados.",
+      "text_reviewed": true,
+      "expected_photos": [
+        {
+          "photo_key": "2315432249243595",
+          "sha256": "156610d801478fb3d0d9af83c75d00e30ea3356d1d3d76807e2a141a9a5adb24"
+        },
+        {
+          "photo_key": "2195036494781753",
+          "sha256": "bd86ca095b8f716a3424cba356ce910470990d73bde3e0e538d983166a3b3bfc"
+        },
+        {
+          "photo_key": "907532765685479",
+          "sha256": "326875aa292213670aa46f4bdf97e3cbc29b925a321a512a2db6f4325dcfecf5"
+        }
+      ],
+      "source_observed_at": "2026-11-13T19:53:23.176495+00:00",
+      "source_published_at": "2026-11-12T09:09:54+00:00"
+    }
+  ],
+  "limitations": [
+    "Preços pedidos; sem venda comprovada.",
+    "Rótulos IA não representam verdade humana.",
+    "Desgaste cosmético deve conservar ressalvas; análise local pode divergir.",
+    "IDs1600 de mesmo texto/fotos aparentam republicação; F18 não promete deduplicação por vendedor/unidade."
+  ]
+}

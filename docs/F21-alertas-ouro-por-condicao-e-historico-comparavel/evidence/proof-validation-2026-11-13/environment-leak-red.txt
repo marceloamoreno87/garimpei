@@ -1,0 +1,72 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_real_report_cannot_complete_when_all_photos_fail_before_dispatch _____
+
+frozen = {'manifest': '/var/tmp/g21leak-red/test_real_report_cannot_comple0/manifest.json', 'review': '/var/tmp/g21leak-red/tes..._report_cannot_comple0/review.json', 'package': '/var/tmp/g21leak-red/test_real_report_cannot_comple0', 'mode': 'real'}
+tmp_path = PosixPath('/var/tmp/g21leak-red/test_real_report_cannot_comple0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d36b1b702b0>
+
+    def test_real_report_cannot_complete_when_all_photos_fail_before_dispatch(
+        frozen: dict[str, str], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        from types import SimpleNamespace
+
+        from tests.factories import assessment_quality_runtime as runtime
+
+        plan = read_plan(Path(frozen["manifest"]), Path(frozen["review"]), Path(frozen["package"]))
+        plan_file = tmp_path / "controlled-plan.json"
+        plan_file.write_text(json.dumps(plan))
+        monkeypatch.setattr(runtime, "require_disposable", lambda: None)
+        from dataclasses import replace
+
+        from tests.factories.inference import inference_settings
+
+        settings = replace(inference_settings(tmp_path, "http://127.0.0.1:1"), service_enabled=True)
+        monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
+        monkeypatch.setattr(runtime, "load_alert_settings", lambda: SimpleNamespace(enabled=False))
+        empty = SimpleNamespace(
+            objects=SimpleNamespace(filter=lambda **kwargs: SimpleNamespace(exists=lambda: False))
+        )
+        monkeypatch.setattr(runtime, "InferenceRequest", empty)
+        monkeypatch.setattr(runtime, "InferenceControl", empty)
+        gateway = SimpleNamespace(
+            diagnose=lambda: {
+                "reason": "ready",
+                "service": True,
+                "artifact": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+            },
+            unload=lambda: True,
+        )
+        monkeypatch.setattr(runtime, "build_inference_gateway", lambda: gateway)
+        monkeypatch.setattr(
+            runtime,
+            "run_case",
+            lambda case, origin: dict(case_id=case["case_id"], kind=case["kind"], analyses=[]),
+        )
+        completed: list[bool] = []
+
+        def capture(
+            output: Path, plan: dict[str, Any], results: list[dict[str, Any]], *, complete: bool
+        ) -> None:
+            completed.append(complete)
+
+        monkeypatch.setattr(runtime, "_write", capture)
+        environment_before = {
+            key: os.environ.get(key)
+            for key in ("GARIMPEI_ASSESSMENT_ENABLED", "GARIMPEI_MEDIA_EVAL_ORIGIN")
+        }
+        with pytest.raises(RuntimeError, match="No real-photo inference"):
+            runtime.execute(plan_file, tmp_path / "must-not-complete.json")
+        assert completed and not any(completed)
+>       assert {key: os.environ.get(key) for key in environment_before} == environment_before
+E       AssertionError: assert {'GARIMPEI_AS....0.0.1:36497'} == {'GARIMPEI_AS...ORIGIN': None}
+E
+E         Differing items:
+E         {'GARIMPEI_MEDIA_EVAL_ORIGIN': 'http://127.0.0.1:36497'} != {'GARIMPEI_MEDIA_EVAL_ORIGIN': None}
+E         {'GARIMPEI_ASSESSMENT_ENABLED': 'true'} != {'GARIMPEI_ASSESSMENT_ENABLED': None}
+E         Use -v to get more diff
+
+tests/unit/test_assessment_quality_review.py:330: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_assessment_quality_review.py::test_real_report_cannot_complete_when_all_photos_fail_before_dispatch
+1 failed in 0.61s

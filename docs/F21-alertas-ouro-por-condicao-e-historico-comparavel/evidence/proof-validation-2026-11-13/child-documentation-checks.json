@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-11-13T21:23:36.751611+00:00",
+  "progress_only_feature": "F21",
+  "other_features_unchanged": true,
+  "item_counts": {
+    "PASS": 0,
+    "FAIL": 0,
+    "BLOCKED": 1,
+    "MANUAL": 0,
+    "SKIPPED": 25
+  },
+  "ac_counts": {
+    "verified": 0,
+    "failed": 0,
+    "undetermined": 9
+  },
+  "harness_tests_exit": 0,
+  "harness_check_exit": 0,
+  "evidence": [
+    "child-documentation-harness-tests.txt",
+    "child-documentation-harness-check.txt"
+  ],
+  "feature_status": "implemented",
+  "completed_at": null
+}

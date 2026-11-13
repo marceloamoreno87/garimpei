@@ -49,7 +49,7 @@ As features indicadas como `done` têm avaliações registradas; F21 permanece `
 | F18 | Identificação de produtos e busca ativa de comparáveis — `done`. | [Avaliação](F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T13-37-52Z.md) |
 | F19 | Inferência multimodal local em Docker — `done`. | [Avaliação](F19-inferencia-multimodal-local-em-docker/eval-report-2026-11-12T04-34-29Z.md) |
 | F20 | Compra, venda estimada e lucro na apresentação — `done`. | [Avaliação](F20-compra-venda-estimada-e-lucro-na-apresentacao/eval-report-2026-11-12T03-22-50Z.md) |
-| F21 | Alertas ouro por condição e histórico comparável; prova real positiva pendente — `implemented`. | [Avaliação](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T18-20-00Z.md) |
+| F21 | Alertas ouro por condição e histórico comparável; prova real positiva pendente — `implemented`. | [Avaliação](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T21-22-17Z.md) |
 | F22 | Controle global de ligar e desligar o robô — `done`. | [Avaliação](F22-controle-global-do-robo/eval-report-2026-11-13T18-33-50Z.md) |
 
 ### Diagnóstico histórico de 2026-11-12

@@ -1,0 +1,68 @@
+F....................................................................... [ 28%]
+........................................................................ [ 57%]
+........................................................................ [ 86%]
+.................................                                        [100%]
+=================================== FAILURES ===================================
+_ test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination _
+
+tmp_path = PosixPath('/var/tmp/g21s1/test_direct_calibration_keeps_0')
+
+    def test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination(
+        tmp_path: Path,
+    ) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-calibration"
+        environment = dict(os.environ)
+        environment.pop("DJANGO_SETTINGS_MODULE", None)
+        environment.pop("GARIMPEI_ENV_FILE", None)
+        environment.pop("VIRTUAL_ENV", None)
+
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                text=True,
+                capture_output=True,
+                timeout=600,
+            )
+
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stdout + prepared.stderr
+        try:
+            started = invoke("start")
+>           assert started.returncode == 0, started.stdout + started.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<frozen runpy>", line 203, in _run_module_as_main
+E               File "<frozen runpy>", line 88, in _run_code
+E               File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 692, in <module>
+E                 main()
+E                 ~~~~^^
+E               File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 673, in main
+E                 lifecycle(directory, operation == "start")
+E                 ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/tests/factories/operations_lab.py", line 98, in lifecycle
+E                 raise RuntimeError("Owned lifecycle failed: " + result.stdout + result.stderr)
+E             RuntimeError: Owned lifecycle failed: Resolved 73 packages in 1ms
+E             Checked 71 packages in 9ms
+E             {"timestamp": "2026-11-13T20:19:18.875664+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_destination_65bc4fe0", "run_id": "b3f8a139-2ad5-409c-94cb-d0fdb91fcdfd"}
+E             {"timestamp": "2026-11-13T20:19:24.774191+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_destination_65bc4fe0", "run_id": "b3f8a139-2ad5-409c-94cb-d0fdb91fcdfd"}
+E             {"timestamp": "2026-11-13T20:19:24.806658+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "eval_f17_destination_65bc4fe0", "run_id": "b3f8a139-2ad5-409c-94cb-d0fdb91fcdfd"}
+E             Docker: unavailable or operation timeout
+E
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/home/marce/.codex/worktrees/ef90/garimpei/apps/backend/.venv/bin/python', '-m', 'tests.factor...estination_65bc4fe0", "run_id": "b3f8a139-2ad5-409c-94cb-d0fdb91fcdfd"}\nDocker: unavailable or operation timeout\n\n').returncode
+
+tests/integration/test_operations_calibration.py:42: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_operations_calibration.py::test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination
+1 failed, 248 passed in 1230.09s (0:20:30)

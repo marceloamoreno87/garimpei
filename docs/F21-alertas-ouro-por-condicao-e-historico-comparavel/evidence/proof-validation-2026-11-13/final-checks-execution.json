@@ -1,0 +1,84 @@
+[
+  {
+    "name": "django-check",
+    "command": [
+      "uv",
+      "run",
+      "--directory",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "manage.py",
+      "check"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T21:05:13.800613+00:00",
+    "finished_at": "2026-11-13T21:05:14.157248+00:00"
+  },
+  {
+    "name": "migrations",
+    "command": [
+      "uv",
+      "run",
+      "--directory",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "manage.py",
+      "makemigrations",
+      "--check",
+      "--dry-run"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T21:05:14.157485+00:00",
+    "finished_at": "2026-11-13T21:05:14.508088+00:00"
+  },
+  {
+    "name": "wheel",
+    "command": [
+      "uv",
+      "build",
+      "--wheel",
+      "--out-dir",
+      "/var/tmp/g21-final-wheel",
+      "apps/backend"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T21:05:14.508325+00:00",
+    "finished_at": "2026-11-13T21:05:14.830746+00:00"
+  },
+  {
+    "name": "harness-tests",
+    "command": [
+      "node",
+      "--test",
+      "scripts/test/harness.test.mjs"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T21:05:14.830952+00:00",
+    "finished_at": "2026-11-13T21:05:14.995546+00:00"
+  },
+  {
+    "name": "harness-check",
+    "command": [
+      "node",
+      "scripts/check-harness.mjs"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T21:05:14.995770+00:00",
+    "finished_at": "2026-11-13T21:05:15.336743+00:00"
+  },
+  {
+    "name": "diff-check",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T21:05:15.336967+00:00",
+    "finished_at": "2026-11-13T21:05:15.342499+00:00"
+  }
+]

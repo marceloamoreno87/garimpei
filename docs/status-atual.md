@@ -26,7 +26,7 @@ Sincronização documental: **2026-11-13**, após integrar a auditoria de UI com
 | F18 | [Identificação de produtos e busca ativa de comparáveis](F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/spec.md) | `done` | [eval-report-2026-11-13T13-37-52Z.md](F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/eval-report-2026-11-13T13-37-52Z.md) |
 | F19 | [Inferência multimodal local em Docker](F19-inferencia-multimodal-local-em-docker/spec.md) | `done` | [eval-report-2026-11-12T04-34-29Z.md](F19-inferencia-multimodal-local-em-docker/eval-report-2026-11-12T04-34-29Z.md) |
 | F20 | [Compra, venda estimada e lucro na apresentação](F20-compra-venda-estimada-e-lucro-na-apresentacao/spec.md) | `done` | [eval-report-2026-11-12T03-22-50Z.md](F20-compra-venda-estimada-e-lucro-na-apresentacao/eval-report-2026-11-12T03-22-50Z.md) |
-| F21 | [Alertas ouro por condição e histórico comparável](F21-alertas-ouro-por-condicao-e-historico-comparavel/spec.md) | `implemented` | [eval-report-2026-11-13T18-20-00Z.md](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T18-20-00Z.md) |
+| F21 | [Alertas ouro por condição e histórico comparável](F21-alertas-ouro-por-condicao-e-historico-comparavel/spec.md) | `implemented` | [eval-report-2026-11-13T21-22-17Z.md](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T21-22-17Z.md) |
 | F22 | [Controle global de ligar e desligar o robô](F22-controle-global-do-robo/spec.md) | `done` | [eval-report-2026-11-13T18-33-50Z.md](F22-controle-global-do-robo/eval-report-2026-11-13T18-33-50Z.md) |
 
 ## Produto implementado
@@ -37,7 +37,7 @@ A interface inclui configuração guiada/edição, ofertas em três condições,
 
 ## Limites efetivos
 
-- **F21:** a avaliação registra 25 itens aprovados e uma dimensão bloqueada; não foi obtido um caso real positivo de alerta ouro na coorte autorizada. F21 não é `done`, ainda que seu código e testes controlados estejam integrados.
+- **F21:** a avaliação anterior preserva 25 itens aprovados como histórico. A avaliação atual focal de `E2E-REAL-01` registra 1 BLOCKED e 25 SKIPPED; as 58 chamadas locais reais não produziram um caso Ouro suficiente e lucrativo. Os checks de engenharia têm evidências próprias, sem substituir o gate real bloqueado. F21 permanece `implemented`, com taxa de 10% e zero envio WhatsApp real nesta prova.
 - **Fonte externa:** acesso autenticado e respostas podem mudar. Geografia/raio, cobertura e disponibilidade devem ser comprovados em cada execução; uma avaliação anterior não garante cobertura universal ou operação ininterrupta.
 - **IA e finanças:** aparência não comprova funcionamento interno; preços anunciados não comprovam venda. Os comparáveis sustentam a revenda, o domínio calcula o lucro e a interface conserva ausência, zero e sinal.
 - **UI:** automação Chromium/axe, toque sintetizado e texto a 200% não substituem leitor de tela, outros motores, dispositivo físico ou teste com usuários. Os relatórios distinguem a auditoria original da verificação após integrar F21/F22.

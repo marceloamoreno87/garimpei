@@ -1,0 +1,1457 @@
+{
+  "feature": "F21",
+  "source": "real_Ollama_F19",
+  "canonical_expansion": "Deterministic alias mapping; raw physical output and expanded canonical assessment are separate artifacts.",
+  "calls": [
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 0,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 329,
+      "prompt_eval_count": 1045,
+      "raw_response_sha256": "ee860f6e56f9f6768fce9f1a5b051ae792fff95663ed5b3c705622ec12fe8d4c",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:16:51.98232073Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:16:51.98232073Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho com sinais de uso leve, sem danos estruturais visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e bateria em 73%.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado de conservação não pode ser verificado visualmente.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar o estado real da tela, já que foi trocada conforme declarado.\",\n    \"Não há evidência visual para confirmar a originalidade do aparelho ou a saúde da bateria.\",\n    \"Funções como som e Face ID não podem ser testadas através da imagem.\",\n    \"Condição de uso é declarada, mas não comprovada visualmente.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra aparelho em mãos, sem danos evidentes, mas com tela refletindo ambiente.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1045,
+        "eval_count": 329
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 1,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 337,
+      "prompt_eval_count": 1045,
+      "raw_response_sha256": "d9f80f78e70855ed744155afe4aec424754c6aeae9beab46f65f142ce248cfc4",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:16:55.247359994Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:16:55.247359994Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pós-frontal com leve desgaste de uso, sem danos estruturais visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e troca da tela.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado de bateria (73%) não verificado visualmente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma ser iPhone 13 original; foto mostra dispositivo compatível.\",\n      \"references\": [\"t0\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Ausência de prova visual para estado da bateria e funcionamento interno.\",\n    \"Impossibilidade de verificar se a tela foi realmente trocada ou original.\",\n    \"Ausência de fotos internas ou testes funcionais.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"única foto atual\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1045,
+        "eval_count": 337
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 2,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 400,
+      "prompt_eval_count": 1045,
+      "raw_response_sha256": "d773330f0a416ceb66d74a9b410ccc1cb2b2ed83ec458a9c1a3442472c870953",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:16:58.876162582Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:16:58.876162582Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral borda metálica com desgaste superficial e riscos leves visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"clear_defect\",\n      \"description\": \"Tela inferior apresenta adesivo amarelo indicando substituição ou reparo anterior.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e bateria com 73% de capacidade original.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado interno, componentes não visíveis e integridade estrutural não verificáveis visualmente.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Apenas uma foto disponível para análise, limitando a verificação de danos internos ou defeitos ocultos.\",\n    \"Declarações sobre estado funcional e bateria não podem ser confirmadas visualmente.\",\n    \"Ausência de fotos internas impede validação da integridade dos componentes eletrônicos.\",\n    \"Sem acesso físico, impossibilidade de verificar se o aparelho está realmente desbloqueado ou iCloud livre.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem lateral do dispositivo com evidências visíveis de desgaste e substituição de tela.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1045,
+        "eval_count": 400
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 3,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 478,
+      "prompt_eval_count": 1045,
+      "raw_response_sha256": "f48f1810fd3aa3b895a8c738865fc4558e82a57032770e9a97882a590df936c4",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:03.101421412Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:03.101421412Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"clear_defect\",\n      \"description\": \"Dano físico visível na borda superior do aparelho, com fragmentação e perda de material.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Presença de resíduos ou sujeira acumulada na base inferior da carcaça.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e possui Face ID operacional.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível verificar visualmente se a tela substituída está funcional ou se há danos internos.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"A declaração de 'excelente estado' do vendedor contradiz o dano físico visível na borda superior.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"limitations\": [\n    \"A foto não permite verificar a integridade da tela, nem confirmar se o Face ID e o som funcionam conforme afirmado.\",\n    \"Não há evidência visual para validar a porcentagem de bateria (73%) ou o status de desbloqueio iCloud.\",\n    \"O dano na borda superior é visível, mas não é possível determinar a extensão da falha estrutural sem inspeção detalhada.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"A imagem mostra o perfil lateral do aparelho com evidência clara de dano na borda superior e sujeira na base, mas não permite verificar funções internas ou a qualidade da tela substituída.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1045,
+        "eval_count": 478
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 4,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 568,
+      "prompt_eval_count": 1045,
+      "raw_response_sha256": "d1489c6bb4cd3238326e43ac96ac40097f6d357af33fbcbfc4103ac87db2534c",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:08.2065822Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:08.2065822Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação do modelo como iPhone 13 e capacidade de 128 GB confirmada visualmente.\",\n      \"references\": [\n        \"t0\",\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível na borda e nas laterais.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, mas isso não é verificável visualmente.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a tela foi trocada, o que pode indicar reparo anterior ou substituição.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está desbloqueado e livre de iCloud, sem comprovação visual.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a bateria tem 73% de capacidade restante, mas isso não é verificável visualmente.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar o estado real da tela ou se houve substituição.\",\n    \"Não há evidências visuais para confirmar que o aparelho está desbloqueado ou livre de iCloud.\",\n    \"A porcentagem de bateria não pode ser verificada visualmente.\",\n    \"O estado funcional do aparelho (som, Face ID) não é verificável pela foto.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra a tela com informações sobre o modelo e capacidade, mas não permite verificar o estado interno ou funcional.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1045,
+        "eval_count": 568
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 5,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 478,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "47d1e24d5a5ba7d1aa47dd5dad507f0a00a4b2ed9c5afeaf184572e3b895ff8a",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:14.770623126Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:14.770623126Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Beirada superior e laterais apresentam desgaste leve consistente com uso, sem danos estruturais evidentes.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Tela exibindo interface de bloqueio funcional e ícone de Instagram, indicando funcionamento visual básico.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma bateria com 75% de saúde e todas as funções operacionais, sem comprovação visual.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho é original de fábrica e pronto para uso.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível verificar a presença da caixa ou acessórios apenas com a foto fornecida.\",\n      \"references\": [\n        \"i0\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Apenas uma foto disponível, insuficiente para validar saúde da bateria, estado interno e originalidade.\",\n    \"Não há evidência visual de danos ocultos ou falhas funcionais.\",\n    \"Declarações sobre funcionamento completo não podem ser confirmadas visualmente.\",\n    \"Ausente verificação física do aparelho por parte do avaliador.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara de frente, permitindo avaliação superficial da carcaça e estado da tela.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 478
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 6,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 411,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "503f47ae4db39713939b78473516a8db362dd62170ebb5c8e024713faa648e5a",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:18.495118502Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:18.495118502Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho branco com leve desgaste superficial visível nas bordas e cantos, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, com todas as funções normais e bateria em 75%.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho acompanha caixa original.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o dispositivo é iPhone 13 de 128GB, todo original de fábrica.\",\n      \"references\": [\"t0\", \"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar estado interno, funcionamento real ou autenticidade do aparelho.\",\n    \"Não há evidência visual para confirmar a saúde da bateria ou ausência de travamentos.\",\n    \"Declarações sobre originalidade e funcionamento não podem ser validadas pela imagem fornecida.\",\n    \"Ausente verificação física de componentes internos e estado real das funções.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra aparelho usado com leve desgaste superficial, sem danos claros ou informações adicionais sobre funcionamento.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 411
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 7,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 532,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "f1c05aed78b32851b7bbafe13ebe55e71653e5b089a406a51ab925ba8bff8ef4",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:23.462667812Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:23.462667812Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível nas bordas e na área traseira, sem danos estruturais evidentes.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e que todas as funções (câmeras, Face ID, áudio) operam normalmente.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que a saúde da bateria é de 75%.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha caixa original.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o dispositivo é original de fábrica e não possui travamentos.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto única (i0) não permite verificar a saúde da bateria, a integridade das câmeras ou a presença de trincas microscópicas.\",\n    \"Não há evidência visual para confirmar que o aparelho é original de fábrica ou se possui caixa original.\",\n    \"A condição 'seminovo' e os detalhes técnicos (bateria 75%) são declarações textuais sem comprovação visual nesta imagem.\",\n    \"A funcionalidade completa do dispositivo não pode ser atestada apenas pela foto da tela inicial.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto única mostrando a tela inicial e parte traseira; permite avaliação de desgaste superficial, mas não funções internas ou originalidade.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 532
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 8,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 412,
+      "prompt_eval_count": 1043,
+      "raw_response_sha256": "56e4c734949b4b0a0ea55bf80cbe998281fc3f1d30ce370b381fe9a616652dc9",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:29.259929922Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:29.259929922Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Back panel shows minor signs of use consistent with a used item, no major scratches or dents visible.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller claims the device is sealed and never opened; photo shows box but does not verify seal integrity.\",\n      \"references\": [\"t1\", \"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller asserts Face ID, cameras, iCloud, chip, and battery (86%) are functional; no visual proof provided.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Visual appearance matches iPhone 15 Pro Max but cannot confirm exact model or storage capacity without testing.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Battery percentage (86%) is unverified visually; requires functional test.\",\n    \"Seller claims 'never opened' but photo shows box that may have been previously handled.\",\n    \"Accessory condition (case, screen protector) cannot be fully verified from image alone.\",\n    \"No evidence of originality or authenticity beyond Apple branding.\",\n    \"Seller location and payment methods are textual claims only.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Single photo shows back of device and box; sufficient for visual inspection but insufficient for functional verification.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1043,
+        "eval_count": 412
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 9,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 425,
+      "prompt_eval_count": 1043,
+      "raw_response_sha256": "fc4d4430284c15db2cbcb6d16cec018bf29897d57c6cc1b0cd7f1c5ef08a97b3",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:32.935072716Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:32.935072716Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta leve desgaste de uso com reflexos visíveis na tela e bordas, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que Face ID, câmeras, iCloud, chip e bateria estão funcionais com 86% de capacidade original.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho nunca foi aberto e acompanha capa e película novas.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não há evidência visual de marca, modelo ou capacidade exata; a foto não permite confirmação da identidade do dispositivo.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Apenas uma foto disponível, insuficiente para verificar estado interno, bateria real ou componentes ocultos.\",\n    \"Declarações de funcionamento (Face ID, câmeras) não foram verificadas visualmente.\",\n    \"Ausência de fotos internas impede confirmação da integridade estrutural e originalidade.\",\n    \"Sem acesso físico, impossibilidade de testar funcionalidades afirmadas pelo vendedor.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto única mostra aparelho frontal com leve desgaste superficial e caixa intacta; não permite verificação interna ou funcional.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1043,
+        "eval_count": 425
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 10,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 476,
+      "prompt_eval_count": 1043,
+      "raw_response_sha256": "c07330d7a05bd1429f6c0a24b3520a5895856391aa7594f272e3cb07485b6e6c",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:37.01201529Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:37.01201529Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta leve desgaste natural em superfícies de toque e bordas, consistente com uso anterior.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que Face ID, câmeras, iCloud, chip e bateria estão operacionais; não há evidência visual de testes.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que a bateria é original com 86% de capacidade restante; sem comprovação técnica ou certificação visual.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho nunca foi aberto e acompanha capa e película nova; não há evidência física de vedação original.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Apenas a caixa e o modelo visual sugerem iPhone 15 Pro Max; sem serial, etiqueta ou verificação de autenticidade.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Sem foto interna para verificar estado real das câmeras, Face ID ou bateria.\",\n    \"Declarações sobre originalidade e funcionamento não podem ser confirmadas visualmente.\",\n    \"Ausência de etiquetas de garantia ou selos de fábrica na imagem.\",\n    \"Foto única limita avaliação completa do aparelho.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra aparelho em uso, com leve desgaste e caixa ao fundo; suficiente para análise superficial.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1043,
+        "eval_count": 476
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 11,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 469,
+      "prompt_eval_count": 1043,
+      "raw_response_sha256": "1cd64fe5c50403aab2661d8ee2034522094911a9685f0c7f1b55649092ec0a86",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:41.13801145Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:41.13801145Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral borda do corpo metálico apresenta leve desgaste superficial e marcas de uso visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da tela não verificável; ausência de reflexo ou brilho impede avaliação visual.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"suspected\",\n      \"description\": \"Caixa original e acessórios (capinha, película) mencionados no texto não estão visíveis na imagem.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 15 Pro Max baseada em design lateral e caixa, sem confirmação visual direta do modelo exato.\",\n      \"references\": [\"t0\", \"t1\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Afirmações sobre Face ID, câmeras, iCloud e bateria são declaradas pelo vendedor sem comprovação visual.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Apenas uma foto disponível, limitando a verificação completa do estado físico.\",\n    \"Estado da tela e funcionamento dos componentes não podem ser confirmados visualmente.\",\n    \"Ausência de caixa original e acessórios na imagem contradiz parcialmente o texto.\",\n    \"Não há evidências visíveis para validar a autenticidade ou integridade interna do aparelho.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra lateral direita do dispositivo com caixa ao fundo; suficiente para avaliação parcial de desgaste externo.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1043,
+        "eval_count": 469
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 12,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 475,
+      "prompt_eval_count": 1043,
+      "raw_response_sha256": "a8085480ce6991059c54ea541a6f01aa6fdd68b3132c14b52ddf80cecd07ce3e",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:45.339750943Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:45.339750943Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Back panel shows minor surface dust and faint smudges, consistent with light cosmetic wear on a used item.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller claims Face ID, cameras, iCloud, chip, and battery (86%) are functional; no visual verification possible.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Accessory status (case + screen protector) cannot be confirmed visually from the single photo.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller states device is iPhone 15 Pro Max 256GB; visual cues (camera layout, Apple logo) align but do not confirm model/year.\",\n      \"references\": [\"t0\", \"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller claims 'never opened' yet lists accessories; no contradiction in text, though logically inconsistent with typical new device packaging.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Single photo omits front display, ports, battery health verification, and accessory condition.\",\n    \"Seller claims of originality, battery %, and functionality are unverified by visual evidence.\",\n    \"No tools or physical inspection performed; all functional assertions remain textual declarations.\",\n    \"Photo does not confirm whether device is truly sealed or if accessories were pre-installed.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Single image shows rear of iPhone on stand; sufficient for cosmetic assessment only.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1043,
+        "eval_count": 475
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 13,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 371,
+      "prompt_eval_count": 951,
+      "raw_response_sha256": "7e0a43de9e4fbb254657c90c84fc8e03acf944f995bd02f28dac5ee4d8091feb",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:49.57923008Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:49.57923008Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pós-frontal com leve desgaste superficial e marcas de uso visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho vem com caixa e carregador originais.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Afirmado que a bateria está zerada e nunca foi trocada, com 80% de vida útil.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Identificação visual incerta; o vendedor menciona possuir modelos 17 e 18 Pro Max, mas a foto não confirma.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Apenas uma foto disponível para análise visual.\",\n    \"Não há evidência visual de bateria ou estado interno.\",\n    \"Identificação do modelo baseada apenas em texto, sem confirmação visual.\",\n    \"Ausente verificação física de acessórios e originalidade.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem única fornecida para análise visual.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 951,
+        "eval_count": 371
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 14,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 467,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "4994e5c9eca7d3854b61fe7fb86dd6b00e89bea667532d00e5950f722ee8a850",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:17:56.897140564Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:17:56.897140564Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pós e vidro com reflexos difusos e manchas leves, sem riscos profundos ou trincas visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que bateria e tela trocadas por peças originais Apple, aparelho funcionando perfeitamente.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor menciona capinha e cabo como acessórios incluídos.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 13, 128GB baseada em texto; visual confirma modelo com câmera dupla e Apple logo.\",\n      \"references\": [\"t0\", \"i0\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Descrição textual afirma uso leve sem problemas, consistente com estado físico observado na foto.\",\n      \"references\": [\"t1\", \"t3\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Estado funcional não verificado visualmente; apenas afirmado pelo vendedor.\",\n    \"Originalidade das peças trocadas (bateria/tela) não confirmada por inspeção física.\",\n    \"Ausência de fotos internas ou testes de funcionamento.\",\n    \"Condição real do aparelho pode diferir da descrição textual.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra dispositivo de frente, permitindo avaliação superficial de danos e identificação visual básica.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 467
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 15,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 356,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "244f5cafdb7124fdb4872f551eddabdf447315fdf1416d051f9092427925f68b",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:00.217230832Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:00.217230832Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na superfície do aparelho.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente sem restrição.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que acompanha capinha e cabo.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma ser iPhone 13 com tela original genuína Apple.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Estado funcional não verificado visualmente; apenas declaração do vendedor.\",\n    \"Originalidade da tela e bateria não confirmada por inspeção física.\",\n    \"Ausência de fotos internas ou testes de funcionamento.\",\n    \"Condição exata do interior e componentes internos não observáveis.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra aparelho frontal com interface ativa, permitindo verificação visual superficial.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 356
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 16,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 392,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "73495e6a6847493e0ce261da6944c1639b9756e95604baa21cd7cac52d94aa65",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:04.051310499Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:04.051310499Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho com sinais visíveis de uso, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a bateria foi trocada para 100% e o aparelho funciona perfeitamente.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a tela é peça original genuína Apple.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha capinha e cabo.\",\n      \"references\": [\"t2\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A bateria está em 100% na tela, mas não há garantia de funcionamento real sem teste.\",\n    \"A identidade do aparelho é confirmada pelo modelo e interface visual.\",\n    \"O estado físico é limitado pela única foto disponível.\",\n    \"Não foi possível verificar a originalidade da tela ou o histórico de reparos.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto clara do iPhone 13 mostrando a tela com 100% de capacidade e carregamento otimizado ativado.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 392
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 17,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 306,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "e11c998ee1e53e77d36eebce6a49136b63c6f68ba8e297710761408934aed4c8",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:07.227087841Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:07.227087841Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na lateral do aparelho.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente sem restrição.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que acompanha capinha e cabo.\",\n      \"references\": [\"t2\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Estado funcional não verificado visualmente; apenas declaração do vendedor.\",\n    \"Originalidade da tela não confirmada pela imagem.\",\n    \"Ausência de fotos internas ou de componentes específicos.\",\n    \"Condição exata do interior e estado da bateria não observáveis.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra lateral do iPhone com marcas superficiais leves, sem danos estruturais evidentes.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 306
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 18,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 434,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "e40ba3809d4816a04b0b0a49261120ba0ffba09d572d2750e911b2ea88fc68fb",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:10.990968958Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:10.990968958Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na lateral do aparelho, consistentes com um dispositivo usado.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a bateria e tela foram trocadas por peças originais genuínas Apple e o aparelho funciona perfeitamente.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha capinha e cabo.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação do produto como iPhone 13, 128GB baseada na descrição textual e visual da lateral.\",\n      \"references\": [\"t0\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar o estado interno, a integridade das peças trocadas ou a autenticidade dos componentes.\",\n    \"Não há evidência visual para confirmar que a bateria e tela foram realmente substituídas por peças originais Apple.\",\n    \"Funções como carregamento rápido, qualidade de câmera e desempenho não podem ser verificadas visualmente.\",\n    \"A condição 'seminovo' é uma declaração textual sem confirmação física completa na foto.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra lateral do aparelho com marcas de uso leves, mas não permite verificação interna ou funcional.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 434
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 19,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 409,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "5ad854f6540f50032b4aea280997d394b119f7fa9431dc408246be9e3d66d182",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:14.574376837Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:14.574376837Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na lateral do aparelho, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e sem restrições.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que acompanha capinha e cabo, mas não há evidência visual de itens adicionais.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A foto mostra apenas o perfil lateral; não é possível confirmar a identidade do modelo ou cor com certeza absoluta.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto disponível (perfil lateral) não permite verificar a tela, bateria, câmera ou estado interno.\",\n    \"Declarações sobre troca de bateria e tela originais não podem ser validadas visualmente.\",\n    \"Ausência de fotos frontais, traseiras ou internas impede avaliação completa do estado.\",\n    \"Não há evidências visuais para confirmar a funcionalidade real dos componentes internos.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra perfil lateral com marcas de uso leves; insuficiente para validação completa.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 409
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 20,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 330,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "3224b6417a2d2834d832410d32b7cf0eca619447c2c54cf6b4365532b0bddab6",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:17.595085293Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:17.595085293Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na lateral do aparelho.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a bateria e tela foram trocadas por peças originais Apple e o aparelho funciona perfeitamente.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que acompanha capinha e cabo.\",\n      \"references\": [\"t2\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar o estado interno, a integridade da tela ou o funcionamento real dos componentes trocados.\",\n    \"Não há evidência visual para confirmar que as peças trocadas são genuínas.\",\n    \"O estado de conservação é declarado como 'Usado — seminovo', mas a foto mostra apenas desgaste superficial leve.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o lado lateral do iPhone, evidenciando pequenas marcas de uso na carcaça.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 330
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 21,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 421,
+      "prompt_eval_count": 1038,
+      "raw_response_sha256": "34a7b13547c19c9ca958c11e8f2221c791f86b09c1141293d55e457a1fc72079",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:21.298640577Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:21.298640577Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller claims device is iPhone 13, 128GB.\",\n      \"references\": [\n        \"t0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller states device functions perfectly without restrictions.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller claims battery replaced at 100% and screen is original Apple part.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller notes cosmetic wear is normal for used items.\",\n      \"references\": [\n        \"t2\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Photo shows only the 'About' screen; physical condition and functional status cannot be verified visually.\",\n    \"Seller claims of battery health, original screen, and accessories are unverified by visual evidence.\",\n    \"No visible defects or damage can be confirmed from the image.\",\n    \"Device model and storage capacity are inferred from text only.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Image displays iPhone 'About' screen showing iOS version, model number (MLA23LL/A), serial number (H7X...), and storage details (128GB total, 112.53GB available). No physical damage or defects visible.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1038,
+        "eval_count": 421
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 22,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 557,
+      "prompt_eval_count": 1117,
+      "raw_response_sha256": "43ab6a1b4a38a130bd8e25a4a36b212a71785f8fad577e8705de7a5c3db63cf4",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:29.436117197Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:29.436117197Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Tela apresenta leve desgaste de uso com reflexos e bordas levemente desgastadas, sem danos estruturais visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que Face ID, câmeras, Wi-Fi, Bluetooth e chip estão funcionando perfeitamente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da bateria (67%) não pode ser verificado visualmente; apenas uma declaração textual está disponível.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho é original e da cor azul, conforme a descrição do anúncio.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"suspected\",\n      \"description\": \"Anúncio menciona 'Tela trocada', mas não há evidência visual de substituição ou reparo anterior na foto.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"Declaração de 'sem marcas de queda' contradiz a aparência leve de desgaste visível na tela, embora não seja um dano estrutural.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"limitations\": [\n    \"A foto não permite verificar o estado interno da bateria ou a integridade dos componentes internos.\",\n    \"Não há evidência visual de que a tela foi realmente trocada, apenas uma afirmação textual.\",\n    \"O valor de R$ 1.500,00 e a localização de entrega são informações textuais sem comprovação visual.\",\n    \"A condição 'Usado — em boas condições' é subjetiva e não pode ser quantificada pela imagem.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara do front do iPhone, permitindo avaliação superficial da tela e ausência de danos óbvios.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1117,
+        "eval_count": 557
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 23,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 482,
+      "prompt_eval_count": 1117,
+      "raw_response_sha256": "b9f84000dd4e96df710033ac9e09bf73910c72ace74d768152f6cdf1ee0b0c1b",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:34.099816595Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:34.099816595Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral borda metálica azul com leve desgaste superficial e marcas de uso visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da tela não verificável visualmente; anúncio afirma troca, mas sem evidência fotográfica.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Anúncio declara Face ID, câmeras, Wi-Fi e Bluetooth funcionando; nenhuma verificação visual possível.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Bateria reportada em 67%; sem evidência visual ou funcional para confirmar estado real.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Anúncio afirma ser iPhone 13 original; impossível verificar autenticidade visualmente.\",\n      \"references\": [\"t0\", \"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Foto mostra apenas lateral do aparelho; não permite verificação de tela, traseira ou componentes internos.\",\n    \"Anúncio afirma troca da tela e ausência de marcas de queda, mas foto não corrobora essas alegações.\",\n    \"Declarações sobre funcionamento de Face ID, câmeras e bateria são baseadas apenas em texto, sem prova visual.\",\n    \"Sem acesso físico ou ferramentas para testar funções listadas no anúncio.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra lateral do aparelho com leve desgaste; não permite verificação de funcionalidades internas ou estado da tela.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1117,
+        "eval_count": 482
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 24,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 571,
+      "prompt_eval_count": 1117,
+      "raw_response_sha256": "aae59fb6e6008878ac0f4a604ec80565c91b6bf402d789e624b212684be80947",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:39.3525732Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:39.3525732Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na lateral do aparelho, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que Face ID, câmeras, Wi-Fi, Bluetooth e chip estão OK.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da bateria (67%) não pode ser verificado visualmente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho é original e de cor azul.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"suspected\",\n      \"description\": \"Discrepância entre a foto (sem marcas de queda) e a descrição ('Sem marcas de queda' vs 'Tela trocada').\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"A descrição menciona 'Tela trocada', mas não há evidência visual de troca ou defeito na tela.\",\n      \"references\": [\"t1\", \"i0\"]\n    },\n    {\n      \"description\": \"A foto mostra o aparelho sem marcas de queda, enquanto a descrição afirma explicitamente que não tem.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"limitations\": [\n    \"Não há evidência visual para confirmar se a tela foi realmente trocada ou se é um defeito pré-existente.\",\n    \"A condição da bateria (67%) não pode ser verificada apenas pela aparência externa.\",\n    \"A funcionalidade real dos componentes (Face ID, câmeras) não pode ser confirmada sem teste.\",\n    \"A identidade original do aparelho não pode ser comprovada visualmente.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o lado direito do iPhone 13 azul em uso, com detalhes visíveis da lateral e textura da tela.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1117,
+        "eval_count": 571
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 25,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 514,
+      "prompt_eval_count": 1117,
+      "raw_response_sha256": "b0ac2e64c4635d1626b54d2bbb51bc910aa83b30e492ccc06008ace57e2cb212",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:44.21768013Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:44.21768013Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na tela e laterais, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que Face ID, câmeras, Wi-Fi, Bluetooth e chip estão funcionando.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da bateria (67%) não pode ser verificado visualmente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho é original e azul, conforme a descrição.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"suspected\",\n      \"description\": \"Anúncio menciona 'sem marcas de queda', mas a foto mostra desgaste leve na tela que pode indicar uso intenso ou queda antiga.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"Discrepância entre a declaração de 'sem marcas de queda' e o desgaste visível na tela na foto.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"limitations\": [\n    \"A foto não permite verificar o estado interno, bateria ou funcionalidade real dos componentes.\",\n    \"Não há prova visual de que o aparelho é original ou se a tela foi realmente trocada.\",\n    \"O valor de R$ 1.500,00 e a localização da entrega são informações textuais sem comprovação visual.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o dispositivo de frente, revelando desgaste superficial na tela e laterais, mas não permite verificar funções internas ou originalidade.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1117,
+        "eval_count": 514
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 26,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 480,
+      "prompt_eval_count": 1117,
+      "raw_response_sha256": "f72e3f5e53f2ab1cfefa647708ed0a2495ffb3a5a92a5299d914b0e69f085b07",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:48.740664738Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:48.740664738Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta leve desgaste natural em cantos e bordas, sem riscos profundos ou trincas visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vidro traseiro intacto; lentes da câmera limpas e sem defeitos óbvios.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que Face ID, câmeras, Wi-Fi, Bluetooth, chip e bateria estão funcionando.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que a tela foi trocada e o aparelho está completo.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 13 azul de 128GB baseada em texto; cor visualmente consistente com anúncio.\",\n      \"references\": [\"t0\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Estado funcional não verificado visualmente — apenas declarado pelo vendedor.\",\n    \"Porcentagem de bateria (67%) não confirmada por inspeção física.\",\n    \"Histórico de troca de tela não documentado visualmente.\",\n    \"Ausência de fotos internas ou de portas para verificar integridade estrutural completa.\",\n    \"Sem evidências visuais sobre marcas de queda mencionadas no anúncio.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara do verso do aparelho, mostrando lentes e Apple logo sem defeitos óbvios.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1117,
+        "eval_count": 480
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 27,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 467,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "9546fb1c17ae08440548cd3fadcd5e15b4aa708f963e492d445c4b4e550eccad",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:18:57.287165359Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:18:57.287165359Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenos riscos visíveis na borda lateral direita da estrutura do aparelho.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que todas as funções estão funcionando normalmente e o aparelho está em perfeito funcionamento.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o carregador e capinhas acompanham a venda.\",\n      \"references\": [\"t3\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor identifica o produto como iPhone 13, 128GB, cor Meia Lua (preto).\",\n      \"references\": [\"t0\", \"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que a marca na tela é apenas da película e não do aparelho.\",\n      \"references\": [\"t2\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A saúde da bateria de 86% não pode ser verificada visualmente.\",\n    \"O estado exato das capinhas não é visível nesta foto única.\",\n    \"Não há evidência visual para confirmar a cor original do aparelho, apenas a declaração do vendedor.\",\n    \"A ausência de fotos internas impede verificação de danos internos ou componentes originais.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o aparelho frontalmente com evidências visíveis de uso na estrutura, mas não permite verificar funções internas ou estado da tela original.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 467
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 28,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 532,
+      "prompt_eval_count": 1246,
+      "raw_response_sha256": "8485366570bbf6030b43cfe9adcad281e50528e134eb81e0ec115c1d8b073012",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:02.076694514Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:02.076694514Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequeno detalhe na parte traseira e sinais de uso na estrutura.\",\n      \"references\": [\n        \"t1\",\n        \"t2\"\n      ]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Marca na tela somente na película.\",\n      \"references\": [\n        \"t1\",\n        \"t2\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Aparelho em perfeito funcionamento; todas as funções funcionando normalmente.\",\n      \"references\": [\n        \"t1\",\n        \"t2\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Acompanha carregador e capinhas (conforme fotos).\",\n      \"references\": [\n        \"t1\",\n        \"t2\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"iPhone 13, 128 GB, Cor: Meia Lua (preto).\",\n      \"references\": [\n        \"t0\",\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Saúde da bateria declarada em 86%.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Funções não verificadas visualmente; apenas declarações do vendedor.\",\n    \"Originalidade e identidade confirmada apenas por texto, sem prova física na foto.\",\n    \"Condição de uso na estrutura não quantificada visualmente.\",\n    \"Ausência de fotos detalhadas para verificar estado interno ou componentes.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagens mostram o dispositivo físico, mas sem ferramentas para testar funções.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1246,
+        "eval_count": 532
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 29,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 377,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "ad38a90e8456281512b76511bf2ccbda57b0aec46ae4751ddd1c311e50203bcd",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:05.747698142Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:05.747698142Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Tela preta sem brilho visível, impossibilitando verificação de riscos ou marcas.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e todas as funções normais.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor lista carregador e capinhas como acompanhados.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Sem evidência visual para confirmar modelo, cor ou capacidade de armazenamento.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar a saúde da bateria (86%) nem o estado físico real.\",\n    \"Não há evidência visual para confirmar se as funções estão realmente operacionais.\",\n    \"A ausência de luz na tela impede a detecção de riscos ou marcas.\",\n    \"O vendedor afirma que acompanha capinhas, mas não há foto das mesmas.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara da mão segurando o aparelho com tela preta; ambiente visível ao fundo.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 377
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 30,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 464,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "48793ea6dd00fb51249fecaae5d5f1ddc6f9d49af29062f056e42e8aa4133872",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:10.390628087Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:10.390628087Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral estrutura com sinais de uso visíveis, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e todas as funções normais.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da tela não verificado visualmente; vendedor menciona marca na película.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma ser iPhone 13, 128GB, cor Meia Lua (preto).\",\n      \"references\": [\"t0\", \"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor menciona pequeno detalhe na parte traseira não visível nesta foto.\",\n      \"references\": [\"t1\", \"t2\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Foto mostra apenas lateral; estado da tela e traseira não verificados visualmente.\",\n    \"Saúde da bateria (86%) não verificada por inspeção física nesta imagem.\",\n    \"Ausência de fotos internas ou de componentes para confirmar integridade completa.\",\n    \"Afirmações sobre funcionamento perfeito são textuais, sem prova funcional na foto.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra lateral do dispositivo com sinais de uso leves; não permite verificação de tela ou traseira.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 464
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 31,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 508,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "66d6fa1b3c314bfee03cd79ef6b05ce3a99186c4b7803c9aa8c38d50cda2e05c",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:14.983631993Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:14.983631993Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Traseira apresenta leve desgaste com marcas de uso visíveis, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e todas as funções normais.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da tela não verificado visualmente; marca mencionada apenas na película.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 13 baseada em texto e aparência externa, sem verificação técnica.\",\n      \"references\": [\"t0\", \"i0\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"suspected\",\n      \"description\": \"Discrepância entre 'pequeno detalhe na parte traseira' e ausência de danos claros na imagem.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"Afirmação de 'pequeno detalhe na parte traseira' contradiz a aparência visual limpa da traseira.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"limitations\": [\n    \"Estado funcional não confirmado pela imagem; apenas declarado pelo vendedor.\",\n    \"Ausência de verificação de bateria, tela ou componentes internos.\",\n    \"Imagem focada na traseira; frente e detalhes menores não observados.\",\n    \"Sem prova visual da marca na película ou sinais de uso na estrutura.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra traseira do dispositivo em ambiente interno, sem danos evidentes.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 508
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 32,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 373,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "0e947a1f97f73bc9319af93e66c51c5b42a1c3e2c5f13b6a243c80bf792ad953",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:18.702499709Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:18.702499709Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral estrutura apresenta sinais de uso visíveis, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e todas as funções normais.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da bateria (86%) não é verificável visualmente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 13 baseada na descrição textual e aparência lateral.\",\n      \"references\": [\"t0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Foto não permite verificação de danos internos ou estado da tela.\",\n    \"Afirmações sobre originalidade e funcionamento não são comprovadas visualmente.\",\n    \"Ausência de fotos internas impede confirmação do estado real da bateria.\",\n    \"Sinais de uso na estrutura são subjetivos sem medição técnica.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra lateral do dispositivo com sinais visíveis de uso, mas não permite verificação completa.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 373
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 33,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 355,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "2172ff6c5336351ae3164b2b834b63012e72f36da6bd0657d98faf5ff6ff1e66",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:22.477758605Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:22.477758605Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral borda do dispositivo apresenta desgaste leve e sinais de uso visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e todas as funções normais sem comprovação visual.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível verificar a presença ou estado do carregador e capas apenas com esta foto.\",\n      \"references\": [\"t3\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto disponível mostra apenas o perfil lateral, omitindo a frente, traseira e detalhes internos.\",\n    \"Não há evidência visual para confirmar a saúde da bateria de 86% ou a cor exata do dispositivo.\",\n    \"Sinais de uso na estrutura são declarados como sem interferência funcional, mas não verificados.\",\n    \"A marca na película é mencionada textualmente, mas não confirmada visualmente nesta imagem.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra perfil lateral do dispositivo com desgaste leve; ausência de outras vistas limita a verificação completa.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 355
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 34,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 431,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "614a20a554385316b40ba6e686ec9e8b8aee44182270a5343985a27da2814df1",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:19:28.998978628Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:19:28.998978628Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Lateral da estrutura com sinais de uso visíveis, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e todas as funções normais.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Ausência de fotos internas ou testes visuais para verificar componentes internos.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara ser iPhone 13, 128GB, cor Meia Lua (preto).\",\n      \"references\": [\"t0\", \"t1\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Descrição menciona pequenos detalhes na traseira e marca na película, não contradizendo a foto.\",\n      \"references\": [\"t1\", \"t2\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Ausência de fotos internas impede verificação de componentes internos.\",\n    \"Sem testes visuais para verificar estado da tela ou bateria.\",\n    \"Vendedor não forneceu prova visual do detalhe na traseira.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra lateral inferior com sinais de uso leves e carregador USB-C visível.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 431
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 35,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 513,
+      "prompt_eval_count": 1182,
+      "raw_response_sha256": "f70e9576ef4cb04bcaa4a13e4b43fa0c7d87a281a59f341432d5184c3b16ff8a",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:21.401415394Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:21.401415394Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Capas de silicone coloridas (roxo, vermelho, azul claro) e capa transparente com adesivos visíveis; nenhum dano estrutural aparente.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito e bateria com 86% de saúde; sem comprovação visual.\",\n      \"references\": [\n        \"t1\",\n        \"t2\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o carregador está incluído; não é possível verificar visualmente.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A foto mostra apenas capas, não o dispositivo em si; a identidade do aparelho não pode ser confirmada visualmente.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A descrição menciona 'Meia Lua (preto)', mas a foto não mostra o aparelho, apenas capas.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto disponível exibe apenas capas de celular, não o dispositivo em si; impossível verificar estado real, originalidade ou funcionalidade.\",\n    \"Declarações sobre bateria, carregador e funcionamento perfeito são baseadas exclusivamente em texto do vendedor, sem evidência visual.\",\n    \"Não há confirmação visual da identidade do aparelho como iPhone 13 de 128GB.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra cinco capas de celular coloridas e transparentes, mas não o dispositivo principal.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1182,
+        "eval_count": 513
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 36,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 270,
+      "prompt_eval_count": 1230,
+      "raw_response_sha256": "8280cc62e8ea9d11817177bbb4741da62dba9ee6a772d994001127631fbdb4f8",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:24.11121359Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:24.11121359Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Carregador branco com fiação enrolada, sem sinais de dano visível ou desgaste significativo.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o carregador acompanha a venda; objeto físico presente na foto.\",\n      \"references\": [\"t4\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Apenas carregador visível; iPhone não confirmado na imagem.\",\n    \"Saúde da bateria (86%) e estado do aparelho não verificáveis visualmente.\",\n    \"Ausência de fotos para tela, traseira ou acessórios mencionados.\",\n    \"Funcionamento do carregador não testado.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Mostra carregador físico; iPhone e outros itens não visíveis.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1230,
+        "eval_count": 270
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 37,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 390,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "3aed2806a13e27e4254aae00a64737827e6ad73d5b49b1f310e59405a19ca3aa",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:29.827067685Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:29.827067685Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso consistentes com item seminovo, sem danos estruturais visíveis.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e com todas as funções normais.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o item acompanha caixa original.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho é original de fábrica.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A saúde da bateria (75%) e a presença de travamentos não podem ser verificadas visualmente.\",\n    \"O estado interno e funcionalidades específicas como Face ID não foram confirmados pela imagem.\",\n    \"Ausência de fotos adicionais para corroborar as declarações do vendedor.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara mostrando o front do iPhone com tela acesa e sem danos visíveis aparentes.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 390
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 38,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 399,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "b42cb1511d04c48095b26573736eea51c4c3f3a2ed1ee3feba1cd4984f3561c9",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:33.614925122Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:33.614925122Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pós-frontal branco com leve desbotamento e riscos superficiais visíveis na região da câmera.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito, bateria 75% e todas as funções operacionais.\",\n      \"references\": [\"t1\", \"t2\", \"t3\", \"t4\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho acompanha caixa original.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma ser iPhone 13 de fábrica, sem modificações.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar o estado interno da bateria ou a presença de trincas internas.\",\n    \"Não há evidência visual para confirmar se o aparelho acompanha caixa original.\",\n    \"Funções como Face ID, áudio e biometria não foram verificadas visualmente.\",\n    \"O estado real do pós-frontal pode ser diferente das fotos devido à iluminação ou ângulo.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto única mostrando o aparelho de costas, permitindo avaliação superficial do pós-frontal e câmera.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 399
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 39,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 525,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "63b2d78f8e14de82654368ea3776a29ceb23f2533249cfff2f94d2ea507a803e",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:38.526346518Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:38.526346518Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível nas bordas e cantos, sem danos estruturais evidentes.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e todas as funções normais, sem base visual.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%, não verificável pela foto.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível confirmar visualmente se o aparelho acompanha a caixa ou outros acessórios mencionados.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que é iPhone 13 de 128GB original; a foto não confirma o modelo exato ou capacidade.\",\n      \"references\": [\n        \"t0\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto disponível (i0) é insuficiente para verificar estado interno, saúde da bateria, originalidade e presença de acessórios.\",\n    \"Declarações sobre funcionamento perfeito e ausência de travamentos não podem ser validadas visualmente.\",\n    \"Ausência de fotos internas ou de detalhes específicos impede confirmação do modelo exato e capacidade de armazenamento.\",\n    \"Requisitos de verificação de caixa e acessórios não atendidos pela evidência fornecida.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto única mostrando frente do aparelho em uso, sem danos críticos visíveis, mas insuficiente para validação completa.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 525
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 40,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 543,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "28f599116c2fed753b1f8141903d36d164fc2ae1e32b05c1d282f73de77bb330",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:45.02695022Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:45.02695022Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível na borda e nas laterais.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, sem travamentos e pronto para uso.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que a saúde da bateria é de 75%.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que câmeras, áudio, biometria e Face ID estão funcionando normalmente.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho acompanha caixa original.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o dispositivo é original de fábrica.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar a saúde da bateria, estado interno ou funcionamento das câmeras e Face ID.\",\n    \"Não há evidência visual para confirmar se o aparelho é original de fábrica.\",\n    \"O estado 'seminovo' declarado pelo vendedor não pode ser validado pela única foto disponível.\",\n    \"A ausência de fotos adicionais impede a verificação completa da integridade do aparelho.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o aparelho em uso, revelando desgaste leve nas bordas e laterais, sem danos evidentes na tela ou estrutura principal.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 543
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 41,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 433,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "5f0dbeb57c36c593eea7a1bc8f9fc2453d269049c3c711e9ee5c7cc71101ddcf",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:49.242561517Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:49.242561517Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho branco com leve desgaste superficial visível nas bordas e cantos, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, com todas as funções normais e bateria em 75%.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho acompanha caixa original.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o dispositivo é iPhone 13 de 128GB, todo original de fábrica.\",\n      \"references\": [\"t0\", \"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar a saúde da bateria, estado interno ou funcionalidade real das câmeras e Face ID.\",\n    \"Não há evidência visual de que o aparelho acompanha caixa original.\",\n    \"A condição 'seminovo' é uma afirmação textual sem comprovação fotográfica detalhada.\",\n    \"Impossível confirmar se o aparelho foi usado em condições normais ou exposto a danos não visíveis.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra verso do iPhone 13 branco, com leve desgaste nas bordas e cantos, sem danos estruturais evidentes.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 433
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 42,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 527,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "7924c75d060c67f4d12c5d804ad1d220efc5fa88003f2b87d4936a94036fd291",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:20:54.470047239Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:20:54.470047239Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível na borda e nas laterais.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Tela exibindo interface operacional sem danos óbvios ou falhas visíveis de funcionamento.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e sem travamentos.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha caixa original.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o dispositivo é original de fábrica.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Não há evidência visual para confirmar saúde da bateria, funcionamento completo ou autenticidade do aparelho.\",\n    \"A presença de caixa não é verificável na foto fornecida.\",\n    \"Estado de uso e desgaste não podem ser quantificados com precisão sem inspeção detalhada.\",\n    \"Funcionamento de componentes internos (bateria, câmeras, Face ID) não pode ser confirmado visualmente.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra aparelho em uso com interface ativa e desgaste leve visível na borda.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 527
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 43,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 462,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "a0c40f004b902da928915309e9d6d1dbf86338920225a9c71ec7bf7dd5b75946",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:00.244671037Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:00.244671037Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível nas bordas e cantos.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, sem travamentos e pronto para uso.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha caixa original.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara ser iPhone 13, 128GB, original de fábrica.\",\n      \"references\": [\"t0\", \"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A saúde da bateria (75%) não pode ser verificada visualmente na foto.\",\n    \"O funcionamento real das câmeras, áudio e Face ID não pode ser confirmado sem testes.\",\n    \"A presença de caixa original não é confirmada pela imagem.\",\n    \"A condição 'seminovo' é uma declaração textual, não visual.\",\n    \"Não há evidência visual para confirmar a ausência de travamentos ou defeitos internos.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o aparelho ligado com tela intacta e sem danos óbvios na superfície frontal.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 462
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 44,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 402,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "1b8a9ec45ecbcd146dbdab9b03eca0c38f40d384c39a786b2635ffbe37821367",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:04.548006979Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:04.548006979Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pós-fronteira com leve desbotamento e reflexo de luz; ausência de riscos profundos ou trincas visíveis.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Caixa mencionada como acessório, sem evidência visual da embalagem.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Afirmação de funcionamento completo e bateria 75% sem comprovação visual ou teste.\",\n      \"references\": [\"t1\", \"t3\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 13 baseada em texto; design visual compatível com modelos de câmera dupla.\",\n      \"references\": [\"t0\", \"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Ausência de fotos internas impede verificação de estado da bateria e componentes internos.\",\n    \"Afirmações sobre originalidade não podem ser confirmadas visualmente.\",\n    \"Falta evidência de funcionamento real das câmeras, Face ID e áudio.\",\n    \"Declaração de caixa sem suporte visual.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra traseira do dispositivo com leve desgaste superficial; ausência de danos estruturais evidentes.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 402
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 45,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 564,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "bf12daa300ca4538b7f1382576e298a0af286fd80b651c950e0580796d128aa1",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:09.738469447Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:09.738469447Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível na borda inferior e nas laterais, sem danos estruturais evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"declaration\",\n      \"description\": \"A tela exibe interface operacional com widgets de clima e calendário, indicando funcionamento visual da UI.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e sem travamentos.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que câmeras, áudio, Face ID e biometria estão funcionando normalmente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o aparelho acompanha caixa original.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o dispositivo é original de fábrica.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A saúde da bateria não pode ser verificada visualmente; requer teste funcional.\",\n    \"O funcionamento das câmeras, Face ID e áudio não pode ser confirmado pela foto estática.\",\n    \"A presença de caixa original não é confirmada visualmente.\",\n    \"A autenticidade do aparelho (originalidade) não pode ser comprovada por imagem.\",\n    \"Não há evidência visual de defeitos internos ou falhas de hardware.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara mostrando frente do iPhone com interface ativa e desgaste leve na carcaça.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 564
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 46,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 433,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "0b29d2d10d9115a89b37726a799722cb6499dc2de397b0a5a0dead01e9dd08ec",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:15.432105245Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:15.432105245Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta leve desgaste natural em superfícies plásticas e vidro, consistente com uso doméstico.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento perfeito de todas as funções, incluindo Face ID e câmeras.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Estado da bateria (75%) não é verificável visualmente na imagem.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara ser iPhone 13 original de fábrica; sem prova visual de marca ou modelo.\",\n      \"references\": [\n        \"t0\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto não permite verificação de estado interno, bateria ou componentes internos.\",\n    \"Declarações sobre funcionamento e originalidade são baseadas apenas em texto do vendedor.\",\n    \"Ausência de fotos internas impede confirmação de defeitos ocultos ou desgaste estrutural.\",\n    \"Sem acesso físico, não é possível validar integridade de tela ou botões físicos além da superfície visível.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra aparelho em uso com tela acendida; permite avaliação superficial de desgaste e ausência de danos óbvios na frente.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 433
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 47,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 494,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "12ec7633818cd7708e0b346f74034587f4fcf69391d9484470caed9dd1f59d29",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:19.876052196Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:19.876052196Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta leve desgaste natural em superfícies plásticas e vidro traseiro, sem danos estruturais ou manchas significativas.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, sem travamentos e com todas as funções normais.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que a saúde da bateria é de 75%.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha caixa original.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara que o dispositivo é original de fábrica.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A saúde da bateria (75%) não foi verificada visualmente na foto.\",\n    \"O funcionamento real das câmeras, Face ID e áudio não pode ser confirmado pela imagem.\",\n    \"A presença de caixa original não é confirmada visualmente.\",\n    \"A autenticidade do aparelho não pode ser comprovada apenas com a fotografia fornecida.\",\n    \"Não há evidências visuais para confirmar ou refutar as declarações sobre travamentos ou funcionamento completo.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o verso do aparelho em uso, permitindo avaliação visual superficial.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 494
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 48,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 483,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "1c42e022a2988bf62ce7c26aca1575cfaa107ab4942b1ecc43061a030c3513b5",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:24.320468868Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:24.320468868Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pequenas marcas de uso visíveis na borda metálica e nas cantas da tela, sem danos estruturais evidentes.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e pronto para uso.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara a saúde da bateria em 75%.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha caixa original.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara ser iPhone 13, 128GB, original de fábrica.\",\n      \"references\": [\n        \"t0\",\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A condição real não pode ser verificada visualmente; a avaliação baseia-se apenas na aparência superficial.\",\n    \"Funções internas (bateria, câmeras, Face ID) não foram testadas visualmente.\",\n    \"Originalidade e estado de fábrica não podem ser confirmados por imagem.\",\n    \"Ausência de fotos adicionais impede verificação completa do estado interno e das funções.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem única fornecida mostra o aparelho em uso, permitindo avaliação visual superficial.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 483
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 49,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 432,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "f3627ab2fd66de244d5f060e3b9d3fc1887bfd5487cdde118aaec84fb1717d37",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:30.899782494Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:30.899782494Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível nas bordas e cantos, sem danos estruturais evidentes.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e todas as funções normais, sem base visual.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%, não verificável pela foto.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível confirmar visualmente se o aparelho acompanha a caixa ou outros acessórios mencionados.\",\n      \"references\": [\n        \"i0\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar estado interno, funcionamento de câmeras, áudio ou biometria.\",\n    \"Não há evidência visual para confirmar originalidade de fábrica ou ausência de travamentos.\",\n    \"Declarações sobre saúde da bateria e funcionalidade total são baseadas apenas em texto do vendedor.\",\n    \"Ausente verificação física de acessórios e caixa.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra aparelho ligado com tela intacta, mas sem detalhes suficientes para validar estado interno ou funcionalidade completa.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 432
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 50,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 459,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "84fdaf449440ba01e9df73790c33066f1d3669ab871d74ead72391a4b613106b",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:35.166374853Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:35.166374853Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho branco com leve desgaste superficial e reflexos de uso visíveis na parte traseira.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente, sem travamentos e com todas as funções normais.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho acompanha caixa original.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara ser iPhone 13 de 128GB, modelo padrão.\",\n      \"references\": [\"t0\", \"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar o estado interno da bateria ou a presença de travamentos.\",\n    \"Não há evidência visual para confirmar se o aparelho é original de fábrica.\",\n    \"Funções internas como áudio, Face ID e biometria não foram verificadas visualmente.\",\n    \"Ausente verificação física da caixa original mencionada pelo vendedor.\",\n    \"A foto não confirma a capacidade de funcionamento do aparelho.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o verso do aparelho em uso, permitindo avaliação visual superficial e identificação parcial.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 459
+      }
+    },
+    {
+      "cohort": "real-model-proof-ef90.json",
+      "index": 51,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 481,
+      "prompt_eval_count": 1260,
+      "raw_response_sha256": "068d4917d8bf8e791b36c2c58c2cbdf5b8c61e34aef13cdbebf9ee7bdaa91ed5",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:21:39.666768098Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:21:39.666768098Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Aparelho apresenta sinais de uso com desgaste leve visível nas bordas e cantos, sem danos estruturais evidentes.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o aparelho está funcionando perfeitamente e todas as funções normais, sem base visual.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor declara saúde da bateria em 75%, informação não verificável pela imagem.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível confirmar visualmente se o aparelho acompanha a caixa ou outros acessórios mencionados.\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma que o dispositivo é original de fábrica, sem comprovação visual da autenticidade.\",\n      \"references\": [\n        \"t1\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto disponível não permite verificar a saúde da bateria, estado interno ou presença de acessórios.\",\n    \"Declarações sobre funcionamento e originalidade são baseadas exclusivamente em texto do vendedor.\",\n    \"Não há evidências visuais para confirmar se o aparelho está sem travamentos ou com Face ID funcional.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra frontal de iPhone 13 sendo segurado, permitindo avaliação superficial do estado físico.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1260,
+        "eval_count": 481
+      }
+    },
+    {
+      "cohort": "real-model-cheap13-ef90.json",
+      "index": 0,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 404,
+      "prompt_eval_count": 1041,
+      "raw_response_sha256": "2ba89a4bb54cde8f315ee46c614cbca44e3a819ea70c47a010cfdaf533ec2930",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:30:01.743870083Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:30:01.743870083Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Tela com fratura visível na borda inferior e no canto superior direito.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"clear_defect\",\n      \"description\": \"Fratura de vidro na tela, evidenciada pela quebra física visível.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A caixa do carregador não é visível na imagem.\",\n      \"references\": [\"t2\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Afirmação de funcionamento normal e Face ID sem comprovação visual.\",\n      \"references\": [\"t1\", \"t3\"]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"A descrição afirma 'nenhum arranhão', mas a foto mostra fratura na tela.\",\n      \"references\": [\"t1\", \"i0\"]\n    }\n  ],\n  \"limitations\": [\n    \"Não é possível verificar a saúde da bateria ou o funcionamento do Face ID visualmente.\",\n    \"A identidade do dispositivo não pode ser confirmada sem inspeção interna.\",\n    \"A ausência de caixa impede verificação da integridade dos acessórios.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara, mas com evidência de dano físico na tela.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1041,
+        "eval_count": 404
+      }
+    },
+    {
+      "cohort": "real-model-cheap13-ef90.json",
+      "index": 1,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 489,
+      "prompt_eval_count": 1041,
+      "raw_response_sha256": "18e01bd05cbffb7fd17fd47c234694fbb226049fdd69c05153e1f0fffd7c550a",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:30:05.957442969Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:30:05.957442969Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"O iPhone verde na mão apresenta reflexo de luz e leve desgaste nas bordas, sem danos visíveis evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A saúde da bateria não é verificável visualmente; a declaração de 100% requer verificação técnica.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"O vendedor afirma que o carregador sem fio está incluído, mas não há evidência visual de um carregador na foto.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"A identidade do dispositivo como iPhone 13 é baseada no texto; a foto mostra um modelo com câmera tríplice, mas não confirma o modelo exato.\",\n      \"references\": [\"t0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"A funcionalidade do Face ID e da tela é declarada pelo vendedor, sem comprovação visual ou teste.\",\n      \"references\": [\"t1\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A foto não permite verificar a saúde real da bateria nem confirmar se o carregador está presente.\",\n    \"Não há evidência visual de que a tela ou bateria foram trocadas, apenas uma declaração do vendedor.\",\n    \"O estado 'seminovo' é subjetivo e não pode ser quantificado pela imagem.\",\n    \"A ausência de ferramentas impede testes de funcionamento.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem clara do dispositivo, mas sem acesso a componentes internos ou acessórios adicionais.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1041,
+        "eval_count": 489
+      }
+    },
+    {
+      "cohort": "real-model-cheap13-ef90.json",
+      "index": 2,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 413,
+      "prompt_eval_count": 961,
+      "raw_response_sha256": "35356f1c8571b0773d8542f775d8054be56b185cfd17cfcc6a58240ff0788324",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:30:09.618690177Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:30:09.618690177Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A foto é uma captura de tela do menu de saúde da bateria, não mostrando o estado físico do dispositivo.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"O texto afirma que a saúde da bateria é 100% e que Face ID funciona normalmente, mas isso é uma declaração textual sem verificação visual.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"O texto afirma que a bateria e a tela foram trocadas anteriormente.\",\n      \"references\": [\"t1\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A foto não permite verificar se o carregador sem fio está presente ou em bom estado, conforme mencionado no texto.\",\n      \"references\": [\"t2\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto (i0) é uma interface de software e não permite verificar a integridade física do iPhone 13.\",\n    \"As declarações sobre troca de bateria/tela e funcionamento do Face ID são baseadas exclusivamente no texto, sem evidência visual.\",\n    \"Não há como confirmar visualmente se o carregador está incluído ou em bom estado.\"\n  ],\n  \"photo\": {\n    \"status\": \"omitted\",\n    \"reason\": \"A foto é uma captura de tela do menu de saúde da bateria, não permitindo avaliação física do dispositivo.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 961,
+        "eval_count": 413
+      }
+    },
+    {
+      "cohort": "real-model-cheap13-ef90.json",
+      "index": 3,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 447,
+      "prompt_eval_count": 1041,
+      "raw_response_sha256": "02b8bbb0cef67bc6096c4f852a48f1d378614ae1445399679f992c898db2f491",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:30:13.495072232Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:30:13.495072232Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller claims no scratches on the device.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller states Face ID is functioning normally.\",\n      \"references\": [\n        \"t1\"\n      ]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Photo does not show the included accessories (cases, box).\",\n      \"references\": [\n        \"i0\"\n      ]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Seller identifies device as iPhone 13 128GB.\",\n      \"references\": [\n        \"t0\"\n      ]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Visual evidence does not confirm or contradict seller's condition claims.\",\n      \"references\": [\n        \"i0\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Photo shows only the front screen; cannot verify back panel scratches, camera lenses, or ports.\",\n    \"Battery health and replacement history are unverified by visual inspection.\",\n    \"Seller claims of 'sem novo' (semi-new) status cannot be visually confirmed.\",\n    \"Accessory items mentioned in text are not visible in the photo.\",\n    \"Face ID functionality requires functional testing, not visual confirmation.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Single image shows front screen with lock screen active; no damage or defects visible on the glass surface.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1041,
+        "eval_count": 447
+      }
+    },
+    {
+      "cohort": "real-model-cheap13-ef90.json",
+      "index": 4,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 458,
+      "prompt_eval_count": 1041,
+      "raw_response_sha256": "569f9ea3c4ad08585be0e89d1f2eeaf8d70838697da737ef7385b04b88a3f681",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:30:17.496630046Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:30:17.496630046Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Pós-frontal com leve brilho e reflexo, sem danos visíveis ou riscos evidentes.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"function_claim\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor afirma funcionamento normal de Face ID e bateria 100%.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"unknown\",\n      \"description\": \"Não é possível confirmar visualmente a integridade interna ou estado da bateria.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Vendedor identifica o dispositivo como iPhone 13 com 128GB.\",\n      \"references\": [\"t0\"]\n    },\n    {\n      \"dimension\": \"consistency\",\n      \"assessment\": \"unknown\",\n      \"description\": \"A foto não permite verificar se a descrição de 'sem arranhões' é consistente com o estado real.\",\n      \"references\": [\"i0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"A única foto disponível não permite verificar funções internas, como saúde da bateria ou Face ID.\",\n    \"Não há evidência visual para confirmar a troca de tela e bateria mencionada pelo vendedor.\",\n    \"O estado de uso real não pode ser confirmado sem inspeção física detalhada.\",\n    \"A identidade do dispositivo só é confirmada pela declaração textual, não pela imagem.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Foto mostra o verso do iPhone 13 em uso, com pós-frontal intacto e sem danos visíveis.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1041,
+        "eval_count": 458
+      }
+    },
+    {
+      "cohort": "real-model-cheap13-ef90.json",
+      "index": 5,
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 360,
+      "prompt_eval_count": 1041,
+      "raw_response_sha256": "e7e348a2b320f25dae0f9b8fd710571c09e4e341ee748d00b8431a36f827eaef",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_created_at": "2026-11-13T20:30:20.770534551Z",
+      "raw_reference_kind": "short_codes_not_hashes",
+      "image_payload": "verified source transformed by F14/F19, bounded512-v1",
+      "raw_response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-11-13T20:30:20.770534551Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"schema_version\": \"condition-evidence-v4\",\n  \"findings\": [\n    {\n      \"dimension\": \"appearance\",\n      \"assessment\": \"light_wear\",\n      \"description\": \"Traseira do iPhone apresenta riscos finos e reflexo irregular, indicando uso anterior.\",\n      \"references\": [\"i0\"]\n    },\n    {\n      \"dimension\": \"completeness\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Venda inclui duas capinhas (transparente e cinza) e caixinha do carregador sem fio, conforme texto.\",\n      \"references\": [\"t1\", \"t2\"]\n    },\n    {\n      \"dimension\": \"identity\",\n      \"assessment\": \"declaration\",\n      \"description\": \"Identificação como iPhone 13 128GB baseada em visual do módulo de câmera e descrição textual.\",\n      \"references\": [\"t0\"]\n    }\n  ],\n  \"conflicts\": [],\n  \"limitations\": [\n    \"Saúde da bateria 100% não verificada visualmente; requer diagnóstico técnico.\",\n    \"Troca de bateria e tela afirmada, mas sem evidência física ou serial number compatível.\",\n    \"Funcionamento do Face ID não confirmado pela imagem.\",\n    \"Ausente prova de originalidade ou histórico de reparo.\",\n    \"Estado interno (tela, bateria) não acessível visualmente.\"\n  ],\n  \"photo\": {\n    \"status\": \"examined\",\n    \"reason\": \"Imagem mostra traseira do iPhone e acessórios; suficiente para avaliação superficial.\"\n  }\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 1041,
+        "eval_count": 360
+      }
+    }
+  ]
+}

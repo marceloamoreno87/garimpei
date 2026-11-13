@@ -1,0 +1,916 @@
+{
+  "feature": "F21",
+  "item": "E2E-REAL-01",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "reviewer": "coordinator_AI",
+  "review_method": "read authorized collected text, examined all50original photos using per-listing contact sheets and selected fullresolution frames; no localmodel outputs of these12 used",
+  "frozen_at": "2026-11-13T19:59:04.580334+00:00",
+  "local_inference_of_this_cohort_has_not_started": true,
+  "listing_count": 12,
+  "photo_count": 50,
+  "condition_counts": {
+    "good": 2,
+    "uncertain": 8,
+    "defect": 2
+  },
+  "historical_f06_retained_at_collection": 0,
+  "valid_resale_estimate_from_this_cohort": null,
+  "positive_real_gold_demonstrated": false,
+  "fee_used_for_qualification": null,
+  "reference_sources": [
+    {
+      "url": "https://support.apple.com/en-us/111828",
+      "purpose": "Manufacturer specification distinguishes15ProMax capacities256/512/1TB, DynamicIsland, Actionbutton andUSB-C; does not identify the actual advertised unit or fill missing capacity."
+    }
+  ],
+  "limitations": [
+    "Reference is not independent human validation or verified physical testing.",
+    "Good reference concerns declaredfunctioning/visibleappearance only; missingidentity, sample, profit and publication gates remain independent.",
+    "No five eligible historical comparables in supplied12 under current F06 policy; no representative resale price or profit invented.",
+    "Publication age applies to firstalert, whereas F06 uses observation age14days; older publication alone does not exclude an otherwise valid comparable.",
+    "Observations use timestamps extracted from source, no dates were advanced to obtain eligibility.",
+    "No endtoend claim is made from this independent reference."
+  ],
+  "records": [
+    {
+      "external_id": "3752236261599797",
+      "url": "https://www.facebook.com/marketplace/item/3752236261599797/",
+      "title": "iPhone 15 pro Max",
+      "purchase_price": "4199.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:08.978082+00:00",
+      "published_at": "2026-11-13T18:57:33+00:00",
+      "within_first_48h_at_reference": true,
+      "text_input_sha256": "febab0c22ba8912ed6241aeed3e4755559d915cb6952d2dc712d5aafe8ecd6a3",
+      "reference_condition": "uncertain",
+      "reference_reason": "Funcionamento parcial declarado (Face ID/câmeras/chip), bateria86% declarada, visual conservado em cinco ângulos. Não há declaração global reconhecida pela política nem captura de capacidade/bateria; ausência de defeito visível não prova todas as funções.",
+      "provisional_role": "candidate_pending_function_and_finance",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "partial_claim",
+        "capacity": "256GB_in_text"
+      },
+      "automatic_identity_at_collection": "identified",
+      "automatic_product_key_at_collection": "apple:iphone15:promax:256gb",
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1616248693585232",
+          "primary": true,
+          "correlated": true,
+          "sha256": "9ad3ee4275b179c336c7343b2ab8b07c1231496373d16af5b27e2026c1fb9650",
+          "width": 720,
+          "height": 960,
+          "bytes": 94778,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "1457786313087090",
+          "primary": false,
+          "correlated": true,
+          "sha256": "33249a5e1c1908cae64a98efe8eb8e2930b726283d00b99ba1585805f1c7703a",
+          "width": 720,
+          "height": 960,
+          "bytes": 87852,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1830756771564177",
+          "primary": false,
+          "correlated": true,
+          "sha256": "e36fec64fad6b96e41f683a9f31cafe38b1d2e32f9fe1c6ae1f52656a283af11",
+          "width": 720,
+          "height": 960,
+          "bytes": 44483,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "1680975317024692",
+          "primary": false,
+          "correlated": true,
+          "sha256": "8d8de06385814e996abe00e82f2238036efaf2976bbc4c65f51713c9ffa7d8b0",
+          "width": 720,
+          "height": 960,
+          "bytes": 54599,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 4,
+          "key": "1877496456779575",
+          "primary": false,
+          "correlated": true,
+          "sha256": "fde14761296f8bc1082d39bb26e0cbe281d1a9449e33c71710589c188d4fddae",
+          "width": 720,
+          "height": 960,
+          "bytes": 69744,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "1620089769797940",
+      "url": "https://www.facebook.com/marketplace/item/1620089769797940/",
+      "title": "iPhone 15 Pro Max ￼",
+      "purchase_price": "3800.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:15.153808+00:00",
+      "published_at": "2026-11-10T15:55:07+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "4473109468ff6ef97fbcb1fe2a4d6399e89099f7a8bde1a13d7faa14365ee302",
+      "reference_condition": "uncertain",
+      "reference_reason": "Capacidade ausente, bateria80% apenas declarada e fotos de aparelho com tela apagada. Conservação aparente não completa identidade/funcionamento.",
+      "provisional_role": "insufficient_identity_and_condition",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "not_declared",
+        "capacity": "missing"
+      },
+      "automatic_identity_at_collection": "missing_attribute",
+      "automatic_product_key_at_collection": null,
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1101720555808908",
+          "primary": true,
+          "correlated": true,
+          "sha256": "c24a597c2f3af020faf7eae7a123e605258c7c8a0c3a161eea7bfc22899eb3ce",
+          "width": 720,
+          "height": 960,
+          "bytes": 78493,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "999078439910513",
+          "primary": false,
+          "correlated": true,
+          "sha256": "e3a95c8935038f66691be1d5e16c601187fe398420fdbe87697506263e5d9d59",
+          "width": 720,
+          "height": 960,
+          "bytes": 71367,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1805655730743678",
+          "primary": false,
+          "correlated": true,
+          "sha256": "6d9caae2985061b1118245febdb6f3606d8fcb377c492297e24c0436083eee35",
+          "width": 720,
+          "height": 960,
+          "bytes": 78207,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "1114551298120513",
+          "primary": false,
+          "correlated": true,
+          "sha256": "873d6ab92b5bb9eec35b2cb164465af93c36469f54bcdaa13c70d1c65abbb68a",
+          "width": 720,
+          "height": 960,
+          "bytes": 77889,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 4,
+          "key": "1140727758710300",
+          "primary": false,
+          "correlated": true,
+          "sha256": "f5e7a838e69421bc37a7181fef0389f84bd796fe72b544f99f380f8b1fd6d08b",
+          "width": 720,
+          "height": 960,
+          "bytes": 137607,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "1817091319604000",
+      "url": "https://www.facebook.com/marketplace/item/1817091319604000/",
+      "title": "iphone 15 pro max",
+      "purchase_price": "3600.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:21.370764+00:00",
+      "published_at": "2026-11-11T00:55:06+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "1ad74cc1caa1b9f310dbd0bb2c8f050fb47713cc29ea9193573ef4f832a78efc",
+      "reference_condition": "good",
+      "reference_reason": "Funcionamento integral declarado, fotos frente/traseira e tela de saúde da bateria82%/normal com1029ciclos. Sem defeito principal relevante visível. Capacidade não declarada nem legível; aparência não resolve atributo obrigatório.",
+      "provisional_role": "condition_candidate_identity_missing",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "declared",
+        "capacity": "missing",
+        "battery_photo_index": 2
+      },
+      "automatic_identity_at_collection": "missing_attribute",
+      "automatic_product_key_at_collection": null,
+      "automatic_text_condition_at_collection": "good",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1170000839305796",
+          "primary": true,
+          "correlated": true,
+          "sha256": "6eda44a75523fc9541781cc116c067f0339c27aa8a4edc913884e397edfbb619",
+          "width": 720,
+          "height": 960,
+          "bytes": 51601,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "1665542548362455",
+          "primary": false,
+          "correlated": true,
+          "sha256": "7e85d993ec98a8907b982be48baa9d42a9a91f025c35b4423e3d219738199dad",
+          "width": 720,
+          "height": 960,
+          "bytes": 47916,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "5324316821128064",
+          "primary": false,
+          "correlated": true,
+          "sha256": "c67de4e10ef2e299833ecd61cdb2ac937275233617ba5e0c5c4e278fa1671b5d",
+          "width": 720,
+          "height": 960,
+          "bytes": 51933,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "2201778840719380",
+      "url": "https://www.facebook.com/marketplace/item/2201778840719380/",
+      "title": "iPhone 15 Pro Max 256gb",
+      "purchase_price": "3150.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:27.749525+00:00",
+      "published_at": "2026-11-11T19:52:23+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "f340acc16c568b7cf8ae321d09dc54010e66e5fe3c9340a2dfc326ae1b6dd0d7",
+      "reference_condition": "defect",
+      "reference_reason": "Descrição declara superaquecimento e substituição de bateria/telaSoftOLED. As seis fotos mostram carcaça/tela, mas não refutam falha térmica declarada.",
+      "provisional_role": "reject_defect",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "overheating_declared",
+        "capacity": "256GB_in_text"
+      },
+      "automatic_identity_at_collection": "identified",
+      "automatic_product_key_at_collection": "apple:iphone15:promax:256gb",
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1186514734045013",
+          "primary": true,
+          "correlated": true,
+          "sha256": "c7933b452c969a5682b9390ec9af314011a7731ae8d385e48dad8e373ed60be0",
+          "width": 720,
+          "height": 960,
+          "bytes": 143731,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "1136573442100923",
+          "primary": false,
+          "correlated": true,
+          "sha256": "d183e2e101ee59970c0161f9cc124e23493a0d729370bdd46a5b088996aba83c",
+          "width": 720,
+          "height": 960,
+          "bytes": 122516,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "3237247749819306",
+          "primary": false,
+          "correlated": true,
+          "sha256": "29cf86673df81f5a60cb18f8b7a0b7b9d74b52a9643ca279052b91d63be64539",
+          "width": 720,
+          "height": 960,
+          "bytes": 47391,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "1934166570880849",
+          "primary": false,
+          "correlated": true,
+          "sha256": "ae1cbaf27f606def3dd4ebdaee63bda56c345713302297583e231b5278805605",
+          "width": 720,
+          "height": 960,
+          "bytes": 66058,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 4,
+          "key": "1449850993238080",
+          "primary": false,
+          "correlated": true,
+          "sha256": "08af251c77d903bf5734ef82475dab6986cb1e5102393f36c26f6ee36c42e650",
+          "width": 720,
+          "height": 960,
+          "bytes": 43810,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 5,
+          "key": "1391809580690795",
+          "primary": false,
+          "correlated": true,
+          "sha256": "f6cfaadd2d8e4cb4888233e1ff29acc0e7f1a6b48004241e8c930552aee238b2",
+          "width": 720,
+          "height": 960,
+          "bytes": 50937,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "2152345325358847",
+      "url": "https://www.facebook.com/marketplace/item/2152345325358847/",
+      "title": "iPhone 15 pro max 256",
+      "purchase_price": "3600.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:33.998299+00:00",
+      "published_at": "2026-11-13T02:12:06+00:00",
+      "within_first_48h_at_reference": true,
+      "text_input_sha256": "393fe5bb0f20122484e7e3ba7adeedc38135f7e456898e69351bd1dd0b8b4a70",
+      "reference_condition": "uncertain",
+      "reference_reason": "Título contém256 sem unidade; descrição não informa funcionamento global. Única foto é traseira com caixa, sem frente ligada nem tela de informações.",
+      "provisional_role": "insufficient_identity_and_condition",
+      "observations": {
+        "appearance": "limited_back_only",
+        "function": "not_declared",
+        "capacity": "256_without_unit"
+      },
+      "automatic_identity_at_collection": "missing_attribute",
+      "automatic_product_key_at_collection": null,
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1667556724863264",
+          "primary": true,
+          "correlated": true,
+          "sha256": "4751b23edcfe8812e1df13b836b9811be1142d6e348c7339ea1e9da152d9c15d",
+          "width": 720,
+          "height": 960,
+          "bytes": 44181,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "1471589971593402",
+      "url": "https://www.facebook.com/marketplace/item/1471589971593402/",
+      "title": "VENDO IPHONE 15 PRO MAX 256GB VERSÃO ESIM",
+      "purchase_price": "3500.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:40.357850+00:00",
+      "published_at": "2026-11-08T18:01:54+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "29860140c3040553ee2b2c2578553e0853620cff116e8811be24b111808f5d4b",
+      "reference_condition": "uncertain",
+      "reference_reason": "Versão americana somenteeSIM e256GB declarados. Fotos de carcaça, câmera em vários zooms e bateria82%/normal; há sinais de uso. Funcionar com eSIM é característica, sem declaração global suficiente no texto.",
+      "provisional_role": "candidate_pending_function",
+      "observations": {
+        "appearance": "light_cosmetic_use",
+        "function": "esim_only_claim_not_global",
+        "capacity": "256GB_in_text",
+        "battery_photo_index": 5
+      },
+      "automatic_identity_at_collection": "identified",
+      "automatic_product_key_at_collection": "apple:iphone15:promax:256gb",
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1108710558632333",
+          "primary": true,
+          "correlated": true,
+          "sha256": "436ca4aff1de7ec09bf3ee142e5a0bbe3554fd08d819aa87a274e63d614c261c",
+          "width": 720,
+          "height": 960,
+          "bytes": 32696,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "4558134237849314",
+          "primary": false,
+          "correlated": true,
+          "sha256": "5b618a085f7e1ca7d0f53627a3af1bbd4192e6c7e9ad878ccf8b44c920d29154",
+          "width": 720,
+          "height": 960,
+          "bytes": 31599,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1664126598776743",
+          "primary": false,
+          "correlated": true,
+          "sha256": "f69e4ec093bac19f67620dc5151d65c06e261056a60900e7bb76d2ccb276f223",
+          "width": 720,
+          "height": 960,
+          "bytes": 31534,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "2248129252433467",
+          "primary": false,
+          "correlated": true,
+          "sha256": "3b60353a347ef3005a19a1cec3aa2bc96230d7b353c7e0907e52c6100f4433b7",
+          "width": 720,
+          "height": 960,
+          "bytes": 36973,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 4,
+          "key": "1831885001267588",
+          "primary": false,
+          "correlated": true,
+          "sha256": "d9d9146433b07834a4d65cc985d97851690b9ec53955b6b2bf03041de9e1fd0b",
+          "width": 720,
+          "height": 960,
+          "bytes": 36730,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 5,
+          "key": "1377698361107080",
+          "primary": false,
+          "correlated": true,
+          "sha256": "cc9f0ebfe6dfc7b82adfbd059ea8ea977351554139be83d541f43facf4579d6a",
+          "width": 443,
+          "height": 960,
+          "bytes": 29687,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 6,
+          "key": "2652858825142853",
+          "primary": false,
+          "correlated": true,
+          "sha256": "637257a87a2f4c492bf9a8ea07c8ef44af3287cd0f6ddb5497a9b8cd16bd037a",
+          "width": 443,
+          "height": 960,
+          "bytes": 36874,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 7,
+          "key": "4086288708332996",
+          "primary": false,
+          "correlated": true,
+          "sha256": "82976a0535a7207bd03b186c41d98925c67b61e7c6b58cb484f1a99aaa006ce3",
+          "width": 443,
+          "height": 960,
+          "bytes": 34364,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 8,
+          "key": "999867226503996",
+          "primary": false,
+          "correlated": true,
+          "sha256": "d6062cd318ecc355c70daad34780cd20b14e25b753269cbd924bae0e88f737ba",
+          "width": 443,
+          "height": 960,
+          "bytes": 35306,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 9,
+          "key": "1917417582560208",
+          "primary": false,
+          "correlated": true,
+          "sha256": "d06576a6788ec6dca8d235e154feb65e670bc671d212ef162cc72fe04357f422",
+          "width": 443,
+          "height": 960,
+          "bytes": 51345,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "2398412194300371",
+      "url": "https://www.facebook.com/marketplace/item/2398412194300371/",
+      "title": "iPhone 15 Pro Max",
+      "purchase_price": "3750.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:46.704560+00:00",
+      "published_at": "2026-11-11T19:02:32+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "bf5be7b05f1298496d23e296f14b5f4deee4c633bff364ba1cfb22244a6c696f",
+      "reference_condition": "uncertain",
+      "reference_reason": "Título anunciaProMax e descrição anunciaPro de6,1polegadas. Capacidade ausente; foto de marketing/logo não resolve contradição.",
+      "provisional_role": "reject_identity_conflict",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "not_declared",
+        "capacity": "missing",
+        "identity_conflict": "Pro_Max_vs_Pro"
+      },
+      "automatic_identity_at_collection": "conflicting_identity",
+      "automatic_product_key_at_collection": null,
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "2631583120694656",
+          "primary": true,
+          "correlated": true,
+          "sha256": "5a9dd8f5f8c83d7818f4a9e8bea7b34b098ecbf07d2c52b227ec421eb122103b",
+          "width": 939,
+          "height": 960,
+          "bytes": 132792,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "1872618897075642",
+          "primary": false,
+          "correlated": true,
+          "sha256": "24669b4e34aa454dfe62d858a6fde61e7ecc828cc7a109296c870634ed89e35c",
+          "width": 960,
+          "height": 960,
+          "bytes": 108549,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1201813415604594",
+          "primary": false,
+          "correlated": true,
+          "sha256": "ea6837cf2cb2d977d6df9aad889610f4566ed49df1e005522ccbf1588409d7d0",
+          "width": 960,
+          "height": 633,
+          "bytes": 20563,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "39263535466625000",
+      "url": "https://www.facebook.com/marketplace/item/39263535466625000/",
+      "title": "Iphone 15 pro Max",
+      "purchase_price": "3400.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:53.105467+00:00",
+      "published_at": "2026-10-17T18:15:24+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "91528eb0c5e9a3f7a72c137c8aa297411f99cfde1a61849656aa4ba4aa016f67",
+      "reference_condition": "uncertain",
+      "reference_reason": "Trocas de tela/bateria declaradas como originais; foto de saúde da bateria informa nãoverificada e aviso de que dados podem não ser precisos. FotoSobre mostra15ProMax256GB. Autenticidade/serviço não confirmados; não tratar100% exibido como garantia.",
+      "provisional_role": "reject_unresolved_battery_warning",
+      "observations": {
+        "appearance": "modified_red_housing",
+        "function": "funciona_tudo_partial_parser",
+        "capacity": "256GB_text_and_photo",
+        "battery_photo_index": 3
+      },
+      "automatic_identity_at_collection": "identified",
+      "automatic_product_key_at_collection": "apple:iphone15:promax:256gb",
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "2945167435843846",
+          "primary": true,
+          "correlated": true,
+          "sha256": "8b923cc075200e75fe07421d2be44f25b12c7ef21e4f45db7d5e357be6ec3823",
+          "width": 720,
+          "height": 960,
+          "bytes": 50176,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "2389406731794211",
+          "primary": false,
+          "correlated": true,
+          "sha256": "e99a0b7a8a271a61da5be29f5bd3c15a70a3f6cc874413e744a4e82810f7a773",
+          "width": 720,
+          "height": 960,
+          "bytes": 62807,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1138463542188830",
+          "primary": false,
+          "correlated": true,
+          "sha256": "6c8cef87b69a640b3c18d6cbf0019a3d29d29f71099bca1e6afa0c986d0146e3",
+          "width": 720,
+          "height": 960,
+          "bytes": 51734,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "1868330824205094",
+          "primary": false,
+          "correlated": true,
+          "sha256": "aa678fe98a89aed27fd552c52894500459b2e7e27ee81f264d4f955ab7154394",
+          "width": 720,
+          "height": 960,
+          "bytes": 58795,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "1438113775084647",
+      "url": "https://www.facebook.com/marketplace/item/1438113775084647/",
+      "title": "Iphone 15 pro max bypass ou retirada de peças",
+      "purchase_price": "1500.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:54:59.867428+00:00",
+      "published_at": "2026-09-18T14:54:30+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "c130bb5101c762789f2289c40a4d6af0353484357b5553dcef133fe53b68fd3e",
+      "reference_condition": "defect",
+      "reference_reason": "Descrição declara iCloudtravado e destinação a bypass/peças. Tela de boasvindas/reinício nas fotos não prova desbloqueio ou operação normal.",
+      "provisional_role": "reject_locked_parts",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "activation_lock_and_parts",
+        "capacity": "missing"
+      },
+      "automatic_identity_at_collection": "missing_attribute",
+      "automatic_product_key_at_collection": null,
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "2566379550494431",
+          "primary": true,
+          "correlated": true,
+          "sha256": "e53dc739170b5f4239f24f18f4085d7283489355c9ae1c2f718e0a04046bd1c5",
+          "width": 720,
+          "height": 960,
+          "bytes": 52701,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "1824412978555082",
+          "primary": false,
+          "correlated": true,
+          "sha256": "5d45e01d46cbb0f53dfe514190e8526559cfb431a4c71368bba2f6299f1aaefe",
+          "width": 720,
+          "height": 960,
+          "bytes": 40989,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1285832153590889",
+          "primary": false,
+          "correlated": true,
+          "sha256": "ed50728a570447d3022bd89f110bf66623209320bcbf609a8f18bc30b6df6d9e",
+          "width": 720,
+          "height": 960,
+          "bytes": 38983,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "1642386037474019",
+          "primary": false,
+          "correlated": true,
+          "sha256": "017f8bdcb914249b2180eb4606d756cf294ffdc8e38b04d9eedcb69d7d846ab8",
+          "width": 720,
+          "height": 960,
+          "bytes": 40013,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 4,
+          "key": "2169301780683937",
+          "primary": false,
+          "correlated": true,
+          "sha256": "fb107127b9bd2cb74fb504ec1bbf6109b2bdec1385bdbfab5baf76148ce342bd",
+          "width": 720,
+          "height": 960,
+          "bytes": 37661,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "1724764402544931",
+      "url": "https://www.facebook.com/marketplace/item/1724764402544931/",
+      "title": "iPhone 15 pro Max",
+      "purchase_price": "3650.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:55:06.572976+00:00",
+      "published_at": "2026-11-09T16:42:24+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "31f1c05b694af51c841ca400be4cd33ef4c0bce48e01cc597984a5d385c9b0ce",
+      "reference_condition": "uncertain",
+      "reference_reason": "256GB declarado; única foto própria mostra traseira, segunda é imagem promocional. Sem declaração de funcionamento e sem evidência da tela do aparelho anunciado.",
+      "provisional_role": "insufficient_condition",
+      "observations": {
+        "appearance": "limited_back_and_stock_image",
+        "function": "not_declared",
+        "capacity": "256GB_in_text",
+        "stock_photo_index": 1
+      },
+      "automatic_identity_at_collection": "identified",
+      "automatic_product_key_at_collection": "apple:iphone15:promax:256gb",
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "4481215172091062",
+          "primary": true,
+          "correlated": true,
+          "sha256": "b8523dae636425bbb58c5859f0b2eec0d5e32e28e5230989de20e49fec86653f",
+          "width": 540,
+          "height": 960,
+          "bytes": 46532,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "2657821957999545",
+          "primary": false,
+          "correlated": true,
+          "sha256": "1533e9ce14e434d149e642249ebf61710de645a096fd1da289a31ca845e3bfe7",
+          "width": 769,
+          "height": 960,
+          "bytes": 28626,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "1071562809041682",
+      "url": "https://www.facebook.com/marketplace/item/1071562809041682/",
+      "title": "Vendo iPhone 15 pro Max 256GB/ IMPECÁVEL",
+      "purchase_price": "3799.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:55:12.887462+00:00",
+      "published_at": "2026-10-14T13:30:40+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "c20344278365f45551bd34c6df16cc2051501e19bb61a379dbda71d3a893a1fb",
+      "reference_condition": "uncertain",
+      "reference_reason": "256GB e conservação/originalidade declarados. Quatro fotos de carcaça e tela apagada parecem conservadas; nenhum sinal concreto de avaria, mas funcionamento não declarado.",
+      "provisional_role": "candidate_pending_function",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "not_declared",
+        "capacity": "256GB_in_text"
+      },
+      "automatic_identity_at_collection": "identified",
+      "automatic_product_key_at_collection": "apple:iphone15:promax:256gb",
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1751247123674637",
+          "primary": true,
+          "correlated": true,
+          "sha256": "89012de92c9b6d3cbf8bf37699ad70de873f8ace6482305380cf9c192ce2926f",
+          "width": 720,
+          "height": 960,
+          "bytes": 67903,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "29843821901880113",
+          "primary": false,
+          "correlated": true,
+          "sha256": "6024bc90568e91f29edcd98e915b719cf14675dc7622e5d81d41282b93a3897b",
+          "width": 720,
+          "height": 960,
+          "bytes": 38670,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 2,
+          "key": "1852699505902207",
+          "primary": false,
+          "correlated": true,
+          "sha256": "2cd301a96e8a243c549e6cecb6e7071712a60136f7762c842b6f603e2cd5661a",
+          "width": 720,
+          "height": 960,
+          "bytes": 35423,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 3,
+          "key": "1836327257285025",
+          "primary": false,
+          "correlated": true,
+          "sha256": "09fdf58f5c1d36ef9788448171c5f08f3220b04413b610356437f2344883658a",
+          "width": 720,
+          "height": 960,
+          "bytes": 35857,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    },
+    {
+      "external_id": "2287047541889005",
+      "url": "https://www.facebook.com/marketplace/item/2287047541889005/",
+      "title": "iPhone 15 pro max",
+      "purchase_price": "3800.00",
+      "source_available": true,
+      "observed_at": "2026-11-13T19:55:19.093390+00:00",
+      "published_at": "2026-11-11T16:48:59+00:00",
+      "within_first_48h_at_reference": false,
+      "text_input_sha256": "768ac6ad3a411dd9c806b09c89d23f78651ce749fc3e579ce4b3ad7209fb099c",
+      "reference_condition": "good",
+      "reference_reason": "Declaração clara de funcionamento integral e duas fotos frente ligada/traseira sem avaria relevante visível. Capacidade ausente; frase com ordem funcionando+tudo+perfeitamente é semanticamente positiva, mas parser atual não a reconhece.",
+      "provisional_role": "condition_candidate_identity_missing",
+      "observations": {
+        "appearance": "no_relevant_damage_visible",
+        "function": "declared_noncanonical_word_order",
+        "capacity": "missing"
+      },
+      "automatic_identity_at_collection": "missing_attribute",
+      "automatic_product_key_at_collection": null,
+      "automatic_text_condition_at_collection": "uncertain",
+      "f06_eligible_at_collection": false,
+      "expected_photos": [
+        {
+          "index": 0,
+          "key": "1677333497396504",
+          "primary": true,
+          "correlated": true,
+          "sha256": "0973ab5ff4604a432209d8a4e0690003110e326fb8f5f5e8accda834a271abf7",
+          "width": 692,
+          "height": 960,
+          "bytes": 39372,
+          "mime": "image/jpeg"
+        },
+        {
+          "index": 1,
+          "key": "1955803949129772",
+          "primary": false,
+          "correlated": true,
+          "sha256": "6a8551336789cd0ac6b88d2f80ec461702ca7ec4273e7e2f64b122fcebdf4b3b",
+          "width": 686,
+          "height": 960,
+          "bytes": 38665,
+          "mime": "image/jpeg"
+        }
+      ],
+      "photo_review": "all_source_photos_examined_in_contact_sheets; selected battery and hardware views additionally examined at original resolution",
+      "full_gold_qualification": null
+    }
+  ]
+}

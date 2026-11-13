@@ -1,12 +1,14 @@
 """Owned F16 database and loopback sources; never shares the legacy session fixture."""
 
 import json
+import os
 from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import TypedDict, cast
+from unittest.mock import patch
 from uuid import uuid4
 
 from garimpei.domain.alert.first_eligibility import first_eligibility
@@ -159,7 +161,10 @@ def first_eligibility_scenario(
     if not sample_ready:
         source.rows["16006"]["description"] = "Com defeito. Não funciona."
     channel = WahaServer(recipient=cases["channel"]["recipient"])
-    with serve(source) as url, serve_waha(channel) as waha:
+    with serve(source) as url, serve_waha(channel) as waha, patch.dict(os.environ):
+        # Absence defaults to F16 text mode and lets F15 scenarios opt in through their env file.
+        # An explicit false would be inherited by the worker and mask a later file change.
+        os.environ.pop("GARIMPEI_ASSESSMENT_ENABLED", None)
         root = Path(__file__).resolve().parents[4]
         instance = prepare_instance(root, private, "wave11b_f16_" + uuid4().hex[:8])
         clock = ControlledClock(private / "clock", datetime.fromisoformat(NOW))
@@ -176,6 +181,9 @@ def first_eligibility_scenario(
                 "from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration; MonitoringConfiguration.objects.filter(slot='active').update(resale_fee_percent='10.00')",
             )
             completed(instance, 1)
+            # All rows can have an intermediate result before the target sees the last comparable.
+            # Identity-completion scenarios deliberately start without a target product key.
+            retained = None if target_title is not None else 5 if sample_ready else 4
             wait_for(
                 lambda: (
                     sql(
@@ -183,8 +191,20 @@ def first_eligibility_scenario(
                         "SELECT count(*) FROM runtime_valuationprogress WHERE current_id IS NOT NULL",
                     )
                     == [(6,)]
+                    and (
+                        retained is None
+                        or sql(
+                            instance,
+                            """SELECT (e.result->'resale'->>'after')::integer
+                            FROM runtime_valuationprogress p
+                            JOIN runtime_valuationevaluation e ON e.id=p.current_id
+                            JOIN runtime_listing l ON l.id=p.listing_id
+                            WHERE l.external_id='16001'""",
+                        )
+                        == [(retained,)]
+                    )
                 ),
-                "F16 valuations",
+                "F16 valuations and expected target history",
                 seconds=45,
             )
             yield instance, source, clock, channel

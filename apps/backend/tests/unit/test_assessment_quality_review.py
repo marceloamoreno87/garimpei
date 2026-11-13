@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -319,9 +320,44 @@ def test_real_report_cannot_complete_when_all_photos_fail_before_dispatch(
         completed.append(complete)
 
     monkeypatch.setattr(runtime, "_write", capture)
+    environment_before = {
+        key: os.environ.get(key)
+        for key in ("GARIMPEI_ASSESSMENT_ENABLED", "GARIMPEI_MEDIA_EVAL_ORIGIN")
+    }
     with pytest.raises(RuntimeError, match="No real-photo inference"):
         runtime.execute(plan_file, tmp_path / "must-not-complete.json")
     assert completed and not any(completed)
+    assert {key: os.environ.get(key) for key in environment_before} == environment_before
+
+
+@pytest.mark.parametrize("previous", [None, "false", "true"])
+@pytest.mark.parametrize("raises", [False, True])
+def test_quality_corpus_environment_is_scoped_to_execution(
+    monkeypatch: pytest.MonkeyPatch, previous: str | None, raises: bool
+) -> None:
+    from tests.factories.assessment_quality_runtime import _assessment_environment
+
+    keys = ("GARIMPEI_ASSESSMENT_ENABLED", "GARIMPEI_MEDIA_EVAL_ORIGIN")
+    for key in keys:
+        if previous is None:
+            monkeypatch.delenv(key, raising=False)
+        else:
+            monkeypatch.setenv(key, previous)
+    before = {key: os.environ.get(key) for key in keys}
+
+    def execute() -> None:
+        with _assessment_environment("http://127.0.0.1:34567"):
+            assert os.environ["GARIMPEI_ASSESSMENT_ENABLED"] == "true"
+            assert os.environ["GARIMPEI_MEDIA_EVAL_ORIGIN"] == "http://127.0.0.1:34567"
+            if raises:
+                raise RuntimeError("Controlled corpus failure")
+
+    if raises:
+        with pytest.raises(RuntimeError, match="Controlled corpus failure"):
+            execute()
+    else:
+        execute()
+    assert {key: os.environ.get(key) for key in keys} == before
 
 
 @pytest.mark.parametrize("method", ["human", "ai_assisted"])

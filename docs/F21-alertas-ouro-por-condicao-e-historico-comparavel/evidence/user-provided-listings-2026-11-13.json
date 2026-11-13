@@ -1,0 +1,82 @@
+{
+  "source": "user_provided",
+  "recorded_at": "2026-11-13T19:52:45.094556+00:00",
+  "purpose": "F21 E2E-REAL-01 candidate and comparable discovery",
+  "normalization": "Removed all query/tracking parameters; preserved every item ID exactly, including the17digit ID.",
+  "verification_status": "not_yet_fetched",
+  "count": 12,
+  "listings": [
+    {
+      "external_id": "3752236261599797",
+      "url": "https://www.facebook.com/marketplace/item/3752236261599797/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "1620089769797940",
+      "url": "https://www.facebook.com/marketplace/item/1620089769797940/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "1817091319604000",
+      "url": "https://www.facebook.com/marketplace/item/1817091319604000/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "2201778840719380",
+      "url": "https://www.facebook.com/marketplace/item/2201778840719380/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "2152345325358847",
+      "url": "https://www.facebook.com/marketplace/item/2152345325358847/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "1471589971593402",
+      "url": "https://www.facebook.com/marketplace/item/1471589971593402/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "2398412194300371",
+      "url": "https://www.facebook.com/marketplace/item/2398412194300371/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "39263535466625000",
+      "url": "https://www.facebook.com/marketplace/item/39263535466625000/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "1438113775084647",
+      "url": "https://www.facebook.com/marketplace/item/1438113775084647/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "1724764402544931",
+      "url": "https://www.facebook.com/marketplace/item/1724764402544931/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "1071562809041682",
+      "url": "https://www.facebook.com/marketplace/item/1071562809041682/",
+      "role": "unclassified",
+      "verified": false
+    },
+    {
+      "external_id": "2287047541889005",
+      "url": "https://www.facebook.com/marketplace/item/2287047541889005/",
+      "role": "unclassified",
+      "verified": false
+    }
+  ]
+}

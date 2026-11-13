@@ -1,0 +1,22 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--directory",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "-q",
+    "tests/integration/test_operations_lab_fault.py",
+    "tests/integration/test_operations_calibration.py"
+  ],
+  "exit_code": 0,
+  "result": "2 passed in759.62s",
+  "completed_at": "2026-11-13T21:02:16.669419+00:00",
+  "junit": "operations-recheck.xml",
+  "tmpdir": "/var/tmp/g21f",
+  "basetemp": "/var/tmp/g21-ops",
+  "scope": "serial rerun of2Dockerstartup/operationtimeout failures from originalshards",
+  "limits": "Originalparallelfailures preserved; no runtime timeout or assertion changed."
+}
