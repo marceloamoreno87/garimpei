@@ -1,0 +1,265 @@
+{
+  "base": "a73642d84f0a124f6d5da744150b96809a6e793c",
+  "selected": {
+    "F21": {
+      "status": "pending",
+      "dependencies": {
+        "F06": "done",
+        "F07": "done",
+        "F15": "done",
+        "F16": "done",
+        "F18": "done",
+        "F20": "done"
+      },
+      "contract_items": [
+        "API-OURO-01",
+        "API-OURO-02",
+        "UI-EVIDENCIAS-01",
+        "UI-OFERTAS-01",
+        "UI-FALHA-01",
+        "WRK-QUALIFICA-01",
+        "WRK-QUALIFICA-02",
+        "WRK-IDENTIDADE-01",
+        "WRK-IDENTIDADE-02",
+        "WRK-HISTORICO-01",
+        "WRK-HISTORICO-02",
+        "WRK-LUCRO-01",
+        "WRK-CONDICAO-01",
+        "WRK-FILA-01",
+        "WRK-FILA-02",
+        "WRK-VERSAO-01",
+        "WRK-MENSAGEM-01",
+        "WRK-JANELA-01",
+        "WRK-MANUAL-01",
+        "WRK-CONCORRENCIA-01",
+        "WRK-LEGADO-01",
+        "WRK-LEGADO-02",
+        "WRK-INCERTO-01",
+        "WRK-FALHA-01",
+        "E2E-PERCURSO-01",
+        "E2E-REAL-01"
+      ],
+      "acceptance_criteria": [
+        "F21-AC01",
+        "F21-AC02",
+        "F21-AC03",
+        "F21-AC04",
+        "F21-AC05",
+        "F21-AC06",
+        "F21-AC07",
+        "F21-AC08",
+        "F21-AC09"
+      ],
+      "documents": {
+        "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/spec.md": "03dd0c7d2304192898e1153c20bef1f8f972c8ee68e3cc56e48064fdeaad1a23",
+        "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/plan.md": "486a4c0deb0d4b88c60f63344c52fae76e60781e60c7f647f8d7b3ae5c81c4dc",
+        "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/contract.md": "1fecbb516d9917a734bb726855dab5aefe16d368c7b071c79182bdf2ac60e588"
+      }
+    },
+    "F22": {
+      "status": "pending",
+      "dependencies": {
+        "F02": "done",
+        "F03": "done",
+        "F08": "done",
+        "F13": "done",
+        "F14": "done",
+        "F15": "done",
+        "F16": "done",
+        "F19": "done"
+      },
+      "contract_items": [
+        "SVC-ADMISSAO-01",
+        "SVC-ADMISSAO-02",
+        "SVC-ADMISSAO-03",
+        "SVC-ADMISSAO-04",
+        "API-CONTROLE-01",
+        "API-CONTROLE-02",
+        "API-CONTROLE-03",
+        "API-CONTROLE-04",
+        "API-CONTROLE-05",
+        "API-CONTROLE-06",
+        "API-CONTROLE-07",
+        "API-CONTROLE-08",
+        "UI-CONTROLE-01",
+        "UI-CONTROLE-02",
+        "UI-CONTROLE-03",
+        "WRK-PAUSA-01",
+        "WRK-PAUSA-02",
+        "WRK-PAUSA-03",
+        "WRK-PAUSA-04",
+        "WRK-PAUSA-05",
+        "WRK-PAUSA-06",
+        "WRK-PAUSA-07",
+        "WRK-PAUSA-08",
+        "WRK-PAUSA-09",
+        "WRK-PAUSA-10",
+        "WRK-PAUSA-11",
+        "E2E-ROBO-01",
+        "E2E-ROBO-02",
+        "E2E-ROBO-03"
+      ],
+      "acceptance_criteria": [
+        "F22-AC01",
+        "F22-AC02",
+        "F22-AC03",
+        "F22-AC04",
+        "F22-AC05",
+        "F22-AC06",
+        "F22-AC07",
+        "F22-AC08"
+      ],
+      "documents": {
+        "docs/F22-controle-global-do-robo/spec.md": "642dac4b2dbca9e8f94dd39d089dba10a58b8b30140a5afbc05e71e226dc22f0",
+        "docs/F22-controle-global-do-robo/plan.md": "6be02bbafd8b164b7849eb8eca2a5fc50816870a7cb7e846e25d17e262a7b0c2",
+        "docs/F22-controle-global-do-robo/contract.md": "971c66b2d33b3ffa3e1bc3ea7e18da5c765e0b9d0ce70309819ef652cb77d7c1"
+      }
+    }
+  },
+  "preexisting_worktrees": [
+    {
+      "path": "/home/marce/dev/garimpei",
+      "branch": "refs/heads/master",
+      "head": "a73642d84f0a124f6d5da744150b96809a6e793c",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/0d94/garimpei",
+      "branch": "refs/heads/feat/F17-resiliencia-operacional",
+      "head": "9a754971e9bad9dbf0ba2b7ec470998bc8ea1d21",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/34bb/garimpei",
+      "branch": "refs/heads/feat/F16-primeira-elegibilidade",
+      "head": "2add5b3750721ae5bfa9aec26e7bf017d17ac985",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/4bff/garimpei",
+      "branch": "refs/heads/fix/F13-prova-continuidade",
+      "head": "6078fd8a65007b579c12fb4a41aad9636abc52f4",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6c3f/garimpei",
+      "branch": "refs/heads/feat/F19-inferencia-multimodal-local",
+      "head": "e33c69be6427a704086f6295aee7093c636316f7",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6cd6/garimpei",
+      "branch": "refs/heads/fix/startup-deadline-envelope",
+      "head": "5a90b88cc211cef36a8b4d90274f275a59ff91f2",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6efe/garimpei",
+      "branch": "refs/heads/fix/navigation-effective-budget",
+      "head": "021ef59a760aeb308df8f5f90f910405f9e230b5",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/7ae4/garimpei",
+      "branch": "refs/heads/feat/F14-imagens-locais",
+      "head": "f999b1b494c563c2f7e49d2a5d6354fe63e50bd9",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/90b7/garimpei",
+      "branch": "refs/heads/fix/exploration-configuration-lock",
+      "head": "ee8b3a4727c4e2fa8ec6e7e0450bad35c78a458e",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a716/garimpei",
+      "branch": "refs/heads/integration/pending-features-2026-11-12",
+      "head": "fde9f90f7fac2e6d3891c4091d5f82e98cc058e8",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a9af/garimpei",
+      "branch": "refs/heads/feat/F20-apresentacao-financeira",
+      "head": "1ec8b10a2d7049f0fe7e260b167876eaa8766f0b",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/b9f3/garimpei",
+      "branch": "refs/heads/fix/collection-invalid-unicode",
+      "head": "6ec0c2ffb3889ec8ec11efcfdff19dc8b7295501",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/baf1/garimpei",
+      "branch": "refs/heads/feat/F18-identificacao-comparaveis",
+      "head": "a5c0cb7603e31da7579f039679f22ed51396c084",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e16d/garimpei",
+      "branch": "refs/heads/feat/F15-avaliacao-multimodal",
+      "head": "b0b8643d647e77eb87d934660f1fb70f7535dafd",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e38a/garimpei",
+      "branch": "refs/heads/feat/F13-navegacao-ativa",
+      "head": "004fb0fa5be07f108ee8b22a3973c330aa6b6829",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-nova-onda",
+      "branch": "refs/heads/wave/20261113-f14",
+      "head": "35a9c7213c8c556cf62925b390dbfde6d98d1beb",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-onda-atual",
+      "branch": "refs/heads/wave/current-f14",
+      "head": "21ad43694bad598b661ecdb54b3d465c01eaafb0",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-retomada",
+      "branch": "refs/heads/wave/resume-f14",
+      "head": "affc6deb8bfb8c1f2514a0c9dcb54991933f601f",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-nova-onda",
+      "branch": "refs/heads/wave/20261113-f17",
+      "head": "4f459049da1fb6e8d5cfedf54b9e48f1cabd31bd",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-onda-atual",
+      "branch": "refs/heads/wave/current-f17",
+      "head": "f12fdc5271879cf149b661638c9aba522ade37eb",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-retomada",
+      "branch": "refs/heads/wave/resume-f17",
+      "head": "b303c51f43fd8ccefd90065c90afb04319e9972e",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda",
+      "branch": "refs/heads/wave/20261113-f18",
+      "head": "4dcc787cd268c565e8e1fbd8d6dfe441620216e6",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-onda-atual",
+      "branch": "refs/heads/wave/current-f18",
+      "head": "b871a6696b0d9dbb481733dfb30537b330dbc5ea",
+      "included_in_base": true
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-retomada",
+      "branch": "refs/heads/wave/resume-f18",
+      "head": "f87012cdc3146d64e3bf6351e8662ec150ef26e3",
+      "included_in_base": true
+    }
+  ]
+}

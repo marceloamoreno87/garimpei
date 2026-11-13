@@ -1,0 +1,27 @@
+{
+  "base": "a73642d",
+  "checked_at": "2026-11-13T17:08:23.115706+00:00",
+  "six_python_gates": {
+    "command": "node scripts/run-gates.mjs",
+    "exit_code": 0,
+    "groups": [
+      "types",
+      "lint/templates",
+      "dependency-boundaries",
+      "architecture",
+      "cycles",
+      "unused-code/dependencies"
+    ]
+  },
+  "harness_tests": {
+    "command": "node --test scripts/test/harness.test.mjs",
+    "exit_code": 0,
+    "passed": 4
+  },
+  "harness_check": {
+    "command": "node scripts/check-harness.mjs",
+    "exit_code": 0,
+    "features": 22
+  },
+  "scope": "Preimplementation baseline; does not validate F21/F22 changes."
+}
