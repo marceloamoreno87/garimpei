@@ -222,3 +222,9 @@ _.worker_reference
 # F21 inspected Django template/SQL consumers; exact paths in entrypoints.json.
 _.retained_count
 _.gold_policy_verified
+
+# F23 exact Django Form/ORM/context registry consumers; see entrypoints.json.
+assistance_context
+_.snapshot_id
+_.whitelist_version
+_.adopted_at

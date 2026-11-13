@@ -20,6 +20,9 @@ l=Listing.objects.select_related('latest').get(external_id='16001')
 e=dict(l.latest.evidence);e['description']='Funciona perfeitamente.';l.latest.evidence=e;l.latest.save()
 s=build_first_alert_store();store=build_alert_store();binding=Binding('synthetic','100@g.us','200@c.us')
 s.adopt(now)
+# History readiness is an explicit precondition, independent of scheduler timing.
+from garimpei.main import build_alert_handler
+build_alert_handler('ingest').execute()
 """
 
 

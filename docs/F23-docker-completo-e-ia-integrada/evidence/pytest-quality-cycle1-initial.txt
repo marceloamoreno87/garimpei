@@ -1,0 +1,259 @@
+F...........................F......F
+=================================== FAILURES ===================================
+________ test_public_diagnostic_fields_history_and_partial_http_failure ________
+
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-0/test_public_diagnostic_fields_0')
+
+    def test_public_diagnostic_fields_history_and_partial_http_failure(tmp_path: Path) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, _, _, _):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    PREPARE
+                    + """
+    from uuid import uuid4
+    from unittest.mock import patch
+    from django.db import DatabaseError
+    from django.test import RequestFactory
+    from garimpei.domain.alert.diagnostic import AlertDiagnosticReadFailed
+    from garimpei.domain.alert.alert import Outcome,Receipt
+    from garimpei.main import build_read_alert_diagnostic,build_exploration_handler,build_publish_exploration
+    from garimpei.infra.queries.alert.diagnostic_queries import PostgresAlertDiagnosticQueries
+    from garimpei.usecase.alert.read_alert_diagnostic_usecase import ReadAlertDiagnosticUseCase
+    from garimpei.infra.persistence.alert_models import AlertAttempt
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=FirstAlertIdentity.objects.get(listing=l);intent=r.intent
+    reader=build_read_alert_diagnostic()
+    before=(AlertIntent.objects.count(),AlertAttempt.objects.count())
+    d=reader.execute(l.id,l.latest_id)
+    assert d.first_alert_state=='queued'
+    assert d.next_action_at==intent.next_action
+    assert d.valuation_revision==intent.first_decision.financial['evaluation_revision']
+    assert d.intent_reference==intent.id
+    assert d.observation_id==l.latest_id and d.matches_displayed_observation
+    assert d.condition_revision==intent.first_decision.condition_revision
+    from garimpei.main import build_read_condition
+    assert d.condition_revision==build_read_condition().execute(l.id).state.revision
+    assert d.evaluated_at is not None and d.first_alert_deadline==now+timedelta(hours=46)
+    assert reader.execute(l.id,uuid4()).matches_displayed_observation is False
+    assert reader.execute(uuid4()) is None
+    old_title=e['title'];e['title']='Console sem modelo identificado';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    u=reader.execute(l.id,l.latest_id)
+    assert u.current_reason=='produto_indeterminado' and 'produto_incompativel' not in u.reasons,u
+    # Restore the producer input before the original transmission assertions.
+    e['title']=old_title;l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    assert (AlertIntent.objects.count(),AlertAttempt.objects.count())==before
+    with patch.object(PostgresAlertDiagnosticQueries,'_read',side_effect=DatabaseError('controlled')):
+     try:reader.execute(l.id)
+     except AlertDiagnosticReadFailed:pass
+     else:raise AssertionError('technical failure was hidden as absence')
+    delivery=store.claim(intent.id,binding,now,reconcile=False)
+    store.finish(delivery,Outcome('uncertain','response_lost'),now)
+    d=reader.execute(l.id,l.latest_id);assert d.state=='uncertain' and 'incerto' in d.label
+    store.finish(delivery,Outcome('confirmed','ack',Receipt('svc-receipt',True,binding.recipient,delivery.body,1)),now)
+    e['description']='Com defeito. Não funciona.';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    d=reader.execute(l.id,l.latest_id)
+    assert d.first_alert_state=='confirmed' and d.confirmed_at==now
+    assert d.state=='confirmed' and d.current_reason=='condition_excluded'
+    assert 'condition_excluded' in d.reasons
+    # A later uncertain reduction remains primary while the first receipt stays confirmed.
+    event=ListingEvent.objects.create(listing=l,observation=l.latest,kind='price_decreased',silent=False,occurred_at=now,publication_order=l.publication_order)
+    decision=AlertEventDecision.objects.create(event=event,state='eligible',reason='eligible',next_action=now)
+    AlertIntent.objects.create(decision=decision,state='uncertain',reason='response_lost',body='synthetic reduction',created_at=now+timedelta(seconds=1),next_action=now)
+    d=reader.execute(l.id,l.latest_id);assert d.first_alert_state=='confirmed' and d.state=='uncertain' and d.confirmed_at==now
+    latest=r.decisions.latest('generation');latest.reason='analysis_pending';latest.save(update_fields=['reason'])
+    before_read=(AlertIntent.objects.count(),AlertAttempt.objects.count())
+    d=reader.execute(l.id,l.latest_id);assert d.current_reason=='analysis_pending' and d.current_label=='Aguardando análise das fotos'
+    assert (AlertIntent.objects.count(),AlertAttempt.objects.count())==before_read
+    build_publish_exploration().execute()
+    handler=build_exploration_handler()
+    path=f'/ofertas/{l.id}/?aba=defeitos&q=PlayStation&pagina=1'
+    request=RequestFactory().get(path)
+    class FailingDiagnostic:
+     def read(self,listing_id,displayed_observation_id):raise AlertDiagnosticReadFailed()
+    handler._diagnostic=ReadAlertDiagnosticUseCase(FailingDiagnostic())
+    response=handler.handle(request,l.id)
+    assert response.status_code==200
+    body=response.content.decode()
+    assert 'PlayStation 5' in body and 'Não foi possível consultar o estado do alerta' in body
+    assert 'Tentar consultar novamente' in body and 'aba=defeitos' in body and 'pagina=1' in body
+    print('SVC01/02/03;DTO first_alert_state,next_action_at,valuation_revision,intent_reference;partial HTTP200 PASS')
+    """,
+                )
+
+tests/http/test_alert_diagnostic.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-0/test_public_diagnostic_fields_0/wave11b_f16_afc872ec.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...\nprint('SVC01/02/03;DTO first_alert_state,next_action_at,valuation_revision,intent_reference;partial HTTP200 PASS')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T21:52:47.524410+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_afc872ec", "run_id": "99f29215-52ef-435f-8e15-ae368d19b474"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 54, in <module>
+E           File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 237, in claim
+E             cursor = AlertFeedCursor.objects.get(installation="local")
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...arimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'eligible', 'eligible', UUID('8097f73c-44ba-4b22-8d17-59f9618b76c9'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('queued', 'pending_channel', UUID('f9407159-fecb-4173-9968-bfcefcf248ca'), datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+______________ test_browser_draft_rollback_and_collection_status _______________
+
+scenario = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-0/test_brows...t-0/test_browser_draft_rollback_an0/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, tzinfo=datetime.timezone.utc)))
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-0/test_browser_draft_rollback_an0')
+
+    def test_browser_draft_rollback_and_collection_status(scenario: Scenario, tmp_path: Path) -> None:
+        instance, source, clock = scenario
+        origin = f"http://127.0.0.1:{instance.config.web_port}"
+        session = f"-s=garimpei-f04-{uuid4().hex[:8]}"
+    
+        def browser(*args: str) -> None:
+            result = instance.command("playwright-cli", session, *args, timeout=30)
+            assert result.returncode == 0 and "### Error" not in result.stdout, (
+                result.stdout + result.stderr
+            )
+    
+        def run(body: str) -> None:
+            browser("run-code", "async page => {" + body + "}")
+    
+        command(
+            instance,
+            "uv",
+            "run",
+            "--project",
+            "apps/backend",
+            "--frozen",
+            "--no-sync",
+            "python",
+            "apps/backend/manage.py",
+            "runtime_probe",
+            "--wait",
+        )
+>       browser("open", origin)
+
+tests/http/test_tracking.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('open', 'http://127.0.0.1:17951')
+
+    def browser(*args: str) -> None:
+        result = instance.command("playwright-cli", session, *args, timeout=30)
+>       assert result.returncode == 0 and "### Error" not in result.stdout, (
+            result.stdout + result.stderr
+        )
+E       AssertionError: ╔═════════════════════════════════════════════════════════════╗
+E         ║ The playwright-cli skill at '.agents/skills/playwright-cli' ║
+E         ║ does not match the tool version.                            ║
+E         ║                                                             ║
+E         ║ Run `playwright-cli install --skills=agents`                ║
+E         ║ to install the up-to-date skill.                            ║
+E         ╚═════════════════════════════════════════════════════════════╝
+E         
+E         ╔════════════════════════════════════════════════════════════════════╗
+E         ║ Update available for @playwright/cli: 0.1.23 → 0.1.24              ║
+E         ║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+E         ║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+E         ╚════════════════════════════════════════════════════════════════════╝
+E         
+E         /usr/local/lib/node_modules/@playwright/cli/node_modules/playwright-core/lib/tools/cli-client/session.js:172
+E             const rejectWithPid = (reject, message) => reject(Object.assign(new Error(`Daemon pid=${child.pid}: ${message}`), { daemonPid: child.pid }));
+E                                                                             ^
+E         
+E         Error: Daemon pid=5607: Daemon process exited with code 1
+E         [PlaywrightError: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+E         Run "npx playwright install chrome"] {
+E           log: []
+E         }
+E         
+E             at rejectWithPid (/usr/local/lib/node_modules/@playwright/cli/node_modules/playwright-core/lib/tools/cli-client/session.js:172:69)
+E             at ChildProcess.<anonymous> (/usr/local/lib/node_modules/@playwright/cli/node_modules/playwright-core/lib/tools/cli-client/session.js:182:11)
+E             at ChildProcess.emit (node:events:519:28)
+E             at maybeClose (node:internal/child_process:1101:16)
+E             at ChildProcess._handle.onexit (node:internal/child_process:304:5) {
+E           daemonPid: 5607
+E         }
+E         
+E         Node.js v22.22.0
+E         
+E       assert (1 == 0)
+E        +  where 1 = CompletedProcess(args=['playwright-cli', '-s=garimpei-f04-c65bc1f8', 'open', 'http://127.0.0.1:17951'], returncode=1, ...n    at ChildProcess._handle.onexit (node:internal/child_process:304:5) {\n  daemonPid: 5607\n}\n\nNode.js v22.22.0\n').returncode
+
+tests/http/test_tracking.py:69: AssertionError
+_ test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[fault] _
+
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-0/test_killed_worker_reconciles_1')
+kill_worker = True
+
+    @pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+    def test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries(
+        tmp_path: Path,
+        kill_worker: bool,
+    ) -> None:
+>       _run_post_boundary(tmp_path, kill_worker, "confirmed")
+
+tests/integration/test_alert_delivery.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_alert_delivery.py:281: in _run_post_boundary
+    wait_alerts(instance, 2, clock)
+tests/factories/alert_scenario.py:174: in wait_alerts
+    wait_for(confirmed, f"{count} confirmed alerts", seconds=35)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = <function wait_alerts.<locals>.confirmed at 0x7857fa1ca8e0>
+description = '2 confirmed alerts', seconds = 35
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -> None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() >= deadline:
+>               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for 2 confirmed alerts
+
+tests/integration/test_collection.py:55: Failed
+----------------------------- Captured stdout call -----------------------------
+F09 diagnostic decisions [('excluded', 'first_eligibility_managed', 1)]
+F09 diagnostic intents [('confirmed', 'history_ack', 1)]
+=========================== short test summary info ============================
+FAILED tests/http/test_alert_diagnostic.py::test_public_diagnostic_fields_history_and_partial_http_failure
+FAILED tests/http/test_tracking.py::test_browser_draft_rollback_and_collection_status
+FAILED tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[fault]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 3 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+3 failed, 33 passed in 485.00s (0:08:05)

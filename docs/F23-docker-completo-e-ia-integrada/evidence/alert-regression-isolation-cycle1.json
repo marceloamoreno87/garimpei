@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-13T22:10:38.147336+00:00",
+  "environment": "quality container, isolated synthetic PostgreSQL/WAHA fixtures; current GPU runtime untouched",
+  "before": {
+    "command": "pytest tests/http/test_alert_diagnostic.py tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[fault] -q --maxfail=2",
+    "exit_code": 1,
+    "failed": 2,
+    "duration_seconds": 91.88
+  },
+  "diagnostic": {
+    "cause": "Shared PREPARE adopted first-alert identities but did not ingest listing history. The fixture waits valuation and then pauses workers, so the alert cursor may legitimately not exist yet.",
+    "change": "Execute the existing ingest handler explicitly in PREPARE; no production authorization or history-readiness guard relaxed.",
+    "after_command": "pytest tests/http/test_alert_diagnostic.py tests/integration/test_first_alert_review_regressions.py -q --maxfail=1",
+    "after_exit_code": 0,
+    "passed": 6,
+    "duration_seconds": 96.0
+  },
+  "restart": {
+    "cause": "The next source input was inserted while a collection window predating that input was already admitted. Its completion schedules the next collection after the test artificial clock deadline, so the second offer was never collected. The first intent remained confirmed and the original POST count remained one.",
+    "observed_clock": "2026-11-10T18:03:35+00:00",
+    "observed_next_collection": "2026-11-10T18:04:05+00:00",
+    "observed_listings": [
+      "931"
+    ],
+    "change": "Before introducing the next input, await a completed collection checkpoint whose next_attempt_at is strictly after the current controlled clock. Keep existing two-delivery, exact-POST-count and reconciliation assertions.",
+    "after_command": "pytest tests/integration/test_alert_delivery.py -q --maxfail=1",
+    "after_exit_code": 0,
+    "passed": 4,
+    "duration_seconds": 157.3
+  },
+  "limitations": [
+    "These are targeted regressions, not the full 966-test quality gate.",
+    "No timeout increase, production alert-policy relaxation, real channel send or GPU mutation."
+  ]
+}

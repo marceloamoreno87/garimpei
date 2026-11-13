@@ -149,8 +149,7 @@ def _interest_coverage(interest: MonitoringInterest) -> list[dict[str, object]]:
                 interest=interest.label,
                 purpose=PURPOSES[purpose],
                 denominator=(
-                    len(observations)
-                    * min(10, max(0, Listing.objects.exclude(latest=None).count() - 1))
+                    len(observations) * max(0, Listing.objects.exclude(latest=None).count() - 1)
                 )
                 if purpose == "comparables"
                 else len(observations)

@@ -4,6 +4,9 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 compose() { docker compose --env-file "$GARIMPEI_ENV_FILE" -p "garimpei-$GARIMPEI_ENVIRONMENT_ID" -f "$PROJECT_DIR/compose.yaml" "$@"; }
 artifact() { compose --profile tools run --rm --no-deps --entrypoint python manage -m garimpei.infra.runtime.container_artifacts "$@"; }
+source "$PROJECT_DIR/scripts/docker-ownership.sh"
+# Direct helper calls also check ownership before starting manage or reserving GPU.
+verify_docker_ownership
 identifier="$(compose --profile ai ps --all --quiet ollama)"
 verify() {
  [ -n "$identifier" ] && [ "$(docker inspect -f '{{index .Config.Labels "com.garimpei.checkout"}}' "$identifier")" = "$PROJECT_DIR" ] && [ "$(docker inspect -f '{{index .Config.Labels "com.garimpei.environment"}}' "$identifier")" = "$GARIMPEI_ENVIRONMENT_ID" ] || { echo 'Ollama ownership not confirmed; reservation retained' >&2; exit 1; }

@@ -663,7 +663,12 @@ def build_alert_handler(stage: str) -> "AlertTaskHandler":
         build_alert_store(),
         _listing_clock(load_listing_settings()),
     )
-    gateway = WahaGateway(settings.url, settings.key, _alert_policy())
+    gateway = WahaGateway(
+        settings.url,
+        settings.key,
+        _alert_policy(),
+        internal_service=load_config(require_secrets=False).containerized,
+    )
     binding = (
         Binding(settings.session, settings.recipient, settings.account)
         if (
@@ -820,7 +825,12 @@ def build_integration_handler() -> "IntegrationHandler":
     store = build_integration_repository()
     config = store.read()
     session = config.whatsapp_session or settings.session or "default"
-    gateway = WahaSessionGateway(settings.url, settings.key, min(settings.timeout, 5))
+    gateway = WahaSessionGateway(
+        settings.url,
+        settings.key,
+        min(settings.timeout, 5),
+        internal_service=load_config(require_secrets=False).containerized,
+    )
     return IntegrationHandler(
         ReadIntegrationsUseCase(store, gateway, session),
         SaveFacebookSessionUseCase(store, _listing_clock(load_listing_settings())),
@@ -1420,7 +1430,12 @@ def build_verify_recovery() -> "VerifyRecoveryGateway":
         operations.recovery_file,
         RecoveryEvidenceGateway(operations.recovery_evidence_url),
         build_alert_store(),
-        lambda _binding: WahaGateway(alerts.url, alerts.key, _alert_policy()),
+        lambda _binding: WahaGateway(
+            alerts.url,
+            alerts.key,
+            _alert_policy(),
+            internal_service=load_config(require_secrets=False).containerized,
+        ),
     )
 
 
@@ -1718,10 +1733,13 @@ def build_assistance_queries() -> "PostgresAssistanceQueries":
 
 def build_assistance_handler() -> "AssistanceHandler":
     from garimpei.infra.http.assistance.review_handler import AssistanceHandler
+    from garimpei.usecase.assistance.read_reviews_usecase import ReadReviewsUseCase
     from garimpei.usecase.assistance.request_review_usecase import RequestReviewUseCase
 
     return AssistanceHandler(
-        RequestReviewUseCase(build_assistance_repository()), build_assistance_queries()
+        RequestReviewUseCase(build_assistance_repository()),
+        build_assistance_queries(),
+        ReadReviewsUseCase(build_assistance_queries()),
     )
 
 

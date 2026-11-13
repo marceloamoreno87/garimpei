@@ -622,5 +622,23 @@
     "path": "src/garimpei/infra/http/assistance/context.py",
     "consumer": "src/garimpei/config/settings.py",
     "reason": "Django template context processor registry for persisted operational assistance"
+  },
+  {
+    "symbol": "ExplainForm.snapshot_id",
+    "path": "src/garimpei/infra/http/assistance/review_handler.py",
+    "consumer": "src/garimpei/infra/http/assistance/review_handler.py",
+    "reason": "Django Form field registry validates snapshot_id and exposes cleaned_data for explanation admission"
+  },
+  {
+    "symbol": "AssistanceOperationsSnapshot.whitelist_version",
+    "path": "src/garimpei/infra/persistence/assistance_models.py",
+    "consumer": "src/garimpei/infra/gateway/operations/assistance_schema.py",
+    "reason": "ORM and explicit business backup schema preserve version of sanitized operational fact whitelist"
+  },
+  {
+    "symbol": "AssistancePolicy.adopted_at",
+    "path": "src/garimpei/infra/persistence/assistance_models.py",
+    "consumer": "src/garimpei/infra/persistence/management/commands/assistance_policy.py",
+    "reason": "Django update_or_create and backup schema preserve explicit policy adoption time"
   }
 ]

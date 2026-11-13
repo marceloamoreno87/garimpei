@@ -21,7 +21,7 @@ class Command(BaseCommand):
         parser.add_argument("--evaluation", action="store_true")
         parser.add_argument("--verification", type=Path)
 
-    def handle(self, *args: object, **options: object) -> None:
+    def handle(self, *_args: object, **options: object) -> None:
         config = load_config(require_secrets=False)
         if not options["activate"]:
             active = AssistancePolicy.objects.filter(pk=1, active=True).exists()

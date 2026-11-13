@@ -8,13 +8,14 @@ from uuid import UUID
 
 from garimpei.config.env import load_inference_settings
 from garimpei.domain.assistance.review import POLICY, PROFILES, assistance_prompt, assistance_schema
-from garimpei.domain.valuation.identification_values import IdentityAttribute
+from garimpei.domain.valuation.identification_values import IdentificationResult, IdentityAttribute
 from garimpei.domain.valuation.policy import eligible
+from garimpei.domain.valuation.product_catalog import REQUIRED
 from garimpei.infra.gateway.inference.input_preparer import artifact_signature, read_lock
 from garimpei.infra.persistence.assistance_models import AssistanceOperationsSnapshot
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
 from garimpei.infra.persistence.media_models import MediaEntry
-from garimpei.infra.persistence.monitoring_models import MonitoringInterest
+from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration, MonitoringInterest
 from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.mapper import listing_comparable
 
@@ -29,11 +30,12 @@ def observation_snapshot(
     assert row.latest is not None
     progress = getattr(row, "identity_progress", None)
     identity = identify_row(row, progress)
+    automatic_identity = identify_row(row, None)
     texts = {
         k: str(row.latest.evidence.get(k) or "") for k in ("title", "description", "condition")
     }
     facts: list[dict[str, object]] = []
-    for index, attribute in enumerate(identity.attributes):
+    for index, attribute in enumerate(automatic_identity.attributes):
         fact = _attribute_fact(index, attribute, texts)
         if fact is not None:
             facts.append(fact)
@@ -50,10 +52,20 @@ def observation_snapshot(
         texts=texts,
         facts=facts,
         allowed_values=values,
-        required_fields=list(values),
+        required_fields=list(REQUIRED.get(identity.family or "", tuple(values))),
         conflict=bool(identity.conflicts),
-        identity_state=identity.state,
-        identity=asdict(identity),
+        identity=_identity_context(identity),
+        source_identity=dict(
+            state=automatic_identity.state,
+            product_key=automatic_identity.product_key,
+            missing=list(automatic_identity.missing_attributes),
+        ),
+        observation_evidence_sha256=digest(row.latest.evidence),
+        input_projection="texts-and-catalog-facts-v1",
+        unforwarded_fields=[
+            "null metadata",
+            "duplicate attribute provenance retained by observation",
+        ],
         media=_media_snapshot(row.latest.id),
         media_examined=False,
     )
@@ -112,10 +124,6 @@ def _comparable_facts(
             field=field,
             value=value,
             source="deterministic_policy",
-            target_key=key,
-            candidate_key=identity.product_key,
-            policy="exact-electronics-v2",
-            evidence_fields=list(texts),
         )
         for field, value in fields.items()
     ]
@@ -125,7 +133,9 @@ def _comparable_facts(
         candidate_revision=candidate.ordinal,
         candidate_manual_revision=identity.manual_revision,
         texts=original | texts,
-        candidate_evidence=candidate.evidence,
+        candidate_identity=_identity_context(identity),
+        candidate_evidence_sha256=digest(candidate.evidence),
+        candidate_source_policy="exact-electronics-v2",
         facts=facts,
         allowed_values={k: [v] for k, v in fields.items()},
         required_fields=list(fields),
@@ -218,6 +228,14 @@ def _media_snapshot(identity: UUID) -> list[dict[str, object]]:
 
 
 def _profile_context(snapshot: dict[str, object], purpose: str) -> dict[str, object]:
+    configuration = (
+        MonitoringConfiguration.objects.filter(slot="active").values("id", "revision").first()
+    )
+    snapshot["configuration_revision"] = (
+        dict(id=str(configuration["id"]), revision=configuration["revision"])
+        if configuration
+        else None
+    )
     snapshot["model_artifact"] = artifact_signature(read_lock(load_inference_settings().model_lock))
     if purpose in PROFILES:
         profile = PROFILES[purpose]
@@ -229,3 +247,18 @@ def _profile_context(snapshot: dict[str, object], purpose: str) -> dict[str, obj
             )
         )
     return snapshot
+
+
+def _identity_context(identity: IdentificationResult) -> dict[str, object]:
+    return dict(
+        state=identity.state,
+        family=identity.family,
+        product_key=identity.product_key,
+        manual_revision=identity.manual_revision,
+        manual_values={
+            attribute.name: attribute.value
+            for attribute in identity.attributes
+            if attribute.origin == "manual"
+        },
+        conflicts=[asdict(conflict) for conflict in identity.conflicts],
+    )

@@ -48,13 +48,14 @@ for name in media integrations backups facebook-profile; do mkdir -p "$GARIMPEI_
 export GARIMPEI_RUN_ID="${GARIMPEI_RUN_ID:-$(cat "$instance_dir/run-id" 2>/dev/null || true)}"
 if [ -z "$GARIMPEI_RUN_ID" ]; then GARIMPEI_RUN_ID="$(cat /proc/sys/kernel/random/uuid)"; printf '%s' "$GARIMPEI_RUN_ID" > "$instance_dir/run-id"; fi
 compose() { docker compose --env-file "$GARIMPEI_ENV_FILE" -p "garimpei-$GARIMPEI_ENVIRONMENT_ID" -f "$PROJECT_DIR/compose.yaml" "$@"; }
-verify() {
- for resource in $(compose --profile "*" ps --all --quiet); do
-  [ "$(docker inspect -f '{{index .Config.Labels "com.garimpei.checkout"}}' "$resource")" = "$PROJECT_DIR" ] && [ "$(docker inspect -f '{{index .Config.Labels "com.garimpei.environment"}}' "$resource")" = "$GARIMPEI_ENVIRONMENT_ID" ] || { echo 'Container ownership mismatch; operation refused' >&2; exit 1; }
- done
-}
+# Canonical source file contains only read-only ownership checks.
+source "$PROJECT_DIR/scripts/docker-ownership.sh"
+verify() { verify_docker_ownership; }
+
 exec 9>"$instance_dir/docker-operation.lock"
 flock -n 9 || { echo 'Another lifecycle operation owns this environment' >&2; exit 1; }
+# All mutating operations, including AI/tools dispatch, share this preflight.
+if [ "$operation" != resolve ]; then verify; fi
 case "$operation" in
  quality-detached)
   compose --profile tools run -d --no-deps --name "garimpei-$GARIMPEI_ENVIRONMENT_ID-quality-journey" quality sleep infinity ;;

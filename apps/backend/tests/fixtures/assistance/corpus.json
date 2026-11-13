@@ -2,8 +2,1779 @@
   "schema_version": 1,
   "status": "awaiting_independent_human_review",
   "human_reviewer": null,
-  "rights": "Only authorized F15 source material may be added after review.",
-  "baseline": "F21/F18/F15 integrated before F23",
-  "cases": [],
-  "limitations": ["No independent human labels have been supplied; this file is not a quality proof."]
+  "baseline_revision": "15079aa7149b0a699891ddb10d8ccf5d06633608",
+  "source_manifest": {
+    "f18_text_cases": 16,
+    "f15_real_cases": 2,
+    "f15_control_cases": 21
+  },
+  "cases": [
+    {
+      "case_id": "F23-F18-REAL-0ede27f553",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-0ede27f553",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Apple Watch séries 11 -46mm",
+          "description": "Apple Watch series 11 preto\nEm perfeito estado \nBateria 100%\nPoucos meses de uso e com garantia \nAcompanha caixa\n[telefone omitido] WhatsApp"
+        },
+        "input_revision": 3,
+        "observed_at": "2026-11-12T19:29:38.715937+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1009360558879927/",
+        "interest": {
+          "kind": "category",
+          "key": "479353692612078",
+          "label": "Electronics"
+        }
+      },
+      "input_sha256": "e5765f5acb9ff1e2df972969bdaaae9ac56c9ce36afbe861f9a59a5477516772",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-8b9dddad8f",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-8b9dddad8f",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Adaptador de Wi-Fi e Bluetooth",
+          "description": ""
+        },
+        "input_revision": 3,
+        "observed_at": "2026-11-12T19:28:55.430035+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1009235535556224/",
+        "interest": {
+          "kind": "category",
+          "key": "479353692612078",
+          "label": "Electronics"
+        }
+      },
+      "input_sha256": "70b1e736fb1f786b61d0aa3e10cb0bb378b31197aa893bc53000d71a42f9803e",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-2e0b05593b",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-2e0b05593b",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "NVIDIA GeForce RTX 4060 8GB Gainward Dual Fan Seminova (Na Caixa + NF)",
+          "description": "Vendo Placa de Vídeo Gainward NVIDIA GeForce RTX 4060 Python II 8GB GDDR6 (Dual Fan) em estado de zero, funcionando 100%!\n\nPlaca excelente, super fria e silenciosa (conta com tecnologia Zero RPM, onde as ventoinhas só giram quando você abre um jogo ou programa pesado). Roda tudo da atualidade com folga e conta com suporte ao DLSS 3 (Frame Generation), Ray Tracing de 3ª geração e NVIDIA Encoder (NVENC), perfeita tanto para jogos quanto para lives e edição.\n\nDestaques e Procedência (Leia com atenç"
+        },
+        "input_revision": 3,
+        "observed_at": "2026-11-12T18:57:20.772543+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1034940612974942/",
+        "interest": {
+          "kind": "category",
+          "key": "479353692612078",
+          "label": "Electronics"
+        }
+      },
+      "input_sha256": "393f851a2d4c54d9c6bcdcbbb126eb0a5d085c21e366f9d92cff3bd5d41e6940",
+      "baseline_proposal": {
+        "identity": "nvidia:rtx:4060:8gb",
+        "state": "identified"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "identified",
+          "proposed_identity": "nvidia:rtx:4060:8gb",
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-60e4fd39d0",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-60e4fd39d0",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Fone de Ouvido JBL Tune 520BT Bluetooth Original – Preto",
+          "description": "🎧 Fone de Ouvido JBL Tune 520BT – Preto\n\nEstou vendendo meu fone JBL Tune 520BT!\n\n✔️ Conexão Bluetooth 5.3\n✔️ Som JBL Pure Bass\n✔️ Bateria de longa duração (até 57 horas, conforme fabricante)\n✔️ Microfone integrado\n✔️ Design dobrável e confortável\n✔️ Carregamento USB-C\n\nProduto usado, com fotos reais.\n\nÓtima opção para quem procura qualidade de som JBL!\n\n📩 Interessados, podem chamar pelo Messenger para mais informações."
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T18:49:56.687782+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1111786791483113/",
+        "interest": {
+          "kind": "category",
+          "key": "479353692612078",
+          "label": "Electronics"
+        }
+      },
+      "input_sha256": "da07477063eafb07a4692b9c2690dba56313bc0ecc89c1dcefb7094c5eadb5a6",
+      "baseline_proposal": {
+        "identity": "jbl:headphone:tune520bt",
+        "state": "identified"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "identified",
+          "proposed_identity": "jbl:headphone:tune520bt",
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-af83f83891",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-af83f83891",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Canon EF 300mm F2.8 L até 18x",
+          "description": "Lente funcionando perfeitamente, tem marcas de uso.\nAcompanha case original canon.\nNão envio por plataforma, para envio, somente com intermediador após pagamento integral da lente.\nAté 18x com taxa da maquininha (18x 990)"
+        },
+        "input_revision": 7,
+        "observed_at": "2026-11-12T19:29:45.494166+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1063425143424005/",
+        "interest": {
+          "kind": "category",
+          "key": "cameras",
+          "label": "Cameras"
+        }
+      },
+      "input_sha256": "4abca8cd435c5fb4c3a73ee4617e4995bdc7b0f9a42d9e8d5262b21c531f2511",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-73476a373f",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-73476a373f",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Câmera Canon t5i semi nova",
+          "description": "Somente o corpo ou venda em conjunto \nCanon t5i R$1550\nLente Tamron 70-300 f.4 (com erro 10) R$560\nValor total=R$2110\nOu venda separadas\nA Câmera está com 19.400 clicks"
+        },
+        "input_revision": 3,
+        "observed_at": "2026-11-12T19:29:02.254945+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1052962924470321/",
+        "interest": {
+          "kind": "category",
+          "key": "cameras",
+          "label": "Cameras"
+        }
+      },
+      "input_sha256": "caf4d4a0dea01eac19df6443d95ced1ff109ec363e73c3470bed1e021e11d56f",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-968652808e",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-968652808e",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Setup completo full white + monitor 200hz",
+          "description": "Config\n\nRyzen 5 4500\nRx 6600 8gb / equivalente a uma 3060\n16gb de ram xpg 3200mhz\nSsd 500gb + 500gb\nWater cooler \nCabos rgb \nFonte 700w\n\nTeclado\nMouse atack shark r1\nHeadset l80 pro sem fio\n\n\n\nMonitor 30p polegadas branco 200hz na caixa\nMonitor 24p branco 165hz na caixa"
+        },
+        "input_revision": 6,
+        "observed_at": "2026-11-12T19:29:52.157690+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1104690005948755/",
+        "interest": {
+          "kind": "category",
+          "key": "computers",
+          "label": "Computers"
+        }
+      },
+      "input_sha256": "364ec0df5d2f79319883ca8adc97f4173341be08d87a1e44161163d3673223a4",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-2955ed2263",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-2955ed2263",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "PC GAMER",
+          "description": "🖥️ ESPECIFICAÇÕES DO PC GAMER\n\n* Processador: AMD Ryzen 5 3500 – 6 núcleos\n* Placa de vídeo: NVIDIA GeForce RTX 2060 – 6 GB\n* Memória RAM: 24 GB\n* Sistema operacional: Windows 11 Pro 64 bits"
+        },
+        "input_revision": 2,
+        "observed_at": "2026-11-12T19:29:09.219662+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1096055793481177/",
+        "interest": {
+          "kind": "category",
+          "key": "computers",
+          "label": "Computers"
+        }
+      },
+      "input_sha256": "8965db6673776c6617ff911cfb849b3a85f2e26120681314767bd1753ec63e27",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-f917c4d12a",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-f917c4d12a",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Suporte fone 3D  o que quiser",
+          "description": ""
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T19:29:57.846383+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1109891448331465/",
+        "interest": {
+          "kind": "category",
+          "key": "headphones",
+          "label": "Fones de ouvido"
+        }
+      },
+      "input_sha256": "14b6c23c176950c2bc88ca57e3dc4782a826474f3cab88d4b4ae8fc2c3caa9cf",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-d88421241e",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-d88421241e",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Fone JBL Tune 520BT Bluetooth",
+          "description": "Novo fone JBL Tune 520BT cor azul com Bluetooth e bateria de 57h. Tem som Pure Bass e microfone para chamadas sem fio. Vem com caixa original.\n\nPreto 249.00\nBranco 299.00\n\nFernando Taborda \nApucarana PR \n[telefone omitido]"
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T19:28:35.575316+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1101600332684726/",
+        "interest": {
+          "kind": "category",
+          "key": "headphones",
+          "label": "Fones de ouvido"
+        }
+      },
+      "input_sha256": "9e6ddee35e675af3ad0d2e0e75e4f97d45ff2cba7d00c9909e507ca6c9c114aa",
+      "baseline_proposal": {
+        "identity": "jbl:headphone:tune520bt",
+        "state": "identified"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "identified",
+          "proposed_identity": "jbl:headphone:tune520bt",
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-19ee50969a",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-19ee50969a",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "SAMSUNG GALAXY EARBUDS 2 PRO",
+          "description": "VENDO EARBUDS SAMSUNG ORIGINAL \nALGUMAS MARCAS DE USO .. MAS FUNCIONANDO PERFEITAMENTE"
+        },
+        "input_revision": 5,
+        "observed_at": "2026-11-12T19:27:54.542570+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1101544029374862/",
+        "interest": {
+          "kind": "category",
+          "key": "headphones",
+          "label": "Fones de ouvido"
+        }
+      },
+      "input_sha256": "03a4066ec231d45e8b712299befeae6bb2777a868351cdb516b5b75915e82a0d",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-820d006b2d",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-820d006b2d",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Fone de Ouvido JBL Tune 520BT Bluetooth Original – Preto",
+          "description": "🎧 Fone de Ouvido JBL Tune 520BT – Preto\n\nEstou vendendo meu fone JBL Tune 520BT!\n\n✔️ Conexão Bluetooth 5.3\n✔️ Som JBL Pure Bass\n✔️ Bateria de longa duração (até 57 horas, conforme fabricante)\n✔️ Microfone integrado\n✔️ Design dobrável e confortável\n✔️ Carregamento USB-C\n\nProduto usado, com fotos reais.\n\nÓtima opção para quem procura qualidade de som JBL!\n\n📩 Interessados, podem chamar pelo Messenger para mais informações."
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T18:49:56.687782+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1111786791483113/",
+        "interest": {
+          "kind": "category",
+          "key": "headphones",
+          "label": "Fones de ouvido"
+        }
+      },
+      "input_sha256": "83cd79766d2e99cd9ec34dd6b721d6ad00cc3b4b005dee1c095620ccbb92ccec",
+      "baseline_proposal": {
+        "identity": "jbl:headphone:tune520bt",
+        "state": "identified"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "identified",
+          "proposed_identity": "jbl:headphone:tune520bt",
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-cc0121e156",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-cc0121e156",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "TV Samsung 43 polegadas smart nova funcionando perfeitamente tem garantia de 90 dias",
+          "description": "Whatsapp [telefone omitido]"
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T19:30:04.741918+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1127474296813080/",
+        "interest": {
+          "kind": "category",
+          "key": "tvs",
+          "label": "TVs"
+        }
+      },
+      "input_sha256": "e4f77580a1cad3d97daa8f7cd5d9fe234a30288d137a6eff013df3a0182506cf",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-029ef51925",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-029ef51925",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Venda ou troca",
+          "description": "Vendou ou troco essa tv 43 polegadas ela vai com o aparelho que vira smart fire stick HD  tem todos os aplicativo mais informações meu zap [telefone omitido] sou da zona norte"
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T19:29:25.588075+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1124308817181724/",
+        "interest": {
+          "kind": "category",
+          "key": "tvs",
+          "label": "TVs"
+        }
+      },
+      "input_sha256": "a23b575389cfd89f1afaa26d82248110ed033e9365b568c5325d6ca0b457c316",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-3983dc57d8",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-3983dc57d8",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Animal Crossing Nintendo switch",
+          "description": "Vendo, estado de novo."
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T19:29:32.164189+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1120829174091011/",
+        "interest": {
+          "kind": "category",
+          "key": "video-games",
+          "label": "Videogames e consoles"
+        }
+      },
+      "input_sha256": "45ec694f81cd22b34553785e936946b1846d3a0d423f27b16051a82ec7884310",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F18-REAL-64b3984274",
+      "kind": "prior_authorized_minimized_text",
+      "source_artifact": "docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence/interest-corpus.json",
+      "source_artifact_sha256": "df30a748b1e7b63192208267ad37e601bb9dfa620b84f2974c5d99c33376c176",
+      "source_case_id": "REAL-64b3984274",
+      "purposes": [
+        "identity",
+        "comparables",
+        "investigation"
+      ],
+      "input": {
+        "text": {
+          "title": "Jogos de Nintendo Switch \nLacrado!!!",
+          "description": "Pokémon Legends: Z-A \nJogo Nintendo Switch \nNovo lacrado\nVersão Asiática\nR$ 220\n\nLooney Tunes Sports \nNovo lacrado\nR$ 180\n\n*Entrego APENAS na estação Santana do metrô*\n\n*Não dou desconto, já está no valor mínimo*"
+        },
+        "input_revision": 4,
+        "observed_at": "2026-11-12T19:28:48.266861+00:00",
+        "source_url": "https://www.facebook.com/marketplace/item/1120198957597929/",
+        "interest": {
+          "kind": "category",
+          "key": "video-games",
+          "label": "Videogames e consoles"
+        }
+      },
+      "input_sha256": "1000dd1c718d715d56a5e230928c005ab719666048594843231d5f440bd1337e",
+      "baseline_proposal": {
+        "identity": null,
+        "state": "needs_identity_review"
+      },
+      "prior_review": {
+        "annotation": {
+          "decision": "confirmed_proposal",
+          "proposed_state": "needs_identity_review",
+          "proposed_identity": null,
+          "source": "conversation async user confirmation",
+          "reviewed_snapshot_hash": "6a696e2975599a3b75a9d1a0cf229d66c57fc68dd0a6068649521dac5feb1d7d",
+          "recorded_at": "2026-11-12T19:47:06.263994+00:00",
+          "scope": "textual identity proposal or explicit evidence/support gap only"
+        },
+        "scope": "16 propostas textuais: 4 reconhecimentos RTX4060 8GB/JBL Tune520BT e lacunas dos outros12; não valida fotos, condição física, suporte universal nem conclusão da feature.",
+        "does_not_validate_f23": true
+      },
+      "rights": "Already versioned minimized F18 snapshot; preserve original scope and recheck expanded-use rights.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Historical confirmation concerns identity/support gaps only; no F23 condition or equivalence labels."
+      ]
+    },
+    {
+      "case_id": "F23-F15-source-1633686958401669",
+      "kind": "prior_authorized_real_photos_unreviewed_for_f23",
+      "source_artifact": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/human-review-manifest.json",
+      "source_artifact_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+      "source_case_id": "source-1633686958401669",
+      "purposes": [
+        "identity",
+        "condition"
+      ],
+      "input": {
+        "text": {
+          "title": "Hot wheels T hunt supra tooned",
+          "description": null,
+          "condition": null
+        },
+        "observation_id": "5675cb5c-6fef-4fa0-afd1-36dd3e9d87c9",
+        "listing_id": "de4ab8ae-c392-46e3-ad33-6c775412b561",
+        "photos": [
+          {
+            "photo_id": "photo-1",
+            "sha256": "5e1a8f3b1a76f96e8de83aff359aed267aacac6dcaf814de208509c3abe3612e",
+            "path": "source-1633686958401669/5e1a8f3b1a76f96e8de83aff359aed267aacac6dcaf814de208509c3abe3612e.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-2",
+            "sha256": "53df130b1cd2ef01d5ed488db2c16cc2ce4a73a6c3ca709b9179ff43732dbd5d",
+            "path": "source-1633686958401669/53df130b1cd2ef01d5ed488db2c16cc2ce4a73a6c3ca709b9179ff43732dbd5d.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-3",
+            "sha256": "1be547ab62dc59bca874020cd13588ac9e4e732c1ac7d07462da12fe4d75a584",
+            "path": "source-1633686958401669/1be547ab62dc59bca874020cd13588ac9e4e732c1ac7d07462da12fe4d75a584.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-4",
+            "sha256": "7918a6bcd3d11260a164861ec1385ff7faed7aa4234a76fd0a26d93aa541cf9c",
+            "path": "source-1633686958401669/7918a6bcd3d11260a164861ec1385ff7faed7aa4234a76fd0a26d93aa541cf9c.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-5",
+            "sha256": "b48b8914a5dfcf740823c589d0707a649332fbad5a45122b3183f83dd46d955a",
+            "path": "source-1633686958401669/b48b8914a5dfcf740823c589d0707a649332fbad5a45122b3183f83dd46d955a.jpg",
+            "width": 540,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          }
+        ]
+      },
+      "input_sha256": "107bcf78bc4ade8775b2e48b957106f9a8320bd61ce040fd29ee10d5aa73832c",
+      "rights": "Leitura local autorizada; cópias F14 desta conversa, sem nova fonte.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Snapshot autorizado F14 conserva apenas título. Descrição/condição original não foram capturadas; preencher somente com fonte autorizada e declarar lacuna.",
+        "Photos are referenced by original hashes; no private files were copied or access broadened.",
+        "Prior AI-assisted F15 labels are not independent human labels."
+      ]
+    },
+    {
+      "case_id": "F23-F15-source-1502910511735697",
+      "kind": "prior_authorized_real_photos_unreviewed_for_f23",
+      "source_artifact": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/human-review-manifest.json",
+      "source_artifact_sha256": "26c3ee5e9d34a51b8d3827e9700134e7e45d6cea3dbf2f86a0c81f3f05c3a59b",
+      "source_case_id": "source-1502910511735697",
+      "purposes": [
+        "identity",
+        "condition"
+      ],
+      "input": {
+        "text": {
+          "title": "Ps5 com 2 controles 1 Tera",
+          "description": null,
+          "condition": null
+        },
+        "observation_id": "3018fc4c-0a22-4e75-810c-f052a3e428c3",
+        "listing_id": "2a56fb2f-c936-40df-a491-41eb0b5bdedb",
+        "photos": [
+          {
+            "photo_id": "photo-1",
+            "sha256": "d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b",
+            "path": "source-1502910511735697/d3042f5bf26c263acb25b8ccf191145135a3e8374f5f9415d281af2ad500248b.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-2",
+            "sha256": "c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7",
+            "path": "source-1502910511735697/c95cd270b84fae4cd52837959475eb0762df26016f02bc504501d2448c645fb7.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-3",
+            "sha256": "e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5",
+            "path": "source-1502910511735697/e078ca1c8727429e9e7ab4437ccaf8884d38ce0d4ea42b34407d4fe54ed7d4c5.jpg",
+            "width": 720,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          },
+          {
+            "photo_id": "photo-4",
+            "sha256": "ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1",
+            "path": "source-1502910511735697/ffc3ce5d68d0fb2d16ad4bbdb3d30b27e2ccfcc6e6a45833aa7bb5679bf4e2e1.jpg",
+            "width": 756,
+            "height": 960,
+            "availability": "requires_local_authorized_copy"
+          }
+        ]
+      },
+      "input_sha256": "c62cfaa00e3bb2a3d34ac1257525ece12fcec8a3cd94c1cdfcee4970d6ff5ed8",
+      "rights": "Leitura local autorizada; cópias F14 desta conversa, sem nova fonte.",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Snapshot autorizado F14 conserva apenas título. Descrição/condição original não foram capturadas; preencher somente com fonte autorizada e declarar lacuna.",
+        "Photos are referenced by original hashes; no private files were copied or access broadened.",
+        "Prior AI-assisted F15 labels are not independent human labels."
+      ]
+    },
+    {
+      "case_id": "F23-control-electronics-light_wear",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "electronics-light_wear",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Eletrônico portátil",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "electronics-light_wear",
+            "sha256": "5a931230ae08903ba760b668c96baf2dacad519f403a34fc295b2162635bec45",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/electronics-light_wear.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "electronics"
+      },
+      "input_sha256": "a2323b1eaaf43180b8af97f9b48185dcda902473318c0e35ffeb32dc788c90da",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "light_wear",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-electronics-clear_defect",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "electronics-clear_defect",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Eletrônico portátil",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "electronics-clear_defect",
+            "sha256": "c62895bdadc9fa829d0b1fe98ec1676b50abc625e5f8284e47acad9db04b656d",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/electronics-clear_defect.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "electronics"
+      },
+      "input_sha256": "a7a87298e00c5b5e780c6bfe4ea633ee30306d6ca5f0e6eddc81980d0fd9f49e",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "clear_defect",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-electronics-suspected",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "electronics-suspected",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Eletrônico portátil",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "electronics-suspected",
+            "sha256": "ccd2b9ead90522521285f1cd5675bd0bc86199db4b42271518ca72fddb4176cf",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/electronics-suspected.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "electronics"
+      },
+      "input_sha256": "d14d854d6c32b49d4dbd3140433b5b590d25560fdcf7f8b0a7691a44d7bb8d86",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "suspected",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-camera-light_wear",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "camera-light_wear",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Câmera Canon T5i",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "camera-light_wear",
+            "sha256": "09080ca91d3558830dcd06172ee358685005664d8caec4306c446247a89ee325",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/camera-light_wear.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "camera"
+      },
+      "input_sha256": "2fa80a7967762bd71071af8a2cdc0c5489129fa826261949cfa411cdad7a05f0",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "light_wear",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-camera-clear_defect",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "camera-clear_defect",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Câmera Canon T5i",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "camera-clear_defect",
+            "sha256": "73e25e55049d860e1fc338d81a3c3aeeef1c15a88eed0cf6294eaa68139cd097",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/camera-clear_defect.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "camera"
+      },
+      "input_sha256": "a26ddd87014b4b6be03faabe48df92dcead906492be5638539dd42a1ae7449b5",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "clear_defect",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-camera-suspected",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "camera-suspected",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Câmera Canon T5i",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "camera-suspected",
+            "sha256": "1eb6c47cfdba18b327cd18466aa0ed876d22ee6428f117a6c5872a0189eea7b2",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/camera-suspected.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "camera"
+      },
+      "input_sha256": "90201c53aff929db1add5bb0fae4084d23fa83f68a75b25083e7a4692948fd1a",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "suspected",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-computer-light_wear",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "computer-light_wear",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Notebook Dell",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "computer-light_wear",
+            "sha256": "01a103eb0741cb5a807ec4f37e65fc32b5f203248b51aae44a46e4eca4c3180c",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/computer-light_wear.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "computer"
+      },
+      "input_sha256": "35e1547b280dc5e326544c294c77a5a87aa1936395c8efd1db54fd8d6448a7ad",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "light_wear",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-computer-clear_defect",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "computer-clear_defect",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Notebook Dell",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "computer-clear_defect",
+            "sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/computer-clear_defect.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "computer"
+      },
+      "input_sha256": "605a4070f60f20d6abb2aca9ec36c5e18de996fe30b00a3298483d912795ee4e",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "clear_defect",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-computer-suspected",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "computer-suspected",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Notebook Dell",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "computer-suspected",
+            "sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/computer-suspected.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "computer"
+      },
+      "input_sha256": "9a6eb3e8b93bc9f363b3b3b1b251c0e1d9e2afb9154a808c0ee19167ebc13f18",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "suspected",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-console-light_wear",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "console-light_wear",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "PlayStation 5 Slim disco 1TB",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "console-light_wear",
+            "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/console-light_wear.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "console"
+      },
+      "input_sha256": "6710fd8c6b67ea4b42eccf69b716b9a24cb6d62f059e1857a0013a8add34069f",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "light_wear",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-console-clear_defect",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "console-clear_defect",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "PlayStation 5 Slim disco 1TB",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "console-clear_defect",
+            "sha256": "ea8993f98f4b909e88721d8ad6eefb00cd6eaa440485f77700fb2d11dfc3dc93",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/console-clear_defect.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "console"
+      },
+      "input_sha256": "f2f21218c12c5c387ac4058236eae574d0af6c1a8d33231a50ea904f0d1fef05",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "clear_defect",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-console-suspected",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "console-suspected",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "PlayStation 5 Slim disco 1TB",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "console-suspected",
+            "sha256": "6de8187dd31dd6261b0fafd3d6f130fceadf0d1dedca15bd715529af8170dee0",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/console-suspected.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "console"
+      },
+      "input_sha256": "afdea69b61ab8d96edea0af30e5642ae48f40c3faf9296e7752875bf21c23982",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "suspected",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-headphone-light_wear",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "headphone-light_wear",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Fone JBL Tune 520BT",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "headphone-light_wear",
+            "sha256": "b67057767104f50745a1e135bb2d6e1869c3df72fc7b05dbb774af54c09889da",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/headphone-light_wear.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "headphone"
+      },
+      "input_sha256": "1cef441d4fe4349c4300154dff4b1c08a72bbfcb1134a392b84c133b8ce7f9f7",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "light_wear",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-headphone-clear_defect",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "headphone-clear_defect",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Fone JBL Tune 520BT",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "headphone-clear_defect",
+            "sha256": "0e8766eac57bcad715e168db1ced0895c14fe865fb24064aff971ee81f39ef30",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/headphone-clear_defect.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "headphone"
+      },
+      "input_sha256": "3142711085deedf762aa08db34b546a5a57010eaeda8037eebd66814dd8600eb",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "clear_defect",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-headphone-suspected",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "headphone-suspected",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Fone JBL Tune 520BT",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "headphone-suspected",
+            "sha256": "9c577f34eafc12c445b7d4b3cef1e79dea67308b8905ac0cbf9adc9da93205df",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/headphone-suspected.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "headphone"
+      },
+      "input_sha256": "4cd95083cab3399b05783f33771fcdd00773b48ecee5d98aa62cb29cf44ccdca",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "suspected",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-television-light_wear",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "television-light_wear",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "TV Samsung 55 polegadas",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "television-light_wear",
+            "sha256": "01a103eb0741cb5a807ec4f37e65fc32b5f203248b51aae44a46e4eca4c3180c",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/television-light_wear.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "television"
+      },
+      "input_sha256": "54fe7d49052163b67777887f2733f2b563a8680b6237546c58b4cc351800843c",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "light_wear",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-television-clear_defect",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "television-clear_defect",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "TV Samsung 55 polegadas",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "television-clear_defect",
+            "sha256": "8a7685d9d73aedd3d8d4a296c29dcb03ed3577ced506ab453961c511f2d80dda",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/television-clear_defect.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "television"
+      },
+      "input_sha256": "62178ecf43860aa9cc036d9b6b26c628ba41695207e6a7596b3d317db6644dd3",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "clear_defect",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-television-suspected",
+      "kind": "synthetic_control",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "television-suspected",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "TV Samsung 55 polegadas",
+          "description": "O aparelho funciona perfeitamente.",
+          "condition": "Usado"
+        },
+        "photos": [
+          {
+            "id": "television-suspected",
+            "sha256": "4b54be735909104b28101e89c78b08dd7e8ea84c675ec8ea038a4e5d232defc5",
+            "path": "apps/backend/tests/fixtures/listing/assessment_images/television-suspected.png",
+            "width": 640,
+            "height": 480,
+            "provenance": "Project-created deterministic synthetic illustration",
+            "authorization": "Project-created control",
+            "content_verified": true
+          }
+        ],
+        "category": "television"
+      },
+      "input_sha256": "07363e543bc41c4a68f393782648305dcaea41658fdca8c9578a80664fec5573",
+      "rights": "Project-created synthetic control; real photos are separate",
+      "engineering_scenario": "suspected",
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-intermittent",
+      "kind": "text_regression",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "intermittent",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "PlayStation 5 Slim disco 1TB",
+          "description": "Funciona perfeitamente, mas desliga sozinho depois de dez minutos",
+          "condition": null
+        },
+        "photos": [],
+        "category": "console"
+      },
+      "input_sha256": "0be545dbff9c53c2aaedd761166c9f124f8200e9ba5305058a9d0b8c8da740f1",
+      "rights": "User-provided regression text",
+      "engineering_scenario": null,
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-battery",
+      "kind": "text_regression",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "battery",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Notebook portátil com bateria",
+          "description": "Funciona perfeitamente, mas só funciona conectado na tomada",
+          "condition": null
+        },
+        "photos": [],
+        "category": "computer"
+      },
+      "input_sha256": "b452898fe20535af1e18f51c8536952defe6291b9b5c1bb10c6b09ad634702ef",
+      "rights": "User-provided regression text",
+      "engineering_scenario": null,
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    },
+    {
+      "case_id": "F23-control-untested",
+      "kind": "text_regression",
+      "source_artifact": "apps/backend/tests/fixtures/listing/assessment_cases.json",
+      "source_artifact_sha256": "314f84c85d1adfffaf3d98b40868982a497d7ddab6cd5998ebb4869038aa4690",
+      "source_case_id": "untested",
+      "purposes": [
+        "identity",
+        "condition",
+        "comparables"
+      ],
+      "input": {
+        "text": {
+          "title": "Câmera Canon T5i",
+          "description": "Não foi testado. Funciona perfeitamente.",
+          "condition": null
+        },
+        "photos": [],
+        "category": "camera"
+      },
+      "input_sha256": "065001971681eee033c1b322b69999b45e0787c27ea54db615d4fa4da1d5ecd9",
+      "rights": "User-provided regression text",
+      "engineering_scenario": null,
+      "f23_independent_human_label": null,
+      "human_review_status": "pending",
+      "limitations": [
+        "Synthetic illustration; not a real product cohort or independent human ground truth.",
+        "F15 split provenance is retained only as history; no new unseen holdout is claimed."
+      ]
+    }
+  ],
+  "limitations": [
+    "Inputs/proposals are materialized; independent human labels for F23 remain absent.",
+    "No model response or AI-assisted historical label is promoted to independent human truth.",
+    "Coverage and criticality must be independently reviewed before quality adoption."
+  ]
 }

@@ -30,10 +30,10 @@ from garimpei.infra.persistence.research_models import (
     InvestigationTarget,
     ResearchQuery,
 )
+from garimpei.infra.repository.assistance.research import apply_investigation_support
 from garimpei.infra.repository.listing.mapper import encode_candidate
 from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
 from garimpei.infra.repository.robot.postgres_repository import robot_enabled
-from garimpei.infra.repository.assistance.research import apply_investigation_support
 from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.postgres_repository import _listing
 from garimpei.infra.repository.valuation.research_mapper import (

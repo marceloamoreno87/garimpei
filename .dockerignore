@@ -18,4 +18,6 @@
 **/backups
 **/dist
 **/node_modules
-.playwright
+.playwright/*
+!.playwright/cli.config.json
+.playwright-cli

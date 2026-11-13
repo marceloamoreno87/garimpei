@@ -2,8 +2,8 @@ from django.conf import settings
 from django.urls import path
 from django.views.static import serve
 
-from garimpei.infra.http.health_handler import health, ready
 from garimpei.infra.http.assistance.routes import assistance_view
+from garimpei.infra.http.health_handler import health, ready
 from garimpei.infra.http.inference.routes import inference_view
 from garimpei.infra.http.integration.routes import integration_view
 from garimpei.infra.http.listing.routes import condition_view

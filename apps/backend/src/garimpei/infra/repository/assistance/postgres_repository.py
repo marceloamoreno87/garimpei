@@ -5,7 +5,7 @@ from typing import cast
 from uuid import UUID
 
 from django.db import transaction
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.utils.timezone import now
 
 from garimpei.domain.assistance.errors import AssistanceError
@@ -155,7 +155,9 @@ class PostgresAssistanceRepository:
             AnalysisInput(
                 row.observation_id,
                 revision,
-                json.dumps(row.input_snapshot, ensure_ascii=False, sort_keys=True),
+                json.dumps(
+                    row.input_snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+                ),
                 (),
                 PROFILES[row.purpose],
                 PROFILES[row.purpose],
@@ -229,24 +231,20 @@ class PostgresAssistanceRepository:
 
     @staticmethod
     def _candidates(row: Listing) -> list[ListingObservation]:
-        from garimpei.infra.repository.valuation.identity_mapper import current_identification
+        from garimpei.infra.repository.assistance.candidates import select_candidate_observations
 
-        key = current_identification(row).product_key
-        if not key:
-            return []
-        candidates = (
-            Listing.objects.exclude(id=row.id)
+        return select_candidate_observations(row)
+
+    def _automatic(self) -> None:
+        scope = Q(pk__in=[])
+        for interest in MonitoringInterest.objects.filter(configuration__slot="active"):
+            scope |= Q(latest__matches__kind=interest.kind, latest__matches__key=interest.key)
+        rows = (
+            Listing.objects.filter(scope)
             .exclude(latest=None)
             .select_related("latest", "identity_progress__manual__observation")
             .order_by("id")
-        )
-        return [candidate.latest for candidate in candidates if candidate.latest][:10]
-
-    def _automatic(self) -> None:
-        rows = (
-            Listing.objects.exclude(latest=None)
-            .select_related("latest", "identity_progress__manual__observation")
-            .order_by("id")
+            .distinct()
         )
         admitted = 0
         for row in rows:
@@ -293,7 +291,7 @@ class PostgresAssistanceRepository:
     def _interests(self) -> None:
         for interest in MonitoringInterest.objects.filter(
             configuration__slot="active"
-        ).select_related("configuration")[:10]:
+        ).select_related("configuration"):
             if self._interest_safe(interest):
                 break
 

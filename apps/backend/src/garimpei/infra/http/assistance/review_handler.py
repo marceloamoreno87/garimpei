@@ -7,6 +7,7 @@ from django.shortcuts import render
 from garimpei.domain.assistance.errors import AssistanceError
 from garimpei.domain.assistance.ports import AssistanceQueries
 from garimpei.domain.assistance.review import ReviewCommand
+from garimpei.usecase.assistance.read_reviews_usecase import ReadReviewsUseCase
 from garimpei.usecase.assistance.request_review_usecase import RequestReviewUseCase
 
 
@@ -24,8 +25,10 @@ class ExplainForm(forms.Form):
 
 
 class AssistanceHandler:
-    def __init__(self, request: RequestReviewUseCase, queries: AssistanceQueries) -> None:
-        self._request, self._queries = request, queries
+    def __init__(
+        self, request: RequestReviewUseCase, queries: AssistanceQueries, read: ReadReviewsUseCase
+    ) -> None:
+        self._request, self._queries, self._read = request, queries, read
 
     def handle(
         self, request: HttpRequest, identity: UUID | None = None, action: str = "read"
@@ -48,7 +51,7 @@ class AssistanceHandler:
             return render(request, "assistance/coverage.html", self._queries.coverage())
         if identity is None:
             raise AssistanceError("not_found", 404)
-        return render(request, "assistance/listing.html", self._queries.listing(identity))
+        return render(request, "assistance/listing.html", self._read.execute(identity))
 
     def _listing(self, request: HttpRequest, identity: UUID) -> object:
         form = ReviewForm(request.POST)

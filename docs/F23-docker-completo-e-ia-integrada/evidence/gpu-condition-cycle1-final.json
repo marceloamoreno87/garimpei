@@ -1,0 +1,229 @@
+{
+  "recorded_at": "2026-11-13T22:14:14.650986+00:00",
+  "scope": "Real F15/F19 multimodal profile inside F23 Docker with an authorized synthetic fixture, not model quality or human-labelled real listing acceptance.",
+  "photo": {
+    "path": "tests/fixtures/listing/assessment_images/console-light_wear.png",
+    "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+    "rights": "Repository generated synthetic control, labelled SYNTHETIC CONTROL / NOT A REAL LISTING"
+  },
+  "listing_id": "b2cf50b5-1a12-5983-bf92-53ab38c9a17b",
+  "observation_id": "b2cf50b5-1a12-5983-bf92-53ab38c9a17b",
+  "assessment_id": "d1e2a794-52da-48ab-98e8-e0ccaa210275",
+  "condition": "uncertain",
+  "status": "partial",
+  "sufficient": false,
+  "publication_order": 1,
+  "input_fingerprint": "3cb98b9e24ec9e17764874a03e3aff1ac47e690b836859f325c2d13e237b4c89",
+  "result": {
+    "id": "d1e2a794-52da-48ab-98e8-e0ccaa210275",
+    "reason": "identity_conflict",
+    "status": "partial",
+    "runtime": "local_model",
+    "findings": [
+      {
+        "dimension": "appearance",
+        "assessment": "unknown",
+        "references": [
+          {
+            "kind": "image",
+            "field": "",
+            "quote": "",
+            "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+            "photo_id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86"
+          }
+        ],
+        "description": "Imagem \u00e9 um gr\u00e1fico sint\u00e9tico sem detalhes visuais de dispositivo."
+      },
+      {
+        "dimension": "function_claim",
+        "assessment": "declaration",
+        "references": [
+          {
+            "kind": "text",
+            "field": "description",
+            "quote": "Usado. Funcionando perfeitamente. Foto de controle sint\u00e9tico para validar o runtime, n\u00e3o an\u00fancio real.",
+            "sha256": "",
+            "photo_id": ""
+          }
+        ],
+        "description": "Vendedor afirma funcionamento perfeito via texto."
+      },
+      {
+        "dimension": "completeness",
+        "assessment": "unknown",
+        "references": [
+          {
+            "kind": "image",
+            "field": "",
+            "quote": "",
+            "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+            "photo_id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86"
+          }
+        ],
+        "description": "Imagem n\u00e3o mostra componentes internos ou portas."
+      },
+      {
+        "dimension": "identity",
+        "assessment": "unknown",
+        "references": [
+          {
+            "kind": "text",
+            "field": "title",
+            "quote": "PlayStation 5 Slim Digital 825GB",
+            "sha256": "",
+            "photo_id": ""
+          }
+        ],
+        "description": "Sem marcas visuais para confirmar modelo Sony PS5 Slim Digital 825GB."
+      }
+    ],
+    "previous": null,
+    "revision": 1,
+    "condition": "uncertain",
+    "sufficient": false,
+    "analyzed_at": "2026-11-13 22:14:14.628876+00:00",
+    "fingerprint": "3cb98b9e24ec9e17764874a03e3aff1ac47e690b836859f325c2d13e237b4c89",
+    "limitations": [
+      "Imagem sint\u00e9tica n\u00e3o permite verifica\u00e7\u00e3o visual de estado ou danos.",
+      "Afirma\u00e7\u00f5es de funcionamento e originalidade s\u00e3o baseadas apenas em texto, sem suporte visual.",
+      "Aus\u00eancia de fotos reais impede confirma\u00e7\u00e3o da identidade do produto listado."
+    ],
+    "model_revision": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "observation_id": "b2cf50b5-1a12-5983-bf92-53ab38c9a17b",
+    "photo_coverage": [
+      {
+        "key": "f23-synthetic-console",
+        "state": "available",
+        "reason": "partial_photo_coverage",
+        "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+        "examined": false,
+        "photo_id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+        "position": 0,
+        "version_id": "5a5b4082-8c89-4a3d-bcbf-965fbe85afa9"
+      }
+    ],
+    "policy_version": "condition-policy-v1"
+  },
+  "requests": [
+    {
+      "request_id": "3ccec31b-7f34-42bd-a2b9-74bf0a779c4d",
+      "observation_id": "b2cf50b5-1a12-5983-bf92-53ab38c9a17b",
+      "target_kind": "listing_observation",
+      "target_id": null,
+      "target_revision": null,
+      "revision": 1,
+      "state": "succeeded",
+      "model": "qwen3.5:4b-q4_K_M",
+      "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+      "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+      "prompt_version": "condition-evidence-v4",
+      "schema_version": "condition-evidence-v4",
+      "cohort_id": "d1e2a794-52da-48ab-98e8-e0ccaa210275",
+      "cohort_generation": 1,
+      "coverage": [
+        {
+          "id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+          "kind": "image",
+          "sent": true,
+          "reason": "examined",
+          "sha256": "2e3700dfc7252131cf3f39bbcf7e3bbc6cee2553985dca6f49e2ec26b180984d",
+          "examined": true,
+          "provided": true,
+          "revision": 1,
+          "derived_hash": "2e3700dfc7252131cf3f39bbcf7e3bbc6cee2553985dca6f49e2ec26b180984d",
+          "source_sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+          "transformation": "512-v1"
+        }
+      ],
+      "parts": [
+        {
+          "state": "succeeded",
+          "result": {
+            "findings": [
+              {
+                "dimension": "appearance",
+                "assessment": "unknown",
+                "references": [
+                  {
+                    "kind": "image",
+                    "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+                    "photo_id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86"
+                  }
+                ],
+                "description": "Imagem \u00e9 um gr\u00e1fico sint\u00e9tico sem detalhes visuais de dispositivo."
+              },
+              {
+                "dimension": "function_claim",
+                "assessment": "declaration",
+                "references": [
+                  {
+                    "kind": "text",
+                    "field": "description",
+                    "quote": "Usado. Funcionando perfeitamente. Foto de controle sint\u00e9tico para validar o runtime, n\u00e3o an\u00fancio real."
+                  }
+                ],
+                "description": "Vendedor afirma funcionamento perfeito via texto."
+              },
+              {
+                "dimension": "completeness",
+                "assessment": "unknown",
+                "references": [
+                  {
+                    "kind": "image",
+                    "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+                    "photo_id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86"
+                  }
+                ],
+                "description": "Imagem n\u00e3o mostra componentes internos ou portas."
+              },
+              {
+                "dimension": "identity",
+                "assessment": "unknown",
+                "references": [
+                  {
+                    "kind": "text",
+                    "field": "title",
+                    "quote": "PlayStation 5 Slim Digital 825GB"
+                  }
+                ],
+                "description": "Sem marcas visuais para confirmar modelo Sony PS5 Slim Digital 825GB."
+              }
+            ],
+            "conflicts": [],
+            "limitations": [
+              "Imagem sint\u00e9tica n\u00e3o permite verifica\u00e7\u00e3o visual de estado ou danos.",
+              "Afirma\u00e7\u00f5es de funcionamento e originalidade s\u00e3o baseadas apenas em texto, sem suporte visual.",
+              "Aus\u00eancia de fotos reais impede confirma\u00e7\u00e3o da identidade do produto listado."
+            ],
+            "omitted_photos": [
+              {
+                "reason": "Imagem \u00e9 um gr\u00e1fico sint\u00e9tico que n\u00e3o representa o produto real.",
+                "photo_id": "p_f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86"
+              }
+            ],
+            "schema_version": "condition-evidence-v4",
+            "examined_photos": []
+          },
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 338,
+            "gpu_samples": [],
+            "eval_duration": 2653503000,
+            "load_duration": 4574983936,
+            "context_length": 4096,
+            "total_duration": 18229833322,
+            "residency_before": "absent",
+            "wall_duration_ns": 18235850269,
+            "prompt_eval_count": 912,
+            "prompt_eval_duration": 10977589000
+          },
+          "reason": ""
+        }
+      ],
+      "created_at": "2026-11-13T22:13:54.527699+00:00",
+      "completed_at": "2026-11-13T22:14:12.893600+00:00"
+    }
+  ]
+}

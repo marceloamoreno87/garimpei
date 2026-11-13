@@ -29,5 +29,13 @@
     "source": "https://raw.githubusercontent.com/microsoft/playwright/v1.64.1/utils/docker/seccomp_profile.json",
     "sha256": "cc3e61cabda6bbc1e53e54d27ba4d55a9d3be829b6dd1a596f4a7b31b1cc7849"
   },
-  "provenance": "Base digests resolved with docker buildx imagetools inspect; tool versions executed inside built quality image; Python dependencies frozen by apps/backend/uv.lock. Runtime image IDs belong to evaluation evidence because source revisions change the build."
+  "provenance": "Base digests resolved with docker buildx imagetools inspect; tool versions executed inside built quality image; Python dependencies frozen by apps/backend/uv.lock. Runtime image IDs belong to evaluation evidence because source revisions change the build.",
+  "quality_browser": {
+    "cli": "@playwright/cli@0.1.23",
+    "playwright_core": "1.65.0-alpha-2026-10-30",
+    "chromium_revision": "1252",
+    "browser_version": "157.0.8103.15",
+    "source": "Pinned CLI dependency browsers.json; separate from Python Playwright Chromium1254",
+    "verified_executable": "/ms-playwright/chromium-1252/chrome-linux64/chrome"
+  }
 }

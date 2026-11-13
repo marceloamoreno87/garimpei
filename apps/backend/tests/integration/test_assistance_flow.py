@@ -16,7 +16,7 @@ from garimpei.infra.persistence.assistance_models import AssistanceReview, Assis
 from garimpei.infra.persistence.listing_models import ListingObservation
 from garimpei.infra.persistence.operations_models import OperationalUnit
 from garimpei.infra.persistence.identity_models import IdentityProgress
-from garimpei.infra.persistence.management.commands.local_ai import _smoke_observation
+from tests.factories.assistance import seed_observation
 from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
 from garimpei.infra.repository.assistance.postgres_repository import PostgresAssistanceRepository
 from garimpei.infra.repository.assistance.operations import capture_operations_snapshot
@@ -24,13 +24,14 @@ from garimpei.infra.repository.valuation.identity_repository import PostgresIden
 from garimpei.infra.queries.assistance.postgres_queries import PostgresAssistanceQueries
 from garimpei.infra.http.assistance.review_handler import AssistanceHandler
 from garimpei.usecase.assistance.request_review_usecase import RequestReviewUseCase
+from garimpei.usecase.assistance.read_reviews_usecase import ReadReviewsUseCase
 from garimpei.usecase.inference.request_analysis_usecase import RequestAnalysisUseCase
 
 class NamedFinitePreparer:
  def artifact(self): return 'controlled-assistance-artifact'
  def prepare(self, value): return (PreparedPart('text',value.text,profile=value.prompt_version),)
 
-observation_id,_=_smoke_observation('f23-consumer-test','text')
+observation_id,_=seed_observation('f23-consumer-test','text')
 observation=ListingObservation.objects.select_related('listing').get(pk=observation_id)
 observation.evidence=dict(observation.evidence,title='PlayStation 5 Slim Digital 825GB',description='Usado. Funcionando perfeitamente.',condition='Usado — seminovo',source_available=True)
 observation.save(update_fields=['evidence'])
@@ -66,7 +67,7 @@ assert any(c['kind']=='normalization' for c in review.consumed_by)
 identity=IdentityProgress.objects.select_related('current').get(listing_id=observation.listing_id)
 assert identity.current.result['assistance']['review_id']==str(review.id)
 queries=PostgresAssistanceQueries()
-handler=AssistanceHandler(RequestReviewUseCase(repository),queries)
+handler=AssistanceHandler(RequestReviewUseCase(repository),queries,ReadReviewsUseCase(queries))
 client=Client(enforce_csrf_checks=True,HTTP_HOST="localhost")
 with patch('garimpei.infra.http.assistance.routes.build_assistance_handler',return_value=handler):
  before=AssistanceReview.objects.count()
@@ -111,7 +112,7 @@ from garimpei.domain.valuation.policy import estimate
 from garimpei.infra.persistence.assistance_models import AssistancePolicy,AssistanceReview
 from garimpei.infra.persistence.listing_models import ListingObservation
 from garimpei.infra.persistence.identity_models import IdentityProgress
-from garimpei.infra.persistence.management.commands.local_ai import _smoke_observation
+from tests.factories.assistance import seed_observation
 from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
 from garimpei.infra.repository.assistance.postgres_repository import PostgresAssistanceRepository
 from garimpei.infra.repository.assistance.retention import reviewed_candidates
@@ -127,7 +128,7 @@ class NamedFinitePreparer:
 
 rows=[]
 for fixture in ('text','unicode','hostile','image-a','image-b','authorized-photo'):
- identity,_=_smoke_observation('f23-retention',fixture)
+ identity,_=seed_observation('f23-retention',fixture)
  observation=ListingObservation.objects.select_related('listing').get(pk=identity)
  observation.evidence=dict(observation.evidence,title='PlayStation 5 Slim Digital 825GB',description='Usado. Funcionando perfeitamente.',condition='Usado — seminovo',source_available=True)
  observation.price=Decimal('2000');observation.save(update_fields=['evidence','price'])

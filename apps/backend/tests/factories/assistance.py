@@ -58,3 +58,54 @@ class NamedAssistanceRepository:
 
 def serialized_snapshot() -> str:
     return json.dumps(identity_snapshot())
+
+
+def seed_observation(namespace: str, fixture: str) -> tuple[UUID, str]:
+    """Namespace both public identity and UUID so shared PostgreSQL fixtures cannot collide."""
+    from hashlib import sha256
+    from uuid import NAMESPACE_URL, uuid5
+
+    from django.utils.timezone import now
+
+    from garimpei.domain.listing.listing import Evidence
+    from garimpei.infra.persistence.listing_models import (
+        CollectionCycle,
+        CollectionState,
+        Listing,
+        ListingObservation,
+    )
+    from garimpei.infra.repository.listing.mapper import encode_evidence
+
+    identity = uuid5(NAMESPACE_URL, "f23-assistance:" + namespace + ":" + fixture)
+    external = sha256((namespace + ":" + fixture).encode()).hexdigest()[:24]
+    listing, _ = Listing.objects.get_or_create(
+        source="assistance-fixture",
+        external_id=external,
+        defaults=dict(
+            id=identity,
+            canonical_url="https://example.invalid/assistance/" + external,
+            first_seen_at=now(),
+            origin="synthetic",
+        ),
+    )
+    state, _ = CollectionState.objects.get_or_create(
+        configuration_id=identity, source="assistance-fixture"
+    )
+    cycle, _ = CollectionCycle.objects.get_or_create(
+        id=identity, defaults=dict(state=state, scope_key="assistance-fixture", revision=1)
+    )
+    text = "Synthetic assistance observation " + fixture
+    observation, _ = ListingObservation.objects.get_or_create(
+        id=identity,
+        defaults=dict(
+            listing=listing,
+            cycle=cycle,
+            ordinal=1,
+            observed_at=now(),
+            evidence=encode_evidence(Evidence(title=text, description=text)),
+            coverage={},
+        ),
+    )
+    listing.latest = observation
+    listing.save(update_fields=["latest"])
+    return observation.id, text

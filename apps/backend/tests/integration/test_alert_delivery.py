@@ -220,7 +220,7 @@ def _run_post_boundary(tmp_path: Path, kill_worker: bool, channel_mode: str) -> 
     from garimpei.infra.runtime.processes import verify_process
     from tests.factories.alert_scenario import wait_alerts
     from tests.factories.valuation import listing
-    from tests.integration.test_collection import command
+    from tests.integration.test_collection import command, wait_for
 
     with alert_scenario(tmp_path) as (instance, source, clock, channel):
         with InstanceMeasurements(
@@ -266,6 +266,22 @@ def _run_post_boundary(tmp_path: Path, kill_worker: bool, channel_mode: str) -> 
             )
             assert sql(instance, "SELECT count(*) FROM runtime_alertattempt") == [(1,)]
             assert len([call for call in channel.calls if call[0] == "POST"]) == 1
+            # The next input belongs to a new source snapshot, not an already
+            # admitted collection whose window predates the input after restart.
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT c.finished_at IS NOT NULL AND s.next_attempt_at > '"
+                        + clock.value.isoformat()
+                        + "'::timestamptz FROM runtime_collectionstate s "
+                        "JOIN runtime_collectioncycle c ON c.id=s.current_id",
+                    )
+                    == [(True,)]
+                ),
+                "collection checkpoint before the next source input",
+                seconds=35,
+            )
             # A technical send job may remain doing; a later business tick still progresses.
             channel.mode, channel.hold_post = "confirmed", False
             clock.advance(1)
