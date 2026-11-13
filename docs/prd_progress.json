@@ -243,11 +243,11 @@
         "F19"
       ],
       "status": "implemented",
-      "cycles": 4,
-      "failure_reason": "Referência assistida por IA autorizada, sem equivalência automática à revisão humana independente; corpus reservado real e consolidação ainda pendentes.",
+      "cycles": 5,
+      "failure_reason": "Transporte frio corrigido com espera limitada e prova de zero chamadas no preflight;47unit,1integração e6gates PASS. Reensaio físico do corpus de referênciaIA ainda pendente.",
       "report_path": "docs/F15-avaliacao-conjunta-de-imagens-e-descricao/eval-report-2026-11-13T14-44-31Z.md",
       "started_at": "2026-11-12T20:23:10.929452+00:00",
-      "updated_at": "2026-11-13T14:57:19.623297+00:00",
+      "updated_at": "2026-11-13T15:13:53.201263+00:00",
       "completed_at": null
     },
     "F16": {

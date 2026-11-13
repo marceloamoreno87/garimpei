@@ -47,6 +47,11 @@ from garimpei.main import (
 from garimpei.usecase.listing.complete_assessment_usecase import CompleteAssessmentUseCase
 from garimpei.usecase.listing.prepare_assessment_usecase import PrepareAssessmentUseCase
 from tests.factories.assessment_origin import serve_assessment_images
+from tests.factories.assessment_quality_execution import (
+    QualityPreflightError,
+    _execution_marker,
+    wait_runtime_ready,
+)
 from tests.factories.assessment_quality_review import reference_method
 from tests.factories.monitoring import require_disposable
 
@@ -54,6 +59,7 @@ from tests.factories.monitoring import require_disposable
 def execute(plan_path: Path, output: Path) -> None:
     plan = json.loads(plan_path.read_text())
     reference_method(plan)
+    _execution_marker(output, plan, "preflight", False, 0)
     require_disposable()
     if not load_inference_settings().service_enabled or load_alert_settings().enabled:
         raise RuntimeError("Real IA enabled and alerts disabled are required")
@@ -64,9 +70,13 @@ def execute(plan_path: Path, output: Path) -> None:
     if InferenceControl.objects.filter(paused=True).exists():
         raise RuntimeError("The selected runtime is manually paused")
     gateway = build_inference_gateway()
-    diagnostic = gateway.diagnose()
-    if diagnostic.get("reason") != "ready" or not gateway.unload():
-        raise RuntimeError("Verified pinned real runtime and owned model unload required")
+    expected_model = str(read_lock(load_inference_settings().model_lock)["model_digest"])
+    try:
+        readiness = wait_runtime_ready(gateway, expected_model)
+    except QualityPreflightError as error:
+        _execution_marker(output, plan, "preflight_failed", False, 0, reason=str(error))
+        raise
+    _execution_marker(output, plan, "preflight", False, 0, readiness=readiness)
     selected = [case for case in plan["cases"] if case["split"] == "reserved"]
     files = {photo["sha256"]: Path(photo["file"]) for case in selected for photo in case["photos"]}
     for digest, file in files.items():
@@ -77,6 +87,14 @@ def execute(plan_path: Path, output: Path) -> None:
         os.environ["GARIMPEI_MEDIA_EVAL_ORIGIN"] = origin
         os.environ["GARIMPEI_ASSESSMENT_ENABLED"] = "true"
         for case in selected:
+            sent_before = sum(int(row.get("case_calls_sent", 0)) for row in results)
+            _execution_marker(
+                output,
+                plan,
+                "corpus_started",
+                True if sent_before else "unknown",
+                sent_before if sent_before else None,
+            )
             result = run_case(case, origin)
             sent = any(
                 part["metrics"].get("sent")
@@ -85,6 +103,11 @@ def execute(plan_path: Path, output: Path) -> None:
             )
             prior_sent = any(row.get("inference_sent") for row in results)
             result["inference_sent"] = sent
+            result["case_calls_sent"] = sum(
+                bool(part["metrics"].get("sent"))
+                for analysis in result["analyses"]
+                for part in analysis["parts"]
+            )
             result["thermal_position"] = (
                 "no_inference"
                 if not sent
@@ -94,6 +117,8 @@ def execute(plan_path: Path, output: Path) -> None:
             )
             results.append(result)
             _write(output, plan, results, complete=False)
+            total_sent = sum(row["case_calls_sent"] for row in results)
+            _execution_marker(output, plan, "corpus_progress", bool(total_sent), total_sent)
     if not any(
         row["kind"] == "real_source_unreviewed" and row["inference_sent"] for row in results
     ):
@@ -101,6 +126,9 @@ def execute(plan_path: Path, output: Path) -> None:
             "No real-photo inference was actually sent; partial report remains incomplete"
         )
     _write(output, plan, results, complete=True)
+    _execution_marker(
+        output, plan, "completed", True, sum(row["case_calls_sent"] for row in results)
+    )
 
 
 def run_case(case: dict[str, Any], origin: str) -> dict[str, Any]:

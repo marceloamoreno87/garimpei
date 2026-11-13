@@ -1,0 +1,18 @@
+{
+  "state": "blocked",
+  "source_commit": "94a4404ce1adf6add75db41b3738735c4192ac64",
+  "source_files_checked": 705,
+  "copy_source_changes": [],
+  "review_sha256": "e13d908534c856b30ff2713f8383dea8b10fe8c4d803e84de7ef992c891bb496",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "case_calls_sent": 0,
+  "cases_completed": 0,
+  "error": "RuntimeError: Verified pinned real runtime and owned model unload required",
+  "cause": "Fresh asynchronous DockerOllamaTransport session reports service_unavailable before READY; runner performs one immediate diagnose and exits on that response.",
+  "report_exists": false,
+  "all_owned_containers_stopped": true,
+  "gpu_reservation_released": true,
+  "stop_exit": 0,
+  "no_pins_or_limits_changed": true
+}

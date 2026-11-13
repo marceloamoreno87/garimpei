@@ -285,16 +285,26 @@ def test_real_report_cannot_complete_when_all_photos_fail_before_dispatch(
     plan_file = tmp_path / "controlled-plan.json"
     plan_file.write_text(json.dumps(plan))
     monkeypatch.setattr(runtime, "require_disposable", lambda: None)
-    monkeypatch.setattr(
-        runtime, "load_inference_settings", lambda: SimpleNamespace(service_enabled=True)
-    )
+    from dataclasses import replace
+
+    from tests.factories.inference import inference_settings
+
+    settings = replace(inference_settings(tmp_path, "http://127.0.0.1:1"), service_enabled=True)
+    monkeypatch.setattr(runtime, "load_inference_settings", lambda: settings)
     monkeypatch.setattr(runtime, "load_alert_settings", lambda: SimpleNamespace(enabled=False))
     empty = SimpleNamespace(
         objects=SimpleNamespace(filter=lambda **kwargs: SimpleNamespace(exists=lambda: False))
     )
     monkeypatch.setattr(runtime, "InferenceRequest", empty)
     monkeypatch.setattr(runtime, "InferenceControl", empty)
-    gateway = SimpleNamespace(diagnose=lambda: {"reason": "ready"}, unload=lambda: True)
+    gateway = SimpleNamespace(
+        diagnose=lambda: {
+            "reason": "ready",
+            "service": True,
+            "artifact": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        },
+        unload=lambda: True,
+    )
     monkeypatch.setattr(runtime, "build_inference_gateway", lambda: gateway)
     monkeypatch.setattr(
         runtime,

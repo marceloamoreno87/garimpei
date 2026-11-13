@@ -5,6 +5,7 @@ import json
 import subprocess
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 from tests.factories.assessment_quality_review import ReviewPending, read_plan
 
@@ -72,6 +73,8 @@ def _execute(payload: dict[str, Any], plan: dict[str, Any]) -> dict[str, Any]:
         )
     output.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     plan_path = output.with_suffix(".inputs.json")
+    execution_id = uuid4().hex
+    plan = dict(plan, execution_id=execution_id)
     with plan_path.open("x") as stream:
         json.dump(plan, stream, ensure_ascii=False)
     plan_path.chmod(0o600)
@@ -111,11 +114,13 @@ def _execute(payload: dict[str, Any], plan: dict[str, Any]) -> dict[str, Any]:
         private = output.with_suffix(".private.txt")
         private.write_text(result.stdout + result.stderr)
         private.chmod(0o600)
+        from tests.factories.assessment_quality_execution import execution_evidence
+
         return dict(
             state="blocked",
             reason="real_runtime_failed_see_private_diagnostics",
-            model_executed="unknown",
             output=str(output),
+            **execution_evidence(output, execution_id),
         )
     return dict(
         state="completed",

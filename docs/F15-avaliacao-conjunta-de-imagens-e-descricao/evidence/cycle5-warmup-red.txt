@@ -1,0 +1,144 @@
+FFFFFFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+_ test_fresh_transport_can_become_ready_on_same_gateway_before_verified_unload _
+
+    def test_fresh_transport_can_become_ready_on_same_gateway_before_verified_unload() -> None:
+        clock = ControlledTime()
+        gateway = ColdGateway([dict(service=False, reason="service_unavailable"), ready()])
+>       result = runtime.wait_runtime_ready(gateway, MODEL_DIGEST, clock=clock.monotonic, sleep=clock.sleep)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'wait_runtime_ready'
+
+tests/unit/test_assessment_quality_warmup.py:46: AttributeError
+__ test_permanent_transport_absence_times_out_without_unloading_or_inference ___
+
+    def test_permanent_transport_absence_times_out_without_unloading_or_inference() -> None:
+        clock = ControlledTime()
+        gateway = ColdGateway([dict(service=False, reason="service_unavailable")])
+>       with pytest.raises(runtime.QualityPreflightError, match="runtime_readiness_timeout"):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:55: AttributeError
+_____ test_definitive_readiness_failure_is_not_retried[artifact_mismatch] ______
+
+reason = 'artifact_mismatch'
+
+    @pytest.mark.parametrize("reason", ["artifact_mismatch", "gpu_unavailable", "model_missing", "invalid_output"])
+    def test_definitive_readiness_failure_is_not_retried(reason: str) -> None:
+        clock = ControlledTime()
+        gateway = ColdGateway([dict(service=True, reason=reason)])
+>       with pytest.raises(runtime.QualityPreflightError, match="runtime_readiness_rejected:" + reason):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:65: AttributeError
+______ test_definitive_readiness_failure_is_not_retried[gpu_unavailable] _______
+
+reason = 'gpu_unavailable'
+
+    @pytest.mark.parametrize("reason", ["artifact_mismatch", "gpu_unavailable", "model_missing", "invalid_output"])
+    def test_definitive_readiness_failure_is_not_retried(reason: str) -> None:
+        clock = ControlledTime()
+        gateway = ColdGateway([dict(service=True, reason=reason)])
+>       with pytest.raises(runtime.QualityPreflightError, match="runtime_readiness_rejected:" + reason):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:65: AttributeError
+_______ test_definitive_readiness_failure_is_not_retried[model_missing] ________
+
+reason = 'model_missing'
+
+    @pytest.mark.parametrize("reason", ["artifact_mismatch", "gpu_unavailable", "model_missing", "invalid_output"])
+    def test_definitive_readiness_failure_is_not_retried(reason: str) -> None:
+        clock = ControlledTime()
+        gateway = ColdGateway([dict(service=True, reason=reason)])
+>       with pytest.raises(runtime.QualityPreflightError, match="runtime_readiness_rejected:" + reason):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:65: AttributeError
+_______ test_definitive_readiness_failure_is_not_retried[invalid_output] _______
+
+reason = 'invalid_output'
+
+    @pytest.mark.parametrize("reason", ["artifact_mismatch", "gpu_unavailable", "model_missing", "invalid_output"])
+    def test_definitive_readiness_failure_is_not_retried(reason: str) -> None:
+        clock = ControlledTime()
+        gateway = ColdGateway([dict(service=True, reason=reason)])
+>       with pytest.raises(runtime.QualityPreflightError, match="runtime_readiness_rejected:" + reason):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:65: AttributeError
+___ test_ready_word_does_not_bypass_artifact_service_or_unload_proof[digest] ___
+
+fault = 'digest'
+
+    @pytest.mark.parametrize("fault", ["digest", "service", "unload"])
+    def test_ready_word_does_not_bypass_artifact_service_or_unload_proof(fault: str) -> None:
+        diagnostic = ready()
+        if fault == "digest":diagnostic["artifact"] = "sha256:" + "0" * 64
+        if fault == "service":diagnostic["service"] = False
+        gateway = ColdGateway([diagnostic], unload=fault != "unload")
+>       with pytest.raises(runtime.QualityPreflightError):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:76: AttributeError
+__ test_ready_word_does_not_bypass_artifact_service_or_unload_proof[service] ___
+
+fault = 'service'
+
+    @pytest.mark.parametrize("fault", ["digest", "service", "unload"])
+    def test_ready_word_does_not_bypass_artifact_service_or_unload_proof(fault: str) -> None:
+        diagnostic = ready()
+        if fault == "digest":diagnostic["artifact"] = "sha256:" + "0" * 64
+        if fault == "service":diagnostic["service"] = False
+        gateway = ColdGateway([diagnostic], unload=fault != "unload")
+>       with pytest.raises(runtime.QualityPreflightError):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:76: AttributeError
+___ test_ready_word_does_not_bypass_artifact_service_or_unload_proof[unload] ___
+
+fault = 'unload'
+
+    @pytest.mark.parametrize("fault", ["digest", "service", "unload"])
+    def test_ready_word_does_not_bypass_artifact_service_or_unload_proof(fault: str) -> None:
+        diagnostic = ready()
+        if fault == "digest":diagnostic["artifact"] = "sha256:" + "0" * 64
+        if fault == "service":diagnostic["service"] = False
+        gateway = ColdGateway([diagnostic], unload=fault != "unload")
+>       with pytest.raises(runtime.QualityPreflightError):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'QualityPreflightError'
+
+tests/unit/test_assessment_quality_warmup.py:76: AttributeError
+____ test_execution_evidence_is_bound_to_current_run_before_reporting_false ____
+
+tmp_path = PosixPath('/home/marce/.cache/garimpei-evaluations/f15-next-wave/pytest-of-marce/pytest-23/test_execution_evidence_is_bou0')
+
+    def test_execution_evidence_is_bound_to_current_run_before_reporting_false(tmp_path: Path) -> None:
+        output = tmp_path / "controlled-output.json"
+        sidecar = output.with_suffix(".execution.json")
+        sidecar.write_text(json.dumps(dict(schema_version=1,execution_id="old-run",model_executed=False,stage="preflight",reason="runtime_readiness_timeout")))
+>       assert runtime.execution_evidence(output, "new-run")["model_executed"] == "unknown"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'tests.factories.assessment_quality_runtime' has no attribute 'execution_evidence'
+
+tests/unit/test_assessment_quality_warmup.py:85: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_assessment_quality_warmup.py::test_fresh_transport_can_become_ready_on_same_gateway_before_verified_unload
+FAILED tests/unit/test_assessment_quality_warmup.py::test_permanent_transport_absence_times_out_without_unloading_or_inference
+FAILED tests/unit/test_assessment_quality_warmup.py::test_definitive_readiness_failure_is_not_retried[artifact_mismatch]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_definitive_readiness_failure_is_not_retried[gpu_unavailable]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_definitive_readiness_failure_is_not_retried[model_missing]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_definitive_readiness_failure_is_not_retried[invalid_output]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_ready_word_does_not_bypass_artifact_service_or_unload_proof[digest]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_ready_word_does_not_bypass_artifact_service_or_unload_proof[service]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_ready_word_does_not_bypass_artifact_service_or_unload_proof[unload]
+FAILED tests/unit/test_assessment_quality_warmup.py::test_execution_evidence_is_bound_to_current_run_before_reporting_false
+10 failed in 0.12s
