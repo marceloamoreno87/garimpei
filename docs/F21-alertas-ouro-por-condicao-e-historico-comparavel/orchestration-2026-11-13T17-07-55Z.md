@@ -34,3 +34,7 @@ Driver externo teve erros iniciais de configuração preservados; depois um work
 ## Encerramento
 
 A pendência positiva real não é corrigível por reclassificar fotos, afrouxar política, aumentar output/contexto ou substituir com fixture. Coleta autorizada foi encerrada e seus negativos são resultados válidos. O ciclo termina aborted com progresso implemented e completed_at nulo, mantendo evidências e implementação revisável. Lock próprio liberado após o commit final desta execução; somente a entrada que identifica branch e início próprios será removida. Galeria estática em http://127.0.0.1:42796/index-gold.html permanece disponível para o coordenador; arquivos privados em /tmp/garimpei-f21-wave13 e /tmp/garimpei-f21-real não contêm segredos versionados.
+
+### Integração final — 2026-11-13T18:33:50.926264Z
+
+887 casos únicos cobertos,0skip; seis gates Python/Django/migrations/wheel/harness exit0. Consulte docs/wave-evidence-2026-11-13T17-06-11Z/final-validation.json. F21 implemented/pending:25PASS/1BLOCKED; E2E-REAL positivo não demonstrado. Autorização de referência assistida por IA registrada; não há revisão humana independente.

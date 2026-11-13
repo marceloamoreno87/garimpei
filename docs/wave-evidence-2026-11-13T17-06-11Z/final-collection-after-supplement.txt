@@ -886,4 +886,4 @@ tests/unit/test_valuation.py::test_real_market_sample_reproduces_phase_one_value
 tests/unit/test_valuation.py::test_duplicates_latest_observation_boundaries_and_rounding
 tests/unit/test_valuation.py::test_declared_installment_and_multiple_units_are_not_comparables
 
-887 tests collected in 0.32s
+887 tests collected in 0.31s

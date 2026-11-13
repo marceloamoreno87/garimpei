@@ -1,0 +1,89 @@
+[
+  {
+    "name": "six-gates",
+    "command": [
+      "node",
+      "scripts/run-gates.mjs"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T18:32:46.536678+00:00",
+    "finished_at": "2026-11-13T18:32:50.187034+00:00",
+    "head": "ec5ee8afc368a0638f8ee29a0ce42d9f0707777a"
+  },
+  {
+    "name": "django-check",
+    "command": [
+      "uv",
+      "run",
+      "--directory",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "manage.py",
+      "check"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T18:32:50.188739+00:00",
+    "finished_at": "2026-11-13T18:32:50.514445+00:00",
+    "head": "ec5ee8afc368a0638f8ee29a0ce42d9f0707777a"
+  },
+  {
+    "name": "migrations",
+    "command": [
+      "uv",
+      "run",
+      "--directory",
+      "apps/backend",
+      "--frozen",
+      "--no-sync",
+      "python",
+      "manage.py",
+      "makemigrations",
+      "--check",
+      "--dry-run"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T18:32:50.516321+00:00",
+    "finished_at": "2026-11-13T18:32:50.889093+00:00",
+    "head": "ec5ee8afc368a0638f8ee29a0ce42d9f0707777a"
+  },
+  {
+    "name": "wheel",
+    "command": [
+      "uv",
+      "build",
+      "--wheel",
+      "--out-dir",
+      "/tmp/g13/final-wheel",
+      "apps/backend"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T18:32:50.890820+00:00",
+    "finished_at": "2026-11-13T18:32:51.676294+00:00",
+    "head": "ec5ee8afc368a0638f8ee29a0ce42d9f0707777a"
+  },
+  {
+    "name": "harness-tests",
+    "command": [
+      "node",
+      "--test",
+      "scripts/test/harness.test.mjs"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T18:32:51.677990+00:00",
+    "finished_at": "2026-11-13T18:32:51.816440+00:00",
+    "head": "ec5ee8afc368a0638f8ee29a0ce42d9f0707777a"
+  },
+  {
+    "name": "harness-check",
+    "command": [
+      "node",
+      "scripts/check-harness.mjs"
+    ],
+    "exit_code": 0,
+    "started_at": "2026-11-13T18:32:51.818816+00:00",
+    "finished_at": "2026-11-13T18:32:52.156049+00:00",
+    "head": "ec5ee8afc368a0638f8ee29a0ce42d9f0707777a"
+  }
+]
