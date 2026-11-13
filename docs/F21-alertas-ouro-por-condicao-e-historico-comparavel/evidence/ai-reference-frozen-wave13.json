@@ -1,0 +1,354 @@
+{
+  "feature": "F21",
+  "target_external_id": "1810839963486848",
+  "allowed_labels": [
+    "good",
+    "defect",
+    "uncertain"
+  ],
+  "records": [
+    {
+      "external_id": "1810839963486848",
+      "role": "target",
+      "url": "https://www.facebook.com/marketplace/item/1810839963486848/",
+      "status": "reviewed_ai",
+      "label": "uncertain",
+      "notes": "Descrição declara funcionamento e troca de tela/bateria. Foto3 mostra aviso iOS de bateria não verificável e de impossibilidade de determinar saúde; 100% exibido não resolve essa ressalva. Fotos1/4/6 mostram desgaste de bordas e traseira, sem fratura claramente comprovada. Foto8 sustenta iPhone13/128GB. Não há prova de defeito funcional nem confirmação independente de peças genuínas; incerteza relevante permanece.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "1544087317479114",
+        "1150755974088286",
+        "2026738701348253",
+        "2851662955220383",
+        "1138900388497230",
+        "1021940610190225",
+        "1041498202296202",
+        "1451592526943181"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1544087317479114",
+          "sha256": "3fd69a76aee5818f1c70329ca15652646a4e2b427694b7c50a25c96332e2ffa3"
+        },
+        {
+          "photo_key": "1150755974088286",
+          "sha256": "2b998dad18c319ba6e8bb0b3c5b5ef9dbd49da8f65fb13b3d35a59b25c48f2ca"
+        },
+        {
+          "photo_key": "2026738701348253",
+          "sha256": "313461ae3e32b1263cb77ad6e092e446153a98a0cdcb966f666f8176efad9621"
+        },
+        {
+          "photo_key": "2851662955220383",
+          "sha256": "f2d4dbbeb49647eb7e6961bd800e6de8bf128304d7acc1086523bcd112b33305"
+        },
+        {
+          "photo_key": "1138900388497230",
+          "sha256": "8a4bbb34a0bce412ee2b0fde05ba04c4877564777787bf4b03944b5a73b8e842"
+        },
+        {
+          "photo_key": "1021940610190225",
+          "sha256": "97de90dab63c0329bdc11ad79494b9538d781e02ddc69454c246d34cca2ba3fd"
+        },
+        {
+          "photo_key": "1041498202296202",
+          "sha256": "d06ea69ab2c2a82be0674f5a86d1f9bb558bf54be1320c410eb157f24d815963"
+        },
+        {
+          "photo_key": "1451592526943181",
+          "sha256": "fd6f08d857bbfb5540bc3c2519466d3519c500918ef7eb87bf3b37b977d0c39d"
+        }
+      ],
+      "text_sha256": "0e85ed386f87a7b3f87077da0a262c2e85bde01bb9b929fafcfdc7c3d4017d88"
+    },
+    {
+      "external_id": "1149985297537880",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/1149985297537880/",
+      "status": "reviewed_ai",
+      "label": "uncertain",
+      "notes": "Descrição declara funcionamento, tela trocada e bateria67%. Foto8 mostra mensagem do sistema de saúde da bateria significativamente deteriorada com opção de manutenção. Demais fotos mostram tela acesa e aparência sem fratura inequívoca. A ressalva de serviço é relevante; não se inventa um limite percentual de aprovação nem se afirma falha funcional comprovada. Preço da descrição1500 difere do campo1450, que permanece identificado como preço atual da fonte.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "1445300210483665",
+        "1675674267404100",
+        "1192674079849191",
+        "2129463571026930",
+        "2218217678781565",
+        "28715628411471830",
+        "1148138114379440",
+        "1110220191885901",
+        "1909105100458921"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1445300210483665",
+          "sha256": "bbf0f3deacbea9e7a3096bd969c76ebce7c607c0fc12db1b874f7af6e5ae9a94"
+        },
+        {
+          "photo_key": "1675674267404100",
+          "sha256": "992696f0bb2f2ce28d0053adde23f4f977d9f1bd42ea21216d6fdb6af0be02d4"
+        },
+        {
+          "photo_key": "1192674079849191",
+          "sha256": "0d3726a60b18586da11184850ee06f7d1259c58403fe9486d800188486d5eb53"
+        },
+        {
+          "photo_key": "2129463571026930",
+          "sha256": "46a9d8dba11475e0cbfa113789f6453ece5b2a0cfc4f624297c019afa36dfb41"
+        },
+        {
+          "photo_key": "2218217678781565",
+          "sha256": "0ff342d7198edd9c935d3fde33c34df242b83f01001112027c4d1c1efd8be868"
+        },
+        {
+          "photo_key": "28715628411471830",
+          "sha256": "0a868cc223fda17a50c74ab44f35ebd6d8077bc6d65d2c2180a20a5d90ffdf22"
+        },
+        {
+          "photo_key": "1148138114379440",
+          "sha256": "fa5878812904ccd1bfed635033f923f589a504e2dc42b89a2d1ef07a60850ead"
+        },
+        {
+          "photo_key": "1110220191885901",
+          "sha256": "8d1e9da12aeee0c09eba428b0172524df7e80c6895ee41cea961905f29a9c40f"
+        },
+        {
+          "photo_key": "1909105100458921",
+          "sha256": "b8fb3aa4c4dc41671f4c2f5d6528cfc700fb1750272fdf5d91181de1d461044c"
+        }
+      ],
+      "text_sha256": "c85ebc9e6fa4c8030029bb1523f1944d0b125472c59132e3b6586f2bad4a2ba0"
+    },
+    {
+      "external_id": "1156072093429318",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/1156072093429318/",
+      "status": "reviewed_ai",
+      "label": "uncertain",
+      "notes": "Descrição declara funcionamento e marcas na película/traseira. Fotos1/3 mostram tela apagada e marcas na borda/película; foto5 mostra linha/marca clara na traseira cuja profundidade e natureza não se distinguem com segurança entre risco e fissura. Foto2 é uma composição publicitária, não ensaio funcional. Não promover a cosmético leve sem resolver essa ambiguidade; não declarar fratura comprovada. Fotos9/10 são acessórios.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "4788669328084514",
+        "983083621052805",
+        "2526068051221317",
+        "2116662829214372",
+        "4511772252372457",
+        "2274618270600163",
+        "1007785459045238",
+        "1085150371205759",
+        "1655374699467944",
+        "1617687499548373"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "4788669328084514",
+          "sha256": "2b01b0deae4fb19d002c282d9ba2c35714141a376dbb8ffe5533555eeaac9d3f"
+        },
+        {
+          "photo_key": "983083621052805",
+          "sha256": "e6a64cb84cb16c14931c7ed1e806920d4c9feb88572dd3478189d4dadd8f8960"
+        },
+        {
+          "photo_key": "2526068051221317",
+          "sha256": "549eea91233e60913b34a2c52626a22b6ad6cdd7db8f6a29e69e6f89d41a4c5b"
+        },
+        {
+          "photo_key": "2116662829214372",
+          "sha256": "67ae619ea308d20ef087d711ab0cf76d1f11d07fe4beb55cf2ea0b8a09ff35ac"
+        },
+        {
+          "photo_key": "4511772252372457",
+          "sha256": "a58f6078299d145b724651d4ee2813a93ba773e14b06d222f31c52a60ad05704"
+        },
+        {
+          "photo_key": "2274618270600163",
+          "sha256": "1ccdf65781d664d58d1dd4104272e7136590149cb35e845f64468f7d313f51f5"
+        },
+        {
+          "photo_key": "1007785459045238",
+          "sha256": "4ef113fb0a0d62069768dced743e4bc1e6febebc4411cfca564bcd860def1d5c"
+        },
+        {
+          "photo_key": "1085150371205759",
+          "sha256": "38836561673dd15aa3997c95dcf37e40479bf1d245e58d3584d972d6caa9a8cb"
+        },
+        {
+          "photo_key": "1655374699467944",
+          "sha256": "a8544598c2d5a1cf067138b7b65387b9f1f7210892c67cf241ab705273c1243a"
+        },
+        {
+          "photo_key": "1617687499548373",
+          "sha256": "f16e14ffcfeb396cd750177ab93ee953af733c5f5539044b02a3f5f7faeb3858"
+        }
+      ],
+      "text_sha256": "5b50769b3bed1161f5a33809a0363714005f27acb9806f51d34fd2d01de5535d"
+    },
+    {
+      "external_id": "1447579983522224",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/1447579983522224/",
+      "status": "reviewed_ai",
+      "label": "good",
+      "notes": "Descrição contém declaração explícita de funcionamento das funções principais e bateria75% declarada. As3 fotos mostram frente/tela acesa e traseira sem dano relevante inequívoco no recorte fornecido. A aparência sozinha não comprova funcionamento; o rótulo combina a declaração e a inspeção visual. Saúde/autonomia, originalidade e funções internas não são testes independentes. Não foi criado corte numérico para bateria. Há forte semelhança do aparelho/cenário/descrição com outros4IDs desta amostra; não presumir unidades físicas independentes.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "1778896096550748",
+        "1029090453546205",
+        "1670733511061648"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1778896096550748",
+          "sha256": "b4192a14e3bc0440ce7129e9f8cf29851c2c70e0875da7843d1f20c2f97b8895"
+        },
+        {
+          "photo_key": "1029090453546205",
+          "sha256": "a7043b04e9503915d47527ba7141a8d535acaae859e8caf2e69851544e4984a7"
+        },
+        {
+          "photo_key": "1670733511061648",
+          "sha256": "d93f9dd8dda48438cabffed22f734199788c223e0ced62416acf3f1e0d3f15e0"
+        }
+      ],
+      "text_sha256": "3f6cc694516289e7bf0ddf0acd6883ccb5307abd9e63a487e7082542eb606286"
+    },
+    {
+      "external_id": "1621338866348626",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/1621338866348626/",
+      "status": "reviewed_ai",
+      "label": "good",
+      "notes": "Descrição contém declaração explícita de funcionamento das funções principais e bateria75% declarada. As3 fotos mostram frente/tela acesa e traseira sem dano relevante inequívoco no recorte fornecido. A aparência sozinha não comprova funcionamento; o rótulo combina a declaração e a inspeção visual. Saúde/autonomia, originalidade e funções internas não são testes independentes. Não foi criado corte numérico para bateria. Há forte semelhança do aparelho/cenário/descrição com outros4IDs desta amostra; não presumir unidades físicas independentes.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "1590979239465145",
+        "1681643389968798",
+        "2153785632168533"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1590979239465145",
+          "sha256": "4bc9765e0a17a34be2bc086047698d8ac82fa90a8da5f5292b3e48f5837ec510"
+        },
+        {
+          "photo_key": "1681643389968798",
+          "sha256": "8ab800030925dc8a6233168d59977666665d865b378e0ba420bc8d9b8ce600fa"
+        },
+        {
+          "photo_key": "2153785632168533",
+          "sha256": "7ccc606d41161e9b5b87570f53a933dc1520894c71c8440964d01da30d08d66d"
+        }
+      ],
+      "text_sha256": "065ee70a59ca997209004de48522b9940c52123e9ff63fcd1ab2f5277a0a8677"
+    },
+    {
+      "external_id": "1654513062783723",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/1654513062783723/",
+      "status": "reviewed_ai",
+      "label": "good",
+      "notes": "Descrição contém declaração explícita de funcionamento das funções principais e bateria75% declarada. As3 fotos mostram frente/tela acesa e traseira sem dano relevante inequívoco no recorte fornecido. A aparência sozinha não comprova funcionamento; o rótulo combina a declaração e a inspeção visual. Saúde/autonomia, originalidade e funções internas não são testes independentes. Não foi criado corte numérico para bateria. Há forte semelhança do aparelho/cenário/descrição com outros4IDs desta amostra; não presumir unidades físicas independentes.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "1101226369379982",
+        "1803374037601475",
+        "1008617868246648"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1101226369379982",
+          "sha256": "40465b0a55cd8bb40e535fb6f7fc2611b7886f4f8b43be19efcb519a8e8c5d31"
+        },
+        {
+          "photo_key": "1803374037601475",
+          "sha256": "c2cb170af1665779083fe4dafaae65d65e357c1560682f15e49d19996d70e497"
+        },
+        {
+          "photo_key": "1008617868246648",
+          "sha256": "e51995bafcd537019de3f60904a7b4c1392173219a46860a95bf3f413571e85e"
+        }
+      ],
+      "text_sha256": "b2bf6c51511244fe75ec50576d4cd998d9a05dee04f2fbd85fe790c821b0c7f6"
+    },
+    {
+      "external_id": "1839249197206568",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/1839249197206568/",
+      "status": "reviewed_ai",
+      "label": "good",
+      "notes": "Descrição contém declaração explícita de funcionamento das funções principais e bateria75% declarada. As3 fotos mostram frente/tela acesa e traseira sem dano relevante inequívoco no recorte fornecido. A aparência sozinha não comprova funcionamento; o rótulo combina a declaração e a inspeção visual. Saúde/autonomia, originalidade e funções internas não são testes independentes. Não foi criado corte numérico para bateria. Há forte semelhança do aparelho/cenário/descrição com outros4IDs desta amostra; não presumir unidades físicas independentes.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "2270628427181355",
+        "1561963802361363",
+        "40030117006636557"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "2270628427181355",
+          "sha256": "250d7ec14740185488d9824ded232f6eaba2146c6a146c04de33ecc885105c61"
+        },
+        {
+          "photo_key": "1561963802361363",
+          "sha256": "e835eee83291ff1004f6a2fe50fb0139dda7960851f9561dc6f7a2ddd4392ad0"
+        },
+        {
+          "photo_key": "40030117006636557",
+          "sha256": "50016ab3d71a81327739e2e44d43e7f1927b9bba8f543554077dec024cd4b018"
+        }
+      ],
+      "text_sha256": "c34f9ac5a3e108b065aef30c0facf6e2d24db3a347c1d3c82806da9e2c7be17d"
+    },
+    {
+      "external_id": "2380604816050904",
+      "role": "comparable",
+      "url": "https://www.facebook.com/marketplace/item/2380604816050904/",
+      "status": "reviewed_ai",
+      "label": "good",
+      "notes": "Descrição contém declaração explícita de funcionamento das funções principais e bateria75% declarada. As3 fotos mostram frente/tela acesa e traseira sem dano relevante inequívoco no recorte fornecido. A aparência sozinha não comprova funcionamento; o rótulo combina a declaração e a inspeção visual. Saúde/autonomia, originalidade e funções internas não são testes independentes. Não foi criado corte numérico para bateria. Há forte semelhança do aparelho/cenário/descrição com outros4IDs desta amostra; não presumir unidades físicas independentes.",
+      "text_reviewed": true,
+      "reviewed_photo_keys": [
+        "1111036198401287",
+        "1286650560318114",
+        "967410612890284"
+      ],
+      "expected_photos": [
+        {
+          "photo_key": "1111036198401287",
+          "sha256": "a57ff98c3e099793252bbd51d9d3e6f42136ffcfc00897e83b0c9816f68d95dc"
+        },
+        {
+          "photo_key": "1286650560318114",
+          "sha256": "19b6d92abe9977c116ca08a582972934af22f418c162217026d16a7677a8c787"
+        },
+        {
+          "photo_key": "967410612890284",
+          "sha256": "e236accb0f7d485be6ade0e6ab6d07325331060bf4f92415e4246c0256779bc6"
+        }
+      ],
+      "text_sha256": "3b6c22f024ed453b7b3fe78315d461b16cd49bbced603cf5ea72f57f1cfaec88"
+    }
+  ],
+  "schema_version": 1,
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "legacy_human_acceptance_satisfied": false,
+  "status": "frozen",
+  "reviewer": {
+    "actor": "Codex coordinator /root",
+    "kind": "assistant_ai",
+    "model_revision": "not_attested"
+  },
+  "frozen_at": "2026-11-13T17:40:56.321964+00:00",
+  "local_model_outputs_seen_before_freeze": false,
+  "authorization": "User explicitly chose Autorizar referência assistida por IA na F21 after inspecting availability of the8ad/42photo gallery; PRD/spec/plan/contract commit958bc43.",
+  "rubric": "Existing F15 condition-policy-v1 and F21 conservative evidence requirements. Clear defect vs unresolved relevant reservation vs declared functioning with sufficient appearance; no battery percentage cutoff invented.",
+  "cohort_limitations": [
+    "Selected for F06 textual eligibility, not random/independent holdout.",
+    "Five1600BRL ads show a very similar white phone, same backdrop, hand/tattoo, wallpaper and repeated description. Distinct source/IDs follow F18 current policy; this is not evidence of seven independent physical comparables.",
+    "Labels are AI reference judgments, not physical inspection, human truth, test of originality or proof of all functions.",
+    "Only the target1400BRL currently yields positive40BRL at1600median/10percentfee, and its reference condition is uncertain; no positive qualification is inferred from that arithmetic.",
+    "No local Qwen outputs for this cohort were consulted before freezing labels."
+  ]
+}
