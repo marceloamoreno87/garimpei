@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-11-13T17:47:26.071858+00:00",
+  "finished_at": "2026-11-13T17:55:32.069073+00:00",
+  "exit_code": 2,
+  "command": [
+    "uv",
+    "run",
+    "--directory",
+    "apps/backend",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "-q",
+    "--junitxml=/home/marce/.codex/worktrees/1bf0/garimpei/docs/wave-evidence-2026-11-13T17-06-11Z/full-suite.xml"
+  ],
+  "TMPDIR": "/tmp/g13",
+  "status": "interrupted_for_source_corrections",
+  "note": "Coordinator requested graceful SIGINT after new confirmed query and wire-budget fixes; this provisional run is not the final gate."
+}

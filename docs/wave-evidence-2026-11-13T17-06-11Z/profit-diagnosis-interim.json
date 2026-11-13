@@ -1,0 +1,54 @@
+{
+  "status": "original shard failure unresolved; focused reproductions pass",
+  "source": "5f713bb8a13856819c1f45d5954a9cfcf9469cd4",
+  "tracked_diff_empty": true,
+  "focused_command": "TMPDIR=/tmp/g13 uv run --directory apps/backend --frozen --no-sync pytest tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale --basetemp=/tmp/g13-profit-recheck -q",
+  "focused_exit": 0,
+  "focused_result": "1 passed in 47.70s",
+  "module_command": "TMPDIR=/tmp/g13 uv run --directory apps/backend --frozen --no-sync pytest tests/integration/test_profit.py --basetemp=/tmp/g13-profit-module-recheck -q",
+  "module_exit": 0,
+  "module_result": "4 passed in 147.84s (0:02:27)",
+  "original_runtime": {
+    "worker_started_at": "2026-11-13T18:10:20.670101+00:00",
+    "worker_stopped_at": "2026-11-13T18:10:36.501741+00:00",
+    "collection_finishes": [
+      {
+        "timestamp": "2026-11-13T18:10:26.920739+00:00",
+        "level": "INFO",
+        "logger": "garimpei.infra.repository.listing.postgres_repository",
+        "event": "collection_finished",
+        "environment_id": "eval_f04_8d7607f75e",
+        "run_id": "ade8b142-4c71-44cb-b38e-a6f6ab4d6ba8",
+        "collection_cycle": "c15b0b3c-9c99-447b-9579-c3a3a01e9128",
+        "collection_revision": 1,
+        "collection_phase": "complete",
+        "collection_reasons": [],
+        "collection_observations": 27
+      },
+      {
+        "timestamp": "2026-11-13T18:10:35.447581+00:00",
+        "level": "INFO",
+        "logger": "garimpei.infra.repository.listing.postgres_repository",
+        "event": "collection_finished",
+        "environment_id": "eval_f04_8d7607f75e",
+        "run_id": "ade8b142-4c71-44cb-b38e-a6f6ab4d6ba8",
+        "collection_cycle": "4a08b10f-8dc9-4427-acb2-2deb6bf232b5",
+        "collection_revision": 1,
+        "collection_phase": "complete",
+        "collection_reasons": [],
+        "collection_observations": 27
+      }
+    ],
+    "warning_error_count": 0
+  },
+  "hypothesis": {
+    "confirmed": false,
+    "location": "apps/backend/tests/integration/test_profit.py:258",
+    "detail": "Absolute revision>=2 can accept an existing intermediate publication after collection2, before valuation head reflects candidate604 new description; assertion line263 can run too early. Original worker finished after only2 collections and16s; no late expiry/45s timeout evidence. Await original shard traceback before assigning cause."
+  },
+  "changes": "No production or test source changed; no assertions weakened.",
+  "hashes": {
+    "apps/backend/tests/integration/test_profit.py": "46ec263134bdc637370143578bf3ff5bcd3d0d9e50477881f66f525b24144525",
+    "apps/backend/tests/factories/valuation.py": "f41cfbe54959303beaf84410c6cc2307dfc0b9275cfb878de004d61ed2d64390"
+  }
+}
