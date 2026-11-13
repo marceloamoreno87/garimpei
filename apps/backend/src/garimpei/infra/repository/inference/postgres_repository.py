@@ -90,7 +90,7 @@ class PostgresInferenceRepository:
 
     def claim(self, now: datetime) -> AnalysisWork | None:
         with transaction.atomic():
-            if self._robot is not None and not robot_enabled():
+            if not robot_enabled():
                 return None
             control = _control()
             if (
@@ -149,7 +149,7 @@ class PostgresInferenceRepository:
             control = _control()
             if not _owns(control, work):
                 return False
-            if not control.paused and (self._robot is None or robot_enabled()):
+            if not control.paused and robot_enabled():
                 return self._permit(work)
             part = InferencePart.objects.select_for_update().get(pk=work.part_id)
             part.state, part.attempts = "pending", max(0, part.attempts - 1)
