@@ -7,6 +7,9 @@ from garimpei.domain.listing.ports import (
     SourceFailure,
     SupersededAttempt,
 )
+from garimpei.domain.robot.admission import admitted_unit
+from garimpei.domain.robot.errors import RobotPaused, RobotUnavailable
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.domain.valuation.research import ResearchStore, ResearchUnit
 
 
@@ -17,7 +20,10 @@ class RunComparableResearchUseCase:
         source: ListingSource,
         monotonic: Callable[[], float],
         source_overhead_seconds: float = 0,
+        robot: RobotAdmission | None = None,
+        on_pause: Callable[[ResearchUnit], None] | None = None,
     ) -> None:
+        self._robot, self._on_pause = robot, on_pause
         self._store, self._source, self._monotonic = store, source, monotonic
         self._source_overhead = source_overhead_seconds
 
@@ -27,6 +33,11 @@ class RunComparableResearchUseCase:
             return
         try:
             self._run(unit)
+        except (RobotPaused, RobotUnavailable):
+            if self._on_pause is not None:
+                self._on_pause(unit)
+            else:
+                self._store.yield_slice(unit)
         except SupersededAttempt:
             return
 
@@ -59,6 +70,12 @@ class RunComparableResearchUseCase:
         )
 
     def _step(self, unit: ResearchUnit) -> tuple[ResearchUnit | None, int, int]:
+        with admitted_unit(
+            self._robot, "research", str(unit.id), str(unit.scope.revision), unit.generation
+        ):
+            return self._step_authorized(unit)
+
+    def _step_authorized(self, unit: ResearchUnit) -> tuple[ResearchUnit | None, int, int]:
         try:
             if unit.pending:
                 candidate = self._source.detail(unit.scope, unit.pending[0])

@@ -13,6 +13,9 @@ from garimpei.domain.navigation.catalog import Catalog
 from garimpei.domain.navigation.policy import NavigationPolicy
 from garimpei.domain.navigation.ports import Monotonic, NavigationStore
 from garimpei.domain.navigation.work import NavigationUnit
+from garimpei.domain.robot.admission import admitted_unit
+from garimpei.domain.robot.errors import RobotPaused, RobotUnavailable
+from garimpei.domain.robot.ports import RobotAdmission
 
 
 class RunSliceUseCase:
@@ -27,7 +30,9 @@ class RunSliceUseCase:
         monotonic: Monotonic,
         timeout: int,
         cadence: float,
+        robot: RobotAdmission | None = None,
     ) -> None:
+        self._robot = robot
         self._collection, self._navigation, self._source = collection, navigation, source
         self._geocoding, self._catalog, self._policy = geocoding, catalog, policy
         self._monotonic, self._timeout, self._cadence = monotonic, timeout, cadence
@@ -35,7 +40,7 @@ class RunSliceUseCase:
     def execute(self, attempt: Attempt) -> None:
         try:
             self._run(attempt)
-        except SupersededAttempt:
+        except (SupersededAttempt, RobotPaused, RobotUnavailable):
             return
 
     def _run(self, attempt: Attempt) -> None:
@@ -47,7 +52,17 @@ class RunSliceUseCase:
             self._navigation.yield_slice(attempt, scope)
             return
         try:
-            self._collection.set_origin(attempt, self._geocoding.resolve(scope.cep))
+            with admitted_unit(
+                self._robot,
+                "navigation_context",
+                scope.key,
+                str(scope.revision),
+                attempt.generation,
+            ):
+                self._collection.set_origin(attempt, self._geocoding.resolve(scope.cep))
+        except (RobotPaused, RobotUnavailable):
+            self._navigation.yield_slice(attempt, scope)
+            return
         except SourceFailure:
             self._collection.set_origin(attempt, None)
         while self._can_start(started):
@@ -78,6 +93,17 @@ class RunSliceUseCase:
         )
 
     def _step(self, attempt: Attempt, scope: Scope, unit: NavigationUnit) -> tuple[int, int, bool]:
+        try:
+            with admitted_unit(
+                self._robot, "navigation", unit.unit_key, str(unit.revision), unit.generation
+            ):
+                return self._step_authorized(attempt, scope, unit)
+        except (RobotPaused, RobotUnavailable):
+            return 0, 0, True
+
+    def _step_authorized(
+        self, attempt: Attempt, scope: Scope, unit: NavigationUnit
+    ) -> tuple[int, int, bool]:
         try:
             if unit.target is None:
                 page = self._source.search(scope, unit.search, unit.cursor)

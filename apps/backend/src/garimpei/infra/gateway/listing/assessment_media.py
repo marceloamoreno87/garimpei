@@ -12,6 +12,8 @@ from garimpei.domain.inference.request import ImageReference
 from garimpei.domain.listing.assessment_ports import AssessmentWork
 from garimpei.domain.media.errors import MediaError
 from garimpei.domain.media.ports import MediaQueries, MediaRepository, MediaStore
+from garimpei.domain.robot.admission import admitted_unit
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.infra.gateway.inference.registry import register_file
 from garimpei.infra.gateway.listing.assessment_image import assessment_derivative
 
@@ -22,6 +24,7 @@ def prepare_photos(
     store: MediaStore,
     queries: MediaQueries,
     settings: InferenceSettings,
+    robot: RobotAdmission | None = None,
 ) -> tuple[tuple[ImageReference, ...], tuple[UUID, ...], dict[str, str]]:
     photos = cast(list[dict[str, object]], work.value.snapshot["photos"])
     available = [p for p in photos if p["state"] == "available" and p["sha256"]]
@@ -42,7 +45,8 @@ def prepare_photos(
         digest = str(photo["sha256"])
         if digest in references or digest in omissions:
             continue
-        reference, reason = _register(work, photo, store, queries, settings)
+        with admitted_unit(robot, "assessment_photo", str(version), str(work.id), work.generation):
+            reference, reason = _register(work, photo, store, queries, settings)
         if reference:
             references[digest] = reference
         else:

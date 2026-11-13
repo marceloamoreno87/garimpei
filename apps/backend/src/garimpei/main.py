@@ -164,6 +164,8 @@ def _enqueue_owned(
 
     register_tasks()
     connection.ensure_connection()
+    if queue not in {"runtime", "alert", "maintenance"} and not robot_work_enabled():
+        return 0
     operations = load_operations_settings()
     key = _task_key(name, arguments, load_config().run_id) if queue != "runtime" else None
     existing = _existing_task(key, include_running=not continuation) if key else None
@@ -326,7 +328,11 @@ def _build_live_listing_handler(settings: ListingSettings) -> "ListingTaskHandle
     path = settings.facebook_profile or settings.facebook_state
     assert path is not None
     browser = MarketplaceBrowser(
-        path, settings.timeout, settings.cadence_ms, profile=settings.facebook_profile
+        path,
+        settings.timeout,
+        settings.cadence_ms,
+        profile=settings.facebook_profile,
+        robot=build_robot_repository(),
     )
     geocoding = BrasilApiGeocoding(settings.timeout)
     source = FacebookMarketplace(
@@ -476,6 +482,8 @@ def build_valuation_store() -> "PostgresValuationRepository":
 
 
 def reconcile_valuations() -> None:
+    if not robot_work_enabled():
+        return
     build_identity_repository().reconcile()
     build_valuation_store().reconcile(_listing_clock(load_listing_settings())())
 
@@ -491,8 +499,14 @@ def build_valuation_handler() -> "ValuationTaskHandler":
     source = RetailNewSource(
         Path(__file__).parent / "infra/gateway/valuation/retail_catalog.json",
         load_valuation_fixture(),
+        robot=build_robot_repository(),
     )
-    return ValuationTaskHandler(EvaluateValuationUseCase(store, source, clock), store, clock)
+    return ValuationTaskHandler(
+        EvaluateValuationUseCase(store, source, clock, build_robot_repository()),
+        store,
+        clock,
+        store.pause_work,
+    )
 
 
 def build_read_valuation() -> "ReadValuationUseCase":
@@ -609,6 +623,7 @@ def build_alert_store() -> "PostgresAlertRepository":
         _alert_policy(),
         build_recovery_guard(),
         build_operational_progress(),
+        robot=build_robot_repository(),
     )
 
 
@@ -857,7 +872,11 @@ def build_inference_repository() -> "PostgresInferenceRepository":
 
     settings = load_inference_settings()
     return PostgresInferenceRepository(
-        _defer_inference, settings.queue_limit, settings.lease_seconds, LocalQuota(settings).reserve
+        _defer_inference,
+        settings.queue_limit,
+        settings.lease_seconds,
+        LocalQuota(settings).reserve,
+        robot=build_robot_repository(),
     )
 
 
@@ -1021,6 +1040,7 @@ def _navigation_task(
             monotonic,
             settings.timeout,
             settings.cadence_ms / 1000,
+            robot=build_robot_repository(),
         ),
         close,
     )
@@ -1083,7 +1103,11 @@ def _handle_navigation_suggestions() -> None:
         path = settings.facebook_profile or settings.facebook_state
         assert path is not None
         browser = MarketplaceBrowser(
-            path, settings.timeout, settings.cadence_ms, profile=settings.facebook_profile
+            path,
+            settings.timeout,
+            settings.cadence_ms,
+            profile=settings.facebook_profile,
+            robot=build_robot_repository(),
         )
         source = FacebookMarketplace(
             browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
@@ -1102,7 +1126,13 @@ def _handle_navigation_suggestions() -> None:
     )
     try:
         RunSuggestionsUseCase(
-            store, source, policy, monotonic, settings.timeout, settings.cadence_ms / 1000
+            store,
+            source,
+            policy,
+            monotonic,
+            settings.timeout,
+            settings.cadence_ms / 1000,
+            robot=build_robot_repository(),
         ).execute()
     finally:
         if close:
@@ -1120,6 +1150,8 @@ def reconcile_navigation() -> None:
         return
     with transaction.atomic():
         lock_monitoring_publication()
+        if not robot_work_enabled():
+            return
         if not CollectionState.objects.filter(
             access_suspended=False, current__finished_at__isnull=False
         ).exists():
@@ -1316,6 +1348,8 @@ def build_media_runner() -> "ObtainMediaUseCase":
         BoundedImageTransport(settings.policy, settings.eval_origin),
         build_media_store(),
         timezone.now,
+        robot=build_robot_repository(),
+        on_pause=build_media_repository().pause_claim,
     )
 
 
@@ -1416,9 +1450,12 @@ def build_assessment_handler() -> "AssessmentHandler":
         build_media_repository(),
         build_media_store(),
         PostgresMediaQueries(),
+        robot=build_robot_repository(),
     )
     return AssessmentHandler(
-        PrepareAssessmentUseCase(LocalAssessmentInputs(), repository, inference, now),
+        PrepareAssessmentUseCase(
+            LocalAssessmentInputs(), repository, inference, now, build_robot_repository()
+        ),
         CompleteAssessmentUseCase(repository, inference, now),
         repository,
     )
@@ -1522,7 +1559,11 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
         path = settings.facebook_profile or settings.facebook_state
         assert path is not None
         browser = MarketplaceBrowser(
-            path, timeout, settings.cadence_ms, profile=settings.facebook_profile
+            path,
+            timeout,
+            settings.cadence_ms,
+            profile=settings.facebook_profile,
+            robot=build_robot_repository(),
         )
         live = FacebookMarketplace(
             browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
@@ -1536,6 +1577,8 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
             source,
             monotonic,
             source_overhead_seconds=settings.cadence_ms / 500,
+            robot=build_robot_repository(),
+            on_pause=build_comparable_research_repository().pause_claim,
         ),
         close,
     )
@@ -1635,3 +1678,9 @@ def build_adopt_gold_policy() -> "AdoptGoldPolicyUseCase":
     return AdoptGoldPolicyUseCase(
         PostgresGoldPolicyRepository(), _listing_clock(load_listing_settings())
     )
+
+
+def robot_work_enabled() -> bool:
+    from garimpei.infra.repository.robot.postgres_repository import robot_enabled
+
+    return robot_enabled()

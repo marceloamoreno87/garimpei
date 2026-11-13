@@ -13,6 +13,8 @@ from garimpei.domain.listing.assessment_policy import decide
 from garimpei.domain.listing.assessment_ports import AssessmentWork
 from garimpei.domain.listing.listing import Evidence
 from garimpei.domain.media.ports import MediaQueries, MediaRepository, MediaStore
+from garimpei.domain.robot.admission import admitted_unit
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.infra.gateway.listing.assessment_media import prepare_photos
 from garimpei.infra.persistence.assessment_models import ConditionAssessment
 from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
@@ -27,7 +29,9 @@ class LocalAssessmentInference:
         media: MediaRepository,
         store: MediaStore,
         queries: MediaQueries,
+        robot: RobotAdmission | None = None,
     ) -> None:
+        self._robot = robot
         self._request, self._media, self._store, self._queries = request, media, store, queries
 
     def submit(self, work: AssessmentWork) -> tuple[tuple[UUID, ...], tuple[UUID, ...]]:
@@ -35,7 +39,7 @@ class LocalAssessmentInference:
         if row.publication_order is not None:
             return work.requests, work.pins
         references, pins, omissions = prepare_photos(
-            work, self._media, self._store, self._queries, load_inference_settings()
+            work, self._media, self._store, self._queries, load_inference_settings(), self._robot
         )
         if omissions:
             row.input_snapshot = dict(row.input_snapshot, technical_omissions=omissions)
@@ -63,8 +67,11 @@ class LocalAssessmentInference:
                 work.id,
                 work.generation,
             )
-            ticket = self._request.execute(value)
-            requests.append(ticket.request_id)
+            with admitted_unit(
+                self._robot, "assessment_part", str(work.id), str(index), work.generation
+            ):
+                ticket = self._request.execute(value)
+                requests.append(ticket.request_id)
         return tuple(requests), pins
 
     def result(self, work: AssessmentWork) -> Assessment | None:

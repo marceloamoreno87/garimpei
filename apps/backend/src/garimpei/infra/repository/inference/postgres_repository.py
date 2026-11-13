@@ -11,12 +11,15 @@ from django.utils.timezone import now as clock_now
 from garimpei.domain.inference.errors import RECOVERABLE, InferenceError
 from garimpei.domain.inference.ports import AnalysisTicket, AnalysisWork, PreparedPart
 from garimpei.domain.inference.request import AnalysisInput
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.infra.persistence.inference_models import (
     InferenceControl,
     InferencePart,
     InferenceRequest,
 )
 from garimpei.infra.persistence.listing_models import Listing, ListingObservation
+from garimpei.infra.repository.robot.locking import lock_robot_control
+from garimpei.infra.repository.robot.postgres_repository import finish_matching, robot_enabled
 
 
 class PostgresInferenceRepository:
@@ -26,9 +29,10 @@ class PostgresInferenceRepository:
         queue_limit: int,
         lease: int = 240,
         reserve: Callable[[str], None] | None = None,
+        robot: RobotAdmission | None = None,
     ) -> None:
         self._enqueue, self._queue_limit, self._lease = enqueue, queue_limit, lease
-        self._reserve = reserve
+        self._reserve, self._robot = reserve, robot
 
     def admit(
         self, value: AnalysisInput, artifact: str, parts: tuple[PreparedPart, ...]
@@ -86,6 +90,8 @@ class PostgresInferenceRepository:
 
     def claim(self, now: datetime) -> AnalysisWork | None:
         with transaction.atomic():
+            if self._robot is not None and not robot_enabled():
+                return None
             control = _control()
             if (
                 control.paused
@@ -143,16 +149,26 @@ class PostgresInferenceRepository:
             control = _control()
             if not _owns(control, work):
                 return False
-            if not control.paused:
-                return True
+            if not control.paused and (self._robot is None or robot_enabled()):
+                return self._permit(work)
             part = InferencePart.objects.select_for_update().get(pk=work.part_id)
             part.state, part.attempts = "pending", max(0, part.attempts - 1)
             part.save(update_fields=["state", "attempts"])
             InferenceRequest.objects.filter(pk=work.request_id).update(state="pending")
             control.active_request, control.lease_until = None, None
-            control.reason = "paused"
+            control.reason = "paused" if control.paused else "ready"
             control.save()
             return False
+
+    def _permit(self, work: AnalysisWork) -> bool:
+        if self._robot is None:
+            return True
+        return (
+            self._robot.authorize(
+                "inference", str(work.part_id), str(work.request_id), work.generation
+            )
+            is not None
+        )
 
     def publish(
         self,
@@ -189,6 +205,7 @@ class PostgresInferenceRepository:
                 "paused" if control.paused else "ready",
             )
             control.save()
+            finish_matching("inference", str(work.part_id), "completed")
             return current
 
     def failed(
@@ -229,6 +246,12 @@ class PostgresInferenceRepository:
                 row.state = "awaiting_resource"
                 row.save(update_fields=["state"])
             control.save()
+            finish_matching(
+                "inference",
+                str(work.part_id),
+                "unknown" if code in {"timeout", "execution_unknown"} else "completed",
+                code,
+            )
 
     def control(self, paused: bool, revision: int) -> None:
         with transaction.atomic():
@@ -296,6 +319,11 @@ class PostgresInferenceRepository:
             control = _control()
             if not confirmed or control.reason not in {"execution_unknown", "unload_failed"}:
                 return
+            part = InferencePart.objects.filter(
+                request_id=control.active_request, state="running"
+            ).first()
+            if part is not None:
+                finish_matching("inference", str(part.pk), "completed", "recovery_confirmed")
             _recover_parts(control.active_request, now)
             control.active_request, control.lease_until = None, None
             control.generation += 1
@@ -323,6 +351,7 @@ def _recover_parts(identity: UUID | None, now: datetime) -> None:
 
 
 def _control() -> InferenceControl:
+    lock_robot_control()
     InferenceControl.objects.get_or_create(pk=1)
     return InferenceControl.objects.select_for_update().get(pk=1)
 

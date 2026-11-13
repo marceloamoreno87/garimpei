@@ -12,6 +12,7 @@ from garimpei.infra.persistence.robot_models import (
     RobotOperation,
 )
 from garimpei.infra.repository.robot.locking import lock_robot_control
+from garimpei.infra.repository.robot.ownership import process_reference
 
 
 def locked_control() -> RobotControl:
@@ -25,7 +26,7 @@ def locked_control() -> RobotControl:
 
 class PostgresRobotRepository:
     def __init__(self, clock: Callable[[], datetime] = timezone.now, worker: str = "") -> None:
-        self._clock, self._worker = clock, worker
+        self._clock, self._worker = clock, worker or process_reference()
 
     def command(self, value: RobotCommand) -> None:
         try:
@@ -111,6 +112,27 @@ class PostgresRobotRepository:
                     resource_generation=permit.resource_generation,
                     control_epoch=permit.epoch,
                     state__in=["active", "unknown"],
-                ).update(state=outcome, reason=reason, finished_at=self._clock())
+                ).update(
+                    state=outcome,
+                    reason=reason,
+                    finished_at=None if outcome == "unknown" else self._clock(),
+                )
         except DatabaseError as error:
             raise RobotUnavailable() from error
+
+
+def robot_enabled() -> bool:
+    with transaction.atomic():
+        return locked_control().requested_enabled
+
+
+def finish_matching(stage: str, key: str, outcome: OperationOutcome, reason: str = "") -> None:
+    with transaction.atomic():
+        lock_robot_control()
+        RobotOperation.objects.filter(
+            stage=stage, unit_key=key, state__in=["active", "unknown"]
+        ).update(
+            state=outcome,
+            reason=reason,
+            finished_at=None if outcome == "unknown" else timezone.now(),
+        )
