@@ -20,7 +20,11 @@ NOW = datetime(2026, 11, 13, 12, tzinfo=UTC)
 
 def evidence() -> GoldEvidence:
     listing, observation, evaluation, configuration = (uuid4() for _ in range(4))
-    text = Evidence(title="PlayStation 5 Slim disco 1TB", description="Funciona perfeitamente.")
+    text = Evidence(
+        title="PlayStation 5 Slim disco 1TB",
+        description="Funciona perfeitamente.",
+        source_available=True,
+    )
     identity = identify_product(text, observation, 1)
     comparables = tuple(
         Comparable(
@@ -184,3 +188,18 @@ def test_dependency_failure_never_falls_back() -> None:
     result = qualify(replace(value, dependency_unavailable=True), NOW)
     assert result.reasons[0] == "gold_dependency_unavailable"
     assert result.state == "waiting"
+
+
+def test_canonical_iphone_label_uses_validated_attributes() -> None:
+    value = evidence()
+    identity = identify_product(Evidence(title="iPhone 13 128GB"), value.observation_id, 1)
+    from garimpei.domain.alert.gold_qualification import canonical_name
+
+    assert canonical_name(identity) == "iPhone 13 128 GB"
+
+
+def test_unavailable_source_cannot_be_current_gold() -> None:
+    value = evidence()
+    result = qualify(replace(value, text=replace(value.text, source_available=False)), NOW)
+    assert "gold_item_incompatible" in result.reasons
+    assert result.state != "qualified"

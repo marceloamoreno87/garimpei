@@ -6,6 +6,7 @@ from datetime import datetime
 from garimpei.domain.alert.gold_evidence import GoldDecision, GoldEvidence
 from garimpei.domain.listing.condition import automatic_condition
 from garimpei.domain.valuation.identification_values import IdentificationResult
+from garimpei.domain.valuation.product_catalog import product_title
 
 BLOCKED = frozenset(
     {
@@ -27,10 +28,9 @@ def canonical_name(identity: IdentificationResult) -> str:
         edition = "com leitor" if parts[3] == "disc" else "digital"
         capacity = parts[4].replace("tb", " TB").replace("gb", " GB").upper()
         return " ".join(part for part in ("PlayStation 5", model, edition, capacity) if part)
-    return (
-        " ".join(values.get(name, "") for name in ("brand", "model", "edition", "capacity")).strip()
-        or key
-    )
+    if identity.state == "identified":
+        return " ".join(product_title(values).replace("gb", " GB").replace("tb", " TB").split())
+    return key
 
 
 def qualify(value: GoldEvidence, now: datetime, purpose_key: str = "first") -> GoldDecision:
@@ -102,6 +102,8 @@ def _assessment_reason(value: GoldEvidence) -> str | None:
 
 def _identity(value: GoldEvidence) -> tuple[str, ...]:
     identity = value.identity
+    if value.text.source_available is not True:
+        return ("gold_item_incompatible",)
     if (
         identity.observation_id != value.observation_id
         or identity.input_revision != value.observation_revision

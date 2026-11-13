@@ -39,12 +39,14 @@ def main() -> None:
             import django
 
             django.setup()
-            from tests.factories.assessment import assessment_context
             from tests.factories.assessment_lab_actions import AssessmentLab
             from tests.factories.gold_alerts import GoldLab
+            from tests.factories.gold_assessment import gold_assessment_context
 
             lab = GoldLab(
-                AssessmentLab(instance, source, clock, origin, assessment_context(), group, {}),
+                AssessmentLab(
+                    instance, source, clock, origin, gold_assessment_context(), group, {}
+                ),
                 channel,
             )
             print(
