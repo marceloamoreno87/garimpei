@@ -19,3 +19,10 @@ Falha real reproduzida pelo coordenador em GPU própria: gateway novo vê servic
 **Completed at:** `2026-11-13T15:13:53.201263+00:00`
 
 Correção de prontidão e evidência do subprocesso entregue para reensaio físico pelo coordenador.47unitPASS,1integraçãoPASS, seis gates exit0. Nenhum caso/modelo/GPU executado nesta etapa. Status da feature permanece implemented, sem done/clean ou alegação de full. A referênciaIA aprovada e a nova versão canônica serão sincronizadas da master após commit. Orçamento de correções desta retomada consumido3/3; se novo bloqueio exigir correção adicional, o coordenador deverá registrar término/escopo autorizado, sem retries implícitos. Lock desta execução será liberado na entrega.
+
+
+## Checkpoint entregue
+
+Commit da correção: `9021018`. Canon aprovada da master `9ce6a75` integrada sem conflitos no merge `e4a15a3`; PRD/spec/plan/contract foram alterados exclusivamente pelo coordenador. A árvore `apps/backend` permaneceu `5c5c4043bc8992a77b087f1e4db9cb07d8b91a38` antes/depois do merge, portanto as verificações continuam válidas. Worktree entregue limpa. O coordenador realizará reensaio físico e a avaliação canônica com referênciaIA congelada; esta etapa não a executou.
+
+A referência declarada pelo coordenador mantém23casos revisados (4good/7defect/12uncertain);16reservados (0good/7defect/9uncertain) e7de ajuste. A linha good sem suporte no reservado é limitação, não precisão100% ou autorização para alterar splits/rótulos. Evidência de medição e qualidade dependerá da execução física nova; não há PASS antecipado.
