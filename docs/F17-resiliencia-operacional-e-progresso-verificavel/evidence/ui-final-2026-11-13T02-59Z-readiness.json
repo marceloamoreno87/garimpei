@@ -1,0 +1,1 @@
+{"status": "ready", "environment_id": "eval_f17_source_d917a9df", "run_id": "8e81bdf0-014d-40bf-ac40-8f4b6be8610f", "checks": {"database": "ready", "migrations": "ready", "worker": "ready", "waha": "ready"}}

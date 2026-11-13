@@ -1,0 +1,12 @@
+### Result
+{"preserved":{"url":true,"title":true,"context":null},"recoveredUrl":"http://127.0.0.1:17623/ofertas/53566870-1ca8-42f9-84b1-4c0e3b7e7fce/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=93bad1cd-4e55-440b-a0d6-349f83514225"}
+### Ran Playwright code
+```js
+await (async page => {await page.getByRole("link",{name:/Conferir detalhes de/}).first().click();const before={url:page.url(),main:await page.locator("main").innerText()};await page.context().setOffline(true);await page.evaluate(()=>window.htmx.trigger(document.body,"exploration-poll"));await page.getByRole("button",{name:"Tentar novamente"}).waitFor();const preserved={url:page.url()===before.url,title:(await page.locator("main").innerText()).includes("PlayStation"),context:await page.locator("#exploration").getAttribute("data-canonical")};await page.context().setOffline(false);await page.getByRole("button",{name:"Tentar novamente"}).click();await page.getByRole("button",{name:"Tentar novamente"}).waitFor({state:"hidden"});return {preserved,recoveredUrl:page.url()}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:17623/ofertas/53566870-1ca8-42f9-84b1-4c0e3b7e7fce/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=93bad1cd-4e55-440b-a0d6-349f83514225
+- Page Title: Ofertas · Garimpei
+- Console: 3 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-11-13T02-58-58-143Z.log#L1-L3
