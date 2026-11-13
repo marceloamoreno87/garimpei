@@ -1,0 +1,154 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_adoption_preserves_legacy_authorizations_and_individual_pause ______
+
+tmp_path = PosixPath('/tmp/g13-migration-red/test_adoption_preserves_legacy0')
+
+    def test_adoption_preserves_legacy_authorizations_and_individual_pause(tmp_path: Path) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "f22_adopt_" + uuid4().hex[:8])
+        started = instance.command("./scripts/init.sh", "--disposable")
+        assert started.returncode == 0, started.stdout + started.stderr
+        try:
+            owners = instance.manifest["processes"]
+            for owner in owners:
+                assert stop_process(owner, root, 10)
+                assert not is_live(owner)
+            result = instance.shell("""
+    from django.db import connection
+    from django.db.migrations.executor import MigrationExecutor
+    from django.utils.timezone import now
+    from uuid import uuid4
+    from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt
+    from garimpei.infra.persistence.inference_models import InferenceControl
+    executor=MigrationExecutor(connection)
+    executor.migrate([('runtime','0025_merge_identity_research')])
+    InferenceControl.objects.get_or_create(pk=1)
+    InferenceControl.objects.filter(pk=1).update(paused=True,active_request=uuid4(),reason='execution_unknown')
+    intent=AlertIntent.objects.create(state='uncertain',session='synthetic',recipient='100@g.us',account='200@c.us',body='frozen legacy body',financial={'unchanged':'yes'},created_at=now(),next_action=now())
+    AlertAttempt.objects.create(intent=intent,ordinal=1,generation=1,authorized_at=now(),state='uncertain')
+    with connection.cursor() as cursor:
+     cursor.execute('SELECT count(*) FROM procrastinate_jobs'); jobs=cursor.fetchone()[0]
+    old=(intent.id,intent.body,intent.financial,intent.attempts.count())
+    executor=MigrationExecutor(connection);executor.migrate([('runtime','0026_robot_control')])
+    from garimpei.infra.persistence.robot_models import RobotControl,RobotOperation
+    from garimpei.infra.queries.robot.postgres_queries import PostgresRobotQueries
+    assert RobotControl.objects.get(pk='local').requested_enabled
+    assert not RobotOperation.objects.exists()
+    assert InferenceControl.objects.get(pk=1).paused
+    intent.refresh_from_db();assert (intent.id,intent.body,intent.financial,intent.attempts.count())==old
+    with connection.cursor() as cursor:
+     cursor.execute('SELECT count(*) FROM procrastinate_jobs');assert cursor.fetchone()[0]==jobs
+    status=PostgresRobotQueries().status();assert status.unknown==2 and status.state=='unknown'
+    print('ROBOT_MIGRATION_PASS')
+    """)
+>           assert result.returncode == 0, result.stdout + result.stderr
+E           AssertionError: 63 objects imported automatically (use -v 2 for details).
+E             
+E             {"timestamp": "2026-11-13T18:24:45.613705+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f22_adopt_8abc6716", "run_id": "21639335-5c13-40e5-ab1e-d2d1163f20a1"}
+E             Traceback (most recent call last):
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E                 return self.cursor.execute(sql, params)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             psycopg.errors.UndefinedColumn: column "gold_qualification_id" of relation "runtime_alertintent" does not exist
+E             LINE 1: INSERT INTO "runtime_alertintent" ("gold_qualification_id", ...
+E                                                        ^
+E             
+E             The above exception was the direct cause of the following exception:
+E             
+E             Traceback (most recent call last):
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/manage.py", line 8, in <module>
+E                 execute_from_command_line()
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                 utility.execute()
+E                 ~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                 self.fetch_command(subcommand).run_from_argv(self.argv)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                 self.execute(*args, **cmd_options)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                 output = self.handle(*args, **options)
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                 exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<string>", line 12, in <module>
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 665, in create
+E                 obj.save(force_insert=True, using=self.db)
+E                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+E                 self.save_base(
+E                 ~~~~~~~~~~~~~~^
+E                     using=using,
+E                     ^^^^^^^^^^^^
+E                 ...<2 lines>...
+E                     update_fields=update_fields,
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+E                 updated = self._save_table(
+E                     raw,
+E                 ...<4 lines>...
+E                     update_fields,
+E                 )
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+E                 results = self._do_insert(
+E                     cls._base_manager, using, fields, returning_fields, raw
+E                 )
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+E                 return manager._insert(
+E                        ~~~~~~~~~~~~~~~^
+E                     [self],
+E                     ^^^^^^^
+E                 ...<3 lines>...
+E                     raw=raw,
+E                     ^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1873, in _insert
+E                 return query.get_compiler(using=using).execute_sql(returning_fields)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1882, in execute_sql
+E                 cursor.execute(sql, params)
+E                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E                 return self._execute_with_wrappers(
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                     sql, params, many=False, executor=self._execute
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E                 return executor(sql, params, many, context)
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E                 with self.db.wrap_database_errors:
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E                 raise dj_exc_value.with_traceback(traceback) from exc_value
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E                 return self.cursor.execute(sql, params)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/c4f1/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             django.db.utils.ProgrammingError: column "gold_qualification_id" of relation "runtime_alertintent" does not exist
+E             LINE 1: INSERT INTO "runtime_alertintent" ("gold_qualification_id", ...
+E                                                        ^
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...NE 1: INSERT INTO "runtime_alertintent" ("gold_qualification_id", ...\n                                           ^\n').returncode
+
+tests/integration/test_robot_migration.py:46: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_robot_migration.py::test_adoption_preserves_legacy_authorizations_and_individual_pause
+1 failed in 7.04s
