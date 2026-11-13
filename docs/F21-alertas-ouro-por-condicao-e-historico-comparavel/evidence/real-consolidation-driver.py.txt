@@ -1,0 +1,25 @@
+import json,hashlib
+from pathlib import Path
+from datetime import datetime,UTC
+from garimpei.config.env import configure_django
+configure_django()
+import django;django.setup()
+from garimpei.infra.persistence.assessment_models import ConditionAssessment
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.persistence.gold_models import GoldQualification
+from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+from garimpei.main import build_first_alert_store,build_read_profit
+root=Path('docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence')
+p=root/'real-model-cohort-1.json';previous=p.read_bytes();(root/'real-model-cohort-1-driver-partial.json').write_bytes(previous)
+summary=json.loads(previous);reference=json.loads((root/'ai-reference-frozen-wave13.json').read_text());old={r['external_id']:r for r in summary['results']};records=[]
+for case in reference['records']:
+ listing=Listing.objects.get(external_id=case['external_id']);row=ConditionAssessment.objects.filter(listing=listing,observation_id=listing.latest_id,publication_order__isnull=False).order_by('-generation').first();assert row and row.result
+ analyses=[PostgresInferenceQueries().analysis(r) for r in row.inference_refs];parts=[p for a in analyses for p in a['parts']];assert not any(p['metrics'].get('controlled_fake') for p in parts)
+ store=build_first_alert_store();store.adopt(datetime.now(UTC));store.publish(listing.id,store.prepare(listing.id),build_read_profit().execute(listing.id),datetime.now(UTC))
+ qualification=GoldQualification.objects.filter(listing=listing,purpose_key='first').order_by('-evaluated_at').first();result=row.result
+ record=dict(external_id=listing.external_id,listing_id=str(listing.id),observation_id=str(listing.latest_id),reference=case['label'],automatic=result.get('condition'),assessment_status=result.get('status'),sufficient=result.get('sufficient'),assessment_reason=result.get('reason'),photo_coverage=result.get('photo_coverage'),assessment_id=str(row.id),model_calls_sent=sum(bool(p['metrics'].get('sent')) for p in parts),parts=[dict(state=p['state'],reason=p['reason'],metrics=p['metrics']) for p in parts],gold_state=qualification.state if qualification else None,gold_reason=qualification.reason if qualification else None,profit=qualification.evidence.get('financial',{}).get('profit') if qualification else None,result_origin='owned_worker_or_driver_persisted_real_model',collected_after_idempotent_driver_wait=True)
+ if listing.external_id in old:record['driver_elapsed_seconds']=old[listing.external_id]['elapsed_seconds']
+ records.append(record)
+summary.update(results=records,status='complete_persisted_results',finished_at=datetime.now(UTC).isoformat(),fake_whatsapp_messages=[],limitations=reference['cohort_limitations'],execution_note='One owned worker and manual orchestration shared the same frozen eight requests, serialized by F19 GPU guard. Worker published all eight. Manual orchestration was interrupted at fourth idempotent completion wait; persisted results consolidated without additional inference. All outputs retained, including failed and unrun parts.',driver_exit=130,cleanup_stop_exit=0,positive_real_gold_demonstrated=False,independent_human_review=False)
+p.write_text(json.dumps(summary,ensure_ascii=False,indent=2,default=str)+'\n')
+for r in records:print(r['external_id'],r['reference'],r['automatic'],r['assessment_status'],r['model_calls_sent'],r['gold_state'],r['gold_reason'],r['profit'])

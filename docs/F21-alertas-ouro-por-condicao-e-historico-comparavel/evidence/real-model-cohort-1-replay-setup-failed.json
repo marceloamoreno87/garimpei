@@ -1,0 +1,19 @@
+{
+  "feature": "F21",
+  "cohort": "iphone-cohort-1-frozen-eight",
+  "reference_sha256": "7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "started_at": "2026-11-13T17:45:54.605817+00:00",
+  "source": "authorized_real_snapshots_replayed_locally",
+  "local_model_runtime": "real_F19",
+  "fake_whatsapp": true,
+  "real_whatsapp_posts": 0,
+  "results": [],
+  "status": "failed",
+  "source_cutoff": "2026-11-13T17:28:35.917754+00:00",
+  "profile_copied": false,
+  "error_class": "AssertionError",
+  "finished_at": "2026-11-13T17:45:57.610493+00:00",
+  "cleanup_stop_exit": 0
+}

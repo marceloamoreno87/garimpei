@@ -1,0 +1,116 @@
+"""Replay authorized real snapshots through F04/F14/F15/F18/F06/F07/F21; local model, fake WAHA."""
+import os,json,time,hashlib,traceback
+from pathlib import Path
+from datetime import datetime,UTC
+from dataclasses import asdict
+import django
+from garimpei.config.env import configure_django
+configure_django()
+django.setup()
+from django.utils.timezone import now
+from garimpei.config.env import load_config,load_inference_settings
+from garimpei.domain.inference.condition_evidence import VERSION
+from garimpei.infra.persistence.listing_models import Listing,CollectionState
+from garimpei.infra.persistence.valuation_models import ValuationWork
+from garimpei.infra.persistence.assessment_models import ConditionAssessment
+from garimpei.infra.persistence.inference_models import InferenceRequest
+from garimpei.infra.persistence.gold_models import GoldQualification
+from garimpei.infra.repository.alert.gold_adoption import adopt_gold_policy
+from garimpei.infra.repository.listing.assessment_repository import PostgresAssessmentRepository
+from garimpei.infra.gateway.listing.assessment_inference import LocalAssessmentInference
+from garimpei.infra.gateway.listing.assessment_inputs import LocalAssessmentInputs
+from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
+from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+from garimpei.usecase.listing.prepare_assessment_usecase import PrepareAssessmentUseCase
+from garimpei.usecase.listing.complete_assessment_usecase import CompleteAssessmentUseCase
+from garimpei.main import *
+from tests.factories.assessment_origin import serve_assessment_images
+from tests.factories.listing import ControlledClock,serve
+from tests.factories.valuation import ValuationSource
+from tests.factories.runtime import FoundationInstance,pause_worker,resume_worker
+from tests.factories.alert import WahaServer,serve_waha
+from tests.integration.test_collection import configure
+root=Path.cwd();private=Path('/tmp/garimpei-f21-real');reference=root/'docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/ai-reference-frozen-wave13.json'
+refraw=reference.read_bytes();assert hashlib.sha256(refraw).hexdigest()=='7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191'
+ref=json.loads(refraw);assert ref['reference_method']=='ai_assisted' and not ref['independent_human_review']
+rows={};files={};inputs={}
+base=Path('/tmp/garimpei-f21-wave13');old=json.loads((base/'iphone-private.json').read_text());extra=json.loads((base/'collector-extra/details-private.json').read_text())
+raws={d['external_id']:d for d in [*old['details'],*extra['details']] if 'evidence' in d}
+manifest=json.loads((root/'docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/real-corpus.json').read_text());first={d['external_id']:d for run in manifest['runs'] for d in run['details']}
+supp=json.loads((root/'docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/real-extra-corpus.json').read_text());more={d['external_id']:d for d in supp['records']}
+for case in ref['records']:
+ key=case['external_id'];raw=raws[key];e=raw['evidence'];local=[]
+ for p in case['expected_photos']:
+  if key in first:
+   photo=next(x for x in first[key]['photos'] if x.get('sha256')==p['sha256']);file=base/'review'/photo['review_file']
+  else:
+   photo=next(x for x in more[key]['media_source']['photos'] if x.get('sha256')==p['sha256']);file=Path(photo['private_path'])
+  data=file.read_bytes();assert hashlib.sha256(data).hexdigest()==p['sha256'];files[p['sha256']]=file
+  local.append(dict(key=p['photo_key'],primary=not local,correlated=True,variants=[]))
+ inputs[key]=dict(raw=raw,photos=local,expected=case)
+source=ValuationSource(rows={},offers=[]);channel=WahaServer(recipient='100@g.us')
+instance=FoundationInstance(root,private/'f21_real_20261113.env');group=pause_worker(instance)
+clock=ControlledClock(private/'clock',datetime.now(UTC));clock.advance(0)
+from garimpei.infra.persistence.robot_models import RobotControl
+from garimpei.domain.robot.control import RobotCommand
+from garimpei.usecase.robot.set_robot_state_usecase import SetRobotStateUseCase
+from uuid import uuid4
+control=RobotControl.objects.get(installation='local');SetRobotStateUseCase(build_robot_repository()).execute(RobotCommand(uuid4(),True,control.revision))
+summary=dict(feature='F21',cohort='iphone-cohort-1-frozen-eight',reference_sha256=hashlib.sha256(refraw).hexdigest(),reference_method='ai_assisted',independent_human_review=False,started_at=now().isoformat(),source='authorized_real_snapshots_replayed_locally',local_model_runtime='real_F19',fake_whatsapp=True,real_whatsapp_posts=0,results=[],status='running',source_cutoff='2026-11-13T17:28:35.917754+00:00',profile_copied=False)
+output=root/'docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/real-model-cohort-1.json'
+def write():output.write_text(json.dumps(summary,ensure_ascii=False,indent=2,default=str)+'\n')
+write()
+try:
+ with serve_assessment_images(files) as (origin,_),serve(source) as url,serve_waha(channel) as waha:
+  with instance.private_file.open('a') as f:f.write(f'GARIMPEI_LISTING_FIXTURE_URL={url}\nGARIMPEI_VALUATION_FIXTURE_URL={url}\nGARIMPEI_LISTING_FIXTURE_CLOCK={clock.path}\nGARIMPEI_MEDIA_EVAL_ORIGIN={origin}\nGARIMPEI_MEDIA_BUDGET_BYTES=134217728\nGARIMPEI_MEDIA_MIN_FREE_BYTES=1048576\nGARIMPEI_ALERT_FIXTURE_URL={waha}\nGARIMPEI_WAHA_SESSION=synthetic\nGARIMPEI_WAHA_RECIPIENT=100@g.us\nGARIMPEI_WAHA_ACCOUNT=200@c.us\n')
+  os.environ.update(GARIMPEI_LISTING_FIXTURE_URL=url,GARIMPEI_VALUATION_FIXTURE_URL=url,GARIMPEI_LISTING_FIXTURE_CLOCK=str(clock.path),GARIMPEI_MEDIA_EVAL_ORIGIN=origin,GARIMPEI_MEDIA_BUDGET_BYTES='134217728',GARIMPEI_MEDIA_MIN_FREE_BYTES='1048576',GARIMPEI_ALERT_FIXTURE_URL=waha,GARIMPEI_WAHA_SESSION='synthetic',GARIMPEI_WAHA_RECIPIENT='100@g.us',GARIMPEI_WAHA_ACCOUNT='200@c.us')
+  for key,value in inputs.items():
+   e=value['raw']['evidence'];photos=value['photos']
+   for p,expected in zip(photos,value['expected']['expected_photos'],strict=True):
+    p['variants']=[dict(url=origin+'/'+expected['sha256'],width=next(x for x in e['media']['photos'] if x['key']==p['key'])['variants'][0].get('width'),height=next(x for x in e['media']['photos'] if x['key']==p['key'])['variants'][0].get('height'))]
+   source.rows[key]={**e,'external_id':key,'url':value['raw']['url'],'price':'R$ '+str(e['price']).replace('.',','),'media':dict(presence='present',complete=True,reason='',known_count=len(photos),photos=photos)}
+  configure(instance)
+  from garimpei.usecase.monitoring.save_step_usecase import StepInput
+  form=build_monitoring_queries().read_form();build_monitoring_handler()._update.execute(StepInput('editar',form.revision,cep='01001000',shipping_estimate='25.50',resale_fee_percent='10.00',category_ids=('479353692612078',),product_names=('iPhone 13 128GB',)))
+  from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration
+  MonitoringConfiguration.objects.filter(slot='active').update(resale_fee_percent='10.00')
+  adopt_gold_policy(clock.value)
+  CollectionState.objects.update(next_attempt_at=clock.value)
+  for _ in range(80):
+   reconcile_listings();state=CollectionState.objects.filter(configuration_id=build_read_monitoring_configuration().execute().configuration_id,current_id__isnull=False).first()
+   if state is None:break
+   build_listing_task_handler().execute(str(state.current_id),state.generation)
+  assert Listing.objects.count()==8,Listing.objects.count()
+  for _ in range(160):
+   jobs=build_media_repository().due(now())
+   if not jobs:break
+   for job in jobs:build_media_runner().execute(job)
+  reconcile_valuations()
+  for work in ValuationWork.objects.filter(completed=False):build_valuation_handler().execute(work.id)
+  repository=PostgresAssessmentRepository();inference=LocalAssessmentInference(build_request_analysis(),build_media_repository(),build_media_store(),PostgresMediaQueries())
+  prepare=PrepareAssessmentUseCase(LocalAssessmentInputs(),repository,inference,now);complete=CompleteAssessmentUseCase(repository,inference,now);runner=build_run_analysis()
+  for case in ref['records']:
+   key=case['external_id'];listing=Listing.objects.get(external_id=key);start=time.monotonic();work=prepare.execute(listing.id)
+   deadline=time.monotonic()+600
+   while not complete.execute(work.id):
+    assert time.monotonic()<deadline,'case deadline exceeded'
+    runner.execute()
+   row=ConditionAssessment.objects.get(id=work.id);result=row.result
+   analyses=[PostgresInferenceQueries().analysis(identity) for identity in work.requests]
+   parts=[p for a in analyses for p in a['parts']]
+   assert not any(p['metrics'].get('controlled_fake') for p in parts)
+   store=build_first_alert_store();store.adopt(clock.value);store.publish(listing.id,store.prepare(listing.id),build_read_profit().execute(listing.id),clock.value)
+   qualification=GoldQualification.objects.filter(listing=listing,purpose_key='first').order_by('-evaluated_at').first()
+   record=dict(external_id=key,listing_id=str(listing.id),observation_id=str(listing.latest_id),reference=case['label'],automatic=result.get('condition'),assessment_status=result.get('status'),sufficient=result.get('sufficient'),assessment_reason=result.get('reason'),photo_coverage=result.get('photo_coverage'),assessment_id=str(work.id),model_calls_sent=sum(bool(p['metrics'].get('sent')) for p in parts),parts=[dict(state=p['state'],reason=p['reason'],metrics=p['metrics']) for p in parts],elapsed_seconds=time.monotonic()-start,gold_state=qualification.state if qualification else None,gold_reason=qualification.reason if qualification else None,profit=qualification.evidence.get('financial',{}).get('profit') if qualification else None)
+   summary['results'].append(record);write();print(json.dumps({k:record[k] for k in ['external_id','reference','automatic','assessment_status','gold_state','gold_reason','model_calls_sent']},ensure_ascii=False),flush=True)
+  summary['status']='complete';summary['finished_at']=now().isoformat();summary['fake_whatsapp_messages']=channel.messages;summary['limitations']=ref['cohort_limitations'];write()
+except Exception as error:
+ summary['status']='failed';summary['error_class']=type(error).__name__;summary['finished_at']=now().isoformat();write();traceback.print_exc();raise
+finally:
+ from garimpei.usecase.robot.set_robot_state_usecase import SetRobotStateUseCase
+ from garimpei.domain.robot.control import RobotCommand
+ from garimpei.infra.persistence.robot_models import RobotControl
+ from uuid import uuid4
+ control=RobotControl.objects.get(installation='local');SetRobotStateUseCase(build_robot_repository()).execute(RobotCommand(uuid4(),False,control.revision))
+ resume_worker(group)
+ stopped=instance.command('./scripts/stop.sh',timeout=120);summary['cleanup_stop_exit']=stopped.returncode;write()

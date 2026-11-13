@@ -1,0 +1,176 @@
+{
+  "reference_method": "controlled_synthetic_expectations",
+  "not_real_model_quality": true,
+  "completed_at": "2026-11-13T18:01:33.527536+00:00",
+  "results": [
+    {
+      "case": "ALIASES",
+      "expected": "qualified",
+      "verdict": "PASS",
+      "first_reason": "eligible",
+      "qualification_states": [
+        {
+          "state": "qualified",
+          "reasons": [
+            "gold_qualified"
+          ]
+        }
+      ],
+      "post_count": 1,
+      "attempts": 1
+    },
+    {
+      "case": "PROFIT_CENT",
+      "expected": "qualified",
+      "verdict": "PASS",
+      "first_reason": "eligible",
+      "qualification_states": [
+        {
+          "state": "qualified",
+          "reasons": [
+            "gold_qualified"
+          ]
+        }
+      ],
+      "post_count": 1,
+      "attempts": 1
+    },
+    {
+      "case": "PROFIT_NEGATIVE",
+      "expected": "gold_profit_non_positive",
+      "verdict": "PASS",
+      "first_reason": "gold_profit_non_positive",
+      "qualification_states": [
+        {
+          "state": "blocked",
+          "reasons": [
+            "gold_profit_non_positive"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "PENDING_ANALYSIS",
+      "expected": "gold_condition_pending",
+      "verdict": "PASS",
+      "first_reason": "gold_photos_missing",
+      "qualification_states": [
+        {
+          "state": "waiting",
+          "reasons": [
+            "gold_photos_missing",
+            "gold_condition_pending"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "FAILED_ANALYSIS",
+      "expected": "gold_condition_pending",
+      "verdict": "PASS",
+      "first_reason": "gold_photos_missing",
+      "qualification_states": [
+        {
+          "state": "waiting",
+          "reasons": [
+            "gold_photos_missing",
+            "gold_condition_pending"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "UNCERTAIN_TEXT",
+      "expected": "gold_condition_insufficient",
+      "verdict": "PASS",
+      "first_reason": "gold_condition_insufficient",
+      "qualification_states": [
+        {
+          "state": "waiting",
+          "reasons": [
+            "gold_condition_insufficient"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "MISSING_ATTRIBUTE",
+      "expected": "gold_identity_missing_attribute",
+      "verdict": "PASS",
+      "first_reason": "gold_identity_missing_attribute",
+      "qualification_states": [
+        {
+          "state": "waiting",
+          "reasons": [
+            "gold_identity_missing_attribute",
+            "gold_history_insufficient",
+            "gold_profit_pending"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "CONFLICT",
+      "expected": "gold_identity_conflict",
+      "verdict": "PASS",
+      "first_reason": "gold_condition_insufficient",
+      "qualification_states": [
+        {
+          "state": "blocked",
+          "reasons": [
+            "gold_condition_insufficient",
+            "gold_identity_conflict",
+            "gold_history_insufficient",
+            "gold_profit_pending"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "HISTORY_DISPERSED",
+      "expected": "gold_history_dispersed",
+      "verdict": "PASS",
+      "first_reason": "gold_history_dispersed",
+      "qualification_states": [
+        {
+          "state": "waiting",
+          "reasons": [
+            "gold_history_dispersed",
+            "gold_profit_pending"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "EXPIRED",
+      "expected": "gold_history_expired",
+      "verdict": "PASS",
+      "first_reason": "publication_expired",
+      "qualification_states": [
+        {
+          "state": "waiting",
+          "reasons": [
+            "gold_history_expired",
+            "gold_profit_pending"
+          ]
+        }
+      ],
+      "post_count": 0,
+      "attempts": 0
+    }
+  ]
+}

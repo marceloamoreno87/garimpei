@@ -1,0 +1,1348 @@
+{
+  "feature": "F21",
+  "evidence_kind": "real_authorized_supplementary_collection",
+  "generated_at": "2026-11-13T17:42:10.854095+00:00",
+  "query": "iPhone 13 128GB",
+  "target_product_key": "apple:iphone13:standard:128gb",
+  "source_snapshot_sha256": "cab3a4943cd1f5dd4261f60a66453d9f6fc409e9a03e70b863f3459b5f0e4e5f",
+  "scope": {
+    "origin": "São Paulo, SP",
+    "radius_km": 20,
+    "purpose": "research",
+    "publication_age_filter": null,
+    "search_context_reused": true,
+    "reused_source_context": {
+      "verified": true,
+      "latitude": -23.55,
+      "longitude": -46.6333,
+      "radius_km": 20,
+      "query": "iPhone 13 128GB"
+    },
+    "details_source": "existing_48_ids",
+    "new_queries": 0,
+    "new_pages": 0
+  },
+  "limits": {
+    "details_per_batch": 2,
+    "seconds_per_batch": 180,
+    "max_details_final": 12,
+    "new_searches": 0,
+    "new_search_pages": 0
+  },
+  "counts": {
+    "prior_details": 12,
+    "final_details": 12,
+    "previously_examined": 36,
+    "all_examined": 48,
+    "final_eligible": 1,
+    "final_eligible_below_1440": 1,
+    "combined_eligible": 9
+  },
+  "combined_F06_eligible": [
+    {
+      "external_id": "1149985297537880",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1450.00",
+      "observed_at": "2026-11-13T17:19:55.613136+00:00"
+    },
+    {
+      "external_id": "1156072093429318",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1850.00",
+      "observed_at": "2026-11-13T17:20:03.161062+00:00"
+    },
+    {
+      "external_id": "1447579983522224",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1600.00",
+      "observed_at": "2026-11-13T17:20:59.701543+00:00"
+    },
+    {
+      "external_id": "1621338866348626",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1600.00",
+      "observed_at": "2026-11-13T17:25:41.793581+00:00"
+    },
+    {
+      "external_id": "1654513062783723",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1600.00",
+      "observed_at": "2026-11-13T17:26:02.624004+00:00"
+    },
+    {
+      "external_id": "1810839963486848",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1400.00",
+      "observed_at": "2026-11-13T17:26:55.369708+00:00"
+    },
+    {
+      "external_id": "1839249197206568",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1600.00",
+      "observed_at": "2026-11-13T17:27:02.123781+00:00"
+    },
+    {
+      "external_id": "2380604816050904",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1600.00",
+      "observed_at": "2026-11-13T17:27:43.289215+00:00"
+    },
+    {
+      "external_id": "3042816096065519",
+      "product_key": "apple:iphone13:standard:128gb",
+      "price": "1400.00",
+      "observed_at": "2026-11-13T17:41:32.943042+00:00"
+    }
+  ],
+  "combined_F06_target_estimates": [
+    {
+      "target_external_id": "1149985297537880",
+      "target_price": "1450.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1156072093429318",
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1810839963486848",
+        "1839249197206568",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:20:03.161062+00:00"
+    },
+    {
+      "target_external_id": "1156072093429318",
+      "target_price": "1850.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1810839963486848",
+        "1839249197206568",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "1447579983522224",
+      "target_price": "1600.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1621338866348626",
+        "1654513062783723",
+        "1810839963486848",
+        "1839249197206568",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "1621338866348626",
+      "target_price": "1600.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1447579983522224",
+        "1654513062783723",
+        "1810839963486848",
+        "1839249197206568",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "1654513062783723",
+      "target_price": "1600.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1447579983522224",
+        "1621338866348626",
+        "1810839963486848",
+        "1839249197206568",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "1810839963486848",
+      "target_price": "1400.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1839249197206568",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "1839249197206568",
+      "target_price": "1600.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1810839963486848",
+        "2380604816050904",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "2380604816050904",
+      "target_price": "1600.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1810839963486848",
+        "1839249197206568",
+        "3042816096065519"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    },
+    {
+      "target_external_id": "3042816096065519",
+      "target_price": "1400.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "reason": null,
+      "resale_price": "1600.00",
+      "accepted_before_outliers": 8,
+      "retained_count": 8,
+      "retained_external_ids": [
+        "1149985297537880",
+        "1156072093429318",
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1810839963486848",
+        "1839249197206568",
+        "2380604816050904"
+      ],
+      "valid_until": "2026-11-27T17:19:55.613136+00:00"
+    }
+  ],
+  "records": [
+    {
+      "external_id": "28474037715609148",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/28474037715609148/",
+      "observed_at": "2026-11-13T17:40:50.389226+00:00",
+      "revision": 1,
+      "title": "IPHONE 13 128GB 78%",
+      "description": "COMPLETO",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — em boas condições",
+      "price": "1900.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T22:30:34+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "IPHONE",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "IPHONE 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "IPHONE",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 3,
+        "complete": true,
+        "correlated_photo_count": 3,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "29077572858568364",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/29077572858568364/",
+      "observed_at": "2026-11-13T17:40:58.075865+00:00",
+      "revision": 1,
+      "title": "IPHONE 13 128GB AZUL",
+      "description": "IPHONE 13 128GB \nAZUL\n🔋 100% \nA VISTA R$1.395,00 ou 12 VEZES NO CARTÃO DE CRÉDITO.\nInteressados chamar [telefone removido]",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1395.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T21:03:10+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Mauá",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "IPHONE",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "IPHONE 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "IPHONE",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 1,
+        "complete": true,
+        "correlated_photo_count": 1,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "29136053899336639",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/29136053899336639/",
+      "observed_at": "2026-11-13T17:41:04.983221+00:00",
+      "revision": 1,
+      "title": "IPhone 13 128GB IMPECÁVEL!!!!",
+      "description": "Celular esta sem detalhes, sem marcas de uso! Funcionando tudo certinho!! Nao tem nenhuma peça trocada. Bateria 72%",
+      "description_absent_at_source": false,
+      "condition_declared": "Novo",
+      "price": "1650.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T22:15:14+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Carapicuíba",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "IPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "IPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "IPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "condition_not_declared_used",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 10,
+        "complete": true,
+        "correlated_photo_count": 10,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "29138620425747344",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/29138620425747344/",
+      "observed_at": "2026-11-13T17:41:11.650555+00:00",
+      "revision": 1,
+      "title": "iPhone 13 128gb Verde Alpino - Seminovo",
+      "description": "- Aparelho seminovo com a saúde da bateria acima de 80%.\n- Somos uma loja especializada em iPhones!\n- Todos aparelhos possuem 90 dias de garantia.\n- Instagram da loja: lu.phones\n\nBrindes: Capa, película e cabo para carregar.\nParcelamos em até 18x com taxa da máquina.\nPegamos o seu usado na troca (sujeito a avaliação).\n\nEntregamos via motoboy em São Paulo Capital!\nTemos outros modelos de iPhone (consultar)",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "2200.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T11:03:07+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "iPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128gb",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 2,
+        "complete": true,
+        "correlated_photo_count": 2,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "2973774156319051",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/2973774156319051/",
+      "observed_at": "2026-11-13T17:41:19.283182+00:00",
+      "revision": 1,
+      "title": "IPHONE 13 128GB",
+      "description": "📱 VENDO iPhone 13 – 128GB\n\nAparelho em ótimo estado! \n\n🔋 Saúde da bateria: 82%\n\n📦 Acompanha:\n\n* Cabo original Apple\n* 2 capinhas\n* Caixa original\n\n💰 Valor: R$ 1.650,00\nValor podemos negociar \n\n💳 Aceitamos cartão de crédito!\n🤝 Valor negociável!\n\n📲 Interessados, entrar em [contato removido]\n[telefone removido]\n\nAproveite! Chama no WhatsApp! 🔥",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1650.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T21:55:30+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Osasco",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "IPHONE",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "IPHONE 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "IPHONE",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 9,
+        "complete": true,
+        "correlated_photo_count": 9,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "3000831173601224",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/3000831173601224/",
+      "observed_at": "2026-11-13T17:41:26.047049+00:00",
+      "revision": 1,
+      "title": "iPhone 13 128gb",
+      "description": "📱 IPHONE 13 BRANCO – 🤍\n\n128gb\n\n✨ Zero avarias, sem detalhes\n🔋 71% de saúde da bateria (original)\n🔧 Nunca aberto, totalmente original\n✅ Face ID funcionando perfeitamente\n✅ NFC 100% funcional\n✅ E-mail/iCloud OK\n✅ Tudo funcionando perfeitamente",
+      "description_absent_at_source": false,
+      "condition_declared": "Novo",
+      "price": "1499.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T02:50:53+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Embu das Artes",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "iPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128gb",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "good",
+      "condition_signals": [
+        {
+          "field": "description",
+          "text": "✅ Face ID funcionando perfeitamente",
+          "condition": "good"
+        },
+        {
+          "field": "description",
+          "text": "✅ NFC 100% funcional",
+          "condition": "good"
+        },
+        {
+          "field": "description",
+          "text": "✅ Tudo funcionando perfeitamente",
+          "condition": "good"
+        }
+      ],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "condition_not_declared_used",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 5,
+        "complete": true,
+        "correlated_photo_count": 5,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "3042816096065519",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/3042816096065519/",
+      "observed_at": "2026-11-13T17:41:32.943042+00:00",
+      "revision": 1,
+      "title": "iPhone 13 128gb",
+      "description": "iPhone 13 128gb aparelho todo original nunca foi aberto nem trocado nada vai com caixa cabo capinha tudo completo funcionando perfeitamente tudo Face ID câmeras, sou de Osasco não entrego tenho uma barbearia pode estar vindo testar o aparelho com calma.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1400.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T23:17:54+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Osasco",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "iPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128gb",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "good",
+      "condition_signals": [
+        {
+          "field": "description",
+          "text": "iPhone 13 128gb aparelho todo original nunca foi aberto nem trocado nada vai com caixa cabo capinha tudo completo funcionando perfeitamente tudo Face ID câmeras, sou de Osasco não entrego tenho uma barbearia pode estar vindo testar o aparelho com calma.",
+          "condition": "good"
+        }
+      ],
+      "condition_reasons": [],
+      "F06_eligible": true,
+      "inclusion_reason": "F06_exact_electronics_v2_accepted",
+      "exclusion_reasons": [],
+      "media_source": {
+        "presence": "present",
+        "known_count": 6,
+        "complete": true,
+        "correlated_photo_count": 6,
+        "photos": [
+          {
+            "photo_key": "1191540630071357",
+            "position": 0,
+            "primary": true,
+            "correlated": true,
+            "variant_count": 1,
+            "state": "ready",
+            "private_path": "/tmp/garimpei-f21-wave13/collector-final/media/3042816096065519/0-80ef8611fc30bad5.jpg",
+            "sha256": "80ef8611fc30bad575da367d456b9ab684a657f22440e74ffded261b1c9e5339",
+            "source_variant_url_sha256": "68802d5aad2580a56b7124281dc25c39f3fda310ee941b40aea114a6eda82cb7",
+            "mime": "image/jpeg",
+            "width": 720,
+            "height": 960,
+            "bytes": 126149,
+            "downloaded_at": "2026-11-13T17:42:10.914549+00:00"
+          },
+          {
+            "photo_key": "1729036078578630",
+            "position": 1,
+            "primary": false,
+            "correlated": true,
+            "variant_count": 1,
+            "state": "ready",
+            "private_path": "/tmp/garimpei-f21-wave13/collector-final/media/3042816096065519/1-3f68b374cd7d7fb6.jpg",
+            "sha256": "3f68b374cd7d7fb6cff386ad1fa1757da1fca84598c7d2b83da1b7fed77b3ccb",
+            "source_variant_url_sha256": "cdcabd71496caea3dc6de38dfc99c63a54e4e21bfa175cb7bf38ce09edb37264",
+            "mime": "image/jpeg",
+            "width": 720,
+            "height": 960,
+            "bytes": 53097,
+            "downloaded_at": "2026-11-13T17:42:10.946706+00:00"
+          },
+          {
+            "photo_key": "1924473801854975",
+            "position": 2,
+            "primary": false,
+            "correlated": true,
+            "variant_count": 1,
+            "state": "ready",
+            "private_path": "/tmp/garimpei-f21-wave13/collector-final/media/3042816096065519/2-9141626fc6c98ffb.jpg",
+            "sha256": "9141626fc6c98ffbc7fd8465af0f36c5cd10d15c868c66a9dacdb2633fdf1c69",
+            "source_variant_url_sha256": "f7e105817329d268459b64fb5f5775ebc237ce1a3c875250682a684a52aa71ba",
+            "mime": "image/jpeg",
+            "width": 720,
+            "height": 960,
+            "bytes": 63134,
+            "downloaded_at": "2026-11-13T17:42:10.978546+00:00"
+          },
+          {
+            "photo_key": "29374287092204332",
+            "position": 3,
+            "primary": false,
+            "correlated": true,
+            "variant_count": 1,
+            "state": "ready",
+            "private_path": "/tmp/garimpei-f21-wave13/collector-final/media/3042816096065519/3-6eacfae8cb0d1b1c.jpg",
+            "sha256": "6eacfae8cb0d1b1c744e38154bcf181101a9028875f026878fd8aaa0fb188cd6",
+            "source_variant_url_sha256": "a94be1fce9cc65ffda0ee6acb730458cc3d52e2a9554f65cb4148d4495970641",
+            "mime": "image/jpeg",
+            "width": 720,
+            "height": 960,
+            "bytes": 61979,
+            "downloaded_at": "2026-11-13T17:42:11.010403+00:00"
+          },
+          {
+            "photo_key": "4398119340448624",
+            "position": 4,
+            "primary": false,
+            "correlated": true,
+            "variant_count": 1,
+            "state": "ready",
+            "private_path": "/tmp/garimpei-f21-wave13/collector-final/media/3042816096065519/4-71ca255576fb2fe2.jpg",
+            "sha256": "71ca255576fb2fe2adc7bfbd34bfeb8a22acc7e2fa1109dbe79cc329ac4b06bc",
+            "source_variant_url_sha256": "fbfaddf99d492b7b9f37fb36ed4bf8085f380d8e13d61860bcfd74b0c708e58d",
+            "mime": "image/jpeg",
+            "width": 720,
+            "height": 960,
+            "bytes": 48538,
+            "downloaded_at": "2026-11-13T17:42:11.042173+00:00"
+          },
+          {
+            "photo_key": "1921517832561110",
+            "position": 5,
+            "primary": false,
+            "correlated": true,
+            "variant_count": 1,
+            "state": "ready",
+            "private_path": "/tmp/garimpei-f21-wave13/collector-final/media/3042816096065519/5-17d279f70bbd2c34.jpg",
+            "sha256": "17d279f70bbd2c344d184a5b8ec30cc31336cd4874802da065e44d4ad2a0e4cc",
+            "source_variant_url_sha256": "f7f606172137fcbff6f720ef30f5bc1a61374aed63d37988fb90d4a91d65beb3",
+            "mime": "image/jpeg",
+            "width": 720,
+            "height": 960,
+            "bytes": 46610,
+            "downloaded_at": "2026-11-13T17:42:11.071008+00:00"
+          }
+        ]
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "3263518237178328",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/3263518237178328/",
+      "observed_at": "2026-11-13T17:41:39.909020+00:00",
+      "revision": 1,
+      "title": "iPhone 13 128GB Branco | Original | Bateria 87% | R$ 1.700",
+      "description": "Vendo iPhone 13 de 128GB, na cor branca, muito bem conservado e com excelente custo-benefício.\n\nAparelho original, sem histórico de reparos e com a tela em perfeito estado, sem riscos ou detalhes.\n\nInformações do aparelho:\n\n* Modelo: iPhone 13\n* Armazenamento: 128GB\n* Cor: Branco\n* Saúde da bateria: 87%\n* Tela sem riscos ou detalhes\n* Nunca passou por reparos\n* Acompanha caixa original e cabo de carregamento\n\nValor: R$ 1.700,00\n\nÓtima oportunidade para quem procura um iPhone original, bem conservado e com preço justo.\n\nInteressados, entrar em contato pelo chat do Marketplace.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1700.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T16:51:06+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Osasco",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "iPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 7,
+        "complete": true,
+        "correlated_photo_count": 7,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "4620374684863588",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/4620374684863588/",
+      "observed_at": "2026-11-13T17:41:46.182372+00:00",
+      "revision": 1,
+      "title": "iPhone 13 128GB",
+      "description": "iPhone 13 128 Gb Rose 100% tudo original bateria trocada original sem mensagem de troca de bateria com caixa cel sem avarias ou marcas aceito trocas em iPhone 13 Pro ou 14 pago volta ou troco em Xbox séries s ou ps5",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1800.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T17:31:46+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "iPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "generation",
+          "value": "pro",
+          "field": "description",
+          "quote": "Pro",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "pro",
+          "field": "description",
+          "quote": "Pro",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 3,
+        "complete": true,
+        "correlated_photo_count": 3,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "4635496960049071",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/4635496960049071/",
+      "observed_at": "2026-11-13T17:41:52.789537+00:00",
+      "revision": 1,
+      "title": "IPhone 13 128GB TODO ORIGINAL!!!",
+      "description": "Celular em estado de novo, sem detalhe e nenhuma peça trocada! Tudo funcionando certinho! So pegar e usar.",
+      "description_absent_at_source": false,
+      "condition_declared": "Novo",
+      "price": "1600.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T09:21:37+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Carapicuíba",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "IPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "IPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128GB",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "IPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "condition_not_declared_used",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 10,
+        "complete": true,
+        "correlated_photo_count": 10,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "977674488297838",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/977674488297838/",
+      "observed_at": "2026-11-13T17:41:59.440019+00:00",
+      "revision": 1,
+      "title": "Iphone 13 128gb",
+      "description": "Precinho pra ir hoje",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — em boas condições",
+      "price": "1000.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T09:31:03+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Guarulhos",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "Iphone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "Iphone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128gb",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "Iphone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 1,
+        "complete": true,
+        "correlated_photo_count": 1,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "997324392870108",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/997324392870108/",
+      "observed_at": "2026-11-13T17:42:05.820231+00:00",
+      "revision": 1,
+      "title": "iPhone 13 128gb oportunidade",
+      "description": "*iPhone 13 blue 128gb*\n\n✅ Semi novo \n✅ 128gb de armazenamento \n✅ Carregador e cabo\n✅ Peças originais \n✅ 79% 🔋 \n\nEntregamos na sua casa 🏠 \n*Aceitamos cartão 💳 em até 12 vezes \n\nValor R$1650,00 💰",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1600.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T01:28:52+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "apple:iphone13:standard:128gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "iphone",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "13",
+          "field": "title",
+          "quote": "iPhone 13",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "128gb",
+          "field": "title",
+          "quote": "128gb",
+          "explicit": true
+        },
+        {
+          "name": "edition",
+          "value": "standard",
+          "field": "title",
+          "quote": "iPhone",
+          "explicit": false
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 1,
+        "complete": true,
+        "correlated_photo_count": 1,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    }
+  ],
+  "privacy": {
+    "browser_profile_copied": false,
+    "signed_media_urls_published": false,
+    "seller_profiles_published": false,
+    "contact_values_redacted": true,
+    "private_raw_path": "/tmp/garimpei-f21-wave13/collector-final/details-private.json"
+  },
+  "effects": {
+    "read_only_source": true,
+    "business_observations_published": 0,
+    "GPU_inference_calls": 0,
+    "real_WAHA_posts": 0,
+    "profile_closed": true
+  },
+  "limitations": [
+    "Esta coleta suplementar conserva a política F06 efetiva e não equivale à qualificação F21.",
+    "Preços pedidos não demonstram vendas concluídas.",
+    "Revisão é de IA; não há rótulos humanos.",
+    "Evidências não foram publicadas no banco da aplicação.",
+    "Anúncios com IDs distintos e descrição repetida não demonstram vendedores ou unidades físicas independentes."
+  ],
+  "duplicate_description_groups": [
+    {
+      "description_sha256": "039df34400852c68777e2a6f9ad98ed4cf7b4d9a522a80837b722d8c373d3773",
+      "external_ids": [
+        "1447579983522224",
+        "1621338866348626",
+        "1654513062783723",
+        "1839249197206568",
+        "2380604816050904"
+      ]
+    }
+  ],
+  "source_collection_complete": true,
+  "no_automatic_further_queries": true,
+  "final_requested_ids": [
+    "28474037715609148",
+    "29077572858568364",
+    "29136053899336639",
+    "29138620425747344",
+    "2973774156319051",
+    "3000831173601224",
+    "3042816096065519",
+    "3263518237178328",
+    "4620374684863588",
+    "4635496960049071",
+    "977674488297838",
+    "997324392870108"
+  ],
+  "final_candidates_below_1440": [
+    {
+      "external_id": "3042816096065519",
+      "price": "1400.00",
+      "product_key": "apple:iphone13:standard:128gb",
+      "observed_at": "2026-11-13T17:41:32.943042+00:00",
+      "source_publication_at": "2026-11-12T23:17:54+00:00",
+      "source_publication_basis": "facebook.creation_time"
+    }
+  ],
+  "condition_warning": "F06 textual eligibility does not establish F21 condition. Current prior target1400 had an iOS unverified-battery warning in root AI visual review; no human labels or good labels are fabricated by this collection.",
+  "republication_policy": "Identidades distintas source/external_id conservadas pela política F18; sem deduplicação especulativa por título/foto. Descrições repetidas são uma limitação rastreável, não prova de unidades físicas distintas.",
+  "verification": {
+    "photo_count": 6,
+    "all_downloaded_sha256_verified": true
+  }
+}

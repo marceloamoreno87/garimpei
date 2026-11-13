@@ -1,0 +1,14 @@
+{
+  "method": "controlled synthetic I/O with active F21 persistent fence and real PostgreSQL",
+  "completed_at": "2026-11-13T18:16:58.799380+00:00",
+  "results": [
+    {
+      "case": "evidence_arrival",
+      "verdict": "PASS",
+      "post_count": 1,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 1
+    }
+  ]
+}

@@ -1,0 +1,931 @@
+{
+  "feature": "F21",
+  "evidence_kind": "real_authorized_supplementary_collection",
+  "generated_at": "2026-11-13T17:45:51.807863+00:00",
+  "query": "RTX 4060 8GB",
+  "target_product_key": "nvidia:rtx:4060:8gb",
+  "source_snapshot_sha256": "1a5ddba7c6cc9f5eb1f0acdbcfc9262b39ce85e0086c25beec808774264c8628",
+  "scope": {
+    "origin": "São Paulo, SP",
+    "radius_km": 20,
+    "purpose": "research",
+    "publication_age_filter": null,
+    "search_context_reused": true,
+    "reused_source_context": {
+      "verified": true,
+      "latitude": -23.55,
+      "longitude": -46.6333,
+      "radius_km": 20,
+      "query": "RTX 4060 8GB"
+    },
+    "details_source": "new_rtx_bounded_corpus",
+    "new_queries": 1,
+    "new_pages": 2
+  },
+  "limits": {
+    "queries": 1,
+    "pages": 2,
+    "details_per_batch": 2,
+    "max_batches": 6,
+    "seconds_per_batch": 180,
+    "request_timeout_seconds": 20
+  },
+  "counts": {
+    "prior_details": 0,
+    "details": 12,
+    "eligible": 0,
+    "combined_eligible": 0
+  },
+  "combined_F06_eligible": [],
+  "combined_F06_target_estimates": [],
+  "records": [
+    {
+      "external_id": "1167254672536759",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/1167254672536759/",
+      "observed_at": "2026-11-13T17:44:31.595549+00:00",
+      "revision": 1,
+      "title": "RTX 4060 8gb msi white, somente venda preço não negociável não aceito troca.",
+      "description": "Placa com 1 ano de uso, não foi aberta, sem marcas.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "2000.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T22:37:27+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Guarulhos",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "nvidia:rtx:4060:8gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 4060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "4060",
+          "field": "title",
+          "quote": "RTX 4060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8gb",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 8,
+        "complete": true,
+        "correlated_photo_count": 8,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "2380392516100971",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/2380392516100971/",
+      "observed_at": "2026-11-13T17:44:38.252001+00:00",
+      "revision": 1,
+      "title": "Placa de Vídeo Nvidia RTX 4060 8GB Palit - Semi-nova",
+      "description": "ESPECIFICAÇÕES:\n\n- Modelo: Palit GeForce RTX 4060 Infinity 2\n- Memória: 8 GB GDDR6\n- Interface: 128 bits\n- Núcleos CUDA: 3.072\n- Tecnologias: Ray Tracing e DLSS 3\n- Conexões: HDMI e DisplayPort\n\n- Sou da Zona Leste",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1899.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T23:26:29+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "identified",
+      "product_key": "nvidia:rtx:4060:8gb",
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 4060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "4060",
+          "field": "title",
+          "quote": "RTX 4060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8GB",
+          "explicit": true
+        },
+        {
+          "name": "memory_type",
+          "value": "gddr6",
+          "field": "description",
+          "quote": "GDDR6",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 5,
+        "complete": true,
+        "correlated_photo_count": 5,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "2478640102944826",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/2478640102944826/",
+      "observed_at": "2026-11-13T17:44:44.978145+00:00",
+      "revision": 1,
+      "title": "PC Gamer Intel i5 12400F + RTX 4060 8GB + SSD 1TB | Gabinete Branco ARGB",
+      "description": "Vendo meu PC gamer, montado com peças novas e de qualidade, rodando liso em Full HD e 1440p. Ideal para jogar, editar vídeo e trabalhar.\nConfiguração:\nProcessador: Intel Core i5 12400F (6 núcleos, 12 threads, até 4.4GHz)\nPlaca de vídeo: Gigabyte GeForce RTX 4060 Windforce OC 8GB GDDR6 (DLSS e Ray Tracing)\nMemória RAM: 16GB DDR4 3200MHz Hikvision U10\nPlaca-mãe: Biostar H610MHP (LGA 1700, DDR4)\nSSD: Kingston NV2 1TB NVMe M.2 (leitura de até 3500MB/s)\nFonte: Cooler Master MPE 550W 80 Plus White\nGabinete: Montech Sky One Lite branco, vidro temperado, ARGB, 3 fans\nCooler: Box original Intel\nDesempenho: roda a maioria dos jogos atuais em alto ou ultra no Full HD, com ótimo desempenho também em 1440p. É um conjunto muito bom para Fortnite, Valorant, CS2, GTA V, Warzone e outros.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "5500.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T15:02:22+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 4060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "4060",
+          "field": "title",
+          "quote": "RTX 4060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8GB",
+          "explicit": true
+        },
+        {
+          "name": "memory_type",
+          "value": "gddr6",
+          "field": "description",
+          "quote": "GDDR6",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 6,
+        "complete": true,
+        "correlated_photo_count": 6,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "982743671088276",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/982743671088276/",
+      "observed_at": "2026-11-13T17:44:51.542089+00:00",
+      "revision": 1,
+      "title": "Rtx 4060ti 8gb galax",
+      "description": "Placa top está no meu pc atualmente, troco por uma 5070, com volta minha. Sou de Guarulhos pagamento somente via pix.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — em boas condições",
+      "price": "2400.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-11T23:27:40+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Guarulhos",
+      "location_state": "SP",
+      "identity_state": "unrecognized",
+      "product_key": null,
+      "identity_attributes": [],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 1,
+        "complete": true,
+        "correlated_photo_count": 1,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "1938625344066867",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/1938625344066867/",
+      "observed_at": "2026-11-13T17:44:58.539105+00:00",
+      "revision": 1,
+      "title": "PC RYZEN 5 5500/ RTX 4060",
+      "description": "R$4.000,00\n___\nRYZEN 5 5500\nRTX 4060 8GB GIGABYTE\nB550 PICHAU\n16GB 3200MHZ\nSSD 512GB NVME\nFONTE 600W 80 PLUS\nGABINETE COM LATERAL DE VIDRO E 3 FANS RGB COM CONTROLADORA\n_______\nENTREGO NA SUA CASA PARA TESTAR Á-VONTADE \nNÃO REALIZO ENVIOS\nTODOS OS TESTES SERÃO NA MINHA E NA SUA PRESENÇA",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "4000.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-11T17:29:24+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 4060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "4060",
+          "field": "title",
+          "quote": "RTX 4060",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "description",
+          "quote": "8GB",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 2,
+        "complete": true,
+        "correlated_photo_count": 2,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "1126463747033809",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/1126463747033809/",
+      "observed_at": "2026-11-13T17:45:05.293938+00:00",
+      "revision": 1,
+      "title": "RTX 3060 Ti 8Gb (LEIA A LEGENDA)",
+      "description": "TROCO POR RTX 5060 ou 5060 Ti (VOLTA MINHA ) \nPLACA COM 2 meses de uso NOVA DE TUDO \nACOMPANHA CAIXA",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "0.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-11T18:36:26+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Diadema",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 3060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "3060ti",
+          "field": "title",
+          "quote": "RTX 3060 Ti",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8Gb",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "positive_full_price_missing",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 3,
+        "complete": true,
+        "correlated_photo_count": 3,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "1456786435997038",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/1456786435997038/",
+      "observed_at": "2026-11-13T17:45:12.065533+00:00",
+      "revision": 1,
+      "title": "Rtx 5060 ti 8gb troco ou vendo",
+      "description": "Placa de vídeo rtx 5060 ti 8gb galax em perfeito estado.\nEstudo trocas em ps5, Xbox séries s, placas inferiores, iPhone 15 ou 16.\nPagamento no Pix\nRetirar na Zn Imirim na minha casa ou no shopping Partage.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "2999.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T02:14:58+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "Rtx 5060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "5060ti",
+          "field": "title",
+          "quote": "Rtx 5060 ti",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8gb",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 4,
+        "complete": true,
+        "correlated_photo_count": 4,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "1795770398309892",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/1795770398309892/",
+      "observed_at": "2026-11-13T17:45:18.953388+00:00",
+      "revision": 1,
+      "title": "Placa de Vídeo NVIDIA GeForce RTX 5060 8GB – GALAX",
+      "description": "Vendo NVIDIA GeForce RTX 5060 8GB da GALAX, excelente placa de vídeo para jogos e aplicações gráficas.\n\n8GB de memória GDDR7\n\nArquitetura NVIDIA Blackwell\n\nSuporte a Ray Tracing e DLSS 4\n\nExcelente desempenho em jogos Full HD e Quad HD\n\nÓtima opção para games e uso profissional.\n\nPlaca em excelente estado de conservação, funcionando perfeitamente, sem defeitos.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "2500.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T01:29:47+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "unsupported_family",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 5060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "5060",
+          "field": "title",
+          "quote": "RTX 5060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8GB",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "good",
+      "condition_signals": [
+        {
+          "field": "description",
+          "text": "Placa em excelente estado de conservação, funcionando perfeitamente, sem defeitos.",
+          "condition": "good"
+        }
+      ],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 3,
+        "complete": true,
+        "correlated_photo_count": 3,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "2039873426680594",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/2039873426680594/",
+      "observed_at": "2026-11-13T17:45:25.518738+00:00",
+      "revision": 1,
+      "title": "RX 5700 XT 8gb - TROCA+VOLTA",
+      "description": "Troco minha RX 5700 XT Mancer 8gb + volta da minha parte. \nPlaca funcionando perfeitamente, com 10 meses de uso. \n\nPosso fazer vídeo mostrando o desempenho em alguns jogos que tenho no PC, atualmente estou jogando o novo Call Of Duty Mordern Warfare 4 e está rodando liso.\n\nQUERO TROCAR POR:\n\nRTX 4060 TI 8GB, RTX 5060 8GB ou RTX 5050 8GB\n(Ambas com 2 fans, pois meu gabinete é pequeno)\n\nPodemos negociar o valor da volta, irei pagar no pix. Se tiver interesse é só chamar\n\n*OBS, não tenho mais a caixa*",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "1.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-11T19:30:22+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "description",
+          "quote": "RTX 4060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "4060ti",
+          "field": "description",
+          "quote": "RTX 4060 TI",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "description",
+          "quote": "8gb",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "good",
+      "condition_signals": [
+        {
+          "field": "description",
+          "text": "Placa funcionando perfeitamente, com 10 meses de uso.",
+          "condition": "good"
+        }
+      ],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 2,
+        "complete": true,
+        "correlated_photo_count": 2,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "2052580038787632",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/2052580038787632/",
+      "observed_at": "2026-11-13T17:45:32.248142+00:00",
+      "revision": 1,
+      "title": "RTX 5060 8gb gigabyte placa de vídeo",
+      "description": "Placa de vídeo RTX 5060 Gigabyte 8gb em perfeito estado, nova com caixa.\n\nPego sua placa + volta em dinheiro, entrar em contato para avaliação.",
+      "description_absent_at_source": false,
+      "condition_declared": "Usado — seminovo",
+      "price": "2699.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-13T14:27:34+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Guarulhos",
+      "location_state": "SP",
+      "identity_state": "unsupported_family",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 5060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "5060",
+          "field": "title",
+          "quote": "RTX 5060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8gb",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 3,
+        "complete": true,
+        "correlated_photo_count": 3,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "2500006100491094",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/2500006100491094/",
+      "observed_at": "2026-11-13T17:45:38.522493+00:00",
+      "revision": 1,
+      "title": "PC Gamer RTX 5060 8GB | Intel Core i5 10400F | 16GB DDR4 | SSD NVMe 500gb | Water Cooler RGB",
+      "description": "Computador gamer com placa de vídeo NVIDIA GeForce RTX 5060 de 8GB, processador Intel Core i5 de 10ª geração e gabinete premium NZXT H5 Flow.\n\nConfiguração ideal para jogos atuais, programação, edição de vídeos, projetos de engenharia, modelagem 3D, AutoCAD, SolidWorks e multitarefas.\n\n⚙️ ESPECIFICAÇÕES TÉCNICAS:\n\nProcessador: Intel Core i5-10400F, 10ª geração, 6 núcleos e 12 threads, até 4,3 GHz.\n\nPlaca de vídeo: NVIDIA GeForce RTX 5060 MSI Shadow 2X, 8GB GDDR7.\n\nMemória RAM: 16GB DDR4 XPG, 2666 MHz.\n\nPlaca-mãe: Gigabyte H410M H V3, socket LGA 1200.\n\nArmazenamento: SSD NVMe de aproximadamente 256GB (232GB informados pelo sistema).\n\nRefrigeração: Water Cooler DeepCool 240mm com iluminação ARGB.\n\nVentoinhas: Sistema de refrigeração com fans NZXT e ventoinhas do water cooler.\n\nGabinete: NZXT H5 Flow Black, com lateral em vidro temperado e excelente circulação de ar.\n\nIluminação: RGB/ARGB no sistema de refrigeração.\n\nMemória de vídeo: 8GB dedicados.\n\nFonte: Modelo e potência a confirmar.\n\n🎮 IDEAL PARA DIVERSOS JOGOS:\n\nGTA V, GTA RP (FiveM), Counter-Strike 2, Valorant, Fortnite, Call of Duty Warzone, Red Dead Redemption 2, Forza Horizon 5, Cyberpunk 2077, EA Sports FC, Minecraft, Rainbow Six Siege, Apex Legends, PUBG, Hogwarts Legacy, Elden Ring e diversos outros jogos atuais.\n\n⚡ DESTAQUES DO COMPUTADOR:\n\n✅ Placa de vídeo RTX 5060 de nova geração.\n\n✅ Tecnologia NVIDIA DLSS e Ray Tracing em jogos compatíveis.\n\n✅ Processador Intel Core i5 com 6 núcleos e 12 threads.\n\n✅ Water cooler de 240mm com iluminação RGB.\n\n✅ Gabinete NZXT H5 Flow, com excelente ventilação.\n\n✅ SSD NVMe para inicialização e carregamento rápidos.\n\n✅ Visual gamer com lateral de vidro temperado.\n\n✅ Excelente opção para jogos, programação, trabalho e estudos.\n\n📦 Computador completo, conforme configuração descrita. Monitor e periféricos não incluídos.\n\n📍 Entrega em mãos a combinar.\n\n💬 Interessados podem chamar no chat para mais informações.\n\nPARA FINS DE PESQUISA:\n\nPC gamer, computador gamer, PC gamer completo, PC gamer usado, PC gamer seminovo, computador para jogos, desktop gamer, setup gamer, computador de alto desempenho, PC para trabalho, PC para estudar, PC para programação, PC para engenharia, PC para arquitetura, PC para edição, PC para renderização, computador para AutoCAD, computador SolidWorks, PC para modelagem 3D, PC para Blender, PC para Revit, PC para Photoshop, PC para Premiere, workstation, computador profissional, informática, hardware, tecnologia, componentes de computador, desktop, CPU gamer, gabinete gamer, montagem PC gamer.\n\nPROCESSADORES: Intel, Intel Core, Core i3, Core i5, Core i7, Core i9, Intel 10ª geração, Intel 11ª geração, Intel 12ª geração, Intel 13ª geração, i5 10400, i5 10400F, i5 11400, i5 11400F, i5 12400F, i5 13400F, i7 10700, i7 11700, AMD Ryzen, Ryzen 5, Ryzen 7, Ryzen 9, Ryzen 5 3600, Ryzen 5 4500, Ryzen 5 5500, Ryzen 5 5600, Ryzen 5 5600G, Ryzen 7 3700X, Ryzen 7 5700X, CPU, processador gamer, processador Intel, processador 6 núcleos, processador 12 threads.\n\nPLACAS DE VÍDEO: NVIDIA, GeForce, RTX, GTX, NVIDIA GeForce RTX 5060, RTX 5060 8GB, RTX 5060 MSI, RTX 5060 Shadow, MSI Shadow 2X, RTX 3050, RTX 3060, RTX 3060 Ti, RTX 3070, RTX 3070 Ti, RTX 3080, RTX 4060, RTX 4060 Ti, RTX 4070, RTX 4070 Super, RTX 4060 8GB, RTX 5060 Ti, RTX 5070, GTX 1060, GTX 1070, GTX 1080, GTX 1650, GTX 1660 Super, RTX 2060, RTX 2070, RTX 2080, AMD Radeon, RX 6600, RX 6650 XT, RX 6700 XT, RX 7600, RX 7600 XT, placa gráfica, placa de vídeo 8GB, GPU gamer, Ray Tracing, DLSS, NVIDIA Reflex, GDDR7.\n\nMEMÓRIA E ARMAZENAMENTO: Memória RAM, memória DDR4, memória gamer, memória XPG, memória 16GB, 16GB RAM, 32GB RAM, 8GB RAM, DDR4 2666MHz, DDR4 3200MHz, DDR4 3600MHz, Kingston, HyperX, Fury Beast, Corsair Vengeance, XPG Gammix, SSD, HD, HDD, SSD NVMe, SSD M.2, M2 NVMe, SSD 256GB, SSD 240GB, SSD 250GB, SSD 500GB, SSD 512GB, SSD 1TB, SSD 2TB, armazenamento gamer, SSD PCIe, Kingston NV2, Kingston NV3, Western Digital, WD Black, Crucial, Samsung EVO.\n\nGABINETE E REFRIGERAÇÃO: NZXT, NZXT H5 Flow, gabinete NZXT, NZXT H5, gabinete gamer, gabinete vidro temperado, gabinete preto, gabinete premium, gabinete airflow, gabinete ATX, gabinete micro ATX, water cooler, DeepCool, DeepCool 240mm, water cooler RGB, water cooler ARGB, water cooler 240mm, refrigeração líquida, cooler gamer, fan RGB, fan ARGB, ventoinha gamer, gabinete com RGB, gabinete com vidro, MSI, Gigabyte, placa-mãe H410, H410M, LGA 1200.\n\nJOGOS E APLICAÇÕES: GTA 5, GTA V, GTA RP, GTA 6, FiveM, Fortnite, Valorant, CS2, Counter Strike, Counter Strike 2, Warzone, Call of Duty, Minecraft, Roblox, Red Dead Redemption 2, RDR2, Forza Horizon 5, Cyberpunk 2077, Hogwarts Legacy, Elden Ring, EA FC 25, EA FC 26, FIFA, PUBG, Apex Legends, Rainbow Six Siege, Rocket League, The Last of Us, God of War, Spider-Man, Resident Evil, Battlefield, jogos FPS, jogos competitivos, jogos online, jogos de mundo aberto, PC para streaming, PC para Twitch, PC para YouTube, edição de vídeos, render 3D, CAD, CAM, SolidWorks, AutoCAD, Fusion 360, Revit, Blender, SketchUp, engenharia mecânica, engenharia civil, engenharia de computação, programação, desenvolvimento de software.",
+      "description_absent_at_source": false,
+      "condition_declared": "Novo",
+      "price": "4500.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-12T23:50:39+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "Osasco",
+      "location_state": "SP",
+      "identity_state": "conflicting_identity",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 5060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "5060",
+          "field": "title",
+          "quote": "RTX 5060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8GB",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "uncertain",
+      "condition_signals": [],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "condition_not_declared_used",
+        "automatic_condition_uncertain",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 10,
+        "complete": true,
+        "correlated_photo_count": 10,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    },
+    {
+      "external_id": "4386121908365497",
+      "source": "facebook_marketplace",
+      "url": "https://www.facebook.com/marketplace/item/4386121908365497/",
+      "observed_at": "2026-11-13T17:45:44.947943+00:00",
+      "revision": 1,
+      "title": "GALAX RTX 5060 8GB edição limitada – 8 Meses de Uso – Com Caixa Original",
+      "description": "GALAX RTX 5060 8GB GDDR7 – 8 Meses de Uso – Com Caixa Original\n\nEstou vendendo minha placa de vídeo GALAX GeForce RTX 5060 8GB GDDR7.\n\nPlaca em excelente estado de conservação e funcionamento, utilizada por apenas 8 meses.\n\nEspecificações:\n- GALAX GeForce RTX 5060\n- 8GB GDDR7\n- Arquitetura NVIDIA Blackwell\n- DLSS 4 e 5 com Ray Tracing\n\nInformações adicionais:\n- Apenas 8 meses de uso.\n- Acompanha caixa original.\n- Funcionando perfeitamente.\n\nMotivo da venda: upgrade de placa de vídeo.\n\nInteressados, chama na proposta, se precisar mando vídeo testando na hora pra sair logo",
+      "description_absent_at_source": false,
+      "condition_declared": "Novo",
+      "price": "2750.00",
+      "currency": "BRL",
+      "price_kind": "announced",
+      "source_available": true,
+      "source_publication_at": "2026-11-11T03:53:14+00:00",
+      "source_publication_basis": "facebook.creation_time",
+      "location_city": "São Paulo",
+      "location_state": "SP",
+      "identity_state": "unsupported_family",
+      "product_key": null,
+      "identity_attributes": [
+        {
+          "name": "family",
+          "value": "graphics_card",
+          "field": "title",
+          "quote": "RTX 5060",
+          "explicit": true
+        },
+        {
+          "name": "model",
+          "value": "5060",
+          "field": "title",
+          "quote": "RTX 5060 ",
+          "explicit": true
+        },
+        {
+          "name": "capacity",
+          "value": "8gb",
+          "field": "title",
+          "quote": "8GB",
+          "explicit": true
+        }
+      ],
+      "identity_missing_attributes": [],
+      "automatic_condition": "good",
+      "condition_signals": [
+        {
+          "field": "description",
+          "text": "- Funcionando perfeitamente.",
+          "condition": "good"
+        }
+      ],
+      "condition_reasons": [],
+      "F06_eligible": false,
+      "inclusion_reason": null,
+      "exclusion_reasons": [
+        "identity_not_target_equivalent",
+        "condition_not_declared_used",
+        "F06_exact_electronics_v2_rejected"
+      ],
+      "media_source": {
+        "presence": "present",
+        "known_count": 7,
+        "complete": true,
+        "correlated_photo_count": 7,
+        "photos": []
+      },
+      "review": {
+        "reviewer_type": "AI",
+        "human_label": null,
+        "local_model_inference_performed": false
+      }
+    }
+  ],
+  "privacy": {
+    "browser_profile_copied": false,
+    "signed_media_urls_published": false,
+    "seller_profiles_published": false,
+    "contact_values_redacted": true,
+    "private_raw_path": "/tmp/garimpei-f21-wave13/rtx-corpus/raw-private.json"
+  },
+  "effects": {
+    "read_only_source": true,
+    "business_observations_published": 0,
+    "GPU_inference_calls": 0,
+    "real_WAHA_posts": 0,
+    "profile_closed": true
+  },
+  "limitations": [
+    "Esta coleta suplementar conserva a política F06 efetiva e não equivale à qualificação F21.",
+    "Preços pedidos não demonstram vendas concluídas.",
+    "Revisão é de IA; não há rótulos humanos.",
+    "Evidências não foram publicadas no banco da aplicação.",
+    "Anúncios com IDs distintos e descrição repetida não demonstram vendedores ou unidades físicas independentes."
+  ],
+  "duplicate_description_groups": [],
+  "financial_compositions": [],
+  "financial_calculation_context": {
+    "fee_percent": "10.00",
+    "origin": "evaluation laboratory scenario supplied by root",
+    "fee_assumption": "test_scenario_10_percent",
+    "ephemeral_read_only_inputs": true,
+    "persisted_configuration_identity_claimed": false,
+    "no_database_publication": true
+  },
+  "fee_assumption": "test_scenario_10_percent",
+  "positive_target_external_ids": [],
+  "iphone_data_combined": false,
+  "bounded_collection_stopped": true,
+  "active_interest_category": "479353692612078",
+  "source_pages": [
+    {
+      "index": 1,
+      "candidate_count": 24,
+      "source_context": {
+        "verified": true,
+        "latitude": -23.55,
+        "longitude": -46.6333,
+        "radius_km": 20,
+        "query": "RTX 4060 8GB"
+      },
+      "diagnostic": null,
+      "has_continuation": true
+    },
+    {
+      "index": 2,
+      "candidate_count": 24,
+      "source_context": {
+        "verified": true,
+        "latitude": -23.55,
+        "longitude": -46.6333,
+        "radius_km": 20,
+        "query": "RTX 4060 8GB"
+      },
+      "diagnostic": null,
+      "has_continuation": true
+    }
+  ],
+  "republication_policy": "Identidades distintas source/external_id conservadas pela política F18; sem deduplicação especulativa por título/foto. Descrições repetidas são uma limitação rastreável, não prova de unidades físicas distintas.",
+  "verification": {
+    "photo_count": 0,
+    "all_downloaded_sha256_verified": null,
+    "photo_download_state": "not_applicable_no_positive_target_or_eligible_references"
+  },
+  "result": {
+    "status": "insufficient_evidence",
+    "reason": "no_F06_eligible_comparables_in_bounded_sample",
+    "positive_F21_qualification_demonstrated": false,
+    "further_source_queries_planned": false
+  }
+}

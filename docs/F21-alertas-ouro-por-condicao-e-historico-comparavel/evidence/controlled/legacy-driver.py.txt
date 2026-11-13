@@ -1,0 +1,94 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from datetime import datetime,UTC
+from tests.factories.gold_driver import GoldDriver
+results=[];out=Path('docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/controlled/legacy-and-failures.json')
+seed="""
+from datetime import timedelta
+from garimpei.config.env import load_listing_settings
+from garimpei.main import _listing_clock
+from garimpei.infra.persistence.gold_models import GoldPolicyAdoption
+from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt,FirstAlertIdentity
+from garimpei.infra.repository.alert.gold_adoption import adopt_gold_policy
+from garimpei.infra.persistence.listing_models import Listing
+clock=_listing_clock(load_listing_settings());stamp=clock()
+listing=Listing.objects.get(external_id='21001');row=FirstAlertIdentity.objects.get(listing=listing).intent
+# Explicit fixture reconstruction of predecessor policy; no public downgrade command exists.
+GoldPolicyAdoption.objects.update(state='pending')
+row.body='Corpo legado congelado · compra1900/venda3000/lucro800'
+row.financial=row.first_decision.financial;row.body_format='financial-trio-v1'
+row.state='safe_retry';row.reason='not_transmitted';row.generation=1;row.gold_qualification=None;row.save()
+AlertAttempt.objects.create(intent=row,ordinal=1,generation=1,authorized_at=stamp-timedelta(seconds=1),state='safe_retry',reason='not_transmitted')
+adopt_gold_policy(stamp)
+"""
+for case in ['frozen_compatible','frozen_incompatible','uncertain_confirmed_adoption','dependency_failure','late_result']:
+ with TemporaryDirectory(prefix='garimpei-f21-legacy-') as folder:
+  d=GoldDriver(Path(folder))
+  try:
+   d.action('prepare',case='BASE')
+   if case.startswith('frozen'):
+    d.shell(seed)
+    if case=='frozen_incompatible':d.shell("from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration;MonitoringConfiguration.objects.filter(slot='active').update(resale_fee_percent='20.00')")
+    status=d.action('send');messages=status['messages']
+    if case=='frozen_compatible':assert len(messages)==1 and messages[0]['body']=='Corpo legado congelado · compra1900/venda3000/lucro800'
+    else:assert not messages
+    d.shell("from garimpei.infra.persistence.alert_models import AlertIntent;assert AlertIntent.objects.get(body__startswith='Corpo legado').body=='Corpo legado congelado · compra1900/venda3000/lucro800'")
+   elif case=='uncertain_confirmed_adoption':
+    d.shell("""
+from datetime import timedelta
+from garimpei.main import build_first_alert_store,build_alert_handler,_listing_clock
+from garimpei.config.env import load_listing_settings
+from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+from garimpei.infra.persistence.gold_models import GoldPolicyAdoption,GoldQualification
+from garimpei.infra.persistence.alert_models import AlertEventDecision,AlertIntent,AlertAttempt,FirstAlertInventory
+from garimpei.infra.repository.alert.gold_adoption import adopt_gold_policy
+stamp=_listing_clock(load_listing_settings())();GoldPolicyAdoption.objects.update(state='pending')
+for external,state in [('21002','uncertain'),('21003','confirmed')]:
+ l=Listing.objects.get(external_id=external);e=ListingEvent.objects.create(listing=l,observation=l.latest,kind='discovered',silent=False,occurred_at=stamp-timedelta(seconds=20))
+ decision=AlertEventDecision.objects.create(event=e,state='excluded',reason='legacy_history',next_action=stamp)
+ intent=AlertIntent.objects.create(decision=decision,session='synthetic',recipient='100@g.us',account='200@c.us',body='Histórico '+state,state=state,reason='legacy_history',generation=1,created_at=stamp-timedelta(seconds=20),next_action=stamp,confirmed_at=stamp if state=='confirmed' else None,confirmed_message='legacy-message' if state=='confirmed' else None,confirmed_ack=1 if state=='confirmed' else None)
+ AlertAttempt.objects.create(intent=intent,ordinal=1,generation=1,authorized_at=stamp-timedelta(seconds=20),state=state,reason='legacy_history',message_id='legacy-message' if state=='confirmed' else None,ack=1 if state=='confirmed' else None)
+before=list(AlertIntent.objects.filter(body__startswith='Histórico').values('id','state','body','recipient','confirmed_message','confirmed_ack'))
+adopt_gold_policy(stamp);assert list(AlertIntent.objects.filter(body__startswith='Histórico').values('id','state','body','recipient','confirmed_message','confirmed_ack'))==before
+FirstAlertInventory.objects.update(completed=False,cursor=None);build_first_alert_store().adopt(stamp)
+build_alert_handler('reconcile').execute()
+uncertain=AlertIntent.objects.get(body='Histórico uncertain');confirmed=AlertIntent.objects.get(body='Histórico confirmed')
+assert uncertain.state=='uncertain' and uncertain.recipient=='100@g.us' and uncertain.attempts.count()==1
+assert confirmed.state=='confirmed' and confirmed.confirmed_message=='legacy-message'
+assert not AlertIntent.objects.filter(body__startswith='Histórico',gold_qualification__state='qualified').exists()
+""")
+    status=d.action('status');assert status['post_count']==0
+   elif case=='dependency_failure':
+    d.shell("""
+from unittest.mock import patch
+from django.db import DatabaseError
+from garimpei.main import build_alert_handler
+from garimpei.infra.queries.listing.assessment_queries import PostgresAssessmentQueries
+from garimpei.infra.persistence.gold_models import GoldPolicyAdoption
+with patch.object(PostgresAssessmentQueries,'observation',side_effect=DatabaseError('controlled gold dependency unavailable')):
+ try:build_alert_handler('send').execute()
+ except DatabaseError:pass
+ else:raise AssertionError('dependency failure did not stop authorization')
+assert GoldPolicyAdoption.objects.get(installation='local').state=='active'
+""")
+    status=d.action('status');assert status['post_count']==0 and status['attempts']==0
+   else:
+    d.action('prepare',case='PROFIT_ZERO')
+    d.shell("""
+from datetime import timedelta
+from django.utils.timezone import now
+from garimpei.main import build_read_alert_diagnostic
+from garimpei.infra.persistence.gold_models import GoldQualification
+from garimpei.infra.persistence.listing_models import Listing
+l=Listing.objects.get(external_id='21001');old=GoldQualification.objects.filter(listing=l,state='qualified').first()
+GoldQualification.objects.create(listing=l,observation=old.observation,purpose_key='first',policy=old.policy,input_fingerprint='f'*64,state='qualified',reason='gold_qualified',reasons=['gold_qualified'],evidence=old.evidence,evaluated_at=now()+timedelta(days=1),valid_until=old.valid_until)
+d=build_read_alert_diagnostic().execute(l.id,l.latest_id)
+assert d.gold.current and d.gold.reason=='gold_profit_non_positive'
+""")
+    status=d.action('send');assert status['post_count']==0
+   results.append({'case':case,'verdict':'PASS','post_count':status['post_count'],'attempts':status['attempts']})
+  except Exception as error:results.append({'case':case,'verdict':'FAIL','error_class':type(error).__name__,'details':str(error)[:2500]})
+  finally:d.close()
+ out.write_text(json.dumps({'method':'controlled own PostgreSQL/WAHA lab; predecessor records reconstructed explicitly under pending policy, no public policy downgrade','completed_at':datetime.now(UTC).isoformat(),'results':results},ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps(results[-1],ensure_ascii=False),flush=True)
