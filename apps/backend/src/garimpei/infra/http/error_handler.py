@@ -17,6 +17,7 @@ from garimpei.domain.monitoring.errors import (
 )
 from garimpei.domain.navigation.ports import NavigationError
 from garimpei.domain.operations.errors import OperationsError
+from garimpei.domain.robot.errors import RobotError
 from garimpei.domain.valuation.identity_errors import IdentityError
 from garimpei.infra.http.listing.condition_presentation import condition_error
 from garimpei.infra.http.listing.exploration_presentation import url
@@ -42,6 +43,36 @@ class ErrorMiddleware:
     def process_exception(
         self, _request: HttpRequest, _exception: Exception
     ) -> HttpResponse | None:
+        if _request.path.startswith("/acompanhamento/robo/") and isinstance(
+            _exception, (RobotError, DatabaseError, ValueError)
+        ):
+            status = (
+                _exception.status
+                if isinstance(_exception, RobotError)
+                else 400
+                if isinstance(_exception, ValueError)
+                else 503
+            )
+            message = (
+                _exception.message
+                if isinstance(_exception, RobotError)
+                else "Comando inválido: esperado UUID canônico."
+                if status == 400
+                else "Não foi possível consultar ou gravar o controle do robô. Tente novamente."
+            )
+            template = (
+                "robot/control.html"
+                if _request.path == "/acompanhamento/robo/"
+                else "robot/error.html"
+            )
+            context = {
+                "message": message,
+                "robot_available": False,
+                "robot_title": "Estado do robô indisponível",
+            }
+            response = render(_request, template, context, status=status)
+            response["Cache-Control"] = "no-store"
+            return response
         operational_route = _request.path == "/acompanhamento/" or _request.path.startswith(
             (
                 "/acompanhamento/estado/",

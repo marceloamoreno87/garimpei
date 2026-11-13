@@ -39,6 +39,7 @@ from garimpei.infra.persistence.navigation_models import (
 )
 from garimpei.infra.repository.listing.mapper import decode_candidate, encode_candidate
 from garimpei.infra.repository.navigation.mapper import to_unit
+from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 
 
 class PostgresNavigationRepository:
@@ -207,6 +208,8 @@ class PostgresNavigationRepository:
         self, attempt: Attempt, scope: Scope, *, pages: int, details: bool
     ) -> NavigationUnit | None:
         self._guard(attempt, scope.revision)
+        if not robot_enabled():
+            return None
         units = self._eligible_units(attempt, scope, pages, details)
         chosen = select_turn(tuple(unit.turn for unit in units), self._clock())
         if chosen is None:
@@ -612,6 +615,8 @@ class PostgresNavigationRepository:
     @transaction.atomic
     def yield_slice(self, attempt: Attempt, scope: Scope) -> None:
         cycle = self._guard(attempt, scope.revision, allow_blocked=True)
+        if not robot_enabled():
+            return
         if cycle.state.access_suspended or (
             cycle.state.source_not_before and cycle.state.source_not_before > self._clock()
         ):

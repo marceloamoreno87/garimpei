@@ -9,6 +9,7 @@ from garimpei.domain.alert.diagnostic import (
     AlertDiagnosticReadFailed,
     AlertHistory,
 )
+from garimpei.domain.alert.gold_diagnostic import GoldDiagnosticQueries, GoldDiagnosticReadFailed
 from garimpei.infra.persistence.alert_models import (
     AlertFeedCursor,
     AlertIntent,
@@ -58,6 +59,9 @@ def reason_label(reason: str) -> str:
 
 
 class PostgresAlertDiagnosticQueries:
+    def __init__(self, gold: GoldDiagnosticQueries | None = None) -> None:
+        self._gold = gold
+
     def read(
         self, listing_id: UUID, displayed_observation_id: UUID | None
     ) -> AlertDiagnostic | None:
@@ -66,8 +70,7 @@ class PostgresAlertDiagnosticQueries:
         except DatabaseError as error:
             raise AlertDiagnosticReadFailed() from error
 
-    @staticmethod
-    def _read(listing_id: UUID, displayed: UUID | None) -> AlertDiagnostic | None:
+    def _read(self, listing_id: UUID, displayed: UUID | None) -> AlertDiagnostic | None:
         listing = (
             Listing.objects.select_related("latest", "identity_progress__manual__observation")
             .filter(id=listing_id)
@@ -132,17 +135,51 @@ class PostgresAlertDiagnosticQueries:
         if listing.latest:
             identity = identify_row(listing, getattr(listing, "identity_progress", None))
             current_reason = identity.reason or current_reason
+        gold, gold_failed = None, False
+        if self._gold is not None:
+            try:
+                gold = self._gold.read(listing_id)
+            except GoldDiagnosticReadFailed:
+                gold_failed = True
+        gold_blocks = gold is not None and gold.state != "qualified"
+        if gold_blocks and gold is not None:
+            current_reason = gold.reason
+        if (
+            gold_blocks
+            and gold is not None
+            and active
+            and active.state in {"queued", "blocked", "safe_retry"}
+            and state != "suspended"
+        ):
+            state, reason = gold.state, gold.reason
+            reasons = tuple(dict.fromkeys((gold.reason, *reasons)))
+        if gold_failed:
+            current_reason = "gold_dependency_unavailable"
+        if (
+            gold_failed
+            and active
+            and active.state in {"queued", "blocked", "safe_retry"}
+            and state != "suspended"
+        ):
+            state, reason = "waiting", "gold_dependency_unavailable"
+        label = reason_label(reason)
+        if gold_blocks and gold is not None and state in {"waiting", "blocked"}:
+            label = gold.label
         return AlertDiagnostic(
+            gold=gold,
+            gold_failed=gold_failed,
             listing_id=listing_id,
             state=state,
             reason=reason,
             label="Envio incerto; aguardando reconciliação"
             if state in {"authorized", "uncertain", "review"}
-            else reason_label(reason),
+            else label,
             first_alert_state=first_state,
             reasons=reasons,
             current_reason=current_reason,
-            current_label=reason_label(current_reason),
+            current_label=gold.label
+            if gold_blocks and gold is not None
+            else reason_label(current_reason),
             evaluated_at=decision.evaluated_at if decision else None,
             next_action_at=active.next_action if active else (row.next_action if row else None),
             observation_id=observation,

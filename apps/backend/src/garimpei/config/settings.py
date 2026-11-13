@@ -41,6 +41,7 @@ TEMPLATES = [
             "context_processors": [
                 "garimpei.infra.http.integration.context.integration_context",
                 "garimpei.infra.http.shell_context.shell_context",
+                "garimpei.infra.http.robot.context.robot_summary",
             ]
         },
     }

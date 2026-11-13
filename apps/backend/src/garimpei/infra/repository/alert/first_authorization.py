@@ -14,6 +14,7 @@ from garimpei.infra.repository.alert.assessment_note import assessment_note
 from garimpei.infra.repository.alert.financial import decode_snapshot, encode_snapshot
 from garimpei.infra.repository.alert.first_financial import first_references
 from garimpei.infra.repository.alert.first_inputs import automatic_signature
+from garimpei.infra.repository.alert.gold_message import gold_message_note
 from garimpei.infra.repository.listing.mapper import decode_evidence
 
 
@@ -76,7 +77,7 @@ def first_body(row: AlertIntent) -> str:
     listing = decision.identity.listing
     value = decode_snapshot(row.financial)
     assert value is not None
-    return message_text(
+    body = message_text(
         AlertMessage(
             row.id,
             "discovered",
@@ -92,3 +93,6 @@ def first_body(row: AlertIntent) -> str:
             condition_note=assessment_note(decision.assessment_id, decision.assessment_revision),
         )
     )
+
+    note = gold_message_note(row)
+    return body + ("\n" + note if note else "")

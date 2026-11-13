@@ -1,0 +1,65 @@
+{
+  "feature": "F21",
+  "observed_at": "2026-11-13T18:25:08Z",
+  "scope": "controlled_fake_io_real_django_postgresql",
+  "source_initial": "5f713bb8a13856819c1f45d5954a9cfcf9469cd4",
+  "source_final_guard": "19d3cd8",
+  "browser": "playwright-cli / garimpei-f21-wave13-ui",
+  "human_independent_validation": false,
+  "real_marketplace_model_proof": false,
+  "real_whatsapp_posts": 0,
+  "fake_waha_posts": 0,
+  "attempts": 0,
+  "cases": [
+    {
+      "id": "UI-BASE",
+      "result": "PASS",
+      "observed": "Django/PostgreSQL reais; F15 e fotos sintéticas explicitamente controladas. Lista e detalhe mostram compra1900, revenda3000, lucro800, qualificação suficiente, produto normalizado,5comparáveis com preço/data/origem e aviso de preços anunciados, sem equivalência a vendas."
+    },
+    {
+      "id": "UI-ZERO",
+      "result": "PASS_AFTER_FIX",
+      "observed": "Compra2700/revenda3000/taxa10%: lucro0 preservado, gold_profit_non_positive, nenhuma pronta incorreta. Troca na mesma marca temporal expôs leitura antiga; e03e829 seleciona geração/fingerprint atuais. Screenshot anterior preservado."
+    },
+    {
+      "id": "UI-NEGATIVE",
+      "result": "PASS",
+      "observed": "Compra2800/revenda3000/taxa10%: lucro−100 visível e bloqueio ouro. Sem falsa prontidão."
+    },
+    {
+      "id": "UI-FAILURE",
+      "result": "PASS",
+      "observed": "Falha GoldDiagnosticReadFailed injetada somente no Gunicorn descartável: detalheHTTP200 preserva foto/valores/query/versão e mostra indisponibilidade, sem pronta."
+    },
+    {
+      "id": "UI-FAILURE-UPDATE",
+      "result": "PASS",
+      "observed": "Lista com q=PlayStation/aba=funcionam/pagina=1/versão55f2e47b recebe Há atualizações. Clicar Atualizar lista publica versão9e40c868, preserva filtros e compra1900/revenda3000/lucro800 sob falha ouro; sem pronta."
+    },
+    {
+      "id": "UI-RECOVERY",
+      "result": "PASS",
+      "observed": "Retirada a injeção no mesmo endereço, reload mantém versão9e40c868 e filtros; evidências suficientes e Pronta para envio; aguardando o canal recuperam sem alterar configuração."
+    },
+    {
+      "id": "UI-RESPONSIVE",
+      "result": "PASS",
+      "observed": "1440desktop/390mobile; foto carregada naturalWidth640; sem overflow horizontal observado em390; detalhe e lista navegáveis."
+    }
+  ],
+  "probe_corrections": [
+    {
+      "error": "Probe WSGI inicial omitiu configure_django; lista500 com environment quality",
+      "correction": "Importar configure_django antes django.setup como wsgi canônico. MesmoGET200 no Client e no Gunicorn corrigido. Sem alteração produto."
+    }
+  ],
+  "visual": {
+    "design": 7,
+    "originality": 6,
+    "craft": 7,
+    "functionality": 8,
+    "weighted": 6.833333333333333,
+    "critical_findings": []
+  },
+  "cleanup": "Sessão Playwright encerrada; Gunicorn próprio interrompido; GoldLab quit/stop --clean terminou com exit0."
+}

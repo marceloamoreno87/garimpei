@@ -1,0 +1,58 @@
+{
+  "method": "controlled synthetic I/O with active F21 persistent fence and real PostgreSQL",
+  "completed_at": "2026-11-13T18:16:15.829637+00:00",
+  "results": [
+    {
+      "case": "age_exact48",
+      "verdict": "FAIL",
+      "error_class": "AssertionError",
+      "details": "{'ready': True, 'case': 'BASE', 'runtime': 'controlled_fake', 'real_whatsapp_posts': 0, 'url': 'http://127.0.0.1:17032', 'listing': 'b4b5d545-74d7-46a4-bc98-b3ab9fd04ff8', 'observation': '29c20001-3478-4dbd-b7bf-509157552d06', 'policy': [{'state': 'active', 'policy': 'gold-alert-v1', 'inventory': {'states': {}, 'adopted_at': '2026-11-13T12:00:00+00:00', 'intent_count': 0, 'compatible_consumer': 'gold-alert-v1', 'possible_transmission_count': 0}}], 'qualifications': [{'id': '035cd905-541e-4d20-a20c-580dfe925565', 'state': 'qualified', 'reason': 'gold_qualified', 'reasons': ['gold_qualified'], 'input_fingerprint': 'd804e95d0e866495d9a83dc48fdf0047f105d9af1525bf3e5937683a60403680', 'valid_until': '2026-11-27 12:01:01+00:00'}], 'first_state': 'eligible', 'first_reason': 'eligible', 'intents': [{'id': '78cc9120-fb35-459e-9ae0-7622ff4aa41e', 'state': 'cancelled', 'reason': 'publication_expired', 'gold_qualification_id': '035cd905-541e-4d20-a20c-580dfe925565', 'body': '', 'confirmed_message': None}], 'post_count': 0, 'attempts': 0, 'messages': []}"
+    },
+    {
+      "case": "age_after48",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 0
+    },
+    {
+      "case": "age_future",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 0
+    },
+    {
+      "case": "age_untrusted",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 0
+    },
+    {
+      "case": "evidence_arrival",
+      "verdict": "FAIL",
+      "error_class": "AssertionError",
+      "details": "{'ready': True, 'case': 'PENDING_ANALYSIS', 'runtime': 'controlled_fake', 'real_whatsapp_posts': 0, 'url': 'http://127.0.0.1:12249', 'listing': '1ff89bd3-bfad-46a4-8ae6-03021d1fad45', 'observation': 'cea9b103-1d2c-481a-9b4b-edd91fa77c60', 'policy': [{'state': 'active', 'policy': 'gold-alert-v1', 'inventory': {'states': {}, 'adopted_at': '2026-11-13T12:00:00+00:00', 'intent_count': 0, 'compatible_consumer': 'gold-alert-v1', 'possible_transmission_count': 0}}], 'qualifications': [{'id': '678ed284-431c-463c-8af8-387bdbb2fc93', 'state': 'waiting', 'reason': 'gold_photos_missing', 'reasons': ['gold_photos_missing', 'gold_condition_pending'], 'input_fingerprint': '9c0e46320d82ab3133f36f3b13b6ba8b8685d70cfde6a173598c60146d5df7f6', 'valid_until': '2026-11-27 12:01:01+00:00'}], 'first_state': 'waiting', 'first_reason': 'gold_photos_missing', 'intents': [], 'post_count': 0, 'attempts': 0, 'messages': []}"
+    },
+    {
+      "case": "reduction_invalid_condition",
+      "verdict": "PASS",
+      "post_count": 1,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 1
+    },
+    {
+      "case": "reduction_concurrent",
+      "verdict": "PASS",
+      "post_count": 2,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 2
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "recorded_at": "2026-11-13T18:34:21.572267+00:00",
+  "master": "d1b781d208107c8d86796656347053ff8666aa6d",
+  "backend_tree": "29ffd66b42ae3ac321927b6c5c9bda9d533c43da",
+  "worktree_count": 27,
+  "all_worktree_heads_in_master": true,
+  "own_worktrees_clean": true,
+  "concurrent_task_exception": "UI audit WIP preserved unchanged on ui/audit-20261113-concurrent; user acknowledged separation. This unrelated ongoing task is not published by the wave.",
+  "worktrees": [
+    {
+      "path": "/home/marce/dev/garimpei",
+      "branch": "refs/heads/ui/audit-20261113-concurrent",
+      "head": "c4b4f420e8e4dd0d3b03852e8797ff64a8551903",
+      "ancestor_of_master": true,
+      "dirty_paths": [
+        " M apps/backend/quality/entrypoints.json",
+        " M apps/backend/quality/vulture_whitelist.py",
+        " M apps/backend/src/garimpei/config/settings.py",
+        " M apps/backend/src/garimpei/config/test_settings.py",
+        " M apps/backend/src/garimpei/infra/http/static/integration/settings.css",
+        " M apps/backend/src/garimpei/infra/http/static/listing/condition.css",
+        " M apps/backend/src/garimpei/infra/http/static/listing/exploration.css",
+        " M apps/backend/src/garimpei/infra/http/static/listing/exploration.js",
+        " M apps/backend/src/garimpei/infra/http/static/monitoring/forms.js",
+        " M apps/backend/src/garimpei/infra/http/static/monitoring/style.css",
+        " M apps/backend/src/garimpei/infra/http/static/operations/status.css",
+        " M apps/backend/src/garimpei/infra/http/templates/base.html",
+        " M apps/backend/src/garimpei/infra/http/templates/integration/facebook_notice.html",
+        " M apps/backend/src/garimpei/infra/http/templates/listing/detail.html",
+        " M apps/backend/src/garimpei/infra/http/templates/listing/exploration_error.html",
+        " M apps/backend/src/garimpei/infra/http/templates/listing/offer_detail.html",
+        " M apps/backend/src/garimpei/infra/http/templates/listing/results.html",
+        " M apps/backend/src/garimpei/infra/http/templates/monitoring/cost_fields.html",
+        " M apps/backend/src/garimpei/infra/http/templates/monitoring/form.html",
+        " M apps/backend/src/garimpei/infra/http/templates/monitoring/layout.html",
+        " M apps/backend/src/garimpei/infra/http/templates/monitoring/region_fields.html",
+        " M apps/backend/src/garimpei/infra/http/templates/monitoring/tracking.html",
+        " M apps/backend/src/garimpei/infra/http/templates/navigation/suggestions.html",
+        " M apps/backend/src/garimpei/infra/http/templates/operations/status.html",
+        "?? apps/backend/src/garimpei/infra/http/shell_context.py",
+        "?? apps/backend/tests/http/test_navigation_shell.py",
+        "?? docs/design/audit-2026-11-13/"
+      ],
+      "concurrent_external_task": true
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/0d94/garimpei",
+      "branch": "refs/heads/feat/F17-resiliencia-operacional",
+      "head": "9a754971e9bad9dbf0ba2b7ec470998bc8ea1d21",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/1bf0/garimpei",
+      "branch": "refs/heads/master",
+      "head": "d1b781d208107c8d86796656347053ff8666aa6d",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/34bb/garimpei",
+      "branch": "refs/heads/feat/F16-primeira-elegibilidade",
+      "head": "2add5b3750721ae5bfa9aec26e7bf017d17ac985",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/4bff/garimpei",
+      "branch": "refs/heads/fix/F13-prova-continuidade",
+      "head": "6078fd8a65007b579c12fb4a41aad9636abc52f4",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6c3f/garimpei",
+      "branch": "refs/heads/feat/F19-inferencia-multimodal-local",
+      "head": "e33c69be6427a704086f6295aee7093c636316f7",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6cd6/garimpei",
+      "branch": "refs/heads/fix/startup-deadline-envelope",
+      "head": "5a90b88cc211cef36a8b4d90274f275a59ff91f2",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6efe/garimpei",
+      "branch": "refs/heads/fix/navigation-effective-budget",
+      "head": "021ef59a760aeb308df8f5f90f910405f9e230b5",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/7ae4/garimpei",
+      "branch": "refs/heads/feat/F14-imagens-locais",
+      "head": "f999b1b494c563c2f7e49d2a5d6354fe63e50bd9",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/90b7/garimpei",
+      "branch": "refs/heads/fix/exploration-configuration-lock",
+      "head": "ee8b3a4727c4e2fa8ec6e7e0450bad35c78a458e",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a716/garimpei",
+      "branch": "refs/heads/integration/pending-features-2026-11-12",
+      "head": "fde9f90f7fac2e6d3891c4091d5f82e98cc058e8",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a9af/garimpei",
+      "branch": "refs/heads/feat/F20-apresentacao-financeira",
+      "head": "1ec8b10a2d7049f0fe7e260b167876eaa8766f0b",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/b9f3/garimpei",
+      "branch": "refs/heads/fix/collection-invalid-unicode",
+      "head": "6ec0c2ffb3889ec8ec11efcfdff19dc8b7295501",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/baf1/garimpei",
+      "branch": "refs/heads/feat/F18-identificacao-comparaveis",
+      "head": "a5c0cb7603e31da7579f039679f22ed51396c084",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/c4f1/garimpei",
+      "branch": "refs/heads/fix/wave13-regression-tests",
+      "head": "b870d1a16f6a6bc4b8ff8ffe2d71375628ca66dd",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/c6a4/garimpei",
+      "branch": "refs/heads/wave/20261113-f21",
+      "head": "8783b2e899501c5d6a91768fee1b549567544784",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e16d/garimpei",
+      "branch": "refs/heads/feat/F15-avaliacao-multimodal",
+      "head": "b0b8643d647e77eb87d934660f1fb70f7535dafd",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e38a/garimpei",
+      "branch": "refs/heads/feat/F13-navegacao-ativa",
+      "head": "004fb0fa5be07f108ee8b22a3973c330aa6b6829",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-nova-onda",
+      "branch": "refs/heads/wave/20261113-f14",
+      "head": "35a9c7213c8c556cf62925b390dbfde6d98d1beb",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-onda-atual",
+      "branch": "refs/heads/wave/current-f14",
+      "head": "21ad43694bad598b661ecdb54b3d465c01eaafb0",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-retomada",
+      "branch": "refs/heads/wave/resume-f14",
+      "head": "affc6deb8bfb8c1f2514a0c9dcb54991933f601f",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-nova-onda",
+      "branch": "refs/heads/wave/20261113-f17",
+      "head": "4f459049da1fb6e8d5cfedf54b9e48f1cabd31bd",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-onda-atual",
+      "branch": "refs/heads/wave/current-f17",
+      "head": "f12fdc5271879cf149b661638c9aba522ade37eb",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-retomada",
+      "branch": "refs/heads/wave/resume-f17",
+      "head": "b303c51f43fd8ccefd90065c90afb04319e9972e",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda",
+      "branch": "refs/heads/wave/20261113-f18",
+      "head": "4dcc787cd268c565e8e1fbd8d6dfe441620216e6",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-onda-atual",
+      "branch": "refs/heads/wave/current-f18",
+      "head": "b871a6696b0d9dbb481733dfb30537b330dbc5ea",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-retomada",
+      "branch": "refs/heads/wave/resume-f18",
+      "head": "f87012cdc3146d64e3bf6351e8662ec150ef26e3",
+      "ancestor_of_master": true,
+      "dirty_paths": [],
+      "concurrent_external_task": false
+    }
+  ]
+}

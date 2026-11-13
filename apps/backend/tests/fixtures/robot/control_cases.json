@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "now": "2026-11-13T17:00:00Z",
+  "control": {
+    "enabled": true,
+    "revision": 0
+  },
+  "commands": [
+    "0a719724-efaf-47a8-a925-73b90f01a1ab",
+    "b2c1b09a-d66e-4385-a73f-a50db937a2fe"
+  ],
+  "stages": [
+    "navigation",
+    "research",
+    "suggestion",
+    "media",
+    "valuation",
+    "assessment",
+    "inference",
+    "alert"
+  ],
+  "expectations": {
+    "pause_before_authorize": "denied_without_attempt",
+    "authorize_before_pause": "draining_until_completion",
+    "uncertain": "unknown",
+    "replay": "no_revision_change",
+    "stale": "conflict",
+    "inference_pause": "preserve_individual_preference"
+  }
+}

@@ -1,0 +1,5 @@
+..........................................
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/tests/integration/test_collection.py:267: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+42 passed in 485.51s (0:08:05)

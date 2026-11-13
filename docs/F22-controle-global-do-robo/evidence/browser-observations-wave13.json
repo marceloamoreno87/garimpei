@@ -1,0 +1,126 @@
+{
+  "observed_at": "2026-11-13T17:22:34.511419+00:00",
+  "scope": "UI/HTTP verification on owned disposable PostgreSQL/web/worker and local fake source. Does not prove all Worker/E2E contract items.",
+  "runtime": "eval_f04_64fdcc933c",
+  "origin": "http://127.0.0.1:21094",
+  "observations": {
+    "explicit_disable": {
+      "observed": "disabled revision1, lookup accessible",
+      "passed": true
+    },
+    "restart_preserves_pause": {
+      "observed": "normal stop/init retained disabled revision1 and offer version5b17ae07-9499-4d05-a2ec-181f6dbc47b3",
+      "passed": true
+    },
+    "keyboard_poll_focus_initial": {
+      "before": "BUTTON",
+      "poll_status": 200,
+      "after": "BODY",
+      "passed": false,
+      "corrected": true
+    },
+    "keyboard_poll_focus_recheck": {
+      "polls_observed": 2,
+      "before": true,
+      "after": true,
+      "enter_enabled": true,
+      "passed": true
+    },
+    "stale_tab": {
+      "expected_revision": 4,
+      "confirmed_revision": 5,
+      "status": 409,
+      "preserved": true
+    },
+    "http": {
+      "enable": 303,
+      "replay": 303,
+      "replay_does_not_increment_revision": true,
+      "uuid_payload_conflict": 409,
+      "invalid_form": 400,
+      "csrf_missing": 403,
+      "get_mutation": 405,
+      "allow": "POST",
+      "read_cache_control": "no-store"
+    },
+    "paused_offer_navigation": {
+      "q": "Sony",
+      "category": "cameras",
+      "page": 2,
+      "tab": "funcionam",
+      "version": "5b17ae07-9499-4d05-a2ec-181f6dbc47b3",
+      "listing": "00000000-0000-0000-0000-000000000015",
+      "detail_preserves_query": true,
+      "scroll_width": 390,
+      "viewport": 390
+    },
+    "draining": {
+      "permit": "b33ed6d7-6f0a-4e4f-a4d7-0255f18ee09f",
+      "requested_enabled": false,
+      "revision": 7,
+      "heading": "Desligando",
+      "passed": true,
+      "scope": "synthetic permit via production admission port; not a network drain test"
+    },
+    "unknown": {
+      "heading": "Parada ainda não confirmada",
+      "requested_enabled": false,
+      "passed": true,
+      "scope": "same synthetic permit transitioned unknown via production completion port"
+    },
+    "complete_while_paused": {
+      "passed": true,
+      "scope": "same permit completed while global disabled"
+    },
+    "worker_unavailable": {
+      "worker": "owned worker SIGSTOP with aged heartbeat fixture; resumed immediately",
+      "heading": "Robô ligado",
+      "warning_visible": true,
+      "passed": true
+    },
+    "save_error": {
+      "status": 503,
+      "state_remains_enabled": true,
+      "false_disabled": false,
+      "recovery_link": true,
+      "scope": "isolated patched gunicorn command port raises RobotUnavailable"
+    },
+    "read_error_full_page": {
+      "status": 503,
+      "cache_control": "no-store",
+      "unavailable_visible": true,
+      "passed": true
+    },
+    "read_error_poll": {
+      "status": 503,
+      "robot_control_count": 0,
+      "main_count": 2,
+      "navigation_duplicated": true,
+      "passed": false,
+      "correction_pending": false,
+      "scope": "proxy actual isolated server read failure response into normal HTMX poll",
+      "corrected": true
+    },
+    "read_error_poll_recheck": {
+      "poll_status": 503,
+      "robot_control_count": 1,
+      "main_count": 1,
+      "error_visible": true,
+      "failed_polls_observed": 2,
+      "automatic_recovery": true,
+      "passed": true
+    }
+  },
+  "cleanup": "Browser closed; both owned failure Gunicorn servers terminated. Lab final stop --clean completed with exit0; own disposable database/services removed.",
+  "ui_source_hashes": {
+    "infra/http/templates/robot/control.html": "97a9ef3a2575b6e4c7286a735b0ef3480dfd542980d494b1841d53f8848e8fbf",
+    "infra/http/static/robot/control.js": "58b9b2840839c61de8184d3b186f5d3efa00dc72bbe258c257814aef55e8149d",
+    "infra/http/templates/monitoring/tracking.html": "2a2a8208ae23c1c106baf4989ff5b55682b4f23fb25c50f74a92ab237794d39e",
+    "infra/http/robot/robot_handler.py": "b87f9dc7e74fda6ebe7c54d171d88e878a090cece8a0e0d53ac19e3638cbd29b",
+    "infra/http/robot/presentation.py": "95fba7cc8d77252c4a0e1bccaa7fab8d74994f72fb3aabfe1b3c8b25ef00302c",
+    "infra/http/error_handler.py": "d37d9abbace1303c423d860bfaf9e096bfd990013b503e8b40079debd4c989f3",
+    "infra/http/templates/robot/error.html": "1faaea815a1760b4554c6b46ed2599396a1b92a8374ac6bf4bdc9c6de8179779",
+    "infra/http/templates/monitoring/layout.html": "253e9893662919943847ae3712e782cd32f7ff7bbd5ab8ee28e4766f81ec2ea0"
+  },
+  "cleanup_at": "2026-11-13T17:23:03.340623+00:00"
+}

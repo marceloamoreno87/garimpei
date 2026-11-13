@@ -1,0 +1,69 @@
+{
+  "base": "5f713bb8a13856819c1f45d5954a9cfcf9469cd4",
+  "production_changes": false,
+  "original_full_shard": {
+    "path": "docs/wave-evidence-2026-11-13T17-06-11Z/final-shard-0.txt",
+    "sha256": "60bde080f61367149bed8e97c658afb0ff7e7782840af25a89f019b4d7139382",
+    "result": "3 failed, 294 passed in1433.47s"
+  },
+  "local_migration_red": {
+    "exit_code": 1,
+    "result": "1 failed in7.04s"
+  },
+  "corrected_attempt1": {
+    "exit_code": 1,
+    "result": "1 failed,5 passed in145.74s",
+    "nodes": {
+      "tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits": "PASSED",
+      "tests/integration/test_profit.py::test_reduction_event_is_immutable_and_revalidates_cep_and_variant": "PASSED",
+      "tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale": "PASSED",
+      "tests/integration/test_profit.py::test_consistent_snapshot_during_two_head_publication": "PASSED",
+      "tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry": "FAILED",
+      "tests/integration/test_robot_migration.py::test_adoption_preserves_legacy_authorizations_and_individual_pause": "PASSED"
+    }
+  },
+  "corrected_navigation_final": {
+    "exit_code": 0,
+    "result": "1 passed in53.14s",
+    "nodes": [
+      "tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry"
+    ],
+    "junit": "integrated-navigation-final-wave13.xml",
+    "inputs_unchanged": true
+  },
+  "union": {
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "nodes": [
+      "tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits",
+      "tests/integration/test_profit.py::test_reduction_event_is_immutable_and_revalidates_cep_and_variant",
+      "tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale",
+      "tests/integration/test_profit.py::test_consistent_snapshot_during_two_head_publication",
+      "tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry",
+      "tests/integration/test_robot_migration.py::test_adoption_preserves_legacy_authorizations_and_individual_pause"
+    ],
+    "interpretation": "Preserve both failed runs. Final union uses5 passing nodes from attempt1 and final navigation node; it does not rewrite attempt1 as passing."
+  },
+  "current_test_inputs": {
+    "apps/backend/tests/integration/test_profit.py": {
+      "original_assertions": 64,
+      "preserved_exactly": true,
+      "current_sha256": "5380d2c5fe42020bc125f63bd18d0808fab8f468a2df8dc37471ccec7b9927bd",
+      "current_ast_sha256": "ea1107d731aa21c73c8ea9162f643df3186b87881efedb74b12face8887186ff"
+    },
+    "apps/backend/tests/integration/test_navigation_events.py": {
+      "original_assertions": 48,
+      "preserved_exactly": true,
+      "current_sha256": "de803e5d04521761a9d1cf41c06a7eb60c7cdb4771cf0f6c3f38f2f8da2a535c",
+      "current_ast_sha256": "2ba988c2577c5d1d5f14e31cb149f0213d97ea65b6bbbe36cf72b8bd90c12ecd"
+    },
+    "apps/backend/tests/integration/test_robot_migration.py": {
+      "original_assertions": 11,
+      "preserved_exactly": true,
+      "current_sha256": "09e64098edba07c2e252cd13c541ae30db49f9223ce9b093d2776630edef9685",
+      "current_ast_sha256": "ec3844b307ffff4873aa0783dbd6db6433ef874e7c4fe265f75c3dd095f5a357"
+    }
+  },
+  "limitation": "Attempt1 did not capture pre-run hashes/JUnit. Its node mapping comes from collected order and explicit single failure. Final navigation has JUnit and pre/post hash verification. Coordinator must adjudicate full integrated gates and progress."
+}

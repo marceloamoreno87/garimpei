@@ -256,6 +256,27 @@ print('SVC-INDISPONIBILIDADE-01 expired PASS')
     clock.advance(61)
     completed(i, 2)
     wait_valuation(i, revision=2)
+    # Revisions can advance while the collector is still publishing other candidates.
+    # Wait for this changed input, not an unrelated intermediate evaluation revision.
+    wait_for(
+        lambda: (
+            sql(
+                i,
+                "SELECT count(*) FROM runtime_valuationprogress p "
+                "JOIN runtime_listing l ON p.listing_id=l.id "
+                "JOIN runtime_valuationevaluation e ON p.current_id=e.id "
+                "JOIN runtime_valuationwork w ON e.work_id=w.id "
+                "JOIN runtime_listing c ON c.external_id='604' "
+                "JOIN runtime_listingobservation o ON c.latest_id=o.id "
+                "WHERE l.external_id='699' AND EXISTS ("
+                "SELECT 1 FROM jsonb_array_elements(w.snapshot->'candidates') candidate "
+                "WHERE candidate->>'external_id'='604' "
+                "AND (candidate->>'revision')::bigint=o.ordinal)",
+            )
+            == [(1,)]
+        ),
+        "valuation published from the changed comparable 604",
+    )
     check(
         i,
         """
@@ -277,6 +298,20 @@ print('SVC-INDISPONIBILIDADE-01 insufficient PASS')
     source.collection_failed = True
     source.offers[0]["observed_at"] = (clock.value + timedelta(days=14)).isoformat()
     clock.advance(14 * 86400)
+    wait_for(
+        lambda: (
+            sql(
+                i,
+                "SELECT (e.result->>'evaluated_at')::timestamptz "
+                "FROM runtime_valuationprogress p "
+                "JOIN runtime_listing l ON p.listing_id=l.id "
+                "JOIN runtime_valuationevaluation e ON p.current_id=e.id "
+                "WHERE l.external_id='699'",
+            )
+            == [(clock.value,)]
+        ),
+        "valuation recalculated at the expiry boundary",
+    )
     boundary = wait_valuation(i, revision=4, price="2300.00")
     clock.advance(1)
     check(

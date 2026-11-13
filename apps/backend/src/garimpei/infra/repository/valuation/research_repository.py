@@ -32,6 +32,7 @@ from garimpei.infra.persistence.research_models import (
 )
 from garimpei.infra.repository.listing.mapper import encode_candidate
 from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
+from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 from garimpei.infra.repository.valuation.identity_mapper import identify_row
 from garimpei.infra.repository.valuation.postgres_repository import _listing
 from garimpei.infra.repository.valuation.research_mapper import (
@@ -194,6 +195,8 @@ class PostgresComparableResearchRepository:
         if self._limits is None:
             return None
         lock_monitoring_publication()
+        if not robot_enabled():
+            return None
         scope = self._scope()
         if scope is None:
             return None
@@ -412,6 +415,15 @@ class PostgresComparableResearchRepository:
         ]
         row.next_attempt_at = self._clock() + timedelta(seconds=max(delay, failure.retry_after))
         row.lease_until = None
+        row.save()
+
+    @transaction.atomic
+    def pause_claim(self, work: ResearchUnit) -> None:
+        row = self._owned(work)
+        if row.pages == work.pages and tuple(row.buffer) == work.pending:
+            row.attempts = max(0, row.attempts - 1)
+        row.state, row.reason, row.lease_until = "waiting_evidence", "robot_paused", None
+        row.next_attempt_at = self._clock()
         row.save()
 
     @transaction.atomic

@@ -21,8 +21,8 @@ Criar por migrations e factories do lab F21 definido em spec §7, em instância 
 ### Static inputs
 
 - `apps/backend/tests/fixtures/alert/gold_cases.json`: casos, relógio UTC, entradas, revisões, evidências de análise/identidade, comparáveis e ações de spec §7. Produzir e validar por schema e pelas factories `gold_alerts.py`; usado por todos os itens controlados.
-- Fotos sintéticas identificadas e manifestos de avaliação F15, com hashes, cobertura e rótulos humanos; usados por WRK-CONDICAO-01, UI-EVIDENCIAS-01 e E2E-PERCURSO-01. Materializar conforme F15 e verificar integridade, sem apresentar resultado fake como análise real.
-- `docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/real-corpus.json`: manifesto sanitizado com anúncios/fotos autorizados, origem, datas/contexto e revisão humana. Produzir a partir de pesquisas reais e conferir cada evidência; usado por E2E-REAL-01. É entrega futura, sem dados reais pressupostos nesta especificação.
+- Fotos sintéticas identificadas e manifestos de avaliação F15, com hashes, cobertura e rótulos de referência assistida por IA, identificados e congelados antes das saídas do modelo local; usados por WRK-CONDICAO-01, UI-EVIDENCIAS-01 e E2E-PERCURSO-01. Materializar conforme F15 e verificar integridade, sem apresentar resultado fake como análise real.
+- `docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/real-corpus.json`: manifesto sanitizado com anúncios/fotos autorizados, origem, datas/contexto e referência de revisão assistida por IA, com autoria/método/hashes e ausência de validação humana independente explícitos. Produzir a partir de pesquisas reais e conferir cada evidência; usado por E2E-REAL-01. É entrega futura, sem dados reais pressupostos nesta especificação.
 
 ### Configuration
 
@@ -57,7 +57,7 @@ Cada linha reproduz literalmente o aceite F21 do PRD; todos os itens descrevem v
 | **F21-AC06**: dados relevantes são conferidos novamente antes de nova transmissão para primeiro alerta e redução, inclusive após espera na fila. Revisão de identidade/condição/amostra/configuração incompatível ou vencida suspende a autorização e provoca reavaliação; comparação com histórico de outra variante nunca sustenta envio. | WRK-FILA-01, WRK-FILA-02, WRK-VERSAO-01, WRK-QUALIFICA-02 |
 | **F21-AC07**: detalhes e mensagem nova explicam produto normalizado, compra, venda estimada, lucro e base histórica com datas/quantidade/método, ressalvas e acesso às evidências. Diagnóstico distingue falta de análise, identidade, amostra e lucro não positivo, conserva revisão/data e separa situação atual de recibos históricos; falha de atualização preserva leitura e filtros. | API-OURO-01, API-OURO-02, UI-EVIDENCIAS-01, UI-OFERTAS-01, UI-FALHA-01, WRK-MENSAGEM-01, WRK-LEGADO-02 |
 | **F21-AC08**: chegada de evidências suficientes pode completar a primeira elegibilidade dentro de 48 horas da publicação confiável; repetição, concorrência e troca de política não duplicam primeiro alerta ou redução. Classificação manual isolada não gera intenção adiada; reduções continuam exigindo primeiro envio confirmado e não ganham nova janela de publicação nesta revisão. | E2E-PERCURSO-01, WRK-JANELA-01, WRK-MANUAL-01, WRK-CONCORRENCIA-01, WRK-QUALIFICA-02 |
-| **F21-AC09**: adoção e reinício preservam corpos/recibos e reconciliação anteriores; intenção comprovadamente não transmitida só segue após qualificação F21. Transmissão incerta não repete POST, e ausência/falha de dependência suspende novas autorizações sem recorrer à política anterior. Provar percurso completo e casos adversos em recursos isolados, distinguindo teste controlado de análise real. | WRK-LEGADO-01, WRK-LEGADO-02, WRK-INCERTO-01, WRK-FALHA-01, E2E-PERCURSO-01, E2E-REAL-01 |
+| **F21-AC09**: adoção e reinício preservam corpos/recibos e reconciliação anteriores; intenção comprovadamente não transmitida só segue após qualificação F21. Transmissão incerta não repete POST, e ausência/falha de dependência suspende novas autorizações sem recorrer à política anterior. Provar percurso completo e casos adversos em recursos isolados, distinguindo teste controlado de análise real. A comparação do corpus real usa referência assistida por IA, identificada e congelada antes das saídas do modelo local; declarar a ausência de validação humana independente, sem apresentar concordância entre IAs como precisão contra verdade humana. | WRK-LEGADO-01, WRK-LEGADO-02, WRK-INCERTO-01, WRK-FALHA-01, E2E-PERCURSO-01, E2E-REAL-01 |
 
 ## HTTP API
 
@@ -334,11 +334,16 @@ Cada linha reproduz literalmente o aceite F21 do PRD; todos os itens descrevem v
   - Retomada preserva recibo e não repete envio.
 
 #### `E2E-REAL-01` — Corpus real com histórico rastreável e análise local
-- given: Manifesto real autorizado, fotos verificadas e rótulos humanos; F15/F18 efetivas e F19 local real; destino fake.
+- given: Manifesto real autorizado, fotos verificadas e rótulos de referência assistida por IA identificados e congelados antes das saídas do modelo local; F15/F18 efetivas e F19 local real; destino fake.
 - when: Executar a avaliação integrada do corpus real documentado.
 - then:
-  - Condição tem sinais/fotos rastreáveis e diferenças frente à revisão humana registradas.
+  - Condição tem sinais/fotos rastreáveis e diferenças frente à referência assistida por IA registradas, sem alegar revisão humana independente ou precisão contra verdade humana.
   - Nome normalizado e comparáveis reais equivalentes sustentam preço representativo reproduzível, ou a insuficiência fica explícita.
   - Relatório separa análise real, saída do modelo, composição e postagem fake.
   - Um caso real com conjunto suficiente demonstra qualificação positiva; sem esse caso, essa dimensão permanece pendente sem substituir pela fixture.
   - Casos insuficientes/contraditórios não ganham qualificação por afrouxamento de política.
+
+
+## Alteração aprovada — referência F21
+
+Em 2026-11-13 o usuário autorizou explicitamente a referência assistida por IA para esta feature, após receber a galeria real de oito anúncios/42 fotos. A referência tem autoria/método e hashes, é congelada antes da inferência local e não constitui validação humana independente. A alteração afeta somente a origem da referência; todos os requisitos de evidência, qualificação positiva real e demais itens permanecem obrigatórios.

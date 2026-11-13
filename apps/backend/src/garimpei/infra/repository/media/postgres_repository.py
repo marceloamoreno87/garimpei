@@ -26,11 +26,14 @@ from garimpei.infra.persistence.media_models import (
 )
 from garimpei.infra.repository.media.captures import create_capture
 from garimpei.infra.repository.media.mapper import photo_view
+from garimpei.infra.repository.robot.locking import lock_robot_control
+from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 
 
 @contextmanager
 def quota_lock() -> Iterator[None]:
     with transaction.atomic():
+        lock_robot_control()
         with connection.cursor() as cursor:
             cursor.execute("SELECT pg_advisory_xact_lock(%s)", [140014])
         yield
@@ -42,6 +45,8 @@ class PostgresMediaRepository:
 
     def claim(self, identity: UUID, now: datetime) -> MediaClaim | None:
         with quota_lock():
+            if not robot_enabled():
+                return None
             job = (
                 MediaJob.objects.select_for_update(of=("self",))
                 .select_related("entry__capture__observation", "entry__asset")
@@ -100,6 +105,19 @@ class PostgresMediaRepository:
                 job.attempts,
                 entry.asset_id,
             )
+
+    def pause_claim(self, claim: MediaClaim) -> None:
+        with quota_lock():
+            job = (
+                MediaJob.objects.select_for_update()
+                .filter(id=claim.id, lease_generation=claim.generation, state="running")
+                .first()
+            )
+            if job is None:
+                return
+            job.state, job.reserved_bytes, job.lease_until = "pending", 0, None
+            job.attempts = max(0, job.attempts - 1)
+            job.save()
 
     def _storage_size(self, entry: MediaEntry, now: datetime) -> int | None:
         try:

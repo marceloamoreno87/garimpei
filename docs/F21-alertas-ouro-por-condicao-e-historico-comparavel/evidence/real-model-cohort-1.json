@@ -1,0 +1,5328 @@
+{
+  "feature": "F21",
+  "cohort": "iphone-cohort-1-frozen-eight",
+  "reference_sha256": "7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "started_at": "2026-11-13T18:01:55.808950+00:00",
+  "source": "authorized_real_snapshots_replayed_locally",
+  "local_model_runtime": "real_F19",
+  "fake_whatsapp": true,
+  "real_whatsapp_posts": 0,
+  "results": [
+    {
+      "external_id": "1810839963486848",
+      "listing_id": "bb32d01d-6625-450c-8e74-536ab1e041b9",
+      "observation_id": "76a23ee7-5d55-4d4d-bc56-eb32aa30ca15",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "1544087317479114",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "3fd69a76aee5818f1c70329ca15652646a4e2b427694b7c50a25c96332e2ffa3",
+          "examined": false,
+          "photo_id": "p_3fd69a76aee5818f1c70329ca15652646a4e2b427694b7c50a25c96332e2ffa3",
+          "position": 0,
+          "version_id": "3590f4c5-77db-4037-86f1-88da93e1b62b"
+        },
+        {
+          "key": "1150755974088286",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "2b998dad18c319ba6e8bb0b3c5b5ef9dbd49da8f65fb13b3d35a59b25c48f2ca",
+          "examined": false,
+          "photo_id": "p_2b998dad18c319ba6e8bb0b3c5b5ef9dbd49da8f65fb13b3d35a59b25c48f2ca",
+          "position": 1,
+          "version_id": "d6d55c82-3409-49f8-8685-0efd79953a6d"
+        },
+        {
+          "key": "2026738701348253",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "313461ae3e32b1263cb77ad6e092e446153a98a0cdcb966f666f8176efad9621",
+          "examined": false,
+          "photo_id": "p_313461ae3e32b1263cb77ad6e092e446153a98a0cdcb966f666f8176efad9621",
+          "position": 2,
+          "version_id": "8d877ca7-e7bd-4b7b-8ff8-adaa94672f77"
+        },
+        {
+          "key": "2851662955220383",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "f2d4dbbeb49647eb7e6961bd800e6de8bf128304d7acc1086523bcd112b33305",
+          "examined": false,
+          "photo_id": "p_f2d4dbbeb49647eb7e6961bd800e6de8bf128304d7acc1086523bcd112b33305",
+          "position": 3,
+          "version_id": "218b5949-a06f-463b-b1e2-593540f65888"
+        },
+        {
+          "key": "1138900388497230",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "8a4bbb34a0bce412ee2b0fde05ba04c4877564777787bf4b03944b5a73b8e842",
+          "examined": false,
+          "photo_id": "p_8a4bbb34a0bce412ee2b0fde05ba04c4877564777787bf4b03944b5a73b8e842",
+          "position": 4,
+          "version_id": "93ee728b-3363-4a85-84ed-8a1cf3b7e5b4"
+        },
+        {
+          "key": "1021940610190225",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "97de90dab63c0329bdc11ad79494b9538d781e02ddc69454c246d34cca2ba3fd",
+          "examined": false,
+          "photo_id": "p_97de90dab63c0329bdc11ad79494b9538d781e02ddc69454c246d34cca2ba3fd",
+          "position": 5,
+          "version_id": "67b484b4-faca-4091-843f-c5d3a03a4371"
+        },
+        {
+          "key": "1041498202296202",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "d06ea69ab2c2a82be0674f5a86d1f9bb558bf54be1320c410eb157f24d815963",
+          "examined": false,
+          "photo_id": "p_d06ea69ab2c2a82be0674f5a86d1f9bb558bf54be1320c410eb157f24d815963",
+          "position": 6,
+          "version_id": "e5ff7e35-70a7-464a-a882-9e34962d12b9"
+        },
+        {
+          "key": "1451592526943181",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "fd6f08d857bbfb5540bc3c2519466d3519c500918ef7eb87bf3b37b977d0c39d",
+          "examined": false,
+          "photo_id": "p_fd6f08d857bbfb5540bc3c2519466d3519c500918ef7eb87bf3b37b977d0c39d",
+          "position": 7,
+          "version_id": "92d8fe42-d711-4698-bb5d-d299badf4537"
+        }
+      ],
+      "assessment_id": "d9bc2457-4926-4b28-a32b-d24452ef2067",
+      "model_calls_sent": 4,
+      "parts": [
+        {
+          "state": "succeeded",
+          "reason": "",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 374,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59603.184121456,
+                "memory_mib": 6863,
+                "utilization_percent": 45
+              },
+              {
+                "scope": "host",
+                "monotonic": 59603.480906097,
+                "memory_mib": 6865,
+                "utilization_percent": 26
+              },
+              {
+                "scope": "host",
+                "monotonic": 59603.771715805,
+                "memory_mib": 6865,
+                "utilization_percent": 29
+              },
+              {
+                "scope": "host",
+                "monotonic": 59604.053514534,
+                "memory_mib": 6865,
+                "utilization_percent": 47
+              },
+              {
+                "scope": "host",
+                "monotonic": 59604.343632711,
+                "memory_mib": 6865,
+                "utilization_percent": 43
+              },
+              {
+                "scope": "host",
+                "monotonic": 59604.63631137,
+                "memory_mib": 6865,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59604.92511689,
+                "memory_mib": 6865,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59605.214747612,
+                "memory_mib": 6865,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59605.49940801,
+                "memory_mib": 6865,
+                "utilization_percent": 62
+              },
+              {
+                "scope": "host",
+                "monotonic": 59605.786401721,
+                "memory_mib": 6865,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59606.073686111,
+                "memory_mib": 6865,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59606.357235936,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59606.643457571,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59606.929602656,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              }
+            ],
+            "eval_duration": 3458183000,
+            "load_duration": 2906585,
+            "context_length": 4096,
+            "total_duration": 3782507233,
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 3793310524,
+            "prompt_eval_count": 787,
+            "prompt_eval_duration": 219228000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "succeeded",
+          "reason": "",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 581,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59607.022409236,
+                "memory_mib": 6865,
+                "utilization_percent": 55
+              },
+              {
+                "scope": "host",
+                "monotonic": 59607.308952227,
+                "memory_mib": 6865,
+                "utilization_percent": 27
+              },
+              {
+                "scope": "host",
+                "monotonic": 59607.597231425,
+                "memory_mib": 6865,
+                "utilization_percent": 30
+              },
+              {
+                "scope": "host",
+                "monotonic": 59607.882996589,
+                "memory_mib": 6865,
+                "utilization_percent": 53
+              },
+              {
+                "scope": "host",
+                "monotonic": 59608.170427989,
+                "memory_mib": 6865,
+                "utilization_percent": 58
+              },
+              {
+                "scope": "host",
+                "monotonic": 59608.457388273,
+                "memory_mib": 6865,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 59608.742751487,
+                "memory_mib": 6865,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59609.033025054,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59609.318140696,
+                "memory_mib": 6865,
+                "utilization_percent": 45
+              },
+              {
+                "scope": "host",
+                "monotonic": 59609.609938296,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59609.894232396,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59610.179468324,
+                "memory_mib": 6865,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59610.462890519,
+                "memory_mib": 6865,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59610.749285773,
+                "memory_mib": 6865,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59611.035265557,
+                "memory_mib": 6865,
+                "utilization_percent": 66
+              },
+              {
+                "scope": "host",
+                "monotonic": 59611.319826258,
+                "memory_mib": 6865,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59611.603917214,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59611.885612037,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59612.170390543,
+                "memory_mib": 6865,
+                "utilization_percent": 78
+              }
+            ],
+            "eval_duration": 5103403000,
+            "load_duration": 2434498,
+            "context_length": 4096,
+            "total_duration": 5352763729,
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 5362017082,
+            "prompt_eval_count": 779,
+            "prompt_eval_duration": 184661000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59612.432341644,
+                "memory_mib": 6865,
+                "utilization_percent": 62
+              },
+              {
+                "scope": "host",
+                "monotonic": 59612.715163437,
+                "memory_mib": 6865,
+                "utilization_percent": 26
+              },
+              {
+                "scope": "host",
+                "monotonic": 59613.000037614,
+                "memory_mib": 6865,
+                "utilization_percent": 29
+              },
+              {
+                "scope": "host",
+                "monotonic": 59613.284884448,
+                "memory_mib": 6865,
+                "utilization_percent": 49
+              },
+              {
+                "scope": "host",
+                "monotonic": 59613.567961504,
+                "memory_mib": 6865,
+                "utilization_percent": 58
+              },
+              {
+                "scope": "host",
+                "monotonic": 59613.855325301,
+                "memory_mib": 6865,
+                "utilization_percent": 62
+              },
+              {
+                "scope": "host",
+                "monotonic": 59614.145206816,
+                "memory_mib": 6865,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59614.430591048,
+                "memory_mib": 6865,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59614.715324884,
+                "memory_mib": 6865,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59614.999951684,
+                "memory_mib": 6865,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59615.288412784,
+                "memory_mib": 6865,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59615.575093898,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59615.860403621,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59616.144278758,
+                "memory_mib": 6865,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59616.4318823,
+                "memory_mib": 6865,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59616.717488184,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59617.00824726,
+                "memory_mib": 6865,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59617.296729775,
+                "memory_mib": 6865,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59617.58048102,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59617.869244538,
+                "memory_mib": 6865,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59618.157733975,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59618.441911732,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59618.728324193,
+                "memory_mib": 6865,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59619.014913792,
+                "memory_mib": 6865,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59619.301395739,
+                "memory_mib": 6865,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59619.593548214,
+                "memory_mib": 6865,
+                "utilization_percent": 63
+              },
+              {
+                "scope": "host",
+                "monotonic": 59619.877863633,
+                "memory_mib": 6865,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59620.167778405,
+                "memory_mib": 6865,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59620.460286695,
+                "memory_mib": 6865,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59620.74639911,
+                "memory_mib": 6865,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59621.030662149,
+                "memory_mib": 6865,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59621.320520837,
+                "memory_mib": 6865,
+                "utilization_percent": 70
+              }
+            ],
+            "eval_duration": 8673822000,
+            "load_duration": 2754407,
+            "context_length": 4096,
+            "total_duration": 8915891740,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 8925258486,
+            "prompt_eval_count": 783,
+            "prompt_eval_duration": 180372000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 878,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59621.413728967,
+                "memory_mib": 6865,
+                "utilization_percent": 62
+              },
+              {
+                "scope": "host",
+                "monotonic": 59621.718414977,
+                "memory_mib": 6865,
+                "utilization_percent": 31
+              },
+              {
+                "scope": "host",
+                "monotonic": 59622.051570234,
+                "memory_mib": 6865,
+                "utilization_percent": 29
+              },
+              {
+                "scope": "host",
+                "monotonic": 59622.346694791,
+                "memory_mib": 6865,
+                "utilization_percent": 38
+              },
+              {
+                "scope": "host",
+                "monotonic": 59622.634704502,
+                "memory_mib": 6866,
+                "utilization_percent": 51
+              },
+              {
+                "scope": "host",
+                "monotonic": 59622.921113027,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59623.239901212,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59623.526230371,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59623.811603157,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59624.093365588,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59624.378171592,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59624.662865161,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59624.948132498,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59625.233541118,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59625.519833246,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59625.80455201,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59626.095671898,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59626.379016186,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59626.662055248,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59626.945832837,
+                "memory_mib": 6866,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59627.229965876,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59627.518562863,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59627.802741592,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59628.085131793,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59628.373429945,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59628.669971778,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59628.96009861,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              }
+            ],
+            "eval_duration": 7405711000,
+            "load_duration": 2179244,
+            "context_length": 4096,
+            "total_duration": 7752794649,
+            "diagnostic_code": "text_reference_mismatch",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 7763919446,
+            "prompt_eval_count": 783,
+            "prompt_eval_duration": 273569000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "waiting",
+      "gold_reason": "gold_photos_missing",
+      "profit": "40.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true,
+      "driver_elapsed_seconds": 113.88671669099858
+    },
+    {
+      "external_id": "1149985297537880",
+      "listing_id": "394df614-28a8-4841-af64-1ba812d8d080",
+      "observation_id": "36be6533-1499-424a-a664-40ae07ee558e",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "1445300210483665",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "bbf0f3deacbea9e7a3096bd969c76ebce7c607c0fc12db1b874f7af6e5ae9a94",
+          "examined": false,
+          "photo_id": "p_bbf0f3deacbea9e7a3096bd969c76ebce7c607c0fc12db1b874f7af6e5ae9a94",
+          "position": 0,
+          "version_id": "46a818d7-041e-42ed-b119-8e267766b2c5"
+        },
+        {
+          "key": "1675674267404100",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "992696f0bb2f2ce28d0053adde23f4f977d9f1bd42ea21216d6fdb6af0be02d4",
+          "examined": false,
+          "photo_id": "p_992696f0bb2f2ce28d0053adde23f4f977d9f1bd42ea21216d6fdb6af0be02d4",
+          "position": 1,
+          "version_id": "57cf5381-4890-42b5-b7b0-e33b683d3b2e"
+        },
+        {
+          "key": "1192674079849191",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "0d3726a60b18586da11184850ee06f7d1259c58403fe9486d800188486d5eb53",
+          "examined": false,
+          "photo_id": "p_0d3726a60b18586da11184850ee06f7d1259c58403fe9486d800188486d5eb53",
+          "position": 2,
+          "version_id": "e30c2f1e-006c-46c3-9a81-1b402b446b93"
+        },
+        {
+          "key": "2129463571026930",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "46a9d8dba11475e0cbfa113789f6453ece5b2a0cfc4f624297c019afa36dfb41",
+          "examined": false,
+          "photo_id": "p_46a9d8dba11475e0cbfa113789f6453ece5b2a0cfc4f624297c019afa36dfb41",
+          "position": 3,
+          "version_id": "b396704c-8c05-47c1-8f3a-d49a4f7bdc3b"
+        },
+        {
+          "key": "2218217678781565",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "0ff342d7198edd9c935d3fde33c34df242b83f01001112027c4d1c1efd8be868",
+          "examined": false,
+          "photo_id": "p_0ff342d7198edd9c935d3fde33c34df242b83f01001112027c4d1c1efd8be868",
+          "position": 4,
+          "version_id": "bc7ee0c8-87c6-49e7-981c-57c38117f172"
+        },
+        {
+          "key": "28715628411471830",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "0a868cc223fda17a50c74ab44f35ebd6d8077bc6d65d2c2180a20a5d90ffdf22",
+          "examined": false,
+          "photo_id": "p_0a868cc223fda17a50c74ab44f35ebd6d8077bc6d65d2c2180a20a5d90ffdf22",
+          "position": 5,
+          "version_id": "605bc72a-c0cd-4851-a5ae-3c5f595286c8"
+        },
+        {
+          "key": "1148138114379440",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "fa5878812904ccd1bfed635033f923f589a504e2dc42b89a2d1ef07a60850ead",
+          "examined": false,
+          "photo_id": "p_fa5878812904ccd1bfed635033f923f589a504e2dc42b89a2d1ef07a60850ead",
+          "position": 6,
+          "version_id": "bbc30d34-29bb-4eed-9ea3-83df776b5ae2"
+        },
+        {
+          "key": "1110220191885901",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "8d1e9da12aeee0c09eba428b0172524df7e80c6895ee41cea961905f29a9c40f",
+          "examined": false,
+          "photo_id": "p_8d1e9da12aeee0c09eba428b0172524df7e80c6895ee41cea961905f29a9c40f",
+          "position": 7,
+          "version_id": "5ba757ec-22c5-4a3e-a1a0-236eb5b65c19"
+        },
+        {
+          "key": "1909105100458921",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "b8fb3aa4c4dc41671f4c2f5d6528cfc700fb1750272fdf5d91181de1d461044c",
+          "examined": false,
+          "photo_id": "p_b8fb3aa4c4dc41671f4c2f5d6528cfc700fb1750272fdf5d91181de1d461044c",
+          "position": 8,
+          "version_id": "ee179b8c-fc25-4a90-8df6-bc01ed81dbdd"
+        }
+      ],
+      "assessment_id": "4d3803b3-fc1f-460d-a876-91566d1973ce",
+      "model_calls_sent": 3,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59665.853843608,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59666.154805767,
+                "memory_mib": 6866,
+                "utilization_percent": 9
+              },
+              {
+                "scope": "host",
+                "monotonic": 59666.440738155,
+                "memory_mib": 6866,
+                "utilization_percent": 28
+              },
+              {
+                "scope": "host",
+                "monotonic": 59666.728195173,
+                "memory_mib": 6866,
+                "utilization_percent": 44
+              },
+              {
+                "scope": "host",
+                "monotonic": 59667.014973149,
+                "memory_mib": 6866,
+                "utilization_percent": 47
+              },
+              {
+                "scope": "host",
+                "monotonic": 59667.303805234,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59667.589168907,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59667.874616305,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59668.158441042,
+                "memory_mib": 6866,
+                "utilization_percent": 66
+              },
+              {
+                "scope": "host",
+                "monotonic": 59668.445992447,
+                "memory_mib": 6866,
+                "utilization_percent": 65
+              },
+              {
+                "scope": "host",
+                "monotonic": 59668.736110562,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59669.03051888,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59669.315819826,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59669.598738495,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59669.878854524,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59670.16741314,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59670.450662874,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59670.734698476,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59671.019985574,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59671.309497632,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59671.600035872,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59671.88673426,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59672.16986276,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59672.45493699,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59672.740857032,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59673.037028849,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59673.331680099,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59673.615327172,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59673.90141715,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59674.185175946,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59674.470212679,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59674.75399452,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              }
+            ],
+            "eval_duration": 8712895000,
+            "load_duration": 3584576,
+            "context_length": 4096,
+            "total_duration": 9012638986,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9023652732,
+            "prompt_eval_count": 798,
+            "prompt_eval_duration": 206044000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59674.929270463,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59675.214446282,
+                "memory_mib": 6866,
+                "utilization_percent": 3
+              },
+              {
+                "scope": "host",
+                "monotonic": 59675.499926415,
+                "memory_mib": 6866,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59675.781484271,
+                "memory_mib": 6866,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59676.069368441,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59676.353841501,
+                "memory_mib": 6866,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59676.635234717,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59676.916776833,
+                "memory_mib": 6866,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59677.200286617,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59677.480500659,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59677.766026094,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59678.047806524,
+                "memory_mib": 6866,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59678.333657618,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59678.61603593,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59678.899106836,
+                "memory_mib": 6866,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59679.180516342,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59679.46172001,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59679.750424307,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59680.037690215,
+                "memory_mib": 6866,
+                "utilization_percent": 38
+              },
+              {
+                "scope": "host",
+                "monotonic": 59680.322928369,
+                "memory_mib": 6866,
+                "utilization_percent": 27
+              },
+              {
+                "scope": "host",
+                "monotonic": 59680.606180723,
+                "memory_mib": 6866,
+                "utilization_percent": 46
+              },
+              {
+                "scope": "host",
+                "monotonic": 59680.894659514,
+                "memory_mib": 6866,
+                "utilization_percent": 66
+              },
+              {
+                "scope": "host",
+                "monotonic": 59681.179909042,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59681.466518305,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59681.752314821,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59682.039639532,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59682.321601854,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59682.609129883,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59682.89700273,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59683.185241685,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59683.480245529,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59683.767319036,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59684.069855207,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59684.370024284,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59684.665319316,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59684.9600386,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59685.252295446,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59685.541768226,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59685.828126625,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59686.12184385,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59686.406359272,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59686.690770218,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59686.988218112,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59687.273508985,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59687.566782767,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59687.85120608,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59688.135980035,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59688.425432628,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              }
+            ],
+            "eval_duration": 8586663000,
+            "load_duration": 2223453,
+            "context_length": 4096,
+            "total_duration": 13487459198,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 13497768289,
+            "prompt_eval_count": 805,
+            "prompt_eval_duration": 4820781000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "succeeded",
+          "reason": "",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 852,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59688.523758525,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59688.810404201,
+                "memory_mib": 6866,
+                "utilization_percent": 45
+              },
+              {
+                "scope": "host",
+                "monotonic": 59689.100648195,
+                "memory_mib": 6866,
+                "utilization_percent": 35
+              },
+              {
+                "scope": "host",
+                "monotonic": 59689.384596469,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59689.667523779,
+                "memory_mib": 6866,
+                "utilization_percent": 45
+              },
+              {
+                "scope": "host",
+                "monotonic": 59689.949093519,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59690.236971148,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59690.521916791,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59690.814155861,
+                "memory_mib": 6866,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59691.101066527,
+                "memory_mib": 6866,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59691.386807672,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59691.672213944,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59691.955080848,
+                "memory_mib": 6866,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59692.241752804,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59692.535121748,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59692.818435003,
+                "memory_mib": 6866,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 59693.102118095,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59693.385288165,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59693.669718689,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59693.969817211,
+                "memory_mib": 6866,
+                "utilization_percent": 63
+              },
+              {
+                "scope": "host",
+                "monotonic": 59694.279179882,
+                "memory_mib": 6866,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59694.56531498,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59694.853878115,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59695.13900329,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59695.421202023,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59695.706278375,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59695.993504976,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              }
+            ],
+            "eval_duration": 7346912000,
+            "load_duration": 3970719,
+            "context_length": 4096,
+            "total_duration": 7622501607,
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 7633682819,
+            "prompt_eval_count": 804,
+            "prompt_eval_duration": 187926000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-10.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true,
+      "driver_elapsed_seconds": 66.96315983499517
+    },
+    {
+      "external_id": "1156072093429318",
+      "listing_id": "fe747273-5b16-4c25-a5dc-2c3200937691",
+      "observation_id": "27c5dc45-716f-4bfc-a5aa-7e4b0d4a3eab",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "4788669328084514",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "2b01b0deae4fb19d002c282d9ba2c35714141a376dbb8ffe5533555eeaac9d3f",
+          "examined": false,
+          "photo_id": "p_2b01b0deae4fb19d002c282d9ba2c35714141a376dbb8ffe5533555eeaac9d3f",
+          "position": 0,
+          "version_id": "46847a8e-a93d-4b22-a490-f9e22756969f"
+        },
+        {
+          "key": "983083621052805",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "e6a64cb84cb16c14931c7ed1e806920d4c9feb88572dd3478189d4dadd8f8960",
+          "examined": false,
+          "photo_id": "p_e6a64cb84cb16c14931c7ed1e806920d4c9feb88572dd3478189d4dadd8f8960",
+          "position": 1,
+          "version_id": "2f9824af-f041-45a1-a13d-5eb51fdf3b0e"
+        },
+        {
+          "key": "2526068051221317",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "549eea91233e60913b34a2c52626a22b6ad6cdd7db8f6a29e69e6f89d41a4c5b",
+          "examined": false,
+          "photo_id": "p_549eea91233e60913b34a2c52626a22b6ad6cdd7db8f6a29e69e6f89d41a4c5b",
+          "position": 2,
+          "version_id": "89ac2fd7-53ce-4534-b714-7ad8ef221115"
+        },
+        {
+          "key": "2116662829214372",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "67ae619ea308d20ef087d711ab0cf76d1f11d07fe4beb55cf2ea0b8a09ff35ac",
+          "examined": false,
+          "photo_id": "p_67ae619ea308d20ef087d711ab0cf76d1f11d07fe4beb55cf2ea0b8a09ff35ac",
+          "position": 3,
+          "version_id": "8463da69-182a-44b3-8f7c-fef2a86606f9"
+        },
+        {
+          "key": "4511772252372457",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "a58f6078299d145b724651d4ee2813a93ba773e14b06d222f31c52a60ad05704",
+          "examined": false,
+          "photo_id": "p_a58f6078299d145b724651d4ee2813a93ba773e14b06d222f31c52a60ad05704",
+          "position": 4,
+          "version_id": "b3f5ae91-1a04-4b81-9075-813a06186b0b"
+        },
+        {
+          "key": "2274618270600163",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "1ccdf65781d664d58d1dd4104272e7136590149cb35e845f64468f7d313f51f5",
+          "examined": false,
+          "photo_id": "p_1ccdf65781d664d58d1dd4104272e7136590149cb35e845f64468f7d313f51f5",
+          "position": 5,
+          "version_id": "a7ef7712-5bc2-4a82-abe1-2dd1ae1397ce"
+        },
+        {
+          "key": "1007785459045238",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "4ef113fb0a0d62069768dced743e4bc1e6febebc4411cfca564bcd860def1d5c",
+          "examined": false,
+          "photo_id": "p_4ef113fb0a0d62069768dced743e4bc1e6febebc4411cfca564bcd860def1d5c",
+          "position": 6,
+          "version_id": "1858aa6a-56f2-44dd-b472-8be99847ac13"
+        },
+        {
+          "key": "1085150371205759",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "38836561673dd15aa3997c95dcf37e40479bf1d245e58d3584d972d6caa9a8cb",
+          "examined": false,
+          "photo_id": "p_38836561673dd15aa3997c95dcf37e40479bf1d245e58d3584d972d6caa9a8cb",
+          "position": 7,
+          "version_id": "643706cf-84be-4ab0-bd97-552c0193eb12"
+        },
+        {
+          "key": "1655374699467944",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "a8544598c2d5a1cf067138b7b65387b9f1f7210892c67cf241ab705273c1243a",
+          "examined": false,
+          "photo_id": "p_a8544598c2d5a1cf067138b7b65387b9f1f7210892c67cf241ab705273c1243a",
+          "position": 8,
+          "version_id": "f036994c-bc3f-4e6e-a69f-8c5bb92d963d"
+        },
+        {
+          "key": "1617687499548373",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "f16e14ffcfeb396cd750177ab93ee953af733c5f5539044b02a3f5f7faeb3858",
+          "examined": false,
+          "photo_id": "p_f16e14ffcfeb396cd750177ab93ee953af733c5f5539044b02a3f5f7faeb3858",
+          "position": 9,
+          "version_id": "a964ca90-e9b3-4a94-bfae-a991c1643436"
+        }
+      ],
+      "assessment_id": "78c3158d-0e96-47f6-8cd7-7af6987192ca",
+      "model_calls_sent": 3,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59696.384375616,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59696.714519111,
+                "memory_mib": 6866,
+                "utilization_percent": 19
+              },
+              {
+                "scope": "host",
+                "monotonic": 59696.997681698,
+                "memory_mib": 6866,
+                "utilization_percent": 27
+              },
+              {
+                "scope": "host",
+                "monotonic": 59697.286908689,
+                "memory_mib": 6866,
+                "utilization_percent": 43
+              },
+              {
+                "scope": "host",
+                "monotonic": 59697.595231194,
+                "memory_mib": 6866,
+                "utilization_percent": 58
+              },
+              {
+                "scope": "host",
+                "monotonic": 59697.883947683,
+                "memory_mib": 6866,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59698.17052529,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59698.455794355,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59698.751113966,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59699.039330061,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59699.343815562,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59699.630303205,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59699.920125303,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59700.206534425,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59700.489494072,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59700.771698879,
+                "memory_mib": 6866,
+                "utilization_percent": 65
+              },
+              {
+                "scope": "host",
+                "monotonic": 59701.053912973,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59701.338983777,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59701.626833081,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59701.914886273,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59702.203229288,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59702.486908095,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59702.773815392,
+                "memory_mib": 6866,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 59703.065590066,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59703.353868116,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59703.640812683,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59703.926499596,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59704.210728711,
+                "memory_mib": 6866,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59704.499616619,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59704.78796457,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59705.077672819,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59705.365267435,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              }
+            ],
+            "eval_duration": 8723860000,
+            "load_duration": 2434828,
+            "context_length": 4096,
+            "total_duration": 9059375933,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9068853500,
+            "prompt_eval_count": 839,
+            "prompt_eval_duration": 250664000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59705.501933426,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59705.785839052,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              },
+              {
+                "scope": "host",
+                "monotonic": 59706.074713478,
+                "memory_mib": 6866,
+                "utilization_percent": 29
+              },
+              {
+                "scope": "host",
+                "monotonic": 59706.35961297,
+                "memory_mib": 6866,
+                "utilization_percent": 35
+              },
+              {
+                "scope": "host",
+                "monotonic": 59706.653692348,
+                "memory_mib": 6866,
+                "utilization_percent": 44
+              },
+              {
+                "scope": "host",
+                "monotonic": 59706.937741077,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59707.225003719,
+                "memory_mib": 6866,
+                "utilization_percent": 63
+              },
+              {
+                "scope": "host",
+                "monotonic": 59707.516950085,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59707.805836015,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59708.090343434,
+                "memory_mib": 6866,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59708.378100803,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59708.665870721,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59708.953643618,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59709.243973011,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59709.530037214,
+                "memory_mib": 6866,
+                "utilization_percent": 65
+              },
+              {
+                "scope": "host",
+                "monotonic": 59709.82299749,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59710.113343304,
+                "memory_mib": 6866,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59710.398879946,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59710.685564738,
+                "memory_mib": 6866,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59710.979121999,
+                "memory_mib": 6866,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59711.2741266,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59711.584226349,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59711.872771299,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59712.158111217,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59712.446293646,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59712.730853473,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59713.016340153,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59713.322003533,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59713.637349865,
+                "memory_mib": 6866,
+                "utilization_percent": 49
+              },
+              {
+                "scope": "host",
+                "monotonic": 59713.925852589,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59714.215178064,
+                "memory_mib": 6866,
+                "utilization_percent": 65
+              },
+              {
+                "scope": "host",
+                "monotonic": 59714.517462484,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              }
+            ],
+            "eval_duration": 8920070000,
+            "load_duration": 2592537,
+            "context_length": 4096,
+            "total_duration": 9146648361,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9156755693,
+            "prompt_eval_count": 852,
+            "prompt_eval_duration": 147560000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59714.714960879,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59714.999410822,
+                "memory_mib": 6866,
+                "utilization_percent": 44
+              },
+              {
+                "scope": "host",
+                "monotonic": 59715.300142926,
+                "memory_mib": 6866,
+                "utilization_percent": 37
+              },
+              {
+                "scope": "host",
+                "monotonic": 59715.597549697,
+                "memory_mib": 6866,
+                "utilization_percent": 47
+              },
+              {
+                "scope": "host",
+                "monotonic": 59715.886743264,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59716.18040092,
+                "memory_mib": 6866,
+                "utilization_percent": 49
+              },
+              {
+                "scope": "host",
+                "monotonic": 59716.477278078,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59716.766915321,
+                "memory_mib": 6866,
+                "utilization_percent": 58
+              },
+              {
+                "scope": "host",
+                "monotonic": 59717.070603475,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59717.388633246,
+                "memory_mib": 6869,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59717.690116726,
+                "memory_mib": 6813,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59717.974587217,
+                "memory_mib": 6921,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59718.276774727,
+                "memory_mib": 6921,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59718.585200517,
+                "memory_mib": 6921,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59718.896164592,
+                "memory_mib": 6921,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59719.181734017,
+                "memory_mib": 6921,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59719.503156108,
+                "memory_mib": 6965,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59719.797323723,
+                "memory_mib": 6968,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59720.088433768,
+                "memory_mib": 6970,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59720.418088441,
+                "memory_mib": 6974,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59720.719976071,
+                "memory_mib": 6977,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59721.077841697,
+                "memory_mib": 7005,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59721.393320128,
+                "memory_mib": 7008,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59721.682480104,
+                "memory_mib": 7010,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59721.97708137,
+                "memory_mib": 7013,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59722.265517661,
+                "memory_mib": 7016,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59722.551633373,
+                "memory_mib": 7019,
+                "utilization_percent": 63
+              },
+              {
+                "scope": "host",
+                "monotonic": 59722.835626898,
+                "memory_mib": 7022,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59723.121386355,
+                "memory_mib": 7025,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59723.408900055,
+                "memory_mib": 7028,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59723.701884911,
+                "memory_mib": 7031,
+                "utilization_percent": 77
+              }
+            ],
+            "eval_duration": 8874152000,
+            "load_duration": 3981026,
+            "context_length": 4096,
+            "total_duration": 9172174746,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9183384559,
+            "prompt_eval_count": 852,
+            "prompt_eval_duration": 179010000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-410.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true,
+      "driver_elapsed_seconds": 27.73846182700072
+    },
+    {
+      "external_id": "1447579983522224",
+      "listing_id": "100d988e-fd3f-4e1b-bbaa-fb31b543fbbc",
+      "observation_id": "0665b28e-616d-4a61-92a3-dffb96e36570",
+      "reference": "good",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "1778896096550748",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "b4192a14e3bc0440ce7129e9f8cf29851c2c70e0875da7843d1f20c2f97b8895",
+          "examined": false,
+          "photo_id": "p_b4192a14e3bc0440ce7129e9f8cf29851c2c70e0875da7843d1f20c2f97b8895",
+          "position": 0,
+          "version_id": "1f008713-b40d-4869-97ed-ddc70317bf4c"
+        },
+        {
+          "key": "1029090453546205",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "a7043b04e9503915d47527ba7141a8d535acaae859e8caf2e69851544e4984a7",
+          "examined": false,
+          "photo_id": "p_a7043b04e9503915d47527ba7141a8d535acaae859e8caf2e69851544e4984a7",
+          "position": 1,
+          "version_id": "7c3bf222-9032-4bf5-9ee7-960929536d4a"
+        },
+        {
+          "key": "1670733511061648",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "d93f9dd8dda48438cabffed22f734199788c223e0ced62416acf3f1e0d3f15e0",
+          "examined": false,
+          "photo_id": "p_d93f9dd8dda48438cabffed22f734199788c223e0ced62416acf3f1e0d3f15e0",
+          "position": 2,
+          "version_id": "a64cbe77-b830-4023-a06f-4237910c8586"
+        }
+      ],
+      "assessment_id": "e206377b-d9e4-4708-8a87-30692feffbb5",
+      "model_calls_sent": 1,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59522.692652701,
+                "memory_mib": 2907,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59522.977106702,
+                "memory_mib": 2918,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59523.258857592,
+                "memory_mib": 3068,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59523.545672654,
+                "memory_mib": 2907,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59523.82741677,
+                "memory_mib": 2907,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59524.111399797,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59524.39419129,
+                "memory_mib": 3068,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59524.678574965,
+                "memory_mib": 3068,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59524.965216803,
+                "memory_mib": 3068,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59525.252186808,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59525.535500517,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59525.825228255,
+                "memory_mib": 3068,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59526.117137392,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59526.410723923,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59526.695200911,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59526.984376027,
+                "memory_mib": 3068,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59527.280765739,
+                "memory_mib": 3068,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59527.569609104,
+                "memory_mib": 5584,
+                "utilization_percent": 9
+              },
+              {
+                "scope": "host",
+                "monotonic": 59527.854752643,
+                "memory_mib": 5584,
+                "utilization_percent": 22
+              },
+              {
+                "scope": "host",
+                "monotonic": 59528.139822109,
+                "memory_mib": 5844,
+                "utilization_percent": 11
+              },
+              {
+                "scope": "host",
+                "monotonic": 59528.430032249,
+                "memory_mib": 5844,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59528.719818217,
+                "memory_mib": 5846,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59529.002078696,
+                "memory_mib": 5846,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59529.290384025,
+                "memory_mib": 5846,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59529.579342333,
+                "memory_mib": 5846,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59529.861772959,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59530.146521024,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59530.439226618,
+                "memory_mib": 5848,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59530.746635006,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59531.052300463,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59531.335731216,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59531.618708207,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59531.907433743,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59532.190817005,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59532.4740368,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59532.757060353,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59533.045598256,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59533.328562914,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59533.612058808,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59533.900220184,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59534.208565236,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59534.570831331,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59534.920985573,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59535.241477347,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59535.60044549,
+                "memory_mib": 5848,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59535.918787813,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59536.262733359,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59536.579177724,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59536.863299088,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59537.145510486,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59537.427631378,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59537.711005657,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59537.998085865,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59538.279434407,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59538.565551446,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59538.84697536,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59539.128303321,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59539.410835533,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59539.694427441,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59539.981209043,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59540.277754733,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59540.558174313,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59540.864353477,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59541.239454436,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59541.565309201,
+                "memory_mib": 5848,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59541.845750014,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59542.126953998,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59542.408999261,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59542.709939374,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59542.99185805,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59543.272748827,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59543.554849405,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59543.839653739,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59544.127747068,
+                "memory_mib": 5848,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59544.41345526,
+                "memory_mib": 5864,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59544.695465753,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59544.978948431,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59545.262922569,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59545.545751005,
+                "memory_mib": 5864,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59545.827549268,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59546.114008977,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59546.396583032,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59546.678717004,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59546.962659488,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59547.243458992,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59547.526472887,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59547.816604942,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59548.101436302,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59548.384210504,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59548.674087625,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59548.964953274,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59549.249867079,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59549.533411703,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59549.815104341,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59550.15762176,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59550.439276922,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59550.721132698,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59551.015022657,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59551.298109869,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59551.579516829,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59551.862081011,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59552.158167521,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59552.451921839,
+                "memory_mib": 5864,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59552.819656435,
+                "memory_mib": 6510,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59553.158643088,
+                "memory_mib": 6510,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59553.486231867,
+                "memory_mib": 6510,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59553.815017938,
+                "memory_mib": 6510,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59554.153074323,
+                "memory_mib": 6736,
+                "utilization_percent": 7
+              },
+              {
+                "scope": "host",
+                "monotonic": 59554.44780505,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59554.730262632,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59555.021033361,
+                "memory_mib": 6736,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59555.303436917,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59555.586348663,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59555.869202737,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59556.153829946,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59556.4413002,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59556.727395022,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59557.014356237,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59557.295416796,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59557.579348284,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59557.866233366,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59558.15775576,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59558.445046187,
+                "memory_mib": 6736,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59558.737779223,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59559.019272996,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59559.303088311,
+                "memory_mib": 6736,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59559.586144651,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59559.872695903,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59560.156470213,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59560.457810549,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59560.739773537,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59561.025986607,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59561.326687389,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59561.684778703,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59561.994908159,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59562.798521433,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59563.226376044,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59563.560593173,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59564.100149536,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59564.421013315,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59564.768067143,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59565.074446387,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59565.378447967,
+                "memory_mib": 6736,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59565.663137166,
+                "memory_mib": 6738,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59565.94914445,
+                "memory_mib": 6738,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59566.261560194,
+                "memory_mib": 6742,
+                "utilization_percent": 2
+              },
+              {
+                "scope": "host",
+                "monotonic": 59566.576044419,
+                "memory_mib": 6742,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59566.872071319,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59567.179606841,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59567.474088644,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59567.765974257,
+                "memory_mib": 6742,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59568.049778723,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59568.332181609,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59568.614968973,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59568.896780708,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59569.182159401,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59569.482327858,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59569.765627769,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59570.049079484,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59570.337027912,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59570.618943016,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59570.900868684,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59571.182584819,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59571.466758846,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59571.747021456,
+                "memory_mib": 6742,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59572.031480265,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59572.314254715,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59572.598200582,
+                "memory_mib": 6742,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59572.885392001,
+                "memory_mib": 6744,
+                "utilization_percent": 3
+              },
+              {
+                "scope": "host",
+                "monotonic": 59573.166874221,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59573.450861266,
+                "memory_mib": 6744,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59573.737502519,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59574.024959765,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59574.314321326,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59574.605386207,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59574.887706651,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59575.17102292,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59575.454747442,
+                "memory_mib": 6744,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59575.740690999,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59576.030048235,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59576.31438813,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59576.597595591,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59576.880334793,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59577.169079858,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59577.45242594,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59577.736724683,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59578.025207883,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59578.308086127,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59578.588906244,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59578.875198961,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59579.167703404,
+                "memory_mib": 6815,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59579.453051282,
+                "memory_mib": 6815,
+                "utilization_percent": 15
+              },
+              {
+                "scope": "host",
+                "monotonic": 59579.73574257,
+                "memory_mib": 6859,
+                "utilization_percent": 8
+              },
+              {
+                "scope": "host",
+                "monotonic": 59580.018956466,
+                "memory_mib": 6859,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59580.304728257,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59580.587161992,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59580.869364245,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59581.15241608,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59581.43558525,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59581.716675243,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59582.002272135,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59582.286704094,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59582.57212,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59582.858447169,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59583.148280702,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59583.428953431,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59583.711263102,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59583.996150227,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59584.287567198,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59584.623379127,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59584.91023425,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59585.19423366,
+                "memory_mib": 6861,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59585.47598329,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59585.758640306,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59586.046263086,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59586.330528709,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59586.614068382,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59586.89694533,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59587.184868317,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59587.466547859,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59587.752849062,
+                "memory_mib": 6861,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59588.039761588,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59588.321813964,
+                "memory_mib": 6861,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59588.611033571,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59588.896384282,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59589.183268171,
+                "memory_mib": 6861,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59589.46827947,
+                "memory_mib": 6863,
+                "utilization_percent": 40
+              },
+              {
+                "scope": "host",
+                "monotonic": 59589.75181448,
+                "memory_mib": 6863,
+                "utilization_percent": 5
+              },
+              {
+                "scope": "host",
+                "monotonic": 59590.037358869,
+                "memory_mib": 6863,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59590.323344495,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59590.611095291,
+                "memory_mib": 6863,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59590.89402062,
+                "memory_mib": 6863,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59591.183540593,
+                "memory_mib": 6863,
+                "utilization_percent": 0
+              },
+              {
+                "scope": "host",
+                "monotonic": 59591.468756507,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59591.751125165,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59592.035602026,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59592.320635242,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59592.601411133,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59592.882245444,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59593.166521318,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59593.448950919,
+                "memory_mib": 6863,
+                "utilization_percent": 5
+              },
+              {
+                "scope": "host",
+                "monotonic": 59593.735752255,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59594.031103974,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59594.318507257,
+                "memory_mib": 6863,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59594.607505733,
+                "memory_mib": 6863,
+                "utilization_percent": 29
+              },
+              {
+                "scope": "host",
+                "monotonic": 59594.889303673,
+                "memory_mib": 6863,
+                "utilization_percent": 51
+              },
+              {
+                "scope": "host",
+                "monotonic": 59595.174600447,
+                "memory_mib": 6863,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59595.458434799,
+                "memory_mib": 6863,
+                "utilization_percent": 51
+              },
+              {
+                "scope": "host",
+                "monotonic": 59595.742709937,
+                "memory_mib": 6863,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59596.028733624,
+                "memory_mib": 6863,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59596.314059003,
+                "memory_mib": 6863,
+                "utilization_percent": 57
+              },
+              {
+                "scope": "host",
+                "monotonic": 59596.598537238,
+                "memory_mib": 6863,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59596.885562396,
+                "memory_mib": 6863,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59597.175493631,
+                "memory_mib": 6863,
+                "utilization_percent": 63
+              },
+              {
+                "scope": "host",
+                "monotonic": 59597.463315245,
+                "memory_mib": 6863,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59597.753382225,
+                "memory_mib": 6863,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59598.041771013,
+                "memory_mib": 6863,
+                "utilization_percent": 57
+              },
+              {
+                "scope": "host",
+                "monotonic": 59598.325551262,
+                "memory_mib": 6863,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59598.609716776,
+                "memory_mib": 6863,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59598.893868143,
+                "memory_mib": 6863,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59599.177965945,
+                "memory_mib": 6863,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59599.466776131,
+                "memory_mib": 6863,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59599.753421906,
+                "memory_mib": 6863,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59600.041927283,
+                "memory_mib": 6863,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59600.331828031,
+                "memory_mib": 6863,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59600.617487001,
+                "memory_mib": 6863,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59600.900086846,
+                "memory_mib": 6863,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59601.185318541,
+                "memory_mib": 6863,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59601.470940221,
+                "memory_mib": 6863,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59601.754282771,
+                "memory_mib": 6863,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59602.040303645,
+                "memory_mib": 6863,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59602.328503244,
+                "memory_mib": 6863,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59602.618010984,
+                "memory_mib": 6863,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59602.905597545,
+                "memory_mib": 6863,
+                "utilization_percent": 75
+              }
+            ],
+            "eval_duration": 9822983000,
+            "load_duration": 31419713248,
+            "context_length": 4096,
+            "total_duration": 80433448138,
+            "diagnostic_code": "generation_length_limit",
+            "residency_before": "absent",
+            "wall_duration_ns": 80449301692,
+            "prompt_eval_count": 912,
+            "prompt_eval_duration": 39137605000
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-160.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true
+    },
+    {
+      "external_id": "1621338866348626",
+      "listing_id": "97b5eab9-5a4f-46df-977e-22365b458ea8",
+      "observation_id": "5cfc437f-73b6-4b1c-8d64-6703dcf58eac",
+      "reference": "good",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "1590979239465145",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "4bc9765e0a17a34be2bc086047698d8ac82fa90a8da5f5292b3e48f5837ec510",
+          "examined": false,
+          "photo_id": "p_4bc9765e0a17a34be2bc086047698d8ac82fa90a8da5f5292b3e48f5837ec510",
+          "position": 0,
+          "version_id": "bf71f40c-382c-405f-b9b9-153b8b26e8d8"
+        },
+        {
+          "key": "1681643389968798",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "8ab800030925dc8a6233168d59977666665d865b378e0ba420bc8d9b8ce600fa",
+          "examined": false,
+          "photo_id": "p_8ab800030925dc8a6233168d59977666665d865b378e0ba420bc8d9b8ce600fa",
+          "position": 1,
+          "version_id": "e23eebc9-04dd-4e60-bda2-280164e72886"
+        },
+        {
+          "key": "2153785632168533",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "7ccc606d41161e9b5b87570f53a933dc1520894c71c8440964d01da30d08d66d",
+          "examined": false,
+          "photo_id": "p_7ccc606d41161e9b5b87570f53a933dc1520894c71c8440964d01da30d08d66d",
+          "position": 2,
+          "version_id": "31a22a42-0001-416e-b876-8363c52a3df0"
+        }
+      ],
+      "assessment_id": "db043f66-a505-4e70-a1ea-6cc24aa5350a",
+      "model_calls_sent": 1,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59638.688136098,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59638.97641782,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59639.311953295,
+                "memory_mib": 6866,
+                "utilization_percent": 29
+              },
+              {
+                "scope": "host",
+                "monotonic": 59639.654411588,
+                "memory_mib": 6866,
+                "utilization_percent": 47
+              },
+              {
+                "scope": "host",
+                "monotonic": 59639.970840694,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59640.270599624,
+                "memory_mib": 6866,
+                "utilization_percent": 52
+              },
+              {
+                "scope": "host",
+                "monotonic": 59640.557012315,
+                "memory_mib": 6866,
+                "utilization_percent": 62
+              },
+              {
+                "scope": "host",
+                "monotonic": 59640.839884378,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59641.123406597,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59641.405823533,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59641.690496717,
+                "memory_mib": 6866,
+                "utilization_percent": 66
+              },
+              {
+                "scope": "host",
+                "monotonic": 59641.979074894,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59642.263211993,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59642.546853612,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59642.850941419,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59643.14302724,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59643.426675324,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59643.714405368,
+                "memory_mib": 6866,
+                "utilization_percent": 65
+              },
+              {
+                "scope": "host",
+                "monotonic": 59644.000283405,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59644.283002465,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59644.568250323,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59644.855742559,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59645.14151559,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59645.427209346,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59645.717454048,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59646.006749478,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59646.298123,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59646.587325259,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59646.872793774,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59647.155483989,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59647.439506648,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              }
+            ],
+            "eval_duration": 8752180000,
+            "load_duration": 3473563,
+            "context_length": 4096,
+            "total_duration": 9021527435,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9031954409,
+            "prompt_eval_count": 907,
+            "prompt_eval_duration": 178846000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-160.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true
+    },
+    {
+      "external_id": "1654513062783723",
+      "listing_id": "a2ddc64e-d72f-454a-ad7f-602987816c77",
+      "observation_id": "8491e686-a061-4035-a588-58dfb18b5fe1",
+      "reference": "good",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "1101226369379982",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "40465b0a55cd8bb40e535fb6f7fc2611b7886f4f8b43be19efcb519a8e8c5d31",
+          "examined": false,
+          "photo_id": "p_40465b0a55cd8bb40e535fb6f7fc2611b7886f4f8b43be19efcb519a8e8c5d31",
+          "position": 0,
+          "version_id": "246f443c-981d-4d5b-92aa-d61756df4db9"
+        },
+        {
+          "key": "1803374037601475",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "c2cb170af1665779083fe4dafaae65d65e357c1560682f15e49d19996d70e497",
+          "examined": false,
+          "photo_id": "p_c2cb170af1665779083fe4dafaae65d65e357c1560682f15e49d19996d70e497",
+          "position": 1,
+          "version_id": "9f02ffc9-5bc8-487e-9f56-1d8563ee158d"
+        },
+        {
+          "key": "1008617868246648",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "e51995bafcd537019de3f60904a7b4c1392173219a46860a95bf3f413571e85e",
+          "examined": false,
+          "photo_id": "p_e51995bafcd537019de3f60904a7b4c1392173219a46860a95bf3f413571e85e",
+          "position": 2,
+          "version_id": "90564243-4cfb-4143-96b6-8bc42d4c1f2f"
+        }
+      ],
+      "assessment_id": "3b825e11-e706-46d0-831c-4bff2c562049",
+      "model_calls_sent": 1,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59647.774834411,
+                "memory_mib": 6866,
+                "utilization_percent": 46
+              },
+              {
+                "scope": "host",
+                "monotonic": 59648.065494481,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59648.354424313,
+                "memory_mib": 6866,
+                "utilization_percent": 26
+              },
+              {
+                "scope": "host",
+                "monotonic": 59648.63972739,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59648.923824364,
+                "memory_mib": 6866,
+                "utilization_percent": 41
+              },
+              {
+                "scope": "host",
+                "monotonic": 59649.205509511,
+                "memory_mib": 6866,
+                "utilization_percent": 58
+              },
+              {
+                "scope": "host",
+                "monotonic": 59649.486740146,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              },
+              {
+                "scope": "host",
+                "monotonic": 59649.772144355,
+                "memory_mib": 6866,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 59650.060504622,
+                "memory_mib": 6866,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 59650.348313806,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59650.632431087,
+                "memory_mib": 6866,
+                "utilization_percent": 69
+              },
+              {
+                "scope": "host",
+                "monotonic": 59650.916155056,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59651.201186923,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59651.482849833,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59651.76827105,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59652.053216181,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59652.334199744,
+                "memory_mib": 6866,
+                "utilization_percent": 63
+              },
+              {
+                "scope": "host",
+                "monotonic": 59652.61698669,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59652.899644536,
+                "memory_mib": 6866,
+                "utilization_percent": 78
+              },
+              {
+                "scope": "host",
+                "monotonic": 59653.18539335,
+                "memory_mib": 6866,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59653.469136886,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59653.7561267,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59654.047065177,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59654.329344879,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59654.616130698,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59654.901879813,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59655.187819013,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59655.477918935,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59655.763174099,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59656.052879611,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59656.337670506,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59656.620656958,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              }
+            ],
+            "eval_duration": 8658977000,
+            "load_duration": 3106665,
+            "context_length": 4096,
+            "total_duration": 8912467324,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 8923691341,
+            "prompt_eval_count": 907,
+            "prompt_eval_duration": 161720000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-160.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true
+    },
+    {
+      "external_id": "1839249197206568",
+      "listing_id": "3b3de5d9-350f-4d2f-a2c7-9c0cca966856",
+      "observation_id": "cc43b461-ce4b-4339-bfae-0a93890b7025",
+      "reference": "good",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "2270628427181355",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "250d7ec14740185488d9824ded232f6eaba2146c6a146c04de33ecc885105c61",
+          "examined": false,
+          "photo_id": "p_250d7ec14740185488d9824ded232f6eaba2146c6a146c04de33ecc885105c61",
+          "position": 0,
+          "version_id": "0052ba6b-3cfc-489e-b58e-ee75adb77991"
+        },
+        {
+          "key": "1561963802361363",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "e835eee83291ff1004f6a2fe50fb0139dda7960851f9561dc6f7a2ddd4392ad0",
+          "examined": false,
+          "photo_id": "p_e835eee83291ff1004f6a2fe50fb0139dda7960851f9561dc6f7a2ddd4392ad0",
+          "position": 1,
+          "version_id": "c0809949-ed8d-4275-864f-961139690045"
+        },
+        {
+          "key": "40030117006636557",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "50016ab3d71a81327739e2e44d43e7f1927b9bba8f543554077dec024cd4b018",
+          "examined": false,
+          "photo_id": "p_50016ab3d71a81327739e2e44d43e7f1927b9bba8f543554077dec024cd4b018",
+          "position": 2,
+          "version_id": "4b931ec2-09d1-4538-bb15-ea96ddbdfe83"
+        }
+      ],
+      "assessment_id": "079aa1f3-a3a4-418b-bd3d-8ded0150c796",
+      "model_calls_sent": 1,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59629.426643014,
+                "memory_mib": 6866,
+                "utilization_percent": 1
+              },
+              {
+                "scope": "host",
+                "monotonic": 59629.711138352,
+                "memory_mib": 6866,
+                "utilization_percent": 23
+              },
+              {
+                "scope": "host",
+                "monotonic": 59630.000878942,
+                "memory_mib": 6866,
+                "utilization_percent": 28
+              },
+              {
+                "scope": "host",
+                "monotonic": 59630.288105903,
+                "memory_mib": 6866,
+                "utilization_percent": 49
+              },
+              {
+                "scope": "host",
+                "monotonic": 59630.576158565,
+                "memory_mib": 6866,
+                "utilization_percent": 38
+              },
+              {
+                "scope": "host",
+                "monotonic": 59630.860106859,
+                "memory_mib": 6866,
+                "utilization_percent": 56
+              },
+              {
+                "scope": "host",
+                "monotonic": 59631.144811705,
+                "memory_mib": 6866,
+                "utilization_percent": 49
+              },
+              {
+                "scope": "host",
+                "monotonic": 59631.431827288,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59631.716466141,
+                "memory_mib": 6866,
+                "utilization_percent": 59
+              },
+              {
+                "scope": "host",
+                "monotonic": 59632.011204341,
+                "memory_mib": 6866,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59632.296264986,
+                "memory_mib": 6866,
+                "utilization_percent": 75
+              },
+              {
+                "scope": "host",
+                "monotonic": 59632.587208336,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59632.869963004,
+                "memory_mib": 6866,
+                "utilization_percent": 68
+              },
+              {
+                "scope": "host",
+                "monotonic": 59633.15847035,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59633.451093764,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59633.740545162,
+                "memory_mib": 6866,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59634.027377847,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59634.314396962,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59634.598082073,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59634.883094155,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59635.168278452,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59635.451525201,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59635.735253949,
+                "memory_mib": 6866,
+                "utilization_percent": 73
+              },
+              {
+                "scope": "host",
+                "monotonic": 59636.023678287,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59636.313195157,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59636.595251763,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59636.878896667,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59637.167384471,
+                "memory_mib": 6866,
+                "utilization_percent": 57
+              },
+              {
+                "scope": "host",
+                "monotonic": 59637.455111396,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              },
+              {
+                "scope": "host",
+                "monotonic": 59637.745724161,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59638.03273817,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59638.315825731,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59638.599105602,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              }
+            ],
+            "eval_duration": 8912147000,
+            "load_duration": 3863446,
+            "context_length": 4096,
+            "total_duration": 9186535976,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9197474290,
+            "prompt_eval_count": 905,
+            "prompt_eval_duration": 189959000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-160.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true
+    },
+    {
+      "external_id": "2380604816050904",
+      "listing_id": "c102b4fe-daea-4d6c-890e-a4a3f5f64135",
+      "observation_id": "36db01c1-57ac-47cd-a159-2d6701bb3c68",
+      "reference": "good",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "invalid_analysis",
+      "photo_coverage": [
+        {
+          "key": "1111036198401287",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "a57ff98c3e099793252bbd51d9d3e6f42136ffcfc00897e83b0c9816f68d95dc",
+          "examined": false,
+          "photo_id": "p_a57ff98c3e099793252bbd51d9d3e6f42136ffcfc00897e83b0c9816f68d95dc",
+          "position": 0,
+          "version_id": "d7ff4e3c-2f0c-44b3-81e8-1ef285ef7806"
+        },
+        {
+          "key": "1286650560318114",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "19b6d92abe9977c116ca08a582972934af22f418c162217026d16a7677a8c787",
+          "examined": false,
+          "photo_id": "p_19b6d92abe9977c116ca08a582972934af22f418c162217026d16a7677a8c787",
+          "position": 1,
+          "version_id": "089c47a9-6c99-48ca-9b23-543558ef782c"
+        },
+        {
+          "key": "967410612890284",
+          "state": "available",
+          "reason": "invalid_analysis",
+          "sha256": "e236accb0f7d485be6ade0e6ab6d07325331060bf4f92415e4246c0256779bc6",
+          "examined": false,
+          "photo_id": "p_e236accb0f7d485be6ade0e6ab6d07325331060bf4f92415e4246c0256779bc6",
+          "position": 2,
+          "version_id": "173e68c3-d105-431a-81b5-731141ba02d9"
+        }
+      ],
+      "assessment_id": "e02cfcc1-0724-4a84-8c8a-c74a4c247f7b",
+      "model_calls_sent": 1,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "invalid_output",
+          "metrics": {
+            "sent": true,
+            "size": 3140495604,
+            "size_vram": 3140495604,
+            "eval_count": 1024,
+            "gpu_samples": [
+              {
+                "scope": "host",
+                "monotonic": 59656.756239422,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              },
+              {
+                "scope": "host",
+                "monotonic": 59657.041672659,
+                "memory_mib": 6866,
+                "utilization_percent": 50
+              },
+              {
+                "scope": "host",
+                "monotonic": 59657.329190777,
+                "memory_mib": 6866,
+                "utilization_percent": 37
+              },
+              {
+                "scope": "host",
+                "monotonic": 59657.613323513,
+                "memory_mib": 6866,
+                "utilization_percent": 53
+              },
+              {
+                "scope": "host",
+                "monotonic": 59657.899231702,
+                "memory_mib": 6866,
+                "utilization_percent": 60
+              },
+              {
+                "scope": "host",
+                "monotonic": 59658.185912544,
+                "memory_mib": 6866,
+                "utilization_percent": 53
+              },
+              {
+                "scope": "host",
+                "monotonic": 59658.478855731,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59658.767993224,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59659.052067349,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59659.345386655,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59659.632840267,
+                "memory_mib": 6866,
+                "utilization_percent": 61
+              },
+              {
+                "scope": "host",
+                "monotonic": 59659.917757778,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59660.204534131,
+                "memory_mib": 6866,
+                "utilization_percent": 65
+              },
+              {
+                "scope": "host",
+                "monotonic": 59660.49099715,
+                "memory_mib": 6866,
+                "utilization_percent": 71
+              },
+              {
+                "scope": "host",
+                "monotonic": 59660.772506146,
+                "memory_mib": 6866,
+                "utilization_percent": 74
+              },
+              {
+                "scope": "host",
+                "monotonic": 59661.057018152,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59661.341287171,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59661.62501351,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59661.909957711,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59662.192940505,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59662.480636788,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59662.761867214,
+                "memory_mib": 6866,
+                "utilization_percent": 64
+              },
+              {
+                "scope": "host",
+                "monotonic": 59663.044218562,
+                "memory_mib": 6866,
+                "utilization_percent": 72
+              },
+              {
+                "scope": "host",
+                "monotonic": 59663.326260087,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59663.612674242,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59663.903059805,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              },
+              {
+                "scope": "host",
+                "monotonic": 59664.185312098,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59664.472071236,
+                "memory_mib": 6866,
+                "utilization_percent": 67
+              },
+              {
+                "scope": "host",
+                "monotonic": 59664.755620132,
+                "memory_mib": 6866,
+                "utilization_percent": 77
+              },
+              {
+                "scope": "host",
+                "monotonic": 59665.041253591,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59665.326641332,
+                "memory_mib": 6866,
+                "utilization_percent": 70
+              },
+              {
+                "scope": "host",
+                "monotonic": 59665.610232819,
+                "memory_mib": 6866,
+                "utilization_percent": 76
+              }
+            ],
+            "eval_duration": 8783641000,
+            "load_duration": 4799119,
+            "context_length": 4096,
+            "total_duration": 9031334067,
+            "diagnostic_code": "generation_length_limit",
+            "resident_before": {
+              "size": 3140495604,
+              "size_vram": 3140495604,
+              "context_length": 4096
+            },
+            "residency_before": "matching_model",
+            "wall_duration_ns": 9042190256,
+            "prompt_eval_count": 908,
+            "prompt_eval_duration": 161624000,
+            "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-160.00",
+      "result_origin": "owned_worker_or_driver_persisted_real_model",
+      "collected_after_idempotent_driver_wait": true
+    }
+  ],
+  "status": "complete_persisted_results",
+  "source_cutoff": "2026-11-13T17:28:35.917754+00:00",
+  "profile_copied": false,
+  "finished_at": "2026-11-13T18:12:48.887508+00:00",
+  "fake_whatsapp_messages": [],
+  "limitations": [
+    "Selected for F06 textual eligibility, not random/independent holdout.",
+    "Five1600BRL ads show a very similar white phone, same backdrop, hand/tattoo, wallpaper and repeated description. Distinct source/IDs follow F18 current policy; this is not evidence of seven independent physical comparables.",
+    "Labels are AI reference judgments, not physical inspection, human truth, test of originality or proof of all functions.",
+    "Only the target1400BRL currently yields positive40BRL at1600median/10percentfee, and its reference condition is uncertain; no positive qualification is inferred from that arithmetic.",
+    "No local Qwen outputs for this cohort were consulted before freezing labels."
+  ],
+  "execution_note": "One owned worker and manual orchestration shared the same frozen eight requests, serialized by F19 GPU guard. Worker published all eight. Manual orchestration was interrupted at fourth idempotent completion wait; persisted results consolidated without additional inference. All outputs retained, including failed and unrun parts.",
+  "driver_exit": 130,
+  "cleanup_stop_exit": 0,
+  "positive_real_gold_demonstrated": false
+}

@@ -26,6 +26,7 @@ from garimpei.domain.inference.profile_limits import VISUAL_RESERVE_TOKENS, outp
 from garimpei.domain.inference.request import AnalysisInput, ImageReference
 from garimpei.domain.inference.result import SCHEMA, bounded_schema
 from garimpei.infra.gateway.inference.artifact_policy import validate_artifact_lock
+from garimpei.infra.gateway.inference.json_encoding import compact_json
 from garimpei.infra.gateway.inference.quota import reserved_bytes
 from garimpei.infra.gateway.inference.registry import registered
 
@@ -110,7 +111,8 @@ class LocalInputPreparer:
         codec = Tokenizer.from_file(str(settings.tokenizer))
         prompt = CONDITION_PROMPT if profile == CONDITION_VERSION else PROMPT
         schema = CONDITION_SCHEMA if profile == CONDITION_VERSION else bounded_schema(text, None)
-        count = len(codec.encode(prompt + json.dumps(schema) + text).ids) + 256
+        serialized = compact_json(schema) if profile == CONDITION_VERSION else json.dumps(schema)
+        count = len(codec.encode(prompt + serialized + text).ids) + 256
         reserved = output_token_limit(profile) + (VISUAL_RESERVE_TOKENS if visual else 0)
         if count > settings.text_tokens or count + reserved > settings.context_tokens:
             raise InferenceError("context_unverified")

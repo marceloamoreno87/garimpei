@@ -209,3 +209,16 @@ _.attempt_limit
 
 # Registered Django template context processor; see quality/entrypoints.json.
 shell_context
+
+# F22 exact template, Django Form/context registry and persisted audit consumers.
+_.worker_available
+_.robot_summary
+_.command_id
+_.last_command
+_.result_revision
+_.control_epoch
+_.worker_reference
+
+# F21 inspected Django template/SQL consumers; exact paths in entrypoints.json.
+_.retained_count
+_.gold_policy_verified

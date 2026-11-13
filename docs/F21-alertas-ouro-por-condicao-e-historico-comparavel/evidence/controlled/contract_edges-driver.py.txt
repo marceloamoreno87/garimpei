@@ -1,0 +1,38 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from datetime import datetime,UTC
+from tests.factories.gold_driver import GoldDriver
+results=[];output=Path('docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/controlled/contract-edges.json')
+for case in ['age_exact48','age_after48','age_future','age_untrusted','evidence_arrival','reduction_invalid_condition','reduction_concurrent']:
+ with TemporaryDirectory(prefix='garimpei-f21-edge-') as folder:
+  d=GoldDriver(Path(folder))
+  try:
+   prepared=d.action('prepare',case='PENDING_ANALYSIS' if case=='evidence_arrival' else 'BASE')
+   if case.startswith('age_'):
+    if case in ['age_exact48','age_after48']:d.action('advance',seconds=47*3600+(1 if case=='age_after48' else 0))
+    else:
+     d.shell("""
+from garimpei.infra.persistence.listing_models import Listing
+from garimpei.infra.repository.alert.first_inputs import invalidate_first_alert
+from datetime import datetime,UTC,timedelta
+l=Listing.objects.get(external_id='21001');o=l.latest;e=dict(o.evidence)
+"""+("e['published_at']=(datetime(2026,11,13,12,tzinfo=UTC)+timedelta(seconds=1)).isoformat()\n" if case=='age_future' else "e['published_at_source']='unsupported.clock'\n")+"o.evidence=e;o.save();invalidate_first_alert(l.id,datetime(2026,11,13,12,tzinfo=UTC))\n")
+    status=d.action('send');expected=1 if case=='age_exact48' else 0;assert status['post_count']==expected,status
+   elif case=='evidence_arrival':
+    assert d.action('send')['post_count']==0
+    d.action('complete');d.action('revalue');d.action('refresh');status=d.action('send');assert status['post_count']==1,status
+    assert d.action('send')['messages']==status['messages']
+   else:
+    assert d.action('send')['post_count']==1
+    d.action('mutate',field='price',value='R$ 1.800,00');d.action('complete');d.action('revalue');d.action('refresh')
+    if case=='reduction_invalid_condition':
+     d.action('mutate',field='description',value='O aparelho não liga. Com defeito.');status=d.action('send');assert status['post_count']==1,status
+    else:
+     status=d.action('concurrent_send');assert status['post_count']==2,status
+     assert d.action('send')['messages']==status['messages']
+   results.append({'case':case,'verdict':'PASS','post_count':status['post_count'],'first_state':status['first_state'],'first_reason':status['first_reason'],'attempts':status['attempts']})
+  except Exception as error:results.append({'case':case,'verdict':'FAIL','error_class':type(error).__name__,'details':str(error)[:1800]})
+  finally:d.close()
+ output.write_text(json.dumps({'method':'controlled synthetic I/O with active F21 persistent fence and real PostgreSQL','completed_at':datetime.now(UTC).isoformat(),'results':results},ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps(results[-1],ensure_ascii=False),flush=True)

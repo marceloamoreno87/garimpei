@@ -556,5 +556,59 @@
     "path": "src/garimpei/infra/http/shell_context.py",
     "consumer": "src/garimpei/config/settings.py",
     "reason": "Django template context processor for route orientation"
+  },
+  {
+    "symbol": "RobotStatus.worker_available",
+    "path": "src/garimpei/domain/robot/control.py",
+    "consumer": "src/garimpei/infra/http/templates/robot/control.html",
+    "reason": "Template distinguishes enabled intent from worker health"
+  },
+  {
+    "symbol": "robot_summary",
+    "path": "src/garimpei/infra/http/robot/context.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django template context processor registry"
+  },
+  {
+    "symbol": "RobotCommandForm.command_id",
+    "path": "src/garimpei/infra/http/robot/robot_handler.py",
+    "consumer": "src/garimpei/infra/http/robot/robot_handler.py",
+    "reason": "Django forms declarative fields and cleaned_data"
+  },
+  {
+    "symbol": "RobotControl.last_command",
+    "path": "src/garimpei/infra/persistence/robot_models.py",
+    "consumer": "src/garimpei/infra/repository/robot/postgres_repository.py",
+    "reason": "Persisted command audit UUID written via ORM"
+  },
+  {
+    "symbol": "RobotControlCommand.result_revision",
+    "path": "src/garimpei/infra/persistence/robot_models.py",
+    "consumer": "src/garimpei/infra/repository/robot/postgres_repository.py",
+    "reason": "Persisted idempotency audit revision"
+  },
+  {
+    "symbol": "RobotOperation.control_epoch",
+    "path": "src/garimpei/infra/persistence/robot_models.py",
+    "consumer": "src/garimpei/infra/repository/robot/postgres_repository.py",
+    "reason": "ORM keyword generation guard on completion"
+  },
+  {
+    "symbol": "RobotOperation.worker_reference",
+    "path": "src/garimpei/infra/persistence/robot_models.py",
+    "consumer": "src/garimpei/infra/repository/robot/postgres_repository.py",
+    "reason": "Persisted operation owner for recovery diagnostics"
+  },
+  {
+    "symbol": "GoldDiagnostic.retained_count",
+    "path": "src/garimpei/domain/alert/gold_diagnostic.py",
+    "consumer": "src/garimpei/infra/http/templates/listing/gold_diagnostic.html",
+    "reason": "Django displays the retained comparable count of the recorded gold qualification"
+  },
+  {
+    "symbol": "AlertAttempt.gold_policy_verified",
+    "path": "src/garimpei/infra/persistence/alert_models.py",
+    "consumer": "src/garimpei/infra/persistence/migrations/0027_gold_qualification.py",
+    "reason": "PostgreSQL authorization trigger rejects incompatible consumers after adoption; restore schema preserves the original marker"
   }
 ]

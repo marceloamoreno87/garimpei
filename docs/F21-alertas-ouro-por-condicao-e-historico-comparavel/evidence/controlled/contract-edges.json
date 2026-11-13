@@ -1,0 +1,67 @@
+{
+  "method": "controlled synthetic I/O with active F21 persistent fence and real PostgreSQL",
+  "completed_at": "2026-11-13T18:16:15.829637+00:00",
+  "results": [
+    {
+      "case": "age_exact48",
+      "verdict": "PASS",
+      "post_count": 1,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 1
+    },
+    {
+      "case": "age_after48",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "excluded",
+      "first_reason": "publication_expired",
+      "attempts": 0
+    },
+    {
+      "case": "age_future",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "waiting",
+      "first_reason": "publication_future",
+      "attempts": 0
+    },
+    {
+      "case": "age_untrusted",
+      "verdict": "PASS",
+      "post_count": 0,
+      "first_state": "waiting",
+      "first_reason": "publication_untrusted",
+      "attempts": 0
+    },
+    {
+      "case": "evidence_arrival",
+      "verdict": "PASS",
+      "post_count": 1,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 1
+    },
+    {
+      "case": "reduction_invalid_condition",
+      "verdict": "PASS",
+      "post_count": 1,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 1
+    },
+    {
+      "case": "reduction_concurrent",
+      "verdict": "PASS",
+      "post_count": 2,
+      "first_state": "eligible",
+      "first_reason": "eligible",
+      "attempts": 2
+    }
+  ],
+  "driver_setup_corrections": [
+    "Initial exact48 probe added47h to a clock already advanced61s by collection; corrected advance excludes61s. This was beyond48 and correctly blocked.",
+    "Evidence-arrival lab completion uses wallclock while fixture scheduler starts at12UTC; advanced fixture clock7h within publication48h window before scheduled reevaluation. No product source changed.",
+    "Future/untrusted cases now refresh eligibility after explicit synthetic evidence change before checking final send."
+  ]
+}

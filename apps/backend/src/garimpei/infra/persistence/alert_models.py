@@ -43,6 +43,7 @@ class AlertEventDecision(models.Model):
 
 
 class AlertIntent(models.Model):
+    gold_qualification = models.ForeignKey("GoldQualification", null=True, on_delete=models.PROTECT)
     id = models.UUIDField(primary_key=True, default=uuid4)
     decision = models.OneToOneField(AlertEventDecision, null=True, on_delete=models.PROTECT)
     first_decision = models.OneToOneField(
@@ -88,6 +89,7 @@ class AlertIntent(models.Model):
 
 
 class AlertAttempt(models.Model):
+    gold_policy_verified = models.CharField(max_length=40, null=True)
     id = models.UUIDField(primary_key=True, default=uuid4)
     intent = models.ForeignKey(AlertIntent, on_delete=models.PROTECT, related_name="attempts")
     ordinal = models.PositiveIntegerField()
@@ -118,6 +120,7 @@ class FirstAlertIdentity(models.Model):
     listing = models.ForeignKey("Listing", on_delete=models.PROTECT)
     signature = models.CharField(max_length=64, blank=True)
     manual_signature = models.CharField(max_length=64, blank=True)
+    manual_gold_signature = models.CharField(max_length=64, blank=True)
     generation = models.PositiveBigIntegerField(default=0)
     next_action = models.DateTimeField()
     state = models.CharField(max_length=24, default="waiting")

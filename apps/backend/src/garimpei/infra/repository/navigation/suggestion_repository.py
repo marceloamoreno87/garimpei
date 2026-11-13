@@ -19,6 +19,7 @@ from garimpei.domain.navigation.work import SuggestionUnit
 from garimpei.infra.persistence.listing_models import CollectionState
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 from garimpei.infra.persistence.navigation_models import NicheSuggestion, SuggestionEvidence
+from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 
 
 class PostgresSuggestionRepository:
@@ -45,6 +46,8 @@ class PostgresSuggestionRepository:
     @transaction.atomic
     def claim(self) -> SuggestionUnit | None:
         lock_monitoring_publication()
+        if not robot_enabled():
+            return None
         scope, now = self._scope(), self._clock()
         if scope is None:
             return None

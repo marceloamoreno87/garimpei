@@ -86,6 +86,7 @@
                     <h3><a class="offer-title" href="{{ card.detail_url }}">{{ card.title }}</a></h3>
                     {% include "listing/financial_values.html" with price=card.price resale=card.resale profit=card.profit profit_negative=card.profit_negative profit_unavailable=card.profit_unavailable %}
                     {% if card.finance_reason %}<p class="fine">{{ card.finance_reason }}.</p>{% endif %}
+                    {% if card.alert.gold_failed %}<p class="fine">Qualificação do alerta indisponível</p>{% elif card.alert.gold %}<p class="fine">{{ card.alert.gold.label }}</p>{% endif %}
                     <p class="fine">{% if card.alert_failed %}Estado do alerta indisponível{% elif card.alert %}{{ card.alert.label }}{% else %}Aguardando avaliação do alerta{% endif %}</p>
                     <a class="button secondary"
                        href="{{ card.detail_url }}">Conferir detalhes<span class="sr-only"> de {{ card.title }}</span></a>

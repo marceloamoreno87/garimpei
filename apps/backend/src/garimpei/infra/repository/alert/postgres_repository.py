@@ -11,6 +11,7 @@ from garimpei.domain.alert.eligibility import eligibility, verified_receipt
 from garimpei.domain.listing.ports import ConfigurationReader
 from garimpei.domain.listing.read_models import ChangePage
 from garimpei.domain.operations.ports import ProgressRecorder
+from garimpei.domain.robot.ports import RobotAdmission
 from garimpei.domain.valuation.profit import ProfitComposition
 from garimpei.infra.persistence.alert_models import (
     AlertEventDecision,
@@ -26,6 +27,9 @@ from garimpei.infra.queries.listing.assessment_queries import PostgresAssessment
 from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
 from garimpei.infra.repository.alert.delivery_state import authorize, complete, postpone
 from garimpei.infra.repository.alert.financial import financial_snapshot
+from garimpei.infra.repository.alert.gold_adoption import gold_active
+from garimpei.infra.repository.alert.gold_evidence_repository import PostgresGoldEvidenceRepository
+from garimpei.infra.repository.robot.postgres_repository import finish_matching, robot_enabled
 
 
 class PostgresAlertRepository:
@@ -36,10 +40,11 @@ class PostgresAlertRepository:
         policy: AlertPolicy,
         recovery_guard: Callable[[], bool] | None = None,
         operations: ProgressRecorder | None = None,
+        robot: RobotAdmission | None = None,
     ) -> None:
         self._configuration, self._listings, self._policy = configuration, listings, policy
         self._recovery_guard = recovery_guard
-        self._operations = operations
+        self._operations, self._robot = operations, robot
 
     def cursor(self) -> int | None:
         row = AlertFeedCursor.objects.filter(installation="local").first()
@@ -70,7 +75,8 @@ class PostgresAlertRepository:
             True,
             False,
         )
-        reason = condition.reason or reason
+        if event.kind in {"discovered", "price_decreased"} and not event.silent:
+            reason = condition.reason or reason
         if event.kind == "discovered":
             reason = "first_eligibility_managed"
         AlertEventDecision.objects.get_or_create(
@@ -180,6 +186,12 @@ class PostgresAlertRepository:
             row.state, row.reason = "excluded", reason
         else:
             row.state, row.reason, row.financial = financial_snapshot(event, profit)
+        if row.state == "eligible" and gold_active():
+            gold = PostgresGoldEvidenceRepository.qualify_locked(
+                event.listing, "event:" + str(event.id), row.financial, now
+            )
+            if gold.state != "qualified":
+                row.state, row.reason = "waiting", gold.reason
         if load_assessment_enabled():
             assessment = PostgresAssessmentQueries().observation(
                 event.listing_id, event.observation_id
@@ -194,6 +206,8 @@ class PostgresAlertRepository:
             )
 
     def ready(self, now: datetime, *, reconcile: bool) -> tuple[UUID, ...]:
+        if not reconcile and not robot_enabled():
+            return ()
         states = ["authorized", "uncertain"] if reconcile else ["queued", "blocked", "safe_retry"]
         return tuple(
             AlertIntent.objects.filter(state__in=states, next_action__lte=now)
@@ -204,6 +218,9 @@ class PostgresAlertRepository:
 
     def block(self, identity: UUID, reason: str, now: datetime) -> None:
         with transaction.atomic():
+            lock_monitoring_publication()
+            if not robot_enabled():
+                return
             row = AlertIntent.objects.select_for_update().get(id=identity)
             if row.state in ["queued", "blocked", "safe_retry"]:
                 postpone(row, reason, now, self._policy)
@@ -213,6 +230,8 @@ class PostgresAlertRepository:
     ) -> Delivery | None:
         with transaction.atomic():
             lock_monitoring_publication()
+            if not reconcile and not robot_enabled():
+                return None
             if self._recovery_guard is not None and self._recovery_guard():
                 return None
             cursor = AlertFeedCursor.objects.get(installation="local")
@@ -238,9 +257,14 @@ class PostgresAlertRepository:
                 and not self._operations.admits("alert", str(identity), 0, now)
             ):
                 return None
-            return authorize(
+            delivery = authorize(
                 row, binding, now, reconcile, self._configuration, self._listings, self._policy
             )
+            if delivery is not None and not reconcile and self._robot is not None:
+                self._robot.authorize(
+                    "alert", str(row.id), str(delivery.attempt_id), delivery.generation
+                )
+            return delivery
 
     def finish(self, delivery: Delivery, outcome: Outcome, now: datetime) -> None:
         with transaction.atomic():
@@ -254,6 +278,12 @@ class PostgresAlertRepository:
                 _retain_late_evidence(row, delivery, outcome, now)
                 return
             complete(row, delivery, outcome, now, self._policy)
+            finish_matching(
+                "alert",
+                str(row.id),
+                "unknown" if row.state in {"uncertain", "review"} else "completed",
+                row.reason,
+            )
             self._record_outcome(row, outcome, now)
 
     def _record_outcome(self, row: AlertIntent, outcome: Outcome, now: datetime) -> None:

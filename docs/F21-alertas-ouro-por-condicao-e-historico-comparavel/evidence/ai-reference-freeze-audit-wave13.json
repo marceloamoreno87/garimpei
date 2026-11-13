@@ -1,0 +1,16 @@
+{
+  "frozen_at": "2026-11-13T17:40:56.321964+00:00",
+  "reference_path": "docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/ai-reference-frozen-wave13.json",
+  "reference_sha256": "7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191",
+  "records": 8,
+  "photos": 42,
+  "labels": {
+    "good": 5,
+    "defect": 0,
+    "uncertain": 3
+  },
+  "photos_hashes_verified": true,
+  "local_model_outputs_seen": false,
+  "independent_human_review": false,
+  "contract_sha256": "d847f6e82e9e43a114b2eb3c1f4aaffaa821cd4ea71448f716493b03f1fa894d"
+}

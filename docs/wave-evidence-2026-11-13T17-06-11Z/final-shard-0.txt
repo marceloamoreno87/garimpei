@@ -1,0 +1,372 @@
+.............F..............F........................................... [ 24%]
+.............................................F.......................... [ 48%]
+........................................................................ [ 72%]
+........................................................................ [ 96%]
+.........                                                                [100%]
+=================================== FAILURES ===================================
+____________ test_unavailable_read_failure_draft_and_expired_resale ____________
+
+profit_scenario = (FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/1bf0/garimpei'), private_file=PosixPath('/tmp/g13-fin...est_unavailable_read_failure_0/clock'), value=datetime.datetime(2026, 11, 10, 18, 1, 1, tzinfo=datetime.timezone.utc)))
+
+    def test_unavailable_read_failure_draft_and_expired_resale(profit_scenario: Scenario) -> None:
+        i, source, clock = profit_scenario
+        check(
+            i,
+            """
+    from datetime import timedelta
+    from garimpei.infra.queries.valuation.profit_queries import PostgresProfitQueries
+    from garimpei.infra.queries.listing.postgres_queries import PostgresListingQueries
+    from garimpei.infra.queries.valuation.postgres_queries import PostgresValuationQueries
+    from garimpei.usecase.valuation.read_profit_usecase import ReadProfitUseCase
+    from garimpei.domain.valuation.profit_queries import ProfitReadFailed
+    from tests.factories.valuation import FailingProfitConfiguration
+    from django.db import transaction
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    clock=_listing_clock(load_listing_settings())
+    import json,logging
+    from io import StringIO
+    from garimpei.infra.runtime.logging import JsonFormatter
+    stream=StringIO()
+    handler=logging.StreamHandler(stream)
+    handler.setFormatter(JsonFormatter())
+    logger=logging.getLogger('garimpei.profit')
+    logger.addHandler(handler)
+    failed=ReadProfitUseCase(PostgresProfitQueries(FailingProfitConfiguration(),PostgresListingQueries(),PostgresValuationQueries()),clock)
+    try:
+        failed.execute(target().id)
+    except ProfitReadFailed as error:
+        assert error.code=='PROFIT_DEPENDENCY_UNAVAILABLE' and error.retryable
+        assert error.__cause__ is None
+    else:
+        raise AssertionError('technical failure returned a composition')
+    logger.removeHandler(handler)
+    diagnostic=json.loads(stream.getvalue())
+    assert diagnostic['event']=='profit_read_failed'
+    assert diagnostic['error_code']=='PROFIT_DEPENDENCY_UNAVAILABLE'
+    assert diagnostic['profit_identity']==str(target().id)
+    assert '01001000' not in stream.getvalue()
+    assert current().profit.value==Decimal('512.50')
+    # A consumer's READ COMMITTED transaction cannot silently weaken snapshot consistency.
+    try:
+        with transaction.atomic():
+            current()
+    except ProfitReadFailed:
+        pass
+    else:
+        raise AssertionError('unsafe outer transaction accepted')
+    print('SVC-INDISPONIBILIDADE-04 PASS')
+    # Used evidence expires while a separate, valid new quote exists (F06 historical proof).
+    v=build_read_valuation().execute(target().id)
+    edge=v.resale.valid_until
+    expired=ReadProfitUseCase(PostgresProfitQueries(build_read_monitoring_configuration(),PostgresListingQueries(),PostgresValuationQueries()),lambda:edge+timedelta(seconds=1)).execute(target().id)
+    assert expired.resale.value is None and expired.resale.reason=='evidencia_vencida'
+    assert expired.fee.value is None and expired.profit.value is None
+    assert expired.purchase.value==Decimal('1500') and expired.freight.value is None and expired.fee_percent==Decimal('12.50')
+    assert build_read_valuation().execute(v.id,historical=True).new.quote.price==Decimal('3800')
+    print('SVC-INDISPONIBILIDADE-01 expired PASS')
+    """,
+        )
+        source.rows["604"]["description"] = "Não funciona. Com defeito."
+        clock.advance(61)
+        completed(i, 2)
+        wait_valuation(i, revision=2)
+>       check(
+            i,
+            """
+    v=build_read_valuation().execute(target().id)
+    assert v.resale.reason=='amostra_insuficiente' and v.new.quote.price==Decimal('3800')
+    p=current()
+    assert p.resale.value is None and p.fee.value is None and p.profit.value is None
+    assert p.purchase.value==Decimal('1500') and p.freight.value is None and p.fee_percent==Decimal('12.50')
+    print('SVC-INDISPONIBILIDADE-01 insufficient PASS')
+    """,
+        )
+
+tests/integration/test_profit.py:259: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/1bf0/garimpei'), private_file=PosixPath('/tmp/g13-final-s0/test_unavailable_read_failure_0/f04_8d7607f75e.env'))
+code = "\nv=build_read_valuation().execute(target().id)\nassert v.resale.reason=='amostra_insuficiente' and v.new.quote.price...and p.freight.value is None and p.fee_percent==Decimal('12.50')\nprint('SVC-INDISPONIBILIDADE-01 insufficient PASS')\n"
+
+    def check(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(IMPORTS + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T18:10:35.749483+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_8d7607f75e", "run_id": "ade8b142-4c71-44cb-b38e-a6f6ab4d6ba8"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 13, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 13, in <module>\nAssertionError\n').returncode
+
+tests/integration/test_profit.py:74: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+F07 preflight eval_f04_8d7607f75e garimpei_eval_f04_8d7607f75e health_ready=200 disposable=true run=ade8b142-4c71-44cb-b38e-a6f6ab4d6ba8
+----------------------------- Captured stdout call -----------------------------
+63 objects imported automatically (use -v 2 for details).
+
+SVC-INDISPONIBILIDADE-04 PASS
+SVC-INDISPONIBILIDADE-01 expired PASS
+_ test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry _
+
+tmp_path = PosixPath('/tmp/g13-final-s0/test_alias_events_hostile_cont0')
+
+    def test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry(
+        tmp_path: Path,
+    ) -> None:
+        canary = FileAccessCanary(tmp_path / "synthetic-secret.txt")
+        try:
+            with navigation_alert_scenario(tmp_path) as ((instance, _source, clock, channel), source):
+                # Exact two interests: electronics plus Slim, whose canonical/literal alias share budget.
+                shell(
+                    instance,
+                    """
+    from garimpei.main import build_read_monitoring_configuration,build_monitoring_handler
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    from tests.factories.listing import CATEGORY
+    config=build_read_monitoring_configuration().execute()
+    build_monitoring_handler()._update.execute(StepInput('editar',config.revision,cep=config.cep,shipping_estimate=str(config.shipping_estimate),resale_fee_percent=str(config.resale_fee_percent),category_ids=(CATEGORY,),product_names=('PlayStation 5 Slim',)))
+    """,
+                )
+                completed(instance, 2)
+                clock.advance(1)
+                source.pro_rows["9130"] = listing(
+                    "9130", "3200,00", title="PS5 Pro", published_at=clock.value.isoformat()
+                )
+>               shell(
+                    instance,
+                    """
+    from garimpei.main import build_navigation_catalog,build_read_monitoring_configuration,_effective_listing_settings,_listing_clock
+    from garimpei.config.env import load_navigation_policy
+    from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+    from garimpei.infra.repository.navigation.suggestion_repository import PostgresSuggestionRepository
+    from garimpei.usecase.navigation.run_suggestions_usecase import RunSuggestionsUseCase
+    from garimpei.infra.persistence.navigation_models import NicheSuggestion,SuggestionEvidence
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    settings=_effective_listing_settings();policy=load_navigation_policy();clock=_listing_clock(settings)
+    store=PostgresSuggestionRepository(build_read_monitoring_configuration(),build_navigation_catalog(),policy,clock,settings.timeout,settings.cadence_ms/1000)
+    RunSuggestionsUseCase(store,FixtureSource(settings.fixture_url,settings.timeout),policy,lambda:0.0,settings.timeout,settings.cadence_ms/1000).execute()
+    assert SuggestionEvidence.objects.get(external_id='9130')
+    assert not Listing.objects.filter(external_id='9130').exists()
+    assert 'PS5 Pro' not in build_read_monitoring_configuration().execute().product_names
+    """,
+                )
+
+tests/integration/test_navigation_events.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/home/marce/.codex/worktrees/1bf0/garimpei'), private_file=PosixPath('/tmp/g13-final-s0/test_alias_events_hostile_cont0/f04_596e16daf5.env'))
+code = "\nfrom garimpei.main import build_navigation_catalog,build_read_monitoring_configuration,_effective_listing_settings,...(external_id='9130').exists()\nassert 'PS5 Pro' not in build_read_monitoring_configuration().execute().product_names\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 63 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T18:15:55.427539+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_596e16daf5", "run_id": "de4209f4-cbd2-4ab7-b2bd-1d370e3a09ff"}
+E         Traceback (most recent call last):
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 12, in <module>
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.navigation_models.SuggestionEvidence.DoesNotExist: SuggestionEvidence matching query does not exist.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...ra.persistence.navigation_models.SuggestionEvidence.DoesNotExist: SuggestionEvidence matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+______ test_adoption_preserves_legacy_authorizations_and_individual_pause ______
+
+tmp_path = PosixPath('/tmp/g13-final-s0/test_adoption_preserves_legacy0')
+
+    def test_adoption_preserves_legacy_authorizations_and_individual_pause(tmp_path: Path) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "f22_adopt_" + uuid4().hex[:8])
+        started = instance.command("./scripts/init.sh", "--disposable")
+        assert started.returncode == 0, started.stdout + started.stderr
+        try:
+            owners = instance.manifest["processes"]
+            for owner in owners:
+                assert stop_process(owner, root, 10)
+                assert not is_live(owner)
+            result = instance.shell("""
+    from django.db import connection
+    from django.db.migrations.executor import MigrationExecutor
+    from django.utils.timezone import now
+    from uuid import uuid4
+    from garimpei.infra.persistence.alert_models import AlertIntent,AlertAttempt
+    from garimpei.infra.persistence.inference_models import InferenceControl
+    executor=MigrationExecutor(connection)
+    executor.migrate([('runtime','0025_merge_identity_research')])
+    InferenceControl.objects.get_or_create(pk=1)
+    InferenceControl.objects.filter(pk=1).update(paused=True,active_request=uuid4(),reason='execution_unknown')
+    intent=AlertIntent.objects.create(state='uncertain',session='synthetic',recipient='100@g.us',account='200@c.us',body='frozen legacy body',financial={'unchanged':'yes'},created_at=now(),next_action=now())
+    AlertAttempt.objects.create(intent=intent,ordinal=1,generation=1,authorized_at=now(),state='uncertain')
+    with connection.cursor() as cursor:
+     cursor.execute('SELECT count(*) FROM procrastinate_jobs'); jobs=cursor.fetchone()[0]
+    old=(intent.id,intent.body,intent.financial,intent.attempts.count())
+    executor=MigrationExecutor(connection);executor.migrate([('runtime','0026_robot_control')])
+    from garimpei.infra.persistence.robot_models import RobotControl,RobotOperation
+    from garimpei.infra.queries.robot.postgres_queries import PostgresRobotQueries
+    assert RobotControl.objects.get(pk='local').requested_enabled
+    assert not RobotOperation.objects.exists()
+    assert InferenceControl.objects.get(pk=1).paused
+    intent.refresh_from_db();assert (intent.id,intent.body,intent.financial,intent.attempts.count())==old
+    with connection.cursor() as cursor:
+     cursor.execute('SELECT count(*) FROM procrastinate_jobs');assert cursor.fetchone()[0]==jobs
+    status=PostgresRobotQueries().status();assert status.unknown==2 and status.state=='unknown'
+    print('ROBOT_MIGRATION_PASS')
+    """)
+>           assert result.returncode == 0, result.stdout + result.stderr
+E           AssertionError: 63 objects imported automatically (use -v 2 for details).
+E             
+E             {"timestamp": "2026-11-13T18:22:33.108518+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f22_adopt_12f6b308", "run_id": "05b88c88-6aa0-4f86-b466-7a55b929350d"}
+E             Traceback (most recent call last):
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E                 return self.cursor.execute(sql, params)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             psycopg.errors.UndefinedColumn: column "gold_qualification_id" of relation "runtime_alertintent" does not exist
+E             LINE 1: INSERT INTO "runtime_alertintent" ("gold_qualification_id", ...
+E                                                        ^
+E             
+E             The above exception was the direct cause of the following exception:
+E             
+E             Traceback (most recent call last):
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/manage.py", line 8, in <module>
+E                 execute_from_command_line()
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                 utility.execute()
+E                 ~~~~~~~~~~~~~~~^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                 self.fetch_command(subcommand).run_from_argv(self.argv)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                 self.execute(*args, **cmd_options)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                 output = self.handle(*args, **options)
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                 exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<string>", line 12, in <module>
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 665, in create
+E                 obj.save(force_insert=True, using=self.db)
+E                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+E                 self.save_base(
+E                 ~~~~~~~~~~~~~~^
+E                     using=using,
+E                     ^^^^^^^^^^^^
+E                 ...<2 lines>...
+E                     update_fields=update_fields,
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+E                 updated = self._save_table(
+E                     raw,
+E                 ...<4 lines>...
+E                     update_fields,
+E                 )
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+E                 results = self._do_insert(
+E                     cls._base_manager, using, fields, returning_fields, raw
+E                 )
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+E                 return manager._insert(
+E                        ~~~~~~~~~~~~~~~^
+E                     [self],
+E                     ^^^^^^^
+E                 ...<3 lines>...
+E                     raw=raw,
+E                     ^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1873, in _insert
+E                 return query.get_compiler(using=using).execute_sql(returning_fields)
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1882, in execute_sql
+E                 cursor.execute(sql, params)
+E                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E                 return self._execute_with_wrappers(
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                     sql, params, many=False, executor=self._execute
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E                 return executor(sql, params, many, context)
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E                 with self.db.wrap_database_errors:
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E                 raise dj_exc_value.with_traceback(traceback) from exc_value
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E                 return self.cursor.execute(sql, params)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/.codex/worktrees/1bf0/garimpei/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             django.db.utils.ProgrammingError: column "gold_qualification_id" of relation "runtime_alertintent" does not exist
+E             LINE 1: INSERT INTO "runtime_alertintent" ("gold_qualification_id", ...
+E                                                        ^
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...NE 1: INSERT INTO "runtime_alertintent" ("gold_qualification_id", ...\n                                           ^\n').returncode
+
+tests/integration/test_robot_migration.py:46: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale
+FAILED tests/integration/test_navigation_events.py::test_alias_events_hostile_content_adoption_and_prior_receipts_survive_f13_retry
+FAILED tests/integration/test_robot_migration.py::test_adoption_preserves_legacy_authorizations_and_individual_pause
+3 failed, 294 passed in 1433.47s (0:23:53)

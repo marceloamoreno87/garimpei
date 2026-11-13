@@ -1,0 +1,96 @@
+{
+  "observed_at": "2026-11-13T18:05:37.519897+00:00",
+  "result": "PASS",
+  "production_commit": "8f10673",
+  "scope": "Actual Procrastinate consumers, Django web and PostgreSQL; controlled source and WAHA loopback, with owned worker group temporarily SIGSTOP to seed already queued jobs before browser pause. No actual Facebook/GPU/WhatsApp group.",
+  "origin": "http://127.0.0.1:15358",
+  "held_message": {
+    "listing": "16005",
+    "reference": "33b787cc-a6eb-4b63-84f3-b43f9e64917a",
+    "body_sha256": "85f929623b6cbd15a2083b03bcdd0c333812658fc3fed78409ebdf4bb8243c6f",
+    "attempts": 1,
+    "server_mode": "lost_empty",
+    "messages": 0,
+    "posts": 1
+  },
+  "queued_before_browser_pause": [
+    [
+      88,
+      "garimpei.collect_listings",
+      "todo"
+    ],
+    [
+      89,
+      "garimpei.evaluate_valuation",
+      "todo"
+    ],
+    [
+      90,
+      "garimpei.media",
+      "todo"
+    ],
+    [
+      91,
+      "garimpei.local_analysis",
+      "todo"
+    ]
+  ],
+  "pause": {
+    "requested_enabled": false,
+    "revision": 1,
+    "heading": "Desligando",
+    "warning": "worker without recent heartbeat during controlled freeze"
+  },
+  "drain": {
+    "jobs_88_through_91": "all succeeded after worker resumed under global pause",
+    "media_attempts": 0,
+    "inference_part_attempts": 0,
+    "inference_part_state": "pending",
+    "valuation_claim_released": "attempts0, leaseNone, completedFalse",
+    "uncertain_message_attempts": 1,
+    "source_and_valuation_requests": 36,
+    "posts": 1
+  },
+  "restart_while_uncertain": {
+    "normal_stop_init": true,
+    "requested_enabled": false,
+    "revision": 1,
+    "source_and_valuation_requests": 36,
+    "posts": 1,
+    "messages": 0,
+    "old_reference_and_body_sha256": "unchanged",
+    "old_state": "uncertain/history_ambiguous_or_incomplete",
+    "offers_visible": 7,
+    "heading": "Parada ainda não confirmada"
+  },
+  "mixed_resume": {
+    "logical_pause_seconds": 176400,
+    "logical_retry_advance_seconds": 6,
+    "browser_enabled_revision": 2,
+    "source_and_valuation_requests": 64,
+    "posts": 2,
+    "messages": 1,
+    "expired_listing": "16008",
+    "expired_state": "cancelled/publication_expired",
+    "expired_attempts": 0,
+    "old_uncertain_state": "review/reconciliation_window_ended",
+    "old_attempts": 1,
+    "old_receipt": null,
+    "old_body_sha256": "unchanged",
+    "valid_listing": "16007",
+    "valid_reference": "591dfe5e-080d-4c3c-a5ed-e2d5916de31c",
+    "valid_state": "confirmed",
+    "valid_receipt": "message-1",
+    "valid_attempts": 1,
+    "individual_ia_pause_preserved": true
+  },
+  "sql_assertions": "mixed-e2e-final-assertions-wave13.txt exit0",
+  "probe_notes": [
+    "First mixed probe at port22960 could not create the intended queued expired case: historical sample1550/1000=1.55 was dispersed and correctly blocked. Fixture purchase1050 made the controlled sample valid; product rules unchanged.",
+    "The source ordering chose16005 as the actual held eligible message. Observations and final SQL assertions use that actual reference, rather than assuming16001. The lab action now resolves the held reference dynamically.",
+    "Explicit stop/init temporarily refused HTTP while services were stopped; post-readiness browser lookup succeeded. No claim of UI availability during process shutdown.",
+    "Only the four listed prequeued tasks are claimed consumed in this journey; additional stage variations are covered by the focused real-repository tests.",
+    "The queued IA was later individually paused before global enable; no model/GPU call is needed for this control test."
+  ],
+  "cleanup": "Owned lab context stop--clean exited0; browser f22-mixed closed."
+}

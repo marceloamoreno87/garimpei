@@ -33,6 +33,7 @@
     <div class="workspace">
         <header class="topbar"><span>{{ ui_label }}</span><span>Neste computador · Facebook Marketplace</span></header>
         {% if not integration_page %}{% include "integration/facebook_notice.html" %}{% endif %}
+        {% if listing_page %}{% include "robot/summary.html" %}{% endif %}
         {% block main %}{% endblock %}
     </div>
 {% endblock %}

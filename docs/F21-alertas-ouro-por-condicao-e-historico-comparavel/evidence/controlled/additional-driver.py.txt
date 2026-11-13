@@ -1,0 +1,23 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from datetime import datetime,UTC
+from tests.factories.gold_driver import GoldDriver
+corpus=json.loads(Path('apps/backend/tests/fixtures/alert/gold_cases.json').read_text())
+selected=['ALIASES','PROFIT_CENT','PROFIT_NEGATIVE','PENDING_ANALYSIS','FAILED_ANALYSIS','UNCERTAIN_TEXT','MISSING_ATTRIBUTE','CONFLICT','HISTORY_DISPERSED','EXPIRED']
+results=[];output=Path('docs/F21-alertas-ouro-por-condicao-e-historico-comparavel/evidence/controlled/additional-cases.json')
+for case in selected:
+ with TemporaryDirectory(prefix='garimpei-f21-matrix-') as folder:
+  driver=GoldDriver(Path(folder))
+  try:
+   prepared=driver.action('prepare',case=case);sent=driver.action('send');reason=corpus['cases'][case]['expected'];q=prepared['qualifications']
+   expected_qualified=reason=='qualified';observed_qualified=any(row['state']=='qualified' for row in q)
+   assert observed_qualified==expected_qualified,(case,q)
+   if not expected_qualified:assert any(reason in row['reasons'] for row in q),(case,reason,q)
+   assert len(sent['messages'])==(1 if expected_qualified else 0),(case,sent['messages'])
+   results.append({'case':case,'expected':reason,'verdict':'PASS','first_reason':prepared['first_reason'],'qualification_states':[{'state':row['state'],'reasons':row['reasons']} for row in q],'post_count':sent['post_count'],'attempts':sent['attempts']})
+  except Exception as e:
+   results.append({'case':case,'verdict':'FAIL','error_class':type(e).__name__,'details':str(e)[:1500]})
+  finally:driver.close()
+ output.write_text(json.dumps({'reference_method':'controlled_synthetic_expectations','not_real_model_quality':True,'completed_at':datetime.now(UTC).isoformat(),'results':results},ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps(results[-1],ensure_ascii=False),flush=True)

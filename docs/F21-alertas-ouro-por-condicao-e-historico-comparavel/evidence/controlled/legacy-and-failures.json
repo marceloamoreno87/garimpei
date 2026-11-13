@@ -1,0 +1,36 @@
+{
+  "method": "controlled own PostgreSQL/WAHA lab; predecessor records reconstructed explicitly under pending policy, no public policy downgrade",
+  "completed_at": "2026-11-13T18:09:34.145284+00:00",
+  "results": [
+    {
+      "case": "frozen_compatible",
+      "verdict": "PASS",
+      "post_count": 1,
+      "attempts": 2
+    },
+    {
+      "case": "frozen_incompatible",
+      "verdict": "PASS",
+      "post_count": 0,
+      "attempts": 1
+    },
+    {
+      "case": "uncertain_confirmed_adoption",
+      "verdict": "PASS",
+      "post_count": 0,
+      "attempts": 2
+    },
+    {
+      "case": "dependency_failure",
+      "verdict": "PASS",
+      "post_count": 0,
+      "attempts": 0
+    },
+    {
+      "case": "late_result",
+      "verdict": "PASS",
+      "post_count": 0,
+      "attempts": 0
+    }
+  ]
+}

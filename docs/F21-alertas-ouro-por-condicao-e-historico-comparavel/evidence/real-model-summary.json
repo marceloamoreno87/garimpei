@@ -1,0 +1,30 @@
+{
+  "cohort_sha256": "0be468a845838e2e70f41577d9c379c8d8e227666a0621a762b73c95539888a0",
+  "reference_sha256": "7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191",
+  "cases": 8,
+  "original_photos": 42,
+  "physical_calls_sent": 15,
+  "part_diagnostics": {
+    "success": 3,
+    "generation_length_limit": 11,
+    "text_reference_mismatch": 1
+  },
+  "assessment_complete": 0,
+  "sufficient_assessments": 0,
+  "qualified_gold": 0,
+  "reference_good_local_uncertain": 5,
+  "reference_uncertain_local_uncertain": 3,
+  "human_accuracy_claim": false,
+  "fake_whatsapp_posts": 0,
+  "real_whatsapp_posts": 0,
+  "num_ctx": 4096,
+  "num_predict": 1024,
+  "visual_reserve": 1536,
+  "safety_margin": 256,
+  "physical_prompt_eval_count_range": [
+    779,
+    912
+  ],
+  "largest_measured_prompt_plus_reserved_output_visual_margin": 3728,
+  "positive_real_gold_demonstrated": false
+}

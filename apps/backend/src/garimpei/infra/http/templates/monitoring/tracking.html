@@ -2,6 +2,7 @@
 {% load static %}
 {% block head %}
     {{ block.super }}
+    <script src="{% static 'robot/control.js' %}" defer></script>
     <script src="{% static 'navigation/progress.js' %}" defer></script>
     <script src="{% static 'operations/status.js' %}" defer></script>
     <link rel="stylesheet" href="{% static 'operations/status.css' %}">
@@ -20,6 +21,7 @@
             <a href="#navigation-progress">Percurso</a>
             {% if comparable_research %}<a href="#research-heading">Comparáveis</a>{% endif %}
         </nav>
+        {% include "robot/control.html" %}
         <section class="tracking-state" id="collection-status" aria-label="Estado da coleta">
 
             <div role="status">

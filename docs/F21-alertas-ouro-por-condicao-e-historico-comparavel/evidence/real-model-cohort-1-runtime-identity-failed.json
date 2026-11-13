@@ -1,0 +1,323 @@
+{
+  "feature": "F21",
+  "cohort": "iphone-cohort-1-frozen-eight",
+  "reference_sha256": "7aa9664902ff1b4c936a469b32f6245f89ce820168a5c4385251d72fe6026191",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "started_at": "2026-11-13T17:58:31.311024+00:00",
+  "source": "authorized_real_snapshots_replayed_locally",
+  "local_model_runtime": "real_F19",
+  "fake_whatsapp": true,
+  "real_whatsapp_posts": 0,
+  "results": [
+    {
+      "external_id": "1810839963486848",
+      "listing_id": "bb32d01d-6625-450c-8e74-536ab1e041b9",
+      "observation_id": "992ec30f-2678-4c8e-9381-4676e6415875",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "model_unavailable",
+      "photo_coverage": [
+        {
+          "key": "1544087317479114",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "3fd69a76aee5818f1c70329ca15652646a4e2b427694b7c50a25c96332e2ffa3",
+          "examined": false,
+          "photo_id": "p_3fd69a76aee5818f1c70329ca15652646a4e2b427694b7c50a25c96332e2ffa3",
+          "position": 0,
+          "version_id": "3590f4c5-77db-4037-86f1-88da93e1b62b"
+        },
+        {
+          "key": "1150755974088286",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "2b998dad18c319ba6e8bb0b3c5b5ef9dbd49da8f65fb13b3d35a59b25c48f2ca",
+          "examined": false,
+          "photo_id": "p_2b998dad18c319ba6e8bb0b3c5b5ef9dbd49da8f65fb13b3d35a59b25c48f2ca",
+          "position": 1,
+          "version_id": "d6d55c82-3409-49f8-8685-0efd79953a6d"
+        },
+        {
+          "key": "2026738701348253",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "313461ae3e32b1263cb77ad6e092e446153a98a0cdcb966f666f8176efad9621",
+          "examined": false,
+          "photo_id": "p_313461ae3e32b1263cb77ad6e092e446153a98a0cdcb966f666f8176efad9621",
+          "position": 2,
+          "version_id": "8d877ca7-e7bd-4b7b-8ff8-adaa94672f77"
+        },
+        {
+          "key": "2851662955220383",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "f2d4dbbeb49647eb7e6961bd800e6de8bf128304d7acc1086523bcd112b33305",
+          "examined": false,
+          "photo_id": "p_f2d4dbbeb49647eb7e6961bd800e6de8bf128304d7acc1086523bcd112b33305",
+          "position": 3,
+          "version_id": "218b5949-a06f-463b-b1e2-593540f65888"
+        },
+        {
+          "key": "1138900388497230",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "8a4bbb34a0bce412ee2b0fde05ba04c4877564777787bf4b03944b5a73b8e842",
+          "examined": false,
+          "photo_id": "p_8a4bbb34a0bce412ee2b0fde05ba04c4877564777787bf4b03944b5a73b8e842",
+          "position": 4,
+          "version_id": "93ee728b-3363-4a85-84ed-8a1cf3b7e5b4"
+        },
+        {
+          "key": "1021940610190225",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "97de90dab63c0329bdc11ad79494b9538d781e02ddc69454c246d34cca2ba3fd",
+          "examined": false,
+          "photo_id": "p_97de90dab63c0329bdc11ad79494b9538d781e02ddc69454c246d34cca2ba3fd",
+          "position": 5,
+          "version_id": "67b484b4-faca-4091-843f-c5d3a03a4371"
+        },
+        {
+          "key": "1041498202296202",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "d06ea69ab2c2a82be0674f5a86d1f9bb558bf54be1320c410eb157f24d815963",
+          "examined": false,
+          "photo_id": "p_d06ea69ab2c2a82be0674f5a86d1f9bb558bf54be1320c410eb157f24d815963",
+          "position": 6,
+          "version_id": "e5ff7e35-70a7-464a-a882-9e34962d12b9"
+        },
+        {
+          "key": "1451592526943181",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "fd6f08d857bbfb5540bc3c2519466d3519c500918ef7eb87bf3b37b977d0c39d",
+          "examined": false,
+          "photo_id": "p_fd6f08d857bbfb5540bc3c2519466d3519c500918ef7eb87bf3b37b977d0c39d",
+          "position": 7,
+          "version_id": "92d8fe42-d711-4698-bb5d-d299badf4537"
+        }
+      ],
+      "assessment_id": "845cdc6b-9fc6-414f-b6f4-d78f132b44d7",
+      "model_calls_sent": 0,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "service_unavailable",
+          "metrics": {
+            "sent": false
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "service_unavailable",
+          "metrics": {
+            "sent": false
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        }
+      ],
+      "elapsed_seconds": 58.394608699003584,
+      "gold_state": "waiting",
+      "gold_reason": "gold_photos_missing",
+      "profit": "40.00"
+    },
+    {
+      "external_id": "1149985297537880",
+      "listing_id": "394df614-28a8-4841-af64-1ba812d8d080",
+      "observation_id": "2980687c-f008-4e58-b23d-c76d4b38c539",
+      "reference": "uncertain",
+      "automatic": "uncertain",
+      "assessment_status": "failed",
+      "sufficient": false,
+      "assessment_reason": "model_unavailable",
+      "photo_coverage": [
+        {
+          "key": "1445300210483665",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "bbf0f3deacbea9e7a3096bd969c76ebce7c607c0fc12db1b874f7af6e5ae9a94",
+          "examined": false,
+          "photo_id": "p_bbf0f3deacbea9e7a3096bd969c76ebce7c607c0fc12db1b874f7af6e5ae9a94",
+          "position": 0,
+          "version_id": "46a818d7-041e-42ed-b119-8e267766b2c5"
+        },
+        {
+          "key": "1675674267404100",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "992696f0bb2f2ce28d0053adde23f4f977d9f1bd42ea21216d6fdb6af0be02d4",
+          "examined": false,
+          "photo_id": "p_992696f0bb2f2ce28d0053adde23f4f977d9f1bd42ea21216d6fdb6af0be02d4",
+          "position": 1,
+          "version_id": "57cf5381-4890-42b5-b7b0-e33b683d3b2e"
+        },
+        {
+          "key": "1192674079849191",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "0d3726a60b18586da11184850ee06f7d1259c58403fe9486d800188486d5eb53",
+          "examined": false,
+          "photo_id": "p_0d3726a60b18586da11184850ee06f7d1259c58403fe9486d800188486d5eb53",
+          "position": 2,
+          "version_id": "e30c2f1e-006c-46c3-9a81-1b402b446b93"
+        },
+        {
+          "key": "2129463571026930",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "46a9d8dba11475e0cbfa113789f6453ece5b2a0cfc4f624297c019afa36dfb41",
+          "examined": false,
+          "photo_id": "p_46a9d8dba11475e0cbfa113789f6453ece5b2a0cfc4f624297c019afa36dfb41",
+          "position": 3,
+          "version_id": "b396704c-8c05-47c1-8f3a-d49a4f7bdc3b"
+        },
+        {
+          "key": "2218217678781565",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "0ff342d7198edd9c935d3fde33c34df242b83f01001112027c4d1c1efd8be868",
+          "examined": false,
+          "photo_id": "p_0ff342d7198edd9c935d3fde33c34df242b83f01001112027c4d1c1efd8be868",
+          "position": 4,
+          "version_id": "bc7ee0c8-87c6-49e7-981c-57c38117f172"
+        },
+        {
+          "key": "28715628411471830",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "0a868cc223fda17a50c74ab44f35ebd6d8077bc6d65d2c2180a20a5d90ffdf22",
+          "examined": false,
+          "photo_id": "p_0a868cc223fda17a50c74ab44f35ebd6d8077bc6d65d2c2180a20a5d90ffdf22",
+          "position": 5,
+          "version_id": "605bc72a-c0cd-4851-a5ae-3c5f595286c8"
+        },
+        {
+          "key": "1148138114379440",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "fa5878812904ccd1bfed635033f923f589a504e2dc42b89a2d1ef07a60850ead",
+          "examined": false,
+          "photo_id": "p_fa5878812904ccd1bfed635033f923f589a504e2dc42b89a2d1ef07a60850ead",
+          "position": 6,
+          "version_id": "bbc30d34-29bb-4eed-9ea3-83df776b5ae2"
+        },
+        {
+          "key": "1110220191885901",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "8d1e9da12aeee0c09eba428b0172524df7e80c6895ee41cea961905f29a9c40f",
+          "examined": false,
+          "photo_id": "p_8d1e9da12aeee0c09eba428b0172524df7e80c6895ee41cea961905f29a9c40f",
+          "position": 7,
+          "version_id": "5ba757ec-22c5-4a3e-a1a0-236eb5b65c19"
+        },
+        {
+          "key": "1909105100458921",
+          "state": "available",
+          "reason": "model_unavailable",
+          "sha256": "b8fb3aa4c4dc41671f4c2f5d6528cfc700fb1750272fdf5d91181de1d461044c",
+          "examined": false,
+          "photo_id": "p_b8fb3aa4c4dc41671f4c2f5d6528cfc700fb1750272fdf5d91181de1d461044c",
+          "position": 8,
+          "version_id": "ee179b8c-fc25-4a90-8df6-bc01ed81dbdd"
+        }
+      ],
+      "assessment_id": "cb778af9-a143-496b-a601-95bc44acfedb",
+      "model_calls_sent": 0,
+      "parts": [
+        {
+          "state": "failed",
+          "reason": "service_unavailable",
+          "metrics": {
+            "sent": false
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "service_unavailable",
+          "metrics": {
+            "sent": false
+          }
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "pending",
+          "reason": "",
+          "metrics": {}
+        },
+        {
+          "state": "failed",
+          "reason": "service_unavailable",
+          "metrics": {
+            "sent": false
+          }
+        }
+      ],
+      "elapsed_seconds": 62.11103085200011,
+      "gold_state": "blocked",
+      "gold_reason": "gold_photos_missing",
+      "profit": "-10.00"
+    }
+  ],
+  "status": "interrupted_before_real_dispatch",
+  "source_cutoff": "2026-11-13T17:28:35.917754+00:00",
+  "profile_copied": false,
+  "probe_issue": "Standalone driver omitted configure_django runtime identity; calls were refused as service_unavailable, no sent result. Source/runtime corrected without product-code change."
+}

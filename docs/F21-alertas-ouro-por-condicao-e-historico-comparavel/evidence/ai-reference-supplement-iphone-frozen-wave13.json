@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "feature": "F21",
+  "cohort": "supplement-iphone-final",
+  "reference_method": "ai_assisted",
+  "independent_human_review": false,
+  "reviewer": "Codex coordinator /root; exact model revision not attested",
+  "frozen_at": "2026-11-13T17:44:29.899883+00:00",
+  "local_model_outputs_for_this_id_seen": false,
+  "original_cohort_8_reference_unchanged": true,
+  "records": [
+    {
+      "external_id": "3042816096065519",
+      "url": "https://www.facebook.com/marketplace/item/3042816096065519/",
+      "title": "iPhone 13 128gb",
+      "description_sha256": "b599738c5910b39813f4669b6101595de31941000abd968f565651bf104eb78a",
+      "label": "uncertain",
+      "text_reviewed": true,
+      "photos_examined": [
+        {
+          "photo_key": "1191540630071357",
+          "position": 0,
+          "sha256": "80ef8611fc30bad575da367d456b9ab684a657f22440e74ffded261b1c9e5339"
+        },
+        {
+          "photo_key": "1729036078578630",
+          "position": 1,
+          "sha256": "3f68b374cd7d7fb6cff386ad1fa1757da1fca84598c7d2b83da1b7fed77b3ccb"
+        },
+        {
+          "photo_key": "1924473801854975",
+          "position": 2,
+          "sha256": "9141626fc6c98ffbc7fd8465af0f36c5cd10d15c868c66a9dacdb2633fdf1c69"
+        },
+        {
+          "photo_key": "29374287092204332",
+          "position": 3,
+          "sha256": "6eacfae8cb0d1b1c744e38154bcf181101a9028875f026878fd8aaa0fb188cd6"
+        },
+        {
+          "photo_key": "4398119340448624",
+          "position": 4,
+          "sha256": "71ca255576fb2fe2adc7bfbd34bfeb8a22acc7e2fa1109dbe79cc329ac4b06bc"
+        },
+        {
+          "photo_key": "1921517832561110",
+          "position": 5,
+          "sha256": "17d279f70bbd2c344d184a5b8ec30cc31336cd4874802da065e44d4ad2a0e4cc"
+        }
+      ],
+      "notes": "Descrição declara nunca aberto/nada trocado e funcionamento perfeito. Foto4 exibe mensagem do sistema de bateria significativamente deteriorada e manutenção, capacidade70%; foto6 exibe histórico de serviço para bateria. Isso conserva ressalva relevante e possível contradição com a declaração, sem afirmar como fato que houve abertura/troca. Foto5 sustenta iPhone13/128GB; fotos1–3 mostram marcas leves na traseira e sem fratura inequívoca. Não há teste físico de todas as funções nem cutoff numérico de saúde inventado. O cálculo de lucro40BRL não resolve essa incerteza."
+    }
+  ]
+}

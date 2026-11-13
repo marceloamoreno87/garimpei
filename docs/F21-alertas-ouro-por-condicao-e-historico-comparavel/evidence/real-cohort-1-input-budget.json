@@ -1,0 +1,74 @@
+[
+  {
+    "external_id": "1810839963486848",
+    "count": 1611,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "1149985297537880",
+    "count": 1667,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "1156072093429318",
+    "count": 1673,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "1447579983522224",
+    "count": 1687,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "1621338866348626",
+    "count": 1687,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "1654513062783723",
+    "count": 1687,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "1839249197206568",
+    "count": 1687,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  },
+  {
+    "external_id": "2380604816050904",
+    "count": 1687,
+    "text_tokens": 2048,
+    "context_tokens": 4096,
+    "reserved_output": 1024,
+    "visual_reserve": 1536,
+    "fits": false
+  }
+]
