@@ -46,6 +46,22 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
         assert report["seconds"] >= 0
         repeated = invoke("fault", "--case", "unit_persistent")
         assert repeated.returncode != 0
+        for case in ("disk_full", "archive_interrupted", "export_interrupted"):
+            result = invoke("fault", "--case", case)
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / f"fault-{case}.json").read_text())
+            assert report["control"]["completed"] is True
+            assert report["fault"]["rejected"] is True
+            assert report["fault"]["previous_preserved"] is True
+            assert report["fault"]["no_partial"] is True
+            assert report["seconds"] >= 0
+        queued = invoke("fault", "--case", "queue_full")
+        assert queued.returncode == 0, queued.stdout + queued.stderr
+        report = json.loads((directory / "fault-queue_full.json").read_text())
+        assert report["control"]["admitted"] is True
+        assert report["fault"]["admitted"] is False
+        assert report["fault"]["pending"] == 1000
+        assert report["cleaned"] is True
     finally:
         closed = invoke("close")
         assert closed.returncode == 0, closed.stdout + closed.stderr
