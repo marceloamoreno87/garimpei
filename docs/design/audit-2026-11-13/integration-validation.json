@@ -72,5 +72,14 @@
     "F21": "implemented; real positive proof remains blocked",
     "F22": "done; preserved"
   },
-  "publishing": "All source changes and current documentation are authorized for normal fast-forward integration and push to master; remote publication is verified separately after execution."
+  "publishing": "All source changes and current documentation are authorized for normal fast-forward integration and push to master; remote publication is verified separately after execution.",
+  "remote_dependency_alerts": {
+    "reported_during_push_of": "1c04b11",
+    "total": 74,
+    "critical": 9,
+    "high": 42,
+    "moderate": 23,
+    "triaged": false,
+    "source": "https://github.com/marceloamoreno87/garimpei/security/dependabot"
+  }
 }

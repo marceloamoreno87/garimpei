@@ -43,6 +43,10 @@ A interface inclui configuração guiada/edição, ofertas em três condições,
 - **UI:** automação Chromium/axe, toque sintetizado e texto a 200% não substituem leitor de tela, outros motores, dispositivo físico ou teste com usuários. Os relatórios distinguem a auditoria original da verificação após integrar F21/F22.
 - **Operação:** ligar o robô não remove pausas individuais, suspensão de acesso ou barreiras de recuperação. Fechar a aba não encerra os serviços; desligar a máquina/WSL2/serviços interrompe o processamento.
 
+## Alertas de dependências reportados na publicação
+
+No push de `1c04b11` para a master em 2026-11-13, o GitHub reportou 74 alertas na branch padrão: nove críticos, 42 altos e 23 moderados. O [painel Dependabot](https://github.com/marceloamoreno87/garimpei/security/dependabot) é a fonte para triagem. Esses alertas não foram investigados nesta sincronização; o aviso não identifica, por si só, quais caminhos do produto ou ferramentas de desenvolvimento são afetados. Testes e gates aprovados não constituem auditoria de vulnerabilidades.
+
 ## Fontes operacionais
 
 - [PRD](PRD.md), [stack](stack.md) e [arquitetura implementada](architecture/implementation.md).
