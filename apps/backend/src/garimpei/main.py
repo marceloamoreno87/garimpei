@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 from uuid import UUID
 
+from garimpei.domain.listing.geography import MARKETPLACE_SEARCH_ORIGIN
+
 if TYPE_CHECKING:
     from garimpei.config.env import AlertSettings
     from garimpei.domain.alert.alert import AlertPolicy
@@ -322,7 +324,9 @@ def _build_live_listing_handler(settings: ListingSettings) -> "ListingTaskHandle
         path, settings.timeout, settings.cadence_ms, profile=settings.facebook_profile
     )
     geocoding = BrasilApiGeocoding(settings.timeout)
-    source = FacebookMarketplace(browser, geocoding, build_monitoring_catalog().load())
+    source = FacebookMarketplace(
+        browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
+    )
     return _navigation_task(settings, source, geocoding, source.close)
 
 
@@ -1049,7 +1053,6 @@ def _handle_navigation_suggestions() -> None:
     from time import monotonic
 
     from garimpei.config.env import load_navigation_policy
-    from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
     from garimpei.infra.gateway.listing.facebook_marketplace import (
         FacebookMarketplace,
         UnavailableMarketplace,
@@ -1073,7 +1076,7 @@ def _handle_navigation_suggestions() -> None:
             path, settings.timeout, settings.cadence_ms, profile=settings.facebook_profile
         )
         source = FacebookMarketplace(
-            browser, BrasilApiGeocoding(settings.timeout), build_monitoring_catalog().load()
+            browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
         )
         close = source.close
     else:
@@ -1489,7 +1492,6 @@ def _handle_comparable_research() -> None:
 def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
     from time import monotonic
 
-    from garimpei.infra.gateway.listing.cep_geocoding import BrasilApiGeocoding
     from garimpei.infra.gateway.listing.facebook_marketplace import (
         FacebookMarketplace,
         UnavailableMarketplace,
@@ -1513,7 +1515,7 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
             path, timeout, settings.cadence_ms, profile=settings.facebook_profile
         )
         live = FacebookMarketplace(
-            browser, BrasilApiGeocoding(timeout), build_monitoring_catalog().load()
+            browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
         )
         source, close = live, live.close
     else:

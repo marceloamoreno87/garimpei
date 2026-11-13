@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Literal
 from uuid import UUID
 
-from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM
+from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM, MARKETPLACE_SEARCH_ORIGIN
 from garimpei.domain.listing.interest_match import matches_product, tokens
 from garimpei.domain.listing.listing import MAX_INTEREST_KEY_LENGTH, Match
 from garimpei.domain.listing.window import PublicationWindow
@@ -72,8 +72,12 @@ class Scope:
                     snapshot.source,
                     snapshot.cep,
                     identity,
-                    "48h-marketplace-potential-v4",
+                    "48h-marketplace-potential-v5-city-source",
                     MARKETPLACE_RADIUS_KM,
+                    MARKETPLACE_SEARCH_ORIGIN.latitude,
+                    MARKETPLACE_SEARCH_ORIGIN.longitude,
+                    MARKETPLACE_SEARCH_ORIGIN.city,
+                    MARKETPLACE_SEARCH_ORIGIN.state,
                 ]
             ).encode()
         ).hexdigest()

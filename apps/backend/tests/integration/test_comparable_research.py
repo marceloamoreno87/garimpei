@@ -63,12 +63,15 @@ manual_values=tuple(sorted(dict(family='playstation5',model='ps5',generation='sl
 """
 
 
+@pytest.mark.parametrize("old_context", ["radius", "postal_origin"])
 def test_old_geographic_scope_is_superseded_before_research_resumes(
     research_instance: FoundationInstance,
+    old_context: str,
 ) -> None:
     shell(
         research_instance,
         PREPARE
+        + f"\nold_context={old_context!r}\n"
         + """
 from django.db import transaction
 with transaction.atomic():
@@ -76,9 +79,19 @@ with transaction.atomic():
     repo.reconcile()
     row=ComparableInvestigation.objects.get(product_key=KEY, state='pending')
     assert row.context['radius_km']==20
+    assert row.context['source_city']=='São Paulo' and row.context['source_state']=='SP'
+    assert row.context['source_latitude']==-23.55 and row.context['source_longitude']==-46.6333
+    from garimpei.infra.queries.valuation.research_queries import PostgresComparableResearchQueries
+    queries=PostgresComparableResearchQueries(None,None,None,())
+    assert queries.read(listing.id).investigations[0].requested=='São Paulo/SP · raio 20 km'
     row.scope_key='legacy-500-km-scope'
-    row.context['radius_km']=500
+    if old_context=='radius': row.context['radius_km']=500
+    else:
+        row.scope_key='legacy-postal-origin-scope'
+        for field in ('source_city','source_state','source_latitude','source_longitude'): row.context.pop(field)
     row.save(update_fields=['scope_key','context'])
+    if old_context=='postal_origin':
+        assert queries.read(listing.id).investigations[0].requested=='Centro postal anterior · CEP 01001000 · raio 20 km'
     assert repo.claim() is None
     row.refresh_from_db()
     assert row.state=='superseded' and row.reason=='input_revision_changed'

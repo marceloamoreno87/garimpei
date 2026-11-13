@@ -72,8 +72,13 @@ class PostgresComparableResearchQueries:
                     else None,
                     row.last_progress_at,
                     row.targets.filter(active=True).count(),
-                    "CEP "
-                    + str(row.context.get("cep", ""))
+                    (
+                        str(row.context["source_city"])
+                        + "/"
+                        + str(row.context.get("source_state", ""))
+                        if row.context.get("source_city")
+                        else "Centro postal anterior · CEP " + str(row.context.get("cep", ""))
+                    )
                     + " · raio "
                     + str(row.context.get("radius_km", ""))
                     + " km",

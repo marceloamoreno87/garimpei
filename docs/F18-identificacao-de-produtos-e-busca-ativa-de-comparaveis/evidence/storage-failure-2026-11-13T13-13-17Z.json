@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-13T13:13:45.299983+00:00",
+  "failed_run": "/tmp/garimpei-f18-city-full-7anmy8hq",
+  "temporary_filesystem_capacity_gib": 16,
+  "observed_available_bytes": 0,
+  "exception": "OSError: [Errno 28] No space left on device",
+  "run_valid_for_completion": false,
+  "initial_cleanup_cause": "Runtime error opaque; later ENOSPC is confirmed, association with the earlier stop error remains an inference.",
+  "action": "Removed dependency copies from three already stopped owned labs (about1.2GiB); rerun entire724-node suite with inherited TMPDIR on filesystem with781GiB available. No test/gate changes."
+}

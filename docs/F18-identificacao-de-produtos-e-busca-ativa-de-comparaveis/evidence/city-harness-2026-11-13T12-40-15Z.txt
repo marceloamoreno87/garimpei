@@ -1,0 +1,12 @@
+✔ init without Python scaffold diagnoses the prerequisite without generating app state (21.593647ms)
+✔ resolver without Python scaffold does not announce an environment (10.313502ms)
+✔ backend gates fail before scaffolding without invoking or downloading tools (32.101371ms)
+✔ setup reuses the same marketplace without replacing its existing revision (35.940981ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 142.382796

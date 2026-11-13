@@ -207,8 +207,16 @@ Antes de trabalho com aplicação, iniciar instância própria via `./scripts/in
 
 Navegador por `playwright-cli` e avaliação visual por `frontend-ui-design`, segundo as skills do projeto, com evidências. Não alegar execução por listar comandos. F13, corpus, limites medidos, prova real e itens obrigatórios pendentes impedem concluir implementação. F18-AC14 é integração condicional: seu item só é executável com F16 disponível e deve permanecer explicitamente pendente nessa dimensão até lá, sem transformar fixture em prova de autorização real. F18 permanece `pending` nesta entrega documental.
 
-### Adendo de produto — raio fixo (2026-11-12)
+### Adendo histórico de produto — raio fixo (2026-11-12; centro substituído em 2026-11-13)
 
 A coleta e a pesquisa complementar solicitam raio fixo de **20 km** centrado no CEP cadastrado, inclusive quando o perfil da fonte preserva outro raio. A configuração salva na fonte não redefine a política do Garimpei. Uma mudança da política invalida o contexto de pesquisas antigas, sem apagar seu histórico. A requisição não comprova, por si, que a fonte aplicou a região; manter a pesquisa automática bloqueada e não afirmar amostra local validada enquanto faltar evidência do contexto efetivo.
 
 Enquanto a fonte não comprovar que a resposta efetiva usa o CEP e o raio solicitados, a navegação de descoberta deve registrar a limitação e não publicar seus candidatos para avaliação ou alertas. Isso pode interromper a entrada de novas oportunidades; não apaga nem certifica a região do histórico já publicado.
+
+### Adendo aprovado — São Paulo/SP e20km (2026-11-13)
+
+A localização nativa da coleta/pesquisa é a cidade São Paulo/SP, com raio20km; não se procura um campo CEP no Facebook. O centro observado na navegação nativa desta execução é latitude-23.55/longitude-46.6333, sem precisão individual publicada. Ele identifica a busca da fonte e não substitui o CEP/origem usados pelas regras de cobertura/entrega. A origem da fonte será injetada explicitamente na composição, sem consulta de CEP para construir sua URL.
+
+Uma primeira página nativa pode ser utilizada se o mesmo documento recebido fornecer resultados e contexto compatível de cidade/raio/consulta, sem uma segunda requisição reescrita. Datas e ordenação não confirmadas permanecem explícitas; pesquisa de comparáveis solicita todas as datas e mantém a política F06 de observações14dias. Quando os filtros nativos não coincidirem, metadados de bootstrap não validam o POST alterado. Continuação conserva as variáveis nativas e cursor emitido pela fonte, vinculados à mesma pesquisa.
+
+A mudança do centro entra na assinatura do escopo/pesquisa para superar trabalhos anteriores antes de retomar ou publicar, preservando histórico. A ativação automática continua condicionada à prova real, limites medidos e avaliação integral; esta alteração documental não conclui F18 nem liga o robô.

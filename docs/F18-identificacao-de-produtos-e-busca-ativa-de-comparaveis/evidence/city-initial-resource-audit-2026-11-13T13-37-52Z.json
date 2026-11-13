@@ -1,0 +1,36 @@
+{
+  "owned_initial_invalid_run": [
+    {
+      "environment_id": "eval_fault_92d65677b2",
+      "status": "failed",
+      "cleanup_exit": 64,
+      "actual_resources": {
+        "containers": [],
+        "volumes": [],
+        "live_manifest_pids": []
+      }
+    },
+    {
+      "environment_id": "eval_fault_44fa6b6644",
+      "status": "failed",
+      "cleanup_exit": 64,
+      "actual_resources": {
+        "containers": [],
+        "volumes": [],
+        "live_manifest_pids": []
+      }
+    },
+    {
+      "environment_id": "eval_fault_45dce7d12c",
+      "status": "failed",
+      "cleanup_exit": 64,
+      "actual_resources": {
+        "containers": [],
+        "volumes": [],
+        "live_manifest_pids": []
+      }
+    }
+  ],
+  "resources_remaining": 0,
+  "note": "Preserved deliberately invalid ownership manifests; normal clean refused safely; resource queries found no containers, volumes or live manifest PIDs."
+}

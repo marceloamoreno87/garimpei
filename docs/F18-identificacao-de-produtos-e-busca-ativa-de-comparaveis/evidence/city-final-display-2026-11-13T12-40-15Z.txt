@@ -1,0 +1,230 @@
+........................................................................ [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 47%]
+........................................................................ [ 63%]
+........................................................................ [ 78%]
+........................................................................ [ 94%]
+.......................F                                                 [100%]
+=================================== FAILURES ===================================
+_______ test_worker_consumes_research_and_publishes_reproducible_profit ________
+
+tmp_path = PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_research_0')
+
+    def test_worker_consumes_research_and_publishes_reproducible_profit(tmp_path: Path) -> None:
+        source = ResearchLoopbackSource()
+        root = Path(__file__).resolve().parents[4]
+        from tests.factories.comparable_research import NOW
+
+        clock = ControlledClock(tmp_path / "clock", NOW)
+        clock.advance(0)
+        with serve(source) as url:
+            instance = prepare_instance(root, tmp_path, "f18_worker_" + uuid4().hex[:8])
+            from garimpei.domain.listing.listing import Match
+            from garimpei.domain.listing.scope import Search
+            from garimpei.infra.gateway.listing.fixture_source import FixtureSource
+            from tests.factories.comparable_research import KEY, TITLE
+            from tests.factories.comparable_research import scope as controlled_scope
+
+            probe = FixtureSource(url, 2)
+            probe_scope = controlled_scope()
+            probe_query = Search(Match("product", KEY), TITLE, "marketplace", purpose="research")
+            probes = []
+            started = time.perf_counter()
+            page = probe.search(probe_scope, probe_query, None)
+            probes.append(
+                dict(
+                    operation="query",
+                    seconds=time.perf_counter() - started,
+                    candidates=len(page.candidates),
+                )
+            )
+            started = time.perf_counter()
+            probe.detail(probe_scope, "18810")
+            probes.append(dict(operation="detail", seconds=time.perf_counter() - started))
+            evidence = []
+            for index, measurement in enumerate(probes):
+                path = tmp_path / f"controlled-{index}.json"
+                path.write_text(json.dumps(dict(source_kind="controlled", measurements=[measurement])))
+                evidence.append(str(path))
+            policy = asdict(
+                replace(
+                    controlled_limits(), environment="eval-controlled", evidence_paths=tuple(evidence)
+                )
+            )
+            limits = tmp_path / "limits.json"
+            limits.write_text(json.dumps(policy))
+            with instance.private_file.open("a") as file:
+                file.write(
+                    f"GARIMPEI_LISTING_INTERVAL=60\nGARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_LISTING_FIXTURE_URL={url}\nGARIMPEI_VALUATION_FIXTURE_URL={url}\nGARIMPEI_LISTING_FIXTURE_CLOCK={clock.path}\nGARIMPEI_RESEARCH_LIMITS={limits}\n"
+                )
+            command(instance, "./scripts/init.sh", "--disposable")
+            try:
+                configure(instance, active=False)
+                shell(
+                    instance,
+                    f"""
+    from garimpei.main import build_monitoring_handler,build_monitoring_queries
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    form=build_monitoring_queries().read_form()
+    build_monitoring_handler()._complete.execute(StepInput('interesses',form.revision,category_ids={CATEGORIES!r},product_names=()))
+    """,
+                )
+                wait_for(
+                    lambda: (
+                        sql(instance, "SELECT state FROM runtime_comparableinvestigation")
+                        == [("sufficient",)]
+                    ),
+                    "F18 worker five retained comparables",
+                    seconds=45,
+                )
+                wait_for(
+                    lambda: bool(
+                        sql(
+                            instance,
+                            "SELECT e.result->'resale'->>'price' FROM runtime_valuationprogress p JOIN runtime_listing l ON l.id=p.listing_id JOIN runtime_valuationevaluation e ON e.id=p.current_id WHERE l.external_id='18801' AND e.result->'resale'->>'price'='2300.00'",
+                        )
+                    ),
+                    "F18 worker applicable valuation",
+                    seconds=25,
+                )
+                shell(
+                    instance,
+                    """
+    from decimal import Decimal
+    from garimpei.main import build_read_profit
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent,ListingInterestMatch
+    from garimpei.infra.persistence.research_models import ComparableInvestigation
+    from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration
+    l=Listing.objects.get(external_id='18801')
+    p=build_read_profit().execute(l.id)
+    assert p.purchase.value==Decimal('1000') and p.resale.value==Decimal('2300')
+    assert p.fee_percent==Decimal('12.5') and p.fee.value==Decimal('287.50') and p.profit.value==Decimal('1012.50')
+    r=ComparableInvestigation.objects.get();assert r.pages==1 and r.details==5 and r.attempts==3
+    refs=Listing.objects.filter(origin='reference');assert refs.count()==5
+    assert not ListingInterestMatch.objects.filter(observation__listing__in=refs).exists()
+    assert not ListingEvent.objects.filter(listing__in=refs).exists()
+    assert MonitoringConfiguration.objects.get(slot='active').monitoringinterest_set.count()==2
+    """,
+                )
+                assert sql(
+                    instance,
+                    "SELECT queue_name FROM procrastinate_jobs WHERE task_name='garimpei.comparable_research' AND status='succeeded'",
+                )
+                assert all(float(str(row["seconds"])) >= 0 for row in source.timings)
+                slices = sql(
+                    instance,
+                    "SELECT extract(epoch FROM(max(e.at) FILTER(WHERE e.type='succeeded')-min(e.at) FILTER(WHERE e.type='started'))) FROM procrastinate_jobs j JOIN procrastinate_events e ON e.job_id=j.id WHERE j.task_name='garimpei.comparable_research' AND j.status='succeeded' GROUP BY j.id ORDER BY j.id",
+                )
+                measured = dict(
+                    source_kind="controlled",
+                    environment="owned_eval_loopback",
+                    measured_at=__import__("datetime")
+                    .datetime.now(__import__("datetime").timezone.utc)
+                    .isoformat(),
+                    source_is_real=False,
+                    fixtures="tests/fixtures/valuation/research_cases.json",
+                    policy_test_inputs=policy,
+                    measurements=dict(
+                        client_probes=probes,
+                        worker_slice_seconds=[float(str(row[0])) for row in slices],
+                        server_operations=source.timings,
+                    ),
+                    confirmed=dict(
+                        pages=1,
+                        details=5,
+                        slices=3,
+                        retained=5,
+                        profit="1012.50",
+                        reference_events=0,
+                        reference_matches=0,
+                    ),
+                )
+                (tmp_path / "controlled-measurements.json").write_text(
+                    json.dumps(measured, indent=2) + "\n"
+                )
+                print("F18_CONTROLLED_MEASUREMENTS=" + str(tmp_path / "controlled-measurements.json"))
+                # A new identifiable variant lacks a sample while the reference source fails.
+                # Normal collection must still confirm its following price observation.
+                source.research_failure = True
+                source.rows["18801"]["title"] = "iPhone 14 128GB"
+                clock.advance(61)
+                wait_for(
+                    lambda: bool(
+                        sql(
+                            instance,
+                            "SELECT 1 FROM runtime_comparableinvestigation WHERE product_key='apple:iphone14:standard:128gb' AND state='waiting_retry'",
+                        )
+                    ),
+                    "research failure remains distinct",
+                    seconds=35,
+                )
+                source.rows["18801"]["price"] = "R$ 900,00"
+                clock.advance(61)
+                wait_for(
+                    lambda: bool(
+                        sql(
+                            instance,
+                            "SELECT 1 FROM runtime_listing l JOIN runtime_listingobservation o ON o.id=l.latest_id WHERE l.external_id='18801' AND o.price=900 AND o.ordinal>=3",
+                        )
+                    ),
+                    "collection advances while research is waiting",
+                    seconds=35,
+                )
+                assert sql(
+                    instance,
+                    "SELECT count(*) FROM runtime_listingevent e JOIN runtime_listing l ON l.id=e.listing_id WHERE l.external_id='18801' AND e.kind='price_decreased'",
+                ) == [(1,)]
+                measured["non_interference"] = dict(
+                    collection_advanced=True,
+                    research_failure="source_http_503",
+                    decrease_events=1,
+                    real_whatsapp_posts=0,
+                )
+                (tmp_path / "controlled-measurements.json").write_text(
+                    json.dumps(measured, indent=2) + "\n"
+                )
+
+            except BaseException:
+                print(
+                    "F18 investigations",
+                    sql(
+                        instance,
+                        "SELECT product_key,state,reason,pages,details,attempts FROM runtime_comparableinvestigation",
+                    ),
+                )
+                print(
+                    "F18 jobs",
+                    sql(
+                        instance,
+                        "SELECT task_name,status FROM procrastinate_jobs ORDER BY id DESC LIMIT 12",
+                    ),
+                )
+                log = instance.config.directory / "worker.log"
+                if log.exists():
+                    print("F18 worker log", log.read_text()[-8000:])
+                raise
+            finally:
+                source.release.set()
+>               command(instance, "./scripts/stop.sh", "--clean")
+
+tests/integration/test_research_worker.py:208:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = FoundationInstance(root=PosixPath('/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda'), private_file=PosixPath('/tmp/pytest-of-marce/pytest-30/test_worker_consumes_research_0/f18_worker_f53a3a8d.env'))
+arguments = ('./scripts/stop.sh', '--clean')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: {"timestamp": "2026-11-13T13:07:41.603334+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f18_worker_f53a3a8d", "run_id": "920192ed-fc18-420c-a6da-4ef598ec0754"}
+E         Runtime operation failed (RUNTIME_ERROR); inspect owned private diagnostics
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/stop.sh', '--clean'], returncode=1, stdout='', stderr='{"timestamp": "2026-11-13T13:...920192ed-fc18-420c-a6da-4ef598ec0754"}\nRuntime operation failed (RUNTIME_ERROR); inspect owned private diagnostics\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F18_CONTROLLED_MEASUREMENTS=/tmp/pytest-of-marce/pytest-30/test_worker_consumes_research_0/controlled-measurements.json
+=========================== short test summary info ============================
+FAILED tests/integration/test_research_worker.py::test_worker_consumes_research_and_publishes_reproducible_profit
+1 failed, 455 passed in 245.03s (0:04:05)

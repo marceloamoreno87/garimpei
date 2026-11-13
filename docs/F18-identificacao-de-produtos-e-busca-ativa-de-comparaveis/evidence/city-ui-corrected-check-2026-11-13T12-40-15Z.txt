@@ -1,0 +1,19 @@
+### Ran Playwright code
+```js
+await (async page => {
+ const text=await page.locator('main').innerText();
+ if (!text.includes('825GB · Sua correção') || !text.includes('após examinar a observação 1')) throw new Error('manual origin missing');
+ const box=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));if(box.width!==box.scroll)throw new Error('overflow');
+ await page.screenshot({path:'/tmp/f18-ui-manual-desktop.png',fullPage:true});
+ const detail=page.url();await page.getByRole('link',{name:'Voltar aos resultados',exact:true}).click();
+ const before={url:page.url(),text:await page.locator('main').innerText()};
+ if(new URL(before.url).searchParams.get('q')!=='PlayStation')throw new Error('filter lost');
+ await page.getByRole('searchbox',{name:'Buscar por título ou categoria'}).focus();
+ await page.evaluate(value=>window.__f18Before=value,before);
+ console.log(JSON.stringify({valid_status:303,invalid_status:422,manual_origin:true,box,detail,list_url:before.url,source:'controlled'}));
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:18777/ofertas/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=a9d124c8-2991-471c-956e-ae513b9532f6
+- Page Title: Ofertas · Garimpei

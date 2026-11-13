@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from django.db import transaction
 from django.db.models import Max, Q
 
-from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM
+from garimpei.domain.listing.geography import MARKETPLACE_RADIUS_KM, MARKETPLACE_SEARCH_ORIGIN
 from garimpei.domain.listing.listing import Candidate
 from garimpei.domain.listing.ports import (
     Clock,
@@ -122,6 +122,10 @@ class PostgresComparableResearchRepository:
             cep=scope.cep,
             modality="marketplace",
             radius_km=MARKETPLACE_RADIUS_KM,
+            source_city=MARKETPLACE_SEARCH_ORIGIN.city,
+            source_state=MARKETPLACE_SEARCH_ORIGIN.state,
+            source_latitude=MARKETPLACE_SEARCH_ORIGIN.latitude,
+            source_longitude=MARKETPLACE_SEARCH_ORIGIN.longitude,
             used_observation_window_days=14,
             publication_age_limit=None,
             configuration_id=str(scope.configuration_id),

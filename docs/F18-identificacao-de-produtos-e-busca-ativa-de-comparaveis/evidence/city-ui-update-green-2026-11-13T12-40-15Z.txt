@@ -1,0 +1,28 @@
+### Ran Playwright code
+```js
+await (async page => {
+ const assert=(v,m)=>{if(!v)throw new Error(m)};
+ const before=await page.evaluate(()=>window.__f18Before);
+ assert(page.url()===before.url,'automatic URL change');
+ assert(!(await page.locator('article').allTextContents()).join(' ').includes('R$ 2.300,00'),'automatic card replacement');
+ assert(await page.getByRole('searchbox',{name:'Buscar por título ou categoria'}).evaluate(e=>document.activeElement===e),'focus moved');
+ await page.evaluate(()=>window.htmx.trigger(document.body,'exploration-poll'));
+ await page.getByRole('link',{name:/Atualizar lista/}).waitFor({state:'visible'});
+ assert(page.url()===before.url,'poll changed pinned version');
+ await page.getByRole('link',{name:/Atualizar lista/}).click();
+ await page.waitForURL(url=>url.searchParams.get('versao')!==new URL(before.url).searchParams.get('versao'));
+ assert(new URL(page.url()).searchParams.get('q')==='PlayStation','update lost filter');
+ assert(new URL(page.url()).searchParams.get('pagina')==='1','update lost page');
+ assert(new URL(page.url()).searchParams.get('versao')!==new URL(before.url).searchParams.get('versao'),'version not updated');
+ assert((await page.locator('main').innerText()).includes('R$ 2.300,00'),'resale not applied');
+ await page.getByRole('link',{name:'PlayStation 5 Slim Digital',exact:true}).click();
+ const main=await page.locator('main').innerText();assert(main.includes('R$ 1.012,50'),'profit missing');
+ const references=await page.locator('main a[href*="facebook.com/marketplace/item/"]').count();assert(references>=6,'five references absent');
+ await page.screenshot({path:'/tmp/f18-ui-valued-desktop.png',fullPage:true});
+ console.log(JSON.stringify({explicit_update:true,filter_preserved:true,page_preserved:true,focus_preserved:true,resale:'2300',profit:'1012.50',reference_links:references,url:page.url(),source:'controlled'}));
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:18777/ofertas/8b319eb8-6f27-4bbe-8050-38d9657bacca/?aba=funcionam&q=PlayStation&categoria=&pagina=1&versao=c2801174-a148-4d3b-82bc-c783eb659eef
+- Page Title: Ofertas · Garimpei
