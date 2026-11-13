@@ -2,7 +2,7 @@
 
 Sincronização documental: **2026-11-13**, após integrar a auditoria de UI com a master publicada da onda F21/F22. Fontes: [progresso de execução](prd_progress.json), avaliações por feature, código integrado e [auditoria de interface](design/audit-2026-11-13/README.md).
 
-**F01–F20 e F22 estão `done`; F21 está `implemented`.** F21 conserva uma dimensão de prova real positiva bloqueada. Implementação integrada não equivale a aceite completo nem autoriza tratá-la como concluída. Esta sincronização não altera status, ciclos, dependências ou timestamps do progresso.
+**F01–F20 e F22 estão `done`; F21 está `implemented`; F23 está `pending`.** F21 conserva uma dimensão de prova real positiva bloqueada. F23 foi acrescentada em 2026-11-13 como especificação de Docker completo e IA integrada; ainda não foi implementada. Implementação integrada não equivale a aceite completo nem autoriza tratá-la como concluída. Status, ciclos, dependências e timestamps das entradas anteriores do progresso foram preservados.
 
 | ID | Feature / especificação | Estado | Avaliação canônica |
 |---|---|---|---|
@@ -28,6 +28,7 @@ Sincronização documental: **2026-11-13**, após integrar a auditoria de UI com
 | F20 | [Compra, venda estimada e lucro na apresentação](F20-compra-venda-estimada-e-lucro-na-apresentacao/spec.md) | `done` | [eval-report-2026-11-12T03-22-50Z.md](F20-compra-venda-estimada-e-lucro-na-apresentacao/eval-report-2026-11-12T03-22-50Z.md) |
 | F21 | [Alertas ouro por condição e histórico comparável](F21-alertas-ouro-por-condicao-e-historico-comparavel/spec.md) | `implemented` | [eval-report-2026-11-13T18-20-00Z.md](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T18-20-00Z.md) |
 | F22 | [Controle global de ligar e desligar o robô](F22-controle-global-do-robo/spec.md) | `done` | [eval-report-2026-11-13T18-33-50Z.md](F22-controle-global-do-robo/eval-report-2026-11-13T18-33-50Z.md) |
+| F23 | [Docker completo e IA integrada ao fluxo](F23-docker-completo-e-ia-integrada/spec.md) | `pending` | Sem implementação ou avaliação; [plano](F23-docker-completo-e-ia-integrada/plan.md) e [contrato](F23-docker-completo-e-ia-integrada/contract.md) especificados |
 
 ## Produto implementado
 
@@ -37,6 +38,7 @@ A interface inclui configuração guiada/edição, ofertas em três condições,
 
 ## Limites efetivos
 
+- **F23:** Docker completo é o alvo especificado; web/worker ainda executam no host e o Compose atual contém PostgreSQL, WAHA e Ollama. IA já atua na condição F15/F19; novos consumidores de identidade/comparáveis e apoio à investigação/diagnóstico estão especificados, sem prova de implementação. O contrato exige corpus humano, GPU real, rastro de consumo e preservação da política financeira; conclusão integrada depende também do aceite F21.
 - **F21:** a avaliação registra 25 itens aprovados e uma dimensão bloqueada; não foi obtido um caso real positivo de alerta ouro na coorte autorizada. F21 não é `done`, ainda que seu código e testes controlados estejam integrados.
 - **Fonte externa:** acesso autenticado e respostas podem mudar. Geografia/raio, cobertura e disponibilidade devem ser comprovados em cada execução; uma avaliação anterior não garante cobertura universal ou operação ininterrupta.
 - **IA e finanças:** aparência não comprova funcionamento interno; preços anunciados não comprovam venda. Os comparáveis sustentam a revenda, o domínio calcula o lucro e a interface conserva ausência, zero e sinal.
