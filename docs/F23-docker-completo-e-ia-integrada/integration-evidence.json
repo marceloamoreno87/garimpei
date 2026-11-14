@@ -1,0 +1,235 @@
+{
+  "checked_at": "2026-11-14T00:49:12.446453+00:00",
+  "authorization": "User explicitly requested commits, all-worktree integration into master and push.",
+  "merge_commit": "6112830c435f51e101e5986cce51f76c5b91a2ca",
+  "feature_commit": "5e609b846ca2e01d3a7a88f29e8a562625c64600",
+  "master_remote_before_integration": "15079aa7149b0a699891ddb10d8ccf5d06633608",
+  "merge_conflicts": 0,
+  "registered_worktrees": 29,
+  "all_worktree_heads_in_master": true,
+  "all_worktrees_clean_before_evidence": true,
+  "worktrees": [
+    {
+      "path": "/home/marce/dev/garimpei",
+      "branch": "refs/heads/ui/audit-20261113-concurrent",
+      "head": "6a0d3aff2cb39363fa6f0710ce3e609916839a68",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/0d94/garimpei",
+      "branch": "refs/heads/feat/F17-resiliencia-operacional",
+      "head": "9a754971e9bad9dbf0ba2b7ec470998bc8ea1d21",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/1bf0/garimpei",
+      "branch": "refs/heads/master",
+      "head": "6112830c435f51e101e5986cce51f76c5b91a2ca",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/34bb/garimpei",
+      "branch": "refs/heads/feat/F16-primeira-elegibilidade",
+      "head": "2add5b3750721ae5bfa9aec26e7bf017d17ac985",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/4bff/garimpei",
+      "branch": "refs/heads/fix/F13-prova-continuidade",
+      "head": "6078fd8a65007b579c12fb4a41aad9636abc52f4",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6c3f/garimpei",
+      "branch": "refs/heads/feat/F19-inferencia-multimodal-local",
+      "head": "e33c69be6427a704086f6295aee7093c636316f7",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6cd6/garimpei",
+      "branch": "refs/heads/fix/startup-deadline-envelope",
+      "head": "5a90b88cc211cef36a8b4d90274f275a59ff91f2",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/6efe/garimpei",
+      "branch": "refs/heads/fix/navigation-effective-budget",
+      "head": "021ef59a760aeb308df8f5f90f910405f9e230b5",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/7ae4/garimpei",
+      "branch": "refs/heads/feat/F14-imagens-locais",
+      "head": "f999b1b494c563c2f7e49d2a5d6354fe63e50bd9",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/90b7/garimpei",
+      "branch": "refs/heads/fix/exploration-configuration-lock",
+      "head": "ee8b3a4727c4e2fa8ec6e7e0450bad35c78a458e",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a716/garimpei",
+      "branch": "refs/heads/integration/pending-features-2026-11-12",
+      "head": "fde9f90f7fac2e6d3891c4091d5f82e98cc058e8",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/a9af/garimpei",
+      "branch": "refs/heads/feat/F20-apresentacao-financeira",
+      "head": "1ec8b10a2d7049f0fe7e260b167876eaa8766f0b",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/b9f3/garimpei",
+      "branch": "refs/heads/fix/collection-invalid-unicode",
+      "head": "6ec0c2ffb3889ec8ec11efcfdff19dc8b7295501",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/baf1/garimpei",
+      "branch": "refs/heads/feat/F18-identificacao-comparaveis",
+      "head": "a5c0cb7603e31da7579f039679f22ed51396c084",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/c4f1/garimpei",
+      "branch": "refs/heads/fix/wave13-regression-tests",
+      "head": "b870d1a16f6a6bc4b8ff8ffe2d71375628ca66dd",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/c6a4/garimpei",
+      "branch": "refs/heads/wave/20261113-f21",
+      "head": "8783b2e899501c5d6a91768fee1b549567544784",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e16d/garimpei",
+      "branch": "refs/heads/feat/F15-avaliacao-multimodal",
+      "head": "b0b8643d647e77eb87d934660f1fb70f7535dafd",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/e38a/garimpei",
+      "branch": "refs/heads/feat/F13-navegacao-ativa",
+      "head": "004fb0fa5be07f108ee8b22a3973c330aa6b6829",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/.codex/worktrees/ef90/garimpei",
+      "branch": "refs/heads/feat/f21-prova-real",
+      "head": "15079aa7149b0a699891ddb10d8ccf5d06633608",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-nova-onda",
+      "branch": "refs/heads/wave/20261113-f14",
+      "head": "35a9c7213c8c556cf62925b390dbfde6d98d1beb",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-onda-atual",
+      "branch": "refs/heads/wave/current-f14",
+      "head": "21ad43694bad598b661ecdb54b3d465c01eaafb0",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F14-retomada",
+      "branch": "refs/heads/wave/resume-f14",
+      "head": "affc6deb8bfb8c1f2514a0c9dcb54991933f601f",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-nova-onda",
+      "branch": "refs/heads/wave/20261113-f17",
+      "head": "4f459049da1fb6e8d5cfedf54b9e48f1cabd31bd",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-onda-atual",
+      "branch": "refs/heads/wave/current-f17",
+      "head": "f12fdc5271879cf149b661638c9aba522ade37eb",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F17-retomada",
+      "branch": "refs/heads/wave/resume-f17",
+      "head": "b303c51f43fd8ccefd90065c90afb04319e9972e",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-nova-onda",
+      "branch": "refs/heads/wave/20261113-f18",
+      "head": "4dcc787cd268c565e8e1fbd8d6dfe441620216e6",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-onda-atual",
+      "branch": "refs/heads/wave/current-f18",
+      "head": "b871a6696b0d9dbb481733dfb30537b330dbc5ea",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F18-retomada",
+      "branch": "refs/heads/wave/resume-f18",
+      "head": "f87012cdc3146d64e3bf6351e8662ec150ef26e3",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    },
+    {
+      "path": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada",
+      "branch": "refs/heads/feat/F23-docker-completo-e-ia-integrada",
+      "head": "5e609b846ca2e01d3a7a88f29e8a562625c64600",
+      "included_in_master": true,
+      "uncommitted_changes": 0
+    }
+  ],
+  "source_manifest_files": 852,
+  "source_manifest_combined_sha256": "747ac999c8bfd4d5eed0f6e908b48229819b3c23eaf2e1305475b48cc9004e8b",
+  "source_hash_mismatches": [],
+  "test_evidence_reused": "974 covered by original suite plus directed reruns, six Python gates and additional contract checks; merged source hashes unchanged.",
+  "previous_features_unchanged": 22,
+  "changed_previous_features": [],
+  "F23_status": "implemented",
+  "F23_completed_at": null,
+  "contract_result": {
+    "PASS": 33,
+    "FAIL": 0,
+    "BLOCKED": 2
+  },
+  "blocked": [
+    "E2E-QUALIDADE-01",
+    "E2E-FLUXO-01"
+  ],
+  "cleanup": "Worktrees/volumes retained; owned application/tools stopped and disposable fixtures finalized as recorded in evaluation.",
+  "publication": "Authorized push follows this evidence commit; remote equality is checked after push."
+}
