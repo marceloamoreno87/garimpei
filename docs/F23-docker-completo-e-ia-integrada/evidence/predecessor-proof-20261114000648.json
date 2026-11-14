@@ -1,0 +1,4345 @@
+{
+  "base": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648",
+  "stamp": "20261114000648",
+  "created": [
+    "garimpei-predecessor-executor-20261114000648",
+    "garimpei-eval_pred_source_1114000648-postgres",
+    "garimpei-eval_pred_source_1114000648-worker",
+    "garimpei-eval_pred_source_1114000648-waha",
+    "garimpei-eval_pred_source_1114000648-ollama",
+    "garimpei-eval_pred_f17_1114000648-postgres",
+    "garimpei-eval_pred_f17_1114000648-worker",
+    "garimpei-eval_pred_f17_1114000648-waha",
+    "garimpei-eval_pred_f17_1114000648-ollama",
+    "garimpei-eval_pred_target_1114000648-postgres",
+    "garimpei-eval_pred_target_1114000648-worker",
+    "garimpei-eval_pred_target_1114000648-waha",
+    "garimpei-eval_pred_target_1114000648-ollama",
+    "garimpei-eval_pred_rollback_1114000648-postgres",
+    "garimpei-eval_pred_rollback_1114000648-worker",
+    "garimpei-eval_pred_rollback_1114000648-waha",
+    "garimpei-eval_pred_rollback_1114000648-ollama"
+  ],
+  "steps": {
+    "executor-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-predecessor-executor-20261114000648",
+        "--user",
+        "1000:1000",
+        "--group-add",
+        "1001",
+        "--network",
+        "host",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648,destination=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648",
+        "--mount",
+        "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock",
+        "--entrypoint",
+        "sleep",
+        "garimpei-quality:f23-eval_f23_runtime",
+        "infinity"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/executor-create.log"
+    },
+    "source-pg-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_source_1114000648-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:48145:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_source_1114000648",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114000648",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-pg-create.log"
+    },
+    "source-worker-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_source_1114000648-worker",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114000648",
+        "--label",
+        "com.docker.compose.service=worker",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source/private,destination=/private",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source/state,destination=/state",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-worker-holder.log"
+    },
+    "source-waha-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_source_1114000648-waha",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114000648",
+        "--label",
+        "com.docker.compose.service=waha",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source/waha,destination=/app/.sessions",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-waha-holder.log"
+    },
+    "source-ollama-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_source_1114000648-ollama",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114000648",
+        "--label",
+        "com.docker.compose.service=ollama",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source/ollama,destination=/root/.ollama",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-ollama-holder.log"
+    },
+    "f17-pg-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_f17_1114000648-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:59549:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_f17_1114000648",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114000648",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-pg-create.log"
+    },
+    "f17-worker-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_f17_1114000648-worker",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114000648",
+        "--label",
+        "com.docker.compose.service=worker",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17/private,destination=/private",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17/state,destination=/state",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-worker-holder.log"
+    },
+    "f17-waha-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_f17_1114000648-waha",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114000648",
+        "--label",
+        "com.docker.compose.service=waha",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17/waha,destination=/app/.sessions",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-waha-holder.log"
+    },
+    "f17-ollama-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_f17_1114000648-ollama",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114000648",
+        "--label",
+        "com.docker.compose.service=ollama",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17/ollama,destination=/root/.ollama",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-ollama-holder.log"
+    },
+    "target-pg-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_target_1114000648-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:47031:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_target_1114000648",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_target_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_target_1114000648",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-pg-create.log"
+    },
+    "target-worker-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_target_1114000648-worker",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_target_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_target_1114000648",
+        "--label",
+        "com.docker.compose.service=worker",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target/private,destination=/private",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target/state,destination=/state",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-worker-holder.log"
+    },
+    "target-waha-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_target_1114000648-waha",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_target_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_target_1114000648",
+        "--label",
+        "com.docker.compose.service=waha",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target/waha,destination=/app/.sessions",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-waha-holder.log"
+    },
+    "target-ollama-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_target_1114000648-ollama",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_target_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_target_1114000648",
+        "--label",
+        "com.docker.compose.service=ollama",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target/ollama,destination=/root/.ollama",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-ollama-holder.log"
+    },
+    "rollback-pg-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_rollback_1114000648-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:49989:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_rollback_1114000648",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_rollback_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_rollback_1114000648",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback-pg-create.log"
+    },
+    "rollback-worker-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_rollback_1114000648-worker",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_rollback_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_rollback_1114000648",
+        "--label",
+        "com.docker.compose.service=worker",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback/private,destination=/private",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback/state,destination=/state",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback-worker-holder.log"
+    },
+    "rollback-waha-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_rollback_1114000648-waha",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_rollback_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_rollback_1114000648",
+        "--label",
+        "com.docker.compose.service=waha",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback/waha,destination=/app/.sessions",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback-waha-holder.log"
+    },
+    "rollback-ollama-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_rollback_1114000648-ollama",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_rollback_1114000648",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_rollback_1114000648",
+        "--label",
+        "com.docker.compose.service=ollama",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback/ollama,destination=/root/.ollama",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/rollback-ollama-holder.log"
+    },
+    "prepare": {
+      "status": "PASS",
+      "at": "2026-11-14T00:06:54.817955+00:00"
+    },
+    "source-migrate": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source.env",
+        "migrate",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-migrate.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-migrate.log"
+    },
+    "source-seed": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source.env",
+        "seed",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-seed.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-seed.log"
+    },
+    "source-backup": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source.env",
+        "backup",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-backup.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-backup.log"
+    },
+    "source-inventory": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source.env",
+        "inventory",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-inventory.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-inventory.log"
+    },
+    "seed": {
+      "status": "PASS",
+      "at": "2026-11-14T00:07:24.429136+00:00"
+    },
+    "f17-migrate": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17.env",
+        "migrate",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-migrate.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-migrate.log"
+    },
+    "f17-restore": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17.env",
+        "restore",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-restore.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-restore.log"
+    },
+    "f17-inventory": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17.env",
+        "inventory",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-inventory.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/f17-inventory.log"
+    },
+    "f17": {
+      "status": "PASS",
+      "at": "2026-11-14T00:10:03.146385+00:00"
+    },
+    "source-snapshot": {
+      "exit_code": 0,
+      "command": [
+        "bash",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/scripts/docker-adoption.sh",
+        "snapshot",
+        "garimpei-eval_pred_source_1114000648",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cold-copy"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source-snapshot.log"
+    },
+    "snapshot": {
+      "status": "PASS",
+      "at": "2026-11-14T00:10:09.721336+00:00"
+    },
+    "target-restore-check": {
+      "exit_code": 0,
+      "command": [
+        "bash",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/scripts/docker-adoption.sh",
+        "restore-check",
+        "garimpei-eval_pred_target_1114000648",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cold-copy"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-restore-check.log"
+    },
+    "target-before-inventory": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target.env",
+        "inventory",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-before-inventory.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-before-inventory.log"
+    },
+    "target-migrate": {
+      "exit_code": 1,
+      "command": [
+        "docker",
+        "exec",
+        "garimpei-predecessor-executor-20261114000648",
+        "/app/apps/backend/.venv/bin/python",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/action.py",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target.env",
+        "migrate",
+        "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-migrate.json"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-migrate.log"
+    },
+    "adopt": {
+      "status": "FAIL",
+      "error": "target-migrate exit 1; private log /home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/target-migrate.log",
+      "at": "2026-11-14T00:10:33.052842+00:00"
+    },
+    "cleanup-garimpei-eval_pred_rollback_1114000648-ollama": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_rollback_1114000648-ollama"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_rollback_1114000648-ollama.log"
+    },
+    "cleanup-garimpei-eval_pred_rollback_1114000648-waha": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_rollback_1114000648-waha"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_rollback_1114000648-waha.log"
+    },
+    "cleanup-garimpei-eval_pred_rollback_1114000648-worker": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_rollback_1114000648-worker"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_rollback_1114000648-worker.log"
+    },
+    "cleanup-garimpei-eval_pred_rollback_1114000648-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_rollback_1114000648-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_rollback_1114000648-postgres.log"
+    },
+    "cleanup-garimpei-eval_pred_target_1114000648-ollama": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_target_1114000648-ollama"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_target_1114000648-ollama.log"
+    },
+    "cleanup-garimpei-eval_pred_target_1114000648-waha": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_target_1114000648-waha"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_target_1114000648-waha.log"
+    },
+    "cleanup-garimpei-eval_pred_target_1114000648-worker": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_target_1114000648-worker"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_target_1114000648-worker.log"
+    },
+    "cleanup-garimpei-eval_pred_target_1114000648-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_target_1114000648-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_target_1114000648-postgres.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114000648-ollama": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114000648-ollama"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_f17_1114000648-ollama.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114000648-waha": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114000648-waha"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_f17_1114000648-waha.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114000648-worker": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114000648-worker"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_f17_1114000648-worker.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114000648-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114000648-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_f17_1114000648-postgres.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114000648-ollama": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114000648-ollama"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_source_1114000648-ollama.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114000648-waha": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114000648-waha"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_source_1114000648-waha.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114000648-worker": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114000648-worker"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_source_1114000648-worker.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114000648-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114000648-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-eval_pred_source_1114000648-postgres.log"
+    },
+    "cleanup-garimpei-predecessor-executor-20261114000648": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-predecessor-executor-20261114000648"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/cleanup-garimpei-predecessor-executor-20261114000648.log"
+    },
+    "cleanup": {
+      "status": "PASS",
+      "at": "2026-11-14T00:12:15.835036+00:00"
+    }
+  },
+  "predecessor_commit": "15079aa7149b0a699891ddb10d8ccf5d06633608",
+  "candidate_commit": "1b25caea2782ec67979d53b4823ff71575b7bc1d",
+  "helper_sha256": "fcb523706be2e4ccc1e6c88a522c495daff69efa827353c57de463a2cc13f1c0",
+  "executor": "garimpei-predecessor-executor-20261114000648",
+  "scope": "Real predecessor Django0027/F17 and current migration; controlled filesystem holders, no real sessions/model/GPU.",
+  "f17_backup": {
+    "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/apps/backend/src/garimpei/__init__.py",
+    "environment": "eval_pred_source_1114000648",
+    "action": "backup",
+    "id": "ffabab2b-5179-4dcb-9048-86e51a1194b5",
+    "archive": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/source/backups/completed/ffabab2b-5179-4dcb-9048-86e51a1194b5.tar.gz",
+    "sha256": "7083f649ed1254b197a25571628d9787996a2a3a360a5156c0cb414afbf81f4b",
+    "snapshot_at": "2026-11-14T00:07:23.140140+00:00",
+    "scope": {
+      "counts": {
+        "runtime.listing": 12,
+        "runtime.mediajob": 2,
+        "runtime.mediaasset": 1,
+        "runtime.mediaentry": 1,
+        "runtime.alertintent": 3,
+        "runtime.alertattempt": 3,
+        "runtime.listingevent": 0,
+        "runtime.mediacapture": 9,
+        "runtime.inferencepart": 2,
+        "runtime.researchquery": 0,
+        "runtime.valuationwork": 6,
+        "runtime.assessmenthead": 1,
+        "runtime.mediareference": 0,
+        "runtime.navigationwork": 0,
+        "runtime.alertfeedcursor": 1,
+        "runtime.collectioncycle": 2,
+        "runtime.collectionstate": 1,
+        "runtime.manualcondition": 1,
+        "runtime.nichesuggestion": 0,
+        "runtime.operationalunit": 0,
+        "runtime.explorationoffer": 12,
+        "runtime.identityprogress": 0,
+        "runtime.inferencerequest": 2,
+        "runtime.goldqualification": 0,
+        "runtime.valuationprogress": 6,
+        "runtime.alerteventdecision": 0,
+        "runtime.firstalertidentity": 12,
+        "runtime.goldpolicyadoption": 1,
+        "runtime.listingobservation": 22,
+        "runtime.monitoringinterest": 2,
+        "runtime.suggestionevidence": 0,
+        "runtime.collectioncandidate": 0,
+        "runtime.conditionassessment": 1,
+        "runtime.explorationrevision": 1,
+        "runtime.firstalertinventory": 1,
+        "runtime.integrationsettings": 0,
+        "runtime.investigationtarget": 0,
+        "runtime.valuationevaluation": 6,
+        "runtime.listinginterestmatch": 44,
+        "runtime.navigationcheckpoint": 0,
+        "runtime.navigationunitreceipt": 0,
+        "runtime.operationaldiagnostic": 0,
+        "runtime.productidentification": 0,
+        "runtime.manualconditionhistory": 1,
+        "runtime.manualidentityrevision": 0,
+        "runtime.comparableinvestigation": 0,
+        "runtime.monitoringconfiguration": 1,
+        "runtime.firsteligibilitydecision": 12,
+        "runtime.researchcandidatedecision": 0
+      }
+    }
+  },
+  "source_inventory": {
+    "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/apps/backend/src/garimpei/__init__.py",
+    "environment": "eval_pred_source_1114000648",
+    "action": "inventory",
+    "tables": {
+      "django_migrations": {
+        "columns": [
+          "id",
+          "app",
+          "name",
+          "applied"
+        ],
+        "count": 75,
+        "sha256": "69190d85ae0520cdfa4ddd4358d32ad935ec24200d9c49b94f5c5ba172b0b7c9"
+      },
+      "persistence_monitoringconfiguration": {
+        "columns": [
+          "id",
+          "slot",
+          "revision",
+          "source",
+          "cep",
+          "shipping_estimate",
+          "resale_fee_percent",
+          "completed_at",
+          "completion_revision",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "a80dc463c0d128b390c9155a7e111e4ecd32dbb888dddaa7aec6a0319605a031"
+      },
+      "persistence_monitoringinterest": {
+        "columns": [
+          "id",
+          "kind",
+          "key",
+          "label",
+          "configuration_id"
+        ],
+        "count": 2,
+        "sha256": "60d28eeaa205948b417590db8400e4037253b3742460598f0196ee0ba86103db"
+      },
+      "procrastinate_events": {
+        "columns": [
+          "id",
+          "job_id",
+          "type",
+          "at"
+        ],
+        "count": 2,
+        "sha256": "12e76f3dcb648ffd66072f64911059956a788f3b47619d031e1ba5d228d0b33e"
+      },
+      "procrastinate_jobs": {
+        "columns": [
+          "id",
+          "queue_name",
+          "task_name",
+          "lock",
+          "args",
+          "status",
+          "scheduled_at",
+          "attempts",
+          "queueing_lock",
+          "priority",
+          "abort_requested",
+          "worker_id"
+        ],
+        "count": 1,
+        "sha256": "7a00ebb7fe4947aa80387dbc6322ed69525d5f659c729603ebec6ddbf3b8dfb3"
+      },
+      "procrastinate_periodic_defers": {
+        "columns": [
+          "id",
+          "task_name",
+          "defer_timestamp",
+          "job_id",
+          "periodic_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "procrastinate_workers": {
+        "columns": [
+          "id",
+          "last_heartbeat"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_alertattempt": {
+        "columns": [
+          "id",
+          "ordinal",
+          "generation",
+          "authorized_at",
+          "state",
+          "reason",
+          "message_id",
+          "ack",
+          "finished_at",
+          "provenance",
+          "intent_id",
+          "gold_policy_verified"
+        ],
+        "count": 3,
+        "sha256": "7cd81ce4528ec7626b32e551e0c44f2655b232face8ae98404b2fd16c1114f8c"
+      },
+      "runtime_alerteventdecision": {
+        "columns": [
+          "id",
+          "state",
+          "reason",
+          "condition_revision",
+          "financial",
+          "next_action",
+          "evaluated_at",
+          "event_id",
+          "assessment_id",
+          "assessment_revision"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_alertfeedcursor": {
+        "columns": [
+          "installation",
+          "sequence",
+          "history_ready",
+          "dispatch_suspended",
+          "next_tick",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "ca8db9ce479d48a0c7cb809bd9944bf122f13a012080df65e3382928b095a7ac"
+      },
+      "runtime_alertintent": {
+        "columns": [
+          "id",
+          "session",
+          "recipient",
+          "account",
+          "body",
+          "state",
+          "reason",
+          "next_action",
+          "lease_until",
+          "generation",
+          "failures",
+          "created_at",
+          "confirmed_at",
+          "confirmed_message",
+          "confirmed_ack",
+          "decision_id",
+          "financial",
+          "body_format",
+          "first_decision_id",
+          "gold_qualification_id"
+        ],
+        "count": 3,
+        "sha256": "2b9a573e75adefafd2a315095ec0c6cca4332d454990be9d3fbe468e27602e27"
+      },
+      "runtime_assessmenthead": {
+        "columns": [
+          "listing_id",
+          "input_fingerprint",
+          "generation",
+          "updated_at",
+          "observation_id",
+          "confirmed_id",
+          "current_id"
+        ],
+        "count": 1,
+        "sha256": "ab646d7e9dac9261df045f7bd3735abe6ce1e879c15553608b657d4b1df1a86f"
+      },
+      "runtime_backuprecord": {
+        "columns": [
+          "id",
+          "installation",
+          "kind",
+          "request_id",
+          "state",
+          "reason",
+          "started_at",
+          "finished_at",
+          "snapshot_at",
+          "file_key",
+          "size",
+          "sha256",
+          "format_version",
+          "restoration_state",
+          "transferring",
+          "scope",
+          "source_id"
+        ],
+        "count": 1,
+        "sha256": "50ed416e273feaff0e89acbb5c04be378863a14b9fd2b7c82b101b431c9771fa"
+      },
+      "runtime_backupschedule": {
+        "columns": [
+          "installation",
+          "last_success_at",
+          "last_failure_at",
+          "next_due_at",
+          "failures",
+          "revision"
+        ],
+        "count": 1,
+        "sha256": "00231a5e036ade9794180c39f1bf757281c9381137d577d34f7570330be5df9c"
+      },
+      "runtime_collectioncandidate": {
+        "columns": [
+          "id",
+          "query_key",
+          "external_id",
+          "candidates",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_collectioncycle": {
+        "columns": [
+          "id",
+          "scope_key",
+          "revision",
+          "phase",
+          "started_at",
+          "finished_at",
+          "scanned",
+          "origin",
+          "planned",
+          "results",
+          "diagnostics",
+          "published_count",
+          "state_id",
+          "window_end",
+          "window_evidence",
+          "window_start"
+        ],
+        "count": 2,
+        "sha256": "3dbf9a2f996581238403e2c5d36a51d4e0553e07f95beae1dd7935978ae78433"
+      },
+      "runtime_collectionstate": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "source",
+          "initial_completed_at",
+          "initial_scope",
+          "last_success_at",
+          "next_attempt_at",
+          "lease_until",
+          "generation",
+          "failures",
+          "access_suspended",
+          "current_id",
+          "monitoring_started_at",
+          "source_not_before"
+        ],
+        "count": 1,
+        "sha256": "8cf3c85c7da11ac43c3e8529632582685d314f4538748de92d9777f56e78b0a6"
+      },
+      "runtime_comparableinvestigation": {
+        "columns": [
+          "id",
+          "signature",
+          "product_key",
+          "configuration_id",
+          "configuration_revision",
+          "origin_interest",
+          "scope_key",
+          "context",
+          "limits",
+          "term",
+          "policy",
+          "state",
+          "reason",
+          "pages",
+          "details",
+          "attempts",
+          "failures",
+          "last_turn",
+          "generation",
+          "next_attempt_at",
+          "lease_until",
+          "last_progress_at",
+          "requested_at",
+          "cursor",
+          "signatures",
+          "buffer",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_conditionassessment": {
+        "columns": [
+          "id",
+          "input_fingerprint",
+          "policy_version",
+          "prompt_version",
+          "schema_version",
+          "model_revision",
+          "input_snapshot",
+          "generation",
+          "status",
+          "condition",
+          "sufficient",
+          "reason",
+          "inference_refs",
+          "media_references",
+          "result",
+          "created_at",
+          "updated_at",
+          "analyzed_at",
+          "publication_order",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 1,
+        "sha256": "f2260983d69d08ae1b58423feeedda9c2465ec356ed376495ba8d02cb8a7f16e"
+      },
+      "runtime_explorationoffer": {
+        "columns": [
+          "id",
+          "first_seen_at",
+          "search",
+          "categories",
+          "automatic_tab",
+          "pickup",
+          "shipping",
+          "visible",
+          "profit",
+          "payload",
+          "listing_id",
+          "revision_id"
+        ],
+        "count": 12,
+        "sha256": "f562ed025b176c145497cc7ec0ac935b771784f1565d790a363aeabcb66ba942"
+      },
+      "runtime_explorationrevision": {
+        "columns": [
+          "id",
+          "sequence",
+          "published_at",
+          "superseded_at",
+          "signature"
+        ],
+        "count": 1,
+        "sha256": "66c483d9c3026a709a8514bdab74822c2171bfc262adbfe9c58d4e112df31133"
+      },
+      "runtime_firstalertidentity": {
+        "columns": [
+          "id",
+          "installation",
+          "signature",
+          "manual_signature",
+          "generation",
+          "next_action",
+          "state",
+          "reason",
+          "intent_id",
+          "listing_id",
+          "manual_gold_signature"
+        ],
+        "count": 12,
+        "sha256": "3767dd40c2e4a4eae11957afc96b59e8fa50e04c4928a3c962fa8b1f32852739"
+      },
+      "runtime_firstalertinventory": {
+        "columns": [
+          "installation",
+          "cursor",
+          "completed",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "1e1c81535f48f70e14eeacfa2c22086e98ae851380601f8555538a1f8e795b42"
+      },
+      "runtime_firsteligibilitydecision": {
+        "columns": [
+          "id",
+          "generation",
+          "signature",
+          "cause",
+          "condition_revision",
+          "state",
+          "reason",
+          "financial",
+          "reasons",
+          "publication_status",
+          "published_at",
+          "publication_source",
+          "evaluated_at",
+          "identity_id",
+          "observation_id",
+          "assessment_id",
+          "assessment_revision"
+        ],
+        "count": 12,
+        "sha256": "474b351774005a40cdc31cf991485c472d9ffcc2f79777d260246ac6a63d1bb9"
+      },
+      "runtime_goldpolicyadoption": {
+        "columns": [
+          "installation",
+          "policy",
+          "state",
+          "activated_at",
+          "consumer_version",
+          "inventory"
+        ],
+        "count": 1,
+        "sha256": "7ff7041ce826016d88316c683f0dccbe35f191b66464a76d8fab15a5ad4eec8d"
+      },
+      "runtime_goldqualification": {
+        "columns": [
+          "id",
+          "purpose_key",
+          "policy",
+          "input_fingerprint",
+          "state",
+          "reason",
+          "reasons",
+          "evidence",
+          "evaluated_at",
+          "valid_until",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_identityprogress": {
+        "columns": [
+          "listing_id",
+          "manual_revision",
+          "manual_id",
+          "current_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_inferencecontrol": {
+        "columns": [
+          "id",
+          "paused",
+          "revision",
+          "generation",
+          "active_request",
+          "lease_until",
+          "resident",
+          "service",
+          "reason",
+          "checked_at",
+          "last_used_at",
+          "artifact"
+        ],
+        "count": 1,
+        "sha256": "0d37d053a8ba3d4897cea74650e5a558fc1dc99d50f9df0f3f9e21f52780659d"
+      },
+      "runtime_inferencepart": {
+        "columns": [
+          "id",
+          "position",
+          "content",
+          "state",
+          "attempts",
+          "generation",
+          "result",
+          "metrics",
+          "reason",
+          "request_id"
+        ],
+        "count": 2,
+        "sha256": "89b5690062e0d873b83453d360477e08269a6b68dffec89d5951b75ba3fdfde3"
+      },
+      "runtime_inferencerequest": {
+        "columns": [
+          "id",
+          "revision",
+          "signature",
+          "artifact",
+          "prompt_version",
+          "schema_version",
+          "state",
+          "reason",
+          "coverage",
+          "created_at",
+          "completed_at",
+          "next_attempt_at",
+          "observation_id",
+          "cohort_generation",
+          "cohort_id"
+        ],
+        "count": 2,
+        "sha256": "922d399253e637686a713a2381bf14b21dbcd281a10a4bbdc3302206b5593351"
+      },
+      "runtime_integrationsettings": {
+        "columns": [
+          "id",
+          "facebook_revision",
+          "facebook_file",
+          "facebook_saved_at",
+          "facebook_expires_at",
+          "whatsapp_configured",
+          "whatsapp_session",
+          "whatsapp_account",
+          "whatsapp_group",
+          "whatsapp_group_name",
+          "alerts_enabled",
+          "facebook_baseline_cycle",
+          "facebook_login_request",
+          "facebook_login_requested_at",
+          "facebook_login_state",
+          "facebook_mode"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_investigationtarget": {
+        "columns": [
+          "id",
+          "manual_revision",
+          "configuration_revision",
+          "active",
+          "investigation_id",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_listing": {
+        "columns": [
+          "id",
+          "source",
+          "external_id",
+          "canonical_url",
+          "first_seen_at",
+          "origin",
+          "ordinal",
+          "known_price_id",
+          "latest_id",
+          "publication_order",
+          "discovery_emitted",
+          "media_tracking_active",
+          "media_refresh_after"
+        ],
+        "count": 12,
+        "sha256": "fd52f1e780ba1c776e19afa749fe7382459a0f1a72b6c9c1061553c2dde03f21"
+      },
+      "runtime_listingevent": {
+        "columns": [
+          "sequence",
+          "id",
+          "kind",
+          "silent",
+          "occurred_at",
+          "listing_id",
+          "observation_id",
+          "previous_id",
+          "publication_order"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_listinginterestmatch": {
+        "columns": [
+          "id",
+          "kind",
+          "key",
+          "observation_id"
+        ],
+        "count": 44,
+        "sha256": "a8309688865df310f0d10f9f99027b46527c1cb0f0af95fdd4427cfc2d4f5851"
+      },
+      "runtime_listingobservation": {
+        "columns": [
+          "id",
+          "ordinal",
+          "observed_at",
+          "price",
+          "freight",
+          "evidence",
+          "coverage",
+          "provenance",
+          "cycle_id",
+          "listing_id"
+        ],
+        "count": 22,
+        "sha256": "9f24b88379df92f18a9bac077535aa704857953b5e96b0a528b2cfa1f2494f50"
+      },
+      "runtime_manualcondition": {
+        "columns": [
+          "listing_id",
+          "choice",
+          "revision",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "f52ffadca4e52048ecab7c97e93b6c076175871832c0ffb9fe630a0e94107100"
+      },
+      "runtime_manualconditionhistory": {
+        "columns": [
+          "id",
+          "publication_order",
+          "choice",
+          "revision",
+          "confirmed_at",
+          "listing_id"
+        ],
+        "count": 1,
+        "sha256": "41479d5ade452d3498afe4c04fe6809c8d3d952595335000f2866288f54f5330"
+      },
+      "runtime_manualidentityrevision": {
+        "columns": [
+          "id",
+          "revision",
+          "action",
+          "resolution",
+          "values",
+          "reviewed_conflicts",
+          "recorded_at",
+          "listing_id",
+          "observation_id",
+          "previous_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_mediaasset": {
+        "columns": [
+          "id",
+          "photo_key",
+          "sha256",
+          "mime",
+          "width",
+          "height",
+          "byte_count",
+          "key",
+          "obtained_at",
+          "state",
+          "thumbnail_state",
+          "thumbnail_hash",
+          "thumbnail_bytes",
+          "reason",
+          "removed_at",
+          "listing_id"
+        ],
+        "count": 1,
+        "sha256": "8314797f47d576ae73e37677631915c81825a2b947510edf02683081987de4bd"
+      },
+      "runtime_mediacapture": {
+        "columns": [
+          "id",
+          "revision",
+          "presence",
+          "state",
+          "reason",
+          "complete",
+          "known_count",
+          "refresh_requested",
+          "observed_at",
+          "last_attempt_at",
+          "verified_at",
+          "observation_id",
+          "source_complete"
+        ],
+        "count": 9,
+        "sha256": "83dda232b0cc806fd5f2e2a0b661cdb821445d2a111cccdb000978e4559e06c5"
+      },
+      "runtime_mediaentry": {
+        "columns": [
+          "id",
+          "photo_key",
+          "position",
+          "primary",
+          "correlated",
+          "candidates",
+          "generation",
+          "reason",
+          "asset_id",
+          "capture_id"
+        ],
+        "count": 1,
+        "sha256": "4199d34d988e7870491724e8ec310ec0320599fefee71ab3d3375b6394f1cdb0"
+      },
+      "runtime_mediajob": {
+        "columns": [
+          "id",
+          "kind",
+          "generation",
+          "state",
+          "attempts",
+          "next_at",
+          "lease_until",
+          "lease_generation",
+          "reserved_bytes",
+          "reason",
+          "refresh_requested",
+          "entry_id"
+        ],
+        "count": 2,
+        "sha256": "3883115059cf95a95cbec9a5eab54f7e1a58b22c956b16c717a1878052dc8879"
+      },
+      "runtime_mediareference": {
+        "columns": [
+          "id",
+          "consumer",
+          "execution",
+          "created_at",
+          "released_at",
+          "asset_id"
+        ],
+        "count": 1,
+        "sha256": "40ed7c26b021d7296ff3ed146c592a20413ae82047cdc78a6bc2f698877d861e"
+      },
+      "runtime_navigationcheckpoint": {
+        "columns": [
+          "work_id",
+          "catalog_version",
+          "limits",
+          "context",
+          "context_hash",
+          "terms",
+          "term_index",
+          "cursor",
+          "signatures",
+          "buffered_candidates",
+          "buffer_proof",
+          "invalid_cards",
+          "pages",
+          "details",
+          "pending_unit",
+          "generation"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationunitreceipt": {
+        "columns": [
+          "id",
+          "unit_key",
+          "input_revision",
+          "generation",
+          "confirmed_at",
+          "turn_order",
+          "consumed_pages",
+          "consumed_details",
+          "reason",
+          "observation_ids",
+          "work_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationwork": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "source",
+          "scope_key",
+          "revision",
+          "origin_interest",
+          "original_term",
+          "purpose",
+          "front",
+          "phase",
+          "reason",
+          "generation",
+          "last_turn",
+          "failures",
+          "next_attempt_at",
+          "last_progress_at",
+          "request_id",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_nichesuggestion": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "revision",
+          "origin_interest",
+          "original_term",
+          "term",
+          "relation_key",
+          "catalog_version",
+          "relation_reason",
+          "state",
+          "reason",
+          "observed_at",
+          "last_slice_at",
+          "pages",
+          "details",
+          "pending_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationaldiagnostic": {
+        "columns": [
+          "id",
+          "reason",
+          "created_at",
+          "protected",
+          "unit_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationalsnapshot": {
+        "columns": [
+          "id",
+          "installation",
+          "created_at",
+          "payload"
+        ],
+        "count": 1,
+        "sha256": "a5f97a7bbbacdaa20d45d1f010245c59588dcee1d07a6c80a81c510f952e6d7b"
+      },
+      "runtime_operationalunit": {
+        "columns": [
+          "id",
+          "installation",
+          "stage",
+          "key",
+          "scope",
+          "revision",
+          "generation",
+          "pending_since",
+          "last_progress_at",
+          "last_attempt_at",
+          "checkpoint",
+          "confirmed_boundaries",
+          "pending",
+          "failures",
+          "next_attempt_at",
+          "reason",
+          "suspended"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_productidentification": {
+        "columns": [
+          "id",
+          "manual_revision",
+          "policy",
+          "state",
+          "product_key",
+          "result",
+          "recorded_at",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_recoverybarrier": {
+        "columns": [
+          "installation",
+          "backup_id",
+          "snapshot_at",
+          "restored_at",
+          "state",
+          "reason",
+          "evidence"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_researchcandidatedecision": {
+        "columns": [
+          "id",
+          "policy",
+          "decision",
+          "reasons",
+          "evidence",
+          "recorded_at",
+          "observation_id",
+          "target_id",
+          "query_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_researchquery": {
+        "columns": [
+          "id",
+          "ordinal",
+          "term",
+          "requested",
+          "observed",
+          "state",
+          "reason",
+          "requested_at",
+          "confirmed_at",
+          "investigation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_robotcontrol": {
+        "columns": [
+          "installation",
+          "requested_enabled",
+          "revision",
+          "epoch",
+          "changed_at",
+          "last_command"
+        ],
+        "count": 1,
+        "sha256": "4e47633c19efeb4998c1da5d2f1d76221edc7265a91a315e8364dd8d215e6057"
+      },
+      "runtime_robotcontrolcommand": {
+        "columns": [
+          "id",
+          "target_enabled",
+          "expected_revision",
+          "result_revision",
+          "created_at",
+          "installation_id"
+        ],
+        "count": 1,
+        "sha256": "6f8fd6b49940a58f9737d44020c3ebe581583b5fc194b73e31269ec8a3215b83"
+      },
+      "runtime_robotoperation": {
+        "columns": [
+          "id",
+          "stage",
+          "unit_key",
+          "input_revision",
+          "resource_generation",
+          "control_epoch",
+          "authorized_at",
+          "finished_at",
+          "state",
+          "reason",
+          "worker_reference",
+          "installation_id"
+        ],
+        "count": 6,
+        "sha256": "5b5084ad990d5ffac2d167f8d7c658a697e6a9519036bdcc9c795afc10f10c2f"
+      },
+      "runtime_runtimeprobe": {
+        "columns": [
+          "id",
+          "environment_id",
+          "run_id",
+          "kind",
+          "sequence",
+          "created_at",
+          "completed_at"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_runtimestate": {
+        "columns": [
+          "environment_id",
+          "run_id",
+          "started_at",
+          "stopped_at",
+          "last_probe_at",
+          "probe_sequence"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_suggestionevidence": {
+        "columns": [
+          "id",
+          "source",
+          "external_id",
+          "canonical_url",
+          "excerpt",
+          "observed_at",
+          "context_hash",
+          "catalog_version",
+          "suggestion_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_valuationevaluation": {
+        "columns": [
+          "id",
+          "result",
+          "work_id"
+        ],
+        "count": 6,
+        "sha256": "e7eee5a0cd2c4e276eaa83be99ae7c88d11b011a7a85f3f976b57d2e32cf861a"
+      },
+      "runtime_valuationprogress": {
+        "columns": [
+          "listing_id",
+          "requested",
+          "signature",
+          "due_at",
+          "current_id"
+        ],
+        "count": 6,
+        "sha256": "b09bdcf5708fa0ac1543e51f70942078d9a6e082b24ceaf27721be430f8b78ce"
+      },
+      "runtime_valuationwork": {
+        "columns": [
+          "id",
+          "revision",
+          "snapshot",
+          "requested_at",
+          "next_attempt_at",
+          "lease_until",
+          "completed",
+          "attempts",
+          "diagnostic",
+          "listing_id"
+        ],
+        "count": 6,
+        "sha256": "f239c2dfec33e89280425c126cd0e41cc41179a2369422291d29d658a66c2b4e"
+      }
+    },
+    "listing_ids": [
+      "19614249-091d-49c5-ac32-316086dfccd9",
+      "2c4c7e64-6d09-42b7-a346-1cce00c0acac",
+      "3349efe8-e7fc-472e-b952-a9d717827cac",
+      "3db7551d-a953-41ef-898c-75a68339f9e3",
+      "611b82b1-f263-4fa4-a591-39508be86028",
+      "860f3b25-2703-483b-a551-beb049482faf",
+      "8a200b58-99d8-443d-b041-aaa34d820d63",
+      "8aa1d57e-cab2-4e30-9e25-e70397244be6",
+      "9836ac98-72b8-409f-9f7a-f69cf491d49e",
+      "9db08c50-af17-48f0-bb16-3c7277d5a2ba",
+      "c336e0d0-425f-47e2-aa87-1fbe195d690c",
+      "f48316f8-6149-4cc2-91fc-7733a8992a2a"
+    ],
+    "receipts": [
+      {
+        "id": "19a87936-4ab0-4b79-a88c-0a95963e4c7c",
+        "state": "uncertain",
+        "body_sha256": "e9b3ecdae6c7b9f15de185c8e1c6764b4dfdaf40ff6fdd3a80961ffd9387ce35",
+        "confirmed_message": null
+      },
+      {
+        "id": "b464e49c-bc3d-4a86-8538-a397b456aa67",
+        "state": "confirmed",
+        "body_sha256": "2e256a3f7439f5b1f9dd61987edd2b0d9bb4e587a1cedc495e2f7450b98cf0c9",
+        "confirmed_message": "message-1"
+      },
+      {
+        "id": "b8813a34-27d8-4866-8a3e-c3f1cc23b957",
+        "state": "confirmed",
+        "body_sha256": "cf909719592880807dfb24015769b44bd74cf290607b62504c25823ebec7a1b8",
+        "confirmed_message": "message-2"
+      }
+    ],
+    "runtime_migrations": [
+      "0001_initial",
+      "0002_monitoring_configuration",
+      "0003_listing_collection",
+      "0004_listing_publication_window",
+      "0005_listing_manual_condition",
+      "0006_valuation",
+      "0007_exploration",
+      "0008_alert_delivery",
+      "0009_integration_settings",
+      "0010_facebook_session_baseline",
+      "0011_facebook_browser_profile",
+      "0012_opportunity_collection",
+      "0013_alert_message_snapshot",
+      "0013_local_inference",
+      "0014_merge_inference_and_financial_snapshot",
+      "0015_first_eligibility",
+      "0015_navigation",
+      "0016_merge_navigation_and_first_eligibility",
+      "0017_listing_media",
+      "0017_navigation_cursor",
+      "0017_operations",
+      "0018_media_capture_source_completeness",
+      "0019_bounded_media_refresh",
+      "0020_merge_native_cursor_and_media",
+      "0021_condition_assessment",
+      "0021_identity_research",
+      "0021_merge_operations_and_media",
+      "0022_condition_inference_cohort",
+      "0022_operational_snapshots",
+      "0023_merge_assessment_and_operations",
+      "0024_merge_inference_cohort_and_operations",
+      "0025_merge_identity_research",
+      "0026_robot_control",
+      "0027_gold_qualification"
+    ]
+  },
+  "f17_restore": {
+    "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/apps/backend/src/garimpei/__init__.py",
+    "environment": "eval_pred_f17_1114000648",
+    "action": "restore",
+    "id": "ffabab2b-5179-4dcb-9048-86e51a1194b5",
+    "recovery_blocked": true,
+    "core_ids_counts_receipts_verified": true
+  },
+  "f17_inventory": {
+    "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/apps/backend/src/garimpei/__init__.py",
+    "environment": "eval_pred_f17_1114000648",
+    "action": "inventory",
+    "tables": {
+      "django_migrations": {
+        "columns": [
+          "id",
+          "app",
+          "name",
+          "applied"
+        ],
+        "count": 75,
+        "sha256": "b6f4eac99bb9154a0c8a6976563823184a9c0d8d695535557a887563d4264cb3"
+      },
+      "persistence_monitoringconfiguration": {
+        "columns": [
+          "id",
+          "slot",
+          "revision",
+          "source",
+          "cep",
+          "shipping_estimate",
+          "resale_fee_percent",
+          "completed_at",
+          "completion_revision",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "a80dc463c0d128b390c9155a7e111e4ecd32dbb888dddaa7aec6a0319605a031"
+      },
+      "persistence_monitoringinterest": {
+        "columns": [
+          "id",
+          "kind",
+          "key",
+          "label",
+          "configuration_id"
+        ],
+        "count": 2,
+        "sha256": "60d28eeaa205948b417590db8400e4037253b3742460598f0196ee0ba86103db"
+      },
+      "procrastinate_events": {
+        "columns": [
+          "id",
+          "job_id",
+          "type",
+          "at"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "procrastinate_jobs": {
+        "columns": [
+          "id",
+          "queue_name",
+          "task_name",
+          "lock",
+          "args",
+          "status",
+          "scheduled_at",
+          "attempts",
+          "queueing_lock",
+          "priority",
+          "abort_requested",
+          "worker_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "procrastinate_periodic_defers": {
+        "columns": [
+          "id",
+          "task_name",
+          "defer_timestamp",
+          "job_id",
+          "periodic_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "procrastinate_workers": {
+        "columns": [
+          "id",
+          "last_heartbeat"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_alertattempt": {
+        "columns": [
+          "id",
+          "ordinal",
+          "generation",
+          "authorized_at",
+          "state",
+          "reason",
+          "message_id",
+          "ack",
+          "finished_at",
+          "provenance",
+          "intent_id",
+          "gold_policy_verified"
+        ],
+        "count": 3,
+        "sha256": "7cd81ce4528ec7626b32e551e0c44f2655b232face8ae98404b2fd16c1114f8c"
+      },
+      "runtime_alerteventdecision": {
+        "columns": [
+          "id",
+          "state",
+          "reason",
+          "condition_revision",
+          "financial",
+          "next_action",
+          "evaluated_at",
+          "event_id",
+          "assessment_id",
+          "assessment_revision"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_alertfeedcursor": {
+        "columns": [
+          "installation",
+          "sequence",
+          "history_ready",
+          "dispatch_suspended",
+          "next_tick",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "12ca1c9a83375c28e0b022ed49c403384874ca418803aef86e7e9251727f3ec4"
+      },
+      "runtime_alertintent": {
+        "columns": [
+          "id",
+          "session",
+          "recipient",
+          "account",
+          "body",
+          "state",
+          "reason",
+          "next_action",
+          "lease_until",
+          "generation",
+          "failures",
+          "created_at",
+          "confirmed_at",
+          "confirmed_message",
+          "confirmed_ack",
+          "decision_id",
+          "financial",
+          "body_format",
+          "first_decision_id",
+          "gold_qualification_id"
+        ],
+        "count": 3,
+        "sha256": "2b9a573e75adefafd2a315095ec0c6cca4332d454990be9d3fbe468e27602e27"
+      },
+      "runtime_assessmenthead": {
+        "columns": [
+          "listing_id",
+          "input_fingerprint",
+          "generation",
+          "updated_at",
+          "observation_id",
+          "confirmed_id",
+          "current_id"
+        ],
+        "count": 1,
+        "sha256": "ab646d7e9dac9261df045f7bd3735abe6ce1e879c15553608b657d4b1df1a86f"
+      },
+      "runtime_backuprecord": {
+        "columns": [
+          "id",
+          "installation",
+          "kind",
+          "request_id",
+          "state",
+          "reason",
+          "started_at",
+          "finished_at",
+          "snapshot_at",
+          "file_key",
+          "size",
+          "sha256",
+          "format_version",
+          "restoration_state",
+          "transferring",
+          "scope",
+          "source_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_backupschedule": {
+        "columns": [
+          "installation",
+          "last_success_at",
+          "last_failure_at",
+          "next_due_at",
+          "failures",
+          "revision"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_collectioncandidate": {
+        "columns": [
+          "id",
+          "query_key",
+          "external_id",
+          "candidates",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_collectioncycle": {
+        "columns": [
+          "id",
+          "scope_key",
+          "revision",
+          "phase",
+          "started_at",
+          "finished_at",
+          "scanned",
+          "origin",
+          "planned",
+          "results",
+          "diagnostics",
+          "published_count",
+          "state_id",
+          "window_end",
+          "window_evidence",
+          "window_start"
+        ],
+        "count": 2,
+        "sha256": "3dbf9a2f996581238403e2c5d36a51d4e0553e07f95beae1dd7935978ae78433"
+      },
+      "runtime_collectionstate": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "source",
+          "initial_completed_at",
+          "initial_scope",
+          "last_success_at",
+          "next_attempt_at",
+          "lease_until",
+          "generation",
+          "failures",
+          "access_suspended",
+          "current_id",
+          "monitoring_started_at",
+          "source_not_before"
+        ],
+        "count": 1,
+        "sha256": "fa8481ed54c0c3c6e0ea29bef6a06fa9520cb7615266bedc4663d1623f6a97c5"
+      },
+      "runtime_comparableinvestigation": {
+        "columns": [
+          "id",
+          "signature",
+          "product_key",
+          "configuration_id",
+          "configuration_revision",
+          "origin_interest",
+          "scope_key",
+          "context",
+          "limits",
+          "term",
+          "policy",
+          "state",
+          "reason",
+          "pages",
+          "details",
+          "attempts",
+          "failures",
+          "last_turn",
+          "generation",
+          "next_attempt_at",
+          "lease_until",
+          "last_progress_at",
+          "requested_at",
+          "cursor",
+          "signatures",
+          "buffer",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_conditionassessment": {
+        "columns": [
+          "id",
+          "input_fingerprint",
+          "policy_version",
+          "prompt_version",
+          "schema_version",
+          "model_revision",
+          "input_snapshot",
+          "generation",
+          "status",
+          "condition",
+          "sufficient",
+          "reason",
+          "inference_refs",
+          "media_references",
+          "result",
+          "created_at",
+          "updated_at",
+          "analyzed_at",
+          "publication_order",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 1,
+        "sha256": "f2260983d69d08ae1b58423feeedda9c2465ec356ed376495ba8d02cb8a7f16e"
+      },
+      "runtime_explorationoffer": {
+        "columns": [
+          "id",
+          "first_seen_at",
+          "search",
+          "categories",
+          "automatic_tab",
+          "pickup",
+          "shipping",
+          "visible",
+          "profit",
+          "payload",
+          "listing_id",
+          "revision_id"
+        ],
+        "count": 12,
+        "sha256": "f562ed025b176c145497cc7ec0ac935b771784f1565d790a363aeabcb66ba942"
+      },
+      "runtime_explorationrevision": {
+        "columns": [
+          "id",
+          "sequence",
+          "published_at",
+          "superseded_at",
+          "signature"
+        ],
+        "count": 1,
+        "sha256": "66c483d9c3026a709a8514bdab74822c2171bfc262adbfe9c58d4e112df31133"
+      },
+      "runtime_firstalertidentity": {
+        "columns": [
+          "id",
+          "installation",
+          "signature",
+          "manual_signature",
+          "generation",
+          "next_action",
+          "state",
+          "reason",
+          "intent_id",
+          "listing_id",
+          "manual_gold_signature"
+        ],
+        "count": 12,
+        "sha256": "3767dd40c2e4a4eae11957afc96b59e8fa50e04c4928a3c962fa8b1f32852739"
+      },
+      "runtime_firstalertinventory": {
+        "columns": [
+          "installation",
+          "cursor",
+          "completed",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "1e1c81535f48f70e14eeacfa2c22086e98ae851380601f8555538a1f8e795b42"
+      },
+      "runtime_firsteligibilitydecision": {
+        "columns": [
+          "id",
+          "generation",
+          "signature",
+          "cause",
+          "condition_revision",
+          "state",
+          "reason",
+          "financial",
+          "reasons",
+          "publication_status",
+          "published_at",
+          "publication_source",
+          "evaluated_at",
+          "identity_id",
+          "observation_id",
+          "assessment_id",
+          "assessment_revision"
+        ],
+        "count": 12,
+        "sha256": "474b351774005a40cdc31cf991485c472d9ffcc2f79777d260246ac6a63d1bb9"
+      },
+      "runtime_goldpolicyadoption": {
+        "columns": [
+          "installation",
+          "policy",
+          "state",
+          "activated_at",
+          "consumer_version",
+          "inventory"
+        ],
+        "count": 1,
+        "sha256": "7ff7041ce826016d88316c683f0dccbe35f191b66464a76d8fab15a5ad4eec8d"
+      },
+      "runtime_goldqualification": {
+        "columns": [
+          "id",
+          "purpose_key",
+          "policy",
+          "input_fingerprint",
+          "state",
+          "reason",
+          "reasons",
+          "evidence",
+          "evaluated_at",
+          "valid_until",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_identityprogress": {
+        "columns": [
+          "listing_id",
+          "manual_revision",
+          "manual_id",
+          "current_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_inferencecontrol": {
+        "columns": [
+          "id",
+          "paused",
+          "revision",
+          "generation",
+          "active_request",
+          "lease_until",
+          "resident",
+          "service",
+          "reason",
+          "checked_at",
+          "last_used_at",
+          "artifact"
+        ],
+        "count": 1,
+        "sha256": "06fe6b927f82b137187d0d0596e57e8ccb917c0817397d4c3e30bf1b80d2bc99"
+      },
+      "runtime_inferencepart": {
+        "columns": [
+          "id",
+          "position",
+          "content",
+          "state",
+          "attempts",
+          "generation",
+          "result",
+          "metrics",
+          "reason",
+          "request_id"
+        ],
+        "count": 2,
+        "sha256": "89b5690062e0d873b83453d360477e08269a6b68dffec89d5951b75ba3fdfde3"
+      },
+      "runtime_inferencerequest": {
+        "columns": [
+          "id",
+          "revision",
+          "signature",
+          "artifact",
+          "prompt_version",
+          "schema_version",
+          "state",
+          "reason",
+          "coverage",
+          "created_at",
+          "completed_at",
+          "next_attempt_at",
+          "observation_id",
+          "cohort_generation",
+          "cohort_id"
+        ],
+        "count": 2,
+        "sha256": "922d399253e637686a713a2381bf14b21dbcd281a10a4bbdc3302206b5593351"
+      },
+      "runtime_integrationsettings": {
+        "columns": [
+          "id",
+          "facebook_revision",
+          "facebook_file",
+          "facebook_saved_at",
+          "facebook_expires_at",
+          "whatsapp_configured",
+          "whatsapp_session",
+          "whatsapp_account",
+          "whatsapp_group",
+          "whatsapp_group_name",
+          "alerts_enabled",
+          "facebook_baseline_cycle",
+          "facebook_login_request",
+          "facebook_login_requested_at",
+          "facebook_login_state",
+          "facebook_mode"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_investigationtarget": {
+        "columns": [
+          "id",
+          "manual_revision",
+          "configuration_revision",
+          "active",
+          "investigation_id",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_listing": {
+        "columns": [
+          "id",
+          "source",
+          "external_id",
+          "canonical_url",
+          "first_seen_at",
+          "origin",
+          "ordinal",
+          "known_price_id",
+          "latest_id",
+          "publication_order",
+          "discovery_emitted",
+          "media_tracking_active",
+          "media_refresh_after"
+        ],
+        "count": 12,
+        "sha256": "fd52f1e780ba1c776e19afa749fe7382459a0f1a72b6c9c1061553c2dde03f21"
+      },
+      "runtime_listingevent": {
+        "columns": [
+          "sequence",
+          "id",
+          "kind",
+          "silent",
+          "occurred_at",
+          "listing_id",
+          "observation_id",
+          "previous_id",
+          "publication_order"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_listinginterestmatch": {
+        "columns": [
+          "id",
+          "kind",
+          "key",
+          "observation_id"
+        ],
+        "count": 44,
+        "sha256": "a8309688865df310f0d10f9f99027b46527c1cb0f0af95fdd4427cfc2d4f5851"
+      },
+      "runtime_listingobservation": {
+        "columns": [
+          "id",
+          "ordinal",
+          "observed_at",
+          "price",
+          "freight",
+          "evidence",
+          "coverage",
+          "provenance",
+          "cycle_id",
+          "listing_id"
+        ],
+        "count": 22,
+        "sha256": "9f24b88379df92f18a9bac077535aa704857953b5e96b0a528b2cfa1f2494f50"
+      },
+      "runtime_manualcondition": {
+        "columns": [
+          "listing_id",
+          "choice",
+          "revision",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "f52ffadca4e52048ecab7c97e93b6c076175871832c0ffb9fe630a0e94107100"
+      },
+      "runtime_manualconditionhistory": {
+        "columns": [
+          "id",
+          "publication_order",
+          "choice",
+          "revision",
+          "confirmed_at",
+          "listing_id"
+        ],
+        "count": 1,
+        "sha256": "41479d5ade452d3498afe4c04fe6809c8d3d952595335000f2866288f54f5330"
+      },
+      "runtime_manualidentityrevision": {
+        "columns": [
+          "id",
+          "revision",
+          "action",
+          "resolution",
+          "values",
+          "reviewed_conflicts",
+          "recorded_at",
+          "listing_id",
+          "observation_id",
+          "previous_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_mediaasset": {
+        "columns": [
+          "id",
+          "photo_key",
+          "sha256",
+          "mime",
+          "width",
+          "height",
+          "byte_count",
+          "key",
+          "obtained_at",
+          "state",
+          "thumbnail_state",
+          "thumbnail_hash",
+          "thumbnail_bytes",
+          "reason",
+          "removed_at",
+          "listing_id"
+        ],
+        "count": 1,
+        "sha256": "8314797f47d576ae73e37677631915c81825a2b947510edf02683081987de4bd"
+      },
+      "runtime_mediacapture": {
+        "columns": [
+          "id",
+          "revision",
+          "presence",
+          "state",
+          "reason",
+          "complete",
+          "known_count",
+          "refresh_requested",
+          "observed_at",
+          "last_attempt_at",
+          "verified_at",
+          "observation_id",
+          "source_complete"
+        ],
+        "count": 9,
+        "sha256": "83dda232b0cc806fd5f2e2a0b661cdb821445d2a111cccdb000978e4559e06c5"
+      },
+      "runtime_mediaentry": {
+        "columns": [
+          "id",
+          "photo_key",
+          "position",
+          "primary",
+          "correlated",
+          "candidates",
+          "generation",
+          "reason",
+          "asset_id",
+          "capture_id"
+        ],
+        "count": 1,
+        "sha256": "4199d34d988e7870491724e8ec310ec0320599fefee71ab3d3375b6394f1cdb0"
+      },
+      "runtime_mediajob": {
+        "columns": [
+          "id",
+          "kind",
+          "generation",
+          "state",
+          "attempts",
+          "next_at",
+          "lease_until",
+          "lease_generation",
+          "reserved_bytes",
+          "reason",
+          "refresh_requested",
+          "entry_id"
+        ],
+        "count": 2,
+        "sha256": "3883115059cf95a95cbec9a5eab54f7e1a58b22c956b16c717a1878052dc8879"
+      },
+      "runtime_mediareference": {
+        "columns": [
+          "id",
+          "consumer",
+          "execution",
+          "created_at",
+          "released_at",
+          "asset_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationcheckpoint": {
+        "columns": [
+          "work_id",
+          "catalog_version",
+          "limits",
+          "context",
+          "context_hash",
+          "terms",
+          "term_index",
+          "cursor",
+          "signatures",
+          "buffered_candidates",
+          "buffer_proof",
+          "invalid_cards",
+          "pages",
+          "details",
+          "pending_unit",
+          "generation"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationunitreceipt": {
+        "columns": [
+          "id",
+          "unit_key",
+          "input_revision",
+          "generation",
+          "confirmed_at",
+          "turn_order",
+          "consumed_pages",
+          "consumed_details",
+          "reason",
+          "observation_ids",
+          "work_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationwork": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "source",
+          "scope_key",
+          "revision",
+          "origin_interest",
+          "original_term",
+          "purpose",
+          "front",
+          "phase",
+          "reason",
+          "generation",
+          "last_turn",
+          "failures",
+          "next_attempt_at",
+          "last_progress_at",
+          "request_id",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_nichesuggestion": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "revision",
+          "origin_interest",
+          "original_term",
+          "term",
+          "relation_key",
+          "catalog_version",
+          "relation_reason",
+          "state",
+          "reason",
+          "observed_at",
+          "last_slice_at",
+          "pages",
+          "details",
+          "pending_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationaldiagnostic": {
+        "columns": [
+          "id",
+          "reason",
+          "created_at",
+          "protected",
+          "unit_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationalsnapshot": {
+        "columns": [
+          "id",
+          "installation",
+          "created_at",
+          "payload"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationalunit": {
+        "columns": [
+          "id",
+          "installation",
+          "stage",
+          "key",
+          "scope",
+          "revision",
+          "generation",
+          "pending_since",
+          "last_progress_at",
+          "last_attempt_at",
+          "checkpoint",
+          "confirmed_boundaries",
+          "pending",
+          "failures",
+          "next_attempt_at",
+          "reason",
+          "suspended"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_productidentification": {
+        "columns": [
+          "id",
+          "manual_revision",
+          "policy",
+          "state",
+          "product_key",
+          "result",
+          "recorded_at",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_recoverybarrier": {
+        "columns": [
+          "installation",
+          "backup_id",
+          "snapshot_at",
+          "restored_at",
+          "state",
+          "reason",
+          "evidence"
+        ],
+        "count": 1,
+        "sha256": "e4f1a44fdd3a6dba853d3c6b2f8b09c0d5e9faa21c801b1f4847730c46d27f6d"
+      },
+      "runtime_researchcandidatedecision": {
+        "columns": [
+          "id",
+          "policy",
+          "decision",
+          "reasons",
+          "evidence",
+          "recorded_at",
+          "observation_id",
+          "target_id",
+          "query_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_researchquery": {
+        "columns": [
+          "id",
+          "ordinal",
+          "term",
+          "requested",
+          "observed",
+          "state",
+          "reason",
+          "requested_at",
+          "confirmed_at",
+          "investigation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_robotcontrol": {
+        "columns": [
+          "installation",
+          "requested_enabled",
+          "revision",
+          "epoch",
+          "changed_at",
+          "last_command"
+        ],
+        "count": 1,
+        "sha256": "7b890192049da6bd17b011815fe1f86c83d5fc4b1719980f6417649e9d5aa750"
+      },
+      "runtime_robotcontrolcommand": {
+        "columns": [
+          "id",
+          "target_enabled",
+          "expected_revision",
+          "result_revision",
+          "created_at",
+          "installation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_robotoperation": {
+        "columns": [
+          "id",
+          "stage",
+          "unit_key",
+          "input_revision",
+          "resource_generation",
+          "control_epoch",
+          "authorized_at",
+          "finished_at",
+          "state",
+          "reason",
+          "worker_reference",
+          "installation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_runtimeprobe": {
+        "columns": [
+          "id",
+          "environment_id",
+          "run_id",
+          "kind",
+          "sequence",
+          "created_at",
+          "completed_at"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_runtimestate": {
+        "columns": [
+          "environment_id",
+          "run_id",
+          "started_at",
+          "stopped_at",
+          "last_probe_at",
+          "probe_sequence"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_suggestionevidence": {
+        "columns": [
+          "id",
+          "source",
+          "external_id",
+          "canonical_url",
+          "excerpt",
+          "observed_at",
+          "context_hash",
+          "catalog_version",
+          "suggestion_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_valuationevaluation": {
+        "columns": [
+          "id",
+          "result",
+          "work_id"
+        ],
+        "count": 6,
+        "sha256": "e7eee5a0cd2c4e276eaa83be99ae7c88d11b011a7a85f3f976b57d2e32cf861a"
+      },
+      "runtime_valuationprogress": {
+        "columns": [
+          "listing_id",
+          "requested",
+          "signature",
+          "due_at",
+          "current_id"
+        ],
+        "count": 6,
+        "sha256": "b09bdcf5708fa0ac1543e51f70942078d9a6e082b24ceaf27721be430f8b78ce"
+      },
+      "runtime_valuationwork": {
+        "columns": [
+          "id",
+          "revision",
+          "snapshot",
+          "requested_at",
+          "next_attempt_at",
+          "lease_until",
+          "completed",
+          "attempts",
+          "diagnostic",
+          "listing_id"
+        ],
+        "count": 6,
+        "sha256": "f239c2dfec33e89280425c126cd0e41cc41179a2369422291d29d658a66c2b4e"
+      }
+    },
+    "listing_ids": [
+      "19614249-091d-49c5-ac32-316086dfccd9",
+      "2c4c7e64-6d09-42b7-a346-1cce00c0acac",
+      "3349efe8-e7fc-472e-b952-a9d717827cac",
+      "3db7551d-a953-41ef-898c-75a68339f9e3",
+      "611b82b1-f263-4fa4-a591-39508be86028",
+      "860f3b25-2703-483b-a551-beb049482faf",
+      "8a200b58-99d8-443d-b041-aaa34d820d63",
+      "8aa1d57e-cab2-4e30-9e25-e70397244be6",
+      "9836ac98-72b8-409f-9f7a-f69cf491d49e",
+      "9db08c50-af17-48f0-bb16-3c7277d5a2ba",
+      "c336e0d0-425f-47e2-aa87-1fbe195d690c",
+      "f48316f8-6149-4cc2-91fc-7733a8992a2a"
+    ],
+    "receipts": [
+      {
+        "id": "19a87936-4ab0-4b79-a88c-0a95963e4c7c",
+        "state": "uncertain",
+        "body_sha256": "e9b3ecdae6c7b9f15de185c8e1c6764b4dfdaf40ff6fdd3a80961ffd9387ce35",
+        "confirmed_message": null
+      },
+      {
+        "id": "b464e49c-bc3d-4a86-8538-a397b456aa67",
+        "state": "confirmed",
+        "body_sha256": "2e256a3f7439f5b1f9dd61987edd2b0d9bb4e587a1cedc495e2f7450b98cf0c9",
+        "confirmed_message": "message-1"
+      },
+      {
+        "id": "b8813a34-27d8-4866-8a3e-c3f1cc23b957",
+        "state": "confirmed",
+        "body_sha256": "cf909719592880807dfb24015769b44bd74cf290607b62504c25823ebec7a1b8",
+        "confirmed_message": "message-2"
+      }
+    ],
+    "runtime_migrations": [
+      "0001_initial",
+      "0002_monitoring_configuration",
+      "0003_listing_collection",
+      "0004_listing_publication_window",
+      "0005_listing_manual_condition",
+      "0006_valuation",
+      "0007_exploration",
+      "0008_alert_delivery",
+      "0009_integration_settings",
+      "0010_facebook_session_baseline",
+      "0011_facebook_browser_profile",
+      "0012_opportunity_collection",
+      "0013_alert_message_snapshot",
+      "0013_local_inference",
+      "0014_merge_inference_and_financial_snapshot",
+      "0015_first_eligibility",
+      "0015_navigation",
+      "0016_merge_navigation_and_first_eligibility",
+      "0017_listing_media",
+      "0017_navigation_cursor",
+      "0017_operations",
+      "0018_media_capture_source_completeness",
+      "0019_bounded_media_refresh",
+      "0020_merge_native_cursor_and_media",
+      "0021_condition_assessment",
+      "0021_identity_research",
+      "0021_merge_operations_and_media",
+      "0022_condition_inference_cohort",
+      "0022_operational_snapshots",
+      "0023_merge_assessment_and_operations",
+      "0024_merge_inference_cohort_and_operations",
+      "0025_merge_identity_research",
+      "0026_robot_control",
+      "0027_gold_qualification"
+    ]
+  },
+  "source_files": {
+    "private": {
+      "media/.garimpei-media-owner": {
+        "sha256": "d277d41ee2bd2522309f63f27da0364d1bef9febfd6b124ab79d189a06260bac",
+        "bytes": 27,
+        "mode": "0o600"
+      },
+      "config/synthetic-runtime.env": {
+        "sha256": "f3d2f9090093a1330391182d276199bebccc3fa30cd682188f37ad8b1b9140ac",
+        "bytes": 1213,
+        "mode": "0o644"
+      },
+      "backups/verified-predecessor-f17.archive": {
+        "sha256": "7083f649ed1254b197a25571628d9787996a2a3a360a5156c0cb414afbf81f4b",
+        "bytes": 21200,
+        "mode": "0o644"
+      },
+      "integrations/profile/synthetic-session.bin": {
+        "sha256": "3d9c633878ef45b8d30aedd44eb4e75ab55e243d3bf55ffca3c1bbb13fba28cd",
+        "bytes": 50,
+        "mode": "0o644"
+      },
+      "media/9836ac98-72b8-409f-9f7a-f69cf491d49e/880b0cb174572828fe73e38af7c38e85f96d70132a8a5558080594e95aa6af61": {
+        "sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "bytes": 26534,
+        "mode": "0o600"
+      },
+      "media/9836ac98-72b8-409f-9f7a-f69cf491d49e/880b0cb174572828fe73e38af7c38e85f96d70132a8a5558080594e95aa6af61.thumb": {
+        "sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "bytes": 956,
+        "mode": "0o600"
+      }
+    },
+    "state": {
+      "<ENV>/inference/tokenizer.json": {
+        "sha256": "a6d03821608b2cad22e2799f5356d3a492aff041acca8c70074ae7c6d18a52f6",
+        "bytes": 41,
+        "mode": "0o644"
+      }
+    },
+    "waha": {
+      "synthetic-session.bin": {
+        "sha256": "0aa4f8c21830b9237b7546b111d9bd8074109988153fa6ceb599cbc6f23be299",
+        "bytes": 47,
+        "mode": "0o644"
+      }
+    },
+    "ollama": {
+      "models/blobs/synthetic-weights.bin": {
+        "sha256": "7cc63d59ef8fda70d7d5467695cffb6afe660dc246c70743956fc75efc68ff54",
+        "bytes": 40,
+        "mode": "0o644"
+      }
+    }
+  },
+  "snapshot_ready": true,
+  "target_before_migrate": {
+    "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114000648/installation/apps/backend/src/garimpei/__init__.py",
+    "environment": "eval_pred_target_1114000648",
+    "action": "inventory",
+    "tables": {
+      "django_migrations": {
+        "columns": [
+          "id",
+          "app",
+          "name",
+          "applied"
+        ],
+        "count": 75,
+        "sha256": "69190d85ae0520cdfa4ddd4358d32ad935ec24200d9c49b94f5c5ba172b0b7c9"
+      },
+      "persistence_monitoringconfiguration": {
+        "columns": [
+          "id",
+          "slot",
+          "revision",
+          "source",
+          "cep",
+          "shipping_estimate",
+          "resale_fee_percent",
+          "completed_at",
+          "completion_revision",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "a80dc463c0d128b390c9155a7e111e4ecd32dbb888dddaa7aec6a0319605a031"
+      },
+      "persistence_monitoringinterest": {
+        "columns": [
+          "id",
+          "kind",
+          "key",
+          "label",
+          "configuration_id"
+        ],
+        "count": 2,
+        "sha256": "60d28eeaa205948b417590db8400e4037253b3742460598f0196ee0ba86103db"
+      },
+      "procrastinate_events": {
+        "columns": [
+          "id",
+          "job_id",
+          "type",
+          "at"
+        ],
+        "count": 2,
+        "sha256": "12e76f3dcb648ffd66072f64911059956a788f3b47619d031e1ba5d228d0b33e"
+      },
+      "procrastinate_jobs": {
+        "columns": [
+          "id",
+          "queue_name",
+          "task_name",
+          "lock",
+          "args",
+          "status",
+          "scheduled_at",
+          "attempts",
+          "queueing_lock",
+          "priority",
+          "abort_requested",
+          "worker_id"
+        ],
+        "count": 1,
+        "sha256": "7a00ebb7fe4947aa80387dbc6322ed69525d5f659c729603ebec6ddbf3b8dfb3"
+      },
+      "procrastinate_periodic_defers": {
+        "columns": [
+          "id",
+          "task_name",
+          "defer_timestamp",
+          "job_id",
+          "periodic_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "procrastinate_workers": {
+        "columns": [
+          "id",
+          "last_heartbeat"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_alertattempt": {
+        "columns": [
+          "id",
+          "ordinal",
+          "generation",
+          "authorized_at",
+          "state",
+          "reason",
+          "message_id",
+          "ack",
+          "finished_at",
+          "provenance",
+          "intent_id",
+          "gold_policy_verified"
+        ],
+        "count": 3,
+        "sha256": "7cd81ce4528ec7626b32e551e0c44f2655b232face8ae98404b2fd16c1114f8c"
+      },
+      "runtime_alerteventdecision": {
+        "columns": [
+          "id",
+          "state",
+          "reason",
+          "condition_revision",
+          "financial",
+          "next_action",
+          "evaluated_at",
+          "event_id",
+          "assessment_id",
+          "assessment_revision"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_alertfeedcursor": {
+        "columns": [
+          "installation",
+          "sequence",
+          "history_ready",
+          "dispatch_suspended",
+          "next_tick",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "ca8db9ce479d48a0c7cb809bd9944bf122f13a012080df65e3382928b095a7ac"
+      },
+      "runtime_alertintent": {
+        "columns": [
+          "id",
+          "session",
+          "recipient",
+          "account",
+          "body",
+          "state",
+          "reason",
+          "next_action",
+          "lease_until",
+          "generation",
+          "failures",
+          "created_at",
+          "confirmed_at",
+          "confirmed_message",
+          "confirmed_ack",
+          "decision_id",
+          "financial",
+          "body_format",
+          "first_decision_id",
+          "gold_qualification_id"
+        ],
+        "count": 3,
+        "sha256": "2b9a573e75adefafd2a315095ec0c6cca4332d454990be9d3fbe468e27602e27"
+      },
+      "runtime_assessmenthead": {
+        "columns": [
+          "listing_id",
+          "input_fingerprint",
+          "generation",
+          "updated_at",
+          "observation_id",
+          "confirmed_id",
+          "current_id"
+        ],
+        "count": 1,
+        "sha256": "ab646d7e9dac9261df045f7bd3735abe6ce1e879c15553608b657d4b1df1a86f"
+      },
+      "runtime_backuprecord": {
+        "columns": [
+          "id",
+          "installation",
+          "kind",
+          "request_id",
+          "state",
+          "reason",
+          "started_at",
+          "finished_at",
+          "snapshot_at",
+          "file_key",
+          "size",
+          "sha256",
+          "format_version",
+          "restoration_state",
+          "transferring",
+          "scope",
+          "source_id"
+        ],
+        "count": 1,
+        "sha256": "50ed416e273feaff0e89acbb5c04be378863a14b9fd2b7c82b101b431c9771fa"
+      },
+      "runtime_backupschedule": {
+        "columns": [
+          "installation",
+          "last_success_at",
+          "last_failure_at",
+          "next_due_at",
+          "failures",
+          "revision"
+        ],
+        "count": 1,
+        "sha256": "00231a5e036ade9794180c39f1bf757281c9381137d577d34f7570330be5df9c"
+      },
+      "runtime_collectioncandidate": {
+        "columns": [
+          "id",
+          "query_key",
+          "external_id",
+          "candidates",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_collectioncycle": {
+        "columns": [
+          "id",
+          "scope_key",
+          "revision",
+          "phase",
+          "started_at",
+          "finished_at",
+          "scanned",
+          "origin",
+          "planned",
+          "results",
+          "diagnostics",
+          "published_count",
+          "state_id",
+          "window_end",
+          "window_evidence",
+          "window_start"
+        ],
+        "count": 2,
+        "sha256": "3dbf9a2f996581238403e2c5d36a51d4e0553e07f95beae1dd7935978ae78433"
+      },
+      "runtime_collectionstate": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "source",
+          "initial_completed_at",
+          "initial_scope",
+          "last_success_at",
+          "next_attempt_at",
+          "lease_until",
+          "generation",
+          "failures",
+          "access_suspended",
+          "current_id",
+          "monitoring_started_at",
+          "source_not_before"
+        ],
+        "count": 1,
+        "sha256": "8cf3c85c7da11ac43c3e8529632582685d314f4538748de92d9777f56e78b0a6"
+      },
+      "runtime_comparableinvestigation": {
+        "columns": [
+          "id",
+          "signature",
+          "product_key",
+          "configuration_id",
+          "configuration_revision",
+          "origin_interest",
+          "scope_key",
+          "context",
+          "limits",
+          "term",
+          "policy",
+          "state",
+          "reason",
+          "pages",
+          "details",
+          "attempts",
+          "failures",
+          "last_turn",
+          "generation",
+          "next_attempt_at",
+          "lease_until",
+          "last_progress_at",
+          "requested_at",
+          "cursor",
+          "signatures",
+          "buffer",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_conditionassessment": {
+        "columns": [
+          "id",
+          "input_fingerprint",
+          "policy_version",
+          "prompt_version",
+          "schema_version",
+          "model_revision",
+          "input_snapshot",
+          "generation",
+          "status",
+          "condition",
+          "sufficient",
+          "reason",
+          "inference_refs",
+          "media_references",
+          "result",
+          "created_at",
+          "updated_at",
+          "analyzed_at",
+          "publication_order",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 1,
+        "sha256": "f2260983d69d08ae1b58423feeedda9c2465ec356ed376495ba8d02cb8a7f16e"
+      },
+      "runtime_explorationoffer": {
+        "columns": [
+          "id",
+          "first_seen_at",
+          "search",
+          "categories",
+          "automatic_tab",
+          "pickup",
+          "shipping",
+          "visible",
+          "profit",
+          "payload",
+          "listing_id",
+          "revision_id"
+        ],
+        "count": 12,
+        "sha256": "f562ed025b176c145497cc7ec0ac935b771784f1565d790a363aeabcb66ba942"
+      },
+      "runtime_explorationrevision": {
+        "columns": [
+          "id",
+          "sequence",
+          "published_at",
+          "superseded_at",
+          "signature"
+        ],
+        "count": 1,
+        "sha256": "66c483d9c3026a709a8514bdab74822c2171bfc262adbfe9c58d4e112df31133"
+      },
+      "runtime_firstalertidentity": {
+        "columns": [
+          "id",
+          "installation",
+          "signature",
+          "manual_signature",
+          "generation",
+          "next_action",
+          "state",
+          "reason",
+          "intent_id",
+          "listing_id",
+          "manual_gold_signature"
+        ],
+        "count": 12,
+        "sha256": "3767dd40c2e4a4eae11957afc96b59e8fa50e04c4928a3c962fa8b1f32852739"
+      },
+      "runtime_firstalertinventory": {
+        "columns": [
+          "installation",
+          "cursor",
+          "completed",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "1e1c81535f48f70e14eeacfa2c22086e98ae851380601f8555538a1f8e795b42"
+      },
+      "runtime_firsteligibilitydecision": {
+        "columns": [
+          "id",
+          "generation",
+          "signature",
+          "cause",
+          "condition_revision",
+          "state",
+          "reason",
+          "financial",
+          "reasons",
+          "publication_status",
+          "published_at",
+          "publication_source",
+          "evaluated_at",
+          "identity_id",
+          "observation_id",
+          "assessment_id",
+          "assessment_revision"
+        ],
+        "count": 12,
+        "sha256": "474b351774005a40cdc31cf991485c472d9ffcc2f79777d260246ac6a63d1bb9"
+      },
+      "runtime_goldpolicyadoption": {
+        "columns": [
+          "installation",
+          "policy",
+          "state",
+          "activated_at",
+          "consumer_version",
+          "inventory"
+        ],
+        "count": 1,
+        "sha256": "7ff7041ce826016d88316c683f0dccbe35f191b66464a76d8fab15a5ad4eec8d"
+      },
+      "runtime_goldqualification": {
+        "columns": [
+          "id",
+          "purpose_key",
+          "policy",
+          "input_fingerprint",
+          "state",
+          "reason",
+          "reasons",
+          "evidence",
+          "evaluated_at",
+          "valid_until",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_identityprogress": {
+        "columns": [
+          "listing_id",
+          "manual_revision",
+          "manual_id",
+          "current_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_inferencecontrol": {
+        "columns": [
+          "id",
+          "paused",
+          "revision",
+          "generation",
+          "active_request",
+          "lease_until",
+          "resident",
+          "service",
+          "reason",
+          "checked_at",
+          "last_used_at",
+          "artifact"
+        ],
+        "count": 1,
+        "sha256": "0d37d053a8ba3d4897cea74650e5a558fc1dc99d50f9df0f3f9e21f52780659d"
+      },
+      "runtime_inferencepart": {
+        "columns": [
+          "id",
+          "position",
+          "content",
+          "state",
+          "attempts",
+          "generation",
+          "result",
+          "metrics",
+          "reason",
+          "request_id"
+        ],
+        "count": 2,
+        "sha256": "89b5690062e0d873b83453d360477e08269a6b68dffec89d5951b75ba3fdfde3"
+      },
+      "runtime_inferencerequest": {
+        "columns": [
+          "id",
+          "revision",
+          "signature",
+          "artifact",
+          "prompt_version",
+          "schema_version",
+          "state",
+          "reason",
+          "coverage",
+          "created_at",
+          "completed_at",
+          "next_attempt_at",
+          "observation_id",
+          "cohort_generation",
+          "cohort_id"
+        ],
+        "count": 2,
+        "sha256": "922d399253e637686a713a2381bf14b21dbcd281a10a4bbdc3302206b5593351"
+      },
+      "runtime_integrationsettings": {
+        "columns": [
+          "id",
+          "facebook_revision",
+          "facebook_file",
+          "facebook_saved_at",
+          "facebook_expires_at",
+          "whatsapp_configured",
+          "whatsapp_session",
+          "whatsapp_account",
+          "whatsapp_group",
+          "whatsapp_group_name",
+          "alerts_enabled",
+          "facebook_baseline_cycle",
+          "facebook_login_request",
+          "facebook_login_requested_at",
+          "facebook_login_state",
+          "facebook_mode"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_investigationtarget": {
+        "columns": [
+          "id",
+          "manual_revision",
+          "configuration_revision",
+          "active",
+          "investigation_id",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_listing": {
+        "columns": [
+          "id",
+          "source",
+          "external_id",
+          "canonical_url",
+          "first_seen_at",
+          "origin",
+          "ordinal",
+          "known_price_id",
+          "latest_id",
+          "publication_order",
+          "discovery_emitted",
+          "media_tracking_active",
+          "media_refresh_after"
+        ],
+        "count": 12,
+        "sha256": "fd52f1e780ba1c776e19afa749fe7382459a0f1a72b6c9c1061553c2dde03f21"
+      },
+      "runtime_listingevent": {
+        "columns": [
+          "sequence",
+          "id",
+          "kind",
+          "silent",
+          "occurred_at",
+          "listing_id",
+          "observation_id",
+          "previous_id",
+          "publication_order"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_listinginterestmatch": {
+        "columns": [
+          "id",
+          "kind",
+          "key",
+          "observation_id"
+        ],
+        "count": 44,
+        "sha256": "a8309688865df310f0d10f9f99027b46527c1cb0f0af95fdd4427cfc2d4f5851"
+      },
+      "runtime_listingobservation": {
+        "columns": [
+          "id",
+          "ordinal",
+          "observed_at",
+          "price",
+          "freight",
+          "evidence",
+          "coverage",
+          "provenance",
+          "cycle_id",
+          "listing_id"
+        ],
+        "count": 22,
+        "sha256": "9f24b88379df92f18a9bac077535aa704857953b5e96b0a528b2cfa1f2494f50"
+      },
+      "runtime_manualcondition": {
+        "columns": [
+          "listing_id",
+          "choice",
+          "revision",
+          "updated_at"
+        ],
+        "count": 1,
+        "sha256": "f52ffadca4e52048ecab7c97e93b6c076175871832c0ffb9fe630a0e94107100"
+      },
+      "runtime_manualconditionhistory": {
+        "columns": [
+          "id",
+          "publication_order",
+          "choice",
+          "revision",
+          "confirmed_at",
+          "listing_id"
+        ],
+        "count": 1,
+        "sha256": "41479d5ade452d3498afe4c04fe6809c8d3d952595335000f2866288f54f5330"
+      },
+      "runtime_manualidentityrevision": {
+        "columns": [
+          "id",
+          "revision",
+          "action",
+          "resolution",
+          "values",
+          "reviewed_conflicts",
+          "recorded_at",
+          "listing_id",
+          "observation_id",
+          "previous_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_mediaasset": {
+        "columns": [
+          "id",
+          "photo_key",
+          "sha256",
+          "mime",
+          "width",
+          "height",
+          "byte_count",
+          "key",
+          "obtained_at",
+          "state",
+          "thumbnail_state",
+          "thumbnail_hash",
+          "thumbnail_bytes",
+          "reason",
+          "removed_at",
+          "listing_id"
+        ],
+        "count": 1,
+        "sha256": "8314797f47d576ae73e37677631915c81825a2b947510edf02683081987de4bd"
+      },
+      "runtime_mediacapture": {
+        "columns": [
+          "id",
+          "revision",
+          "presence",
+          "state",
+          "reason",
+          "complete",
+          "known_count",
+          "refresh_requested",
+          "observed_at",
+          "last_attempt_at",
+          "verified_at",
+          "observation_id",
+          "source_complete"
+        ],
+        "count": 9,
+        "sha256": "83dda232b0cc806fd5f2e2a0b661cdb821445d2a111cccdb000978e4559e06c5"
+      },
+      "runtime_mediaentry": {
+        "columns": [
+          "id",
+          "photo_key",
+          "position",
+          "primary",
+          "correlated",
+          "candidates",
+          "generation",
+          "reason",
+          "asset_id",
+          "capture_id"
+        ],
+        "count": 1,
+        "sha256": "4199d34d988e7870491724e8ec310ec0320599fefee71ab3d3375b6394f1cdb0"
+      },
+      "runtime_mediajob": {
+        "columns": [
+          "id",
+          "kind",
+          "generation",
+          "state",
+          "attempts",
+          "next_at",
+          "lease_until",
+          "lease_generation",
+          "reserved_bytes",
+          "reason",
+          "refresh_requested",
+          "entry_id"
+        ],
+        "count": 2,
+        "sha256": "3883115059cf95a95cbec9a5eab54f7e1a58b22c956b16c717a1878052dc8879"
+      },
+      "runtime_mediareference": {
+        "columns": [
+          "id",
+          "consumer",
+          "execution",
+          "created_at",
+          "released_at",
+          "asset_id"
+        ],
+        "count": 1,
+        "sha256": "40ed7c26b021d7296ff3ed146c592a20413ae82047cdc78a6bc2f698877d861e"
+      },
+      "runtime_navigationcheckpoint": {
+        "columns": [
+          "work_id",
+          "catalog_version",
+          "limits",
+          "context",
+          "context_hash",
+          "terms",
+          "term_index",
+          "cursor",
+          "signatures",
+          "buffered_candidates",
+          "buffer_proof",
+          "invalid_cards",
+          "pages",
+          "details",
+          "pending_unit",
+          "generation"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationunitreceipt": {
+        "columns": [
+          "id",
+          "unit_key",
+          "input_revision",
+          "generation",
+          "confirmed_at",
+          "turn_order",
+          "consumed_pages",
+          "consumed_details",
+          "reason",
+          "observation_ids",
+          "work_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_navigationwork": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "source",
+          "scope_key",
+          "revision",
+          "origin_interest",
+          "original_term",
+          "purpose",
+          "front",
+          "phase",
+          "reason",
+          "generation",
+          "last_turn",
+          "failures",
+          "next_attempt_at",
+          "last_progress_at",
+          "request_id",
+          "cycle_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_nichesuggestion": {
+        "columns": [
+          "id",
+          "configuration_id",
+          "revision",
+          "origin_interest",
+          "original_term",
+          "term",
+          "relation_key",
+          "catalog_version",
+          "relation_reason",
+          "state",
+          "reason",
+          "observed_at",
+          "last_slice_at",
+          "pages",
+          "details",
+          "pending_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationaldiagnostic": {
+        "columns": [
+          "id",
+          "reason",
+          "created_at",
+          "protected",
+          "unit_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_operationalsnapshot": {
+        "columns": [
+          "id",
+          "installation",
+          "created_at",
+          "payload"
+        ],
+        "count": 1,
+        "sha256": "a5f97a7bbbacdaa20d45d1f010245c59588dcee1d07a6c80a81c510f952e6d7b"
+      },
+      "runtime_operationalunit": {
+        "columns": [
+          "id",
+          "installation",
+          "stage",
+          "key",
+          "scope",
+          "revision",
+          "generation",
+          "pending_since",
+          "last_progress_at",
+          "last_attempt_at",
+          "checkpoint",
+          "confirmed_boundaries",
+          "pending",
+          "failures",
+          "next_attempt_at",
+          "reason",
+          "suspended"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_productidentification": {
+        "columns": [
+          "id",
+          "manual_revision",
+          "policy",
+          "state",
+          "product_key",
+          "result",
+          "recorded_at",
+          "listing_id",
+          "observation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_recoverybarrier": {
+        "columns": [
+          "installation",
+          "backup_id",
+          "snapshot_at",
+          "restored_at",
+          "state",
+          "reason",
+          "evidence"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_researchcandidatedecision": {
+        "columns": [
+          "id",
+          "policy",
+          "decision",
+          "reasons",
+          "evidence",
+          "recorded_at",
+          "observation_id",
+          "target_id",
+          "query_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_researchquery": {
+        "columns": [
+          "id",
+          "ordinal",
+          "term",
+          "requested",
+          "observed",
+          "state",
+          "reason",
+          "requested_at",
+          "confirmed_at",
+          "investigation_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_robotcontrol": {
+        "columns": [
+          "installation",
+          "requested_enabled",
+          "revision",
+          "epoch",
+          "changed_at",
+          "last_command"
+        ],
+        "count": 1,
+        "sha256": "4e47633c19efeb4998c1da5d2f1d76221edc7265a91a315e8364dd8d215e6057"
+      },
+      "runtime_robotcontrolcommand": {
+        "columns": [
+          "id",
+          "target_enabled",
+          "expected_revision",
+          "result_revision",
+          "created_at",
+          "installation_id"
+        ],
+        "count": 1,
+        "sha256": "6f8fd6b49940a58f9737d44020c3ebe581583b5fc194b73e31269ec8a3215b83"
+      },
+      "runtime_robotoperation": {
+        "columns": [
+          "id",
+          "stage",
+          "unit_key",
+          "input_revision",
+          "resource_generation",
+          "control_epoch",
+          "authorized_at",
+          "finished_at",
+          "state",
+          "reason",
+          "worker_reference",
+          "installation_id"
+        ],
+        "count": 6,
+        "sha256": "5b5084ad990d5ffac2d167f8d7c658a697e6a9519036bdcc9c795afc10f10c2f"
+      },
+      "runtime_runtimeprobe": {
+        "columns": [
+          "id",
+          "environment_id",
+          "run_id",
+          "kind",
+          "sequence",
+          "created_at",
+          "completed_at"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_runtimestate": {
+        "columns": [
+          "environment_id",
+          "run_id",
+          "started_at",
+          "stopped_at",
+          "last_probe_at",
+          "probe_sequence"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_suggestionevidence": {
+        "columns": [
+          "id",
+          "source",
+          "external_id",
+          "canonical_url",
+          "excerpt",
+          "observed_at",
+          "context_hash",
+          "catalog_version",
+          "suggestion_id"
+        ],
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtime_valuationevaluation": {
+        "columns": [
+          "id",
+          "result",
+          "work_id"
+        ],
+        "count": 6,
+        "sha256": "e7eee5a0cd2c4e276eaa83be99ae7c88d11b011a7a85f3f976b57d2e32cf861a"
+      },
+      "runtime_valuationprogress": {
+        "columns": [
+          "listing_id",
+          "requested",
+          "signature",
+          "due_at",
+          "current_id"
+        ],
+        "count": 6,
+        "sha256": "b09bdcf5708fa0ac1543e51f70942078d9a6e082b24ceaf27721be430f8b78ce"
+      },
+      "runtime_valuationwork": {
+        "columns": [
+          "id",
+          "revision",
+          "snapshot",
+          "requested_at",
+          "next_attempt_at",
+          "lease_until",
+          "completed",
+          "attempts",
+          "diagnostic",
+          "listing_id"
+        ],
+        "count": 6,
+        "sha256": "f239c2dfec33e89280425c126cd0e41cc41179a2369422291d29d658a66c2b4e"
+      }
+    },
+    "listing_ids": [
+      "19614249-091d-49c5-ac32-316086dfccd9",
+      "2c4c7e64-6d09-42b7-a346-1cce00c0acac",
+      "3349efe8-e7fc-472e-b952-a9d717827cac",
+      "3db7551d-a953-41ef-898c-75a68339f9e3",
+      "611b82b1-f263-4fa4-a591-39508be86028",
+      "860f3b25-2703-483b-a551-beb049482faf",
+      "8a200b58-99d8-443d-b041-aaa34d820d63",
+      "8aa1d57e-cab2-4e30-9e25-e70397244be6",
+      "9836ac98-72b8-409f-9f7a-f69cf491d49e",
+      "9db08c50-af17-48f0-bb16-3c7277d5a2ba",
+      "c336e0d0-425f-47e2-aa87-1fbe195d690c",
+      "f48316f8-6149-4cc2-91fc-7733a8992a2a"
+    ],
+    "receipts": [
+      {
+        "id": "19a87936-4ab0-4b79-a88c-0a95963e4c7c",
+        "state": "uncertain",
+        "body_sha256": "e9b3ecdae6c7b9f15de185c8e1c6764b4dfdaf40ff6fdd3a80961ffd9387ce35",
+        "confirmed_message": null
+      },
+      {
+        "id": "b464e49c-bc3d-4a86-8538-a397b456aa67",
+        "state": "confirmed",
+        "body_sha256": "2e256a3f7439f5b1f9dd61987edd2b0d9bb4e587a1cedc495e2f7450b98cf0c9",
+        "confirmed_message": "message-1"
+      },
+      {
+        "id": "b8813a34-27d8-4866-8a3e-c3f1cc23b957",
+        "state": "confirmed",
+        "body_sha256": "cf909719592880807dfb24015769b44bd74cf290607b62504c25823ebec7a1b8",
+        "confirmed_message": "message-2"
+      }
+    ],
+    "runtime_migrations": [
+      "0001_initial",
+      "0002_monitoring_configuration",
+      "0003_listing_collection",
+      "0004_listing_publication_window",
+      "0005_listing_manual_condition",
+      "0006_valuation",
+      "0007_exploration",
+      "0008_alert_delivery",
+      "0009_integration_settings",
+      "0010_facebook_session_baseline",
+      "0011_facebook_browser_profile",
+      "0012_opportunity_collection",
+      "0013_alert_message_snapshot",
+      "0013_local_inference",
+      "0014_merge_inference_and_financial_snapshot",
+      "0015_first_eligibility",
+      "0015_navigation",
+      "0016_merge_navigation_and_first_eligibility",
+      "0017_listing_media",
+      "0017_navigation_cursor",
+      "0017_operations",
+      "0018_media_capture_source_completeness",
+      "0019_bounded_media_refresh",
+      "0020_merge_native_cursor_and_media",
+      "0021_condition_assessment",
+      "0021_identity_research",
+      "0021_merge_operations_and_media",
+      "0022_condition_inference_cohort",
+      "0022_operational_snapshots",
+      "0023_merge_assessment_and_operations",
+      "0024_merge_inference_cohort_and_operations",
+      "0025_merge_identity_research",
+      "0026_robot_control",
+      "0027_gold_qualification"
+    ]
+  },
+  "target_files": {
+    "private": {
+      "media/.garimpei-media-owner": {
+        "sha256": "d277d41ee2bd2522309f63f27da0364d1bef9febfd6b124ab79d189a06260bac",
+        "bytes": 27,
+        "mode": "0o600"
+      },
+      "config/synthetic-runtime.env": {
+        "sha256": "f3d2f9090093a1330391182d276199bebccc3fa30cd682188f37ad8b1b9140ac",
+        "bytes": 1213,
+        "mode": "0o644"
+      },
+      "backups/verified-predecessor-f17.archive": {
+        "sha256": "7083f649ed1254b197a25571628d9787996a2a3a360a5156c0cb414afbf81f4b",
+        "bytes": 21200,
+        "mode": "0o644"
+      },
+      "integrations/profile/synthetic-session.bin": {
+        "sha256": "3d9c633878ef45b8d30aedd44eb4e75ab55e243d3bf55ffca3c1bbb13fba28cd",
+        "bytes": 50,
+        "mode": "0o644"
+      },
+      "media/9836ac98-72b8-409f-9f7a-f69cf491d49e/880b0cb174572828fe73e38af7c38e85f96d70132a8a5558080594e95aa6af61": {
+        "sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "bytes": 26534,
+        "mode": "0o600"
+      },
+      "media/9836ac98-72b8-409f-9f7a-f69cf491d49e/880b0cb174572828fe73e38af7c38e85f96d70132a8a5558080594e95aa6af61.thumb": {
+        "sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "bytes": 956,
+        "mode": "0o600"
+      }
+    },
+    "state": {
+      "<ENV>/inference/tokenizer.json": {
+        "sha256": "a6d03821608b2cad22e2799f5356d3a492aff041acca8c70074ae7c6d18a52f6",
+        "bytes": 41,
+        "mode": "0o644"
+      }
+    },
+    "waha": {
+      "synthetic-session.bin": {
+        "sha256": "0aa4f8c21830b9237b7546b111d9bd8074109988153fa6ceb599cbc6f23be299",
+        "bytes": 47,
+        "mode": "0o644"
+      }
+    },
+    "ollama": {
+      "models/blobs/synthetic-weights.bin": {
+        "sha256": "7cc63d59ef8fda70d7d5467695cffb6afe660dc246c70743956fc75efc68ff54",
+        "bytes": 40,
+        "mode": "0o644"
+      }
+    }
+  },
+  "cleanup": "Only exact assay-created containers removed; generated private files retained ignored.",
+  "resources": {
+    "source": {
+      "environment": "eval_pred_source_1114000648",
+      "pg": "garimpei-eval_pred_source_1114000648-postgres",
+      "project": "garimpei-eval_pred_source_1114000648"
+    },
+    "f17": {
+      "environment": "eval_pred_f17_1114000648",
+      "pg": "garimpei-eval_pred_f17_1114000648-postgres",
+      "project": "garimpei-eval_pred_f17_1114000648"
+    },
+    "target": {
+      "environment": "eval_pred_target_1114000648",
+      "pg": "garimpei-eval_pred_target_1114000648-postgres",
+      "project": "garimpei-eval_pred_target_1114000648"
+    },
+    "rollback": {
+      "environment": "eval_pred_rollback_1114000648",
+      "pg": "garimpei-eval_pred_rollback_1114000648-postgres",
+      "project": "garimpei-eval_pred_rollback_1114000648"
+    }
+  }
+}

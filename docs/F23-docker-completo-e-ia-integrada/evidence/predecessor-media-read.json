@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "previous_failure": "predecessor-media-read-before.json",
+  "boundary": "LocalMediaStore.read original+thumbnail and public Django image GET",
+  "results": {
+    "source": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ],
+    "F17_restore": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ],
+    "adopted": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ],
+    "rollback": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ]
+  },
+  "new_F17_backups": {
+    "adopted": {
+      "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+      "environment": "eval_pred_target_1114003250",
+      "action": "new-backup",
+      "source_tree_sha256": "b94c61befdcc62fbbed8733d16f23a0365acbd5758c41e2f7829c48cc2ef8399",
+      "id": "e4989416-9d6c-4c50-bd0d-576ea789642d",
+      "completed": true,
+      "archive_sha256": "ed1bee84c3a219787b7cc4b7cba39dccb242e2d86158106abdbe4de6d64bbfc1",
+      "owner_marker_correct": true,
+      "original_receipts_preserved": true
+    },
+    "rollback": {
+      "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+      "environment": "eval_pred_rollback_1114003250",
+      "action": "new-backup",
+      "source_tree_sha256": "4e02f82bd15ca88475ec5f31eae91fd0df4fd674822baba97e1733374880430c",
+      "id": "36964abe-d6a1-4848-9208-53a6bc393665",
+      "completed": true,
+      "archive_sha256": "50c7c027f3f442fabcd7dabb9f374de939e54c464ab1eb33f23755a7bf9dea8a",
+      "owner_marker_correct": true,
+      "original_receipts_preserved": true
+    }
+  }
+}

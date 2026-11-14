@@ -1,0 +1,121 @@
+{"timestamp": "2026-11-13T23:25:48.059901+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:48.192215+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:48.194316+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:49.041554+00:00", "level": "INFO", "logger": "garimpei.infra.repository.listing.postgres_repository", "event": "collection_finished", "environment_id": "quality", "run_id": "quality", "collection_cycle": "9c8081c4-54b6-4c6a-b204-77b6876eb87c", "collection_revision": 1, "collection_phase": "complete", "collection_reasons": [], "collection_observations": 6}
+{"timestamp": "2026-11-13T23:25:50.426420+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:50.432969+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:50.439531+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:50.446311+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:50.453036+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:50.460477+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:52.708040+00:00", "level": "INFO", "logger": "procrastinate.jobs", "event": "runtime_event", "environment_id": "quality", "run_id": "quality"}
+{"timestamp": "2026-11-13T23:25:53.078767+00:00", "level": "ERROR", "logger": "garimpei.alert", "event": "alert_stage_failed", "environment_id": "quality", "run_id": "quality", "error_code": "ALERT_DEPENDENCY_UNAVAILABLE"}
+Traceback (most recent call last):
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.RaiseException: gold consumer incompatible
+CONTEXT:  PL/pgSQL function garimpei_gold_authorization_guard() line 14 at RAISE
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/apps/backend/tests/factories/gold_lab.py", line 67, in main
+    result = lab.action(payload)
+  File "/app/apps/backend/tests/factories/gold_alerts.py", line 213, in action
+    build_alert_handler("send").execute()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/app/apps/backend/src/garimpei/infra/worker/alert_handler.py", line 44, in execute
+    self._run_stage()
+    ~~~~~~~~~~~~~~~^^
+  File "/app/apps/backend/src/garimpei/infra/worker/alert_handler.py", line 55, in _run_stage
+    self._execute()
+    ~~~~~~~~~~~~~^^
+  File "/app/apps/backend/src/garimpei/usecase/alert/send_alert_usecase.py", line 28, in execute
+    self._send(identity)
+    ~~~~~~~~~~^^^^^^^^^^
+  File "/app/apps/backend/src/garimpei/usecase/alert/send_alert_usecase.py", line 40, in _send
+    self._store.claim(identity, binding, self._clock(), reconcile=False) if ready else None
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 260, in claim
+    delivery = authorize(
+        row, binding, now, reconcile, self._configuration, self._listings, self._policy
+    )
+  File "/app/apps/backend/src/garimpei/infra/repository/alert/delivery_state.py", line 67, in authorize
+    return _claim(row, binding, now, reconcile, configuration, listings, policy)
+  File "/app/apps/backend/src/garimpei/infra/repository/alert/delivery_state.py", line 93, in _claim
+    return _claim_first(row, binding, now, reconcile, configuration, listings, policy)
+  File "/app/apps/backend/src/garimpei/infra/repository/alert/delivery_state.py", line 248, in _claim_first
+    attempt = AlertAttempt.objects.create(
+        intent=row,
+    ...<3 lines>...
+        gold_policy_verified=attempt_gold_policy(),
+    )
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 665, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1873, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1882, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: gold consumer incompatible
+CONTEXT:  PL/pgSQL function garimpei_gold_authorization_guard() line 14 at RAISE

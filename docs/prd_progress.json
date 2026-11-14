@@ -403,10 +403,10 @@
       ],
       "status": "implemented",
       "cycles": 3,
-      "failure_reason": "Worker positivo F23: trigger0027 recusa política assisted-evidence-v1; correção ciclo3 em andamento, preservando guardas.",
-      "report_path": "docs/F23-docker-completo-e-ia-integrada/eval-report-2026-11-13T23-31-11Z.md",
+      "failure_reason": "Corpus sem rótulos humanos independentes e cadeia integrada com modelo real/positivo F21 permanecem pendentes.",
+      "report_path": "docs/F23-docker-completo-e-ia-integrada/eval-report-2026-11-14T00-40-00Z.md",
       "started_at": "2026-11-13T21:30:59.086665+00:00",
-      "updated_at": "2026-11-13T23:31:11.015079+00:00",
+      "updated_at": "2026-11-14T00:40:52.285159+00:00",
       "completed_at": null
     }
   }

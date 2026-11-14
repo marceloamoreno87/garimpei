@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-11-13T23:47:18.323242+00:00",
+  "scope": "Only the four completed session foundations of B/C from this F23 run; normal stop, no cleanup bypass",
+  "results": [
+    {
+      "environment": "eval_test_5307fd13_a",
+      "runtime_route": "host",
+      "exit_code": 0,
+      "stdout": "Stopped eval_test_5307fd13_a: no active resources\n",
+      "stderr": "",
+      "volumes_cleaned": false
+    },
+    {
+      "environment": "eval_test_5307fd13_b",
+      "runtime_route": "host",
+      "exit_code": 0,
+      "stdout": "Stopped eval_test_5307fd13_b: no active resources\n",
+      "stderr": "",
+      "volumes_cleaned": false
+    },
+    {
+      "environment": "eval_test_01189ea3_a",
+      "runtime_route": "host",
+      "exit_code": 0,
+      "stdout": "Stopped eval_test_01189ea3_a: no active resources\n",
+      "stderr": "",
+      "volumes_cleaned": false
+    },
+    {
+      "environment": "eval_test_01189ea3_b",
+      "runtime_route": "host",
+      "exit_code": 0,
+      "stdout": "Stopped eval_test_01189ea3_b: no active resources\n",
+      "stderr": "",
+      "volumes_cleaned": false
+    }
+  ]
+}

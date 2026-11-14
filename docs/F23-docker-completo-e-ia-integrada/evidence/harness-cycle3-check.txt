@@ -1,0 +1,4 @@
+[harness] 14 skills e referências de entrada válidas.
+[harness] Sintaxe de 38 scripts validada.
+[harness] Progresso válido: 23 features.
+[harness] Estrutura validada. Gates da aplicação dependem do scaffold.

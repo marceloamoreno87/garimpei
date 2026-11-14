@@ -1,7 +1,9 @@
 """The host adoption boundary refuses unsafe copies before mutating data."""
 
+import io
 import os
 import subprocess
+import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -151,3 +153,42 @@ def test_added_unverified_archive_is_rejected_before_restore(tmp_path: Path) -> 
     assert restored.returncode == 64
     assert "archive checksum" in restored.stderr
     assert "docker-must-not-run" not in restored.stderr
+
+
+def test_private_snapshot_excludes_controller_owner_but_keeps_user_files(
+    tmp_path: Path,
+) -> None:
+    archive = tmp_path / "source.tar"
+    with tarfile.open(archive, "w") as bundle:
+        for name, data in {
+            "./.garimpei-owner": b"source checkout\nsource environment\n",
+            "./media/photo.bin": b"preserved private media",
+            "./media/.garimpei-media-owner": b"eval_copy",
+            "./backups/.garimpei-backup-owner": b"eval_copy",
+        }.items():
+            info = tarfile.TarInfo(name)
+            info.size = len(data)
+            bundle.addfile(info, io.BytesIO(data))
+    shim = database_docker(dump_exit=0).replace("ps) echo pg;;", "ps) printf 'pg\\nworker\\n';;")
+    shim = shim.replace(
+        f"*) echo '{ROOT}|eval_copy|postgres|true';;",
+        f"*) if [ \"$4\" = worker ]; then echo '{ROOT}|eval_copy|worker|false'; "
+        f"else echo '{ROOT}|eval_copy|postgres|true'; fi;;",
+    )
+    shim = shim.replace("exec)\n", f"cp) cat '{archive}';;\nexec)\n")
+    folder = tmp_path / "copy"
+    result = run_adoption(tmp_path, shim, "snapshot", "garimpei-eval_copy", str(folder))
+    assert result.returncode == 0, result.stderr
+    with tarfile.open(folder / "private.tar") as bundle:
+        assert all(
+            member.name.removeprefix("./")
+            not in {
+                ".garimpei-owner",
+                "media/.garimpei-media-owner",
+                "backups/.garimpei-backup-owner",
+            }
+            for member in bundle.getmembers()
+        )
+        media = bundle.extractfile("./media/photo.bin")
+        assert media is not None
+        assert media.read() == b"preserved private media"

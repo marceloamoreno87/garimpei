@@ -1,0 +1,3 @@
+F23_HTTP_CONTRACT={"admit": 202, "allow_header": "POST", "command_conflict": 409, "csrf_missing": 403, "explain": 202, "explain_command_conflict": 409, "explain_reference_equal": true, "explain_repeat": 202, "late_write_rolled_back": true, "malformed": 400, "method": 405, "missing": 404, "old_snapshot": 409, "old_snapshot_no_new_work": true, "persistence_failure": 503, "repeat": 202, "same_reference": true, "stale_revision": 409}
+..
+2 passed in 22.40s

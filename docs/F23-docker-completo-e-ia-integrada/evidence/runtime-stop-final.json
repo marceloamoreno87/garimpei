@@ -234,5 +234,19 @@
   "limits": [
     "Source has zero alert intents/attempts; no real uncertain-send preservation is inferred.",
     "No independent human corpus or F21 real-positive acceptance is inferred."
-  ]
+  ],
+  "later_real_uncertainty_probe": {
+    "recorded_at": "2026-11-13T23:32:06.326803+00:00",
+    "evidence": "cli-recover-uncertain-real.json",
+    "one_real_chat": true,
+    "added_operational_requests": 2,
+    "source_current_request_count": 10,
+    "original_eight_requests_and_eleven_reviews_preserved": true,
+    "robot_final_enabled": false,
+    "robot_final_revision": 3,
+    "robot_final_epoch": 3,
+    "source_application_services_stopped": true,
+    "gpu_reservation_released": true,
+    "tools_reactivated_by_coordinator_for_later_independent_test": true
+  }
 }

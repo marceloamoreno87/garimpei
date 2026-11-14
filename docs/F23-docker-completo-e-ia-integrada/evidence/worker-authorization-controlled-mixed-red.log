@@ -1,0 +1,52 @@
+{"activation_blocked": false, "attempts": 0, "gold_state": "pending", "markers_rejected": {"None": false, "assisted-evidence-v1": false, "gold-alert-v1": false}}
+F{"activation_blocked": false, "attempts": 0, "gold_state": "missing", "markers_rejected": {"None": true, "assisted-evidence-v1": true, "gold-alert-v1": true}}
+F
+=================================== FAILURES ===================================
+___ test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending] ___
+
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-8/test_assisted_adoption_and_sql0')
+gold_state = 'pending'
+
+    @pytest.mark.parametrize("gold_state", ["pending", "missing"])
+    def test_assisted_adoption_and_sql_fence_require_active_gold_policy(
+        tmp_path: Path, gold_state: str
+    ) -> None:
+        driver = GoldDriver(tmp_path)
+        try:
+            driver.action("prepare", case="BASE")
+            evidence = _evidence(
+                driver.shell("GOLD_STATE=" + repr(gold_state) + "\n" + MIXED_POLICY_SCRIPT),
+                "CONTROLLED_MIXED_POLICY=",
+            )
+            print(json.dumps(evidence, sort_keys=True))
+>           assert evidence["activation_blocked"], "F23 adoption accepted inactive/missing F21 policy"
+E           AssertionError: F23 adoption accepted inactive/missing F21 policy
+E           assert False
+
+tests/integration/test_assistance_authorization.py:288: AssertionError
+___ test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing] ___
+
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-8/test_assisted_adoption_and_sql1')
+gold_state = 'missing'
+
+    @pytest.mark.parametrize("gold_state", ["pending", "missing"])
+    def test_assisted_adoption_and_sql_fence_require_active_gold_policy(
+        tmp_path: Path, gold_state: str
+    ) -> None:
+        driver = GoldDriver(tmp_path)
+        try:
+            driver.action("prepare", case="BASE")
+            evidence = _evidence(
+                driver.shell("GOLD_STATE=" + repr(gold_state) + "\n" + MIXED_POLICY_SCRIPT),
+                "CONTROLLED_MIXED_POLICY=",
+            )
+            print(json.dumps(evidence, sort_keys=True))
+>           assert evidence["activation_blocked"], "F23 adoption accepted inactive/missing F21 policy"
+E           AssertionError: F23 adoption accepted inactive/missing F21 policy
+E           assert False
+
+tests/integration/test_assistance_authorization.py:288: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending]
+FAILED tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing]
+2 failed in 33.20s

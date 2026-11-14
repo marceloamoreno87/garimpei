@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="7" time="0.250" timestamp="2026-11-13T18:30:43.003688-06:00" hostname="docker-desktop"><testcase classname="tests.unit.test_docker_adoption" name="test_foreign_resource_is_refused_before_backup" time="0.011" /><testcase classname="tests.unit.test_docker_adoption" name="test_running_automation_is_refused_before_dump" time="0.008" /><testcase classname="tests.unit.test_docker_adoption" name="test_failed_database_copy_does_not_publish_ready_marker" time="0.015" /><testcase classname="tests.unit.test_docker_adoption" name="test_successful_database_snapshot_verifies_then_rejects_tamper" time="0.034" /><testcase classname="tests.unit.test_docker_adoption" name="test_incomplete_copy_is_rejected_before_docker" time="0.005" /><testcase classname="tests.unit.test_docker_adoption" name="test_added_unverified_archive_is_rejected_before_restore" time="0.034" /><testcase classname="tests.unit.test_docker_adoption" name="test_private_snapshot_excludes_controller_owner_but_keeps_user_files" time="0.038"><failure message="assert False&#10; +  where False = all(&lt;generator object test_private_snapshot_excludes_controller_owner_but_keeps_user_files.&lt;locals&gt;.&lt;genexpr&gt; at 0x7b6a3d931d80&gt;)">tmp_path = PosixPath('/app/.runtime/quality-tmp/pytest-of-garimpei/pytest-3/test_private_snapshot_excludes0')
+
+    def test_private_snapshot_excludes_controller_owner_but_keeps_user_files(
+        tmp_path: Path,
+    ) -&gt; None:
+        archive = tmp_path / "source.tar"
+        with tarfile.open(archive, "w") as bundle:
+            for name, data in {
+                "./.garimpei-owner": b"source checkout\nsource environment\n",
+                "./media/photo.bin": b"preserved private media",
+                "./media/.garimpei-media-owner": b"eval_copy",
+                "./backups/.garimpei-backup-owner": b"eval_copy",
+            }.items():
+                info = tarfile.TarInfo(name)
+                info.size = len(data)
+                bundle.addfile(info, io.BytesIO(data))
+        shim = database_docker(dump_exit=0).replace("ps) echo pg;;", "ps) printf 'pg\\nworker\\n';;")
+        shim = shim.replace(
+            f"*) echo '{ROOT}|eval_copy|postgres|true';;",
+            f"*) if [ \"$4\" = worker ]; then echo '{ROOT}|eval_copy|worker|false'; "
+            f"else echo '{ROOT}|eval_copy|postgres|true'; fi;;",
+        )
+        shim = shim.replace("exec)\n", f"cp) cat '{archive}';;\nexec)\n")
+        folder = tmp_path / "copy"
+        result = run_adoption(tmp_path, shim, "snapshot", "garimpei-eval_copy", str(folder))
+        assert result.returncode == 0, result.stderr
+        with tarfile.open(folder / "private.tar") as bundle:
+&gt;           assert all(
+                member.name.removeprefix("./")
+                not in {
+                    ".garimpei-owner",
+                    "media/.garimpei-media-owner",
+                    "backups/.garimpei-backup-owner",
+                }
+                for member in bundle.getmembers()
+            )
+E           assert False
+E            +  where False = all(&lt;generator object test_private_snapshot_excludes_controller_owner_but_keeps_user_files.&lt;locals&gt;.&lt;genexpr&gt; at 0x7b6a3d931d80&gt;)
+
+tests/unit/test_docker_adoption.py:183: AssertionError</failure></testcase></testsuite></testsuites>

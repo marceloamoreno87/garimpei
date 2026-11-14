@@ -1,0 +1,4 @@
+68 objects imported automatically (use -v 2 for details).
+
+CONTROLLED_REVERSE_EVIDENCE={"cycle": ["0031", "0030", "0031"], "forward_sha256": "de1ee5f10894d2c315dfabba631bb978a654a914f16ad9eb388e2f19e72aedcb", "restored_forward_sha256": "de1ee5f10894d2c315dfabba631bb978a654a914f16ad9eb388e2f19e72aedcb", "reverse_sha256": "29752441e18a3947bc5f736c2526c8ffe794de1b18358467d6a3fec7c679cead", "function_oid_preserved": true, "trigger_oid_preserved": true, "gold_policy_data_preserved": true, "restoration_barrier_preserved": true, "model_calls": 0, "posts": 0}
+

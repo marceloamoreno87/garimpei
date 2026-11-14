@@ -1,36 +1,46 @@
 {
-  "recorded_at": "2026-11-13T23:15:01.315986+00:00",
-  "method": "Complete original suite (966 nodes) followed by directed reruns of all FAIL/ERROR nodes, affected flows and two new regression nodes. This is verified coverage union, not a single fresh monolithic run of the final source.",
+  "recorded_at": "2026-11-14T00:38:40.950561+00:00",
+  "method": "Complete original suite (966 nodes) followed by directed reruns of all FAIL/ERROR nodes, affected flows and eight new regression nodes. This is verified coverage union, not a single fresh monolithic run of the final source.",
   "original": {
     "total": 966,
     "passed": 925,
     "nonpass": 41,
     "shards_manifest": "pytest-shards-manifest.json"
   },
+  "additional_red_runs": {
+    "worker_positive": "2FAIL/1PASS with0030; worker-authorization-controlled.json/red and raw logs retained",
+    "mixed_policy": "2FAIL with initial0031; worker-authorization-controlled-mixed-red.xml retained"
+  },
   "final": {
-    "collected": 968,
-    "covered": 968,
-    "passed": 968,
+    "collected": 974,
+    "covered": 974,
+    "passed": 974,
     "failed": 0,
     "errors": 0,
     "skipped": 0,
     "missing": 0,
     "removed_original_nodes": [],
     "new_nodes": [
+      "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing]",
+      "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending]",
+      "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[BASE-800.00]",
+      "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[PROFIT_CENT-0.01]",
+      "tests/integration/test_assistance_authorization.py::test_pending_identity_review_blocks_final_assisted_authorization",
       "tests/integration/test_assistance_empty_restore.py::test_idle_assistance_reconciliation_preserves_empty_business_restore_target",
-      "tests/integration/test_inference_target_migration.py::test_filled_legacy_profiles_migrate_and_rollback_without_resigning_cache"
+      "tests/integration/test_inference_target_migration.py::test_filled_legacy_profiles_migrate_and_rollback_without_resigning_cache",
+      "tests/unit/test_docker_adoption.py::test_private_snapshot_excludes_controller_owner_but_keeps_user_files"
     ]
   },
   "quality_final": {
     "command": "GARIMPEI_ENV_FILE=<private> ./scripts/quality.sh",
     "exit_code": 0,
-    "evidence": "quality-image-final.txt",
-    "built_quality_image": "sha256:24023c9526bfe393054abba0ea51397a44d28290778c00b658fc1c9284c0e9ae"
+    "evidence": "quality-image-final-nested.txt",
+    "built_quality_image": "sha256:344234980c2dd25189874df5dbe222f46c6ebd370b88b152b607ae42ecba1259"
   },
   "source": {
-    "base_revision": "7769efc1f072b29e8a9c14b7417235363cb1f234",
-    "combined_sha256": "0638dc79f6043ac249f081188b56d63f8c387cb83dbcbf5a29fff82c4d1ea2eb",
-    "files": 849,
+    "base_revision": "1b25caea2782ec67979d53b4823ff71575b7bc1d",
+    "combined_sha256": "747ac999c8bfd4d5eed0f6e908b48229819b3c23eaf2e1305475b48cc9004e8b",
+    "files": 852,
     "manifest": "source-final-manifest.json"
   },
   "nodes": [
@@ -689,6 +699,86 @@
       ]
     },
     {
+      "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing]",
+      "final_status": "PASS",
+      "history": [
+        {
+          "status": "FAIL",
+          "evidence": "worker-authorization-controlled-mixed-red.xml",
+          "seconds": 16.827
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 17.956
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending]",
+      "final_status": "PASS",
+      "history": [
+        {
+          "status": "FAIL",
+          "evidence": "worker-authorization-controlled-mixed-red.xml",
+          "seconds": 16.27
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 16.643
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[BASE-800.00]",
+      "final_status": "PASS",
+      "history": [
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 19.221
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 19.432
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[PROFIT_CENT-0.01]",
+      "final_status": "PASS",
+      "history": [
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 19.517
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 19.33
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/integration/test_assistance_authorization.py::test_pending_identity_review_blocks_final_assisted_authorization",
+      "final_status": "PASS",
+      "history": [
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 17.468
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 17.431
+        }
+      ]
+    },
+    {
       "nodeid": "tests/integration/test_assistance_empty_restore.py::test_idle_assistance_reconciliation_preserves_empty_business_restore_target",
       "final_status": "PASS",
       "history": [
@@ -717,6 +807,16 @@
           "status": "PASS",
           "evidence": "manual-ui-green.xml",
           "seconds": 1.702
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 14.744
+        },
+        {
+          "status": "PASS",
+          "evidence": "http-contract-final.xml",
+          "seconds": 14.66
         }
       ]
     },
@@ -738,6 +838,16 @@
           "status": "PASS",
           "evidence": "manual-ui-green.xml",
           "seconds": 7.901
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 1.709
+        },
+        {
+          "status": "PASS",
+          "evidence": "http-contract-final.xml",
+          "seconds": 7.682
         }
       ]
     },
@@ -1755,6 +1865,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle2.xml",
           "seconds": 31.621
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 30.306
         }
       ]
     },
@@ -1815,6 +1930,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle2.xml",
           "seconds": 18.695
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 17.026
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 17.431
         }
       ]
     },
@@ -1842,6 +1967,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle2.xml",
           "seconds": 16.68
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 16.276
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 15.746
         }
       ]
     },
@@ -1853,6 +1988,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle1.xml",
           "seconds": 17.11
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 15.814
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 16.017
         }
       ]
     },
@@ -1869,6 +2014,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle2.xml",
           "seconds": 16.154
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 15.506
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 16.024
         }
       ]
     },
@@ -1885,6 +2040,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle2.xml",
           "seconds": 16.707
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 15.883
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 16.524
         }
       ]
     },
@@ -1907,6 +2072,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-A-cycle1.xml",
           "seconds": 18.915
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-initial-green.xml",
+          "seconds": 17.27
+        },
+        {
+          "status": "PASS",
+          "evidence": "worker-authorization-controlled-final-green.xml",
+          "seconds": 17.359
         }
       ]
     },
@@ -2196,6 +2371,11 @@
           "status": "PASS",
           "evidence": "pytest-cycle2-local.xml",
           "seconds": 17.146
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 11.588
         }
       ]
     },
@@ -2234,6 +2414,11 @@
           "status": "PASS",
           "evidence": "pytest-cycle2-BCD.xml",
           "seconds": 30.832
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 31.419
         }
       ]
     },
@@ -5468,6 +5653,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.006
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.001
         }
       ]
     },
@@ -5479,6 +5669,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.005
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5490,6 +5685,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.004
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5501,6 +5701,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5512,6 +5717,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5523,6 +5733,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.004
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5534,6 +5749,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5545,6 +5765,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5556,6 +5781,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5567,6 +5797,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.004
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5578,6 +5813,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5589,6 +5829,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5600,6 +5845,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5611,6 +5861,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.004
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.002
         }
       ]
     },
@@ -5622,6 +5877,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 5.869
         }
       ]
     },
@@ -5963,6 +6223,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.036
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.033
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
+          "seconds": 0.034
         }
       ]
     },
@@ -5974,6 +6244,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.017
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.015
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
+          "seconds": 0.014
         }
       ]
     },
@@ -5984,6 +6264,16 @@
         {
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
+          "seconds": 0.009
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.011
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
           "seconds": 0.009
         }
       ]
@@ -5996,6 +6286,32 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.006
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.006
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
+          "seconds": 0.005
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/unit/test_docker_adoption.py::test_private_snapshot_excludes_controller_owner_but_keeps_user_files",
+      "final_status": "PASS",
+      "history": [
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.037
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
+          "seconds": 0.045
         }
       ]
     },
@@ -6006,6 +6322,16 @@
         {
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
+          "seconds": 0.007
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.008
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
           "seconds": 0.007
         }
       ]
@@ -6018,6 +6344,16 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.04
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-unit-final.xml",
+          "seconds": 0.034
+        },
+        {
+          "status": "PASS",
+          "evidence": "adoption-nested-final.xml",
+          "seconds": 0.034
         }
       ]
     },
@@ -7503,6 +7839,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.001
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.001
         }
       ]
     },
@@ -7513,6 +7854,11 @@
         {
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
+          "seconds": 0.001
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
           "seconds": 0.001
         }
       ]
@@ -7525,6 +7871,11 @@
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
           "seconds": 0.003
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
+          "seconds": 0.004
         }
       ]
     },
@@ -7535,6 +7886,11 @@
         {
           "status": "PASS",
           "evidence": "pytest-shard-D-cycle1.xml",
+          "seconds": 0.001
+        },
+        {
+          "status": "PASS",
+          "evidence": "compat-cycle3.xml",
           "seconds": 0.001
         }
       ]

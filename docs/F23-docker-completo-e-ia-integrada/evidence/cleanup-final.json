@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-11-14T00:46:08.622677+00:00",
+  "tool_container": "garimpei-eval_f23_runtime-quality-journey",
+  "tool_id": "1dbdb5efe07e9028b19a4fec38af8a4d42c420d54885dc59ad6a697235ba6377",
+  "tool_stop_exit_code": 0,
+  "tool_running_after": false,
+  "initial_legacy_fixture_discovered": {
+    "environment": "eval_f04_8a10bb8bd7",
+    "created_during_this_run": "2026-11-13T21:45:44Z",
+    "own_manifest_and_docker_labels_verified": true,
+    "stop_mode": "GARIMPEI_RUNTIME=host ./scripts/stop.sh with original private file",
+    "stop_exit_code": 0,
+    "manifest_status": "stopped",
+    "proof": "initial-fixture-stop-final.txt"
+  },
+  "all_feature_labelled_containers_stopped": true,
+  "feature_container_count": 11,
+  "application_cleanup_proof": "runtime-migration0031-final.json",
+  "gpu_owner_file_absent": true,
+  "volumes_deleted": false,
+  "private_directories_deleted": false,
+  "foreign_resources_touched": false,
+  "restoration_and_ui_controls_preserved": true,
+  "predecessor_cleanup_proof": "predecessor-final.json",
+  "predecessor_resources_removed": 17
+}

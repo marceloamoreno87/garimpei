@@ -12,6 +12,8 @@ from tests.factories.gold_driver import GoldDriver
 # ControlledConditionGateway, media origin and WAHA are owned loopback fixtures.
 REVIEW_SCRIPT = r"""
 import json
+from io import StringIO
+from django.core.management import call_command
 from django.utils.timezone import now
 from garimpei.domain.inference.ports import PreparedPart
 from garimpei.infra.gateway.assistance.snapshots import observation_snapshot
@@ -75,7 +77,8 @@ if COMPLETE_IDENTITY:
  assert identity.state=='supported' and current_review(identity)
 else:
  assert identity.state=='pending' and identity.result is None
-AssistancePolicy.objects.update_or_create(pk=1,defaults=dict(active=True,adopted_at=now()))
+call_command('assistance_policy',activate=True,evaluation=True,stdout=StringIO())
+assert AssistancePolicy.objects.filter(pk=1,active=True).exists()
 print('CONTROLLED_REVIEW_EVIDENCE='+json.dumps(dict(
  policy='assisted-evidence-v1', provider='NamedProgrammedAssistanceProvider',
  preparer='NamedFiniteAssistancePreparer', provider_calls=provider.calls,
@@ -227,5 +230,69 @@ def test_pending_identity_review_blocks_final_assisted_authorization(tmp_path: P
                 sort_keys=True,
             )
         )
+    finally:
+        driver.close()
+
+
+MIXED_POLICY_SCRIPT = r"""
+import json
+from io import StringIO
+from django.core.management import call_command
+from django.core.management.base import CommandError
+from django.db import transaction, DatabaseError
+from django.utils.timezone import now
+from garimpei.infra.persistence.alert_models import AlertAttempt, AlertIntent
+from garimpei.infra.persistence.assistance_models import AssistancePolicy
+from garimpei.infra.persistence.gold_models import GoldPolicyAdoption
+from tests.factories.monitoring import require_disposable
+require_disposable()
+assert not AssistancePolicy.objects.filter(active=True).exists()
+if GOLD_STATE=='missing':
+ GoldPolicyAdoption.objects.filter(installation='local').delete()
+else:
+ GoldPolicyAdoption.objects.filter(installation='local').update(state='pending')
+blocked=False
+try:
+ call_command('assistance_policy',activate=True,evaluation=True,stdout=StringIO())
+except CommandError:
+ blocked=True
+# Deliberately corrupt only this disposable fixture to test the independent SQL fence.
+AssistancePolicy.objects.update_or_create(pk=1,defaults=dict(active=True,adopted_at=now()))
+intent=AlertIntent.objects.get(state='queued')
+markers={}
+for marker in (None,'gold-alert-v1','assisted-evidence-v1'):
+ rejected=False
+ try:
+  with transaction.atomic():
+   AlertAttempt.objects.create(intent=intent,ordinal=1,generation=1,
+    authorized_at=now(),gold_policy_verified=marker)
+   transaction.set_rollback(True)
+ except DatabaseError:
+  rejected=True
+ markers[str(marker)]=rejected
+assert AlertAttempt.objects.count()==0
+print('CONTROLLED_MIXED_POLICY='+json.dumps(dict(gold_state=GOLD_STATE,
+ activation_blocked=blocked,markers_rejected=markers,attempts=0)))
+"""
+
+
+@pytest.mark.parametrize("gold_state", ["pending", "missing"])
+def test_assisted_adoption_and_sql_fence_require_active_gold_policy(
+    tmp_path: Path, gold_state: str
+) -> None:
+    driver = GoldDriver(tmp_path)
+    try:
+        driver.action("prepare", case="BASE")
+        evidence = _evidence(
+            driver.shell("GOLD_STATE=" + repr(gold_state) + "\n" + MIXED_POLICY_SCRIPT),
+            "CONTROLLED_MIXED_POLICY=",
+        )
+        print(json.dumps(evidence, sort_keys=True))
+        assert evidence["activation_blocked"], "F23 adoption accepted inactive/missing F21 policy"
+        assert all(cast(dict[str, bool], evidence["markers_rejected"]).values()), (
+            "SQL fence accepted F23 authorization with inactive/missing F21 policy"
+        )
+        sent = driver.action("status")
+        assert sent["messages"] == [] and sent["post_count"] == sent["attempts"] == 0
     finally:
         driver.close()

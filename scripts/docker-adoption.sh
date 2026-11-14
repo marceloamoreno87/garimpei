@@ -70,6 +70,15 @@ if [ "$action" = snapshot ]; then
  if [ -n "$worker" ]; then
   private_root="$(docker inspect -f '{{range .Mounts}}{{if eq .Destination "/private"}}{{.Source}}{{end}}{{end}}' "$worker")"
   case "$folder/" in "$private_root/"*) [ -z "$private_root" ] || refuse 'backup must be outside private source directory';; esac
+  image="$(docker inspect -f '{{.Image}}' "$worker")"
+  docker run --rm --network none --read-only --volumes-from "$worker:ro" --entrypoint sh "$image" -c '
+   test ! -L /private/media && test ! -L /private/backups || exit 1
+   for marker in /private/media/.garimpei-media-owner /private/backups/.garimpei-backup-owner; do
+    if [ -e "$marker" ] || [ -L "$marker" ]; then
+     test -f "$marker" && test ! -L "$marker" && printf "%s" "$1" | cmp -s - "$marker" || exit 1
+    fi
+   done
+  ' sh "$environment" || refuse 'source media or backup ownership mismatch'
  fi
  mkdir -m 700 "$folder"
  printf 'format\tcold-copy-v1\nproject\t%s\nenvironment\t%s\n' "$project" "$environment" > "$folder/inventory.tsv"
@@ -83,7 +92,17 @@ if [ "$action" = snapshot ]; then
   docker cp "$1:$2/." - > "$folder/$3.partial"
   mv "$folder/$3.partial" "$folder/$3"
  }
- [ -z "$worker" ] || capture "$worker" /private private.tar
+ if [ -n "$worker" ]; then
+  capture "$worker" /private private.tar
+  # Controller ownership belongs to the destination, not the copied business data.
+  for marker in .garimpei-owner media/.garimpei-media-owner backups/.garimpei-backup-owner; do
+   for owner_entry in "$marker" "./$marker"; do
+    if tar -tf "$folder/private.tar" | grep -Fx -- "$owner_entry" >/dev/null; then
+     tar --delete -f "$folder/private.tar" -- "$owner_entry"
+    fi
+   done
+  done
+ fi
  # Inference artifacts are mandatory when a worker exists; copy failure is not absence.
  [ -z "$worker" ] || capture "$worker" "/state/$environment/inference" inference.tar
  [ -z "$waha" ] || capture "$waha" /app/.sessions waha.tar
@@ -111,7 +130,22 @@ check_empty() {
  image="$(docker inspect -f '{{.Image}}' "$1")"
  docker run --rm --network none --read-only --volumes-from "$1:ro" --entrypoint sh "$image" -c 'test -z "$(find "$1" -type f -print -quit)"' sh "$2" || refuse 'target files must be empty'
 }
-[ ! -f "$folder/private.tar" ] || check_empty "$worker" /private
+if [ -f "$folder/private.tar" ]; then
+ # Reject older copies carrying controller metadata before the first database write.
+ ! tar -tf "$folder/private.tar" | grep -Ex '(\./)?(\.garimpei-owner|media/\.garimpei-media-owner|backups/\.garimpei-backup-owner)' >/dev/null || refuse 'private archive contains source ownership metadata; create a fresh snapshot'
+ image="$(docker inspect -f '{{.Image}}' "$worker")"
+ docker run --rm --network none --read-only --volumes-from "$worker:ro" --entrypoint sh "$image" -c '
+  owner="$1/.garimpei-owner"
+  test ! -L "$1/media" && test ! -L "$1/backups" || exit 1
+  test -f "$owner" && test ! -L "$owner" && test "$(cat "$owner")" = "$2" || exit 1
+  for marker in "$1/media/.garimpei-media-owner" "$1/backups/.garimpei-backup-owner"; do
+   if [ -e "$marker" ] || [ -L "$marker" ]; then
+    test -f "$marker" && test ! -L "$marker" && printf "%s" "$3" | cmp -s - "$marker" || exit 1
+   fi
+  done
+  test -z "$(find "$1" -mindepth 1 ! -type d ! -path "$owner" ! -path "$1/media/.garimpei-media-owner" ! -path "$1/backups/.garimpei-backup-owner" -print -quit)"
+ ' sh /private "$(printf '%s\n%s' "$root" "$environment")" "$environment" || refuse 'target private data must be empty and controller ownership must match'
+fi
 [ ! -f "$folder/waha.tar" ] || check_empty "$waha" /app/.sessions
 [ ! -f "$folder/ollama.tar" ] || check_empty "$ollama" /root/.ollama
 [ ! -f "$folder/inference.tar" ] || check_empty "$worker" "/state/$environment/inference"
@@ -124,6 +158,24 @@ rm "$folder/restored-counts.partial"
 restore_files() {
  [ ! -f "$folder/$3" ] || docker cp -a - "$1:$2/" < "$folder/$3"
 }
+if [ -f "$folder/private.tar" ]; then
+ # Establish destination metadata before importing business files. The stopped
+ # holder may run as root, so use the private directory owner rather than its user.
+ private_user="$(docker run --rm --network none --read-only --volumes-from "$worker:ro" --entrypoint sh "$image" -c 'stat -c "%u:%g" /private')"
+ [[ "$private_user" =~ ^[0-9]+:[0-9]+$ ]] || refuse 'private directory owner unavailable'
+ docker run --rm --network none --read-only --volumes-from "$worker" --user "$private_user" --entrypoint sh "$image" -c '
+  umask 077
+  for name in media backups; do
+   mkdir -p "/private/$name" || exit 1
+   marker="/private/$name/.garimpei-$name-owner"
+   [ "$name" != backups ] || marker=/private/backups/.garimpei-backup-owner
+   if [ ! -e "$marker" ]; then
+    (set -C; printf "%s" "$1" > "$marker") || exit 1
+   fi
+   test -f "$marker" && test ! -L "$marker" && printf "%s" "$1" | cmp -s - "$marker" || exit 1
+  done
+ ' sh "$environment" || refuse 'destination storage ownership could not be prepared; automation remains stopped'
+fi
 [ -z "$worker" ] || restore_files "$worker" /private private.tar
 if [ -f "$folder/inference.tar" ]; then
  image="$(docker inspect -f '{{.Image}}' "$worker")"

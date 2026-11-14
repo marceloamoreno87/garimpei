@@ -9,7 +9,9 @@ from django.db import transaction
 from django.utils.timezone import now
 
 from garimpei.config.env import load_config
+from garimpei.domain.alert.gold_evidence import POLICY
 from garimpei.infra.persistence.assistance_models import AssistancePolicy
+from garimpei.infra.persistence.gold_models import GoldPolicyAdoption
 from garimpei.infra.persistence.monitoring_unit_of_work import lock_monitoring_publication
 
 
@@ -32,6 +34,20 @@ class Command(BaseCommand):
             _verification(config.root, options.get("verification"))
         with transaction.atomic():
             lock_monitoring_publication()
+            if (
+                not GoldPolicyAdoption.objects.select_for_update()
+                .filter(
+                    installation="local",
+                    state="active",
+                    policy=POLICY,
+                    consumer_version=POLICY,
+                    activated_at__isnull=False,
+                )
+                .exists()
+            ):
+                raise CommandError(
+                    "F21 exige política gold-alert-v1 ativa antes da adoção assistida."
+                )
             AssistancePolicy.objects.update_or_create(
                 pk=1, defaults=dict(active=True, adopted_at=now())
             )

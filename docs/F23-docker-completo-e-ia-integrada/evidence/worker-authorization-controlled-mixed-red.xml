@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="33.198" timestamp="2026-11-13T17:33:02.167485-06:00" hostname="docker-desktop"><testcase classname="tests.integration.test_assistance_authorization" name="test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending]" time="16.270"><failure message="AssertionError: F23 adoption accepted inactive/missing F21 policy&#10;assert False">tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-8/test_assisted_adoption_and_sql0')
+gold_state = 'pending'
+
+    @pytest.mark.parametrize("gold_state", ["pending", "missing"])
+    def test_assisted_adoption_and_sql_fence_require_active_gold_policy(
+        tmp_path: Path, gold_state: str
+    ) -&gt; None:
+        driver = GoldDriver(tmp_path)
+        try:
+            driver.action("prepare", case="BASE")
+            evidence = _evidence(
+                driver.shell("GOLD_STATE=" + repr(gold_state) + "\n" + MIXED_POLICY_SCRIPT),
+                "CONTROLLED_MIXED_POLICY=",
+            )
+            print(json.dumps(evidence, sort_keys=True))
+&gt;           assert evidence["activation_blocked"], "F23 adoption accepted inactive/missing F21 policy"
+E           AssertionError: F23 adoption accepted inactive/missing F21 policy
+E           assert False
+
+tests/integration/test_assistance_authorization.py:288: AssertionError</failure></testcase><testcase classname="tests.integration.test_assistance_authorization" name="test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing]" time="16.827"><failure message="AssertionError: F23 adoption accepted inactive/missing F21 policy&#10;assert False">tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-8/test_assisted_adoption_and_sql1')
+gold_state = 'missing'
+
+    @pytest.mark.parametrize("gold_state", ["pending", "missing"])
+    def test_assisted_adoption_and_sql_fence_require_active_gold_policy(
+        tmp_path: Path, gold_state: str
+    ) -&gt; None:
+        driver = GoldDriver(tmp_path)
+        try:
+            driver.action("prepare", case="BASE")
+            evidence = _evidence(
+                driver.shell("GOLD_STATE=" + repr(gold_state) + "\n" + MIXED_POLICY_SCRIPT),
+                "CONTROLLED_MIXED_POLICY=",
+            )
+            print(json.dumps(evidence, sort_keys=True))
+&gt;           assert evidence["activation_blocked"], "F23 adoption accepted inactive/missing F21 policy"
+E           AssertionError: F23 adoption accepted inactive/missing F21 policy
+E           assert False
+
+tests/integration/test_assistance_authorization.py:288: AssertionError</failure></testcase></testsuite></testsuites>

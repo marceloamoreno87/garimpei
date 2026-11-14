@@ -1,0 +1,433 @@
+{
+  "base": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727",
+  "stamp": "20261114001727",
+  "created": [
+    "garimpei-predecessor-executor-20261114001727",
+    "garimpei-eval_pred_source_1114001727-postgres",
+    "garimpei-eval_pred_source_1114001727-worker",
+    "garimpei-eval_pred_source_1114001727-waha",
+    "garimpei-eval_pred_source_1114001727-ollama",
+    "garimpei-eval_pred_f17_1114001727-postgres",
+    "garimpei-eval_pred_f17_1114001727-worker",
+    "garimpei-eval_pred_f17_1114001727-waha",
+    "garimpei-eval_pred_f17_1114001727-ollama",
+    "garimpei-eval_pred_target_1114001727-postgres"
+  ],
+  "steps": {
+    "executor-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-predecessor-executor-20261114001727",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_executor_1114001727",
+        "--label",
+        "com.docker.compose.service=quality",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_executor_1114001727",
+        "--user",
+        "1000:1000",
+        "--group-add",
+        "1001",
+        "--network",
+        "host",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727,destination=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727",
+        "--mount",
+        "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock",
+        "--entrypoint",
+        "sleep",
+        "garimpei-quality:f23-eval_f23_runtime",
+        "infinity"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/executor-create.log"
+    },
+    "source-pg-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_source_1114001727-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:34849:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_source_1114001727",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114001727",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source-pg-create.log"
+    },
+    "source-worker-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_source_1114001727-worker",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114001727",
+        "--label",
+        "com.docker.compose.service=worker",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source/private,destination=/private",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source/state,destination=/state",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source-worker-holder.log"
+    },
+    "source-waha-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_source_1114001727-waha",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114001727",
+        "--label",
+        "com.docker.compose.service=waha",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source/waha,destination=/app/.sessions",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source-waha-holder.log"
+    },
+    "source-ollama-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_source_1114001727-ollama",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_source_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_source_1114001727",
+        "--label",
+        "com.docker.compose.service=ollama",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source/ollama,destination=/root/.ollama",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/source-ollama-holder.log"
+    },
+    "f17-pg-create": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_f17_1114001727-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:46009:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_f17_1114001727",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114001727",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17-pg-create.log"
+    },
+    "f17-worker-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_f17_1114001727-worker",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114001727",
+        "--label",
+        "com.docker.compose.service=worker",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17/private,destination=/private",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17/state,destination=/state",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17-worker-holder.log"
+    },
+    "f17-waha-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_f17_1114001727-waha",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114001727",
+        "--label",
+        "com.docker.compose.service=waha",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17/waha,destination=/app/.sessions",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17-waha-holder.log"
+    },
+    "f17-ollama-holder": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "garimpei-eval_pred_f17_1114001727-ollama",
+        "--network",
+        "none",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_f17_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_f17_1114001727",
+        "--label",
+        "com.docker.compose.service=ollama",
+        "--mount",
+        "type=bind,source=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17/ollama,destination=/root/.ollama",
+        "--entrypoint",
+        "/bin/true",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/f17-ollama-holder.log"
+    },
+    "target-pg-create": {
+      "exit_code": 125,
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "garimpei-eval_pred_target_1114001727-postgres",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-p",
+        "127.0.0.1:49621:5432",
+        "-e",
+        "POSTGRES_PASSWORD",
+        "-e",
+        "POSTGRES_USER=garimpei",
+        "-e",
+        "POSTGRES_DB=garimpei_eval_pred_target_1114001727",
+        "--label",
+        "com.docker.compose.project=garimpei-eval_pred_target_1114001727",
+        "--label",
+        "com.garimpei.checkout=/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/installation",
+        "--label",
+        "com.garimpei.environment=eval_pred_target_1114001727",
+        "--label",
+        "com.docker.compose.service=postgres",
+        "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/target-pg-create.log"
+    },
+    "prepare": {
+      "status": "FAIL",
+      "error": "target-pg-create exit 125; private log /home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/target-pg-create.log",
+      "at": "2026-11-14T00:17:31.006708+00:00"
+    },
+    "cleanup-garimpei-eval_pred_target_1114001727-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_target_1114001727-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_target_1114001727-postgres.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114001727-ollama": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114001727-ollama"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_f17_1114001727-ollama.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114001727-waha": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114001727-waha"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_f17_1114001727-waha.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114001727-worker": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114001727-worker"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_f17_1114001727-worker.log"
+    },
+    "cleanup-garimpei-eval_pred_f17_1114001727-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_f17_1114001727-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_f17_1114001727-postgres.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114001727-ollama": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114001727-ollama"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_source_1114001727-ollama.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114001727-waha": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114001727-waha"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_source_1114001727-waha.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114001727-worker": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114001727-worker"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_source_1114001727-worker.log"
+    },
+    "cleanup-garimpei-eval_pred_source_1114001727-postgres": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-eval_pred_source_1114001727-postgres"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-eval_pred_source_1114001727-postgres.log"
+    },
+    "cleanup-garimpei-predecessor-executor-20261114001727": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "rm",
+        "-fv",
+        "garimpei-predecessor-executor-20261114001727"
+      ],
+      "log_private": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114001727/cleanup-garimpei-predecessor-executor-20261114001727.log"
+    },
+    "cleanup": {
+      "status": "PASS",
+      "at": "2026-11-14T00:19:17.650521+00:00"
+    }
+  },
+  "predecessor_commit": "15079aa7149b0a699891ddb10d8ccf5d06633608",
+  "candidate_commit": "1b25caea2782ec67979d53b4823ff71575b7bc1d",
+  "helper_sha256": "fcb523706be2e4ccc1e6c88a522c495daff69efa827353c57de463a2cc13f1c0",
+  "executor": "garimpei-predecessor-executor-20261114001727",
+  "cleanup": "Only exact assay-created containers removed; generated private files retained ignored.",
+  "resources": {
+    "source": {
+      "environment": "eval_pred_source_1114001727",
+      "pg": "garimpei-eval_pred_source_1114001727-postgres",
+      "project": "garimpei-eval_pred_source_1114001727"
+    },
+    "f17": {
+      "environment": "eval_pred_f17_1114001727",
+      "pg": "garimpei-eval_pred_f17_1114001727-postgres",
+      "project": "garimpei-eval_pred_f17_1114001727"
+    }
+  }
+}

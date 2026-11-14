@@ -1,0 +1,1 @@
+{"file": "dist/garimpei_backend-0.1.0-py3-none-any.whl", "sha256": "568e649d5208dffa4c7860bccc230dc14f8546f674df4197a03fc33bb3927c26", "files": 569, "manual_conflict_template": true, "migrations": ["0030_inference_legacy_targets.py", "0031_assisted_gold_authorization.py"]}

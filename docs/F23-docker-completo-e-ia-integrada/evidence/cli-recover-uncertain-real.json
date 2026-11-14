@@ -1,0 +1,345 @@
+{
+  "recorded_at": "2026-11-13T23:32:06.326803+00:00",
+  "base_revision": "7769efc1f072b29e8a9c14b7417235363cb1f234",
+  "runtime_image": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861",
+  "contract_item": "CLI-DOCKER-04",
+  "verdict": "PASS",
+  "scope": "Real bounded HTTP fault injection on the pinned own Ollama service, persistent F19 uncertain execution, blocked second dispatch, real operator recovery and final confirmed release.",
+  "prerequisites": {
+    "source_worker_and_web_stopped_throughout": true,
+    "source_postgres_started_only_for_persistent_use_cases": true,
+    "gpu_owner_free_before_explicit_prepare": true,
+    "explicit_prepare_pin_checks_passed": true,
+    "initial_active_request": null,
+    "initial_running_parts": 0,
+    "initial_queued_inference_requests": 0,
+    "initial_robot_paused": true,
+    "no_account_login_collection_or_message_transmission": true
+  },
+  "real_call": {
+    "configured_timeout_seconds": 1,
+    "mutating_transport_fault_deadline_seconds": 0.2,
+    "profile": "local-evidence-v1",
+    "model": "qwen3.5:4b-q4_K_M",
+    "before_diagnostic": {
+      "service": true,
+      "resident": false,
+      "reason": "ready",
+      "artifact": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+    },
+    "original_robot": {
+      "enabled": false,
+      "revision": 1,
+      "epoch": 1
+    },
+    "requests": [
+      {
+        "id": "3765cf8d-4e53-419e-9802-1494880f666c",
+        "observation_id": "136be378-137a-55c0-9bcd-9dabf98ef74e",
+        "revision": 1,
+        "input_sha256": "a3b534173d0e48c6ebaa2ee640b6467a39ee82d0a677533ea4bff0a13bf5592c",
+        "input_bytes": 187
+      },
+      {
+        "id": "81472e12-96ad-4e5d-abf4-7de7dcbf5140",
+        "observation_id": "ae0b6eae-7240-5c2f-a512-9f0153a264b2",
+        "revision": 1,
+        "input_sha256": "43821976d42ead5e76d74bee8339af366584445466cead113a62dea781c31a2f",
+        "input_bytes": 196
+      }
+    ],
+    "transport_calls": [
+      {
+        "path": "/api/version",
+        "mutating": false,
+        "requested_timeout_seconds": 2.999762160994578,
+        "fault_deadline_seconds": 2.999762160994578,
+        "started_monotonic": 79091.898144394,
+        "elapsed_seconds": 0.0011218419967917725
+      },
+      {
+        "path": "/api/tags",
+        "mutating": false,
+        "requested_timeout_seconds": 2.9986330549872946,
+        "fault_deadline_seconds": 2.9986330549872946,
+        "started_monotonic": 79091.899273259,
+        "elapsed_seconds": 0.0015443340089404956
+      },
+      {
+        "path": "/api/show",
+        "mutating": false,
+        "requested_timeout_seconds": 2.9970810869999696,
+        "fault_deadline_seconds": 2.9970810869999696,
+        "started_monotonic": 79091.900824767,
+        "elapsed_seconds": 0.0016265949961962178
+      },
+      {
+        "path": "/api/ps",
+        "mutating": false,
+        "requested_timeout_seconds": 2.9954365079902345,
+        "fault_deadline_seconds": 2.9954365079902345,
+        "started_monotonic": 79091.902470147,
+        "elapsed_seconds": 0.0010518600029172376
+      },
+      {
+        "path": "/api/version",
+        "mutating": false,
+        "requested_timeout_seconds": 0.9997561700001825,
+        "fault_deadline_seconds": 0.9997561700001825,
+        "started_monotonic": 79092.591806263,
+        "elapsed_seconds": 0.0013581290113506839
+      },
+      {
+        "path": "/api/tags",
+        "mutating": false,
+        "requested_timeout_seconds": 0.998390618013218,
+        "fault_deadline_seconds": 0.998390618013218,
+        "started_monotonic": 79092.593171365,
+        "elapsed_seconds": 0.0015911669906927273
+      },
+      {
+        "path": "/api/show",
+        "mutating": false,
+        "requested_timeout_seconds": 0.9967920870112721,
+        "fault_deadline_seconds": 0.9967920870112721,
+        "started_monotonic": 79092.594769656,
+        "elapsed_seconds": 0.0015974900015862659
+      },
+      {
+        "path": "/api/ps",
+        "mutating": false,
+        "requested_timeout_seconds": 0.9951095660071587,
+        "fault_deadline_seconds": 0.9951095660071587,
+        "started_monotonic": 79092.596452186,
+        "elapsed_seconds": 0.0008920090040192008
+      },
+      {
+        "path": "/api/chat",
+        "mutating": true,
+        "requested_timeout_seconds": 0.994165560012334,
+        "fault_deadline_seconds": 0.2,
+        "started_monotonic": 79092.597396453,
+        "model": "qwen3.5:4b-q4_K_M",
+        "options": {
+          "num_ctx": 4096,
+          "num_predict": 512,
+          "temperature": 0
+        },
+        "message_content_sha256": "f364e771a5d0cbef22d81aa91962a1b7fd1beb4bdf05c1472bbf0020300f9e09",
+        "error_code": "execution_unknown",
+        "sent": true,
+        "elapsed_seconds": 0.20048396999482065
+      }
+    ],
+    "fault": "Real HTTP transport deadline cut after dispatch, applied only to one /api/chat request. No model/result/state flags are fabricated.",
+    "temporary_enable_command": "de383d72-8edf-45fa-98eb-40fff4368bdc",
+    "after_first": {
+      "runner_return": false,
+      "control_reason": "execution_unknown",
+      "active_request": "3765cf8d-4e53-419e-9802-1494880f666c",
+      "request_state": "awaiting_resource",
+      "request_reason": "execution_unknown",
+      "part_state": "running",
+      "part_reason": "execution_unknown",
+      "part_metrics": {
+        "sent": true,
+        "gpu_samples": [],
+        "residency_before": "absent",
+        "wall_duration_ns": 201439218
+      },
+      "gpu_reservation_owned": true
+    },
+    "blocked_second_attempt": {
+      "runner_return": false,
+      "new_queued_request_state": "pending",
+      "robot_enabled": true,
+      "inference_paused": false,
+      "persisted_block_reason": "execution_unknown",
+      "active_request": "3765cf8d-4e53-419e-9802-1494880f666c",
+      "mutating_calls_before": 1,
+      "mutating_calls_after": 1
+    },
+    "success": true,
+    "restore_pause_command": "830fe5f0-9280-489f-b945-b718b872451f",
+    "robot_restored": {
+      "enabled": false,
+      "revision": 3,
+      "epoch": 3
+    }
+  },
+  "server_observation": {
+    "mutating_chat_request_count": 1,
+    "chat_lines": [
+      "[GIN] 2026/11/13 - 23:28:19 | 499 | 741.37ms |     192.168.0.3 | POST     \"/api/chat\""
+    ],
+    "loading_and_gpu_lines": [
+      "time=2026-11-13T23:28:19.241Z level=INFO source=sched.go:658 msg=\"gpu memory\" id=0 library=CUDA available=\"10.3 GiB\" free=\"10.8 GiB\" minimum=\"457.0 MiB\" overhead=\"0 B\"",
+      "time=2026-11-13T23:28:19.241Z level=WARN source=llama_server.go:1357 msg=\"client connection closed before llama-server finished loading, aborting load\""
+    ],
+    "interpretation": "The server accepted one real /api/chat and began model loading; the client deadline closed the connection before loading completed. The client could not prove termination, so its actual failure path retained the reservation and active request. No completed tokens or inference-quality success are claimed."
+  },
+  "recovery": {
+    "exit_code": 0,
+    "container_id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551",
+    "environment": "eval_f23_runtime",
+    "checkout_verified": true,
+    "gpu_owner_verified_before": true,
+    "before_started_at": "2026-11-13T23:26:24.676088396Z",
+    "after_started_at": "2026-11-13T23:29:35.806960137Z",
+    "after_running": true,
+    "control_before": {
+      "active_request": "3765cf8d-4e53-419e-9802-1494880f666c",
+      "reason": "execution_unknown",
+      "paused": false,
+      "resident": false,
+      "generation": 9
+    },
+    "control_after": {
+      "active_request": null,
+      "reason": "idle_unloaded",
+      "paused": false,
+      "resident": false,
+      "generation": 10
+    },
+    "events": [
+      {
+        "action": "kill",
+        "timeNano": 1794612575500142760,
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551"
+      },
+      {
+        "action": "stop",
+        "timeNano": 1794612575719940390,
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551"
+      },
+      {
+        "action": "die",
+        "timeNano": 1794612575726117057,
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551"
+      },
+      {
+        "action": "start",
+        "timeNano": 1794612576067855310,
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551"
+      }
+    ],
+    "docker_stop_confirmed_before_start": true,
+    "mutating_model_calls_in_recovery": 0,
+    "operator_wrapper_result": "Owned prior Ollama execution stopped and confirmed; recovery recorded"
+  },
+  "post_recovery": {
+    "gateway_status": {
+      "service": true,
+      "resident": false,
+      "reason": "ready",
+      "artifact": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+    },
+    "control": {
+      "active_request": null,
+      "reason": "idle_unloaded",
+      "resident": false,
+      "generation": 10
+    },
+    "robot": {
+      "enabled": false,
+      "revision": 3,
+      "epoch": 3
+    },
+    "two_requests_retained_without_automatic_workers": [
+      {
+        "id": "3765cf8d-4e53-419e-9802-1494880f666c",
+        "state": "awaiting_resource",
+        "reason": "execution_unknown",
+        "part_state": "pending",
+        "part_attempts": 1,
+        "part_sent": true,
+        "original_signature": "76a855d0ea98aaea431a4d3a07224bc5b9f76303817aa63143f96b6a5414af90"
+      },
+      {
+        "id": "81472e12-96ad-4e5d-abf4-7de7dcbf5140",
+        "state": "pending",
+        "reason": "",
+        "part_state": "pending",
+        "part_attempts": 0,
+        "part_sent": false,
+        "original_signature": "281ae19521bbe59218e86eb7b7c10c570db87b80cb7e2db14ea7e354462e2363"
+      }
+    ],
+    "gpu_guard_owned_until_final_confirmed_stop": true,
+    "additional_chat_calls": 0
+  },
+  "final_cleanup": {
+    "normal_stop_command": "GARIMPEI_ENV_FILE=<private> ./scripts/stop.sh",
+    "normal_stop_exit_code": 0,
+    "application_services": [
+      {
+        "name": "web",
+        "id": "fff59fb0c895f81ae0941bacbb986bb0ccb5230b5b3505ae84e945315ea6d93c",
+        "running": false,
+        "image": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861"
+      },
+      {
+        "name": "worker",
+        "id": "b8cd40508416fd4c61aea1c90fedbf10b93d902994983f45e7a58dfe8d52ec92",
+        "running": false,
+        "image": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861"
+      },
+      {
+        "name": "postgres",
+        "id": "252e1a0fd567a1c4e2ea697ace28fe43e808a24717a8875a5167f10b33dbc0f5",
+        "running": false,
+        "image": "sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f"
+      },
+      {
+        "name": "waha",
+        "id": "aef8290d796563b78ee6839743ae7228ddf8308df8f81a45c573dff84ce3c544",
+        "running": false,
+        "image": "sha256:1f7faeb0227ad5edb5711f7058bfce807ea65e5f92234af0778e4db140f6eb46"
+      },
+      {
+        "name": "ollama",
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551",
+        "running": false,
+        "image": "sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592"
+      }
+    ],
+    "gpu_owner_file_absent": true,
+    "volumes_and_private_directories_retained": true,
+    "coordinator_administrative_tools_left_running_for_new_independent_test": true
+  },
+  "trace_safety": {
+    "only_one_model_chat_dispatched": true,
+    "second_ticket_was_queued_but_not_dispatched": true,
+    "no_second_generation_after_recovery": true,
+    "no_flags_results_or_control_failure_states_fabricated": true,
+    "uncertainty_was_written_by_RunAnalysisUseCase_and_PostgresInferenceRepository_from_the_real_transport_exception": true,
+    "temporary_F22_enable_and_restore_used_real_revision_checked_commands": true,
+    "no_profile_context_output_budget_or_model_pin_modified": true
+  },
+  "source_scope_delta": {
+    "original_request_count": 8,
+    "post_probe_request_count": 10,
+    "added_requests": [
+      "3765cf8d-4e53-419e-9802-1494880f666c",
+      "81472e12-96ad-4e5d-abf4-7de7dcbf5140"
+    ],
+    "new_requests_are_finite_eval_operations_on_existing_current_observations": true,
+    "original_eight_requests_and_eleven_reviews_not_rewritten": true,
+    "robot_before": {
+      "enabled": false,
+      "revision": 1,
+      "epoch": 1
+    },
+    "robot_after": {
+      "enabled": false,
+      "revision": 3,
+      "epoch": 3
+    },
+    "why_revision_changed": "Two explicit temporary admission commands while all automatic workers were stopped; final intent remains paused."
+  },
+  "limitations": [
+    "The real fault was a transport timeout during server-side model loading, not a completed inference response or human quality evaluation.",
+    "The two operational requests remain persisted under global pause; no background worker is running to retry them.",
+    "This evidence does not establish independent human corpus acceptance or the real-positive F21 outcome."
+  ]
+}

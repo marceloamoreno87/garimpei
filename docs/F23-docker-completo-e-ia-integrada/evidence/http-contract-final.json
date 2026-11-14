@@ -1,0 +1,43 @@
+{
+  "recorded_at": "2026-11-14T00:16:23.975609+00:00",
+  "contract_items": [
+    "API-REVISAO-01",
+    "API-REVISAO-02",
+    "API-REVISAO-03",
+    "API-LEITURA-01",
+    "API-EXPLICACAO-01"
+  ],
+  "driver": "Django Client(enforce_csrf_checks=True), actual routing/middleware/templates/real PostgreSQL; NamedFinitePreparer only for external preparation",
+  "fault": "DatabaseError injected at late AssistanceCommand create; actual enclosing transaction rolled back request/review/command/cache side effects",
+  "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey uv run --frozen --no-sync pytest -q -s tests/integration/test_assistance_flow.py --basetemp=/tmp/f23-http-final --junitxml=/tmp/f23-http-final.xml",
+  "exit_code": 0,
+  "passed": 2,
+  "duration_seconds": 22.4,
+  "source_test_sha256": "bfec6031f3e513238531eb4d169a748aa9d89f7694412523a948c78d68c90d08",
+  "observed": {
+    "admit": 202,
+    "allow_header": "POST",
+    "command_conflict": 409,
+    "csrf_missing": 403,
+    "explain": 202,
+    "explain_command_conflict": 409,
+    "explain_reference_equal": true,
+    "explain_repeat": 202,
+    "late_write_rolled_back": true,
+    "malformed": 400,
+    "method": 405,
+    "missing": 404,
+    "old_snapshot": 409,
+    "old_snapshot_no_new_work": true,
+    "persistence_failure": 503,
+    "repeat": 202,
+    "same_reference": true,
+    "stale_revision": 409
+  },
+  "additional_existing_assertions": "Actual GET200, POST noCSRF403, PUT405/AllowPOST and empty usable input422 remain asserted in the same passing script; GET does not create work.",
+  "log": "http-contract-final.txt",
+  "junit": "http-contract-final.xml",
+  "production_code_changed": false,
+  "gpu_calls": 0,
+  "real_message_posts": 0
+}

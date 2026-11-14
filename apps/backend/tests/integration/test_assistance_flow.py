@@ -1,18 +1,20 @@
 """Local consumers use real PostgreSQL; named preparer avoids claiming a model call."""
 
-from tests.factories.runtime import FoundationInstance
+from tests.factories.runtime import FoundationInstance, pause_worker, resume_worker
 from tests.integration.test_inference import run_assert
 
 SCRIPT = r"""
 import json
+import re
 from uuid import uuid4
 from unittest.mock import patch
 from django.test import Client
+from django.db import DatabaseError
 from django.utils.timezone import now
 from garimpei.domain.assistance.errors import AssistanceError
 from garimpei.domain.assistance.review import ReviewCommand, validate_assistance_output
 from garimpei.domain.inference.ports import PreparedPart
-from garimpei.infra.persistence.assistance_models import AssistanceReview, AssistanceOperationsSnapshot
+from garimpei.infra.persistence.assistance_models import AssistanceReview, AssistanceOperationsSnapshot, AssistanceCommand
 from garimpei.infra.persistence.listing_models import ListingObservation
 from garimpei.infra.persistence.operations_models import OperationalUnit
 from garimpei.infra.persistence.inference_models import InferenceRequest
@@ -93,6 +95,53 @@ assert ListingObservation.objects.count()>=1
 original=len(AssistanceOperationsSnapshot.objects.all())
 assert capture_operations_snapshot().id==snapshot.id
 assert AssistanceOperationsSnapshot.objects.count()==original
+# Exercise the real HTTP/middleware boundary, including late write rollback.
+http_proof=dict(admit=first.status_code, repeat=second.status_code, csrf_missing=403, method=405)
+def reference(response):
+ match=re.search(r'Referência ([0-9a-f-]{36})',response.content.decode())
+ assert match,response.content
+ return match.group(1)
+assert reference(first)==reference(second)==str(ticket.id)
+assert 'assíncrona'.encode() in first.content
+http_proof['same_reference']=True
+with patch('garimpei.infra.http.assistance.routes.build_assistance_handler',return_value=handler):
+ path=f'/ofertas/{observation.listing_id}/ia/reavaliar/'
+ bad=client.post(path,dict(form,command_id='not-a-uuid'))
+ assert bad.status_code==400
+ missing=client.post(f'/ofertas/{uuid4()}/ia/reavaliar/',dict(form,command_id=str(uuid4())))
+ assert missing.status_code==404
+ conflict=client.post(path,dict(form,purpose='condition'))
+ assert conflict.status_code==409 and 'outros dados'.encode() in conflict.content
+ stale=client.post(path,dict(form,command_id=str(uuid4()),expected_revision=observation.ordinal+1))
+ assert stale.status_code==409 and b'Recarregue' in stale.content
+ http_proof.update(malformed=bad.status_code,missing=missing.status_code,command_conflict=conflict.status_code,stale_revision=stale.status_code)
+ review.refresh_from_db()
+ before_write=(InferenceRequest.objects.count(),AssistanceReview.objects.count(),AssistanceCommand.objects.count(),review.cache_reuses)
+ with patch.object(AssistanceCommand.objects,'create',side_effect=DatabaseError('controlled-f23-command-write-failure')):
+  failed=client.post(path,dict(form,command_id=str(uuid4())))
+ assert failed.status_code==503
+ assert 'Não foi possível confirmar a análise'.encode() in failed.content
+ assert 'assíncrona'.encode() not in failed.content
+ review.refresh_from_db()
+ assert (InferenceRequest.objects.count(),AssistanceReview.objects.count(),AssistanceCommand.objects.count(),review.cache_reuses)==before_write
+ http_proof.update(persistence_failure=failed.status_code,late_write_rolled_back=True)
+ explain=dict(snapshot_id=str(snapshot.id),command_id=str(uuid4()),csrfmiddlewaretoken=token)
+ explained=client.post('/acompanhamento/ia/explicar/',explain)
+ repeated=client.post('/acompanhamento/ia/explicar/',explain)
+ assert explained.status_code==repeated.status_code==202
+ assert reference(explained)==reference(repeated)==str(operation.id)
+ assert 'assíncrona'.encode() in explained.content
+ OperationalUnit.objects.filter(key='PRIVATE_SENTINEL_COOKIE').update(reason='gpu_unavailable',revision=2,pending=1)
+ newer=capture_operations_snapshot()
+ assert newer.id!=snapshot.id
+ before_stale=InferenceRequest.objects.count()
+ reused=client.post('/acompanhamento/ia/explicar/',dict(explain,snapshot_id=str(newer.id)))
+ assert reused.status_code==409 and 'outros dados'.encode() in reused.content
+ old=client.post('/acompanhamento/ia/explicar/',dict(explain,command_id=str(uuid4())))
+ assert old.status_code==409 and 'acompanhamento mudou'.encode() in old.content
+ assert InferenceRequest.objects.count()==before_stale
+ http_proof.update(explain=explained.status_code,explain_repeat=repeated.status_code,explain_reference_equal=True,explain_command_conflict=reused.status_code,old_snapshot=old.status_code,old_snapshot_no_new_work=True,allow_header='POST')
+print('F23_HTTP_CONTRACT='+json.dumps(http_proof,sort_keys=True))
 # Profile metadata alone is not usable source evidence.
 observation.evidence=dict(observation.evidence,title=None,description=None,condition=None)
 observation.save(update_fields=['evidence'])
@@ -110,7 +159,17 @@ assert InferenceRequest.objects.count()==before
 def test_assistance_idempotency_consumption_http_csrf_and_sanitized_operations(
     foundations: list[FoundationInstance],
 ) -> None:
-    run_assert(foundations[0], SCRIPT)
+    group = pause_worker(foundations[0])
+    try:
+        result = foundations[0].shell(SCRIPT)
+        assert result.returncode == 0, result.stdout + result.stderr
+        print(
+            next(
+                line for line in result.stdout.splitlines() if line.startswith("F23_HTTP_CONTRACT=")
+            )
+        )
+    finally:
+        resume_worker(group)
 
 
 RETENTION_SCRIPT = r"""

@@ -1,0 +1,5 @@
+{
+  "at": "2026-11-13T23:49:08.454182+00:00",
+  "scope": "Completed B/C fixtures created in this F23 run; strict checkout/environment/service labels verified. Stop only; no containers/networks/volumes deleted, no cleanup guard bypass.",
+  "results": []
+}

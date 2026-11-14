@@ -5,7 +5,8 @@
 **Branch:** `feat/F23-docker-completo-e-ia-integrada`
 **Started at:** `2026-11-13T21:30:59.086665+00:00`
 **Retry budget:** `3`
-**Status:** `running`
+**Status:** `manual-pending`
+**Ended at:** `2026-11-14T00:44:29.968720+00:00`
 
 **Overrides applied:** usuário autorizou execução nativa por agentes via implement-and-evaluate-tmux, commit, merge e push. Root integra todas worktrees após avaliação. F21 implemented com prova real positiva pendente é bloqueio da conclusão integrada; desenvolvimento controlado prossegue sem alegar aceite.
 
@@ -20,7 +21,9 @@
 | 2 | fix-runner | fixed | backfill físico, entradas vazias, alvo F17 vazio e precondições concorrentes; seis gates PASS e 13 testes locais PASS | evidence/gates-cycle2-final.txt |
 
 | 2 | evaluator | fail-gate-pytest | positivo Worker novo2FAIL/1PASS; histórico968PASS preservado | eval-report-2026-11-13T23-31-11Z.md |
-| 3 | fix-runner | running | última tentativa: guardapersistenteF23 e adoção local failclosed, sem reduzirqualificação | — |
+| 3 | fix-runner | fixed | guardaF23 exata/adoçãoGoldlocal,3markers de propriedade e provasHTTP; todos gates locais PASS | evidence/worker-authorization-controlled.json |
+
+| 3 | evaluator | pending |33PASS/0FAIL/2BLOCKED;12ACverificados/2indeterminados;974nodes cobertos | eval-report-2026-11-14T00-40-00Z.md |
 
 ## Cycle Detail
 
@@ -51,6 +54,17 @@ Runtime e lifecycle delegados a runtime; consumidores e UI a assistance. Orquest
 
 A prova positiva permitida na superfície Worker usou PostgreSQL, RunAnalysisUseCase e provedores nomeados/controlados: cinco comparáveis revisados, identidade sustentada e condição F15 suficiente. A nova regressão encontrou um defeito que a bateria anterior não exercitava: a guarda0027 continuava aceitando apenas gold-alert-v1. Dois positivos falharam com erro real PostgreSQL; a negativa de identidade pendente passou. Avaliação2 preservada e ciclo3 aberto, último do orçamento. A migration0031 deve exigir exatamente a política ativa, conservar todas as outras guardas e recusar adoção local mista. Nenhum requisito foi reduzido.
 
+### Fechamento do ciclo 3
+
+- Migration0031 preservou o trigger e sua reversão original, exigiu política exata e recusou F23 ativa com Ouro local pendente/ausente. O comando oficial exige adoção Ouro local compatível dentro de transaction/publication lock. Prova positiva Worker: lucro R$800 e R$0,01, um POST local e repetição sem novo POST; revisão obrigatória pendente impede envio.11testes passaram;24regressões de migração/backup/cache/fluxo também passaram.
+- API foi exercitada pela pilha Django real/CSRF/PostgreSQL:202idempotente;400/403/404/405/409/422;503 de persistência tardia com rollback efetivo; explicação atual202, conflito/recorte antigo409 sem trabalho novo.2testes passaram, sem mudar código de produção.
+- Prova real CLI04 interrompeu uma única chamada ao Ollama, manteve execution_unknown/reserva e recusou o segundo ticket sem outro POST. Recovery confirmou stop/die antes de start; pausa restaurada por comandos explícitos e GPU liberada após stop.
+- O predecessor controlado15079aa/0027 comprovou F17 antes da adoção, migração0031, restart PostgreSQL e dois workers com sete grupos, rollback e zero POST. Uma leitura real descobriu marcadores de mídia/backups ainda ligados à origem; o helper foi corrigido, manteve validações e passou leitura/thumbnail/HTTP200 e novos backups F17 em target/rollback. O vermelho e as tentativas inválidas permanecem; somente a prova03250verde fundamenta o aceite. Metadados de propriedade são reconstituídos para o destino; dados, fila e recibos permanecem preservados. A barreira F17 é estabelecida localmente e conferida antes do init, sem importar permissão reconciliada da origem.
+- Qualidade final na imagem construída:707mypy/708Ruff/49templates e seis grupos PASS; Django/migrations/wheel569arquivos e harness aprovados. A união auditável cobre974/974nodes sem remoção de casos originais e preserva todos os resultados históricos. Não é uma nova execução monolítica da fonte final.
+- Avaliador separado conferiu35itens/124then/14AC:33PASS,0FAIL,2BLOCKED;12ACverificados/2indeterminados. Relatório canônico final e progresso F23 foram escritos pelo avaliador; nenhum outro progresso foi alterado.
+
 ## Final Verdict
 
-Pendente da execução.
+`manual-pending`, orçamento utilizado3/3. F23 permanece `implemented`, `completed_at=null`, sem aprovação integral. E2E-QUALIDADE-01 carece de rótulos humanos independentes; E2E-FLUXO-01 carece da cadeia completa com modelo real e positivo F21. Cinco perfis GPU reais e Worker positivo controlado são provas distintas, explicitamente delimitadas. Não foram inventados gabaritos nem oportunidade real lucrativa.
+
+Relatório: [eval-report-2026-11-14T00-40-00Z.md](eval-report-2026-11-14T00-40-00Z.md). Dados/volumes privados preservados; serviços próprios e ferramentas encerrados após evidências. Só o lock desta execução será liberado. Commit/merge/push permanecem no escopo explicitamente autorizado pelo usuário; o coordenador root consolida cinco documentos canônicos e integra todas as worktrees na master antes do push.

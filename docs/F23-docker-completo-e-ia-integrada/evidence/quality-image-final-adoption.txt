@@ -1,0 +1,241 @@
+ Image garimpei-quality:f23-eval_f23_runtime Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 688B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.75kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.11.24@sha256:99ea34acedc870ba4ad11a1f540a1c04267c9f30aadc465a94406f52dfda2c36
+#3 ...
+
+#4 [auth] astral-sh/uv:pull token for ghcr.io
+#4 DONE 0.0s
+
+#5 [auth] library/node:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/docker:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [auth] library/python:pull token for registry-1.docker.io
+#7 DONE 0.0s
+
+#8 [internal] load metadata for docker.io/library/node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
+#8 DONE 0.9s
+
+#9 [internal] load metadata for docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1
+#9 DONE 0.9s
+
+#10 [internal] load metadata for docker.io/library/python:3.13.14-slim-bookworm@sha256:67a1e1f215ccda113cfc024e8639049257e88f273898f595b61476d128d387e8
+#10 DONE 0.9s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.11.24@sha256:99ea34acedc870ba4ad11a1f540a1c04267c9f30aadc465a94406f52dfda2c36
+#3 DONE 1.4s
+
+#11 [internal] load .dockerignore
+#11 transferring context: 345B done
+#11 DONE 0.0s
+
+#12 [internal] load build context
+#12 DONE 0.0s
+
+#13 [node 1/1] FROM docker.io/library/node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
+#13 resolve docker.io/library/node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94 0.1s done
+#13 DONE 0.1s
+
+#14 [docker 1/1] FROM docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1
+#14 resolve docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1 0.1s done
+#14 DONE 0.1s
+
+#15 [uv 1/1] FROM ghcr.io/astral-sh/uv:0.11.24@sha256:99ea34acedc870ba4ad11a1f540a1c04267c9f30aadc465a94406f52dfda2c36
+#15 resolve ghcr.io/astral-sh/uv:0.11.24@sha256:99ea34acedc870ba4ad11a1f540a1c04267c9f30aadc465a94406f52dfda2c36 0.1s done
+#15 DONE 0.1s
+
+#16 [runtime  1/11] FROM docker.io/library/python:3.13.14-slim-bookworm@sha256:67a1e1f215ccda113cfc024e8639049257e88f273898f595b61476d128d387e8
+#16 resolve docker.io/library/python:3.13.14-slim-bookworm@sha256:67a1e1f215ccda113cfc024e8639049257e88f273898f595b61476d128d387e8 0.1s done
+#16 DONE 0.1s
+
+#12 [internal] load build context
+#12 transferring context: 764.48kB 0.2s done
+#12 DONE 0.2s
+
+#17 [runtime  6/11] COPY apps/backend/src ./src
+#17 CACHED
+
+#18 [runtime  3/11] WORKDIR /app/apps/backend
+#18 CACHED
+
+#19 [runtime 11/11] RUN uv sync --frozen --no-dev &&     python -m garimpei.infra.runtime.container_artifacts build-tokenizer &&     chmod 755 /app/artifacts && chmod 644 /app/artifacts/tokenizer.json
+#19 CACHED
+
+#20 [runtime  9/11] COPY docs/prd_progress.json /app/docs/prd_progress.json
+#20 CACHED
+
+#21 [quality 2/7] COPY --from=docker /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+#21 CACHED
+
+#22 [runtime  4/11] COPY apps/backend/pyproject.toml apps/backend/uv.lock apps/backend/.python-version ./
+#22 CACHED
+
+#23 [runtime  8/11] COPY docs/F19-inferencia-multimodal-local-em-docker/model-lock.json /app/docs/F19-inferencia-multimodal-local-em-docker/model-lock.json
+#23 CACHED
+
+#24 [quality 3/7] COPY --from=node /usr/local/bin/node /usr/local/bin/node
+#24 CACHED
+
+#25 [runtime  5/11] RUN apt-get update && apt-get install -y --no-install-recommends libatomic1 postgresql-client git &&     uv sync --frozen --no-dev --no-install-project && uv run --no-sync playwright install --with-deps chromium &&     rm -rf /var/lib/apt/lists/* && useradd --create-home --uid 1000 garimpei
+#25 CACHED
+
+#26 [quality 4/7] COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+#26 CACHED
+
+#27 [runtime  7/11] COPY apps/backend/manage.py ./manage.py
+#27 CACHED
+
+#28 [runtime 10/11] COPY docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence /app/docs/F18-identificacao-de-produtos-e-busca-ativa-de-comparaveis/evidence
+#28 CACHED
+
+#29 [runtime  2/11] COPY --from=uv /uv /uvx /usr/local/bin/
+#29 CACHED
+
+#30 [quality 1/7] COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
+#30 CACHED
+
+#31 [quality 5/7] RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm &&     ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx &&     npm install --global @playwright/cli@0.1.23 &&     playwright-cli install-browser chromium && chmod -R a+rX /ms-playwright
+#31 CACHED
+
+#32 [quality 6/7] COPY --chown=garimpei:garimpei . /app
+#32 DONE 1.1s
+
+#33 [quality 7/7] RUN uv sync --frozen --all-groups && mkdir -p /tmp/g23tmp && chown garimpei:garimpei /tmp/g23tmp && chown -R garimpei:garimpei /app
+#33 0.314    Building garimpei-backend @ file:///app/apps/backend
+#33 0.375 Downloading grimp (2.2MiB)
+#33 0.376 Downloading mypy (13.0MiB)
+#33 0.376 Downloading deptry (1.8MiB)
+#33 0.384 Downloading djlint (1.6MiB)
+#33 0.385 Downloading pygments (1.2MiB)
+#33 0.385 Downloading ruff (10.1MiB)
+#33 1.123  Downloaded pygments
+#33 1.169  Downloaded djlint
+#33 1.219  Downloaded deptry
+#33 1.271  Downloaded grimp
+#33 1.497       Built garimpei-backend @ file:///app/apps/backend
+#33 2.208  Downloaded ruff
+#33 2.654  Downloaded mypy
+#33 2.655 Prepared 29 packages in 2.34s
+#33 2.658 Uninstalled 1 package in 2ms
+#33 3.383 Installed 34 packages in 725ms
+#33 3.383  + cssbeautifier==2.0.3
+#33 3.383  + deptry==0.25.1
+#33 3.383  + django-stubs==5.2.9
+#33 3.383  + django-stubs-ext==6.1.2
+#33 3.383  + djlint==1.49.10
+#33 3.383  + editorconfig==0.17.1
+#33 3.383  ~ garimpei-backend==0.1.0 (from file:///app/apps/backend)
+#33 3.384  + grimp==3.19
+#33 3.384  + hatchling==1.33.0
+#33 3.384  + import-linter==2.16
+#33 3.384  + iniconfig==2.3.1
+#33 3.384  + jsbeautifier==2.0.3
+#33 3.384  + json5==0.17.3
+#33 3.384  + librt==0.16.0
+#33 3.384  + markdown-it-py==4.3.0
+#33 3.384  + mdurl==0.1.2
+#33 3.384  + mypy==1.19.1
+#33 3.384  + mypy-extensions==1.2.0
+#33 3.384  + pathspec==1.1.1
+#33 3.384  + pluggy==1.7.0
+#33 3.384  + pygments==2.21.0
+#33 3.384  + pytest==9.2.0
+#33 3.384  + pytest-django==4.14.0
+#33 3.384  + regex==2026.11.9
+#33 3.384  + requirements-parser==0.13.1
+#33 3.384  + rich==15.0.0
+#33 3.384  + ruff==0.17.4
+#33 3.384  + tomli==2.5.0
+#33 3.384  + tomlkit==0.15.2
+#33 3.384  + trove-classifiers==2026.9.21.13
+#33 3.384  + types-jsonschema==4.26.0.20261006
+#33 3.384  + types-psutil==7.2.2.20260906
+#33 3.384  + types-pyyaml==6.0.12.20261103
+#33 3.384  + vulture==2.16
+#33 DONE 38.3s
+
+#34 exporting to image
+#34 exporting layers
+#34 exporting layers 10.9s done
+#34 exporting manifest sha256:4994eb8e061d084e14e1a5350a8cefcfd35ddc132e80eba691417672a19b968b 0.0s done
+#34 exporting config sha256:89d84fe282d0c6e6d02288fa584ac4205cd34e7d7d4b2c170a00dc929cbce852 0.0s done
+#34 exporting attestation manifest sha256:1c35b00b46c66aaa35100c2742af23db9436bd7d5850604390d478f38b18f0eb 0.0s done
+#34 exporting manifest list sha256:1841bfe74b88f6370f7d809480fb5068d0683f56dc288a97932607f944e0a3f6 0.0s done
+#34 naming to docker.io/library/garimpei-quality:f23-eval_f23_runtime
+#34 naming to docker.io/library/garimpei-quality:f23-eval_f23_runtime done
+#34 unpacking to docker.io/library/garimpei-quality:f23-eval_f23_runtime
+#34 unpacking to docker.io/library/garimpei-quality:f23-eval_f23_runtime 6.2s done
+#34 DONE 17.2s
+
+#35 resolving provenance for metadata file
+#35 DONE 0.0s
+ Image garimpei-quality:f23-eval_f23_runtime Built 
+ Container garimpei-eval_f23_runtime-quality-run-9c9a90995857 Creating 
+ Container garimpei-eval_f23_runtime-quality-run-9c9a90995857 Created 
+[gates] Tipos: 491 Python source files
+[gates] uv run --frozen --no-sync mypy --strict src tests scripts/quality manage.py
+Success: no issues found in 707 source files
+[gates] Tipos: PASS
+[gates] Lint: 491 Python source files
+[gates] uv run --frozen --no-sync ruff check src tests scripts manage.py
+All checks passed!
+[gates] uv run --frozen --no-sync ruff format --check src tests scripts manage.py
+708 files already formatted
+[gates] uv run --frozen --no-sync djlint src/garimpei/infra/http/templates --lint --profile=django
+
+Linting 49/49 files
+
+
+Linted 49 files, found 0 errors.
+
+[gates] Lint: PASS
+[gates] Limites: 491 Python source files
+[gates] uv run --frozen --no-sync lint-imports --config .importlinter
+
+╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐
+╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │
+ ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗
+ ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝
+╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║
+╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝
+  └──▶║║                    ▲ 
+      ╚╝────────────────────┘
+
+
+---------
+Contracts
+---------
+
+Analyzed 491 files, 2326 dependencies.
+--------------------------------------
+
+Domain has no application or I/O dependencies KEPT
+Usecases depend only on pure contracts KEPT
+
+Contracts: 2 kept, 0 broken.
+[gates] Limites: PASS
+[gates] Arquitetura: 491 Python source files
+[gates] uv run --frozen --no-sync python scripts/quality/check_architecture.py
+Architecture: 491 source files; 0 violations
+[gates] Arquitetura: PASS
+[gates] Ciclos: 491 Python source files
+[gates] uv run --frozen --no-sync python scripts/quality/check_cycles.py
+Cycles: 440 modules, 0 cyclic edges
+[gates] Ciclos: PASS
+[gates] Não utilizados: 491 Python source files
+[gates] uv run --frozen --no-sync vulture src scripts/quality quality/vulture_whitelist.py --min-confidence 60
+[gates] uv run --frozen --no-sync deptry .
+Scanning 495 files...
+
+[1m[32mSuccess! No dependency issues found.[m
+[gates] Não utilizados: PASS
+[gates] Six Python groups approved

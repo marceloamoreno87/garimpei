@@ -22,13 +22,15 @@ O diretório de saída precisa ser novo e externo à origem privada. Recebe modo
 
 Preparar um projeto eval novo e recursos próprios com banco vazio, PostgreSQL ativo e contêineres de dados criados e parados. Não executar migrations no destino antes da restauração do dump completo. Usar as mesmas imagens/pins da origem para verificar a cópia antes de migrar o schema; eventual atualização de código é um passo posterior explícito.
 
-O destino precisa do marcador `.runtime/<ambiente>/docker-disposable` da instância descartável e das mesmas superfícies de dados que os arquivos da cópia exigem. Diretórios de destino precisam estar vazios. Esse marcador não é autorização para apagar recursos. O helper não apaga bancos, volumes ou perfis.
+O destino precisa do marcador `.runtime/<ambiente>/docker-disposable` da instância descartável e das mesmas superfícies de dados que os arquivos da cópia exigem. Diretórios de destino precisam estar vazios de dados. `/private/.garimpei-owner` deve existir, ser arquivo regular e corresponder ao checkout e ambiente do destino, conforme preparado pelo controlador. A cópia exclui os três metadados de propriedade da origem: `.garimpei-owner`, `media/.garimpei-media-owner` e `backups/.garimpei-backup-owner`. Preserva o marcador do controlador de destino e prepara os marcadores dos stores com o ID do destino, sem newline e com modo 0600, usando o proprietário do diretório privado antes de importar seu conteúdo. Marcadores preexistentes só são aceitos se regulares e correspondentes ao destino. Cópias antigas que incluam esses metadados são recusadas antes de restaurar o banco. O host precisa de GNU tar para excluir esse metadado sem extrair sessões em diretório temporário. Esse marcador não é autorização para apagar recursos. O helper não apaga bancos, volumes ou perfis.
 
 ```bash
 ./scripts/docker-adoption.sh restore-check garimpei-eval_destino /caminho/privado/fora-dos-dados/copia
 ```
 
 O comando verifica checksums antes de acessar Docker, proprietário e estado de cada recurso antes da primeira escrita, banco vazio, saída do `pg_restore`, admissão restaurada ainda pausada e igualdade de contagens de todas as tabelas. Copia arquivos preservando IDs de proprietário. Inferência vai para o ambiente de destino; PIDs, locks e manifests transitórios da origem não são adotados. Não abrir simultaneamente o mesmo perfil. Uma falha depois do início da restauração deixa um destino parcial e parado; usar outro destino vazio após investigar, sem insistir sobre dados existentes.
+
+A cópia fria não transporta `recovery-barrier.json` nem cria uma barreira de recuperação local automaticamente. Antes de iniciar qualquer worker no destino ou no rollback, estabelecer uma barreira F17 local bloqueada, associada ao backup verificado e ao ID da instalação de destino, e comprovar `build_recovery_guard()() == True`. Manter também F22 desligado. O [ensaio reproduzível](evidence/predecessor-final.md) registra criação do registro `RecoveryBarrier`, arquivo local e chamada ao guard real antes dos probes e reinícios; não há liberação ou reconciliação presumida.
 
 Antes de adotar, conferir também IDs/revisões/hashes, conteúdo e permissões das sessões/perfis, mídia, tokenizer/pesos e recibos, aplicar migrations sob lock e demonstrar prontidão/heartbeats. Comparar a última intenção/tentativa/recibo de envio com o inventário. O helper preserva uma operação `unknown`, mas não decide se houve transmissão. Recuperação de GPU incerta permanece pelo wrapper próprio F19/F23.
 
@@ -38,6 +40,12 @@ Conservar a cópia fria e o backup F17 verificado, junto da versão/imagens ante
 
 A pausa restaurada é obrigatória. Não ligar robô, alertas ou IA automaticamente após o rollback. A retomada exige reconciliação F17/F16 e revalidação de revisões/prazos pelas políticas atuais. Arquivo `restore-<ambiente>` indica que o helper terminou suas verificações; não é aprovação da adoção, da qualidade da IA ou de uma transmissão.
 
-## Limite da evidência automatizada
+## Evidência de adoção e rollback controlados
+
+O ensaio `evidence/predecessor-proof-20261114003250.json` executou a versão anterior `15079aa`/schema0027, gerou backup F17 e o restaurou em uma segunda base antes da adoção. Depois verificou cópia fria, igualdade de todas as linhas anteriores às migrations, aplicação de 0030/0031, reinício real de PostgreSQL com dados persistentes e do worker, além de rollback em uma quarta base vazia com código anterior. Leitura real do original/miniatura e resposta HTTP 200 confirmaram acesso à mídia no destino e no rollback. O ArchiveGateway preparou seu diretório e criou/leu um novo backup F17 em ambos. Recibos, corpos, revisões, configurações e o job técnico original permaneceram preservados; a sondagem de transmissão sob barreira não fez novo POST. A comparação após reinício permite somente o timer operacional `media_refresh_after`, com os três diffs de campo registrados explicitamente.
+
+O banco e os processos de worker são reais; perfis/sessões/pesos e resultados anteriores usados como dados de persistência são sintéticos identificados. Isso comprova o ensaio previsto no contrato sem alegar adoção da instalação pessoal, sessão pareada real ou qualidade do modelo. Dumps, arquivos privados e credenciais geradas permanecem fora do Git. As rodadas anteriores com erros de fixture/ambiente foram preservadas; o relatório final identifica a rodada válida.
+
+## Limite do ensaio mecânico inicial
 
 `evidence/migration-mechanics-*.json` registra um ensaio isolado com PostgreSQL real e superfícies de arquivos sintéticas em contêineres parados. Verifica dump/restauração, contagens, bytes de mídia/perfil/sessões/pesos/tokenizer, corpo congelado, operação incerta e pausa, além da recusa de restauração sobre banco preenchido. Os contêineres de arquivos desse ensaio usam a imagem PostgreSQL somente como armazenamento; não são processos reais de web, WAHA ou Ollama. Isso não comprova adoção de uma instalação anterior, backup F17 completo nem o item E2E-PERSISTENCIA-01 inteiro. Esses limites devem permanecer na avaliação canônica.
