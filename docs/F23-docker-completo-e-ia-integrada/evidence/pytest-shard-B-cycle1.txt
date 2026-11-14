@@ -1,0 +1,1279 @@
+............................FFFF.F...............................F...... [ 77%]
+..F....EEEE.FFFFFFF..                                                    [100%]
+==================================== ERRORS ====================================
+_____ ERROR at setup of test_integrated_composition_matrix_and_cost_edits ______
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_integrated_composition_ma0')
+
+    @pytest.fixture
+    def profit_scenario(tmp_path: Path) -> Iterator[Scenario]:
+        source = ValuationSource(rows=profit_rows())
+        with serve(source) as url:
+            instance, clock = prepare_valuation_instance(
+                Path(__file__).resolve().parents[4], tmp_path, url
+            )
+>           command(instance, "./scripts/init.sh", "--disposable")
+
+tests/integration/test_profit.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_integrated_composition_ma0/f04_13b38338b2.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.85ms
+E         {"timestamp": "2026-11-13T22:35:08.887513+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_13b38338b2", "run_id": "1a7ab5cf-d7a0-4033-b6ab-4767b6f7880f"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "1a7ab5cf-d7a0-4033-b6ab-4767b6f7880f"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+_ ERROR at setup of test_reduction_event_is_immutable_and_revalidates_cep_and_variant _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_reduction_event_is_immuta0')
+
+    @pytest.fixture
+    def profit_scenario(tmp_path: Path) -> Iterator[Scenario]:
+        source = ValuationSource(rows=profit_rows())
+        with serve(source) as url:
+            instance, clock = prepare_valuation_instance(
+                Path(__file__).resolve().parents[4], tmp_path, url
+            )
+>           command(instance, "./scripts/init.sh", "--disposable")
+
+tests/integration/test_profit.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_reduction_event_is_immuta0/f04_1460661d10.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 0.99ms
+E         Checked 71 packages in 0.74ms
+E         {"timestamp": "2026-11-13T22:35:10.403935+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_1460661d10", "run_id": "e8a4b616-5f48-45eb-9940-f94542d6a881"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "e8a4b616-5f48-45eb-9940-f94542d6a881"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+___ ERROR at setup of test_unavailable_read_failure_draft_and_expired_resale ___
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_unavailable_read_failure_0')
+
+    @pytest.fixture
+    def profit_scenario(tmp_path: Path) -> Iterator[Scenario]:
+        source = ValuationSource(rows=profit_rows())
+        with serve(source) as url:
+            instance, clock = prepare_valuation_instance(
+                Path(__file__).resolve().parents[4], tmp_path, url
+            )
+>           command(instance, "./scripts/init.sh", "--disposable")
+
+tests/integration/test_profit.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_unavailable_read_failure_0/f04_cfccdec763.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.75ms
+E         {"timestamp": "2026-11-13T22:35:11.908727+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_cfccdec763", "run_id": "c50a04dd-a601-4d50-ad78-18a6ea32ee1f"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "c50a04dd-a601-4d50-ad78-18a6ea32ee1f"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+____ ERROR at setup of test_consistent_snapshot_during_two_head_publication ____
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_consistent_snapshot_durin0')
+
+    @pytest.fixture
+    def profit_scenario(tmp_path: Path) -> Iterator[Scenario]:
+        source = ValuationSource(rows=profit_rows())
+        with serve(source) as url:
+            instance, clock = prepare_valuation_instance(
+                Path(__file__).resolve().parents[4], tmp_path, url
+            )
+>           command(instance, "./scripts/init.sh", "--disposable")
+
+tests/integration/test_profit.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_consistent_snapshot_durin0/f04_1b1ab6f4bb.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.82ms
+E         {"timestamp": "2026-11-13T22:35:13.542244+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_1b1ab6f4bb", "run_id": "37e73a65-37c2-4f2b-9dea-6f3f2b3d8a33"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "37e73a65-37c2-4f2b-9dea-6f3f2b3d8a33"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+=================================== FAILURES ===================================
+_ test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v1] _
+
+media_instance = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env')), 'http://127.0.0.1:35013')
+previous = 'condition-evidence-v1'
+
+    @pytest.mark.parametrize("previous", ["condition-evidence-v1", "condition-evidence-v2"])
+    def test_persisted_previous_condition_profile_never_executes_as_legacy_f19(
+        media_instance: tuple[FoundationInstance, str],
+        previous: str,
+    ) -> None:
+        instance, origin = media_instance
+>       output = shell(
+            instance,
+            origin,
+            BOOT
+            + "\nPREVIOUS="
+            + repr(previous)
+            + "\n"
+            + """
+    from garimpei.infra.persistence.inference_models import InferencePart
+    work=prepare.execute(listing.id)
+    for part in InferencePart.objects.filter(request_id__in=work.requests):
+     part.content=dict(part.content,profile=PREVIOUS);part.save()
+    InferenceRequest.objects.filter(id__in=work.requests).update(prompt_version=PREVIOUS,schema_version=PREVIOUS)
+    before=gateway.calls
+    assert run.execute() is False
+    assert gateway.calls==before,'stale condition v1 reached inference/legacy validator'
+    part=InferencePart.objects.filter(request_id__in=work.requests).first()
+    assert part.state=='failed' and part.reason=='unsupported_prompt_or_schema'
+    assert part.metrics['sent'] is False and part.metrics['diagnostic_code']=='unsupported_profile'
+    print(PREVIOUS+' rejected before gateway, never treated as legacy F19 PASS')
+    """,
+        )
+
+tests/integration/test_inference_failure_observability.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env'))
+origin = 'http://127.0.0.1:35013'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...agnostic_code']=='unsupported_profile'\nprint(PREVIOUS+' rejected before gateway, never treated as legacy F19 PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:18:15.132094+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_60bd587ea3", "run_id": "55fcf73d-176e-405a-83eb-6e797b1ceb12"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.CheckViolation: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (56fc29b9-c41f-4f71-bd9a-6dfd691f040d, 1, c3273d56f6c2b1eebf53e895408127a0bfe202901349cdeee3ea8d00b353311c, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v1, condition-evidence-v1, pending, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:20.461864+00, null, null, 01b3901c-c634-4d05-ba99-cb66399a3085, 1, ed0de91d-c538-441d-804a-1fe73e60d579, listing_observation, null, null, {}).
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 98, in <module>
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1263, in update
+E             rows = query.get_compiler(self.db).execute_sql(ROW_COUNT)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+E             row_count = super().execute_sql(result_type)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.IntegrityError: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (56fc29b9-c41f-4f71-bd9a-6dfd691f040d, 1, c3273d56f6c2b1eebf53e895408127a0bfe202901349cdeee3ea8d00b353311c, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v1, condition-evidence-v1, pending, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:20.461864+00, null, null, 01b3901c-c634-4d05-ba99-cb66399a3085, 1, ed0de91d-c538-441d-804a-1fe73e60d579, listing_observation, null, null, {}).
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...1b3901c-c634-4d05-ba99-cb66399a3085, 1, ed0de91d-c538-441d-804a-1fe73e60d579, listing_observation, null, null, {}).\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+_ test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v2] _
+
+media_instance = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env')), 'http://127.0.0.1:35013')
+previous = 'condition-evidence-v2'
+
+    @pytest.mark.parametrize("previous", ["condition-evidence-v1", "condition-evidence-v2"])
+    def test_persisted_previous_condition_profile_never_executes_as_legacy_f19(
+        media_instance: tuple[FoundationInstance, str],
+        previous: str,
+    ) -> None:
+        instance, origin = media_instance
+>       output = shell(
+            instance,
+            origin,
+            BOOT
+            + "\nPREVIOUS="
+            + repr(previous)
+            + "\n"
+            + """
+    from garimpei.infra.persistence.inference_models import InferencePart
+    work=prepare.execute(listing.id)
+    for part in InferencePart.objects.filter(request_id__in=work.requests):
+     part.content=dict(part.content,profile=PREVIOUS);part.save()
+    InferenceRequest.objects.filter(id__in=work.requests).update(prompt_version=PREVIOUS,schema_version=PREVIOUS)
+    before=gateway.calls
+    assert run.execute() is False
+    assert gateway.calls==before,'stale condition v1 reached inference/legacy validator'
+    part=InferencePart.objects.filter(request_id__in=work.requests).first()
+    assert part.state=='failed' and part.reason=='unsupported_prompt_or_schema'
+    assert part.metrics['sent'] is False and part.metrics['diagnostic_code']=='unsupported_profile'
+    print(PREVIOUS+' rejected before gateway, never treated as legacy F19 PASS')
+    """,
+        )
+
+tests/integration/test_inference_failure_observability.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env'))
+origin = 'http://127.0.0.1:35013'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...agnostic_code']=='unsupported_profile'\nprint(PREVIOUS+' rejected before gateway, never treated as legacy F19 PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:18:21.512084+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_60bd587ea3", "run_id": "55fcf73d-176e-405a-83eb-6e797b1ceb12"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.CheckViolation: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (40fa5469-98c8-4631-9181-9bb96f443637, 1, 7552198d8c62ffad0ebeda6fc572b2a247c65990e63b7c96c0fbe61a1ad05852, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v2, condition-evidence-v2, pending, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:26.776991+00, null, null, a511b27d-59e2-42a8-b8aa-78ffbe52e945, 1, a2703e92-207a-4d36-8bb7-ee911fa87a8c, listing_observation, null, null, {}).
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 98, in <module>
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1263, in update
+E             rows = query.get_compiler(self.db).execute_sql(ROW_COUNT)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+E             row_count = super().execute_sql(result_type)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.IntegrityError: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (40fa5469-98c8-4631-9181-9bb96f443637, 1, 7552198d8c62ffad0ebeda6fc572b2a247c65990e63b7c96c0fbe61a1ad05852, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v2, condition-evidence-v2, pending, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:26.776991+00, null, null, a511b27d-59e2-42a8-b8aa-78ffbe52e945, 1, a2703e92-207a-4d36-8bb7-ee911fa87a8c, listing_observation, null, null, {}).
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...511b27d-59e2-42a8-b8aa-78ffbe52e945, 1, a2703e92-207a-4d36-8bb7-ee911fa87a8c, listing_observation, null, null, {}).\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+_ test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v1] _
+
+media_instance = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env')), 'http://127.0.0.1:35013')
+previous = 'condition-evidence-v1'
+
+    @pytest.mark.parametrize("previous", ["condition-evidence-v1", "condition-evidence-v2"])
+    def test_current_profile_reanalysis_preserves_identified_previous_history(
+        media_instance: tuple[FoundationInstance, str],
+        previous: str,
+    ) -> None:
+        instance, origin = media_instance
+>       output = shell(
+            instance,
+            origin,
+            BOOT
+            + "\nPREVIOUS="
+            + repr(previous)
+            + "\n"
+            + """
+    import hashlib
+    from garimpei.infra.persistence.inference_models import InferencePart
+    from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+    assert VERSION=='condition-evidence-v4'
+    first=prepare.execute(listing.id)
+    for _ in range(3):run.execute()
+    assert complete.execute(first.id)
+    row=ConditionAssessment.objects.get(id=first.id)
+    # A persisted legacy fixture represents the already previous release; it is never relabeled as the current profile.
+    old_fp=hashlib.sha256((first.value.fingerprint+PREVIOUS).encode()).hexdigest()
+    row.prompt_version=row.schema_version=PREVIOUS;row.input_fingerprint=old_fp
+    row.result=dict(row.result,fingerprint=old_fp);row.save()
+    AssessmentHead.objects.filter(listing=listing).update(input_fingerprint=old_fp)
+    InferenceRequest.objects.filter(id__in=first.requests).update(prompt_version=PREVIOUS,schema_version=PREVIOUS)
+    for part in InferencePart.objects.filter(request_id__in=first.requests):
+     part.content=dict(part.content,profile=PREVIOUS);part.result=dict(part.result,schema_version=PREVIOUS);part.save()
+    historical=row.result;old_calls=gateway.calls
+    old=PostgresInferenceQueries().analysis(first.requests[0])
+    assert old['prompt_version']==old['schema_version']==PREVIOUS
+    assert old['parts'][0]['result']['schema_version']==PREVIOUS
+    current=build_read_condition().execute(listing.id).state
+    assert current.assessment.reason=='superseded_input' and current.assessment.previous==first.id
+    assert not current.satisfies_alert_condition
+    second=prepare.execute(listing.id)
+    assert second.id!=first.id and second.value.fingerprint!=old_fp and second.generation>first.generation
+    assert second.requests!=first.requests and gateway.calls==old_calls
+    new=PostgresInferenceQueries().analysis(second.requests[0])
+    assert new['prompt_version']==new['schema_version']==VERSION
+    assert ConditionAssessment.objects.get(id=second.id).result is None
+    for _ in range(3):run.execute()
+    assert complete.execute(second.id)
+    assert build_read_condition().execute(listing.id).state.satisfies_alert_condition
+    row.refresh_from_db();assert row.result==historical and row.prompt_version==PREVIOUS
+    assert PostgresInferenceQueries().analysis(first.requests[0])['prompt_version']==PREVIOUS
+    print(PREVIOUS+' history remains identified; v3 gets new fingerprint/generation/request without legacy/cache reuse PASS')
+    """,
+        )
+
+tests/integration/test_inference_failure_observability.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env'))
+origin = 'http://127.0.0.1:35013'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...(PREVIOUS+' history remains identified; v3 gets new fingerprint/generation/request without legacy/cache reuse PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:18:27.794834+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_60bd587ea3", "run_id": "55fcf73d-176e-405a-83eb-6e797b1ceb12"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.CheckViolation: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (e0707660-b3b0-44f5-b627-044707f40e87, 1, d20c77ebddf35ae0bca1c889febb8c58c18d32f2c370b7ea820b97a22e96d1de, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v1, condition-evidence-v1, succeeded, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:33.432846+00, 2026-11-13 22:18:33.484379+00, null, 29711c8e-6094-4181-96f2-d3ff61944549, 1, fa0e7115-c2ad-473c-8f78-478767c45a0a, listing_observation, null, null, {}).
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 107, in <module>
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1263, in update
+E             rows = query.get_compiler(self.db).execute_sql(ROW_COUNT)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+E             row_count = super().execute_sql(result_type)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.IntegrityError: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (e0707660-b3b0-44f5-b627-044707f40e87, 1, d20c77ebddf35ae0bca1c889febb8c58c18d32f2c370b7ea820b97a22e96d1de, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v1, condition-evidence-v1, succeeded, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:33.432846+00, 2026-11-13 22:18:33.484379+00, null, 29711c8e-6094-4181-96f2-d3ff61944549, 1, fa0e7115-c2ad-473c-8f78-478767c45a0a, listing_observation, null, null, {}).
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...9711c8e-6094-4181-96f2-d3ff61944549, 1, fa0e7115-c2ad-473c-8f78-478767c45a0a, listing_observation, null, null, {}).\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+_ test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v2] _
+
+media_instance = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env')), 'http://127.0.0.1:35013')
+previous = 'condition-evidence-v2'
+
+    @pytest.mark.parametrize("previous", ["condition-evidence-v1", "condition-evidence-v2"])
+    def test_current_profile_reanalysis_preserves_identified_previous_history(
+        media_instance: tuple[FoundationInstance, str],
+        previous: str,
+    ) -> None:
+        instance, origin = media_instance
+>       output = shell(
+            instance,
+            origin,
+            BOOT
+            + "\nPREVIOUS="
+            + repr(previous)
+            + "\n"
+            + """
+    import hashlib
+    from garimpei.infra.persistence.inference_models import InferencePart
+    from garimpei.infra.queries.inference.postgres_queries import PostgresInferenceQueries
+    assert VERSION=='condition-evidence-v4'
+    first=prepare.execute(listing.id)
+    for _ in range(3):run.execute()
+    assert complete.execute(first.id)
+    row=ConditionAssessment.objects.get(id=first.id)
+    # A persisted legacy fixture represents the already previous release; it is never relabeled as the current profile.
+    old_fp=hashlib.sha256((first.value.fingerprint+PREVIOUS).encode()).hexdigest()
+    row.prompt_version=row.schema_version=PREVIOUS;row.input_fingerprint=old_fp
+    row.result=dict(row.result,fingerprint=old_fp);row.save()
+    AssessmentHead.objects.filter(listing=listing).update(input_fingerprint=old_fp)
+    InferenceRequest.objects.filter(id__in=first.requests).update(prompt_version=PREVIOUS,schema_version=PREVIOUS)
+    for part in InferencePart.objects.filter(request_id__in=first.requests):
+     part.content=dict(part.content,profile=PREVIOUS);part.result=dict(part.result,schema_version=PREVIOUS);part.save()
+    historical=row.result;old_calls=gateway.calls
+    old=PostgresInferenceQueries().analysis(first.requests[0])
+    assert old['prompt_version']==old['schema_version']==PREVIOUS
+    assert old['parts'][0]['result']['schema_version']==PREVIOUS
+    current=build_read_condition().execute(listing.id).state
+    assert current.assessment.reason=='superseded_input' and current.assessment.previous==first.id
+    assert not current.satisfies_alert_condition
+    second=prepare.execute(listing.id)
+    assert second.id!=first.id and second.value.fingerprint!=old_fp and second.generation>first.generation
+    assert second.requests!=first.requests and gateway.calls==old_calls
+    new=PostgresInferenceQueries().analysis(second.requests[0])
+    assert new['prompt_version']==new['schema_version']==VERSION
+    assert ConditionAssessment.objects.get(id=second.id).result is None
+    for _ in range(3):run.execute()
+    assert complete.execute(second.id)
+    assert build_read_condition().execute(listing.id).state.satisfies_alert_condition
+    row.refresh_from_db();assert row.result==historical and row.prompt_version==PREVIOUS
+    assert PostgresInferenceQueries().analysis(first.requests[0])['prompt_version']==PREVIOUS
+    print(PREVIOUS+' history remains identified; v3 gets new fingerprint/generation/request without legacy/cache reuse PASS')
+    """,
+        )
+
+tests/integration/test_inference_failure_observability.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/media-database2/media_60bd587ea3.env'))
+origin = 'http://127.0.0.1:35013'
+code = "\nimport json,os\nfrom dataclasses import replace\nfrom garimpei.domain.inference.condition_evidence import VERSION\n...(PREVIOUS+' history remains identified; v3 gets new fingerprint/generation/request without legacy/cache reuse PASS')\n"
+
+    def shell(instance: FoundationInstance, origin: str, code: str) -> str:
+        result = instance.shell("ORIGIN=" + repr(origin) + "\n" + BOOTSTRAP + code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:18:34.794241+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_media_60bd587ea3", "run_id": "55fcf73d-176e-405a-83eb-6e797b1ceb12"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.CheckViolation: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (cb1dce87-c5b8-49ec-abb3-2629df406a80, 1, ed4d4ae5f031349e0b87fadddd8f97c59e8eea85dd71bdf189d0cae2d42b4957, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v2, condition-evidence-v2, succeeded, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:40.09153+00, 2026-11-13 22:18:40.13931+00, null, af37a35c-8a3d-409d-b336-6290aeedf2ea, 1, 358700db-bec7-4ebb-b390-b58a621ed59b, listing_observation, null, null, {}).
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 107, in <module>
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1263, in update
+E             rows = query.get_compiler(self.db).execute_sql(ROW_COUNT)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+E             row_count = super().execute_sql(result_type)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.IntegrityError: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (cb1dce87-c5b8-49ec-abb3-2629df406a80, 1, ed4d4ae5f031349e0b87fadddd8f97c59e8eea85dd71bdf189d0cae2d42b4957, sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6..., condition-evidence-v2, condition-evidence-v2, succeeded, , [{"id": "p_1fd8a9121956408a315029ed8518378216cda0b9c6c199920133d..., 2026-11-13 22:18:40.09153+00, 2026-11-13 22:18:40.13931+00, null, af37a35c-8a3d-409d-b336-6290aeedf2ea, 1, 358700db-bec7-4ebb-b390-b58a621ed59b, listing_observation, null, null, {}).
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...f37a35c-8a3d-409d-b336-6290aeedf2ea, 1, 358700db-bec7-4ebb-b390-b58a621ed59b, listing_observation, null, null, {}).\n').returncode
+
+tests/integration/test_media_persistence.py:65: AssertionError
+____ test_backup_restores_assessment_identity_research_and_alert_provenance ____
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_backup_restores_assessmen0')
+
+    def test_backup_restores_assessment_identity_research_and_alert_provenance(tmp_path: Path) -> None:
+        source_private = tmp_path / "source"
+        source_private.mkdir()
+        with first_eligibility_scenario(source_private, target_title="PlayStation 5 Slim disco") as (
+            source,
+            _,
+            _,
+            _,
+        ):
+            backup_dir = tmp_path / "backups"
+            with source.private_file.open("a") as output:
+                output.write(f"GARIMPEI_BACKUP_DIR={backup_dir}\n")
+            source_group = pause_worker(source)
+            target = prepare_instance(
+                source.root, tmp_path, "union_restore_" + source.config.instance[-8:]
+            )
+            command(target, "./scripts/init.sh", "--disposable")
+            target_group = pause_worker(target)
+            try:
+                shell(
+                    source,
+                    """
+    from uuid import uuid4
+    from django.utils.timezone import now
+    from garimpei.main import build_backup_repository
+    from garimpei.infra.persistence.listing_models import Listing,ListingEvent
+    from garimpei.infra.persistence.assessment_models import ConditionAssessment,AssessmentHead
+    from garimpei.infra.persistence.alert_models import AlertEventDecision,FirstAlertIdentity,FirstEligibilityDecision
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.infra.persistence.identity_models import ManualIdentityRevision,ProductIdentification,IdentityProgress
+    from garimpei.infra.persistence.research_models import ComparableInvestigation,InvestigationTarget,ResearchQuery,ResearchCandidateDecision
+    from garimpei.infra.repository.valuation.identity_mapper import identify_row,encode_identity
+    from garimpei.infra.repository.valuation.research_mapper import policy_snapshot
+    from tests.factories.comparable_research import controlled_limits
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.config.env import load_operations_settings
+    listing=Listing.objects.select_related('latest').get(external_id='16001')
+    assessment=ConditionAssessment.objects.create(id=uuid4(),listing=listing,observation=listing.latest,
+     input_fingerprint='a'*64,policy_version='recovery-policy',prompt_version='recovery-prompt',
+     schema_version='recovery-schema',model_revision='recovery-model',input_snapshot={'text':'controlled'},
+     generation=3,status='complete',condition='uncertain',sufficient=False,reason='controlled_history',
+     result={'coverage':'controlled'},created_at=now(),updated_at=now(),analyzed_at=now(),publication_order=3)
+    AssessmentHead.objects.create(listing=listing,observation=listing.latest,input_fingerprint='a'*64,
+     generation=3,current=assessment,confirmed=assessment,updated_at=now())
+    event=ListingEvent.objects.filter(listing=listing).first()
+    assert event is not None
+    AlertEventDecision.objects.update_or_create(event=event,defaults={'next_action':now(),
+     'assessment_id':assessment.id,'assessment_revision':3})
+    identity,_=FirstAlertIdentity.objects.get_or_create(installation='local',listing=listing,
+     defaults={'next_action':now()})
+    FirstEligibilityDecision.objects.create(identity=identity,generation=999,signature='b'*64,
+     observation=listing.latest,state='excluded',reason='controlled_recovery',publication_status='unknown',
+     evaluated_at=now(),assessment_id=assessment.id,assessment_revision=3)
+    manual=ManualIdentityRevision.objects.create(listing=listing,revision=999,observation=listing.latest,
+     action='save',values={'family':'playstation5','model':'ps5','generation':'slim','edition':'disc','capacity':'1tb'},
+     reviewed_conflicts=[],recorded_at=now())
+    progress,_=IdentityProgress.objects.update_or_create(listing=listing,
+     defaults={'manual_revision':999,'manual':manual,'current':None})
+    identified=identify_row(listing,progress)
+    assert identified.state=='identified' and identified.product_key is not None
+    identification=ProductIdentification.objects.create(listing=listing,observation=listing.latest,
+     manual_revision=999,policy=identified.policy_version,state=identified.state,
+     product_key=identified.product_key,result=encode_identity(identified),recorded_at=now())
+    progress.current=identification;progress.save(update_fields=['current'])
+    investigation=ComparableInvestigation.objects.create(signature='c'*64,product_key=identified.product_key,
+     configuration_id=listing.latest.cycle.state.configuration_id,
+     configuration_revision=listing.latest.cycle.revision,origin_interest='controlled recovery',
+     scope_key=listing.latest.cycle.scope_key,context={'source':'controlled','verified':True},
+     limits=policy_snapshot(controlled_limits()),term='PlayStation 5 Slim disco 1TB',policy='recovery-research-v1',
+     state='exhausted',reason='source_exhausted',pages=1,details=1,attempts=1,
+     generation=999,last_turn=999,requested_at=now(),last_progress_at=now(),cycle=listing.latest.cycle)
+    target=InvestigationTarget.objects.create(investigation=investigation,listing=listing,
+     observation=listing.latest,manual_revision=999,configuration_revision=investigation.configuration_revision)
+    query=ResearchQuery.objects.create(investigation=investigation,ordinal=999,term=investigation.term,
+     requested={'purpose':'research','product_key':identified.product_key},
+     observed={'context_verified':True,'source':'controlled'},state='complete',reason='source_exhausted',
+     requested_at=investigation.requested_at,confirmed_at=now())
+    ResearchCandidateDecision.objects.create(query=query,target=target,observation=listing.latest,
+     policy='recovery-research-v1',decision='excluded',reasons=['self'],
+     evidence={'external_id':listing.external_id,'price_kind':'announced','product_key':identified.product_key},
+     recorded_at=now())
+    repository=build_backup_repository();identity=repository.create(only_due=False)
+    record=BackupRecord.objects.get(id=identity);settings=load_operations_settings()
+    gateway=ArchiveGateway(settings.backup_dir)
+    (settings.backup_dir/'selected').write_text(str(gateway.resolve(record.file_key)))
+    (settings.backup_dir/'assessment').write_text(str(assessment.id))
+    """,
+                )
+                archive = (backup_dir / "selected").read_text()
+                assessment = (backup_dir / "assessment").read_text()
+>               shell(
+                    target,
+                    f"""
+    from garimpei.main import build_backup_repository
+    from garimpei.infra.persistence.assessment_models import ConditionAssessment,AssessmentHead
+    from garimpei.infra.persistence.alert_models import AlertEventDecision,FirstEligibilityDecision
+    from garimpei.infra.persistence.identity_models import ManualIdentityRevision,ProductIdentification,IdentityProgress
+    from garimpei.infra.persistence.research_models import ComparableInvestigation,InvestigationTarget,ResearchQuery,ResearchCandidateDecision
+    from garimpei.infra.repository.valuation.identity_mapper import decode_identity
+    build_backup_repository().restore({archive!r},isolated=True)
+    assessment=ConditionAssessment.objects.get(id={assessment!r})
+    assert assessment.input_snapshot=={{'text':'controlled'}} and assessment.generation==3
+    head=AssessmentHead.objects.get(listing=assessment.listing)
+    assert head.current_id==assessment.id and head.confirmed_id==assessment.id
+    assert AlertEventDecision.objects.filter(assessment_id=assessment.id,assessment_revision=3).exists()
+    assert FirstEligibilityDecision.objects.filter(assessment_id=assessment.id,assessment_revision=3).exists()
+    manual=ManualIdentityRevision.objects.get(listing=assessment.listing,revision=999)
+    assert manual.observation_id==assessment.observation_id and manual.action=='save'
+    assert manual.values=={{'family':'playstation5','model':'ps5','generation':'slim','edition':'disc','capacity':'1tb'}}
+    assert manual.reviewed_conflicts==[] and manual.previous_id is None
+    identification=ProductIdentification.objects.get(listing=assessment.listing,manual_revision=999)
+    assert identification.observation_id==manual.observation_id and identification.state=='identified'
+    identified=decode_identity(identification.result)
+    assert identified.observation_id==manual.observation_id and identified.manual_revision==999
+    assert identified.product_key==identification.product_key and identified.policy_version==identification.policy
+    capacity=next(attribute for attribute in identified.attributes if attribute.name=='capacity')
+    assert capacity.origin=='manual' and capacity.value=='1tb' and capacity.observation_id==manual.observation_id
+    assert capacity.recorded_at==manual.recorded_at,(capacity.recorded_at,manual.recorded_at)
+    progress=IdentityProgress.objects.get(listing=assessment.listing)
+    assert progress.manual_revision==999 and progress.manual_id==manual.id and progress.current_id==identification.id
+    investigation=ComparableInvestigation.objects.get(signature='c'*64)
+    assert investigation.product_key==identification.product_key and investigation.state=='exhausted'
+    assert investigation.reason=='source_exhausted' and investigation.generation==999
+    assert investigation.cycle_id==assessment.observation.cycle_id
+    assert investigation.configuration_id==assessment.observation.cycle.state.configuration_id
+    assert investigation.configuration_revision==assessment.observation.cycle.revision
+    assert investigation.context=={{'source':'controlled','verified':True}}
+    assert investigation.limits['policy_version']=='controlled-only-v1'
+    target=InvestigationTarget.objects.get(investigation=investigation,manual_revision=999)
+    assert target.listing_id==assessment.listing_id and target.observation_id==manual.observation_id
+    assert target.configuration_revision==investigation.configuration_revision and target.active
+    query=ResearchQuery.objects.get(investigation=investigation,ordinal=999)
+    assert query.state=='complete' and query.reason=='source_exhausted' and query.term==investigation.term
+    assert query.requested=={{'purpose':'research','product_key':identification.product_key}}
+    assert query.observed=={{'context_verified':True,'source':'controlled'}}
+    assert query.requested_at==investigation.requested_at and query.confirmed_at>=query.requested_at
+    decision=ResearchCandidateDecision.objects.get(query=query,target=target)
+    assert decision.observation_id==manual.observation_id and decision.policy=='recovery-research-v1'
+    assert decision.decision=='excluded' and decision.reasons==['self']
+    assert decision.evidence=={{'external_id':'16001','price_kind':'announced','product_key':identification.product_key}}
+    """,
+                )
+
+tests/integration/test_integrated_backup.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_backup_restores_assessmen0/union_restore_1342b26c.env'))
+code = "\nfrom garimpei.main import build_backup_repository\nfrom garimpei.infra.persistence.assessment_models import Conditi...nassert decision.evidence=={'external_id':'16001','price_kind':'announced','product_key':identification.product_key}\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:19:19.298372+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_union_restore_1342b26c", "run_id": "e9dffe3f-a9b9-416a-8df3-6eef6e6c9feb"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 8, in <module>
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 276, in restore
+E             return self._restore.execute(Path(archive), isolated=isolated)
+E                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/restore_gateway.py", line 55, in execute
+E             raise OperationsError("restore_requires_empty_disposable_eval")
+E         garimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..._empty_disposable_eval")\ngarimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16001', 'excluded', 'condition_excluded', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16002', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'amostra_insuficiente', None, datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'aguardando_avaliacao', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents []
+F16 channel calls []
+_ test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_snapshot_export_and_isola0')
+
+    def test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier(
+        tmp_path: Path,
+    ) -> None:
+        source_private = tmp_path / "source"
+        source_private.mkdir()
+        with first_eligibility_scenario(source_private) as (source, _, _, _):
+            with source.private_file.open("a") as output:
+                output.write(f"GARIMPEI_BACKUP_DIR={tmp_path / 'source-backups'}\n")
+            group = pause_worker(source)
+            target = prepare_instance(
+                source.root, tmp_path, "f17_restore_" + source.config.instance[-8:]
+            )
+            with target.private_file.open("a") as output:
+                output.write(
+                    f"GARIMPEI_BACKUP_DIR={tmp_path / 'target-backups'}\nGARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\n"
+                )
+            command(target, "./scripts/init.sh", "--disposable")
+            target_group = pause_worker(target)
+            try:
+                shell(
+                    source,
+                    """
+    from uuid import uuid4
+    from pathlib import Path
+    from garimpei.main import build_backup_repository
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.repository.operations.progress_repository import PostgresOperationalRepository
+    from django.utils.timezone import now
+    progress=PostgresOperationalRepository(load_operations_settings().environment_id,now)
+    progress.confirm('listing','restore-budget',1,'confirmed-checkpoint',now(),pending=1)
+    progress.failure('listing','restore-budget',1,'source_transport',now())
+    progress.failure('listing','restore-budget',1,'source_transport',now())
+    l=Listing.objects.select_related('latest').get(external_id='16001')
+    e=dict(l.latest.evidence); e['image_url']='https://scontent.example.test/photo.jpg?oh=synthetic-media-canary'
+    l.latest.evidence=e; l.latest.save()
+    r=build_backup_repository(); identity=r.create(only_due=True)
+    assert identity is not None and r.create(only_due=True) is None
+    record=BackupRecord.objects.get(id=identity); settings=load_operations_settings()
+    gateway=ArchiveGateway(settings.backup_dir)
+    metadata,files=gateway.read(gateway.resolve(record.file_key))
+    assert b'synthetic-media-canary' not in b''.join(files.values())
+    assert str(l.latest_id).encode() in files['runtime.listingobservation.jsonl']
+    assert metadata['schema_hash'] and metadata['migrations'] and metadata['code_sha256']
+    request=uuid4(); exported=r.export(identity,request)
+    assert r.export(identity,request)==exported
+    copy=BackupRecord.objects.get(id=exported)
+    assert copy.sha256==record.sha256 and gateway.resolve(copy.file_key).read_bytes()==gateway.resolve(record.file_key).read_bytes()
+    assert r.verify(identity)['restoration_state']=='not_tested'
+    (settings.backup_dir/'selected').write_text(str(gateway.resolve(record.file_key)))
+    (settings.backup_dir/'expected-id').write_text(str(l.id))
+    """,
+                )
+                selected = (tmp_path / "source-backups/selected").read_text()
+                expected = (tmp_path / "source-backups/expected-id").read_text()
+>               shell(
+                    target,
+                    f"""
+    from garimpei.main import build_backup_repository,build_recovery_guard,build_operational_status,build_alert_store
+    from garimpei.domain.alert.alert import Binding
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.alert_models import AlertFeedCursor
+    from garimpei.infra.persistence.operations_models import RecoveryBarrier,OperationalUnit
+    from garimpei.domain.operations.errors import OperationsError
+    from garimpei.config.env import load_operations_settings
+    from django.utils import timezone
+    r=build_backup_repository(); r.restore({selected!r},isolated=True)
+    assert Listing.objects.get(external_id='16001').id==__import__('uuid').UUID({expected!r})
+    assert AlertFeedCursor.objects.get().dispatch_suspended
+    assert build_recovery_guard()() and RecoveryBarrier.objects.get().state=='blocked'
+    assert load_operations_settings().recovery_file.exists()
+    assert build_operational_status().execute()['dispatch_suspended']
+    unit=OperationalUnit.objects.get(installation=load_operations_settings().environment_id,scope='restore-budget')
+    assert unit.checkpoint=='confirmed-checkpoint' and unit.failures==2 and unit.suspended and unit.reason=='recovery_barrier'
+    assert unit.generation==1 and not OperationalUnit.objects.exclude(installation=load_operations_settings().environment_id).exists()
+    try:r.restore({selected!r},isolated=True)
+    except OperationsError as e:assert e.code=='restore_requires_empty_disposable_eval'
+    else:raise AssertionError('nonempty destination accepted')
+    """,
+                )
+
+tests/integration/test_operational_backup.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_snapshot_export_and_isola0/f17_restore_e19432cf.env'))
+code = "\nfrom garimpei.main import build_backup_repository,build_recovery_guard,build_operational_status,build_alert_store\n...:assert e.code=='restore_requires_empty_disposable_eval'\nelse:raise AssertionError('nonempty destination accepted')\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:25:53.099295+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_restore_e19432cf", "run_id": "f956b603-8d34-46f3-93fb-b79e1149a99b"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 10, in <module>
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 276, in restore
+E             return self._restore.execute(Path(archive), isolated=isolated)
+E                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/restore_gateway.py", line 55, in execute
+E             raise OperationsError("restore_requires_empty_disposable_eval")
+E         garimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..._empty_disposable_eval")\ngarimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities []
+F16 intents []
+F16 channel calls []
+_ test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_direct_calibration_keeps_0')
+
+    def test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination(
+        tmp_path: Path,
+    ) -> None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-calibration"
+        environment = dict(os.environ)
+        environment.pop("DJANGO_SETTINGS_MODULE", None)
+        environment.pop("GARIMPEI_ENV_FILE", None)
+        environment.pop("VIRTUAL_ENV", None)
+    
+        def invoke(operation: str, *arguments: str) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                text=True,
+                capture_output=True,
+                timeout=600,
+            )
+    
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stdout + prepared.stderr
+        try:
+            started = invoke("start")
+            assert started.returncode == 0, started.stdout + started.stderr
+            seeded = invoke("seed", "--scenario", "backup")
+            assert seeded.returncode == 0, seeded.stdout + seeded.stderr
+            calibrated = invoke("calibrate")
+>           assert calibrated.returncode == 0, calibrated.stdout + calibrated.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<frozen runpy>", line 203, in _run_module_as_main
+E               File "<frozen runpy>", line 88, in _run_code
+E               File "/app/apps/backend/tests/factories/operations_lab.py", line 692, in <module>
+E                 main()
+E                 ~~~~^^
+E               File "/app/apps/backend/tests/factories/operations_lab.py", line 675, in main
+E                 calibrate(directory)
+E                 ~~~~~~~~~^^^^^^^^^^^
+E               File "/app/apps/backend/tests/factories/operations_lab.py", line 549, in calibrate
+E                 measurements, new_stages = adapters.result(), stages.result()
+E                                                               ~~~~~~~~~~~~~^^
+E               File "/usr/local/lib/python3.13/concurrent/futures/_base.py", line 453, in result
+E                 return self.__get_result()
+E                        ~~~~~~~~~~~~~~~~~^^
+E               File "/usr/local/lib/python3.13/concurrent/futures/_base.py", line 402, in __get_result
+E                 raise self._exception
+E               File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+E                 result = self.fn(*self.args, **self.kwargs)
+E               File "/app/apps/backend/tests/factories/operations_lab_calibration.py", line 45, in measure_new_stages
+E                 rows.append(_repetition(directory, source, target, proof, repetition))
+E                             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/app/apps/backend/tests/factories/operations_lab_calibration.py", line 78, in _repetition
+E                 restore_seconds = _shell(target, f"ARCHIVE={str(selected)!r}\n" + _RESTORE)
+E               File "/app/apps/backend/tests/factories/operations_lab_calibration.py", line 18, in _shell
+E                 raise RuntimeError(result.stdout + result.stderr)
+E             RuntimeError: 68 objects imported automatically (use -v 2 for details).
+E             
+E             {"timestamp": "2026-11-13T22:28:14.264832+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_destination_3cdda281", "run_id": "418fc005-0857-4e20-8fdf-1784c8783995"}
+E             Traceback (most recent call last):
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/manage.py", line 8, in <module>
+E                 execute_from_command_line()
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                 utility.execute()
+E                 ~~~~~~~~~~~~~~~^^
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                 self.fetch_command(subcommand).run_from_argv(self.argv)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                 self.execute(*args, **cmd_options)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                 output = self.handle(*args, **options)
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                 exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<string>", line 6, in <module>
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 276, in restore
+E                 return self._restore.execute(Path(archive), isolated=isolated)
+E                        ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/tmp/f23-pytest-B/test_direct_calibration_keeps_0/operational-calibration/checkout/apps/backend/src/garimpei/infra/repository/operations/restore_gateway.py", line 55, in execute
+E                 raise OperationsError("restore_requires_empty_disposable_eval")
+E             garimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval
+E             
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/apps/backend/.venv/bin/python3', '-m', 'tests.factories.operations_lab', 'calibrate', '--...mpty_disposable_eval")\ngarimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval\n\n').returncode
+
+tests/integration/test_operations_calibration.py:46: AssertionError
+_ test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[ia] _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_global_enable_conserves_i0')
+barrier = 'ia'
+
+    @pytest.mark.parametrize("barrier", ["ia", "alerts", "recovery"])
+    def test_global_enable_conserves_individual_barrier_and_actual_stage_refuses(
+        tmp_path: Path, barrier: str
+    ) -> None:
+>       with first_eligibility_scenario(tmp_path) as (instance, source, _, channel):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_robot_individual_barriers.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/contextlib.py:141: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+tests/factories/first_eligibility.py:176: in first_eligibility_scenario
+    command(instance, "./scripts/init.sh", "--disposable")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_global_enable_conserves_i0/wave11b_f16_0ec74038.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 0.97ms
+E         Checked 71 packages in 0.75ms
+E         {"timestamp": "2026-11-13T22:35:32.362668+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_0ec74038", "run_id": "693c5142-7c3e-425d-8185-d640f7982456"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "693c5142-7c3e-425d-8185-d640f7982456"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+_ test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[alerts] _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_global_enable_conserves_i1')
+barrier = 'alerts'
+
+    @pytest.mark.parametrize("barrier", ["ia", "alerts", "recovery"])
+    def test_global_enable_conserves_individual_barrier_and_actual_stage_refuses(
+        tmp_path: Path, barrier: str
+    ) -> None:
+>       with first_eligibility_scenario(tmp_path) as (instance, source, _, channel):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_robot_individual_barriers.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/contextlib.py:141: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+tests/factories/first_eligibility.py:176: in first_eligibility_scenario
+    command(instance, "./scripts/init.sh", "--disposable")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_global_enable_conserves_i1/wave11b_f16_15af008c.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 0.99ms
+E         Checked 71 packages in 0.75ms
+E         {"timestamp": "2026-11-13T22:35:34.857649+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_15af008c", "run_id": "0785ffbf-b11e-4498-b26a-17229d9c2e2b"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "0785ffbf-b11e-4498-b26a-17229d9c2e2b"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+_ test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[recovery] _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_global_enable_conserves_i2')
+barrier = 'recovery'
+
+    @pytest.mark.parametrize("barrier", ["ia", "alerts", "recovery"])
+    def test_global_enable_conserves_individual_barrier_and_actual_stage_refuses(
+        tmp_path: Path, barrier: str
+    ) -> None:
+>       with first_eligibility_scenario(tmp_path) as (instance, source, _, channel):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_robot_individual_barriers.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/contextlib.py:141: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+tests/factories/first_eligibility.py:176: in first_eligibility_scenario
+    command(instance, "./scripts/init.sh", "--disposable")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_global_enable_conserves_i2/wave11b_f16_8891a606.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.84ms
+E         {"timestamp": "2026-11-13T22:35:37.454220+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_8891a606", "run_id": "903a5bdb-3ebe-41fe-9f0a-1aa1211876c1"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "903a5bdb-3ebe-41fe-9f0a-1aa1211876c1"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+_____ test_global_enable_does_not_clear_access_suspension_or_start_browser _____
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_global_enable_does_not_cl0')
+
+    def test_global_enable_does_not_clear_access_suspension_or_start_browser(tmp_path: Path) -> None:
+        source = NavigationSourceFake()
+        with serve(source) as origin:
+            root = Path(__file__).resolve().parents[4]
+            instance = prepare_navigation_instance(root, tmp_path, origin)
+            started = instance.command("./scripts/init.sh", "--disposable")
+>           assert started.returncode == 0, started.stdout + started.stderr
+E           AssertionError: Resolved 73 packages in 1ms
+E             Checked 71 packages in 0.80ms
+E             {"timestamp": "2026-11-13T22:35:39.836655+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f13_41d80ad82e", "run_id": "33398252-7d6b-44f2-beee-72c0f9df7587"}
+E             Docker: operation failed; check daemon, image digest and owned resources
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "33398252-7d6b-44f2-beee-72c0f9df7587"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_robot_individual_barriers.py:94: AssertionError
+______ test_adoption_preserves_legacy_authorizations_and_individual_pause ______
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_adoption_preserves_legacy0')
+
+    def test_adoption_preserves_legacy_authorizations_and_individual_pause(tmp_path: Path) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "f22_adopt_" + uuid4().hex[:8])
+        started = instance.command("./scripts/init.sh", "--disposable")
+>       assert started.returncode == 0, started.stdout + started.stderr
+E       AssertionError: Resolved 73 packages in 0.95ms
+E         Checked 71 packages in 0.81ms
+E         {"timestamp": "2026-11-13T22:35:41.345864+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f22_adopt_0cef76dc", "run_id": "115cec56-0109-4f04-a583-70424319e3f7"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "115cec56-0109-4f04-a583-70424319e3f7"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_robot_migration.py:12: AssertionError
+_ test_global_pause_does_not_extend_publication_or_reference_validity[publication] _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_global_pause_does_not_ext0')
+expired = 'publication'
+
+    @pytest.mark.parametrize("expired", ["publication", "reference"])
+    def test_global_pause_does_not_extend_publication_or_reference_validity(
+        tmp_path: Path, expired: str
+    ) -> None:
+>       with first_eligibility_scenario(tmp_path) as (instance, _, clock, channel):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_robot_pause_time_and_edit.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/contextlib.py:141: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+tests/factories/first_eligibility.py:176: in first_eligibility_scenario
+    command(instance, "./scripts/init.sh", "--disposable")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_global_pause_does_not_ext0/wave11b_f16_9bbbd489.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.75ms
+E         {"timestamp": "2026-11-13T22:35:42.771949+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_9bbbd489", "run_id": "c51e22e0-74fb-4fa3-b5f9-9d7266e08be3"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "c51e22e0-74fb-4fa3-b5f9-9d7266e08be3"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+_ test_global_pause_does_not_extend_publication_or_reference_validity[reference] _
+
+tmp_path = PosixPath('/tmp/f23-pytest-B/test_global_pause_does_not_ext1')
+expired = 'reference'
+
+    @pytest.mark.parametrize("expired", ["publication", "reference"])
+    def test_global_pause_does_not_extend_publication_or_reference_validity(
+        tmp_path: Path, expired: str
+    ) -> None:
+>       with first_eligibility_scenario(tmp_path) as (instance, _, clock, channel):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_robot_pause_time_and_edit.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/contextlib.py:141: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+tests/factories/first_eligibility.py:176: in first_eligibility_scenario
+    command(instance, "./scripts/init.sh", "--disposable")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-B/test_global_pause_does_not_ext1/wave11b_f16_dde17237.env'))
+arguments = ('./scripts/init.sh', '--disposable')
+
+    def command(instance: FoundationInstance, *arguments: str) -> None:
+        result = instance.command(*arguments)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: Resolved 73 packages in 1ms
+E         Checked 71 packages in 0.77ms
+E         {"timestamp": "2026-11-13T22:35:44.811482+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_dde17237", "run_id": "9c4d3f1b-4f42-4d2e-a744-f39954487976"}
+E         Docker: operation failed; check daemon, image digest and owned resources
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "9c4d3f1b-4f42-4d2e-a744-f39954487976"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+
+tests/integration/test_collection.py:42: AssertionError
+=========================== short test summary info ============================
+ERROR tests/integration/test_profit.py::test_integrated_composition_matrix_and_cost_edits
+ERROR tests/integration/test_profit.py::test_reduction_event_is_immutable_and_revalidates_cep_and_variant
+ERROR tests/integration/test_profit.py::test_unavailable_read_failure_draft_and_expired_resale
+ERROR tests/integration/test_profit.py::test_consistent_snapshot_during_two_head_publication
+FAILED tests/integration/test_inference_failure_observability.py::test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v1]
+FAILED tests/integration/test_inference_failure_observability.py::test_persisted_previous_condition_profile_never_executes_as_legacy_f19[condition-evidence-v2]
+FAILED tests/integration/test_inference_failure_observability.py::test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v1]
+FAILED tests/integration/test_inference_failure_observability.py::test_current_profile_reanalysis_preserves_identified_previous_history[condition-evidence-v2]
+FAILED tests/integration/test_integrated_backup.py::test_backup_restores_assessment_identity_research_and_alert_provenance
+FAILED tests/integration/test_operational_backup.py::test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier
+FAILED tests/integration/test_operations_calibration.py::test_direct_calibration_keeps_five_recovery_controls_and_closes_clean_destination
+FAILED tests/integration/test_robot_individual_barriers.py::test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[ia]
+FAILED tests/integration/test_robot_individual_barriers.py::test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[alerts]
+FAILED tests/integration/test_robot_individual_barriers.py::test_global_enable_conserves_individual_barrier_and_actual_stage_refuses[recovery]
+FAILED tests/integration/test_robot_individual_barriers.py::test_global_enable_does_not_clear_access_suspension_or_start_browser
+FAILED tests/integration/test_robot_migration.py::test_adoption_preserves_legacy_authorizations_and_individual_pause
+FAILED tests/integration/test_robot_pause_time_and_edit.py::test_global_pause_does_not_extend_publication_or_reference_validity[publication]
+FAILED tests/integration/test_robot_pause_time_and_edit.py::test_global_pause_does_not_extend_publication_or_reference_validity[reference]
+14 failed, 75 passed, 4 errors in 1422.76s (0:23:42)

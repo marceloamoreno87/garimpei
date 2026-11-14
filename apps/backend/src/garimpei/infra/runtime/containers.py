@@ -32,7 +32,14 @@ def compose(config: RuntimeConfig, arguments: list[str], *, timeout: float | Non
             "-p",
             "garimpei-" + config.environment_id,
             "-f",
-            str(config.root / "compose.yaml"),
+            str(
+                config.root
+                / (
+                    "compose.host.yaml"
+                    if (config.root / "compose.host.yaml").exists()
+                    else "compose.yaml"
+                )
+            ),
             *arguments,
         ],
         config,

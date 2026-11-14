@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-13T22:28:20.597192+00:00",
+  "before": {
+    "test": "tests/integration/test_financial_messages.py::test_financial_authorization_freezes_same_event_and_preserves_legacy",
+    "exit_code": 1,
+    "duration_seconds": 29.44,
+    "observed": "The incomplete-snapshot authorization assertion was not reached: an existing configuration_missing retry backoff kept the intent not due."
+  },
+  "change": {
+    "file": "apps/backend/tests/integration/test_financial_messages.py",
+    "scope": "Test preconditions only: six prepared intents are explicitly due before injecting invalid snapshots and rollback faults. Production backoff, financial policy and assertions unchanged."
+  },
+  "after": {
+    "command": "uv run --frozen --no-sync pytest tests/integration/test_financial_messages.py -q --basetemp=/tmp/f23-financial-fixed",
+    "environment": "garimpei-eval_f23_runtime-quality-journey",
+    "exit_code": 0,
+    "passed": 3,
+    "duration_seconds": 134.62
+  },
+  "preserved_assertions": [
+    "Rollback leaves no body/snapshot/attempt",
+    "Exactly one concurrent authorization",
+    "Frozen body and financial data survive reconciliation and legacy history",
+    "Invalid/incompatible financial evidence blocks authorization",
+    "Only one controlled HTTP POST in the scenario"
+  ],
+  "limitations": [
+    "Targeted validation; shard A original failure is preserved separately."
+  ]
+}

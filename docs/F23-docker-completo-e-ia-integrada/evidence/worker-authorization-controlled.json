@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "kind": "controlled_worker_authorization_regression",
+  "scope": "WRK-ALERTA-01",
+  "environment": "garimpei-eval_f23_runtime-quality-journey tools; each GoldDriver owns disposable PostgreSQL/HTTP fixtures",
+  "cwd": "/app/apps/backend",
+  "command": "pytest -q -s tests/integration/test_assistance_authorization.py tests/integration/test_gold_authorization.py::test_gold_first_alert_is_qualified_once_and_body_explains_reference tests/integration/test_gold_authorization.py::test_policy_fence_rejects_incompatible_consumers_and_keeps_confirmed_history tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts --junitxml=/tmp/f23-worker-authorization-controlled-final.xml",
+  "test_file": "apps/backend/tests/integration/test_assistance_authorization.py",
+  "test_sha256": "934b5cf3e65f01891e8c98ee85e07d4424300c5e9cb9723025f8de1b0445d0be",
+  "red": {
+    "exit_code": 1,
+    "result": "2 failed, 1 passed in 53.75s",
+    "reason": "F23 attempt marker rejected by immutable migration0027 trigger (gold consumer incompatible)",
+    "logs": [
+      {
+        "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-red.log",
+        "sha256": "c6ac7e0b06819d29c7f7ff6d2df2ce420d626be4f809529947febaa28f5114c0"
+      },
+      {
+        "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-red-provider.log",
+        "sha256": "f8d2d5b50c492d7d226ed270a7e8fc782c83b70334afc60f2117ed04bfad8812"
+      }
+    ],
+    "test_sha256": "0fd8c197f1621cbc583e89a8c8d3ab5f85b2e7ad813b788458488cdd45837288"
+  },
+  "controlled_io": {
+    "source": "ValuationSource/gold_rows",
+    "photos": "serve_assessment_images synthetic console-light_wear.png",
+    "condition": "GoldConditionPreparer + ControlledConditionGateway",
+    "assistance": "NamedFiniteAssistancePreparer + NamedProgrammedAssistanceProvider, validated by RunAnalysisUseCase",
+    "channel": "WahaServer/serve_waha, local captured HTTP only"
+  },
+  "pending_identity": {
+    "exit_code": 0,
+    "provider_calls": 5,
+    "identity_requests_pending": 1,
+    "posts": 0,
+    "attempts": 0
+  },
+  "gpu_calls": 0,
+  "real_whatsapp_posts": 0,
+  "independent_human_labels": false,
+  "limits": [
+    "Controlled engineering evidence for WRK-ALERTA-01 only. E2E-FLUXO realGPU chain and F21 real-source/human quality acceptance remain blocked.",
+    "No production gate, qualifier threshold, signed evidence or test harness was disabled; production activation still requires verified human/GPU evidence and F21 done.",
+    "Source application original8requests/current11reviews were not opened or altered by these isolated fixtures.",
+    "Programmed assistance outputs use finite snapshot facts and undergo real F19 validation/publication; they are not independent human labels or realGPU inference."
+  ],
+  "sources": [
+    {
+      "path": "apps/backend/tests/integration/test_assistance_authorization.py",
+      "sha256": "934b5cf3e65f01891e8c98ee85e07d4424300c5e9cb9723025f8de1b0445d0be"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/migrations/0031_assisted_gold_authorization.py",
+      "sha256": "459b135ffa18c9b73911c573f99b1f5cc44050e0d86232f1d8e497c2d8bc83b1"
+    },
+    {
+      "path": "apps/backend/src/garimpei/infra/persistence/management/commands/assistance_policy.py",
+      "sha256": "96bd574f8e9144aff99e00422810653b94a811cd2371597715c3a7f1cc0aee9e"
+    }
+  ],
+  "execution_context": {
+    "container": "garimpei-eval_f23_runtime-quality-journey",
+    "cwd": "/app/apps/backend",
+    "TMPDIR": "/tmp/g23tmp",
+    "runtime_source_services_started_by_this_task": false,
+    "cleanup": "All owned GoldDriver fixtures and reverse foundation stopped/cleaned; shared quality tools left running for coordinator."
+  },
+  "initial_green": {
+    "exit_code": 0,
+    "result": "9 passed in154.06s",
+    "migration_sha256": "a3d96edc23fb958eb5d19d1cee9ce9fbdcba9d22e94ef1519bd715b9bc100117",
+    "test_sha256": "51b8bafa582e53ca6e0aafd38b0cf8f9a89c17fd49e032d0482c5a1e27da2bed",
+    "limitation": "Superseded by failclosed mixed-policy fix and final green."
+  },
+  "mixed_policy_red": {
+    "exit_code": 1,
+    "result": "2 failed in33.20s",
+    "observation": "Command incorrectly activated with pending/missing GoldPolicyAdoption; initial SQL accepted all3markers when GoldPolicyAdoption pending. Missing SQL row already rejected markers."
+  },
+  "final_green": {
+    "exit_code": 0,
+    "result": "11 passed in189.97s",
+    "nodes": [
+      {
+        "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[BASE-800.00]",
+        "outcome": "passed",
+        "seconds": 19.432
+      },
+      {
+        "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[PROFIT_CENT-0.01]",
+        "outcome": "passed",
+        "seconds": 19.33
+      },
+      {
+        "nodeid": "tests/integration/test_assistance_authorization.py::test_pending_identity_review_blocks_final_assisted_authorization",
+        "outcome": "passed",
+        "seconds": 17.431
+      },
+      {
+        "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending]",
+        "outcome": "passed",
+        "seconds": 16.643
+      },
+      {
+        "nodeid": "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing]",
+        "outcome": "passed",
+        "seconds": 17.956
+      },
+      {
+        "nodeid": "tests/integration/test_gold_authorization.py::test_gold_first_alert_is_qualified_once_and_body_explains_reference",
+        "outcome": "passed",
+        "seconds": 17.431
+      },
+      {
+        "nodeid": "tests/integration/test_gold_authorization.py::test_policy_fence_rejects_incompatible_consumers_and_keeps_confirmed_history",
+        "outcome": "passed",
+        "seconds": 17.359
+      },
+      {
+        "nodeid": "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[NO_PHOTOS-gold_photos_missing]",
+        "outcome": "passed",
+        "seconds": 16.024
+      },
+      {
+        "nodeid": "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[PROFIT_ZERO-gold_profit_non_positive]",
+        "outcome": "passed",
+        "seconds": 16.524
+      },
+      {
+        "nodeid": "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[DEFECT-gold_condition_defect]",
+        "outcome": "passed",
+        "seconds": 15.746
+      },
+      {
+        "nodeid": "tests/integration/test_gold_authorization.py::test_insufficient_conjunction_never_posts[HISTORY_FOUR-gold_history_insufficient]",
+        "outcome": "passed",
+        "seconds": 16.017
+      }
+    ]
+  },
+  "controls": [
+    {
+      "case": "BASE",
+      "posts": 1,
+      "real_whatsapp_posts": 0,
+      "repeated_posts": 0,
+      "reviews": {
+        "assessment": "8378b543-99dc-456d-ab90-6a170392bc5e",
+        "assessment_sufficient": true,
+        "comparable_reviews": [
+          "b178796b-0bab-4b3e-a286-0ef59b701f8e",
+          "f1b4ea81-7b1e-4c4e-84ed-d330ec5749b6",
+          "d165ef9f-5208-4a89-8c64-baff5e365ee5",
+          "996f4fc9-a89c-46cf-881b-7c3deb35f3aa",
+          "9628d52b-26a2-42b1-901d-d4ed46fe2ab7"
+        ],
+        "gpu_calls": 0,
+        "identity_review": "a805237b-2d84-4671-a1e4-b6182e6a1160",
+        "identity_state": "supported",
+        "independent_human_labels": false,
+        "policy": "assisted-evidence-v1",
+        "preparer": "NamedFiniteAssistancePreparer",
+        "provider": "NamedProgrammedAssistanceProvider",
+        "provider_calls": 6
+      },
+      "frozen": {
+        "body_sha256": "4d75544e056d35dc27cffcddac80a32324418fb3c800c600c5b5dba8023d67d9",
+        "session": "synthetic",
+        "recipient": "100@g.us",
+        "account": "200@c.us",
+        "financial": {
+          "calculated_at": "2026-11-13T12:01:01+00:00",
+          "configuration_id": "04a6e084-6688-4d02-8c50-86a1b2a3c40c",
+          "configuration_revision": 1,
+          "currency": "BRL",
+          "evaluation_id": "bd16bb41-f29e-4b92-beed-5792ade3048b",
+          "evaluation_revision": 2,
+          "event_id": null,
+          "fee": "300.00",
+          "fee_percent": "10.00",
+          "listing_id": "27045186-10e8-4657-97e8-f869da08e209",
+          "observation_id": "c672063d-2c93-4ab0-b6f8-c11c035221bf",
+          "policy": "potential-before-freight-v2",
+          "profit": "800.00",
+          "purchase": "1900.00",
+          "resale": "3000.00",
+          "schema_version": 2
+        },
+        "qualification": "4b3790ac-4ecf-4764-b96a-4403ee5ad5ac",
+        "qualification_fingerprint": "640701c3ad8409b9028ed747c4f987b05e5454c5a7c677b1fab931a2467c1ee3",
+        "attempt_policy": "assisted-evidence-v1",
+        "confirmed_ack": 1,
+        "confirmed_message": "message-1"
+      }
+    },
+    {
+      "case": "PROFIT_CENT",
+      "posts": 1,
+      "real_whatsapp_posts": 0,
+      "repeated_posts": 0,
+      "reviews": {
+        "assessment": "c7c299c4-a5f6-45ab-9d6e-90e05c0972a2",
+        "assessment_sufficient": true,
+        "comparable_reviews": [
+          "0dcb7644-506c-4702-aa0a-20e2245c45f6",
+          "b64ad86b-a768-4a7b-93d0-3e691de5eda4",
+          "ee822dac-4b78-494f-abbc-1a4e5fde8157",
+          "51e7ab36-a865-48c2-835b-1fe030a55bd8",
+          "32ebd530-0275-4d8a-84f5-daa551686ae0"
+        ],
+        "gpu_calls": 0,
+        "identity_review": "61f2711d-853d-4feb-8970-5b9cafd98c28",
+        "identity_state": "supported",
+        "independent_human_labels": false,
+        "policy": "assisted-evidence-v1",
+        "preparer": "NamedFiniteAssistancePreparer",
+        "provider": "NamedProgrammedAssistanceProvider",
+        "provider_calls": 6
+      },
+      "frozen": {
+        "body_sha256": "d72fea0d2a3e869f5110d6583fdab026b933e44cd00db8aed9afec23d24043f0",
+        "session": "synthetic",
+        "recipient": "100@g.us",
+        "account": "200@c.us",
+        "financial": {
+          "calculated_at": "2026-11-13T12:01:01+00:00",
+          "configuration_id": "15f78e43-e008-4e51-878f-ed1c94669518",
+          "configuration_revision": 1,
+          "currency": "BRL",
+          "evaluation_id": "05db1cfa-f8c9-43f9-94cc-face3e441cff",
+          "evaluation_revision": 2,
+          "event_id": null,
+          "fee": "300.00",
+          "fee_percent": "10.00",
+          "listing_id": "839f765e-8a64-4713-b910-03f0a97b23b7",
+          "observation_id": "7b27778a-1350-4c46-9d8f-b54e958280b5",
+          "policy": "potential-before-freight-v2",
+          "profit": "0.01",
+          "purchase": "2699.99",
+          "resale": "3000.00",
+          "schema_version": 2
+        },
+        "qualification": "681d69bc-7f74-4c59-9aca-ff1d3150d9ef",
+        "qualification_fingerprint": "f126d49690957da3881ef4f4f86659f32ce11417cd655489c97ba8510d466977",
+        "attempt_policy": "assisted-evidence-v1",
+        "confirmed_ack": 1,
+        "confirmed_message": "message-1"
+      }
+    },
+    {
+      "attempts": 0,
+      "case": "PENDING_IDENTITY",
+      "posts": 0,
+      "real_whatsapp_posts": 0,
+      "reviews": {
+        "assessment": "23c4c2ec-6295-40fd-aefe-8f153b169210",
+        "assessment_sufficient": true,
+        "comparable_reviews": [
+          "b614cba3-a27a-4361-b4ed-01538234da59",
+          "f975177c-a8a5-4508-a21c-3eb4307ac6a1",
+          "ddfa6029-2d2c-4a9c-bfc4-48ab2b001698",
+          "417ae44d-1920-4d7f-83cf-e27a670da06e",
+          "88c55a5e-b779-4c12-bc7d-7fe6e013bfc5"
+        ],
+        "gpu_calls": 0,
+        "identity_review": "6b433a27-904e-4cbe-8901-870589576621",
+        "identity_state": "pending",
+        "independent_human_labels": false,
+        "policy": "assisted-evidence-v1",
+        "preparer": "NamedFiniteAssistancePreparer",
+        "provider": "NamedProgrammedAssistanceProvider",
+        "provider_calls": 5
+      }
+    },
+    {
+      "activation_blocked": true,
+      "attempts": 0,
+      "gold_state": "pending",
+      "markers_rejected": {
+        "None": true,
+        "assisted-evidence-v1": true,
+        "gold-alert-v1": true
+      }
+    },
+    {
+      "activation_blocked": true,
+      "attempts": 0,
+      "gold_state": "missing",
+      "markers_rejected": {
+        "None": true,
+        "assisted-evidence-v1": true,
+        "gold-alert-v1": true
+      }
+    }
+  ],
+  "reverse": {
+    "exit_code": 0,
+    "command": "python /tmp/f23-authorization-reverse.py",
+    "result": "Actual migrate0031→0030→0031 preserved function/trigger OIDs, GoldPolicyAdoption data and restoration barrier; forward SQL function hash before/after identical.",
+    "static_reverse_body_exactly_historical_0027": true,
+    "script": "from pathlib import Path\nfrom tempfile import TemporaryDirectory\nfrom tests.factories.gold_driver import GoldDriver\n\nSCRIPT = r\"\"\"\nimport hashlib,json\nfrom io import StringIO\nfrom django.core.management import call_command\nfrom django.db import connection\nfrom garimpei.infra.persistence.gold_models import GoldPolicyAdoption\n\ndef function():\n with connection.cursor() as cursor:\n  cursor.execute(\"SELECT oid,pg_get_functiondef(oid) FROM pg_proc WHERE proname='garimpei_gold_authorization_guard'\")\n  return cursor.fetchone()\ndef trigger():\n with connection.cursor() as cursor:\n  cursor.execute(\"SELECT oid,tgfoid FROM pg_trigger WHERE tgname='garimpei_gold_authorization'\")\n  return cursor.fetchone()\nbefore=function()\noriginal_trigger=trigger()\ndata=list(GoldPolicyAdoption.objects.values())\nassert 'expected_policy' in before[1]\ncall_command('migrate','runtime','0030',stdout=StringIO(),verbosity=0)\nreverse=function()\nassert reverse[0]==before[0] and trigger()==original_trigger\nassert 'expected_policy' not in reverse[1] and \"NEW.gold_policy_verified IS DISTINCT FROM 'gold-alert-v1'\" in reverse[1]\nassert 'garimpei.integrity_restore' in reverse[1] and 'runtime_recoverybarrier' in reverse[1]\nassert list(GoldPolicyAdoption.objects.values())==data\ncall_command('migrate','runtime','0031',stdout=StringIO(),verbosity=0)\nafter=function()\nassert after==before and trigger()==original_trigger\nassert list(GoldPolicyAdoption.objects.values())==data\nprint('CONTROLLED_REVERSE_EVIDENCE='+json.dumps(dict(\n cycle=['0031','0030','0031'],forward_sha256=hashlib.sha256(before[1].encode()).hexdigest(),\n restored_forward_sha256=hashlib.sha256(after[1].encode()).hexdigest(),\n reverse_sha256=hashlib.sha256(reverse[1].encode()).hexdigest(),\n function_oid_preserved=True,trigger_oid_preserved=True,gold_policy_data_preserved=True,\n restoration_barrier_preserved=True,model_calls=0,posts=0)))\n\"\"\"\nwith TemporaryDirectory(prefix='f23-guard-reverse-') as directory:\n    driver=GoldDriver(Path(directory))\n    try:\n        print(driver.shell(SCRIPT))\n    finally:\n        driver.close()\n",
+    "script_sha256": "b88c402e8440d628fd4fb857a7167bc36d63c81d0edbac342b91ccef22058c2d"
+  },
+  "checks": {
+    "ruff_check_exit_code": 0,
+    "ruff_format_check_exit_code": 0,
+    "formatted_files": 3,
+    "git_diff_check_exit_code": 0
+  },
+  "artifacts": [
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-final-green.log",
+      "sha256": "b2399a311c4ab8f898a618a4c129d8d374b0278af4e11f26c0793b8c08ea64ba",
+      "bytes": 6546
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-final-green.xml",
+      "sha256": "38e9f714c9159328ee4981bf50ed0b7325e164fccb9f0113ce55d5196ae7c4dd",
+      "bytes": 2076
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-initial-green.log",
+      "sha256": "303bd8fa07535e940ae2d432c1278e34d62be387ee506cb62813f534d3d52770",
+      "bytes": 6227
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-initial-green.xml",
+      "sha256": "9829c13c7685f68a9c0f9216f67b06ff37a32bc7fdb29f348e6bbf9e588e55da",
+      "bytes": 1743
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-mixed-red.log",
+      "sha256": "66ce272fc7966e41527b6c2e7bee9ee957ac826018dd83e1bf62e29b99247799",
+      "bytes": 2803
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-mixed-red.xml",
+      "sha256": "d3b70e07a9ee94e8fbbf0541a3f4c172ec7a9eebec901c41f0140a8ef5ad03b0",
+      "bytes": 2705
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-red-provider.log",
+      "sha256": "f8d2d5b50c492d7d226ed270a7e8fc782c83b70334afc60f2117ed04bfad8812",
+      "bytes": 8226
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-red.log",
+      "sha256": "c6ac7e0b06819d29c7f7ff6d2df2ce420d626be4f809529947febaa28f5114c0",
+      "bytes": 5072
+    },
+    {
+      "path": "docs/F23-docker-completo-e-ia-integrada/evidence/worker-authorization-controlled-reverse.log",
+      "sha256": "3a62d7827d8b8b72b4d01d74f8d2941c06d8afef24c5cdc8aad2c2f81a19b70d",
+      "bytes": 559
+    }
+  ],
+  "status": "controlled_worker_regression_passed"
+}

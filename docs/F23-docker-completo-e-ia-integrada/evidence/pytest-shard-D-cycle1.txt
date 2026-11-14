@@ -1,0 +1,188 @@
+............................................................FFFFF....... [ 11%]
+........................................................................ [ 22%]
+........................................................................ [ 33%]
+........................................................................ [ 44%]
+........................................................................ [ 55%]
+........................................................................ [ 66%]
+........................................................................ [ 77%]
+........................................................................ [ 88%]
+........................................................................ [ 99%]
+......                                                                   [100%]
+=================================== FAILURES ===================================
+________________ test_missing_system_tool_is_not_installed[uv] _________________
+
+tmp_path = PosixPath('/tmp/f23-pytest-D/test_missing_system_tool_is_no0')
+missing = 'uv'
+
+    @pytest.mark.parametrize("missing", ["uv", "docker", "git", "node", "python"])
+    def test_missing_system_tool_is_not_installed(tmp_path: Path, missing: str) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "missing_tool")
+        bin_directory = tmp_path / "bin"
+        bin_directory.mkdir()
+        tools = [
+            tool
+            for tool in ("dirname", "git", "node", "uv")
+            if tool != missing and not (missing == "python" and tool == "uv")
+        ]
+        for tool in tools:
+            original = shutil.which(tool)
+            assert original is not None
+            (bin_directory / tool).symlink_to(original)
+        if missing == "python":
+            (bin_directory / "uv").write_text("#!/bin/sh\nexit 1\n")
+            (bin_directory / "uv").chmod(0o755)
+        environment = instance.environment | {"PATH": str(bin_directory)}
+        bash = shutil.which("bash")
+        assert bash is not None
+        result = subprocess.run(
+            [bash, "scripts/init.sh"], cwd=root, env=environment, capture_output=True, text=True
+        )
+>       assert result.returncode == 64
+E       AssertionError: assert 127 == 64
+E        +  where 127 = CompletedProcess(args=['/usr/bin/bash', 'scripts/init.sh'], returncode=127, stdout='', stderr='/usr/bin/env: ‘bash’: No such file or directory\n').returncode
+
+tests/lifecycle/test_startup_failures.py:129: AssertionError
+______________ test_missing_system_tool_is_not_installed[docker] _______________
+
+tmp_path = PosixPath('/tmp/f23-pytest-D/test_missing_system_tool_is_no1')
+missing = 'docker'
+
+    @pytest.mark.parametrize("missing", ["uv", "docker", "git", "node", "python"])
+    def test_missing_system_tool_is_not_installed(tmp_path: Path, missing: str) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "missing_tool")
+        bin_directory = tmp_path / "bin"
+        bin_directory.mkdir()
+        tools = [
+            tool
+            for tool in ("dirname", "git", "node", "uv")
+            if tool != missing and not (missing == "python" and tool == "uv")
+        ]
+        for tool in tools:
+            original = shutil.which(tool)
+            assert original is not None
+            (bin_directory / tool).symlink_to(original)
+        if missing == "python":
+            (bin_directory / "uv").write_text("#!/bin/sh\nexit 1\n")
+            (bin_directory / "uv").chmod(0o755)
+        environment = instance.environment | {"PATH": str(bin_directory)}
+        bash = shutil.which("bash")
+        assert bash is not None
+        result = subprocess.run(
+            [bash, "scripts/init.sh"], cwd=root, env=environment, capture_output=True, text=True
+        )
+>       assert result.returncode == 64
+E       AssertionError: assert 127 == 64
+E        +  where 127 = CompletedProcess(args=['/usr/bin/bash', 'scripts/init.sh'], returncode=127, stdout='', stderr='/usr/bin/env: ‘bash’: No such file or directory\n').returncode
+
+tests/lifecycle/test_startup_failures.py:129: AssertionError
+________________ test_missing_system_tool_is_not_installed[git] ________________
+
+tmp_path = PosixPath('/tmp/f23-pytest-D/test_missing_system_tool_is_no2')
+missing = 'git'
+
+    @pytest.mark.parametrize("missing", ["uv", "docker", "git", "node", "python"])
+    def test_missing_system_tool_is_not_installed(tmp_path: Path, missing: str) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "missing_tool")
+        bin_directory = tmp_path / "bin"
+        bin_directory.mkdir()
+        tools = [
+            tool
+            for tool in ("dirname", "git", "node", "uv")
+            if tool != missing and not (missing == "python" and tool == "uv")
+        ]
+        for tool in tools:
+            original = shutil.which(tool)
+            assert original is not None
+            (bin_directory / tool).symlink_to(original)
+        if missing == "python":
+            (bin_directory / "uv").write_text("#!/bin/sh\nexit 1\n")
+            (bin_directory / "uv").chmod(0o755)
+        environment = instance.environment | {"PATH": str(bin_directory)}
+        bash = shutil.which("bash")
+        assert bash is not None
+        result = subprocess.run(
+            [bash, "scripts/init.sh"], cwd=root, env=environment, capture_output=True, text=True
+        )
+>       assert result.returncode == 64
+E       AssertionError: assert 127 == 64
+E        +  where 127 = CompletedProcess(args=['/usr/bin/bash', 'scripts/init.sh'], returncode=127, stdout='', stderr='/usr/bin/env: ‘bash’: No such file or directory\n').returncode
+
+tests/lifecycle/test_startup_failures.py:129: AssertionError
+_______________ test_missing_system_tool_is_not_installed[node] ________________
+
+tmp_path = PosixPath('/tmp/f23-pytest-D/test_missing_system_tool_is_no3')
+missing = 'node'
+
+    @pytest.mark.parametrize("missing", ["uv", "docker", "git", "node", "python"])
+    def test_missing_system_tool_is_not_installed(tmp_path: Path, missing: str) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "missing_tool")
+        bin_directory = tmp_path / "bin"
+        bin_directory.mkdir()
+        tools = [
+            tool
+            for tool in ("dirname", "git", "node", "uv")
+            if tool != missing and not (missing == "python" and tool == "uv")
+        ]
+        for tool in tools:
+            original = shutil.which(tool)
+            assert original is not None
+            (bin_directory / tool).symlink_to(original)
+        if missing == "python":
+            (bin_directory / "uv").write_text("#!/bin/sh\nexit 1\n")
+            (bin_directory / "uv").chmod(0o755)
+        environment = instance.environment | {"PATH": str(bin_directory)}
+        bash = shutil.which("bash")
+        assert bash is not None
+        result = subprocess.run(
+            [bash, "scripts/init.sh"], cwd=root, env=environment, capture_output=True, text=True
+        )
+>       assert result.returncode == 64
+E       AssertionError: assert 127 == 64
+E        +  where 127 = CompletedProcess(args=['/usr/bin/bash', 'scripts/init.sh'], returncode=127, stdout='', stderr='/usr/bin/env: ‘bash’: No such file or directory\n').returncode
+
+tests/lifecycle/test_startup_failures.py:129: AssertionError
+______________ test_missing_system_tool_is_not_installed[python] _______________
+
+tmp_path = PosixPath('/tmp/f23-pytest-D/test_missing_system_tool_is_no4')
+missing = 'python'
+
+    @pytest.mark.parametrize("missing", ["uv", "docker", "git", "node", "python"])
+    def test_missing_system_tool_is_not_installed(tmp_path: Path, missing: str) -> None:
+        root = Path(__file__).resolve().parents[4]
+        instance = prepare_instance(root, tmp_path, "missing_tool")
+        bin_directory = tmp_path / "bin"
+        bin_directory.mkdir()
+        tools = [
+            tool
+            for tool in ("dirname", "git", "node", "uv")
+            if tool != missing and not (missing == "python" and tool == "uv")
+        ]
+        for tool in tools:
+            original = shutil.which(tool)
+            assert original is not None
+            (bin_directory / tool).symlink_to(original)
+        if missing == "python":
+            (bin_directory / "uv").write_text("#!/bin/sh\nexit 1\n")
+            (bin_directory / "uv").chmod(0o755)
+        environment = instance.environment | {"PATH": str(bin_directory)}
+        bash = shutil.which("bash")
+        assert bash is not None
+        result = subprocess.run(
+            [bash, "scripts/init.sh"], cwd=root, env=environment, capture_output=True, text=True
+        )
+>       assert result.returncode == 64
+E       AssertionError: assert 127 == 64
+E        +  where 127 = CompletedProcess(args=['/usr/bin/bash', 'scripts/init.sh'], returncode=127, stdout='', stderr='/usr/bin/env: ‘bash’: No such file or directory\n').returncode
+
+tests/lifecycle/test_startup_failures.py:129: AssertionError
+=========================== short test summary info ============================
+FAILED tests/lifecycle/test_startup_failures.py::test_missing_system_tool_is_not_installed[uv]
+FAILED tests/lifecycle/test_startup_failures.py::test_missing_system_tool_is_not_installed[docker]
+FAILED tests/lifecycle/test_startup_failures.py::test_missing_system_tool_is_not_installed[git]
+FAILED tests/lifecycle/test_startup_failures.py::test_missing_system_tool_is_not_installed[node]
+FAILED tests/lifecycle/test_startup_failures.py::test_missing_system_tool_is_not_installed[python]
+5 failed, 649 passed in 454.33s (0:07:34)

@@ -1,0 +1,137 @@
+{
+  "started_at": "2026-11-13T21:58:40.447905+00:00",
+  "scope": "Synthetic engineering proof of real local GPU profiles and persisted consumers; not independent human corpus, F21 real-positive acceptance or full E2E chain.",
+  "profiles": [
+    {
+      "purpose": "identity",
+      "review_id": "951a1d2c-074e-4980-bb88-e843fd866d96",
+      "state": "supported",
+      "reason": "evidence_reviewed",
+      "input_signature": "55c97c045432006f05bf747ba00708d3d4a744b63a5d97554c223d78425ae405",
+      "consumed_by": [
+        {
+          "id": "bd73288f-8107-4354-a2ec-70cf431f9812",
+          "kind": "normalization",
+          "policy": "assisted-evidence-v1"
+        }
+      ],
+      "seconds": 60.632,
+      "requests": [
+        {
+          "request_id": "fd28c6dd-2980-4316-b5a8-034ebe6c7350",
+          "observation_id": "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+          "target_kind": "listing_observation",
+          "target_id": "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+          "target_revision": 1,
+          "revision": 1,
+          "state": "succeeded",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "identity-review-v1",
+          "schema_version": "identity-review-v1",
+          "cohort_id": null,
+          "cohort_generation": null,
+          "coverage": [
+            {
+              "hash": "5202e07d63e06804d7f264741f1f0a9aa25b56253ad7541cdc3c7a03251db3df",
+              "kind": "text",
+              "sent": true,
+              "reason": "examined",
+              "examined": true,
+              "provided": true,
+              "revision": 1
+            }
+          ],
+          "parts": [
+            {
+              "state": "succeeded",
+              "result": {
+                "outcome": "supported",
+                "findings": [
+                  {
+                    "field": "family",
+                    "value": "playstation5",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-0"
+                    ]
+                  },
+                  {
+                    "field": "model",
+                    "value": "ps5",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-1"
+                    ]
+                  },
+                  {
+                    "field": "generation",
+                    "value": "slim",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-2"
+                    ]
+                  },
+                  {
+                    "field": "edition",
+                    "value": "digital",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-3"
+                    ]
+                  },
+                  {
+                    "field": "capacity",
+                    "value": "825gb",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-4"
+                    ]
+                  }
+                ],
+                "limitations": [
+                  "No price information available in the provided snapshot."
+                ]
+              },
+              "metrics": {
+                "sent": true,
+                "size": 3140495604,
+                "size_vram": 3140495604,
+                "eval_count": 270,
+                "gpu_samples": [],
+                "eval_duration": 3097881000,
+                "load_duration": 28747648793,
+                "context_length": 4096,
+                "total_duration": 58577659359,
+                "residency_before": "absent",
+                "wall_duration_ns": 58581995732,
+                "prompt_eval_count": 1302,
+                "prompt_eval_duration": 26724136000
+              },
+              "reason": ""
+            }
+          ],
+          "created_at": "2026-11-13T21:58:41.110372+00:00",
+          "completed_at": "2026-11-13T21:59:39.813430+00:00"
+        }
+      ]
+    }
+  ],
+  "listings": [
+    "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+    "eeea4a43-b40b-56de-a8b9-0283e68a7b82"
+  ],
+  "interest_id": "fa1e68bf-5640-4552-9438-aa12a056a703",
+  "configuration_id": "a28dd2ac-dfba-46ed-a7b8-fb3afadf5afb",
+  "error": {
+    "type": "InferenceError",
+    "message": "context_unverified"
+  },
+  "completed_at": "2026-11-13T21:59:42.046696+00:00",
+  "profiles_completed": 1,
+  "states": {
+    "identity": "supported"
+  },
+  "all_profiles_supported": false
+}

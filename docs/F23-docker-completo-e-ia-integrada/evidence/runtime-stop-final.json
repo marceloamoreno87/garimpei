@@ -1,0 +1,252 @@
+{
+  "recorded_at": "2026-11-13T23:25:12.026441+00:00",
+  "base_revision": "7769efc1f072b29e8a9c14b7417235363cb1f234",
+  "coordinator_signal": "Quality/Python tests and UI artifacts copied; explicit authorization received before stopping application and tools.",
+  "first_normal_stop": {
+    "at": "2026-11-13T23:17:43.965658+00:00",
+    "normal_stop_exit_code": 0,
+    "containers": [
+      {
+        "name": "garimpei-eval_f23_runtime-web-1",
+        "id": "1a521a095a91b681ca607a8a3c38f87c524d9627e317ab248fb1085a6cab9359",
+        "running": false,
+        "status": "exited"
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-worker-1",
+        "id": "946567e998be539f04de0d2919cdccd72f5af2f0d231f0a8262496babeb96e62",
+        "running": false,
+        "status": "exited"
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-postgres-1",
+        "id": "252e1a0fd567a1c4e2ea697ace28fe43e808a24717a8875a5167f10b33dbc0f5",
+        "running": false,
+        "status": "exited"
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-waha-1",
+        "id": "aef8290d796563b78ee6839743ae7228ddf8308df8f81a45c573dff84ce3c544",
+        "running": false,
+        "status": "exited"
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-ollama-1",
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551",
+        "running": false,
+        "status": "exited"
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-quality-journey",
+        "id": "1dbdb5efe07e9028b19a4fec38af8a4d42c420d54885dc59ad6a697235ba6377",
+        "running": true,
+        "status": "running"
+      }
+    ],
+    "all_application_services_stopped": true,
+    "all_3_named_volumes_retained": true,
+    "gpu_owner_file_exists": false,
+    "note": "Compose stop leaves detached one-off administrative quality journey running; it will be explicitly stopped by owned ID after final audit, separate from application shutdown."
+  },
+  "canonical_restart": {
+    "command": "GARIMPEI_ENV_FILE=<private> ./scripts/init.sh --disposable",
+    "exit_code": 0,
+    "comparison": {
+      "checks": {
+        "requests": true,
+        "parts": true,
+        "reviews": true,
+        "robot": true,
+        "media_files": true,
+        "prepared_images": true,
+        "tokenizer_sha256": true,
+        "alert_intents": true,
+        "alert_attempts": true
+      },
+      "ready": {
+        "status": 200,
+        "body": {
+          "status": "ready",
+          "environment_id": "eval_f23_runtime",
+          "run_id": "bd27dadf-3aeb-4d5a-82bc-7812a19401b5",
+          "checks": {
+            "database": "ready",
+            "migrations": "ready",
+            "worker": "ready",
+            "waha": "ready"
+          }
+        }
+      },
+      "requests": 8,
+      "parts": 8,
+      "reviews": 11,
+      "final_runtime_image": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861"
+    },
+    "current_source_request_count": 8,
+    "current_source_review_count": 11,
+    "review_scope_note": "Four controlled UI reviews were added after the seven-review archive snapshot. All eleven current reviews were preserved by this stop/restart.",
+    "before_robot": [
+      {
+        "installation": "local",
+        "requested_enabled": false,
+        "revision": 1,
+        "epoch": 1,
+        "last_command": "326bfe82-f6c0-4c78-8c60-1871e4e1a760"
+      }
+    ],
+    "after_robot": [
+      {
+        "installation": "local",
+        "requested_enabled": false,
+        "revision": 1,
+        "epoch": 1,
+        "last_command": "326bfe82-f6c0-4c78-8c60-1871e4e1a760"
+      }
+    ],
+    "migration0030_applied": true
+  },
+  "final_images": {
+    "runtime": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861",
+    "quality_built": "sha256:24023c9526bfe393054abba0ea51397a44d28290778c00b658fc1c9284c0e9ae",
+    "administrative_tools_image_when_stopped": "sha256:5769389630ca00c5360466b11dd60696e22540fb6d972bfeff8f1ea8790248c1"
+  },
+  "preserved_source_named_volumes": {
+    "garimpei-eval_f23_runtime_postgres_data": {
+      "name": "garimpei-eval_f23_runtime_postgres_data",
+      "created_at": "2026-11-13T21:39:03Z",
+      "environment": "eval_f23_runtime",
+      "checkout_verified": true
+    },
+    "garimpei-eval_f23_runtime_waha_sessions": {
+      "name": "garimpei-eval_f23_runtime_waha_sessions",
+      "created_at": "2026-11-13T21:39:03Z",
+      "environment": "eval_f23_runtime",
+      "checkout_verified": true
+    },
+    "garimpei-eval_f23_runtime_ollama_models": {
+      "name": "garimpei-eval_f23_runtime_ollama_models",
+      "created_at": "2026-11-13T21:44:47Z",
+      "environment": "eval_f23_runtime",
+      "checkout_verified": true
+    }
+  },
+  "model_weights_after_stop": {
+    "model": "qwen3.5:4b-q4_K_M",
+    "blobs": [
+      {
+        "sha256": "788a4d94bc3f431ac0cd067005be4b838a09330427962952420b05d10ecf84db",
+        "bytes": 177
+      },
+      {
+        "sha256": "e56a899b1540860385465756dd308c84417410b94dbc1c380adffd20a921ca60",
+        "bytes": 675569120
+      },
+      {
+        "sha256": "a9d0a3e1d8c91732a3812becd31f8d4a8ff57414903f226306069f0437e2ac50",
+        "bytes": 2648593216
+      },
+      {
+        "sha256": "b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+        "bytes": 13
+      },
+      {
+        "sha256": "50cbab8a892c5f2993b8c7351a99182507472def3b1374558308605d99b86b32",
+        "bytes": 11343
+      },
+      {
+        "sha256": "9371364b27a52acac9d87f88bd93c9db1174d8d6ec57f6888925cdc1788871ff",
+        "bytes": 65
+      }
+    ],
+    "all_model_blob_hashes_verified": true
+  },
+  "post_proof_shutdown": {
+    "source_stop_command": "GARIMPEI_ENV_FILE=<private> ./scripts/stop.sh",
+    "source_stop_exit_code": 0,
+    "target_stop_command": "GARIMPEI_ENV_FILE=<target-private> GARIMPEI_IMAGE_REVISION=f23-final-stop-proof ./scripts/stop.sh",
+    "target_stop_exit_code": 0,
+    "one_off_tools_stop": "Explicit docker stop by verified owned immutable container ID after coordinator confirmed package artifacts copied. Compose normal stop does not include this detached one-off.",
+    "one_off_tools_stop_exit_code": 0,
+    "resources": [
+      {
+        "name": "garimpei-eval_f23_runtime-web-1",
+        "id": "fff59fb0c895f81ae0941bacbb986bb0ccb5230b5b3505ae84e945315ea6d93c",
+        "image_id": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861",
+        "running": false,
+        "environment": "eval_f23_runtime",
+        "checkout_verified": true
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-worker-1",
+        "id": "b8cd40508416fd4c61aea1c90fedbf10b93d902994983f45e7a58dfe8d52ec92",
+        "image_id": "sha256:81e228436f571148fc88d2302c763fb346e06a89b7ba000ddb70e8f89045f861",
+        "running": false,
+        "environment": "eval_f23_runtime",
+        "checkout_verified": true
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-postgres-1",
+        "id": "252e1a0fd567a1c4e2ea697ace28fe43e808a24717a8875a5167f10b33dbc0f5",
+        "image_id": "sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+        "running": false,
+        "environment": "eval_f23_runtime",
+        "checkout_verified": true
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-waha-1",
+        "id": "aef8290d796563b78ee6839743ae7228ddf8308df8f81a45c573dff84ce3c544",
+        "image_id": "sha256:1f7faeb0227ad5edb5711f7058bfce807ea65e5f92234af0778e4db140f6eb46",
+        "running": false,
+        "environment": "eval_f23_runtime",
+        "checkout_verified": true
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-ollama-1",
+        "id": "0df871b3f5e7f4c9f1ca3a6008bdf09f347e04cf0b3f8ee1098643efc9852551",
+        "image_id": "sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592",
+        "running": false,
+        "environment": "eval_f23_runtime",
+        "checkout_verified": true
+      },
+      {
+        "name": "garimpei-eval_f23_runtime-quality-journey",
+        "id": "1dbdb5efe07e9028b19a4fec38af8a4d42c420d54885dc59ad6a697235ba6377",
+        "image_id": "sha256:5769389630ca00c5360466b11dd60696e22540fb6d972bfeff8f1ea8790248c1",
+        "running": true,
+        "environment": "eval_f23_runtime",
+        "checkout_verified": true
+      },
+      {
+        "name": "garimpei-eval_f23_f17_cycle2-postgres-1",
+        "id": "689a32826ef37a654081e93f568c8b466f3cafc5c0ce5315fa039a825a28362a",
+        "image_id": "sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+        "running": false,
+        "environment": "eval_f23_f17_cycle2",
+        "checkout_verified": true
+      }
+    ],
+    "tools_reactivation_note": "The journey was stopped by this task after package-copy authorization, then restarted at23:24 by the coordinator for a newly authorized independent worker test; its current running status is recorded without stopping that new task.",
+    "gpu_reservation_released": true,
+    "all_private_directories_and_named_volumes_retained": true,
+    "no_clean_or_volume_deletion_used": true
+  },
+  "gpu_inference_calls": 0,
+  "limits": [
+    "Source has zero alert intents/attempts; no real uncertain-send preservation is inferred.",
+    "No independent human corpus or F21 real-positive acceptance is inferred."
+  ],
+  "later_real_uncertainty_probe": {
+    "recorded_at": "2026-11-13T23:32:06.326803+00:00",
+    "evidence": "cli-recover-uncertain-real.json",
+    "one_real_chat": true,
+    "added_operational_requests": 2,
+    "source_current_request_count": 10,
+    "original_eight_requests_and_eleven_reviews_preserved": true,
+    "robot_final_enabled": false,
+    "robot_final_revision": 3,
+    "robot_final_epoch": 3,
+    "source_application_services_stopped": true,
+    "gpu_reservation_released": true,
+    "tools_reactivated_by_coordinator_for_later_independent_test": true
+  }
+}

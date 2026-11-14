@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-13T22:01:27.139901+00:00",
+  "symptom": "prepare-ai could start manage/GPU reservation and compose up before checking existing resource ownership",
+  "before": {
+    "tests": 3,
+    "failed": 3,
+    "observed": "fake Docker recorded mutation attempt before foreign container/volume/network labels were checked"
+  },
+  "after": {
+    "test_command": "uv run --frozen --no-sync pytest tests/unit/test_docker_ai_ownership.py tests/unit/test_docker_adoption.py -q",
+    "passed": 9,
+    "exit_code": 0,
+    "ruff": "PASS",
+    "bash_syntax": "PASS",
+    "owned_runtime_readonly_preflight": {
+      "environment": "eval_f23_runtime",
+      "exit_code": 0
+    }
+  },
+  "changes": [
+    "Shared read-only resource ownership preflight before every mutating wrapper dispatch and direct AI helper.",
+    "Verify all project containers and labelled resources, plus expected volume/network names even when project labels are missing.",
+    "No resource mutation or GPU reservation occurred during these checks."
+  ]
+}

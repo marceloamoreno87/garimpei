@@ -1,6 +1,6 @@
 import json
 from http.client import HTTPConnection, HTTPException
-from urllib.parse import quote, urlencode, urlsplit
+from urllib.parse import quote, urlencode
 
 from garimpei.domain.integration.values import (
     ConnectionState,
@@ -8,19 +8,13 @@ from garimpei.domain.integration.values import (
     IntegrationUnavailable,
     group_id,
 )
+from garimpei.infra.gateway.integration.waha_origin import waha_origin
 
 
 class WahaSessionGateway:
-    def __init__(self, url: str, key: str, timeout: int) -> None:
-        parsed = urlsplit(url)
-        if parsed.scheme != "http" or parsed.hostname != "127.0.0.1" or not parsed.port:
-            raise ValueError("WAHA requires loopback HTTP origin")
-        self._host, self._port, self._key, self._timeout = (
-            parsed.hostname,
-            parsed.port,
-            key,
-            timeout,
-        )
+    def __init__(self, url: str, key: str, timeout: int, *, internal_service: bool = False) -> None:
+        self._host, self._port = waha_origin(url, internal_service)
+        self._key, self._timeout = key, timeout
 
     def _raw(
         self,

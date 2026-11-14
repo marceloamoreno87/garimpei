@@ -1,0 +1,14 @@
+{% extends "monitoring/layout.html" %}
+{% block title %}Análise solicitada · Garimpei{% endblock %}
+{% block main %}
+    <main id="main" tabindex="-1">
+        <h1>Solicitação de análise local</h1>
+        <div role="status">
+            <p>{% if ticket.state == "paused" %}Aguardando retomada{% else %}Aguardando análise local{% endif %}. A solicitação é assíncrona.</p>
+            <p>Referência {{ ticket.id }} · finalidade {{ ticket.purpose }}.</p>
+            {% if ticket.reused %}<p>Solicitação compatível reutilizada; nenhuma análise duplicada foi criada.</p>{% endif %}
+        </div>
+        <a href="{% url 'assistance-coverage' %}">Conferir cobertura</a>
+        <a href="{% url 'monitoring-tracking' %}">Voltar ao acompanhamento</a>
+    </main>
+{% endblock %}

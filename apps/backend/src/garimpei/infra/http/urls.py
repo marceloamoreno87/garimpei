@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import path
 from django.views.static import serve
 
+from garimpei.infra.http.assistance.routes import assistance_view
 from garimpei.infra.http.health_handler import health, ready
 from garimpei.infra.http.inference.routes import inference_view
 from garimpei.infra.http.integration.routes import integration_view
@@ -14,6 +15,25 @@ from garimpei.infra.http.robot.routes import robot_view
 from garimpei.infra.http.valuation.routes import identity_view
 
 urlpatterns = [
+    path("ofertas/<uuid:identity>/ia/", assistance_view, name="assistance-listing"),
+    path(
+        "ofertas/<uuid:identity>/ia/reavaliar/",
+        assistance_view,
+        {"action": "request"},
+        name="assistance-request",
+    ),
+    path(
+        "integracoes/ia/cobertura/",
+        assistance_view,
+        {"action": "coverage"},
+        name="assistance-coverage",
+    ),
+    path(
+        "acompanhamento/ia/explicar/",
+        assistance_view,
+        {"action": "explain"},
+        name="assistance-explain",
+    ),
     path("acompanhamento/robo/", robot_view, name="robot-status"),
     path("acompanhamento/robo/ligar/", robot_view, {"action": "enable"}, name="robot-enable"),
     path("acompanhamento/robo/desligar/", robot_view, {"action": "disable"}, name="robot-disable"),

@@ -1,0 +1,91 @@
+{
+  "recorded_at": "2026-11-14T00:34:11.279873+00:00",
+  "scope": "Read-only inventory requested by coordinator after cold media owner conflict; no production/helper changes by this inventory",
+  "method": "Search all application Python/shell sources for owner/ownership/marker/.garimpei paths, then read consumers/configuration at boundaries",
+  "entries": [
+    {
+      "surface": "/private",
+      "marker": ".garimpei-owner",
+      "kind": "controller ownership",
+      "expected": "checkout + newline + destination environment_id",
+      "consumer": "scripts/docker-runtime.sh:26",
+      "handling": "Preserve validated destination marker; exclude source marker; this is controller metadata, not copied business content."
+    },
+    {
+      "surface": "/private/media",
+      "marker": ".garimpei-media-owner",
+      "kind": "functional media-store ownership",
+      "expected": "destination environment_id, exact text without newline",
+      "consumer": "apps/backend/src/garimpei/infra/gateway/media/local_store.py:136",
+      "boundaries": [
+        "read calls _verify_owner",
+        "put/GC/other writes call _ensure_owner",
+        "absent marker on populated non-environment-named root can raise media_storage_owner_required"
+      ],
+      "handling": "Validate source owner; initialize/preserve valid destination metadata before copying user data. Verify actual read and write preparation, not only file hashes."
+    },
+    {
+      "surface": "/private/backups",
+      "marker": ".garimpei-backup-owner",
+      "kind": "functional archive-store ownership",
+      "expected": "destination environment_id, exact text without newline",
+      "consumer": "apps/backend/src/garimpei/infra/gateway/operations/archive_gateway.py:50",
+      "composition": "main.py:1251 passes owner=settings.environment_id",
+      "boundaries": [
+        "ArchiveGateway.read verifies owner",
+        "ArchiveGateway._prepare verifies owner before new backup/export",
+        "missing marker with existing data raises archive_directory_not_owned"
+      ],
+      "handling": "Same destination-specific treatment as media; verify actual read/verify and prepare/create of a new archive after adoption/rollback."
+    },
+    {
+      "surface": "config.directory (outside private payload)",
+      "marker": "recovery-barrier.json",
+      "kind": "recovery authorization, not storage ownership",
+      "expected": "blocked until target-specific DB barrier/private reconciliation agree on backup_id/state",
+      "consumer": "apps/backend/src/garimpei/infra/repository/operations/recovery_guard.py:9",
+      "handling": "Not in private.tar or inference-only state copy. Never import a reconciled source marker as permission to send; verify target build_recovery_guard(), not only RobotControl=false."
+    },
+    {
+      "surface": "global GPU coordination directory",
+      "marker": "gpu-owner.json plus .lock/.call",
+      "kind": "live execution ownership",
+      "expected": "config.root:config.environment_id or explicit GARIMPEI_GPU_OWNER",
+      "consumer": "apps/backend/src/garimpei/infra/gateway/inference/gpu_guard.py:10",
+      "handling": "Outside cold payload. Do not copy ownership or infer termination from file absence; recovery/stop confirmation already has separate real evidence."
+    },
+    {
+      "surface": "inference directory",
+      "marker": "disk.lock",
+      "kind": "advisory flock inode, no owner identity content",
+      "consumer": "apps/backend/src/garimpei/infra/gateway/inference/input_preparer.py:190; registry.py:37; quota.py:33",
+      "handling": "Live flock state does not travel with copied bytes. No environment ownership marker found in the input registry, tokenizer or prepared-PNG store."
+    },
+    {
+      "surface": "inference directory",
+      "marker": "admission-reservations.json / input-registry.json / tokenizer.json / hash-named derived files",
+      "kind": "portable state/artifacts, not environment ownership markers",
+      "consumer": "quota.py:13; registry.py:15; input_preparer.py:185; preparation.py:49",
+      "handling": "Preserve request signatures, authorization metadata and artifact bytes. Do not delete quotas or registries under a blanket owner/lock cleanup."
+    },
+    {
+      "surface": "Facebook integration/profile",
+      "marker": "configured browser state .lock and Chromium-managed profile internals",
+      "kind": "browser/profile lock, no Garimpei per-environment owner marker found",
+      "consumer": "apps/backend/src/garimpei/infra/gateway/listing/marketplace_browser.py:251",
+      "handling": "Application uses private_directory and flock; IntegrationSettings stores login state in PostgreSQL. Keep browser stopped during copy; do not rewrite cookies/profile internals as owner metadata."
+    },
+    {
+      "surface": "Docker named volumes/networks/containers",
+      "marker": "com.garimpei.checkout / com.garimpei.environment labels",
+      "kind": "controller resource ownership",
+      "consumer": "scripts/docker-ownership.sh; scripts/docker-adoption.sh",
+      "handling": "Retain destination resource labels; verify them before mutation. They are not source payload data to import."
+    }
+  ],
+  "additional_functional_marker_found": "backups/.garimpei-backup-owner",
+  "limitations": [
+    "Third-party WAHA/Chromium private formats were not modified or authenticated; synthetic surface preservation and explicit cold shutdown remain required.",
+    "This inventory is not an adoption PASS; actual LocalMediaStore/ArchiveGateway operations are required after the helper fix."
+  ]
+}

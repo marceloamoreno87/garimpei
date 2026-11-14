@@ -1,0 +1,26 @@
+[
+  {
+    "environment": "eval_test_5307fd13_a",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "--clean: expected owned disposable eval with synthetic session marker\n"
+  },
+  {
+    "environment": "eval_test_5307fd13_b",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "--clean: expected owned disposable eval with synthetic session marker\n"
+  },
+  {
+    "environment": "eval_test_01189ea3_a",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "--clean: expected owned disposable eval with synthetic session marker\n"
+  },
+  {
+    "environment": "eval_test_01189ea3_b",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "--clean: expected owned disposable eval with synthetic session marker\n"
+  }
+]

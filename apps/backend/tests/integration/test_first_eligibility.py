@@ -171,15 +171,18 @@ def test_publication_waits_and_final_check_blocks_expired_post(tmp_path: Path) -
                 instance,
                 """
 from datetime import timedelta
-from garimpei.main import build_first_alert_store,build_read_profit,build_alert_store
+from garimpei.main import build_first_alert_store,build_read_profit,build_alert_store,build_alert_handler
 from garimpei.infra.persistence.listing_models import Listing
-from garimpei.infra.persistence.alert_models import AlertIntent
+from garimpei.infra.persistence.alert_models import AlertIntent,AlertFeedCursor
 from garimpei.domain.alert.alert import Binding
 from garimpei.config.env import load_listing_settings
 from garimpei.main import _listing_clock
 now=_listing_clock(load_listing_settings())()
 l=Listing.objects.select_related('latest').get(external_id='16001')
 s=build_first_alert_store(); s.adopt(now)
+# The paused worker may not have ingested history when valuations become ready.
+build_alert_handler('ingest').execute()
+assert AlertFeedCursor.objects.get(installation='local').history_ready
 for source,published,expected in ((None,None,'publication_missing'),(None,now,'publication_untrusted'),('fixture.published_at',now+timedelta(seconds=1),'publication_future'),('fixture.published_at',now-timedelta(hours=48,microseconds=1),'publication_expired')):
  e=dict(l.latest.evidence);e['published_at']=published.isoformat() if published else None;e['published_at_source']=source;e['description']='Funciona perfeitamente.';l.latest.evidence=e;l.latest.save()
  s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)

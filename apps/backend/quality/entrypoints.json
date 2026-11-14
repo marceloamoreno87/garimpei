@@ -610,5 +610,35 @@
     "path": "src/garimpei/infra/persistence/alert_models.py",
     "consumer": "src/garimpei/infra/persistence/migrations/0027_gold_qualification.py",
     "reason": "PostgreSQL authorization trigger rejects incompatible consumers after adoption; restore schema preserves the original marker"
+  },
+  {
+    "symbol": "Command.handle",
+    "path": "src/garimpei/infra/persistence/management/commands/assistance_policy.py",
+    "consumer": "manage.py",
+    "reason": "Django assistance_policy command discovery"
+  },
+  {
+    "symbol": "assistance_context",
+    "path": "src/garimpei/infra/http/assistance/context.py",
+    "consumer": "src/garimpei/config/settings.py",
+    "reason": "Django template context processor registry for persisted operational assistance"
+  },
+  {
+    "symbol": "ExplainForm.snapshot_id",
+    "path": "src/garimpei/infra/http/assistance/review_handler.py",
+    "consumer": "src/garimpei/infra/http/assistance/review_handler.py",
+    "reason": "Django Form field registry validates snapshot_id and exposes cleaned_data for explanation admission"
+  },
+  {
+    "symbol": "AssistanceOperationsSnapshot.whitelist_version",
+    "path": "src/garimpei/infra/persistence/assistance_models.py",
+    "consumer": "src/garimpei/infra/gateway/operations/assistance_schema.py",
+    "reason": "ORM and explicit business backup schema preserve version of sanitized operational fact whitelist"
+  },
+  {
+    "symbol": "AssistancePolicy.adopted_at",
+    "path": "src/garimpei/infra/persistence/assistance_models.py",
+    "consumer": "src/garimpei/infra/persistence/management/commands/assistance_policy.py",
+    "reason": "Django update_or_create and backup schema preserve explicit policy adoption time"
   }
 ]

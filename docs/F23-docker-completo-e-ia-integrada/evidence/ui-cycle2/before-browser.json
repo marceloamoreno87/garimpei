@@ -1,0 +1,106 @@
+{
+  "environment": "eval_f23_runtime",
+  "robot": {
+    "requested_enabled": false,
+    "revision": 1,
+    "epoch": 1
+  },
+  "active_inference": null,
+  "policy_active": false,
+  "requests": {
+    "fd28c6dd-2980-4316-b5a8-034ebe6c7350": "63b5e9e41704f6060bd54cec64be5cb48e1a44e02a2547c56018895e677ede69",
+    "89c4c885-6f37-422a-a85e-fefb7d674a35": "88ddac68faa81cfc26d25009ca22d57cc023637d69146197eae029f3382d999b",
+    "82e555e4-c1dd-47d3-8a71-d516547e819a": "552016a3a1c80235f27bab53673027881078e906b9b05ec146e5018ffb435cbc",
+    "17eb7291-6839-40b7-9e0a-95489f716d57": "235e974eac167963802386c2c93341f909d8ffe012017dd604f6e1762802b68a",
+    "98a201ee-3f92-4170-9bf5-a8d7803277c9": "b091f6f6d14e42b662000eb3846714db1be4ff2c3cf1cc9ae36aa1ec924dd261",
+    "696a423c-fa13-4cd1-a8c0-545af46b384f": "bb7aeebdd3f8fe13763281d1c83e9d1756a001d277e669ad265d31a0a081d364",
+    "eeef668f-2b4e-44b4-9aba-5c0057074327": "3df9458c9b5fb2c276f0b9b115ff6cef92ef7ee1faaea2e26a843aeaaaee0720",
+    "3ccec31b-7f34-42bd-a2b9-74bf0a779c4d": "94bffdc0c451f3bcf602ce43f8150f29d8f7481a739858fb4d9ee279794428ed"
+  },
+  "original_reviews": {
+    "3d5fa9b9-81d0-4ac2-afd2-3466b40eacf9": "5fe45693ac348ee48b56fe9e1919c1379291b4871345bc25a1dbcf8bcf5855d5",
+    "951a1d2c-074e-4980-bb88-e843fd866d96": "c4732cf7150e67e6f3dce67cbbcb7ed122af45dc8912e0321eaa72cdd83e3ae1",
+    "4c361f74-02db-4ead-b4fe-9750bb8397e2": "3b85a2e8a4107efbe4ed82c370381db890ce51354adfbf6a2388c924b6049012",
+    "3c80c9d6-3495-4d09-ab21-af14f60eb1a7": "4294c88dbde1c1409aee104dffa0c03037057095ae2ceef15a6371ea6bff481e",
+    "23a47056-1cf8-488e-ba36-5bc22404711d": "f96941e9d76133094a4da627de6fd088abed70b3fe5894ae6afe99461a79d37e",
+    "88f770f2-4108-49f9-a346-5355ab894bf6": "aa7c957d1f4d7bd9b003734773f85e41b061988b74c184aaef436b04b9ce900d",
+    "70b6255b-62d9-4b5d-aa3c-86a1b6585cfe": "1f171038935b38061f8e7e1595c566bbb31090a5180cc832f12a30daee10c9ce"
+  },
+  "original_assessments": {
+    "d1e2a794-52da-48ab-98e8-e0ccaa210275": "b67d62246b89cce9ac07c53afcd7317d3307b16995d89624e095e46d87dceb67"
+  },
+  "controls": [
+    {
+      "id": "f9a408df-af22-5e52-be66-aac6bb59ea49",
+      "listing_id": "a4d373e8-2910-56a2-b4ce-8736b53f72d9",
+      "state": "conflict",
+      "purpose": "identity",
+      "current": true,
+      "media": [],
+      "has_new_inference_link": false
+    },
+    {
+      "id": "c4efd859-d9ac-5ac8-83c3-735e0ec16e5a",
+      "listing_id": "31524d0d-80f0-5cef-ab2b-810110b35186",
+      "state": "pending",
+      "purpose": "identity",
+      "current": true,
+      "media": [],
+      "has_new_inference_link": false
+    },
+    {
+      "id": "1c1e10b9-f950-517a-9240-60bad23164f5",
+      "listing_id": "f9a2986b-4bcd-529a-8d7e-2fd151c9fe8c",
+      "state": "failed",
+      "purpose": "identity",
+      "current": true,
+      "media": [],
+      "has_new_inference_link": false
+    },
+    {
+      "id": "1808515f-468b-5984-af70-f1fd052947ce",
+      "listing_id": "b2cf50b5-1a12-5983-bf92-53ab38c9a17b",
+      "state": "insufficient",
+      "purpose": "condition",
+      "current": true,
+      "media": [
+        {
+          "id": "ed996218-de06-49ad-8cb0-ec85a8788614",
+          "state": "available",
+          "sha256": "f2be79e0ba14ca33ffc53972e2381f9766289545f974eeaa53eedf1df6b05a86",
+          "revision": 1
+        }
+      ],
+      "has_new_inference_link": "links only to existing F15 request"
+    }
+  ],
+  "interests": [
+    {
+      "id": "fa1e68bf-5640-4552-9438-aa12a056a703",
+      "kind": "product",
+      "key": "playstation 5 slim digital 825gb",
+      "label": "PlayStation 5 Slim Digital 825GB"
+    },
+    {
+      "id": "d5dd0897-7858-541e-9c3f-0581ac48c894",
+      "kind": "product",
+      "key": "iphone 15 128gb",
+      "label": "iPhone 15 128GB — controle sem observações"
+    }
+  ],
+  "manual_values": [
+    {
+      "listing_id": "a4d373e8-2910-56a2-b4ce-8736b53f72d9",
+      "revision": 1,
+      "values": {
+        "model": "ps5",
+        "family": "playstation5",
+        "edition": "digital",
+        "capacity": "1tb",
+        "generation": "slim"
+      }
+    }
+  ],
+  "seed_provenance": "Engineering presentation controls; source F15 result already persisted; no new model call or human label.",
+  "original_records_unchanged_in_seed_transaction": true
+}

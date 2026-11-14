@@ -30,6 +30,7 @@ from garimpei.infra.persistence.research_models import (
     InvestigationTarget,
     ResearchQuery,
 )
+from garimpei.infra.repository.assistance.research import apply_investigation_support
 from garimpei.infra.repository.listing.mapper import encode_candidate
 from garimpei.infra.repository.listing.postgres_repository import PostgresCollectionRepository
 from garimpei.infra.repository.robot.postgres_repository import robot_enabled
@@ -178,6 +179,7 @@ class PostgresComparableResearchRepository:
         if wait_limited and existing is None and not pending_limited:
             row.state, row.reason = "limited", "interest_wait_budget_exceeded"
             row.save(update_fields=["state", "reason"])
+        apply_investigation_support(row)
         self._recent_priority(row, listing)
         InvestigationTarget.objects.filter(listing=listing, active=True).exclude(
             investigation=row, observation=listing.latest, manual_revision=current.manual_revision

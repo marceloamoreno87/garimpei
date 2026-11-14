@@ -126,6 +126,7 @@ def register_tasks() -> None:
     app.task(name="garimpei.comparable_research", queue="listing")(_handle_comparable_research)
     app.task(name="garimpei.media", queue="media")(_handle_media)
     app.task(name="garimpei.local_analysis", queue="inference")(_handle_inference)
+    app.task(name="garimpei.assistance_condition", queue="valuation")(_handle_assistance_condition)
     app.task(name="garimpei.operational_maintenance", queue="maintenance")(_handle_operations)
     app.task(name="garimpei.alert_tick", queue="alert")(_handle_alert)
     app.task(name="garimpei.runtime_probe", queue="runtime")(_handle_runtime_probe)
@@ -333,6 +334,7 @@ def _build_live_listing_handler(settings: ListingSettings) -> "ListingTaskHandle
         settings.cadence_ms,
         profile=settings.facebook_profile,
         robot=build_robot_repository(),
+        sandbox=load_config(require_secrets=False).containerized,
     )
     geocoding = BrasilApiGeocoding(settings.timeout)
     source = FacebookMarketplace(
@@ -661,7 +663,12 @@ def build_alert_handler(stage: str) -> "AlertTaskHandler":
         build_alert_store(),
         _listing_clock(load_listing_settings()),
     )
-    gateway = WahaGateway(settings.url, settings.key, _alert_policy())
+    gateway = WahaGateway(
+        settings.url,
+        settings.key,
+        _alert_policy(),
+        internal_service=load_config(require_secrets=False).containerized,
+    )
     binding = (
         Binding(settings.session, settings.recipient, settings.account)
         if (
@@ -732,13 +739,11 @@ def build_integration_repository() -> "PostgresIntegrationRepository":
 
 
 def _effective_listing_settings() -> ListingSettings:
-    from garimpei.config.env import load_integration_private_settings
+    from garimpei.config.env import load_facebook_profile_directory
 
     store = build_integration_repository()
     if store.read().facebook_mode == "profile":
-        return load_listing_settings(
-            facebook_profile=load_integration_private_settings().directory / "facebook-browser"
-        )
+        return load_listing_settings(facebook_profile=load_facebook_profile_directory())
     return load_listing_settings(facebook_state=store.facebook_path())
 
 
@@ -754,13 +759,19 @@ def build_facebook_profile_repository() -> "PostgresFacebookProfileRepository":
 
 
 def _build_login_browser() -> "MarketplaceBrowser":
-    from garimpei.config.env import load_facebook_browser_origin, load_integration_private_settings
+    from garimpei.config.env import load_facebook_browser_origin, load_facebook_profile_directory
     from garimpei.infra.gateway.listing.marketplace_browser import MarketplaceBrowser
 
-    path = load_integration_private_settings().directory / "facebook-browser"
+    path = load_facebook_profile_directory()
     origin, headless = load_facebook_browser_origin()
     return MarketplaceBrowser(
-        path, 20, 1200, profile=path, login_origin=origin, profile_headless=headless
+        path,
+        20,
+        1200,
+        profile=path,
+        login_origin=origin,
+        profile_headless=headless,
+        sandbox=load_config(require_secrets=False).containerized,
     )
 
 
@@ -814,7 +825,12 @@ def build_integration_handler() -> "IntegrationHandler":
     store = build_integration_repository()
     config = store.read()
     session = config.whatsapp_session or settings.session or "default"
-    gateway = WahaSessionGateway(settings.url, settings.key, min(settings.timeout, 5))
+    gateway = WahaSessionGateway(
+        settings.url,
+        settings.key,
+        min(settings.timeout, 5),
+        internal_service=load_config(require_secrets=False).containerized,
+    )
     return IntegrationHandler(
         ReadIntegrationsUseCase(store, gateway, session),
         SaveFacebookSessionUseCase(store, _listing_clock(load_listing_settings())),
@@ -848,16 +864,22 @@ def build_inference_gateway() -> "OllamaGateway":
     from garimpei.config.env import load_inference_settings
     from garimpei.infra.gateway.inference.docker_transport import DockerOllamaTransport
     from garimpei.infra.gateway.inference.gpu_probe import NvidiaGpuProbe
+    from garimpei.infra.gateway.inference.http_transport import HttpOllamaTransport
     from garimpei.infra.gateway.inference.ollama_gateway import OllamaGateway
     from garimpei.infra.runtime.inference_runtime import recover_inference_service
 
     config, guard = load_config(require_secrets=False), build_inference_guard()
+    settings = load_inference_settings()
     return OllamaGateway(
         load_inference_settings(),
         guard,
-        lambda: recover_inference_service(config, guard),
-        DockerOllamaTransport(config).request,
-        NvidiaGpuProbe().measure,
+        (lambda: False)
+        if config.containerized
+        else lambda: recover_inference_service(config, guard),
+        HttpOllamaTransport(settings.endpoint).request
+        if config.containerized
+        else DockerOllamaTransport(config).request,
+        None if config.containerized else NvidiaGpuProbe().measure,
     )
 
 
@@ -903,6 +925,7 @@ def build_run_analysis() -> "RunAnalysisUseCase":
 
 def _handle_inference() -> None:
     build_run_analysis().execute()
+    build_assistance_repository().reconcile()
 
 
 def reconcile_inference() -> None:
@@ -911,6 +934,7 @@ def reconcile_inference() -> None:
     from garimpei.config.env import load_inference_settings
     from garimpei.infra.persistence.inference_models import InferenceControl
 
+    reconcile_assistance()
     repository, gateway = build_inference_repository(), build_inference_gateway()
     control = InferenceControl.objects.filter(pk=1).first()
     if control and control.reason in {"execution_unknown", "unload_failed"}:
@@ -1108,6 +1132,7 @@ def _handle_navigation_suggestions() -> None:
             settings.cadence_ms,
             profile=settings.facebook_profile,
             robot=build_robot_repository(),
+            sandbox=load_config(require_secrets=False).containerized,
         )
         source = FacebookMarketplace(
             browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
@@ -1405,7 +1430,12 @@ def build_verify_recovery() -> "VerifyRecoveryGateway":
         operations.recovery_file,
         RecoveryEvidenceGateway(operations.recovery_evidence_url),
         build_alert_store(),
-        lambda _binding: WahaGateway(alerts.url, alerts.key, _alert_policy()),
+        lambda _binding: WahaGateway(
+            alerts.url,
+            alerts.key,
+            _alert_policy(),
+            internal_service=load_config(require_secrets=False).containerized,
+        ),
     )
 
 
@@ -1564,6 +1594,7 @@ def build_comparable_research_handler() -> "ComparableResearchTaskHandler":
             settings.cadence_ms,
             profile=settings.facebook_profile,
             robot=build_robot_repository(),
+            sandbox=load_config(require_secrets=False).containerized,
         )
         live = FacebookMarketplace(
             browser, MARKETPLACE_SEARCH_ORIGIN, build_monitoring_catalog().load()
@@ -1684,3 +1715,57 @@ def robot_work_enabled() -> bool:
     from garimpei.infra.repository.robot.postgres_repository import robot_enabled
 
     return robot_enabled()
+
+
+def build_assistance_repository() -> "PostgresAssistanceRepository":
+    from garimpei.infra.repository.assistance.postgres_repository import (
+        PostgresAssistanceRepository,
+    )
+
+    return PostgresAssistanceRepository(build_request_analysis(), _enqueue_assistance_condition)
+
+
+def build_assistance_queries() -> "PostgresAssistanceQueries":
+    from garimpei.infra.queries.assistance.postgres_queries import PostgresAssistanceQueries
+
+    return PostgresAssistanceQueries()
+
+
+def build_assistance_handler() -> "AssistanceHandler":
+    from garimpei.infra.http.assistance.review_handler import AssistanceHandler
+    from garimpei.usecase.assistance.read_reviews_usecase import ReadReviewsUseCase
+    from garimpei.usecase.assistance.request_review_usecase import RequestReviewUseCase
+
+    return AssistanceHandler(
+        RequestReviewUseCase(build_assistance_repository()),
+        build_assistance_queries(),
+        ReadReviewsUseCase(build_assistance_queries()),
+    )
+
+
+def reconcile_assistance() -> None:
+    from garimpei.infra.persistence.operations_models import OperationalUnit
+    from garimpei.infra.repository.assistance.operations import capture_operations_snapshot
+
+    build_assistance_repository().reconcile()
+    # A fresh restore target has no diagnostic input. Do not populate it with
+    # an unsolicited empty projection before its business backup can be restored.
+    if OperationalUnit.objects.exists():
+        capture_operations_snapshot()
+
+
+if TYPE_CHECKING:
+    from garimpei.infra.http.assistance.review_handler import AssistanceHandler
+    from garimpei.infra.queries.assistance.postgres_queries import PostgresAssistanceQueries
+    from garimpei.infra.repository.assistance.postgres_repository import (
+        PostgresAssistanceRepository,
+    )
+
+
+def _enqueue_assistance_condition() -> int:
+    return _enqueue("garimpei.assistance_condition", "valuation", 0)
+
+
+def _handle_assistance_condition() -> None:
+    build_assessment_handler().execute()
+    build_assistance_repository().reconcile()

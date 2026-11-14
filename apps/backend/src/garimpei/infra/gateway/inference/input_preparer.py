@@ -11,6 +11,11 @@ from PIL import Image
 from tokenizers import Tokenizer
 
 from garimpei.config.env import InferenceSettings
+from garimpei.domain.assistance.review import (
+    ASSISTANCE_PROFILES,
+    assistance_prompt,
+    assistance_schema,
+)
 from garimpei.domain.inference.condition_evidence import (
     PROMPT as CONDITION_PROMPT,
 )
@@ -81,6 +86,10 @@ class LocalInputPreparer:
                 )
             )
         parts.extend(self._image(reference) for reference in value.images)
+        if value.prompt_version in ASSISTANCE_PROFILES:
+            parts = [replace(part, text=value.text, profile=value.prompt_version) for part in parts]
+            for part in parts:
+                self._text_budget(part.text, part.profile, visual=bool(part.image_id))
         if value.prompt_version == CONDITION_VERSION:
             if value.images:
                 parts = [part for part in parts if part.image_id is not None]
@@ -118,11 +127,15 @@ class LocalInputPreparer:
             raise InferenceError("artifact_mismatch", 503)
         codec = Tokenizer.from_file(str(settings.tokenizer))
         prompt = CONDITION_PROMPT if profile == CONDITION_VERSION else PROMPT
+        if profile in ASSISTANCE_PROFILES:
+            prompt = assistance_prompt(profile)
         content = (
             condition_content(text, photo_id, sha256)
             if profile == CONDITION_VERSION
             else json.dumps(bounded_schema(text, None)) + text
         )
+        if profile in ASSISTANCE_PROFILES:
+            content = json.dumps(assistance_schema(profile, text)) + text
         count = len(codec.encode(prompt + content).ids) + 256
         reserved = output_token_limit(profile) + (VISUAL_RESERVE_TOKENS if visual else 0)
         if count > settings.text_tokens or count + reserved > settings.context_tokens:

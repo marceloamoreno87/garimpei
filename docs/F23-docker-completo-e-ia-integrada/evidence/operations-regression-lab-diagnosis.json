@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "nodeid": "tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target",
+  "original_failure": {
+    "log": "operations-regression-lab-original.txt",
+    "symptom": "A nested crash_after_post control failed during synthetic Docker lifecycle startup. This startup failure did not recur in the isolated reproduction; its specific daemon error was not preserved by the original generic wrapper."
+  },
+  "before": {
+    "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey sh -c 'python -m pytest tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target -vv --tb=long --basetemp=/tmp/f23-operations-lab-before > /tmp/f23-operations-lab-before.txt 2>&1; result=$?; cat /tmp/f23-operations-lab-before.txt; exit \"$result\"'",
+    "nodeids": [
+      "tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 531.15,
+    "stdout": "operations-regression-lab-before.txt",
+    "failure": "subprocess.TimeoutExpired at calibrate-crashes after the aggregate 300-second timeout",
+    "calibration_completed_before_timeout": [
+      {
+        "case": "crash_after_post",
+        "seconds": 90.53054641799827
+      },
+      {
+        "case": "crash_after_commit",
+        "seconds": 42.0571192339994
+      },
+      {
+        "case": "crash_after_authorization",
+        "seconds": 60.17555931600509
+      },
+      {
+        "case": "crash_after_confirmation",
+        "seconds": 71.79292537699803
+      }
+    ],
+    "calibration_completed_total_seconds": 264.5561503450005,
+    "calibration_missing_case": "crash_before_authorization",
+    "owned_processes_remaining_after_cleanup": [],
+    "source_snapshot": "Prepared before the confirmation checkpoint correction; intentionally not mutated during the running reproduction"
+  },
+  "confirmed_cause": "The calibration CLI executes five sequential control/fault pairs, each bounded internally to 150 seconds, but the caller allowed only 300 seconds for the entire operation. Four successful measured pairs already consumed 264.56 seconds.",
+  "change": "Only the outer calibration test invocation budget is now 5 * 150 + 30 seconds. Per-pair 150-second limits, behavioral wait deadlines, repetitions and all assertions remain unchanged.",
+  "other_source_change": "The new isolated checkout also includes the separately verified confirmation-checkpoint fixture correction.",
+  "production_changed": false,
+  "after": {
+    "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey sh -c 'python -m pytest tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target -vv --tb=long --basetemp=/tmp/f23-operations-lab-after --junitxml=/tmp/f23-operations-lab-after.xml > /tmp/f23-operations-lab-after.txt 2>&1; result=$?; cat /tmp/f23-operations-lab-after.txt; exit \"$result\"'",
+    "nodeids": [
+      "tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target"
+    ],
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 553.82,
+    "stdout": "operations-regression-lab-after.txt",
+    "junit": "operations-regression-lab-after.xml",
+    "calibration_report": "operations-regression-lab-calibration-after.json",
+    "results": [
+      {
+        "nodeid": "tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target",
+        "outcome": "passed"
+      }
+    ],
+    "calibration_status": "complete",
+    "calibration_pair_durations_seconds": {
+      "crash_after_post": 84.40323989299941,
+      "crash_after_commit": 43.69032731599873,
+      "crash_after_authorization": 59.70110978699813,
+      "crash_after_confirmation": 83.23187344300095,
+      "crash_before_authorization": 60.22597956599202
+    },
+    "all_five_real_sigkill_and_recovered": true,
+    "cleanup": {
+      "source_state": "closed",
+      "destination_state": "closed",
+      "remaining_owned_processes": 0,
+      "remaining_owned_containers": 0,
+      "remaining_owned_networks": 0,
+      "remaining_owned_volumes": 0
+    }
+  }
+}

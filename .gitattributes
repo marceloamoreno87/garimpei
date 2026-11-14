@@ -1,0 +1,4 @@
+# Raw evaluation output preserves tool bytes, including traceback indentation.
+docs/F23-docker-completo-e-ia-integrada/evidence/*.txt -whitespace
+docs/F23-docker-completo-e-ia-integrada/evidence/*.log -whitespace
+docs/F23-docker-completo-e-ia-integrada/evidence/*.xml -whitespace

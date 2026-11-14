@@ -8,6 +8,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.utils.timezone import now as clock_now
 
+from garimpei.domain.assistance.review import ASSISTANCE_PROFILES
 from garimpei.domain.inference.errors import RECOVERABLE, InferenceError
 from garimpei.domain.inference.ports import AnalysisTicket, AnalysisWork, PreparedPart
 from garimpei.domain.inference.request import AnalysisInput
@@ -39,6 +40,7 @@ class PostgresInferenceRepository:
     ) -> AnalysisTicket:
         with transaction.atomic():
             _control()
+            _validate_target(value)
             signature = value.signature(artifact)
             existing = InferenceRequest.objects.filter(signature=signature).first()
             if existing is not None:
@@ -48,12 +50,7 @@ class PostgresInferenceRepository:
     def _admit_new(
         self, value: AnalysisInput, artifact: str, parts: tuple[PreparedPart, ...], signature: str
     ) -> AnalysisTicket:
-        observation = ListingObservation.objects.filter(pk=value.observation_id).first()
-        if observation is None or observation.ordinal != value.revision:
-            raise InferenceError("observation_revision_mismatch", 409)
-        listing = Listing.objects.select_for_update().get(pk=observation.listing_id)
-        if listing.latest_id != observation.id:
-            raise InferenceError("superseded", 409)
+        observation = _validate_target(value)
         if (
             InferenceRequest.objects.filter(
                 state__in=["pending", "running", "awaiting_resource", "paused"]
@@ -65,6 +62,10 @@ class PostgresInferenceRepository:
             self._reserve(signature)
         row = InferenceRequest.objects.create(
             observation=observation,
+            target_kind=value.target_kind,
+            target_id=value.target_id,
+            target_revision=value.target_revision,
+            context=value.context,
             revision=value.revision,
             signature=signature,
             artifact=artifact,
@@ -360,13 +361,59 @@ def _owns(control: InferenceControl, work: AnalysisWork) -> bool:
     return control.active_request == work.request_id and control.generation == work.generation
 
 
+def _validate_target(value: AnalysisInput) -> ListingObservation | None:
+    if value.target_kind == "listing_observation":
+        if value.observation_id is None:
+            raise InferenceError("observation_required", 409)
+        observation = ListingObservation.objects.filter(pk=value.observation_id).first()
+        if observation is None or observation.ordinal != value.revision:
+            raise InferenceError("observation_revision_mismatch", 409)
+        listing = Listing.objects.select_for_update().get(pk=observation.listing_id)
+        if listing.latest_id != observation.id:
+            raise InferenceError("superseded", 409)
+        return observation
+    if not _typed_target_current(value.target_kind, value.target_id, value.target_revision):
+        raise InferenceError("target_revision_mismatch", 409)
+    return None
+
+
+def _typed_target_current(kind: str, identity: UUID | None, revision: int | None) -> bool:
+    if identity is None or revision is None:
+        return False
+    if kind == "interest":
+        from garimpei.infra.persistence.monitoring_models import MonitoringInterest
+
+        return MonitoringInterest.objects.filter(
+            pk=identity, configuration__slot="active", configuration__revision=revision
+        ).exists()
+    if kind == "operations_snapshot":
+        from garimpei.infra.persistence.assistance_models import AssistanceOperationsSnapshot
+
+        latest = AssistanceOperationsSnapshot.objects.order_by("-revision").first()
+        return latest is not None and latest.id == identity and latest.revision == revision
+    return False
+
+
 def _current(row: InferenceRequest, *, lock: bool = False) -> bool:
+    if row.prompt_version in ASSISTANCE_PROFILES and row.target_kind != "listing_observation":
+        current = _typed_target_current(row.target_kind, row.target_id, row.target_revision)
+        newer = InferenceRequest.objects.filter(
+            target_kind=row.target_kind,
+            target_id=row.target_id,
+            prompt_version=row.prompt_version,
+            created_at__gt=row.created_at,
+        ).exists()
+        return current and not newer
+    if row.observation_id is None:
+        return False
     listing_id = ListingObservation.objects.get(pk=row.observation_id).listing_id
     query = Listing.objects.select_for_update() if lock else Listing.objects
     current = query.filter(pk=listing_id, latest_id=row.observation_id).exists()
     peers = InferenceRequest.objects.filter(
         observation_id=row.observation_id, prompt_version=row.prompt_version
     )
+    if row.prompt_version == "comparable-review-v1":
+        peers = peers.filter(context__candidate_id=row.context.get("candidate_id"))
     # Legacy requests still supersede by time. A condition cohort consists of
     # independent bounded image batches; only a later desired generation replaces it.
     if row.cohort_id is not None:

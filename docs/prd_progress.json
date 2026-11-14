@@ -384,6 +384,30 @@
       "started_at": "2026-11-13T17:07:32.233392+00:00",
       "updated_at": "2026-11-13T18:33:50.926264Z",
       "completed_at": "2026-11-13T18:33:50.926264Z"
+    },
+    "F23": {
+      "name": "Docker completo e IA integrada ao fluxo",
+      "priority": 1,
+      "wave": 14,
+      "dependencies": [
+        "F02",
+        "F13",
+        "F14",
+        "F15",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "status": "implemented",
+      "cycles": 3,
+      "failure_reason": "Corpus sem rótulos humanos independentes e cadeia integrada com modelo real/positivo F21 permanecem pendentes.",
+      "report_path": "docs/F23-docker-completo-e-ia-integrada/eval-report-2026-11-14T00-40-00Z.md",
+      "started_at": "2026-11-13T21:30:59.086665+00:00",
+      "updated_at": "2026-11-14T00:40:52.285159+00:00",
+      "completed_at": null
     }
   }
 }

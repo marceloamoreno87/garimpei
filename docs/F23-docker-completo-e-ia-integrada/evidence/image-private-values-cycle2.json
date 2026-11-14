@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-13T23:03:38.953146+00:00",
+  "image_id": "sha256:070e1f15c49facdc2b3b50b022e81caba3f1e658aec78bd281fe306f5a2502ea",
+  "exit_code": 0,
+  "application_files": {
+    "scanned_files": 6748,
+    "found_secret_names": [],
+    "values_printed": false
+  },
+  "image_config_contains_private_values": false,
+  "private_secret_names": [
+    "DJANGO_SECRET_KEY",
+    "POSTGRES_PASSWORD",
+    "WAHA_API_KEY"
+  ],
+  "scope": "Current private credentials absent from built application files and image Config; no secret values persisted or printed"
+}

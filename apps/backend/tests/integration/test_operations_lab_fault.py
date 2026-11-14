@@ -29,7 +29,8 @@ def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -> None:
             env=environment,
             capture_output=True,
             text=True,
-            timeout=300 if operation == "calibrate-crashes" else 180,
+            # Five sequential pairs each retain their own 150-second deadline.
+            timeout=5 * 150 + 30 if operation == "calibrate-crashes" else 180,
         )
 
     prepared = invoke("prepare")

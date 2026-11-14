@@ -3,18 +3,19 @@ import re
 from datetime import datetime
 from http.client import HTTPConnection, HTTPException
 from typing import cast
-from urllib.parse import quote, urlencode, urlsplit
+from urllib.parse import quote, urlencode
 
 from garimpei.domain.alert.alert import AlertPolicy, Binding, Delivery, Outcome, Receipt
 from garimpei.domain.alert.eligibility import verified_receipt
+from garimpei.infra.gateway.integration.waha_origin import waha_origin
 
 
 class WahaGateway:
-    def __init__(self, url: str, key: str, policy: AlertPolicy) -> None:
-        parsed = urlsplit(url)
-        if parsed.scheme != "http" or parsed.hostname != "127.0.0.1" or not parsed.port:
-            raise ValueError("WAHA requires an explicit loopback HTTP origin")
-        self._host, self._port, self._key, self._policy = parsed.hostname, parsed.port, key, policy
+    def __init__(
+        self, url: str, key: str, policy: AlertPolicy, *, internal_service: bool = False
+    ) -> None:
+        self._host, self._port = waha_origin(url, internal_service)
+        self._key, self._policy = key, policy
 
     def _request(
         self, method: str, path: str, body: dict[str, object] | None = None

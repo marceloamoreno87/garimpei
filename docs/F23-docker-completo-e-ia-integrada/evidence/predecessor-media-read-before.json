@@ -1,0 +1,24 @@
+{
+  "boundary": "LocalMediaStore.read exact preserved protected original",
+  "results": {
+    "source": {
+      "read": "PASS",
+      "bytes": 26534
+    },
+    "target": {
+      "read": "FAIL",
+      "error_type": "MediaError",
+      "code": "media_storage_owner_conflict"
+    },
+    "rollback": {
+      "read": "FAIL",
+      "error_type": "MediaError",
+      "code": "media_storage_owner_conflict"
+    },
+    "f17": {
+      "read": "PASS",
+      "bytes": 26534
+    }
+  },
+  "status": "FAIL"
+}

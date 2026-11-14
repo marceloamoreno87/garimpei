@@ -1,0 +1,321 @@
+{
+  "format": 1,
+  "status": "PASS",
+  "proof": "predecessor-proof-20261114003250.json",
+  "contract_items": [
+    "PERSISTENCIA",
+    "E2E-PERSISTENCIA-01",
+    "CLI-DOCKER-03 persistent data dimension"
+  ],
+  "reproduce": "python3 .runtime/predecessor-all.py",
+  "harness": "predecessor-harness-source.json",
+  "milestones": {
+    "prepare": {
+      "status": "PASS",
+      "at": "2026-11-14T00:32:57.655225+00:00"
+    },
+    "seed": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:06.700957+00:00"
+    },
+    "f17": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:12.667873+00:00"
+    },
+    "snapshot": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:14.291196+00:00"
+    },
+    "inventory-before": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:16.667604+00:00"
+    },
+    "adopt": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:30.742871+00:00"
+    },
+    "restart": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:41.161547+00:00"
+    },
+    "rollback": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:53.120738+00:00"
+    },
+    "cleanup": {
+      "status": "PASS",
+      "at": "2026-11-14T00:33:55.806440+00:00"
+    }
+  },
+  "predecessor": {
+    "commit": "15079aa7149b0a699891ddb10d8ccf5d06633608",
+    "latest_migration": "0027_gold_qualification",
+    "source_tree_sha256": "4e02f82bd15ca88475ec5f31eae91fd0df4fd674822baba97e1733374880430c",
+    "business_schema_sha256": "968f133e43847c5fdd0ef2c4b294a070a7b9c9c1282532023933f63015bd2dc7",
+    "database_columns_sha256": "bf9534289760ae2ae9bd0756856bfee7f2c441f64d6f1a0d217a8a86f3ceb409"
+  },
+  "candidate": {
+    "base_commit": "1b25caea2782ec67979d53b4823ff71575b7bc1d",
+    "working_tree_files": {
+      "apps/backend/src/garimpei/infra/persistence/migrations/0030_inference_legacy_targets.py": "0c328fe9e462c9c020728b58f57f889ffafe3391cf6096fa7a20608c8a1c9392",
+      "apps/backend/src/garimpei/infra/persistence/migrations/0031_assisted_gold_authorization.py": "459b135ffa18c9b73911c573f99b1f5cc44050e0d86232f1d8e497c2d8bc83b1",
+      "scripts/docker-adoption.sh": "7011466fa493d1f1c53f0dca0a7e1b5f33ae18fbc0265ce7cd4465f74690f160"
+    },
+    "latest_migration": "0031_assisted_gold_authorization",
+    "source_tree_sha256": "b94c61befdcc62fbbed8733d16f23a0365acbd5758c41e2f7829c48cc2ef8399",
+    "business_schema_sha256": "e47e8e8bb92796c37ca74ad366aac579b2d73b62f5032e7574543a6edf787063",
+    "database_columns_sha256": "eba411b8d3c3afeb031bc02bb7194b4e502473d94bf1841a822e97c66bbfc3ab"
+  },
+  "rollback": {
+    "latest_migration": "0027_gold_qualification",
+    "source_tree_sha256": "4e02f82bd15ca88475ec5f31eae91fd0df4fd674822baba97e1733374880430c",
+    "recovery_blocked": true,
+    "posts": 0
+  },
+  "inventory": {
+    "table_count_before": 64,
+    "listings": 12,
+    "observations": 22,
+    "condition_assessments": 1,
+    "inference_requests": 2,
+    "valuation_evaluations": 6,
+    "original_technical_queue": [
+      {
+        "id": 1,
+        "state": "todo",
+        "row_sha256": "3cd752707bfa64376bee0da2a6a657ffe8714f6144754c8199339a96cbc80202"
+      }
+    ],
+    "confirmed_receipts": 2,
+    "uncertain_receipts": 1,
+    "captured_synthetic_posts_before_backup": 3,
+    "media": {
+      "corpus": "CONTROLLED F14 local HTTP",
+      "listing_id": "aa7ab457-cde9-4ebd-abf4-58c2b72a4c8a",
+      "version_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+      "sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+      "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+      "bytes": 26534
+    },
+    "file_surfaces": {
+      "private": {
+        "files": 8,
+        "bytes": 71471
+      },
+      "state": {
+        "files": 1,
+        "bytes": 41
+      },
+      "waha": {
+        "files": 1,
+        "bytes": 47
+      },
+      "ollama": {
+        "files": 1,
+        "bytes": 40
+      }
+    }
+  },
+  "checks": {
+    "F17_restored_before_adoption": true,
+    "cold_restore_all_64_tables_equal": true,
+    "all_old_rows_equal_after_migrations_except_django_migrations": true,
+    "all_adopted_payload_hashes_and_permissions_equal": true,
+    "all_rollback_payload_hashes_and_permissions_equal": true,
+    "owner_metadata_rebinding": {
+      "target": {
+        "media/.garimpei-media-owner": true,
+        "backups/.garimpei-backup-owner": true
+      },
+      "rollback": {
+        "backups/.garimpei-backup-owner": true,
+        "media/.garimpei-media-owner": true
+      }
+    },
+    "postgres_restart_with_persistent_bind": true,
+    "two_real_worker_restarts": [
+      {
+        "runtime_probe_completed": true,
+        "reserved_consumers": 7
+      },
+      {
+        "runtime_probe_completed": true,
+        "reserved_consumers": 7
+      }
+    ],
+    "strict_original_queue_and_data_after_restart": {
+      "strict_original_rows_and_queue_preserved": true,
+      "only_listing_field_allowed_to_change": "media_refresh_after",
+      "technical_schedule_diffs": [
+        {
+          "listing_id": "941a394a-2bfd-4666-8c00-983a3afe3155",
+          "fields": {
+            "media_refresh_after": {
+              "before": null,
+              "after": "2026-11-14T00:38:33.926142+00:00"
+            }
+          }
+        },
+        {
+          "listing_id": "ab52814a-df80-43f7-91a4-cee3fb6f5279",
+          "fields": {
+            "media_refresh_after": {
+              "before": null,
+              "after": "2026-11-14T00:38:33.926142+00:00"
+            }
+          }
+        },
+        {
+          "listing_id": "d289454f-610a-4255-8178-c992a1fa8e08",
+          "fields": {
+            "media_refresh_after": {
+              "before": null,
+              "after": "2026-11-14T00:38:33.926142+00:00"
+            }
+          }
+        }
+      ],
+      "new_runtime_tables_expected": true
+    },
+    "original_receipts_frozen": true,
+    "all_rollback_old_tables_equal": true,
+    "no_adoption_or_rollback_POST": true,
+    "cleanup_exact_owned_resources": true
+  },
+  "functional_media": {
+    "source": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ],
+    "F17_restore": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ],
+    "adopted": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ],
+    "rollback": [
+      {
+        "asset_id": "86253c16-ae94-4aa1-8907-e6ef782cfec8",
+        "original_sha256": "1fd8a9121956408a315029ed8518378216cda0b9c6c199920133dfa4b00d3915",
+        "thumbnail_sha256": "615665b2a084ec278c42bc5479b612ffcf6bc15391d74a3d1cd4ff87023a8547",
+        "http_status": 200
+      }
+    ]
+  },
+  "functional_new_backups": {
+    "adopted": {
+      "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+      "environment": "eval_pred_target_1114003250",
+      "action": "new-backup",
+      "source_tree_sha256": "b94c61befdcc62fbbed8733d16f23a0365acbd5758c41e2f7829c48cc2ef8399",
+      "id": "e4989416-9d6c-4c50-bd0d-576ea789642d",
+      "completed": true,
+      "archive_sha256": "ed1bee84c3a219787b7cc4b7cba39dccb242e2d86158106abdbe4de6d64bbfc1",
+      "owner_marker_correct": true,
+      "original_receipts_preserved": true
+    },
+    "rollback": {
+      "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+      "environment": "eval_pred_rollback_1114003250",
+      "action": "new-backup",
+      "source_tree_sha256": "4e02f82bd15ca88475ec5f31eae91fd0df4fd674822baba97e1733374880430c",
+      "id": "36964abe-d6a1-4848-9208-53a6bc393665",
+      "completed": true,
+      "archive_sha256": "50c7c027f3f442fabcd7dabb9f374de939e54c464ab1eb33f23755a7bf9dea8a",
+      "owner_marker_correct": true,
+      "original_receipts_preserved": true
+    }
+  },
+  "original_media_defect": {
+    "red": "predecessor-media-read-before.json",
+    "resolution": "The coordinator corrected cold-copy owner metadata; the final full assay verifies real media reads/HTTP and new F17 writes, not only copied file hashes."
+  },
+  "limitations": [
+    "Predecessor installation is materialized from real 15079 migrations/factories, not user production data.",
+    "F17 excludes authentication, technical jobs, live F22 ownership and weights; cold-copy preservation proves these surfaces separately.",
+    "Profiles, WAHA sessions, tokenizer and weights are identified synthetic sentinels in stopped PostgreSQL-image holders; no real account/model/GPU claim.",
+    "F15/F19 records are controlled fixtures with real legacy profiles/states and validated AnalysisInput signatures; not inference/model-quality evidence.",
+    "Real workers may update local scheduling/projection metadata while admission is paused; only media_refresh_after may differ in listing rows, and exact differences are retained.",
+    "Earlier failed fixture/port/JSON/scheduling assertions remain in their dated evidence files; the production media-owner defect is retained separately as a real RED followed by this full GREEN."
+  ],
+  "cleanup": "All 17 exact assay-created containers removed; private generated envs/dumps/bind data retained only under ignored .runtime.",
+  "recovery_barrier": {
+    "guard_function": "garimpei.main.build_recovery_guard()()",
+    "actual_persisted_guard": true,
+    "establishment": "Create a real blocked RecoveryBarrier record for the destination and a local load_operations_settings().recovery_file after cold restoration/migration, before any worker starts. Assert the actual recovery guard; restored F22 admission remains OFF.",
+    "cold_copy_does_not_transfer_transient_guard_file": true,
+    "reconciled_or_released": false,
+    "barrier_outputs": {
+      "target": {
+        "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+        "environment": "eval_pred_target_1114003250",
+        "action": "barrier",
+        "source_tree_sha256": "b94c61befdcc62fbbed8733d16f23a0365acbd5758c41e2f7829c48cc2ef8399",
+        "recovery_blocked": true
+      },
+      "rollback": {
+        "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+        "environment": "eval_pred_rollback_1114003250",
+        "action": "barrier",
+        "source_tree_sha256": "4e02f82bd15ca88475ec5f31eae91fd0df4fd674822baba97e1733374880430c",
+        "recovery_blocked": true
+      }
+    },
+    "probe_outputs": {
+      "adopted": {
+        "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+        "environment": "eval_pred_target_1114003250",
+        "action": "probe",
+        "source_tree_sha256": "b94c61befdcc62fbbed8733d16f23a0365acbd5758c41e2f7829c48cc2ef8399",
+        "recovery_blocked": true,
+        "posts": 0,
+        "intents_preserved": true
+      },
+      "restarted": {
+        "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+        "environment": "eval_pred_target_1114003250",
+        "action": "probe",
+        "source_tree_sha256": "b94c61befdcc62fbbed8733d16f23a0365acbd5758c41e2f7829c48cc2ef8399",
+        "recovery_blocked": true,
+        "posts": 0,
+        "intents_preserved": true
+      },
+      "rollback": {
+        "import_root": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/.runtime/predecessor-20261114003250/installation/apps/backend/src/garimpei/__init__.py",
+        "environment": "eval_pred_rollback_1114003250",
+        "action": "probe",
+        "source_tree_sha256": "4e02f82bd15ca88475ec5f31eae91fd0df4fd674822baba97e1733374880430c",
+        "recovery_blocked": true,
+        "posts": 0,
+        "intents_preserved": true
+      }
+    },
+    "order": [
+      "F17 restore-before-adoption establishes its native guard",
+      "cold target restore",
+      "current migrations",
+      "explicit target RecoveryBarrier + local file + actual guard assertion",
+      "handlers probe with zero POST",
+      "PG restart and two real workers under this guard",
+      "fresh actual guard assertion and zero POST",
+      "cold rollback in a separate empty database",
+      "old compatible code",
+      "explicit rollback RecoveryBarrier + local file + actual guard assertion",
+      "rollback handlers probe with zero POST"
+    ]
+  }
+}

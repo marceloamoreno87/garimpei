@@ -1,0 +1,34 @@
+{
+  "scope": "Mechanics-only synthetic persistence proof, not a real F23 app/F17/GPU or human-corpus acceptance.",
+  "started_at": "2026-11-13T21:47:30.785333+00:00",
+  "checks": {
+    "snapshot_exit": 0,
+    "restore_exit": 0,
+    "private_media_profile_backup_session_weights_tokenizer_preserved": true,
+    "frozen_receipt_uncertain_operation_and_pause_preserved": true,
+    "nonempty_target_refused": true,
+    "counts_verified": true,
+    "automation_started": false
+  },
+  "image": "postgres:17.11@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+  "snapshot_files": [
+    "checksums",
+    "private.tar",
+    "inference.tar",
+    "restore-eval_adoptt_20261113214730",
+    "ollama.tar",
+    "database.dump",
+    "inventory.tsv",
+    "counts.tsv",
+    "READY",
+    "waha.tar"
+  ],
+  "status": "PASS",
+  "limitations": [
+    "Synthetic data stores use stopped PostgreSQL-image containers as filesystem holders, not real application/WAHA/Ollama processes.",
+    "Does not prove F17 business backup round-trip or migration from earlier application code.",
+    "No adoption approval, production mutation, message send or GPU inference."
+  ],
+  "finished_at": "2026-11-13T21:47:39.314102+00:00",
+  "cleanup": "Only exact containers created by this proof removed; private copies retained in ignored run directory."
+}

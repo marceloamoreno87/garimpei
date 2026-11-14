@@ -272,12 +272,32 @@ store.publish(old,old_value,instant+timedelta(days=1))
 assert read.execute(target.id).id==new_value.id
 assert read.execute(target.id).resale.price==Decimal('2350')
 assert ValuationEvaluation.objects.filter(work__listing=target).count()==2
-ids=list(Listing.objects.order_by('id').values_list('id',flat=True))
-# Only the disposable instance's additive F06 tables are reversed for the migration proof.
-call_command('migrate','runtime','0005',verbosity=0)
-assert list(Listing.objects.order_by('id').values_list('id',flat=True))==ids
-call_command('migrate',verbosity=0)
-assert list(Listing.objects.order_by('id').values_list('id',flat=True))==ids
+# Exercise the additive F06 boundary in its own disposable database. Later
+# first-alert rows cannot be reversed into the older mandatory decision schema.
+from django.db import connection
+from django.db.migrations.executor import MigrationExecutor
+fields=('id','source','external_id','canonical_url','first_seen_at','origin')
+confirmed=list(Listing.objects.order_by('id').values(*fields))
+original_database=connection.settings_dict['NAME']
+database='garimpei_f06_migration_'+uuid4().hex[:12]
+with connection.cursor() as cursor:cursor.execute('CREATE DATABASE '+connection.ops.quote_name(database))
+try:
+ connection.close();connection.settings_dict['NAME']=database
+ executor=MigrationExecutor(connection)
+ boundary=[('runtime','0005_listing_manual_condition')]
+ executor.migrate(boundary)
+ historical=executor.loader.project_state(boundary).apps.get_model('runtime','Listing')
+ historical.objects.bulk_create([historical(**row) for row in confirmed])
+ assert list(historical.objects.order_by('id').values(*fields))==confirmed
+ executor=MigrationExecutor(connection);executor.migrate([('runtime','0006_valuation')])
+ assert list(historical.objects.order_by('id').values(*fields))==confirmed
+ executor=MigrationExecutor(connection);executor.migrate(boundary)
+ assert list(historical.objects.order_by('id').values(*fields))==confirmed
+ executor=MigrationExecutor(connection);executor.migrate(executor.loader.graph.leaf_nodes('runtime'))
+ assert list(Listing.objects.order_by('id').values(*fields))==confirmed
+finally:
+ connection.close();connection.settings_dict['NAME']=original_database
+ with connection.cursor() as cursor:cursor.execute('DROP DATABASE '+connection.ops.quote_name(database)+' WITH (FORCE)')
 assert build_read_listing().execute(target.id).observation.evidence.price==Decimal('1300')
 """,
     )

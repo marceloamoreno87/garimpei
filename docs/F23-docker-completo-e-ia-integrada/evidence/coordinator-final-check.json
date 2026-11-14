@@ -1,0 +1,42 @@
+{
+  "checked_at": "2026-11-14T00:48:22.045922+00:00",
+  "implementation_commit": "7a2df261a8fb29a91a8cf560988719913d689f83",
+  "source_manifest_files": 852,
+  "source_manifest_combined_sha256": "747ac999c8bfd4d5eed0f6e908b48229819b3c23eaf2e1305475b48cc9004e8b",
+  "source_hash_mismatches": [],
+  "contract_items": 35,
+  "verdicts": {
+    "PASS": 33,
+    "BLOCKED": 2
+  },
+  "blocked_items": [
+    "E2E-QUALIDADE-01",
+    "E2E-FLUXO-01"
+  ],
+  "test_coverage": {
+    "collected": 974,
+    "covered": 974,
+    "passed": 974,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "missing": 0,
+    "removed_original_nodes": [],
+    "new_nodes": [
+      "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[missing]",
+      "tests/integration/test_assistance_authorization.py::test_assisted_adoption_and_sql_fence_require_active_gold_policy[pending]",
+      "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[BASE-800.00]",
+      "tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[PROFIT_CENT-0.01]",
+      "tests/integration/test_assistance_authorization.py::test_pending_identity_review_blocks_final_assisted_authorization",
+      "tests/integration/test_assistance_empty_restore.py::test_idle_assistance_reconciliation_preserves_empty_business_restore_target",
+      "tests/integration/test_inference_target_migration.py::test_filled_legacy_profiles_migrate_and_rollback_without_resigning_cache",
+      "tests/unit/test_docker_adoption.py::test_private_snapshot_excludes_controller_owner_but_keeps_user_files"
+    ]
+  },
+  "coverage_method": "Complete original suite (966 nodes) followed by directed reruns of all FAIL/ERROR nodes, affected flows and eight new regression nodes. This is verified coverage union, not a single fresh monolithic run of the final source.",
+  "unchanged_previous_features": 22,
+  "changed_previous_features": [],
+  "secrets_check": "repository-secret-check-final.json",
+  "review": "../final-review.md",
+  "result": "PASS for technical evidence integrity; acceptance remains pending as evaluated"
+}

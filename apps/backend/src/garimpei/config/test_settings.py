@@ -29,6 +29,7 @@ TEMPLATES = [
                 "garimpei.infra.http.integration.context.integration_context",
                 "garimpei.infra.http.shell_context.shell_context",
                 "garimpei.infra.http.robot.context.robot_summary",
+                "garimpei.infra.http.assistance.context.assistance_context",
             ]
         },
     }

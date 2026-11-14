@@ -1,0 +1,3 @@
+{"timestamp": "2026-11-13T23:51:40.398815+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_8a10bb8bd7", "run_id": "8fea9e76-b2af-4086-9d21-bb09f5a7f4f3"}
+Stopped eval_f04_8a10bb8bd7: owned web/worker and services; database, volumes and session retained
+Exit code: 0

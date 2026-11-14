@@ -1,0 +1,445 @@
+{
+  "started_at": "2026-11-13T22:04:04.952960+00:00",
+  "scope": "Synthetic engineering proof of real local GPU profiles and persisted consumers; not independent human corpus, F21 real-positive acceptance or full E2E chain.",
+  "profiles": [
+    {
+      "purpose": "identity",
+      "review_id": "3d5fa9b9-81d0-4ac2-afd2-3466b40eacf9",
+      "state": "supported",
+      "reason": "evidence_reviewed",
+      "input_signature": "00881399d6540ea4f554af7316bd8e241068dd334493458a7fab9e971659e806",
+      "consumed_by": [
+        {
+          "id": "bd73288f-8107-4354-a2ec-70cf431f9812",
+          "kind": "normalization",
+          "policy": "assisted-evidence-v1"
+        }
+      ],
+      "seconds": 4.063,
+      "requests": [
+        {
+          "request_id": "17eb7291-6839-40b7-9e0a-95489f716d57",
+          "observation_id": "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+          "target_kind": "listing_observation",
+          "target_id": "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+          "target_revision": 1,
+          "revision": 1,
+          "state": "succeeded",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "identity-review-v1",
+          "schema_version": "identity-review-v1",
+          "cohort_id": null,
+          "cohort_generation": null,
+          "coverage": [
+            {
+              "hash": "6667af262bdd0a6b8c2459d7e7045c7b904f571d9b24a169258226b1cb2c06f7",
+              "kind": "text",
+              "sent": true,
+              "reason": "examined",
+              "examined": true,
+              "provided": true,
+              "revision": 1
+            }
+          ],
+          "parts": [
+            {
+              "state": "succeeded",
+              "result": {
+                "outcome": "supported",
+                "findings": [
+                  {
+                    "field": "family",
+                    "value": "playstation5",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-0"
+                    ]
+                  },
+                  {
+                    "field": "model",
+                    "value": "ps5",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-1"
+                    ]
+                  },
+                  {
+                    "field": "generation",
+                    "value": "slim",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-2"
+                    ]
+                  },
+                  {
+                    "field": "edition",
+                    "value": "digital",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-3"
+                    ]
+                  },
+                  {
+                    "field": "capacity",
+                    "value": "825gb",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "attribute-4"
+                    ]
+                  }
+                ],
+                "limitations": [
+                  "No evidence provided for 'condition' or 'description' fields in the schema.",
+                  "Evidence text contains 'Usado \u2014 seminovo' and 'Usado. Funcionando perfeitamente.' but these are not mapped to required fields."
+                ]
+              },
+              "metrics": {
+                "sent": true,
+                "size": 3140495604,
+                "size_vram": 3140495604,
+                "eval_count": 325,
+                "gpu_samples": [],
+                "eval_duration": 2766263000,
+                "load_duration": 830551,
+                "context_length": 4096,
+                "total_duration": 3067490584,
+                "resident_before": {
+                  "size": 3140495604,
+                  "size_vram": 3140495604,
+                  "context_length": 4096
+                },
+                "residency_before": "matching_model",
+                "wall_duration_ns": 3071196790,
+                "prompt_eval_count": 779,
+                "prompt_eval_duration": 253357000,
+                "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+              },
+              "reason": ""
+            }
+          ],
+          "created_at": "2026-11-13T22:04:05.920109+00:00",
+          "completed_at": "2026-11-13T22:04:09.123898+00:00"
+        }
+      ]
+    },
+    {
+      "purpose": "comparables",
+      "review_id": "88f770f2-4108-49f9-a346-5355ab894bf6",
+      "state": "supported",
+      "reason": "evidence_reviewed",
+      "input_signature": "8806db3868a1388f138184e9a0e7bd75c15449566369974f1308e7d2cf75c45f",
+      "consumed_by": [
+        {
+          "id": "74991aff-f4e9-48c9-86d9-54c62ba6e031",
+          "kind": "valuation_work",
+          "policy": "assisted-evidence-v1"
+        }
+      ],
+      "seconds": 4.072,
+      "requests": [
+        {
+          "request_id": "98a201ee-3f92-4170-9bf5-a8d7803277c9",
+          "observation_id": "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+          "target_kind": "listing_observation",
+          "target_id": "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+          "target_revision": 1,
+          "revision": 1,
+          "state": "succeeded",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "comparable-review-v1",
+          "schema_version": "comparable-review-v1",
+          "cohort_id": null,
+          "cohort_generation": null,
+          "coverage": [
+            {
+              "hash": "3a79bea04b475880565ce9435c9b1fd575d7a585a343c4782e4d1a1c94e911f9",
+              "kind": "text",
+              "sent": true,
+              "reason": "examined",
+              "examined": true,
+              "provided": true,
+              "revision": 1
+            }
+          ],
+          "parts": [
+            {
+              "state": "succeeded",
+              "result": {
+                "outcome": "supported",
+                "findings": [
+                  {
+                    "field": "equivalence",
+                    "value": "equivalent",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "candidate-equivalence"
+                    ]
+                  },
+                  {
+                    "field": "price_kind",
+                    "value": "full",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "candidate-price_kind"
+                    ]
+                  },
+                  {
+                    "field": "accessory",
+                    "value": "none_detected",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "candidate-accessory"
+                    ]
+                  },
+                  {
+                    "field": "defect",
+                    "value": "none_detected",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "candidate-defect"
+                    ]
+                  }
+                ],
+                "limitations": [
+                  "No evidence provided for price amount or currency.",
+                  "No evidence provided for condition beyond text description."
+                ]
+              },
+              "metrics": {
+                "sent": true,
+                "size": 3140495604,
+                "size_vram": 3140495604,
+                "eval_count": 241,
+                "gpu_samples": [],
+                "eval_duration": 2037835000,
+                "load_duration": 743258,
+                "context_length": 4096,
+                "total_duration": 2282003152,
+                "resident_before": {
+                  "size": 3140495604,
+                  "size_vram": 3140495604,
+                  "context_length": 4096
+                },
+                "residency_before": "matching_model",
+                "wall_duration_ns": 2285918172,
+                "prompt_eval_count": 888,
+                "prompt_eval_duration": 199737000,
+                "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+              },
+              "reason": ""
+            }
+          ],
+          "created_at": "2026-11-13T22:04:10.599269+00:00",
+          "completed_at": "2026-11-13T22:04:12.953739+00:00"
+        }
+      ]
+    },
+    {
+      "purpose": "investigation",
+      "review_id": "23a47056-1cf8-488e-ba36-5bc22404711d",
+      "state": "supported",
+      "reason": "evidence_reviewed",
+      "input_signature": "f3c9f23264b9651a236dbf0748c016ce08734f7fefd8db9dcaab3c739436fa65",
+      "consumed_by": [
+        {
+          "id": "0c81232f-ddd9-4a1c-a2cb-ad2d132637be",
+          "kind": "investigation",
+          "policy": "assisted-evidence-v1"
+        }
+      ],
+      "seconds": 2.044,
+      "requests": [
+        {
+          "request_id": "696a423c-fa13-4cd1-a8c0-545af46b384f",
+          "observation_id": null,
+          "target_kind": "interest",
+          "target_id": "fa1e68bf-5640-4552-9438-aa12a056a703",
+          "target_revision": 1,
+          "revision": 1,
+          "state": "succeeded",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "investigation-support-v1",
+          "schema_version": "investigation-support-v1",
+          "cohort_id": null,
+          "cohort_generation": null,
+          "coverage": [
+            {
+              "hash": "259f5f6eecd862df9b648757665909054af6e3d8126a78910095f11be1b68bb0",
+              "kind": "text",
+              "sent": true,
+              "reason": "examined",
+              "examined": true,
+              "provided": true,
+              "revision": 1
+            }
+          ],
+          "parts": [
+            {
+              "state": "succeeded",
+              "result": {
+                "outcome": "supported",
+                "findings": [
+                  {
+                    "field": "term",
+                    "value": "PlayStation 5 Slim Digital 825GB",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "alias-0"
+                    ]
+                  }
+                ],
+                "limitations": [
+                  "No information regarding price, functionality, attributes, commands, or permissions was found in the provided snapshot."
+                ]
+              },
+              "metrics": {
+                "sent": true,
+                "size": 3140495604,
+                "size_vram": 3140495604,
+                "eval_count": 114,
+                "gpu_samples": [],
+                "eval_duration": 1060528000,
+                "load_duration": 696834,
+                "context_length": 4096,
+                "total_duration": 1221033818,
+                "resident_before": {
+                  "size": 3140495604,
+                  "size_vram": 3140495604,
+                  "context_length": 4096
+                },
+                "residency_before": "matching_model",
+                "wall_duration_ns": 1224739091,
+                "prompt_eval_count": 405,
+                "prompt_eval_duration": 114106000,
+                "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+              },
+              "reason": ""
+            }
+          ],
+          "created_at": "2026-11-13T22:04:15.265090+00:00",
+          "completed_at": "2026-11-13T22:04:16.555341+00:00"
+        }
+      ]
+    },
+    {
+      "purpose": "operations",
+      "review_id": "70b6255b-62d9-4b5d-aa3c-86a1b6585cfe",
+      "state": "supported",
+      "reason": "evidence_reviewed",
+      "input_signature": "e078b5023dcef80001f8ff5da6fd656a681aa3a17b904dc91bdc48888b01e691",
+      "consumed_by": [],
+      "seconds": 2.019,
+      "requests": [
+        {
+          "request_id": "eeef668f-2b4e-44b4-9aba-5c0057074327",
+          "observation_id": null,
+          "target_kind": "operations_snapshot",
+          "target_id": "944fe8f8-0c2b-4d49-ba98-8d83ca3367bf",
+          "target_revision": 1,
+          "revision": 1,
+          "state": "succeeded",
+          "model": "qwen3.5:4b-q4_K_M",
+          "artifact": "sha256:6824b3e7d59e4a97549e2a99063c37a06075292d16cc4c0a7ae7e29a6e2f3c1d",
+          "model_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "prompt_version": "operations-support-v1",
+          "schema_version": "operations-support-v1",
+          "cohort_id": null,
+          "cohort_generation": null,
+          "coverage": [
+            {
+              "hash": "ae0af2cb68e60da8cc1422765ab7018db180f470dddb55d3146b4e86e3944ee4",
+              "kind": "text",
+              "sent": true,
+              "reason": "examined",
+              "examined": true,
+              "provided": true,
+              "revision": 1
+            }
+          ],
+          "parts": [
+            {
+              "state": "succeeded",
+              "result": {
+                "outcome": "supported",
+                "findings": [
+                  {
+                    "field": "action",
+                    "value": "wait_for_work",
+                    "reason_code": "explicit_evidence",
+                    "evidence_refs": [
+                      "operation-empty"
+                    ]
+                  }
+                ],
+                "limitations": []
+              },
+              "metrics": {
+                "sent": true,
+                "size": 3140495604,
+                "size_vram": 3140495604,
+                "eval_count": 80,
+                "gpu_samples": [],
+                "eval_duration": 817330000,
+                "load_duration": 684932,
+                "context_length": 4096,
+                "total_duration": 971986735,
+                "resident_before": {
+                  "size": 3140495604,
+                  "size_vram": 3140495604,
+                  "context_length": 4096
+                },
+                "residency_before": "matching_model",
+                "wall_duration_ns": 975456623,
+                "prompt_eval_count": 413,
+                "prompt_eval_duration": 111355000,
+                "resident_before_digest": "sha256:d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+              },
+              "reason": ""
+            }
+          ],
+          "created_at": "2026-11-13T22:04:17.957395+00:00",
+          "completed_at": "2026-11-13T22:04:18.978498+00:00"
+        }
+      ]
+    }
+  ],
+  "listings": [
+    "cade0d67-0232-52b3-92b9-4b55bc167fcf",
+    "eeea4a43-b40b-56de-a8b9-0283e68a7b82"
+  ],
+  "interest_id": "fa1e68bf-5640-4552-9438-aa12a056a703",
+  "configuration_id": "a28dd2ac-dfba-46ed-a7b8-fb3afadf5afb",
+  "investigation_consumer": {
+    "id": "0c81232f-ddd9-4a1c-a2cb-ad2d132637be",
+    "context": {
+      "assistance_review": "23a47056-1cf8-488e-ba36-5bc22404711d"
+    },
+    "term": "PlayStation 5 Slim Digital 825GB"
+  },
+  "completed_at": "2026-11-13T22:04:19.987548+00:00",
+  "profiles_completed": 4,
+  "states": {
+    "identity": "supported",
+    "comparables": "supported",
+    "investigation": "supported",
+    "operations": "supported"
+  },
+  "all_profiles_supported": true,
+  "comparable_consumer": {
+    "work_id": "74991aff-f4e9-48c9-86d9-54c62ba6e031",
+    "completed": true,
+    "review_ids": [
+      "88f770f2-4108-49f9-a346-5355ab894bf6"
+    ],
+    "evaluation_exists": true,
+    "sample_note": "One equivalent retained; F06 correctly remains insufficient below five comparable identities."
+  },
+  "consumer_proof_at": "2026-11-13T22:08:01.475197+00:00",
+  "synthetic_seed_correction": "Controlled investigation rows now use the existing approved finite F18 limits instead of an incomplete {} fixture; no production behavior relaxed."
+}

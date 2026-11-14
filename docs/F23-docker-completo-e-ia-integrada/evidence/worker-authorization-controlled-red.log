@@ -1,0 +1,95 @@
+FF{"attempts": 0, "case": "PENDING_IDENTITY", "posts": 0, "real_whatsapp_posts": 0, "reviews": {"assessment": "67ab73ec-3367-40a8-a2ba-3e3eda8e49f6", "assessment_sufficient": true, "comparable_reviews": ["4c204188-ba5d-47e8-8250-1a2dc418643e", "4b4e40db-7714-4b86-ad63-3a676619efc7", "b71da152-38a9-4062-babb-ceb0e6290366", "9ecfd6bf-eb08-4e69-9e4a-4205af7a7487", "0dfefc56-2c01-4f0f-b125-2d3584533e91"], "gpu_calls": 0, "identity_review": "426c7266-9d74-4671-b9e4-a8e8f089578e", "identity_state": "pending", "independent_human_labels": false, "policy": "assisted-evidence-v1", "preparer": "NamedFiniteAssistancePreparer", "provider": "NamedProgrammedAssistanceProvider", "provider_calls": 5}}
+.
+=================================== FAILURES ===================================
+_ test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[BASE-800.00] _
+
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-6/test_assisted_policy_authorize0')
+case = 'BASE', profit = '800.00'
+
+    @pytest.mark.parametrize(("case", "profit"), [("BASE", "800.00"), ("PROFIT_CENT", "0.01")])
+    def test_assisted_policy_authorizes_once_with_frozen_cents_and_destination(
+        tmp_path: Path, case: str, profit: str
+    ) -> None:
+        driver = GoldDriver(tmp_path)
+        try:
+            assert driver.action("prepare", case=case)["first_state"] == "eligible"
+            review_evidence = _evidence(
+                driver.shell("COMPLETE_IDENTITY=True\n" + REVIEW_SCRIPT),
+                "CONTROLLED_REVIEW_EVIDENCE=",
+            )
+            assert review_evidence["provider_calls"] == 6
+            driver.action("revalue")
+            driver.action("refresh")
+>           sent = driver.action("send")
+                   ^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_assistance_authorization.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:51: in action
+    return self._read()
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.factories.gold_driver.GoldDriver object at 0x7b06ab6da660>
+
+    def _read(self) -> dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+>               assert value.get("state") != "error", value
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               AssertionError: {'state': 'error', 'error_class': 'ProgrammingError'}
+
+tests/factories/gold_driver.py:43: AssertionError
+_ test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[PROFIT_CENT-0.01] _
+
+tmp_path = PosixPath('/tmp/g23tmp/pytest-of-garimpei/pytest-6/test_assisted_policy_authorize1')
+case = 'PROFIT_CENT', profit = '0.01'
+
+    @pytest.mark.parametrize(("case", "profit"), [("BASE", "800.00"), ("PROFIT_CENT", "0.01")])
+    def test_assisted_policy_authorizes_once_with_frozen_cents_and_destination(
+        tmp_path: Path, case: str, profit: str
+    ) -> None:
+        driver = GoldDriver(tmp_path)
+        try:
+            assert driver.action("prepare", case=case)["first_state"] == "eligible"
+            review_evidence = _evidence(
+                driver.shell("COMPLETE_IDENTITY=True\n" + REVIEW_SCRIPT),
+                "CONTROLLED_REVIEW_EVIDENCE=",
+            )
+            assert review_evidence["provider_calls"] == 6
+            driver.action("revalue")
+            driver.action("refresh")
+>           sent = driver.action("send")
+                   ^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_assistance_authorization.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/gold_driver.py:51: in action
+    return self._read()
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.factories.gold_driver.GoldDriver object at 0x7b06ab6c1090>
+
+    def _read(self) -> dict[str, object]:
+        assert self.process.stdout is not None
+        for line in self.process.stdout:
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if value.get("ready") or value.get("state") == "error":
+>               assert value.get("state") != "error", value
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               AssertionError: {'state': 'error', 'error_class': 'ProgrammingError'}
+
+tests/factories/gold_driver.py:43: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[BASE-800.00]
+FAILED tests/integration/test_assistance_authorization.py::test_assisted_policy_authorizes_once_with_frozen_cents_and_destination[PROFIT_CENT-0.01]
+2 failed, 1 passed in 53.75s

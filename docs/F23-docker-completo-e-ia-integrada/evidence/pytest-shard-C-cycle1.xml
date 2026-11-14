@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="9" skipped="0" tests="131" time="1708.616" timestamp="2026-11-13T16:12:52.169818-06:00" hostname="docker-desktop"><testcase classname="tests.integration.test_assistance_flow" name="test_assistance_idempotency_consumption_http_csrf_and_sanitized_operations" time="17.442" /><testcase classname="tests.integration.test_assistance_flow" name="test_f23_comparable_retention_preserves_f06_and_invalidates_manual_revision" time="1.723" /><testcase classname="tests.integration.test_collection" name="test_initial_service_coverage_and_resume_after_stop" time="34.706" /><testcase classname="tests.integration.test_collection" name="test_verified_empty_and_partial_retry" time="22.407" /><testcase classname="tests.integration.test_collection" name="test_lease_and_new_scope_fence_old_worker" time="42.660" /><testcase classname="tests.integration.test_collection" name="test_rollback_and_restart_after_first_batch[control]" time="18.698" /><testcase classname="tests.integration.test_collection" name="test_rollback_and_restart_after_first_batch[fault]" time="25.672"><failure message="AssertionError: assert 6 == 5&#10; +  where 6 = len(['/detail/220', '/detail/220', '/detail/221', '/detail/222', '/detail/223', '/detail/224'])">scenario = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/test_rollback_and_restart_afte1/...test_rollback_and_restart_afte1/clock'), value=datetime.datetime(2026, 1, 1, 12, 0, 21, tzinfo=datetime.timezone.utc)))
+tmp_path = PosixPath('/tmp/f23-pytest-C/test_rollback_and_restart_afte1')
+kill_worker = True
+
+    @pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+    def test_rollback_and_restart_after_first_batch(
+        scenario: Scenario, tmp_path: Path, kill_worker: bool
+    ) -&gt; None:
+        instance, source, clock = scenario
+        source.mode = "many"
+        with InstanceMeasurements(
+            instance,
+            tmp_path / "commit-measurements.json",
+            mode="fault" if kill_worker else "control",
+        ) as measurements:
+            with instance.database() as barrier:
+                barrier.execute("SELECT pg_advisory_lock(170017)")
+                sql(
+                    instance,
+                    """
+                    CREATE FUNCTION f04_batch_gate() RETURNS trigger LANGUAGE plpgsql AS $$
+                    BEGIN
+                      IF EXISTS(SELECT 1 FROM runtime_listing WHERE id = NEW.listing_id AND external_id='220') THEN
+                         PERFORM pg_advisory_xact_lock(170017);
+                      END IF;
+                      RETURN NEW;
+                    END $$;
+                    CREATE TRIGGER f04_batch_gate BEFORE INSERT ON runtime_listingevent
+                    FOR EACH ROW EXECUTE FUNCTION f04_batch_gate();
+                """,
+                )
+                configure(instance)
+                wait_for(
+                    lambda: (
+                        sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
+                        and bool(
+                            sql(
+                                instance,
+                                "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND wait_event='advisory'",
+                            )
+                        )
+                    ),
+                    "first batch confirmed and next publication waiting on owned barrier",
+                )
+                assert phase(instance)[0][1] is None
+                confirmed_observations = sql(
+                    instance, "SELECT * FROM runtime_listingobservation ORDER BY id"
+                )
+                confirmed_events = sql(instance, "SELECT * FROM runtime_listingevent ORDER BY id")
+                assert len(confirmed_observations) == len(confirmed_events) == 20
+                if kill_worker:
+                    worker = next(
+                        record
+                        for record in instance.manifest["processes"]
+                        if "runworker" in record["command"]
+                    )
+                    verify_process(worker, instance.root)
+                    os.kill(worker["pid"], signal.SIGKILL)
+                    sql(
+                        instance,
+                        "SELECT pg_cancel_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND wait_event='advisory'",
+                    )
+                    assert sql(instance, "SELECT count(*) FROM runtime_listingobservation") == [(20,)]
+                    assert sql(instance, "SELECT count(*) FROM runtime_listingevent") == [(20,)]
+                barrier.execute("SELECT pg_advisory_unlock(170017)")
+            sql(
+                instance,
+                "DROP TRIGGER f04_batch_gate ON runtime_listingevent; DROP FUNCTION f04_batch_gate()",
+            )
+            calls_before = len(source.calls)
+            clock.advance(21)
+            if kill_worker:
+                command(instance, "./scripts/stop.sh")
+                command(instance, "./scripts/init.sh", "--disposable")
+            completed(instance, 1)
+            if kill_worker:
+                resumed_calls = source.calls[calls_before:]
+                assert not any(path == "/search" for path, _ in resumed_calls)
+                resumed_details = [path for path, _ in resumed_calls if path.startswith("/detail/")]
+&gt;               assert len(resumed_details) == 5
+E               AssertionError: assert 6 == 5
+E                +  where 6 = len(['/detail/220', '/detail/220', '/detail/221', '/detail/222', '/detail/223', '/detail/224'])
+
+tests/integration/test_collection.py:408: AssertionError</failure></testcase><testcase classname="tests.integration.test_collection" name="test_initial_partial_and_scope_change_preserve_silence" time="16.965" /><testcase classname="tests.integration.test_collection" name="test_migration_preserves_confirmed_f03" time="16.212" /><testcase classname="tests.integration.test_collection" name="test_exact_48_hour_window_out_of_order_and_legacy_evidence" time="18.242" /><testcase classname="tests.integration.test_collection" name="test_confirmed_unavailable_preserves_history_and_can_finish_initial_load" time="19.745" /><testcase classname="tests.integration.test_collection" name="test_details_are_published_before_next_interest_finishes" time="15.632" /><testcase classname="tests.integration.test_collection" name="test_proven_new_listing_can_alert_with_initial_history_partial" time="24.866" /><testcase classname="tests.integration.test_collection" name="test_policy_adoption_preserves_history_receipts_and_sets_a_safe_boundary" time="21.566" /><testcase classname="tests.integration.test_collection" name="test_incomplete_pagination_does_not_accumulate_network_backoff" time="22.581" /><testcase classname="tests.integration.test_collection" name="test_repeated_detail_errors_pause_after_three_attempts_and_recover" time="18.414" /><testcase classname="tests.integration.test_comparable_research" name="test_old_geographic_scope_is_superseded_before_research_resumes[radius]" time="11.230" /><testcase classname="tests.integration.test_comparable_research" name="test_old_geographic_scope_is_superseded_before_research_resumes[postal_origin]" time="1.257" /><testcase classname="tests.integration.test_comparable_research" name="test_manual_identity_history_cas_and_new_contradiction" time="1.219" /><testcase classname="tests.integration.test_comparable_research" name="test_shared_research_completes_five_references_without_fake_matches" time="1.430" /><testcase classname="tests.integration.test_comparable_research" name="test_public_identity_endpoint_status_and_bound_error" time="1.383" /><testcase classname="tests.integration.test_comparable_research" name="test_retry_after_is_persisted_and_empty_is_a_distinct_exhaustion" time="1.333" /><testcase classname="tests.integration.test_comparable_research" name="test_unverified_geography_never_publishes_a_local_sample" time="1.271" /><testcase classname="tests.integration.test_comparable_research" name="test_late_response_cannot_publish_after_conflicting_manual_revision" time="1.340" /><testcase classname="tests.integration.test_comparable_research" name="test_recovered_lease_does_not_reset_attempt_budget" time="1.383" /><testcase classname="tests.integration.test_comparable_research" name="test_exhaustion_and_manual_access_recovery_preserve_budget" time="1.693" /><testcase classname="tests.integration.test_comparable_research" name="test_page_and_detail_limits_and_independent_interest_turns" time="1.347" /><testcase classname="tests.integration.test_comparable_research" name="test_manual_revision_fences_requests_computed_before_the_edit" time="4.901" /><testcase classname="tests.integration.test_exploration" name="test_order_snapshots_update_manual_and_history" time="96.820" /><testcase classname="tests.integration.test_exploration" name="test_costs_references_expiry_failures_and_concurrent_publishers" time="62.075" /><testcase classname="tests.integration.test_facebook_gateway" name="test_loopback_gateway_context_continuation_and_access_failures" time="0.511" /><testcase classname="tests.integration.test_foundation" name="test_manual_probe_runs_while_web_is_stopped" time="8.383" /><testcase classname="tests.integration.test_foundation" name="test_two_instances_have_distinct_resources_and_local_binds" time="0.140" /><testcase classname="tests.integration.test_foundation" name="test_init_is_idempotent_and_runtime_probe_is_real" time="2.104" /><testcase classname="tests.integration.test_foundation" name="test_real_http_boundaries[GET-not-allowed.example-400]" time="0.007" /><testcase classname="tests.integration.test_foundation" name="test_real_http_boundaries[OPTIONS-127.0.0.1-405]" time="0.002" /><testcase classname="tests.integration.test_foundation" name="test_dependency_failure_is_not_liveness_failure[postgres]" time="2.814" /><testcase classname="tests.integration.test_foundation" name="test_dependency_failure_is_not_liveness_failure[waha]" time="2.827" /><testcase classname="tests.integration.test_foundation" name="test_commit_and_rollback_share_real_postgres_transaction" time="16.082" /><testcase classname="tests.integration.test_foundation" name="test_pending_migration_degrades_readiness_without_applying" time="3.676" /><testcase classname="tests.integration.test_inference" name="test_recovery_waits_for_proof_respects_due_and_three_attempts" time="11.650" /><testcase classname="tests.integration.test_inference" name="test_concurrent_admission_and_publication_are_idempotent" time="12.340" /><testcase classname="tests.integration.test_inference" name="test_control_http_validates_csrf_conflict_and_unconfirmed_write" time="11.652" /><testcase classname="tests.integration.test_inference" name="test_retry_success_clears_obsolete_diagnostic" time="11.741" /><testcase classname="tests.integration.test_inference" name="test_pause_during_call_finishes_one_part_and_requires_explicit_resume" time="11.476" /><testcase classname="tests.integration.test_inference" name="test_empty_queue_reconciliation_does_not_enqueue_work" time="11.783" /><testcase classname="tests.integration.test_inference" name="test_uncertain_execution_renders_cause_before_active_claim" time="11.715" /><testcase classname="tests.integration.test_inference_typed_targets" name="test_operations_target_publication_and_database_legacy_guard" time="1.203" /><testcase classname="tests.integration.test_inference_typed_targets" name="test_different_comparable_pairs_do_not_supersede_each_other" time="1.307" /><testcase classname="tests.integration.test_integrations" name="test_cookie_privacy_renewal_and_expiration_notice" time="17.867" /><testcase classname="tests.integration.test_integrations" name="test_connect_qr_group_validation_and_persistence" time="18.523" /><testcase classname="tests.integration.test_integrations" name="test_group_delivery_uses_selected_binding_and_verifies_gows_receipt" time="0.511" /><testcase classname="tests.integration.test_integrations" name="test_gows_sender_alias_confirms_only_the_bound_account_and_chat[100@lid]" time="0.512" /><testcase classname="tests.integration.test_integrations" name="test_gows_sender_alias_confirms_only_the_bound_account_and_chat[12345@g.us]" time="0.513" /><testcase classname="tests.integration.test_integrations" name="test_selected_group_drives_real_worker_event_and_preserves_old_destination" time="40.165" /><testcase classname="tests.integration.test_integrations" name="test_cookie_renewal_fences_collection_already_in_flight" time="29.131" /><testcase classname="tests.integration.test_marketplace_browser" name="test_browser_navigation_keeps_django_sync_io_and_consistent_stealth" time="2.222" /><testcase classname="tests.integration.test_marketplace_browser" name="test_browser_search_applies_effective_filters_and_uses_server_cursor" time="11.650" /><testcase classname="tests.integration.test_media_contract_matrix" name="test_rejected_content_and_destination_leave_previous_copy_available" time="14.273" /><testcase classname="tests.integration.test_media_contract_matrix" name="test_expired_url_keeps_exact_previous_copy_and_does_not_mark_listing_removed" time="6.203" /><testcase classname="tests.integration.test_media_contract_matrix" name="test_concurrent_claims_and_write_fault_preserve_quota_and_other_photo_progress" time="6.568" /><testcase classname="tests.integration.test_media_contract_matrix" name="test_interrupted_unlink_is_resumed_without_a_false_removed_state_or_late_pin" time="6.200" /><testcase classname="tests.integration.test_media_contract_matrix" name="test_rename_before_commit_recovers_with_one_confirmed_version_and_no_double_charge" time="6.291" /><testcase classname="tests.integration.test_media_contract_matrix" name="test_photo_count_and_variant_limits_remain_explicit_without_destroying_prior_copy" time="10.911" /><testcase classname="tests.integration.test_media_persistence" name="test_download_gallery_exact_bytes_revalidation_isolation_and_unavailability" time="13.472" /><testcase classname="tests.integration.test_media_persistence" name="test_analysis_reference_idempotency_protection_cleanup_and_tombstone" time="6.986" /><testcase classname="tests.integration.test_media_persistence" name="test_old_observation_result_does_not_replace_new_capture_and_thumbnail_retry" time="6.534" /><testcase classname="tests.integration.test_media_persistence" name="test_bounded_retries_generation_and_quota_reservations" time="6.640" /><testcase classname="tests.integration.test_media_persistence" name="test_same_bytes_different_photo_keys_cannot_delete_pinned_original" time="7.219" /><testcase classname="tests.integration.test_media_persistence" name="test_recovery_http_validation_csrf_conflict_and_no_inline_transfer" time="6.172" /><testcase classname="tests.integration.test_media_persistence" name="test_legacy_detail_backfill_does_not_require_search_rediscovery" time="7.203" /><testcase classname="tests.integration.test_media_persistence" name="test_orphan_reconciliation_waits_for_owner_and_preserves_confirmed_versions" time="5.834" /><testcase classname="tests.integration.test_media_persistence" name="test_lower_resolution_refresh_preserves_best_copy_and_backup_provenance" time="9.813" /><testcase classname="tests.integration.test_monitoring_persistence" name="test_real_database_draft_publication_idempotence_and_whole_edit" time="1.297"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:27:42.672349+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_test_01189ea3_a&quot;, &quot;run_id&quot;: &quot;90764a62-7335-479c-899d-7249109b805b&quot;}&#10;[+27 more lines; full report in element text]">foundations = [FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/foundation0/test_01189ea3_a.env'...oundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/foundation0/test_01189ea3_b.env'))]
+
+    def test_real_database_draft_publication_idempotence_and_whole_edit(
+        foundations: list[FoundationInstance],
+    ) -&gt; None:
+&gt;       run_case(
+            foundations[0],
+            """
+    prepare_state('NOVO')
+    assert not build_read_monitoring_configuration().execute().configured
+    assert client.get('/').headers['Location']=='/configuracao/regiao/'
+    assert client.get('/configuracao/interesses/').status_code==302
+    assert Row.objects.count()==0
+    r=client.post('/configuracao/regiao/',{'revision':'0','cep':'01001-000'})
+    assert r.status_code==303, r.content
+    draft=build_monitoring_queries().read_form()
+    assert draft.cep=='01001000' and draft.shipping_estimate is None
+    assert client.post('/configuracao/custos/',{'revision':'1','shipping_estimate':'25,50','resale_fee_percent':'12.50'}).status_code==303
+    assert not build_read_monitoring_configuration().execute().configured
+    assert client.get('/configuracoes/').status_code==302
+    category='479353692612078'
+    payload={'revision':'2','category_ids[]':[category,category],'product_names[]':['PlayStation 5',' playstation   5 ']}
+    r=client.post('/configuracao/concluir/',payload)
+    assert r.status_code==303,r.content
+    snapshot=build_read_monitoring_configuration().execute()
+    assert snapshot.configured and snapshot.category_ids==(category,) and snapshot.product_names==('PlayStation 5',)
+    assert snapshot.shipping_estimate==Decimal('25.50') and snapshot.resale_fee_percent==Decimal('12.50')
+    assert Row.objects.count()==1 and Row.objects.get().slot=='active' and MonitoringInterest.objects.count()==2
+    ids=list(MonitoringInterest.objects.values_list('id',flat=True))
+    assert client.post('/configuracao/concluir/',payload).status_code==303
+    assert build_read_monitoring_configuration().execute()==snapshot
+    assert list(MonitoringInterest.objects.values_list('id',flat=True))==ids
+    payload['product_names[]']=['Different']
+    assert client.post('/configuracao/concluir/',payload).status_code==409
+    edit={'revision':snapshot.revision,'cep':'02002000','shipping_estimate':'0','resale_fee_percent':'100','category_ids[]':[category],'product_names[]':['Notebook']}
+    assert client.post('/configuracoes/',edit).status_code==303
+    updated=build_read_monitoring_configuration().execute()
+    assert updated.revision==2 and updated.completed_at==snapshot.completed_at and updated.configuration_id==snapshot.configuration_id
+    assert updated.cep=='02002000' and updated.product_names==('Notebook',)
+    assert client.post('/configuracoes/',edit).status_code==303
+    assert build_read_monitoring_configuration().execute()==updated
+    edit['cep']='03003000'
+    conflict=client.post('/configuracoes/',edit)
+    assert conflict.status_code==409 and b'03003000' in conflict.content
+    assert build_read_monitoring_configuration().execute()==updated
+    assert client.get('/').headers['Location']=='/acompanhamento/'
+    assert client.get('/configuracao/regiao/').status_code==302
+    with connection.cursor() as cursor:
+     cursor.execute("SELECT count(*) FROM procrastinate_jobs WHERE task_name NOT IN ('garimpei.runtime_probe', 'garimpei.collect_listings')")
+     assert cursor.fetchone()==(0,)
+    """,
+        )
+
+tests/integration/test_monitoring_persistence.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/foundation0/test_01189ea3_a.env'))
+code = '\nprepare_state(\'NOVO\')\nassert not build_read_monitoring_configuration().execute().configured\nassert client.get(\...HERE task_name NOT IN (\'garimpei.runtime_probe\', \'garimpei.collect_listings\')")\n assert cursor.fetchone()==(0,)\n'
+
+    def run_case(instance: FoundationInstance, code: str) -&gt; None:
+        setup = """
+    from dataclasses import replace
+    from decimal import Decimal
+    from unittest.mock import patch
+    from django.db import DatabaseError, connection
+    from django.test import Client
+    from garimpei.main import build_monitoring_catalog, build_monitoring_handler, build_monitoring_queries, build_read_monitoring_configuration
+    from garimpei.domain.monitoring.errors import ConfigurationConflict, ConfigurationReadFailed, ConfigurationSaveFailed
+    from garimpei.infra.persistence.monitoring_models import MonitoringConfiguration as Row, MonitoringInterest
+    from garimpei.infra.gateway.monitoring.facebook_catalog import FacebookCategoryCatalog
+    from garimpei.infra.repository.monitoring.postgres_repository import PostgresMonitoringRepository
+    from garimpei.usecase.monitoring.save_step_usecase import StepInput
+    from tests.factories.monitoring import prepare_state, fail_after_save
+    client=Client(HTTP_HOST='127.0.0.1')
+    """
+        result = instance.shell(setup + code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:27:42.672349+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_test_01189ea3_a", "run_id": "90764a62-7335-479c-899d-7249109b805b"}
+E         {"timestamp": "2026-11-13T22:27:42.879514+00:00", "level": "WARNING", "logger": "garimpei.http", "event": "configuration_error", "environment_id": "eval_test_01189ea3_a", "run_id": "90764a62-7335-479c-899d-7249109b805b", "error_code": "CONFIGURATION_CONFLICT"}
+E         {"timestamp": "2026-11-13T22:27:42.895949+00:00", "level": "WARNING", "logger": "django.request", "event": "runtime_event", "environment_id": "eval_test_01189ea3_a", "run_id": "90764a62-7335-479c-899d-7249109b805b"}
+E         {"timestamp": "2026-11-13T22:27:42.924699+00:00", "level": "WARNING", "logger": "garimpei.http", "event": "configuration_error", "environment_id": "eval_test_01189ea3_a", "run_id": "90764a62-7335-479c-899d-7249109b805b", "error_code": "CONFIGURATION_CONFLICT"}
+E         {"timestamp": "2026-11-13T22:27:42.926730+00:00", "level": "WARNING", "logger": "django.request", "event": "runtime_event", "environment_id": "eval_test_01189ea3_a", "run_id": "90764a62-7335-479c-899d-7249109b805b"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 57, in &lt;module&gt;
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "&lt;string&gt;", line 57, in &lt;module&gt;\nAssertionError\n').returncode
+
+tests/integration/test_monitoring_persistence.py:21: AssertionError</failure></testcase><testcase classname="tests.integration.test_monitoring_persistence" name="test_real_database_rollback_on_failure_and_read_error" time="1.213" /><testcase classname="tests.integration.test_monitoring_persistence" name="test_real_http_validation_csrf_escaping_catalog_and_last_interest" time="1.428" /><testcase classname="tests.integration.test_monitoring_persistence" name="test_category_only_product_only_and_both_are_independent" time="1.201" /><testcase classname="tests.integration.test_monitoring_persistence" name="test_concurrent_creations_and_edits_cannot_overwrite_a_newer_version" time="1.323" /><testcase classname="tests.integration.test_monitoring_persistence" name="test_confirmed_reader_never_observes_partial_publication" time="1.316" /><testcase classname="tests.integration.test_navigation" name="test_checkpoint_survives_restart_and_atomic_rollback" time="9.438" /><testcase classname="tests.integration.test_navigation" name="test_incremental_publication_and_alias_identity" time="1.375" /><testcase classname="tests.integration.test_navigation" name="test_fair_turns_and_stale_generation_rejected" time="1.473" /><testcase classname="tests.integration.test_navigation" name="test_scope_revision_invalidates_old_results" time="1.362" /><testcase classname="tests.integration.test_navigation" name="test_cursor_repeat_wrong_context_and_limits_are_partial" time="1.314" /><testcase classname="tests.integration.test_navigation" name="test_profile_challenge_cannot_be_resumed" time="1.242" /><testcase classname="tests.integration.test_navigation" name="test_research_boundary_idempotent_and_restrictive" time="1.280" /><testcase classname="tests.integration.test_navigation" name="test_suggestions_isolated_persistent_budget_and_tick_backlog" time="1.480" /><testcase classname="tests.integration.test_navigation" name="test_suggestion_rate_limit_survives_collection_reconcile" time="1.301" /><testcase classname="tests.integration.test_navigation" name="test_page_buffer_preserves_excess_without_exceeding_500" time="2.780" /><testcase classname="tests.integration.test_navigation" name="test_three_detail_failures_pause_attempt_and_queued_task_cannot_bypass" time="1.563" /><testcase classname="tests.integration.test_navigation" name="test_research_shares_fairness_budgets_and_rejects_cycle_old_revision" time="1.602" /><testcase classname="tests.integration.test_navigation" name="test_navigation_http_csrf_resume_and_suggestion_preview" time="1.512" /><testcase classname="tests.integration.test_navigation" name="test_native_rebuild_reserves_cycle_budget_before_io" time="1.447" /><testcase classname="tests.integration.test_navigation" name="test_opaque_cursor_4096_characters_does_not_overflow_unit_identity" time="1.390" /><testcase classname="tests.integration.test_navigation" name="test_partial_finish_and_carry_are_atomic_across_new_cycle" time="1.474" /><testcase classname="tests.integration.test_navigation" name="test_research_history_remains_readable_by_uuid_after_rollover" time="1.366" /><testcase classname="tests.integration.test_navigation" name="test_research_requested_before_window_binds_context_once" time="1.262" /><testcase classname="tests.integration.test_navigation" name="test_suggestion_budget_wait_and_caps_are_public_read_only" time="1.308" /><testcase classname="tests.integration.test_navigation" name="test_suggestion_100_records_and_10_evidences_preserve_every_record" time="13.286" /><testcase classname="tests.integration.test_navigation" name="test_exact_300_seconds_and_missing_support_stays_inconclusive" time="1.203" /><testcase classname="tests.integration.test_navigation" name="test_justified_fourth_term_is_rejected_by_shared_effective_budget" time="1.229" /><testcase classname="tests.integration.test_navigation" name="test_two_interest_fronts_receive_turns_despite_real_controlled_timeout" time="2.493" /><testcase classname="tests.integration.test_navigation" name="test_resume_http_persists_intent_and_every_rejection_preserves_history" time="1.399" /><testcase classname="tests.integration.test_navigation" name="test_legacy_numeric_cursor_rebuild_keeps_confirmed_history_and_budget" time="1.333" /><testcase classname="tests.integration.test_navigation" name="test_unverified_geography_never_stages_candidates_for_publication" time="6.664" /><testcase classname="tests.integration.test_navigation_profile_budget" name="test_saved_profile_budget_matches_worker_admission_without_timeout_override" time="12.015" /><testcase classname="tests.integration.test_operational_inflight_restore" name="test_restore_requeues_inflight_media_and_analysis_with_exact_prepared_png" time="28.402"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:29:26.547014+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_f17_inflight_82094822&quot;, &quot;run_id&quot;: &quot;59185c73-a8a5-48ac-a71f-cdd8850ef6ec&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/manage.py&quot;, line 8, in &lt;module&gt;&#10;      execute_from_command_line()&#10;      ~~~~~~~~~~~~~~~~~~~~~~~~~^^&#10;[+24 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-pytest-C/test_restore_requeues_inflight0')
+
+    def test_restore_requeues_inflight_media_and_analysis_with_exact_prepared_png(
+        tmp_path: Path,
+    ) -&gt; None:
+        source_dir = tmp_path / "source"
+        source_dir.mkdir()
+        with (
+            first_eligibility_scenario(source_dir) as (source, _, _, _),
+            serve_media() as (origin, calls),
+        ):
+            with source.private_file.open("a") as file:
+                file.write(
+                    f"GARIMPEI_BACKUP_DIR={tmp_path / 'backups'}\nGARIMPEI_MEDIA_BUDGET_BYTES=67108864\nGARIMPEI_MEDIA_MAX_FILE_BYTES=1048576\nGARIMPEI_MEDIA_EVAL_ORIGIN={origin}\n"
+                )
+            group = pause_worker(source)
+            target = prepare_instance(
+                source.root, tmp_path, "f17_inflight_" + source.config.instance[-8:]
+            )
+            with target.private_file.open("a") as file:
+                file.write(
+                    f"GARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_MEDIA_ROOT={tmp_path / 'restored-media'}\nGARIMPEI_MEDIA_BUDGET_BYTES=67108864\nGARIMPEI_MEDIA_MAX_FILE_BYTES=1048576\nGARIMPEI_MEDIA_EVAL_ORIGIN={origin}\n"
+                )
+            command(target, "./scripts/init.sh", "--disposable")
+            target_group = pause_worker(target)
+            try:
+                shell(
+                    source,
+                    f"ORIGIN={origin!r}\n"
+                    + """
+    import hashlib,io,json
+    from datetime import timedelta
+    from pathlib import Path
+    from PIL import Image
+    from django.utils.timezone import now
+    from garimpei.config.env import load_inference_settings,load_operations_settings
+    from garimpei.domain.inference.request import AnalysisInput,ImageReference
+    from garimpei.domain.inference.ports import PreparedPart
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.media_models import MediaCapture,MediaEntry,MediaJob
+    from garimpei.infra.persistence.inference_models import InferencePart
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
+    from garimpei.main import build_media_repository,build_backup_repository
+    listing=Listing.objects.select_related('latest').get(external_id='16001')
+    capture=MediaCapture.objects.get(observation=listing.latest)
+    entry=MediaEntry.objects.create(capture=capture,photo_key='controlled-inflight',position=0,primary=True,candidates=[{'url':ORIGIN+'/primary-large.jpg','width':1280,'height':960}])
+    job=MediaJob.objects.create(entry=entry,kind='download',next_at=now(),attempts=1)
+    claim=build_media_repository().claim(job.id,now());assert claim and claim.attempts==2
+    other=Listing.objects.select_related('latest').get(external_id='16002')
+    old_capture=MediaCapture.objects.get(observation=other.latest)
+    old_capture.state='running';old_capture.complete=False;old_capture.save()
+    expired_entry=MediaEntry.objects.create(capture=old_capture,photo_key='controlled-exhausted',position=0,primary=True,candidates=[{'url':ORIGIN+'/primary-large.jpg','width':1280,'height':960}])
+    expired=MediaJob.objects.create(entry=expired_entry,kind='download',next_at=now()-timedelta(seconds=60),state='running',attempts=4,lease_generation=4,lease_until=now()-timedelta(seconds=1))
+    image=io.BytesIO();Image.new('RGB',(4,4),'green').save(image,format='PNG');raw=image.getvalue();digest=hashlib.sha256(raw).hexdigest()
+    directory=load_inference_settings().directory;directory.mkdir(parents=True,exist_ok=True);(directory/digest).write_bytes(raw)
+    value=AnalysisInput(listing.latest_id,listing.latest.ordinal,'Usado. Funciona perfeitamente.',(ImageReference('controlled-image',1,digest),))
+    repo=PostgresInferenceRepository(lambda:0,3)
+    ticket=repo.admit(value,'controlled-artifact',(PreparedPart('confirmed','Usado.'),PreparedPart('inflight','Funciona perfeitamente.'),PreparedPart('image','',image_id='controlled-image',image_hash=digest)))
+    first=repo.claim(now());assert first
+    confirmed={'findings':[],'unknowns':['confirmed before copy'],'limitations':[]}
+    assert repo.publish(first,confirmed,{'controlled':True},now())
+    second=repo.claim(now());assert second and second.part.key=='inflight'
+    r=build_backup_repository();backup=r.create();record=BackupRecord.objects.get(id=backup)
+    data={'archive':str(load_operations_settings().backup_dir/record.file_key),'media_job':str(job.id),'media_generation':claim.generation,'exhausted_media_job':str(expired.id),'request':str(ticket.request_id),'old_inference_generation':second.generation,'confirmed_part':first.part_id,'running_part':second.part_id,'image_hash':digest,'image_sha256':hashlib.sha256(raw).hexdigest()}
+    (load_operations_settings().backup_dir/'inflight.json').write_text(json.dumps(data))
+    """,
+                )
+                data = json.loads((tmp_path / "backups/inflight.json").read_text())
+&gt;               shell(
+                    target,
+                    f"DATA={data!r}\n"
+                    + """
+    import hashlib,json
+    from uuid import UUID
+    from django.utils.timezone import now
+    from garimpei.config.env import load_inference_settings
+    from garimpei.domain.inference.ports import PreparedPart,AnalysisWork
+    from garimpei.domain.inference.request import AnalysisInput
+    from garimpei.infra.persistence.media_models import MediaJob,MediaAsset,MediaCapture
+    from garimpei.infra.persistence.inference_models import InferenceControl,InferenceRequest,InferencePart
+    from garimpei.infra.repository.inference.postgres_repository import PostgresInferenceRepository
+    from garimpei.usecase.inference.run_analysis_usecase import RunAnalysisUseCase
+    from garimpei.main import build_backup_repository,build_media_repository,build_media_runner
+    r=build_backup_repository();r.restore(DATA['archive'],isolated=True)
+    job=MediaJob.objects.get(id=DATA['media_job'])
+    assert job.state=='pending' and job.lease_until is None and job.reserved_bytes==0
+    assert job.attempts==2 and job.lease_generation==DATA['media_generation']
+    expired=MediaJob.objects.select_related('entry__capture').get(id=DATA['exhausted_media_job'])
+    assert expired.state=='failed' and expired.reason=='media_retry_exhausted' and expired.attempts==4
+    assert expired.lease_generation==4 and expired.lease_until is None and expired.reserved_bytes==0
+    assert expired.entry.capture.state=='failed' and not expired.entry.capture.complete
+    assert expired.id not in build_media_repository().due(now())
+    build_media_runner().execute(expired.id)
+    assert job.id in build_media_repository().due(now())
+    for _ in range(3):
+     for identity in build_media_repository().due(now()):build_media_runner().execute(identity)
+    job.refresh_from_db();assert job.state=='done' and job.lease_generation&gt;DATA['media_generation'] and job.attempts==3
+    assert MediaAsset.objects.filter(state='available',thumbnail_state='ready').exists()
+    request=InferenceRequest.objects.get(id=DATA['request'])
+    assert request.state=='pending'
+    confirmed=InferencePart.objects.get(pk=DATA['confirmed_part']);before=confirmed.result.copy();before_metrics=confirmed.metrics.copy()
+    pending=InferencePart.objects.get(pk=DATA['running_part'])
+    assert pending.state=='pending' and pending.attempts==1 and pending.generation==DATA['old_inference_generation']
+    control=InferenceControl.objects.get(pk=1)
+    assert control.paused and control.active_request is None and control.generation&gt;DATA['old_inference_generation']
+    directory=load_inference_settings().directory
+    assert hashlib.sha256((directory/DATA['image_hash']).read_bytes()).hexdigest()==DATA['image_sha256']
+    repo=PostgresInferenceRepository(lambda:0,3);assert repo.claim(now()) is None
+    repo.control(False,control.revision)
+    class RestoredAnalysisFake:
+     def __init__(self):self.calls=[]
+     def infer(self,part,artifact):
+      self.calls.append(part.key)
+      if part.key=='inflight':
+       obsolete=AnalysisWork(UUID(DATA['request']),DATA['old_inference_generation'],DATA['running_part'],artifact,part)
+       assert repo.publish(obsolete,{}, {},now()) is False
+      if part.image_hash:assert hashlib.sha256((directory/part.image_hash).read_bytes()).hexdigest()==part.image_hash
+      return {'content':json.dumps({'findings':[],'unknowns':['controlled resumed result'],'limitations':[]}), 'metrics':{'controlled':True}}
+    fake=RestoredAnalysisFake();runner=RunAnalysisUseCase(repo,fake,now)
+    assert runner.execute() and runner.execute() and not runner.execute()
+    assert fake.calls==['inflight','image']
+    request.refresh_from_db();pending.refresh_from_db();confirmed.refresh_from_db()
+    assert request.state=='succeeded' and pending.attempts==2 and pending.generation&gt;DATA['old_inference_generation']
+    assert confirmed.result==before and confirmed.metrics==before_metrics and confirmed.attempts==1
+    # A consumed third attempt remains exhausted after recovery; no fourth automatic call.
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.repository.operations.restore_gateway import _reset_inference_work
+    listing=Listing.objects.select_related('latest').get(external_id='16001')
+    other=repo.admit(AnalysisInput(listing.latest_id,listing.latest.ordinal,'Controlled exhausted input',()),'controlled-artifact',(PreparedPart('exhausted','Controlled exhausted input'),))
+    active=repo.claim(now());assert active and active.request_id==other.request_id
+    InferencePart.objects.filter(pk=active.part_id).update(attempts=3)
+    _reset_inference_work()
+    part=InferencePart.objects.get(pk=active.part_id)
+    assert part.state=='failed' and part.attempts==3
+    assert InferenceRequest.objects.get(id=other.request_id).state=='failed'
+    control=InferenceControl.objects.get(pk=1);repo.control(False,control.revision)
+    assert repo.claim(now()) is None
+    """,
+                )
+
+tests/integration/test_operational_inflight_restore.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/test_restore_requeues_inflight0/f17_inflight_82094822.env'))
+code = "DATA={'archive': '/tmp/f23-pytest-C/test_restore_requeues_inflight0/backups/completed/a07a501c-35c1-43b1-b4bb-f07bb4f...'\ncontrol=InferenceControl.objects.get(pk=1);repo.control(False,control.revision)\nassert repo.claim(now()) is None\n"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:29:26.547014+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_inflight_82094822", "run_id": "59185c73-a8a5-48ac-a71f-cdd8850ef6ec"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 14, in &lt;module&gt;
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 276, in restore
+E             return self._restore.execute(Path(archive), isolated=isolated)
+E                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/restore_gateway.py", line 55, in execute
+E             raise OperationsError("restore_requires_empty_disposable_eval")
+E         garimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..._empty_disposable_eval")\ngarimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_operational_media_backup" name="test_protected_media_pins_exact_files_missing_bytes_and_restore" time="29.026"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:29:55.872167+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_f17_media_restore_4e33775f&quot;, &quot;run_id&quot;: &quot;620e7a39-5d83-40e5-9249-7c0394c1ebdc&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/manage.py&quot;, line 8, in &lt;module&gt;&#10;      execute_from_command_line()&#10;      ~~~~~~~~~~~~~~~~~~~~~~~~~^^&#10;[+24 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-pytest-C/test_protected_media_pins_exac0')
+
+    def test_protected_media_pins_exact_files_missing_bytes_and_restore(tmp_path: Path) -&gt; None:
+        source_private = tmp_path / "source"
+        source_private.mkdir()
+        root = Path(__file__).resolve().parents[4]
+        with serve_media() as (origin, _):
+            source = prepare_media_instance(root, source_private, origin)
+            with source.private_file.open("a") as output:
+                output.write(
+                    f"GARIMPEI_BACKUP_DIR={tmp_path / 'backups'}\nGARIMPEI_AI_SERVICE_ENABLED=false\n"
+                )
+            command(source, "./scripts/init.sh", "--disposable")
+            group = pause_worker(source)
+            target = prepare_instance(
+                root, tmp_path, "f17_media_restore_" + source.config.instance[-8:]
+            )
+            with target.private_file.open("a") as output:
+                output.write(
+                    f"GARIMPEI_BACKUP_DIR={tmp_path / 'restored-backups'}\nGARIMPEI_MEDIA_ROOT={tmp_path / 'restored-media'}\nGARIMPEI_MEDIA_BUDGET_BYTES=67108864\nGARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\n"
+                )
+            command(target, "./scripts/init.sh", "--disposable")
+            target_group = pause_worker(target)
+            try:
+                shell(
+                    source,
+                    "ORIGIN="
+                    + repr(origin)
+                    + "\n"
+                    + BOOTSTRAP
+                    + """
+    import json
+    from pathlib import Path
+    from garimpei.main import build_backup_repository
+    from garimpei.config.env import load_operations_settings
+    from garimpei.infra.gateway.operations.archive_gateway import ArchiveGateway
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    from garimpei.domain.operations.errors import OperationsError
+    settings=load_operations_settings(); r=build_backup_repository()
+    asset=MediaAsset.objects.get(id=gallery.photos[0].version_id)
+    entry=MediaEntry.objects.filter(asset=asset).first(); entry.candidates=[{'url':ORIGIN+'/primary-large.jpg?oh=synthetic-access-canary','width':1280,'height':960}];entry.save()
+    original=r._archives
+    class ObservePinsArchive(ArchiveGateway):
+     def write(self,*args,**kwargs):
+      assert MediaReference.objects.filter(consumer='backup',released_at=None).exists()
+      Listing.objects.filter(id=asset.listing_id).update(media_tracking_active=False)
+      CleanMediaUseCase(build_media_repository(),build_media_store(),now).execute()
+      assert MediaAsset.objects.get(id=asset.id).state=='available'
+      return super().write(*args,**kwargs)
+    r._archives=ObservePinsArchive(settings.backup_dir,owner=settings.environment_id)
+    identity=r.create(); assert identity
+    assert not MediaReference.objects.filter(consumer='backup',released_at=None).exists()
+    record=BackupRecord.objects.get(id=identity)
+    metadata,files=original.read(original.resolve(record.file_key))
+    assert metadata['protected_media']
+    assert any(name.startswith('media/') and name.endswith('/original') for name in files)
+    assert any(name.endswith('/thumbnail') for name in files)
+    assert b'synthetic-access-canary' not in b''.join(data for name,data in files.items() if name.endswith('.jsonl'))
+    selected=original.resolve(record.file_key); prior=selected.read_bytes()
+    Listing.objects.filter(id=asset.listing_id).update(media_tracking_active=True)
+    file=queries.file(asset.listing_id,asset.id,'original'); saved=build_media_store().read(file)
+    build_media_store()._path(file.key).unlink()
+    try:r.create()
+    except OperationsError:pass
+    else:raise AssertionError('missing required original accepted')
+    assert selected.read_bytes()==prior and BackupRecord.objects.get(id=identity).state=='completed'
+    build_media_store().restore(file,saved)
+    assert not MediaReference.objects.filter(consumer='backup',released_at=None).exists()
+    expected={item['id']:{'sha256':MediaAsset.objects.get(id=item['id']).sha256,'key':item['key']} for item in metadata['protected_media']}
+    (settings.backup_dir/'transfer.json').write_text(json.dumps({'archive':str(selected),'expected':expected}))
+    """,
+                )
+                import json
+    
+                transfer = json.loads((tmp_path / "backups/transfer.json").read_text())
+&gt;               shell(
+                    target,
+                    f"""
+    import hashlib
+    from uuid import UUID
+    from django.test import Client
+    from garimpei.main import build_backup_repository,build_media_store,build_recovery_guard
+    from garimpei.infra.persistence.media_models import MediaAsset,MediaReference
+    from garimpei.infra.queries.media.postgres_queries import PostgresMediaQueries
+    r=build_backup_repository();r.restore({transfer["archive"]!r},isolated=True)
+    assert build_recovery_guard()()
+    expected={transfer["expected"]!r}; queries=PostgresMediaQueries()
+    for identity,value in expected.items():
+     asset=MediaAsset.objects.get(id=identity)
+     assert asset.sha256==value['sha256'] and asset.key==value['key']
+     file=queries.file(asset.listing_id,asset.id,'original')
+     assert hashlib.sha256(build_media_store().read(file)).hexdigest()==value['sha256']
+     if asset.thumbnail_state=='ready':
+      thumb=queries.file(asset.listing_id,asset.id,'miniatura')
+      assert hashlib.sha256(build_media_store().read(thumb)).hexdigest()==asset.thumbnail_hash
+     response=Client(HTTP_HOST='127.0.0.1').get(f'/ofertas/{{asset.listing_id}}/imagens/{{identity}}/original/')
+     assert response.status_code==200 and hashlib.sha256(response.content).hexdigest()==value['sha256']
+    assert not MediaReference.objects.filter(consumer='backup',released_at=None).exists()
+    """,
+                )
+
+tests/integration/test_operational_media_backup.py:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/test_protected_media_pins_exac0/f17_media_restore_4e33775f.env'))
+code = "\nimport hashlib\nfrom uuid import UUID\nfrom django.test import Client\nfrom garimpei.main import build_backup_repos....hexdigest()==value['sha256']\nassert not MediaReference.objects.filter(consumer='backup',released_at=None).exists()\n"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:29:55.872167+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_media_restore_4e33775f", "run_id": "620e7a39-5d83-40e5-9249-7c0394c1ebdc"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 8, in &lt;module&gt;
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 276, in restore
+E             return self._restore.execute(Path(archive), isolated=isolated)
+E                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/restore_gateway.py", line 55, in execute
+E             raise OperationsError("restore_requires_empty_disposable_eval")
+E         garimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..._empty_disposable_eval")\ngarimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_operational_reconciliation" name="test_old_copy_requires_complete_inventory_and_original_receipt_before_release" time="35.114"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:30:30.452352+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_f17_reconcile_6bba84ff&quot;, &quot;run_id&quot;: &quot;486af064-8bbd-4452-be6c-bd9504fe2cc1&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/manage.py&quot;, line 8, in &lt;module&gt;&#10;      execute_from_command_line()&#10;      ~~~~~~~~~~~~~~~~~~~~~~~~~^^&#10;[+24 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-pytest-C/test_old_copy_requires_complet0')
+
+    def test_old_copy_requires_complete_inventory_and_original_receipt_before_release(
+        tmp_path: Path,
+    ) -&gt; None:
+        source_private = tmp_path / "source"
+        source_private.mkdir()
+        with first_eligibility_scenario(source_private) as (source, _, _, channel):
+            with source.private_file.open("a") as output:
+                output.write(f"GARIMPEI_BACKUP_DIR={tmp_path / 'backups'}\n")
+            group = pause_worker(source)
+            target = prepare_instance(
+                source.root, tmp_path, "f17_reconcile_" + source.config.instance[-8:]
+            )
+            proof: dict[str, object] = {}
+            try:
+                shell(
+                    source,
+                    PREPARE
+                    + """
+    import json
+    from garimpei.main import build_backup_repository,_effective_alert_settings,_alert_policy
+    from garimpei.config.env import load_operations_settings,load_config
+    from garimpei.infra.gateway.alert.waha_gateway import WahaGateway
+    from garimpei.infra.persistence.operations_models import BackupRecord
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    identity=FirstAlertIdentity.objects.get(listing=l).intent_id
+    assert identity
+    claim=store.claim(identity,binding,now,reconcile=False);assert claim
+    r=build_backup_repository();copy_id=r.create();record=BackupRecord.objects.get(id=copy_id)
+    settings=load_operations_settings();alerts=_effective_alert_settings()
+    channel=WahaGateway(alerts.url,alerts.key,_alert_policy())
+    outcome=channel.send(claim);assert outcome.state=='confirmed'
+    store.finish(claim,outcome,now)
+    entries=[]
+    for row in AlertIntent.objects.all():
+     attempt=row.attempts.order_by('-ordinal').first()
+     entries.append({'id':str(row.id),'state':row.state,'body':row.body,'session':row.session,'recipient':row.recipient,'account':row.account,'attempt_id':str(attempt.id) if attempt else None,'message_id':row.confirmed_message})
+    proof={'format_version':1,'complete':True,'source_installation':load_config().environment_id,'backup_id':str(copy_id),'snapshot_at':record.snapshot_at.isoformat(),'intents':entries}
+    (settings.backup_dir/'proof.json').write_text(json.dumps({'proof':proof,'archive':str(settings.backup_dir/record.file_key),'channel_url':alerts.url}))
+    """,
+                )
+                data = json.loads((tmp_path / "backups/proof.json").read_text())
+                proof.update(data["proof"])
+                assert len(channel.messages) == 1
+                messages = channel.messages.copy()
+                with serve_recovery_evidence(proof) as evidence_url:
+                    with target.private_file.open("a") as output:
+                        output.write(
+                            f"GARIMPEI_BACKUP_DIR={tmp_path / 'restored-backups'}\nGARIMPEI_AI_SERVICE_ENABLED=false\nGARIMPEI_ALERTS_ENABLED=false\nGARIMPEI_RECOVERY_EVIDENCE_FIXTURE_URL={evidence_url}\nGARIMPEI_ALERT_FIXTURE_URL={data['channel_url']}\nGARIMPEI_WAHA_SESSION=synthetic\nGARIMPEI_WAHA_ACCOUNT=200@c.us\nGARIMPEI_WAHA_RECIPIENT=100@g.us\n"
+                        )
+                    command(target, "./scripts/init.sh", "--disposable")
+                    target_group = pause_worker(target)
+                    try:
+&gt;                       shell(
+                            target,
+                            f"from garimpei.main import build_backup_repository;build_backup_repository().restore({data['archive']!r},isolated=True)",
+                        )
+
+tests/integration/test_operational_reconciliation.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/test_old_copy_requires_complet0/f17_reconcile_6bba84ff.env'))
+code = "from garimpei.main import build_backup_repository;build_backup_repository().restore('/tmp/f23-pytest-C/test_old_copy_requires_complet0/backups/completed/d7a34903-b768-424e-8131-e16c1c930a90.tar.gz',isolated=True)"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:30:30.452352+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f17_reconcile_6bba84ff", "run_id": "486af064-8bbd-4452-be6c-bd9504fe2cc1"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 1, in &lt;module&gt;
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/backup_repository.py", line 276, in restore
+E             return self._restore.execute(Path(archive), isolated=isolated)
+E                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/src/garimpei/infra/repository/operations/restore_gateway.py", line 55, in execute
+E             raise OperationsError("restore_requires_empty_disposable_eval")
+E         garimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana..._empty_disposable_eval")\ngarimpei.domain.operations.errors.OperationsError: restore_requires_empty_disposable_eval\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_operational_snapshot" name="test_status_and_backup_keep_one_database_frontier_under_concurrent_commit" time="13.224" /><testcase classname="tests.integration.test_operational_snapshot" name="test_native_media_and_analysis_use_real_pending_deadlines_and_confirmed_boundaries" time="4.359"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:30:51.781182+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_wave11b_f16_d778dbca&quot;, &quot;run_id&quot;: &quot;763a4f41-a055-4750-abcb-822813102b24&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py&quot;, line 105, in _execute&#10;[+97 more lines; full report in element text]">operational_instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/operational-recovery0/wave11b_f16_d778dbca.env'))
+
+    def test_native_media_and_analysis_use_real_pending_deadlines_and_confirmed_boundaries(
+        operational_instance: FoundationInstance,
+    ) -&gt; None:
+&gt;       shell(
+            operational_instance,
+            """
+    from datetime import timedelta
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.media_models import MediaCapture,MediaEntry,MediaJob
+    from garimpei.infra.persistence.inference_models import InferenceRequest,InferenceControl
+    from garimpei.main import build_operational_status,_listing_clock,_effective_listing_settings
+    stamp=_listing_clock(_effective_listing_settings())()
+    listing=Listing.objects.get(external_id='16001')
+    MediaCapture.objects.update(state='ready')
+    capture=MediaCapture.objects.get(observation_id=listing.latest_id)
+    capture.state='pending';capture.observed_at=stamp-timedelta(seconds=240);capture.save()
+    entry=MediaEntry.objects.create(capture=capture,photo_key='controlled-native-state',position=0,candidates=[])
+    job=MediaJob.objects.create(entry=entry,kind='download',next_at=stamp+timedelta(seconds=600))
+    def stage(name):return next(s for s in build_operational_status().execute()['stages'] if s['stage']==name)
+    assert stage('media')['state']=='waiting' and stage('media')['last_progress_at'] is None,stage('media')
+    job.next_at=stamp-timedelta(seconds=1);job.save()
+    assert stage('media')['state']=='stalled'
+    job.state='failed';job.save();capture.state='failed';capture.save()
+    assert stage('media')['state']=='suspended' and stage('media')['reason']=='media_attention_required'
+    InferenceControl.objects.update_or_create(pk=1,defaults={'service':True,'paused':False})
+    request=InferenceRequest.objects.create(observation_id=listing.latest_id,revision=1,signature='e'*64,artifact='controlled-state-fixture',prompt_version='fixture',schema_version='fixture',created_at=stamp-timedelta(seconds=240),next_attempt_at=stamp+timedelta(seconds=600),state='awaiting_resource')
+    assert stage('inference')['state']=='waiting' and stage('inference')['last_progress_at'] is None
+    request.state='succeeded';request.completed_at=stamp;request.save()
+    assert stage('inference')['state']=='idle' and stage('inference')['last_progress_at']==stamp
+    """,
+        )
+
+tests/integration/test_operational_snapshot.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/operational-recovery0/wave11b_f16_d778dbca.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.infra.persistence.listing_models import Listing\nfrom garimpei.infra....t=stamp;request.save()\nassert stage('inference')['state']=='idle' and stage('inference')['last_progress_at']==stamp\n"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:30:51.781182+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_d778dbca", "run_id": "763a4f41-a055-4750-abcb-822813102b24"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.CheckViolation: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (b118df70-3c9a-4ef1-bb46-42a151aeef7b, 1, eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, controlled-state-fixture, fixture, fixture, awaiting_resource, , [], 2026-11-12 11:56:00+00, null, 2026-11-12 12:10:00+00, 9d1ff8e8-d12b-44fd-8ebb-908715407dca, null, null, listing_observation, null, null, {}).
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 21, in &lt;module&gt;
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 665, in create
+E             obj.save(force_insert=True, using=self.db)
+E             ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+E             self.save_base(
+E             ~~~~~~~~~~~~~~^
+E                 using=using,
+E                 ^^^^^^^^^^^^
+E             ...&lt;2 lines&gt;...
+E                 update_fields=update_fields,
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+E             updated = self._save_table(
+E                 raw,
+E             ...&lt;4 lines&gt;...
+E                 update_fields,
+E             )
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+E             results = self._do_insert(
+E                 cls._base_manager, using, fields, returning_fields, raw
+E             )
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+E             return manager._insert(
+E                    ~~~~~~~~~~~~~~~^
+E                 [self],
+E                 ^^^^^^^
+E             ...&lt;3 lines&gt;...
+E                 raw=raw,
+E                 ^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1873, in _insert
+E             return query.get_compiler(using=using).execute_sql(returning_fields)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1882, in execute_sql
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+E             return self.cursor.execute(sql, params)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.IntegrityError: new row for relation "runtime_inferencerequest" violates check constraint "inference_profile_target"
+E         DETAIL:  Failing row contains (b118df70-3c9a-4ef1-bb46-42a151aeef7b, 1, eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, controlled-state-fixture, fixture, fixture, awaiting_resource, , [], 2026-11-12 11:56:00+00, null, 2026-11-12 12:10:00+00, 9d1ff8e8-d12b-44fd-8ebb-908715407dca, null, null, listing_observation, null, null, {}).
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...ll, 2026-11-12 12:10:00+00, 9d1ff8e8-d12b-44fd-8ebb-908715407dca, null, null, listing_observation, null, null, {}).\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_operations_crash_authorization" name="test_sigkill_after_authorization_before_post_requires_reconciliation" time="30.541" /><testcase classname="tests.integration.test_operations_crash_authorization" name="test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[control]" time="31.794" /><testcase classname="tests.integration.test_operations_crash_authorization" name="test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend[fault]" time="67.617"><failure message="Failed: Timed out waiting for 2 confirmed alerts">tmp_path = PosixPath('/tmp/f23-pytest-C/test_sigkill_after_confirmatio1')
+kill_worker = True
+
+    @pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+    def test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend(
+        tmp_path: Path, kill_worker: bool
+    ) -&gt; None:
+        from garimpei.infra.runtime.processes import verify_process
+    
+        with alert_scenario(tmp_path) as (instance, source, clock, channel):
+            with InstanceMeasurements(
+                instance,
+                tmp_path / "confirmation-measurements.json",
+                mode="fault" if kill_worker else "control",
+            ) as measurements:
+                clock.advance(1)
+                source.rows["935"] = listing(
+                    "935",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+                completed(instance, 2)
+                wait_alerts(instance, 1, clock)
+                confirmed = sql(
+                    instance,
+                    "SELECT id::text,confirmed_message FROM runtime_alertintent WHERE state='confirmed'",
+                )
+                assert len(confirmed) == 1 and len(channel.messages) == 1
+                clock.advance(61)
+                if kill_worker:
+                    owner = next(
+                        record
+                        for record in instance.manifest["processes"]
+                        if "runworker" in record["command"]
+                    )
+                    verify_process(owner, instance.config.root)
+                    os.killpg(owner["pgid"], signal.SIGKILL)
+                    command(instance, "./scripts/stop.sh")
+                    command(instance, "./scripts/init.sh", "--disposable")
+                clock.advance(1)
+                source.rows["936"] = listing(
+                    "936",
+                    "1000,00",
+                    published_at=clock.value.isoformat(),
+                    delivery=True,
+                    delivery_cep="01001000",
+                    pickup=False,
+                )
+                clock.advance(61)
+&gt;               wait_alerts(instance, 2, clock)
+
+tests/integration/test_operations_crash_authorization.py:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/factories/alert_scenario.py:174: in wait_alerts
+    wait_for(confirmed, f"{count} confirmed alerts", seconds=35)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+predicate = &lt;function wait_alerts.&lt;locals&gt;.confirmed at 0x75107b77afc0&gt;
+description = '2 confirmed alerts', seconds = 35
+
+    def wait_for(predicate: Callable[[], bool], description: str, seconds: int = 22) -&gt; None:
+        deadline = time.monotonic() + seconds
+        while not predicate():
+            if time.monotonic() &gt;= deadline:
+&gt;               pytest.fail(f"Timed out waiting for {description}")
+E               Failed: Timed out waiting for 2 confirmed alerts
+
+tests/integration/test_collection.py:55: Failed</failure></testcase><testcase classname="tests.integration.test_operations_crash_authorization" name="test_sigkill_before_authorization_keeps_request_available" time="30.709" /><testcase classname="tests.integration.test_operations_lab_fault" name="test_persistent_unit_fault_suspends_only_target" time="143.528"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;frozen runpy&gt;&quot;, line 203, in _run_module_as_main&#10;    File &quot;&lt;frozen runpy&gt;&quot;, line 88, in _run_code&#10;    File &quot;/app/apps/backend/tests/factories/operations_lab.py&quot;, line 692, in &lt;module&gt;&#10;      main()&#10;      ~~~~^^&#10;    File &quot;/app/apps/backend/tests/factories/operations_lab.py&quot;, line 683, in main&#10;      fault(directory, options.case)&#10;      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^&#10;[+52 more lines; full report in element text]">tmp_path = PosixPath('/tmp/f23-pytest-C/test_persistent_unit_fault_sus0')
+
+    def test_persistent_unit_fault_suspends_only_target(tmp_path: Path) -&gt; None:
+        backend = Path(__file__).resolve().parents[2]
+        directory = tmp_path / "operational-fault"
+        environment = dict(os.environ)
+        for name in ("DJANGO_SETTINGS_MODULE", "GARIMPEI_ENV_FILE", "VIRTUAL_ENV"):
+            environment.pop(name, None)
+    
+        def invoke(operation: str, *arguments: str) -&gt; subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "tests.factories.operations_lab",
+                    operation,
+                    "--directory",
+                    str(directory),
+                    *arguments,
+                ],
+                cwd=backend,
+                env=environment,
+                capture_output=True,
+                text=True,
+                timeout=300 if operation == "calibrate-crashes" else 180,
+            )
+    
+        prepared = invoke("prepare")
+        assert prepared.returncode == 0, prepared.stderr
+        try:
+            for operation, arguments in (("start", ()), ("seed", ("--scenario", "recovery"))):
+                result = invoke(operation, *arguments)
+                assert result.returncode == 0, result.stdout + result.stderr
+            result = invoke("fault", "--case", "unit_persistent")
+            assert result.returncode == 0, result.stdout + result.stderr
+            report = json.loads((directory / "fault-unit_persistent.json").read_text())
+            assert report["target"] == {"suspended": True, "failures": 3, "checkpoint": "confirmed-A"}
+            assert report["control"] == {"suspended": False, "failures": 0, "checkpoint": "confirmed-B"}
+            assert report["seconds"] &gt;= 0
+            repeated = invoke("fault", "--case", "unit_persistent")
+            assert repeated.returncode != 0
+            for case in ("disk_full", "archive_interrupted", "export_interrupted"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["control"]["completed"] is True
+                assert report["fault"]["rejected"] is True
+                assert report["fault"]["previous_preserved"] is True
+                assert report["fault"]["no_partial"] is True
+                assert report["seconds"] &gt;= 0
+            queued = invoke("fault", "--case", "queue_full")
+            assert queued.returncode == 0, queued.stdout + queued.stderr
+            report = json.loads((directory / "fault-queue_full.json").read_text())
+            assert report["control"]["admitted"] is True
+            assert report["fault"]["admitted"] is False
+            assert report["fault"]["pending"] == 1000
+            assert report["cleaned"] is True
+            for case in ("network_timeout", "slow_valuation", "slow_channel"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["control"]["outcome"] == "success"
+                assert report["fault"]["outcome"] == (
+                    "uncertain" if case == "slow_channel" else "timeout"
+                )
+                assert report["timeout_seconds"] == 1
+            for case in ("repeat_cursor", "lease_expired", "late_result", "crash_before_commit"):
+                result = invoke("fault", "--case", case)
+                assert result.returncode == 0, result.stdout + result.stderr
+                report = json.loads((directory / f"fault-{case}.json").read_text())
+                assert report["fault_detected"] is True
+                assert report["control_confirmed"] is True
+                assert report["seed_preserved"] is True
+            unavailable = invoke("fault", "--case", "db_unavailable")
+            assert unavailable.returncode == 0, unavailable.stdout + unavailable.stderr
+            report = json.loads((directory / "fault-db_unavailable.json").read_text())
+            assert report["fault"]["unavailable"] is True
+            assert report["control"]["source_available"] is True
+            assert report["recovered"] is True
+            measured = invoke("calibrate-faults")
+            assert measured.returncode == 0, measured.stdout + measured.stderr
+            report = json.loads((directory / "fault-calibration.json").read_text())
+            assert report["profile_confirmed"] is False
+            assert report["operational_enablement"] is False
+            for case in (
+                "network_timeout",
+                "slow_valuation",
+                "slow_channel",
+                "disk_full",
+                "archive_interrupted",
+                "export_interrupted",
+                "queue_full",
+            ):
+                rows = [row for row in report["measurements"] if row["case"] == case]
+                assert {row["repetition"] for row in rows} == {1, 2, 3, 4, 5}
+                assert all(row["control"] and row["fault"] for row in rows)
+                assert all(row["disk_free_bytes"] &gt; 0 for row in rows)
+            for case in ("crash_after_post", "crash_after_commit"):
+                result = invoke("fault", "--case", case)
+&gt;               assert result.returncode == 0, result.stdout + result.stderr
+E               AssertionError: Traceback (most recent call last):
+E                   File "&lt;frozen runpy&gt;", line 203, in _run_module_as_main
+E                   File "&lt;frozen runpy&gt;", line 88, in _run_code
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 692, in &lt;module&gt;
+E                     main()
+E                     ~~~~^^
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 683, in main
+E                     fault(directory, options.case)
+E                     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 275, in fault
+E                     observed = process_crash_fault(directory, source, case)
+E                   File "/app/apps/backend/tests/factories/operations_lab.py", line 348, in process_crash_fault
+E                     raise RuntimeError("Owned process-crash scenario failed: " + result.stdout + result.stderr)
+E                 RuntimeError: Owned process-crash scenario failed: F.                                                                       [100%]
+E                 =================================== FAILURES ===================================
+E                 _ test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control] _
+E                 
+E                 tmp_path = PosixPath('/tmp/f23-pytest-C/test_persistent_unit_fault_sus0/operational-fault/crash-tests/crash_after_post/test_killed_worker_reconciles_0')
+E                 kill_worker = False
+E                 
+E                     @pytest.mark.parametrize("kill_worker", [False, True], ids=["control", "fault"])
+E                     def test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries(
+E                         tmp_path: Path,
+E                         kill_worker: bool,
+E                     ) -&gt; None:
+E                 &gt;       _run_post_boundary(tmp_path, kill_worker, "confirmed")
+E                 
+E                 apps/backend/tests/integration/test_alert_delivery.py:209: 
+E                 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+E                 apps/backend/tests/integration/test_alert_delivery.py:225: in _run_post_boundary
+E                     with alert_scenario(tmp_path) as (instance, source, clock, channel):
+E                          ^^^^^^^^^^^^^^^^^^^^^^^^
+E                 /usr/local/lib/python3.13/contextlib.py:141: in __enter__
+E                     return next(self.gen)
+E                            ^^^^^^^^^^^^^^
+E                 apps/backend/tests/factories/alert_scenario.py:82: in alert_scenario
+E                     command(instance, "./scripts/init.sh", "--disposable")
+E                 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+E                 
+E                 instance = FoundationInstance(root=PosixPath('/tmp/f23-pytest-C/test_persistent_unit_fault_sus0/operational-fault/checkout'), pri...nt_unit_fault_sus0/operational-fault/crash-tests/crash_after_post/test_killed_worker_reconciles_0/f04_e92b6922f6.env'))
+E                 arguments = ('./scripts/init.sh', '--disposable')
+E                 
+E                     def command(instance: FoundationInstance, *arguments: str) -&gt; None:
+E                         result = instance.command(*arguments)
+E                 &gt;       assert result.returncode == 0, result.stdout + result.stderr
+E                 E       AssertionError: Resolved 73 packages in 1ms
+E                 E         Checked 71 packages in 0.91ms
+E                 E         {"timestamp": "2026-11-13T22:35:05.955605+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_e92b6922f6", "run_id": "3cc13ed0-80c7-40b5-afc1-4f46c97fa7fc"}
+E                 E         Docker: operation failed; check daemon, image digest and owned resources
+E                 E         
+E                 E       assert 1 == 0
+E                 E        +  where 1 = CompletedProcess(args=['./scripts/init.sh', '--disposable'], returncode=1, stdout='', stderr='Resolved 73 packages in ...: "3cc13ed0-80c7-40b5-afc1-4f46c97fa7fc"}\nDocker: operation failed; check daemon, image digest and owned resources\n').returncode
+E                 
+E                 apps/backend/tests/integration/test_collection.py:42: AssertionError
+E                 =========================== short test summary info ============================
+E                 FAILED apps/backend/tests/integration/test_alert_delivery.py::test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control]
+E                 1 failed, 1 passed in 47.44s
+E                 
+E                 
+E               assert 1 == 0
+E                +  where 1 = CompletedProcess(args=['/app/apps/backend/.venv/bin/python3', '-m', 'tests.factories.operations_lab', 'fault', '--dire...test_killed_worker_reconciles_authorized_post_and_continues_new_deliveries[control]\n1 failed, 1 passed in 47.44s\n\n').returncode
+
+tests/integration/test_operations_lab_fault.py:107: AssertionError</failure></testcase><testcase classname="tests.integration.test_research_worker" name="test_worker_consumes_research_and_publishes_reproducible_profit" time="32.222" /><testcase classname="tests.integration.test_robot_control" name="test_persistent_robot_boundaries[admission_cases]" time="8.121" /><testcase classname="tests.integration.test_robot_control" name="test_persistent_robot_boundaries[concurrent_cases]" time="1.179" /><testcase classname="tests.integration.test_robot_control" name="test_persistent_robot_boundaries[failure_cases]" time="1.162" /><testcase classname="tests.integration.test_robot_control" name="test_persistent_robot_boundaries[inference_cases]" time="4.472" /><testcase classname="tests.integration.test_robot_media_boundary" name="test_queued_media_waits_without_attempt_and_each_photo_is_separately_admitted" time="11.725" /><testcase classname="tests.integration.test_robot_navigation_queue" name="test_paused_navigation_preserves_checkpoint_lease_and_does_not_spin_continuations" time="12.514" /><testcase classname="tests.integration.test_robot_remaining_stages" name="test_old_valuation_assessment_identity_and_research_work_obey_pause_without_spending_attempts" time="16.627" /><testcase classname="tests.integration.test_valuation" name="test_worker_updates_history_failure_and_resumption" time="50.503" /><testcase classname="tests.integration.test_valuation" name="test_current_validity_new_fallback_and_atomic_rollback" time="44.593" /><testcase classname="tests.integration.test_valuation" name="test_publication_rollback_retains_recoverable_work" time="33.979" /><testcase classname="tests.integration.test_valuation" name="test_pending_service_and_indeterminate_product" time="26.808" /><testcase classname="tests.integration.test_valuation" name="test_out_of_order_completion_and_additive_migration" time="23.143"><failure message="AssertionError: 68 objects imported automatically (use -v 2 for details).&#10;  &#10;  {&quot;timestamp&quot;: &quot;2026-11-13T22:40:20.891983+00:00&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;logger&quot;: &quot;procrastinate.blueprints&quot;, &quot;event&quot;: &quot;runtime_event&quot;, &quot;environment_id&quot;: &quot;eval_f04_191cc8158f&quot;, &quot;run_id&quot;: &quot;dae51ad8-b272-4419-83a5-f3389052937e&quot;}&#10;  Traceback (most recent call last):&#10;    File &quot;/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py&quot;, line 103, in _execute&#10;      return self.cursor.execute(sql)&#10;[+118 more lines; full report in element text]">valuation_scenario = (FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/test_out_of_order_completion_a0/...C/test_out_of_order_completion_a0/clock'), value=datetime.datetime(2026, 11, 10, 18, 0, tzinfo=datetime.timezone.utc)))
+
+    def test_out_of_order_completion_and_additive_migration(valuation_scenario: Scenario) -&gt; None:
+        i, source, clock = valuation_scenario
+        wait_valuation(i, price="2300.00")
+        # Controlled interleaving of two computations uses real PostgreSQL publication.
+&gt;       read_assert(
+            i,
+            """
+    from datetime import timedelta
+    from django.db import transaction
+    from django.core.management import call_command
+    from django.utils.timezone import now
+    from garimpei.infra.repository.valuation.postgres_repository import PostgresValuationRepository
+    from garimpei.domain.valuation.policy import estimate
+    from garimpei.domain.valuation.values import Valuation,NewReference
+    store=PostgresValuationRepository(lambda _:0)
+    instant=v.evaluated_at
+    with transaction.atomic():
+        p=ValuationProgress.objects.get(listing=target)
+        p.due_at=instant-timedelta(seconds=1)
+        p.save()
+        store.reconcile(instant)
+        old=store.work(ValuationWork.objects.filter(listing=target).latest('revision').id)
+        other=Listing.objects.get(external_id='602').latest
+        other.price=Decimal('2350')
+        other.save(update_fields=['price'])
+        store.reconcile(instant)
+        new=store.work(ValuationWork.objects.filter(listing=target).latest('revision').id)
+    assert old and new and new.revision&gt;old.revision
+    new_value=Valuation(uuid4(),target.id,new.revision,new.target.revision,v.product,instant,estimate(new.target,new.candidates,instant),NewReference('sem_referencia'))
+    store.publish(new,new_value,instant+timedelta(days=1))
+    old_value=replace(new_value,id=uuid4(),revision=old.revision,resale=estimate(old.target,old.candidates,instant))
+    store.publish(old,old_value,instant+timedelta(days=1))
+    assert read.execute(target.id).id==new_value.id
+    assert read.execute(target.id).resale.price==Decimal('2350')
+    assert ValuationEvaluation.objects.filter(work__listing=target).count()==2
+    ids=list(Listing.objects.order_by('id').values_list('id',flat=True))
+    # Only the disposable instance's additive F06 tables are reversed for the migration proof.
+    call_command('migrate','runtime','0005',verbosity=0)
+    assert list(Listing.objects.order_by('id').values_list('id',flat=True))==ids
+    call_command('migrate',verbosity=0)
+    assert list(Listing.objects.order_by('id').values_list('id',flat=True))==ids
+    assert build_read_listing().execute(target.id).observation.evidence.price==Decimal('1300')
+    """,
+        )
+
+tests/integration/test_valuation.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_valuation.py:31: in read_assert
+    shell(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-pytest-C/test_out_of_order_completion_a0/f04_191cc8158f.env'))
+code = "\nfrom uuid import UUID,uuid4\nfrom decimal import Decimal\nfrom dataclasses import replace\nfrom garimpei.main impor...st('id',flat=True))==ids\nassert build_read_listing().execute(target.id).observation.evidence.price==Decimal('1300')\n"
+
+    def shell(instance: FoundationInstance, code: str) -&gt; None:
+        result = instance.shell(code)
+&gt;       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:40:20.891983+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f04_191cc8158f", "run_id": "dae51ad8-b272-4419-83a5-f3389052937e"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 103, in _execute
+E             return self.cursor.execute(sql)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         psycopg.errors.NotNullViolation: column "decision_id" of relation "runtime_alertintent" contains null values
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in &lt;module&gt;
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "&lt;string&gt;", line 43, in &lt;module&gt;
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 194, in call_command
+E             return command.execute(*args, **defaults)
+E                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 111, in wrapper
+E             res = handle_func(*args, **kwargs)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/migrate.py", line 353, in handle
+E             post_migrate_state = executor.migrate(
+E                 targets,
+E             ...&lt;3 lines&gt;...
+E                 fake_initial=fake_initial,
+E             )
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/executor.py", line 141, in migrate
+E             state = self._migrate_all_backwards(plan, full_plan, fake=fake)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/executor.py", line 219, in _migrate_all_backwards
+E             self.unapply_migration(states[migration], migration, fake=fake)
+E             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/executor.py", line 282, in unapply_migration
+E             state = migration.unapply(state, schema_editor)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/migration.py", line 193, in unapply
+E             operation.database_backwards(
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 self.app_label, schema_editor, from_state, to_state
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/operations/fields.py", line 246, in database_backwards
+E             self.database_forwards(app_label, schema_editor, from_state, to_state)
+E             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/operations/fields.py", line 241, in database_forwards
+E             schema_editor.alter_field(from_model, from_field, to_field)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/base/schema.py", line 912, in alter_field
+E             self._alter_field(
+E             ~~~~~~~~~~~~~~~~~^
+E                 model,
+E                 ^^^^^^
+E             ...&lt;6 lines&gt;...
+E                 strict,
+E                 ^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/postgresql/schema.py", line 274, in _alter_field
+E             super()._alter_field(
+E             ~~~~~~~~~~~~~~~~~~~~^
+E                 model,
+E                 ^^^^^^
+E             ...&lt;6 lines&gt;...
+E                 strict,
+E                 ^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/base/schema.py", line 1165, in _alter_field
+E             self.execute(
+E             ~~~~~~~~~~~~^
+E                 self.sql_alter_column
+E                 ^^^^^^^^^^^^^^^^^^^^^
+E             ...&lt;4 lines&gt;...
+E                 params,
+E                 ^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/postgresql/schema.py", line 48, in execute
+E             return super().execute(sql, None)
+E                    ~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/base/schema.py", line 204, in execute
+E             cursor.execute(sql, params)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E             return self._execute_with_wrappers(
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                 sql, params, many=False, executor=self._execute
+E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             )
+E             ^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E             return executor(sql, params, many, context)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E             with self.db.wrap_database_errors:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E             raise dj_exc_value.with_traceback(traceback) from exc_value
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 103, in _execute
+E             return self.cursor.execute(sql)
+E                    ~~~~~~~~~~~~~~~~~~~^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E             raise ex.with_traceback(None)
+E         django.db.utils.IntegrityError: column "decision_id" of relation "runtime_alertintent" contains null values
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...(None)\ndjango.db.utils.IntegrityError: column "decision_id" of relation "runtime_alertintent" contains null values\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError</failure></testcase><testcase classname="tests.integration.test_valuation" name="test_published_dispersion_and_current_expiration" time="27.423" /><testcase classname="tests.integration.test_valuation" name="test_slow_identity_analysis_does_not_hold_the_collection_publication_lock" time="26.845" /></testsuite></testsuites>

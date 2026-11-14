@@ -159,6 +159,21 @@ def test_sigkill_after_confirmation_preserves_receipt_and_does_not_resend(
                 os.killpg(owner["pgid"], signal.SIGKILL)
                 command(instance, "./scripts/stop.sh")
                 command(instance, "./scripts/init.sh", "--disposable")
+            # A collection admitted at restart owns its original publication window.
+            # Wait for its checkpoint before presenting the next source snapshot.
+            wait_for(
+                lambda: (
+                    sql(
+                        instance,
+                        "SELECT c.finished_at IS NOT NULL AND s.next_attempt_at > '"
+                        + clock.value.isoformat()
+                        + "'::timestamptz FROM runtime_collectionstate s "
+                        "JOIN runtime_collectioncycle c ON c.id=s.current_id",
+                    )
+                    == [(True,)]
+                ),
+                "collection checkpoint before the next source input",
+            )
             clock.advance(1)
             source.rows["936"] = listing(
                 "936",

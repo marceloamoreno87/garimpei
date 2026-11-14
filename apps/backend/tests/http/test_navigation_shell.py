@@ -23,6 +23,10 @@ from garimpei.domain.navigation.ports import InvalidNavigation
         ("/configuracao/regiao/", "/configuracoes/"),
         ("/integracoes/", "/integracoes/"),
         ("/integracoes/ia/", "/integracoes/ia/"),
+        ("/ofertas/00000000-0000-0000-0000-000000000001/ia/", "/ofertas/"),
+        ("/ofertas/00000000-0000-0000-0000-000000000001/ia/reavaliar/", "/ofertas/"),
+        ("/integracoes/ia/cobertura/", "/integracoes/ia/"),
+        ("/acompanhamento/ia/explicar/", "/acompanhamento/"),
     ],
 )
 def test_navigation_identifies_the_current_destination(path: str, current: str) -> None:

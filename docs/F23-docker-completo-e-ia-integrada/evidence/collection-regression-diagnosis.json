@@ -1,0 +1,59 @@
+{
+  "scope": "F23 integration regression: collection rollback/restart after first batch",
+  "container": "garimpei-eval_f23_runtime-quality-journey",
+  "container_cwd": "/app/apps/backend",
+  "tmpdir": "/tmp/g23tmp",
+  "source_changed": true,
+  "production_changed": false,
+  "runs": [
+    {
+      "command": "python -m pytest 'tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[fault]' -vv --tb=long --basetemp=/tmp/f23-collection-repro",
+      "exit_code": 0,
+      "result": "1 passed in 23.33s",
+      "output_capture": "Tool output only; second isolated run below captures full stdout"
+    },
+    {
+      "command": "python -m pytest 'tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[fault]' -vv --tb=long --basetemp=/tmp/f23-collection-repro-2",
+      "exit_code": 0,
+      "result": "1 passed in 24.53s",
+      "output": "collection-regression-before-isolated.txt"
+    },
+    {
+      "command": "python -m pytest tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch -vv --tb=long --basetemp=/tmp/f23-collection-repro-pair",
+      "exit_code": 0,
+      "result": "2 passed in 43.02s",
+      "output": "collection-regression-before-pair.txt"
+    },
+    {
+      "command": "python -m pytest tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch -vv --tb=long --basetemp=/tmp/f23-collection-after-pair",
+      "exit_code": 0,
+      "result": "2 passed in 40.27s",
+      "output": "collection-regression-after-pair.txt"
+    }
+  ],
+  "original_failure": {
+    "shard": "C",
+    "nodeid_index": 6,
+    "nodeid": "tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[fault]",
+    "traceback": "collection-regression-original-failure.txt",
+    "actual": "resumed_details contains 6 requests instead of 5: /detail/220 is repeated",
+    "full_shard_result": "9 failed, 122 passed in 1708.62s",
+    "full_shard_exit_code": 1
+  },
+  "status": "Corrected the worker-crash fixture and verified the original control/fault pair.",
+  "confirmed_cause": "The test killed only the runworker supervisor PID, leaving reserved queue consumers alive in its owned process group. A surviving listing consumer could retry detail/220 after cancellation while the restarted consumer also resumed it. F21 introduced those subprocesses in infra/worker/reserved_consumers.py.",
+  "change": "Use SIGKILL on the verified owned process group and wait for the advisory waiter to disappear after cancellation before releasing the barrier.",
+  "assertions_preserved": [
+    "20 committed observations and events before interruption",
+    "no new search during restart",
+    "exactly 5 resumed detail requests for identities 220 through 224",
+    "all 20 committed observations and events retain exact rows",
+    "25 final observations and silent events"
+  ],
+  "lint": {
+    "command": "python -m ruff check tests/integration/test_collection.py tests/integration/test_first_eligibility.py",
+    "exit_code": 0,
+    "result": "All checks passed!"
+  },
+  "earlier_hypothesis": "Async cancellation alone was investigated as a possible race. The original traceback instead exposed a surviving consumer and duplicate retry; the final wait also verifies the cancellation effect."
+}

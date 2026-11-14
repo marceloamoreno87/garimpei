@@ -1,0 +1,27 @@
+<section class="integration-section"
+         aria-labelledby="assisted-operations-title">
+    <h2 id="assisted-operations-title">Explicação da análise local</h2>
+    <p>O diagnóstico acima continua sendo a referência. As sugestões abaixo não executam ações.</p>
+    {% if assistance_operations.snapshot %}
+        <p>Recorte confirmado {{ assistance_operations.snapshot.created_at|date:"d/m/Y H:i:s T" }} · revisão {{ assistance_operations.snapshot.revision }}.</p>
+        <form method="post"
+              action="{% url 'assistance-explain' %}"
+              hx-post="{% url 'assistance-explain' %}"
+              hx-target="#assistance-operation-feedback"
+              hx-swap="innerHTML"
+              hx-request='{"timeout":10000}'>
+            {% csrf_token %}
+            <input type="hidden"
+                   name="snapshot_id"
+                   value="{{ assistance_operations.snapshot.id }}">
+            <input type="hidden"
+                   name="command_id"
+                   value="{{ assistance_operations.command_id }}">
+            <button type="submit" class="secondary">Pedir explicação deste recorte</button>
+        </form>
+        <div id="assistance-operation-feedback" tabindex="-1" aria-live="polite"></div>
+        {% include "assistance/reviews.html" with reviews=assistance_operations.reviews %}
+    {% else %}
+        <p>O worker ainda não confirmou um recorte para explicar. O diagnóstico determinístico permanece disponível.</p>
+    {% endif %}
+</section>

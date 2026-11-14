@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "environment": "eval_f23_runtime",
+  "browser_session": "f23-assistance-ui",
+  "browser": "Chromium via playwright-cli in quality container",
+  "runtime_url": "http://127.0.0.1:34524",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1100
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "observations": {
+    "evidence": {
+      "http_status": 200,
+      "selected_navigation": "Ofertas",
+      "states_seen": [
+        "supported",
+        "superseded"
+      ],
+      "source_excerpt_expanded": true,
+      "keyboard_enter_toggles_summary": true,
+      "focus_outline_px": 3,
+      "horizontal_overflow": false,
+      "missing_variants": [
+        "manual conflict",
+        "pending",
+        "partial photo coverage",
+        "failed analysis",
+        "nonempty media hash gallery"
+      ]
+    },
+    "coverage": {
+      "http_status": 200,
+      "selected_navigation": "IA local",
+      "interests": 1,
+      "current_offer_denominator": 2,
+      "current_pair_denominator": 2,
+      "identity_supported": 1,
+      "comparables_supported": 1,
+      "investigation_supported": 1,
+      "missing_variants": [
+        "interest without source observations",
+        "multiple interests in one visual snapshot"
+      ],
+      "horizontal_overflow": false
+    },
+    "diagnostic": {
+      "http_status_after_seed_repair": 200,
+      "controlled_failure": {
+        "transport": "browser intercepted HTTP 503",
+        "server_received_request": false,
+        "preserved_query_string": true,
+        "preserved_deterministic_counts": true,
+        "preserved_previous_review": true,
+        "focused_feedback_id": "assistance-operation-feedback"
+      },
+      "main_text_contrast_ratio": 13.87,
+      "explanation_button_height_px": 44,
+      "resource_http_errors_after_recovery": []
+    },
+    "mobile_menu": {
+      "opened_and_inspected": true,
+      "escape_inside_navigation_closes": true,
+      "focus_restored_to": "Menu"
+    }
+  },
+  "artifacts": [
+    {
+      "file": "coverage-desktop.png",
+      "sha256": "da8d3724828de9dcbc543a4720ba86be7a00ce42f5b4b8c03773483b20eca4f1",
+      "bytes": 248769,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "coverage-mobile-menu.png",
+      "sha256": "1fdd7aa055dbe4942e46e90551bec26127e28700eb50c34e88bfc9cdd76c235f",
+      "bytes": 61016,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "coverage-narrow.png",
+      "sha256": "2efe401eb9c669f524d8a2775ba051717b69754b8a89c77e63d8959dcd59f401",
+      "bytes": 207748,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "diagnostic-controlled-failure-desktop.png",
+      "sha256": "b750b508669aa2c2e9a8d379fc7e9dc8ddf86e8b267d2cf833de17173f08bcaa",
+      "bytes": 163184,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "diagnostic-controlled-failure-narrow.png",
+      "sha256": "812ccf6fa2556a28c7e95d333535b3036214632f7291176c43b5497a6a494208",
+      "bytes": 64670,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "evidence-desktop.png",
+      "sha256": "885627301d9e62028852cc141a0b21cb51a672209a9b2245ab63fb073a3cc9e5",
+      "bytes": 469077,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "evidence-narrow.png",
+      "sha256": "6e8f2daa3457117c0dd17527baf41f34224d760546365bc45242bfd06d3f0514",
+      "bytes": 397890,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "tracking-before-seed-repair-500.png",
+      "sha256": "857564de7f1d65fc456623d54b518c7bb4c73f08468c91c839e29ba35d00fd3d",
+      "bytes": 65011,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "tracking-recovered-desktop.png",
+      "sha256": "57165f2ff1327b4fdbef1ebae4edf06ada3fc5b46413e340f29b80030045481d",
+      "bytes": 140688,
+      "inspected_with_view_image": true
+    },
+    {
+      "file": "tracking-recovered-narrow.png",
+      "sha256": "327340b096ca9b3ba9742c172a8fc7440cdc0432cf61b861ab5facd2f5eb8ce6",
+      "bytes": 53824,
+      "inspected_with_view_image": true
+    }
+  ]
+}

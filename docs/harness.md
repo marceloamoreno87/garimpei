@@ -1,6 +1,6 @@
 # Harness do Garimpei
 
-O harness organiza requisitos → especificação/plano/contrato → implementação → avaliação → correção. O PRD contém F01–F22; o [estado atual](status-atual.md) identifica o que foi avaliado e a pendência real de F21.
+O harness organiza requisitos → especificação/plano/contrato → implementação → avaliação → correção. O PRD contém F01–F23; o [estado atual](status-atual.md) identifica os aceites e as pendências de F21/F23.
 
 A aplicação usa Python/Django, templates/HTMX, PostgreSQL e worker separado com Procrastinate, sem Redis. O lifecycle e os seis grupos de gates foram implementados em F02. Os templates/helpers TypeScript preservados nas skills são referências históricas, não o runtime do produto.
 
@@ -35,19 +35,19 @@ O PRD, a stack e os artefatos de F01/F02 já existem. Para evolução, consulte 
 
 ## Ambiente e gates atuais
 
-Pré-requisitos, versões/imagens, segredos e procedimentos completos estão em [operação F02](F02-fundacao-tecnica-e-ambiente-local/operations.md). A configuração autoral é centralizada em `apps/backend/src/garimpei/config/env.py`; o arquivo privado indicado por `GARIMPEI_ENV_FILE` não deve ser versionado. Use caminho absoluto, pois os processos são iniciados de `apps/backend/`.
+O lifecycle padrão usa Docker/Compose e ferramentas Unix no host. Pré-requisitos, imagens, segredos e procedimentos atuais estão em [operação F23](F23-docker-completo-e-ia-integrada/operations.md); a [operação F02](F02-fundacao-tecnica-e-ambiente-local/operations.md) preserva a fundação anterior. A configuração autoral é centralizada em `apps/backend/src/garimpei/config/env.py`; o arquivo privado indicado por `GARIMPEI_ENV_FILE` não deve ser versionado. Use caminho absoluto, pois os processos são iniciados de `apps/backend/`.
 
 ```bash
-uv sync --project apps/backend --locked --all-groups
-GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/resolve-env.sh
-GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/init.sh
-GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/migrate-dev.sh --check
-GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env ./scripts/stop.sh
+export GARIMPEI_ENV_FILE=/caminho/privado/garimpei.env
+./scripts/resolve-env.sh
+./scripts/init.sh
+./scripts/migrate-dev.sh --check
+./scripts/stop.sh
 ```
 
 `init.sh` prepara dependências, migrations e processos próprios, valida prontidão e anuncia a URL resolvida. `stop.sh` conserva dados/volumes/sessões. `--clean` só é permitido para uma instância de avaliação criada como descartável e autorizada; não é uma limpeza genérica de banco de desenvolvimento. Portas, nomes `garimpei_`, manifestos e ownership separam os ambientes. O controle global F22 pausa o trabalho de negócio pela interface; não substitui a parada dos processos.
 
-A entrada na raiz é `node scripts/run-gates.mjs`. Ela chama as ferramentas Python em `apps/backend/`, sem instalar ferramentas silenciosamente:
+A entrada do gate continua `node scripts/run-gates.mjs`, executada no contêiner de ferramentas por `./scripts/quality.sh node /app/scripts/run-gates.mjs`. Ela chama as ferramentas Python em `apps/backend/`, sem instalar ferramentas silenciosamente:
 
 | Grupo | Ferramentas efetivas |
 |---|---|
@@ -60,11 +60,13 @@ A entrada na raiz é `node scripts/run-gates.mjs`. Ela chama as ferramentas Pyth
 
 Entradas dinâmicas legítimas de Django ficam documentadas em `quality/entrypoints.json`; a whitelist não autoriza excluir módulos inteiros. Falha, ferramenta ausente ou teste não executado não vira aprovação.
 
-Execute a suíte de `apps/backend/` para preservar a resolução dos módulos usados pelos subprocessos:
+Execute a suíte a partir de `apps/backend/` dentro do contêiner para preservar a resolução dos módulos usados pelos subprocessos:
 
 ```bash
-uv run --frozen --no-sync pytest
+./scripts/quality.sh sh -c 'cd /app/apps/backend && uv run --frozen --no-sync pytest'
 ```
+
+Python, uv, Node e Chromium ficam nas imagens; o host não precisa desses runtimes para operar o caminho padrão. `GARIMPEI_RUNTIME=host` conserva o lifecycle anterior somente quando explicitamente escolhido para compatibilidade das regressões; esse modo exige as ferramentas Python/uv no ambiente que o executa. Os testes de lifecycle antigos rodam nesse modo dentro de `quality`, com serviços próprios, sem tornar o host o runtime padrão do produto.
 
 Testes de integração usam PostgreSQL/serviços próprios em Docker. Temporários privados devem ficar fora do checkout e ter espaço disponível; os backups exigem reserva mínima de 1 GiB. `TMPDIR` ou `--basetemp` podem selecionar outro disco privado, preservando essa proteção. Navegador usa `playwright-cli` com sessão própria; não crie outro projeto E2E para substituir esse fluxo.
 

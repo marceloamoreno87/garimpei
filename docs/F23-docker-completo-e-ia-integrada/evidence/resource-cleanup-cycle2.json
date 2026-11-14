@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-13T22:59:28.287935+00:00",
+  "scope": "Owned diagnostic resources from manual replay of failed F17 fixture, after its test ended",
+  "project": "garimpei-eval_f17_restore_5b252bca",
+  "verification": {
+    "container_checkout_label": "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada",
+    "environment_label": "eval_f17_restore_5b252bca",
+    "network_checkout_label_matched": true,
+    "network_empty_after_container_removal": true
+  },
+  "removed_containers": [
+    "garimpei-eval_f17_restore_5b252bca-postgres-1",
+    "garimpei-eval_f17_restore_5b252bca-waha-1"
+  ],
+  "removed_networks": 1,
+  "volumes_removed": false,
+  "foreign_resources_touched": false,
+  "reason": "Only diagnostic manual replay resources removed; historical resources and guarded fixture refusals preserved"
+}

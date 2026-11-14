@@ -1,0 +1,46 @@
+{
+  "format": 1,
+  "reason": "Structured preserved results requested for canonical union; no repetition of previously verified passing tests",
+  "runs": [
+    {
+      "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey sh -c 'python -m pytest tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch -vv --tb=long --basetemp=/tmp/f23-collection-after-pair > /tmp/f23-collection-after-pair.txt 2>&1; result=$?; cat /tmp/f23-collection-after-pair.txt; exit \"$result\"'",
+      "nodeids": [
+        "tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[control]",
+        "tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[fault]"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 40.27,
+      "duration_scope": "entire pytest invocation; per-node timings were not emitted",
+      "results": [
+        {
+          "nodeid": "tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[control]",
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/integration/test_collection.py::test_rollback_and_restart_after_first_batch[fault]",
+          "outcome": "passed"
+        }
+      ],
+      "stdout": "collection-regression-after-pair.txt",
+      "source_after_run": "Only Ruff formatting of the wait_for lambda; semantic inputs unchanged",
+      "junit": null
+    },
+    {
+      "command": "docker exec -e TMPDIR=/tmp/g23tmp -w /app/apps/backend garimpei-eval_f23_runtime-quality-journey sh -c 'python -m pytest tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post -vv --tb=long --basetemp=/tmp/f23-expired-after > /tmp/f23-expired-after.txt 2>&1; result=$?; cat /tmp/f23-expired-after.txt; exit \"$result\"'",
+      "nodeids": [
+        "tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 16.68,
+      "duration_scope": "entire pytest invocation with one node",
+      "results": [
+        {
+          "nodeid": "tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post",
+          "outcome": "passed"
+        }
+      ],
+      "stdout": "collection-regression-expired-after.txt",
+      "junit": null
+    }
+  ]
+}

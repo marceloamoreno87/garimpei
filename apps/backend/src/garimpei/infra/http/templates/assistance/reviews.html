@@ -1,0 +1,63 @@
+{% for review in reviews %}
+    <article class="integration-section" aria-labelledby="review-{{ review.id }}">
+        <div class="integration-heading">
+            <h2 id="review-{{ review.id }}">{{ review.purpose }} · {{ review.state_title }}</h2>
+            <p>{{ review.created_at|date:"d/m/Y H:i:s T" }} · revisão {{ review.revision }}</p>
+        </div>
+        <div class="integration-body">
+            <p>{{ review.next_action }}</p>
+            <dl>
+                <dt>Modelo local</dt>
+                <dd>
+                    {{ review.model }}
+                </dd>
+                <dt>Origem</dt>
+                <dd>
+                    Análise {{ review.id }}
+                </dd>
+                <dt>Reutilização de evidência</dt>
+                <dd>
+                    {{ review.cache_reuses }} consultas compatíveis
+                </dd>
+            </dl>
+            {% if review.manual_values %}
+                <p><strong>Correção manual preservada</strong> · revisão {{ review.manual_revision }}. Confira os valores informados junto da evidência original.</p>
+                <dl>
+                    {% for attribute in review.manual_values %}
+                        <dt>{{ attribute.label }}</dt>
+                        <dd>{{ attribute.value }}</dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
+            {% if review.findings %}
+                <ul>
+                    {% for finding in review.findings %}
+                        <li>{{ finding.field }}: {{ finding.value }}. Referências: {{ finding.evidence_refs|join:", " }}.</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if review.candidate_listing %}<a href="{% url 'condition-detail' review.candidate_listing %}">Conferir oferta comparada</a>{% endif %}
+            <details>
+                <summary>Conferir material e referências da observação</summary>
+                {% for field, text in review.source_texts.items %}<p>{{ field }}: {{ text|default:"Não observado" }}</p>{% endfor %}
+                <ul>
+                    {% for fact in review.evidence %}
+                        <li>Referência {{ fact.id }}: {{ fact.field }} = {{ fact.value }}.{% if fact.quote %} Trecho observado: “{{ fact.quote }}”.{% endif %}</li>
+                    {% endfor %}
+                </ul>
+                {% for media in review.media %}<p>Foto {{ media.id }} · versão {{ media.revision }} · hash {{ media.sha256|default:"indisponível" }}. Esta revisão textual não examinou a foto; consulte a análise de condição.</p>{% endfor %}
+            </details>
+            {% if review.limitations %}<p>Limitações: {{ review.limitations|join:"; " }}</p>{% endif %}
+            {% for action in review.actions %}<p>{{ action }} Sugestão; nenhuma ação foi executada.</p>{% endfor %}
+            {% if review.consumed_by %}
+                <p>Decisões que usaram esta revisão:</p>
+                <ul>{% for consumer in review.consumed_by %}<li>{{ consumer.kind }} · {{ consumer.id }}</li>{% endfor %}</ul>
+            {% else %}
+                <p>Esta análise ainda não foi usada por uma decisão.</p>
+            {% endif %}
+            {% for request in review.requests %}<p class="fine">Execução {{ request.id }} · perfil {{ request.profile }} · versão {{ request.artifact }}</p>{% endfor %}
+        </div>
+    </article>
+{% empty %}
+    <p>Ainda não há revisão local neste recorte. Uma análise ausente não confirma condição ou identidade.</p>
+{% endfor %}

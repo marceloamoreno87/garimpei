@@ -1,0 +1,141 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_filled_legacy_profiles_migrate_and_rollback_without_resigning_cache ___
+
+migration_instance = FoundationInstance(root=PosixPath('/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada'), pri...xPath('/home/marce/.cache/g23tmp/pytest-of-marce/pytest-1/test_filled_legacy_profiles_mi0/f23_migration_7472f56a.env'))
+
+    def test_filled_legacy_profiles_migrate_and_rollback_without_resigning_cache(
+        migration_instance: FoundationInstance,
+    ) -> None:
+        group = pause_worker(migration_instance)
+        try:
+            result = migration_instance.shell('''
+    from uuid import uuid4
+    from django.db import connection,transaction,IntegrityError
+    from django.db.migrations.executor import MigrationExecutor
+    from django.utils.timezone import now
+    from garimpei.infra.persistence.management.commands.local_ai import _smoke_observation
+    observation_id,_=_smoke_observation('F23-filled-migration','text')
+    executor=MigrationExecutor(connection)
+    executor.migrate([('runtime','0027_gold_qualification')])
+    old=executor.loader.project_state([('runtime','0027_gold_qualification')]).apps.get_model('runtime','InferenceRequest')
+    cohort=uuid4(); identities=[]
+    for index,profile in enumerate(['local-evidence-v1','condition-evidence-v1','condition-evidence-v4']):
+     row=old.objects.create(observation_id=observation_id,revision=1,signature=str(index+1)*64,
+      artifact='original-artifact',prompt_version=profile,schema_version=profile,created_at=now(),state='succeeded',
+      cohort_id=cohort if index else None,cohort_generation=7 if index else None)
+     identities.append((row.id,row.signature,row.cohort_id,row.cohort_generation))
+    executor=MigrationExecutor(connection);latest=executor.loader.graph.leaf_nodes('runtime');executor.migrate(latest)
+    from garimpei.infra.persistence.inference_models import InferenceRequest
+    for identity,signature,old_cohort,generation in identities:
+     row=InferenceRequest.objects.get(pk=identity)
+     assert row.signature==signature and row.cohort_id==old_cohort and row.cohort_generation==generation
+     assert row.observation_id==observation_id and row.target_kind=='listing_observation'
+     assert row.target_id==observation_id and row.target_revision==1,'legacy targets were not backfilled'
+    new=InferenceRequest.objects.create(observation_id=observation_id,revision=1,signature='f'*64,
+     artifact='original-artifact',prompt_version='local-evidence-v1',schema_version='local-evidence-v1',created_at=now())
+    new.refresh_from_db();assert new.target_id==observation_id and new.target_revision==1
+    try:
+     with transaction.atomic():
+      InferenceRequest.objects.create(observation_id=observation_id,revision=1,signature='e'*64,
+       artifact='original-artifact',prompt_version='local-evidence-v1',schema_version='local-evidence-v1',created_at=now(),target_id=uuid4(),target_revision=1)
+     raise AssertionError('divergent supplied metadata was overwritten or accepted')
+    except IntegrityError:pass
+    executor=MigrationExecutor(connection);executor.migrate([('runtime','0029_assistance_reviews')])
+    for identity,signature,old_cohort,generation in identities:
+     row=InferenceRequest.objects.get(pk=identity)
+     assert row.target_id is None and row.target_revision is None
+     assert (row.signature,row.cohort_id,row.cohort_generation)==(signature,old_cohort,generation)
+    executor=MigrationExecutor(connection);executor.migrate(executor.loader.graph.leaf_nodes('runtime'))
+    print('filled migration and rollback preserved three legacy profiles, signatures, observations and cohorts; old writer accepted, divergent target rejected')
+    ''')
+>           assert result.returncode == 0, result.stdout + result.stderr
+E           AssertionError: 68 objects imported automatically (use -v 2 for details).
+E             
+E             {"timestamp": "2026-11-13T22:26:24.903126+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_f23_migration_7472f56a", "run_id": "6aa2ceba-a341-42d0-ab46-6b713649c2c8"}
+E             Traceback (most recent call last):
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 103, in _execute
+E                 return self.cursor.execute(sql)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             psycopg.errors.CheckViolation: check constraint "inference_profile_target" of relation "runtime_inferencerequest" is violated by some row
+E             
+E             The above exception was the direct cause of the following exception:
+E             
+E             Traceback (most recent call last):
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/manage.py", line 8, in <module>
+E                 execute_from_command_line()
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E                 utility.execute()
+E                 ~~~~~~~~~~~~~~~^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E                 self.fetch_command(subcommand).run_from_argv(self.argv)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E                 self.execute(*args, **cmd_options)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E                 output = self.handle(*args, **options)
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E                 exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<string>", line 17, in <module>
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/executor.py", line 135, in migrate
+E                 state = self._migrate_all_forwards(
+E                     state, plan, full_plan, fake=fake, fake_initial=fake_initial
+E                 )
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/executor.py", line 167, in _migrate_all_forwards
+E                 state = self.apply_migration(
+E                     state, migration, fake=fake, fake_initial=fake_initial
+E                 )
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/executor.py", line 255, in apply_migration
+E                 state = migration.apply(state, schema_editor)
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/migration.py", line 132, in apply
+E                 operation.database_forwards(
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                     self.app_label, schema_editor, old_state, project_state
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/migrations/operations/models.py", line 1211, in database_forwards
+E                 schema_editor.add_constraint(model, self.constraint)
+E                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/base/schema.py", line 596, in add_constraint
+E                 self.execute(sql, params=None)
+E                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/postgresql/schema.py", line 45, in execute
+E                 return super().execute(sql, params)
+E                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/base/schema.py", line 204, in execute
+E                 cursor.execute(sql, params)
+E                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+E                 return self._execute_with_wrappers(
+E                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+E                     sql, params, many=False, executor=self._execute
+E                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 )
+E                 ^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+E                 return executor(sql, params, many, context)
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+E                 with self.db.wrap_database_errors:
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+E                 raise dj_exc_value.with_traceback(traceback) from exc_value
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 103, in _execute
+E                 return self.cursor.execute(sql)
+E                        ~~~~~~~~~~~~~~~~~~~^^^^^
+E               File "/home/marce/dev/garimpei/.codex/worktrees/F23-docker-completo-e-ia-integrada/apps/backend/.venv/lib/python3.13/site-packages/psycopg/cursor.py", line 117, in execute
+E                 raise ex.with_traceback(None)
+E             django.db.utils.IntegrityError: check constraint "inference_profile_target" of relation "runtime_inferencerequest" is violated by some row
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/mana...tyError: check constraint "inference_profile_target" of relation "runtime_inferencerequest" is violated by some row\n').returncode
+
+tests/integration/test_inference_target_migration.py:69: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_inference_target_migration.py::test_filled_legacy_profiles_migrate_and_rollback_without_resigning_cache
+1 failed in 9.26s

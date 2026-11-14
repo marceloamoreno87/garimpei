@@ -26,6 +26,7 @@
             <header class="page-heading">
                 <p class="source-meta">Facebook Marketplace · Oferta {{ offer.external_id }}</p>
                 <h1>{{ offer.title }}</h1>
+                <a href="{% url 'assistance-listing' offer.id %}">Conferir evidências da IA local</a>
 
             </header>
             {% if confirmation and not error %}

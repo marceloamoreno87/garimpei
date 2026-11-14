@@ -43,10 +43,12 @@ class RuntimeConfig:
     log_level: str
     run_id: str
     ai_port: int = 11434
+    containerized: bool = False
+    state_root: Path | None = None
 
     @property
     def directory(self) -> Path:
-        return self.root / ".runtime" / self.environment_id
+        return (self.state_root or self.root / ".runtime") / self.environment_id
 
     @property
     def database(self) -> str:
@@ -59,7 +61,8 @@ class RuntimeConfig:
     @property
     def database_url(self) -> str:
         password = quote(self.postgres_password, safe="")
-        return f"postgresql://garimpei:{password}@127.0.0.1:{self.pg_port}/{self.database}"
+        host, port = ("postgres", 5432) if self.containerized else ("127.0.0.1", self.pg_port)
+        return f"postgresql://garimpei:{password}@{host}:{port}/{self.database}"
 
 
 def _values(explicit: Mapping[str, str]) -> dict[str, str]:
@@ -184,6 +187,8 @@ def load_config(
         level,
         values.get("GARIMPEI_RUN_ID", ""),
         _ai_port(values, root / ".runtime" / identity, ports),
+        values.get("GARIMPEI_CONTAINERIZED") == "true",
+        Path(values["GARIMPEI_RUNTIME_ROOT"]) if values.get("GARIMPEI_RUNTIME_ROOT") else None,
     )
     override = values.get("DATABASE_URL")
     if override and urlsplit(override) != urlsplit(config.database_url):
@@ -403,7 +408,13 @@ def load_alert_settings() -> AlertSettings:
     base = _integer(values, "GARIMPEI_ALERT_RETRY_BASE", 15, 1, 3600)
     return AlertSettings(
         enabled == "true",
-        fixture.rstrip("/") if fixture else f"http://127.0.0.1:{load_config().waha_port}",
+        fixture.rstrip("/")
+        if fixture
+        else (
+            "http://waha:3000"
+            if load_config().containerized
+            else f"http://127.0.0.1:{load_config().waha_port}"
+        ),
         values.get("WAHA_API_KEY", ""),
         values.get("GARIMPEI_WAHA_SESSION", ""),
         recipient,
@@ -512,12 +523,16 @@ def load_inference_settings() -> InferenceSettings:
     folder = config.directory / "inference"
     return InferenceSettings(
         enabled == "true",
-        f"http://127.0.0.1:{config.ai_port}",
+        "http://ollama:11434" if config.containerized else f"http://127.0.0.1:{config.ai_port}",
         folder,
         config.root / "docs/F19-inferencia-multimodal-local-em-docker/model-lock.json",
         folder / "tokenizer.json",
-        Path.home() / ".local/share/garimpei/gpu-owner.json",
-        f"{config.root}:{config.environment_id}",
+        Path(
+            values.get(
+                "GARIMPEI_GPU_LOCK", str(Path.home() / ".local/share/garimpei/gpu-owner.json")
+            )
+        ),
+        values.get("GARIMPEI_GPU_OWNER", f"{config.root}:{config.environment_id}"),
         _integer(values, "GARIMPEI_AI_QUEUE_LIMIT", 100, 1, 100),
         _integer(values, "GARIMPEI_AI_DISK_LIMIT", 1073741824, 1048576, 1073741824),
         _integer(values, "GARIMPEI_AI_TIMEOUT", 180, 1, 180),
@@ -690,3 +705,19 @@ def comparable_research_enabled_for_environment() -> bool:
     config = load_config(require_secrets=False)
     # Eval instances opt into their own explicit policy; a deployment manifest is not a test seed.
     return config.environment == "dev" or bool(values.get("GARIMPEI_RESEARCH_LIMITS"))
+
+
+def load_facebook_profile_directory() -> Path:
+    config = load_config(require_secrets=False)
+    if config.containerized:
+        return Path("/facebook-profile")
+    return load_integration_private_settings().directory / "facebook-browser"
+
+
+def disposable_container() -> bool:
+    values = _values(os.environ)
+    return (
+        values.get("GARIMPEI_CONTAINERIZED") == "true"
+        and values.get("GARIMPEI_ENV") == "eval"
+        and values.get("GARIMPEI_DISPOSABLE") == "true"
+    )

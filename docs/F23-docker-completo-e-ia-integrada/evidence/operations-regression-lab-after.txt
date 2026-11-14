@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /app/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from env)
+rootdir: /app/apps/backend
+configfile: pyproject.toml
+plugins: anyio-4.16.0, django-4.14.0
+collecting ... collected 1 item
+
+tests/integration/test_operations_lab_fault.py::test_persistent_unit_fault_suspends_only_target PASSED [100%]
+
+------------ generated xml file: /tmp/f23-operations-lab-after.xml -------------
+======================== 1 passed in 553.82s (0:09:13) =========================

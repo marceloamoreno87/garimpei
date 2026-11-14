@@ -1,0 +1,134 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- /app/apps/backend/.venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.19, settings: garimpei.config.test_settings (from env)
+rootdir: /app/apps/backend
+configfile: pyproject.toml
+plugins: anyio-4.16.0, django-4.14.0
+collecting ... collected 1 item
+
+tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post FAILED [100%]
+
+=================================== FAILURES ===================================
+__________ test_publication_waits_and_final_check_blocks_expired_post __________
+
+tmp_path = PosixPath('/tmp/f23-expired-repro/test_publication_waits_and_fin0')
+
+    def test_publication_waits_and_final_check_blocks_expired_post(tmp_path: Path) -> None:
+        with first_eligibility_scenario(tmp_path) as (instance, source, clock, channel):
+            group = pause_worker(instance)
+            try:
+>               shell(
+                    instance,
+                    """
+    from datetime import timedelta
+    from garimpei.main import build_first_alert_store,build_read_profit,build_alert_store
+    from garimpei.infra.persistence.listing_models import Listing
+    from garimpei.infra.persistence.alert_models import AlertIntent
+    from garimpei.domain.alert.alert import Binding
+    from garimpei.config.env import load_listing_settings
+    from garimpei.main import _listing_clock
+    now=_listing_clock(load_listing_settings())()
+    l=Listing.objects.select_related('latest').get(external_id='16001')
+    s=build_first_alert_store(); s.adopt(now)
+    for source,published,expected in ((None,None,'publication_missing'),(None,now,'publication_untrusted'),('fixture.published_at',now+timedelta(seconds=1),'publication_future'),('fixture.published_at',now-timedelta(hours=48,microseconds=1),'publication_expired')):
+     e=dict(l.latest.evidence);e['published_at']=published.isoformat() if published else None;e['published_at_source']=source;e['description']='Funciona perfeitamente.';l.latest.evidence=e;l.latest.save()
+     s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+     r=l.firstalertidentity_set.get();assert r.reason==expected,(r.reason,expected)
+     assert not AlertIntent.objects.filter(first_decision__identity=r).exists()
+    e['published_at']=(now-timedelta(hours=48)).isoformat();e['published_at_source']='fixture.published_at';l.latest.evidence=e;l.latest.save()
+    s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)
+    r=l.firstalertidentity_set.get();assert r.intent_id is not None,r.reason
+    store=build_alert_store();delivery=store.claim(r.intent_id,Binding('synthetic','100@g.us','200@c.us'),now+timedelta(microseconds=1),reconcile=False)
+    assert delivery is None
+    r.intent.refresh_from_db();assert r.intent.reason=='publication_expired'
+    """,
+                )
+
+tests/integration/test_first_eligibility.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = FoundationInstance(root=PosixPath('/app'), private_file=PosixPath('/tmp/f23-expired-repro/test_publication_waits_and_fin0/wave11b_f16_403573b5.env'))
+code = "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_sto...,reconcile=False)\nassert delivery is None\nr.intent.refresh_from_db();assert r.intent.reason=='publication_expired'\n"
+
+    def shell(instance: FoundationInstance, code: str) -> None:
+        result = instance.shell(code)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 68 objects imported automatically (use -v 2 for details).
+E         
+E         {"timestamp": "2026-11-13T22:37:09.311679+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_403573b5", "run_id": "c5c3f56f-9577-4afc-b715-fb703e40ab51"}
+E         Traceback (most recent call last):
+E           File "/app/apps/backend/manage.py", line 8, in <module>
+E             execute_from_command_line()
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+E             utility.execute()
+E             ~~~~~~~~~~~~~~~^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+E             self.fetch_command(subcommand).run_from_argv(self.argv)
+E             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+E             self.execute(*args, **cmd_options)
+E             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+E             output = self.handle(*args, **options)
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+E             exec(options["command"], {**globals(), **self.get_namespace(**options)})
+E             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "<string>", line 20, in <module>
+E           File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 237, in claim
+E             cursor = AlertFeedCursor.objects.get(installation="local")
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+E             return getattr(self.get_queryset(), name)(*args, **kwargs)
+E                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+E           File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+E             raise self.model.DoesNotExist(
+E                 "%s matching query does not exist." % self.model._meta.object_name
+E             )
+E         garimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_store\nfrom garimpei.infra.persistence.listing_models import Listing\nfrom garimpei.infra.persistence.alert_models import AlertIntent\nfrom garimpei.domain.alert.alert import Binding\nfrom garimpei.config.env import load_listing_settings\nfrom garimpei.main import _listing_clock\nnow=_listing_clock(load_listing_settings())()\nl=Listing.objects.select_related('latest').get(external_id='16001')\ns=build_first_alert_store(); s.adopt(now)\nfor source,published,expected in ((None,None,'publication_missing'),(None,now,'publication_untrusted'),('fixture.published_at',now+timedelta(seconds=1),'publication_future'),('fixture.published_at',now-timedelta(hours=48,microseconds=1),'publication_expired')):\n e=dict(l.latest.evidence);e['published_at']=published.isoformat() if published else None;e['published_at_source']=source;e['description']='Funciona perfeitamente.';l.latest.evidence=e;l.latest.save()\n s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)\n r=l.firstalertidentity_set.get();assert r.reason==expected,(r.reason,expected)\n assert not AlertIntent.objects.filter(first_decision__identity=r).exists()\ne['published_at']=(now-timedelta(hours=48)).isoformat();e['published_at_source']='fixture.published_at';l.latest.evidence=e;l.latest.save()\ns.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)\nr=l.firstalertidentity_set.get();assert r.intent_id is not None,r.reason\nstore=build_alert_store();delivery=store.claim(r.intent_id,Binding('synthetic','100@g.us','200@c.us'),now+timedelta(microseconds=1),reconcile=False)\nassert delivery is None\nr.intent.refresh_from_db();assert r.intent.reason=='publication_expired'\n"], returncode=1, stdout='68 objects imported automatically (use -v 2 for details).\n\n', stderr='{"timestamp": "2026-11-13T22:37:09.311679+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_403573b5", "run_id": "c5c3f56f-9577-4afc-b715-fb703e40ab51"}\nTraceback (most recent call last):\n  File "/app/apps/backend/manage.py", line 8, in <module>\n    execute_from_command_line()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line\n    utility.execute()\n    ~~~~~~~~~~~~~~~^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute\n    self.fetch_command(subcommand).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 20, in <module>\n  File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 237, in claim\n    cursor = AlertFeedCursor.objects.get(installation="local")\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method\n    return getattr(self.get_queryset(), name)(*args, **kwargs)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get\n    raise self.model.DoesNotExist(\n        "%s matching query does not exist." % self.model._meta.object_name\n    )\ngarimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.\n').returncode
+
+tests/integration/test_collection.py:86: AssertionError
+----------------------------- Captured stdout call -----------------------------
+F16 identities [('16002', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16005', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16004', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16003', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16006', 'waiting', 'pending_evaluation', None, datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC'))), ('16001', 'eligible', 'eligible', UUID('a6e14f2e-af0a-4fee-911c-e8c9b8bd9eee'), datetime.datetime(2026, 11, 12, 12, 0, 5, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 intents [('queued', 'pending_channel', UUID('db9147d7-f794-4df4-8dcf-b17371f07256'), datetime.datetime(2026, 11, 12, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')))]
+F16 channel calls []
+=========================== short test summary info ============================
+FAILED tests/integration/test_first_eligibility.py::test_publication_waits_and_final_check_blocks_expired_post - AssertionError: 68 objects imported automatically (use -v 2 for details).
+  
+  {"timestamp": "2026-11-13T22:37:09.311679+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_403573b5", "run_id": "c5c3f56f-9577-4afc-b715-fb703e40ab51"}
+  Traceback (most recent call last):
+    File "/app/apps/backend/manage.py", line 8, in <module>
+      execute_from_command_line()
+      ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+      utility.execute()
+      ~~~~~~~~~~~~~~~^^
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+      self.fetch_command(subcommand).run_from_argv(self.argv)
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+      self.execute(*args, **cmd_options)
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+      output = self.handle(*args, **options)
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle
+      exec(options["command"], {**globals(), **self.get_namespace(**options)})
+      ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "<string>", line 20, in <module>
+    File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 237, in claim
+      cursor = AlertFeedCursor.objects.get(installation="local")
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+      return getattr(self.get_queryset(), name)(*args, **kwargs)
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+    File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+      raise self.model.DoesNotExist(
+          "%s matching query does not exist." % self.model._meta.object_name
+      )
+  garimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.
+  
+assert 1 == 0
+ +  where 1 = CompletedProcess(args=['uv', 'run', '--project', 'apps/backend', '--frozen', '--no-sync', 'python', 'apps/backend/manage.py', 'shell', '-c', "\nfrom datetime import timedelta\nfrom garimpei.main import build_first_alert_store,build_read_profit,build_alert_store\nfrom garimpei.infra.persistence.listing_models import Listing\nfrom garimpei.infra.persistence.alert_models import AlertIntent\nfrom garimpei.domain.alert.alert import Binding\nfrom garimpei.config.env import load_listing_settings\nfrom garimpei.main import _listing_clock\nnow=_listing_clock(load_listing_settings())()\nl=Listing.objects.select_related('latest').get(external_id='16001')\ns=build_first_alert_store(); s.adopt(now)\nfor source,published,expected in ((None,None,'publication_missing'),(None,now,'publication_untrusted'),('fixture.published_at',now+timedelta(seconds=1),'publication_future'),('fixture.published_at',now-timedelta(hours=48,microseconds=1),'publication_expired')):\n e=dict(l.latest.evidence);e['published_at']=published.isoformat() if published else None;e['published_at_source']=source;e['description']='Funciona perfeitamente.';l.latest.evidence=e;l.latest.save()\n s.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)\n r=l.firstalertidentity_set.get();assert r.reason==expected,(r.reason,expected)\n assert not AlertIntent.objects.filter(first_decision__identity=r).exists()\ne['published_at']=(now-timedelta(hours=48)).isoformat();e['published_at_source']='fixture.published_at';l.latest.evidence=e;l.latest.save()\ns.publish(l.id,s.prepare(l.id),build_read_profit().execute(l.id),now)\nr=l.firstalertidentity_set.get();assert r.intent_id is not None,r.reason\nstore=build_alert_store();delivery=store.claim(r.intent_id,Binding('synthetic','100@g.us','200@c.us'),now+timedelta(microseconds=1),reconcile=False)\nassert delivery is None\nr.intent.refresh_from_db();assert r.intent.reason=='publication_expired'\n"], returncode=1, stdout='68 objects imported automatically (use -v 2 for details).\n\n', stderr='{"timestamp": "2026-11-13T22:37:09.311679+00:00", "level": "INFO", "logger": "procrastinate.blueprints", "event": "runtime_event", "environment_id": "eval_wave11b_f16_403573b5", "run_id": "c5c3f56f-9577-4afc-b715-fb703e40ab51"}\nTraceback (most recent call last):\n  File "/app/apps/backend/manage.py", line 8, in <module>\n    execute_from_command_line()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line\n    utility.execute()\n    ~~~~~~~~~~~~~~~^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute\n    self.fetch_command(subcommand).run_from_argv(self.argv)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv\n    self.execute(*args, **cmd_options)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute\n    output = self.handle(*args, **options)\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 247, in handle\n    exec(options["command"], {**globals(), **self.get_namespace(**options)})\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "<string>", line 20, in <module>\n  File "/app/apps/backend/src/garimpei/infra/repository/alert/postgres_repository.py", line 237, in claim\n    cursor = AlertFeedCursor.objects.get(installation="local")\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method\n    return getattr(self.get_queryset(), name)(*args, **kwargs)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File "/app/apps/backend/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get\n    raise self.model.DoesNotExist(\n        "%s matching query does not exist." % self.model._meta.object_name\n    )\ngarimpei.infra.persistence.alert_models.AlertFeedCursor.DoesNotExist: AlertFeedCursor matching query does not exist.\n').returncode
+============================== 1 failed in 17.72s ==============================

@@ -4,6 +4,7 @@ from datetime import datetime
 
 from garimpei.domain.alert.gold_evidence import POLICY
 from garimpei.infra.persistence.alert_models import AlertIntent
+from garimpei.infra.persistence.assistance_models import AssistancePolicy
 from garimpei.infra.repository.alert.gold_adoption import gold_active
 from garimpei.infra.repository.alert.gold_evidence_repository import PostgresGoldEvidenceRepository
 
@@ -29,4 +30,10 @@ def prepare_gold(row: AlertIntent, now: datetime) -> str | None:
 
 
 def attempt_gold_policy() -> str | None:
-    return POLICY if gold_active() else None
+    if not gold_active():
+        return None
+    return (
+        "assisted-evidence-v1"
+        if AssistancePolicy.objects.filter(pk=1, active=True).exists()
+        else POLICY
+    )

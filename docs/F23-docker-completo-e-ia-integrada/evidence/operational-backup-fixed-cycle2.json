@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-13T23:08:30.438730+00:00",
+  "nodeids": [
+    "tests/integration/test_operational_backup.py::test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier"
+  ],
+  "original_failure": "The source worker was paused before ingest; no AlertFeedCursor existed in the archive. Successful restoration cannot restore a row that was absent.",
+  "change": "Only the fixture now executes the actual ingest handler and asserts history_ready after pausing the source, before taking the business snapshot. Restore guards and assertions are unchanged.",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-sync",
+    "pytest",
+    "tests/integration/test_operational_backup.py::test_snapshot_export_and_isolated_restore_keep_identity_and_dispatch_barrier",
+    "-q",
+    "--junitxml=/tmp/f23-backup-fixed.xml",
+    "--basetemp=/tmp/f23-backup-fixed"
+  ],
+  "exit_code": 0,
+  "passed": 1,
+  "duration_seconds": 34.05,
+  "junit": "operational-backup-fixed-cycle2.xml",
+  "ruff_check": "PASS",
+  "ruff_format": "PASS",
+  "production_change": false
+}
