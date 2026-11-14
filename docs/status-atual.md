@@ -1,8 +1,8 @@
 # Estado atual do Garimpei
 
-Sincronização documental: **2026-11-13**, após integrar a auditoria de UI com a master publicada da onda F21/F22. Fontes: [progresso de execução](prd_progress.json), avaliações por feature, código integrado e [auditoria de interface](design/audit-2026-11-13/README.md).
+Sincronização documental: **2026-11-13**, após a avaliação da implementação F23, preservando a auditoria de UI e a onda F21/F22. Fontes: [progresso de execução](prd_progress.json), avaliações por feature, código integrado e [auditoria de interface](design/audit-2026-11-13/README.md).
 
-**F01–F20 e F22 estão `done`; F21 está `implemented`; F23 está `pending`.** F21 conserva uma dimensão de prova real positiva bloqueada. F23 foi acrescentada em 2026-11-13 como especificação de Docker completo e IA integrada; ainda não foi implementada. Implementação integrada não equivale a aceite completo nem autoriza tratá-la como concluída. Status, ciclos, dependências e timestamps das entradas anteriores do progresso foram preservados.
+**F01–F20 e F22 estão `done`; F21 e F23 estão `implemented`.** F21 conserva uma dimensão de prova real positiva bloqueada. F23 implementou Docker completo e assistência local com seis gates de qualidade aprovados e cinco perfis reais na GPU; adoção e rollback controlados também foram comprovados. O aceite completo ainda exige corpus humano independente e cadeia positiva com modelo real, incluindo F21. Implementação integrada não equivale a aceite completo nem autoriza tratá-la como concluída. Status, ciclos, dependências e timestamps das entradas anteriores do progresso foram preservados.
 
 | ID | Feature / especificação | Estado | Avaliação canônica |
 |---|---|---|---|
@@ -28,7 +28,7 @@ Sincronização documental: **2026-11-13**, após integrar a auditoria de UI com
 | F20 | [Compra, venda estimada e lucro na apresentação](F20-compra-venda-estimada-e-lucro-na-apresentacao/spec.md) | `done` | [eval-report-2026-11-12T03-22-50Z.md](F20-compra-venda-estimada-e-lucro-na-apresentacao/eval-report-2026-11-12T03-22-50Z.md) |
 | F21 | [Alertas ouro por condição e histórico comparável](F21-alertas-ouro-por-condicao-e-historico-comparavel/spec.md) | `implemented` | [eval-report-2026-11-13T21-22-17Z.md](F21-alertas-ouro-por-condicao-e-historico-comparavel/eval-report-2026-11-13T21-22-17Z.md) |
 | F22 | [Controle global de ligar e desligar o robô](F22-controle-global-do-robo/spec.md) | `done` | [eval-report-2026-11-13T18-33-50Z.md](F22-controle-global-do-robo/eval-report-2026-11-13T18-33-50Z.md) |
-| F23 | [Docker completo e IA integrada ao fluxo](F23-docker-completo-e-ia-integrada/spec.md) | `pending` | Sem implementação ou avaliação; [plano](F23-docker-completo-e-ia-integrada/plan.md) e [contrato](F23-docker-completo-e-ia-integrada/contract.md) especificados |
+| F23 | [Docker completo e IA integrada ao fluxo](F23-docker-completo-e-ia-integrada/spec.md) | `implemented` | [avaliação final](F23-docker-completo-e-ia-integrada/eval-report-2026-11-14T00-40-00Z.md): 33 PASS / 2 BLOCKED; 12/14 critérios verificados; [revisão independente](F23-docker-completo-e-ia-integrada/final-review.md) |
 
 ## Produto implementado
 
@@ -38,7 +38,7 @@ A interface inclui configuração guiada/edição, ofertas em três condições,
 
 ## Limites efetivos
 
-- **F23:** Docker completo é o alvo especificado; web/worker ainda executam no host e o Compose atual contém PostgreSQL, WAHA e Ollama. IA já atua na condição F15/F19; novos consumidores de identidade/comparáveis e apoio à investigação/diagnóstico estão especificados, sem prova de implementação. O contrato exige corpus humano, GPU real, rastro de consumo e preservação da política financeira; conclusão integrada depende também do aceite F21.
+- **F23:** runtime Docker e revisões de identidade/comparáveis/investigação/operação estão implementados, com condição multimodal F15 preservada. Há inferência GPU real dos cinco perfis, consumo persistido, autorização Worker controlada sem duplicação e adoção/rollback de base anterior com backup F17, reinícios e inventário verificados. A cobertura de 974 testes combina a execução inicial e reexecuções dirigidas; não é uma nova execução monolítica. Permanecem corpus humano independente e cadeia positiva completa com modelo real até WAHA controlado. Um comparável revisado não satisfaz a amostra F06; análise parcial/incerta não autoriza Ouro. A conclusão integrada também depende do aceite F21.
 - **F21:** a avaliação anterior preserva 25 itens aprovados como histórico. A avaliação atual focal de `E2E-REAL-01` registra 1 BLOCKED e 25 SKIPPED; as 58 chamadas locais reais não produziram um caso Ouro suficiente e lucrativo. Os checks de engenharia têm evidências próprias, sem substituir o gate real bloqueado. F21 permanece `implemented`, com taxa de 10% e zero envio WhatsApp real nesta prova.
 - **Fonte externa:** acesso autenticado e respostas podem mudar. Geografia/raio, cobertura e disponibilidade devem ser comprovados em cada execução; uma avaliação anterior não garante cobertura universal ou operação ininterrupta.
 - **IA e finanças:** aparência não comprova funcionamento interno; preços anunciados não comprovam venda. Os comparáveis sustentam a revenda, o domínio calcula o lucro e a interface conserva ausência, zero e sinal.
@@ -52,7 +52,7 @@ No push de `1c04b11` para a master em 2026-11-13, o GitHub reportou 74 alertas n
 ## Fontes operacionais
 
 - [PRD](PRD.md), [stack](stack.md) e [arquitetura implementada](architecture/implementation.md).
-- [Ambiente F02](F02-fundacao-tecnica-e-ambiente-local/operations.md), [operação F17](F17-resiliencia-operacional-e-progresso-verificavel/operations.md), [IA F19](F19-inferencia-multimodal-local-em-docker/operations.md) e [controle F22](F22-controle-global-do-robo/operations.md).
+- [Runtime F23](F23-docker-completo-e-ia-integrada/operations.md), [migração F23](F23-docker-completo-e-ia-integrada/migration-runbook.md), [ambiente F02](F02-fundacao-tecnica-e-ambiente-local/operations.md), [operação F17](F17-resiliencia-operacional-e-progresso-verificavel/operations.md), [IA F19](F19-inferencia-multimodal-local-em-docker/operations.md) e [controle F22](F22-controle-global-do-robo/operations.md).
 - [Design da aplicação](design/implementation.md) e [relatório de integração UI/master](design/audit-2026-11-13/integration-master.md).
 
-Specs, planos e contratos preservam as decisões e critérios de sua elaboração, com um aviso do estado atual no início. Relatórios datados, resultados vermelhos e avaliações incompletas são históricos e não foram reescritos como aprovação. Artefatos de protótipo descrevem simulações isoladas, não o estado operacional da aplicação.
+Specs, planos e contratos preservam as decisões e critérios de sua elaboração; o progresso e as avaliações atuais registram sua implementação e aceite. Relatórios datados, resultados vermelhos e avaliações incompletas são históricos e não foram reescritos como aprovação. Artefatos de protótipo descrevem simulações isoladas, não o estado operacional da aplicação.

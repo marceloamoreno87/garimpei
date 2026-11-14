@@ -1,6 +1,6 @@
 # Garimpei — PRD
 
-Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** está `implemented`, com prova real positiva ainda bloqueada na avaliação de 2026-11-13. **F22 — Controle global** está `done`. O [estado consolidado](status-atual.md) reúne as avaliações atuais. IDs, contratos avaliados, ciclos e datas anteriores são preservados. **F23 — Docker completo e IA integrada ao fluxo** foi especificada em 2026-11-13 e começa `pending`; não altera os aceites anteriores.
+Este PRD reúne requisitos e revisões de produto do Garimpei. O [progresso](prd_progress.json) e os relatórios de cada etapa registram sua situação efetiva; decisões documentais não comprovam implementação. **F21 — Alertas ouro** está `implemented`, com prova real positiva ainda bloqueada na avaliação de 2026-11-13. **F22 — Controle global** está `done`. O [estado consolidado](status-atual.md) reúne as avaliações atuais. IDs, contratos avaliados, ciclos e datas anteriores são preservados. **F23 — Docker completo e IA integrada ao fluxo** está `implemented`, após implementar e avaliar runtime e consumidores locais; adoção e rollback controlados foram comprovados, enquanto corpus humano independente e cadeia positiva real permanecem pendentes, incluindo o aceite real positivo F21. Não altera os aceites anteriores.
 
 A base F12 consolidou uma busca por interesse, publicação incremental, cálculo por compra/venda/taxa e descoberta de publicações novas com histórico parcial. F16 acrescentou a primeira elegibilidade e F20 padronizou compra, venda estimada e lucro, conforme seus contratos e avaliações históricos. A F21 exige qualificação conjunta de condição por título/descrição/fotos, produto normalizado, histórico comparável e lucro estimado estritamente positivo para novas autorizações após sua adoção. A implementação de F21 foi integrada, mas o aceite completo continua pendente; esta sincronização documental não reaprova contratos anteriores.
 
@@ -293,7 +293,7 @@ Esses requisitos são aceites transversais das etapas de evolução. Limites té
 
 ## 6. Funcionalidades
 
-F01–F12 descrevem a base e as substituições consolidadas da F12. F13–F20 registram as etapas de evolução, cujo estado efetivo consta do progresso e de suas avaliações. F21 acrescenta alertas ouro implementados com prova real positiva pendente; F22 foi avaliada e F23 especifica Docker completo e IA integrada, ainda não implementada. Sugestões adicionais do documento de evolução permanecem propostas.
+F01–F12 descrevem a base e as substituições consolidadas da F12. F13–F20 registram as etapas de evolução, cujo estado efetivo consta do progresso e de suas avaliações. F21 acrescenta alertas ouro implementados com prova real positiva pendente; F22 foi avaliada e F23 implementa Docker completo e IA integrada, com aceite completo pendente. Sugestões adicionais do documento de evolução permanecem propostas.
 
 ### F01. Discovery e viabilidade de integrações
 
@@ -898,7 +898,7 @@ graph TD
 
 ## 9. Critérios de aceite
 
-Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F09 refletem substituições já aprovadas e avaliadas na F12; seus contratos antigos continuam históricos. A primeira elegibilidade possui critérios próprios em F16; a nova qualificação ouro possui critérios em F21, cuja implementação conserva prova real positiva pendente; F23 tem novos critérios e permanece não implementada. `done` exige avaliação completa do contrato e gates aplicáveis; revisão documental não altera esse estado.
+Os IDs existentes são preservados. Critérios consolidados de F03/F04/F07/F08/F09 refletem substituições já aprovadas e avaliadas na F12; seus contratos antigos continuam históricos. A primeira elegibilidade possui critérios próprios em F16; a nova qualificação ouro possui critérios em F21, cuja implementação conserva prova real positiva pendente; F23 tem implementação e novos critérios de aceite ainda não integralmente verificados. `done` exige avaliação completa do contrato e gates aplicáveis; revisão documental não altera esse estado.
 
 ### F01. Discovery e viabilidade de integrações
 
